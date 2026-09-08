@@ -17,6 +17,9 @@ function selectOfflineSummary(view) {
     : state.orderIndex > 0 ? CONFIG.orders[state.orderIndex - 1].target : 0;
   const progress = total => order ? fraction((total - previousTarget) / Math.max(1, order.target - previousTarget)) : 0;
   const readyAfter = !!order && producedAfter >= order.target;
+  const trial = view.research && view.research.active;
+  const trialSaved = state.research && state.research.active;
+  const researchReadyAfter = !!trial && trial.production + Math.max(0, production - amount(trialSaved && trialSaved.offlineExcludedProduction)) >= trial.productionTarget;
   const projected = {
     ...view, offline: null,
     state: { ...state, coins: coinsAfter, totalProduced: producedAfter, offline: null },
@@ -30,6 +33,8 @@ function selectOfflineSummary(view) {
     nextStep = { title: '领取后可装车', detail: order.name + ' · 奖励 ' + formatNumber(order.reward) + ' 金币', action: 'order', buttonLabel: '查看订单' };
   } else if (projected.canEvolve) {
     nextStep = { title: '领取后可换代', detail: next.name + '的金币和订单已备齐', action: 'machine', buttonLabel: '查看设备' };
+  } else if (researchReadyAfter) {
+    nextStep = { title: '领取后可验收研发', detail: trial.projectName + '试制完成，可领取永久提升', action: 'research', buttonLabel: '查看研发' };
   } else {
     const step = selectNextStep(projected, view.tutorial && view.tutorial.upgradeKey ? view.tutorial : null, {suppressModeAdvice:true});
     if (step.kind === 'upgrade') {

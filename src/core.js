@@ -40,6 +40,13 @@ const CONFIG = {
       { requiredMachine: 5, requiredOrders: 18, cost: 90000000000 }
     ] }
   },
+  research: {
+    unlockOrders: 10, durationSeconds: 120, minProduction: 50, maxLevel: 12, multiplier: 1.08,
+    routes: {
+      yield: { name: '爆香实验', description: '每级永久产量 +8%，点击、自动与爆锅同步提升', projects: ['均匀受热', '膨化颗粒', '香气锁定', '云朵爆香'] },
+      value: { name: '风味配方', description: '每级永久售价 +8%，出售与离线收益同步提升', projects: ['焦糖薄衣', '海盐平衡', '坚果醇香', '星光糖霜'] }
+    }
+  },
   orders: [
     { name: '街角第一桶', target: 50, reward: 180 },
     { name: '放学后的香气', target: 200, reward: 600 },
@@ -100,6 +107,7 @@ const MAX_NUMBER = 1e150;
 const NEVER_REWARDED_AT = -1e9;
 const KEYS = ['tap', 'auto', 'value'];
 const REFINEMENT_KEYS = ['yield', 'value'];
+const RESEARCH_KEYS = ['yield', 'value'];
 const COMMISSION_KINDS = ['bulk', 'artisan'];
 const SOUVENIRS = [
   { key: 'sign', name: '城市招牌', description: '在工厂前立起金色招牌，纪念从街角到城市的旅程', cost: 150000000000, requiredLoops: 0 },
@@ -125,6 +133,7 @@ function freshState(now) {
     version: 1, savedAt: now, coins: 0, totalProduced: 0, totalCoins: 0,
     taps: 0, bursts: 0, machine: 0, brandLevel: 0, productionMode: 'balanced', upgrades: { tap: 0, auto: 0, value: 0 },
     refinements: { yield: 0, value: 0 }, learning: { heatRecoveryDismissed: false, heatRecoveryUses: 0 },
+    research: { levels: { yield: 0, value: 0 }, serial: 0, active: null },
     orderIndex: 0, loopIndex: 0, energy: 0, boostSeconds: 0, playedSeconds: 0, heatRecoveryTaps: 0,
     deliveries: { orderIndex: 0, claimed: [] }, commissions: { serial: 0, orderIndex: 0, claimed: 0, active: null }, souvenirs: [],
     settings: { sound: true, haptics: true }, offline: null, rewardSerial: 0,
@@ -161,6 +170,8 @@ class Game {
     s.brandLevel = integer(save.brandLevel, 0, this._brandCap());
     for (const key of KEYS) s.upgrades[key] = integer(save.upgrades && save.upgrades[key], 0, CONFIG.maxUpgradeLevel);
     for (const key of REFINEMENT_KEYS) s.refinements[key] = integer(save.refinements && save.refinements[key], 0, this._refinementCap(key));
+    for (const key of RESEARCH_KEYS) s.research.levels[key] = integer(save.research && save.research.levels && save.research.levels[key],
+      0, s.orderIndex >= CONFIG.research.unlockOrders ? CONFIG.research.maxLevel : 0);
     s.learning.heatRecoveryDismissed = !!(save.learning && save.learning.heatRecoveryDismissed === true);
     s.learning.heatRecoveryUses = integer(save.learning && save.learning.heatRecoveryUses, 0, CONFIG.heatRecoveryMaxTaps);
     // Earned residual heat survives a break; restoring an eligible factory grants none by itself.
@@ -177,6 +188,7 @@ class Game {
       const o = save.offline;
       s.offline = { id: o.id.slice(0, 100), seconds: finite(o.seconds, 0, CONFIG.offlineMaxSeconds), production: finite(o.production), coins: finite(o.coins) };
     }
+    this._restoreResearch(save);
     this._restoreProgression(save);
     if (save.pendingRewards && typeof save.pendingRewards === 'object') {
       for (const [id, q] of Object.entries(save.pendingRewards).slice(-4)) {
@@ -215,11 +227,11 @@ class Game {
     return this.state.machine >= CONFIG.heatRecoveryUnlockMachine && this.state.upgrades.tap >= CONFIG.heatRecoveryUpgradeLevel;
   }
   _brandCap(machine = this.state.machine) { return Math.min(CONFIG.brandMaxLevel, machine * CONFIG.brandLevelsPerMachine); }
-  _production({ machine = this.state.machine, upgrades = this.state.upgrades, boostSeconds = this.state.boostSeconds, brandLevel = this.state.brandLevel, productionMode = this.state.productionMode, refinements = this.state.refinements } = {}) {
+  _production({ machine = this.state.machine, upgrades = this.state.upgrades, boostSeconds = this.state.boostSeconds, brandLevel = this.state.brandLevel, productionMode = this.state.productionMode, refinements = this.state.refinements, researchLevels = this.state.research.levels } = {}) {
     const m = CONFIG.machines[machine], brandMultiplier = 1 + brandLevel * CONFIG.brandBonusPerLevel;
     const mode = CONFIG.productionModes.find(option => option.id === productionMode) || CONFIG.productionModes[0];
-    const yieldMultiplier = Math.pow(CONFIG.refinements.yield.multiplier, refinements.yield);
-    const priceMultiplier = Math.pow(CONFIG.refinements.value.multiplier, refinements.value);
+    const yieldMultiplier = Math.pow(CONFIG.refinements.yield.multiplier, refinements.yield) * Math.pow(CONFIG.research.multiplier, researchLevels.yield);
+    const priceMultiplier = Math.pow(CONFIG.refinements.value.multiplier, refinements.value) * Math.pow(CONFIG.research.multiplier, researchLevels.value);
     const tap = (1 + 0.8 * upgrades.tap) * Math.pow(1.2, upgrades.tap) * m.multiplier * brandMultiplier * mode.productionMultiplier * yieldMultiplier;
     const baseAuto = (0.4 + 0.7 * upgrades.auto) * Math.pow(CONFIG.autoLevelGrowth, upgrades.auto) * m.multiplier * brandMultiplier * mode.productionMultiplier * yieldMultiplier;
     const price = (1 + 0.2 * upgrades.value) * Math.pow(1.15, upgrades.value) * m.priceMultiplier * mode.priceMultiplier * priceMultiplier;
@@ -241,6 +253,7 @@ class Game {
     const coins = finite(n * this._production().price);
     this.state.totalProduced = finite(this.state.totalProduced + n); this._addCoins(coins);
     this._commissionProgress('production', n);
+    this._researchProgress(n);
     this._event('produce', { source, amount: n, coins });
   }
   _event(type, extra = {}) {
@@ -372,6 +385,105 @@ class Game {
     const purchase = { key, name: option.name, fromLevel: option.level, level: this.state.refinements[key], cost: option.cost };
     this._event('refinement', purchase); return { ok: true, ...purchase };
   }
+  _canonicalFactoryBasis(basis, orderIndex = this.state.orderIndex) {
+    const s = this.state, stageMachine = CONFIG.machines.filter(item => item.requiredOrders <= orderIndex).length - 1;
+    const machine = integer(basis.machine, 0, Math.min(s.machine, stageMachine));
+    return {
+      machine, brandLevel: integer(basis.brandLevel, 0, Math.min(s.brandLevel, this._brandCap(machine))),
+      upgrades: Object.fromEntries(KEYS.map(key => [key, integer(basis.upgrades && basis.upgrades[key], 0, s.upgrades[key])])),
+      refinements: Object.fromEntries(REFINEMENT_KEYS.map(key => [key, integer(basis.refinements && basis.refinements[key], 0,
+        Math.min(s.refinements[key], CONFIG.refinements[key].levels.filter(level => machine >= level.requiredMachine && orderIndex >= level.requiredOrders).length))])),
+      // Missing levels explicitly mean zero, preserving quotes accepted before research existed.
+      researchLevels: Object.fromEntries(RESEARCH_KEYS.map(key => [key, integer(basis.researchLevels && basis.researchLevels[key], 0,
+        orderIndex >= CONFIG.research.unlockOrders ? s.research.levels[key] : 0)]))
+    };
+  }
+  _sameFactoryBasis(a, b) {
+    return !!a && typeof a === 'object' && !Array.isArray(a) && a.machine === b.machine && a.brandLevel === b.brandLevel
+      && [['upgrades', KEYS], ['refinements', REFINEMENT_KEYS], ['researchLevels', RESEARCH_KEYS]].every(([field, keys]) =>
+        !!a[field] && typeof a[field] === 'object' && !Array.isArray(a[field]) && keys.every(key => a[field][key] === b[field][key]));
+  }
+  _researchOption(key, basis = this._commissionBasis(), serial = this.state.research.serial, level = this.state.research.levels[key]) {
+    const s = this.state, config = CONFIG.research, route = config.routes[key], maxLevel = config.maxLevel;
+    const before = this._production({ ...basis, productionMode: 'balanced', boostSeconds: 0 });
+    const after = level < maxLevel ? this._production({ ...basis, researchLevels: { ...basis.researchLevels, [key]: level + 1 }, productionMode: 'balanced', boostSeconds: 0 }) : null;
+    const [label, field, unit] = key === 'yield' ? ['常规自动产量', 'baseAuto', '份/秒'] : ['常规每份售价', 'price', '金币/份'];
+    const projectName = route.projects[Math.min(route.projects.length - 1, Math.floor(level / 3))];
+    const reason = s.orderIndex < config.unlockOrders ? 'research-locked' : level >= maxLevel ? 'max-level'
+      : Object.keys(s.pendingRewards).length ? 'busy' : s.research.active ? 'research-active' : '';
+    return { key, id: `research:${serial}:${key}:${level + 1}`, serial, level, maxLevel, name: route.name, projectName,
+      description: route.description, productionTarget: Math.max(config.minProduction, Math.ceil(before.baseAuto * config.durationSeconds)),
+      canStart: !reason, reason, preview: after ? { label, before: before[field], after: after[field], unit } : null,
+      multiplier: Math.pow(config.multiplier, level), basis };
+  }
+  _research() {
+    const s = this.state, r = s.research, totalLevels = RESEARCH_KEYS.reduce((total, key) => total + r.levels[key], 0);
+    const maxLevels = CONFIG.research.maxLevel * RESEARCH_KEYS.length;
+    const active = r.active ? {
+      id: r.active.id, key: r.active.key, level: r.active.level, name: r.active.name, projectName: r.active.projectName,
+      productionTarget: r.active.productionTarget, production: r.active.production,
+      progress: Math.min(1, r.active.production / r.active.productionTarget), ready: r.active.production >= r.active.productionTarget
+    } : null;
+    return { unlocked: s.orderIndex >= CONFIG.research.unlockOrders, totalLevels, maxLevels, complete: totalLevels >= maxLevels,
+      options: RESEARCH_KEYS.map(key => this._researchOption(key)), active };
+  }
+  _restoreResearch(save) {
+    const s = this.state, saved = save.research, r = s.research;
+    r.serial = integer(saved && saved.serial, 0, 1e12);
+    const active = saved && saved.active;
+    if (!active || typeof active !== 'object' || Array.isArray(active) || !RESEARCH_KEYS.includes(active.key)
+      || s.orderIndex < CONFIG.research.unlockOrders || !Number.isInteger(active.level) || active.level !== r.levels[active.key] + 1
+      || active.level > CONFIG.research.maxLevel || !Number.isInteger(active.serial) || active.serial < 0 || active.serial >= r.serial
+      || active.id !== `research:${active.serial}:${active.key}:${active.level}` || !Number.isInteger(active.orderIndex)
+      || active.orderIndex < CONFIG.research.unlockOrders || active.orderIndex > s.orderIndex
+      || !active.basis || typeof active.basis !== 'object' || Array.isArray(active.basis)) return;
+    const basis = this._canonicalFactoryBasis(active.basis, active.orderIndex);
+    if (basis.researchLevels[active.key] !== r.levels[active.key]) return;
+    const option = this._researchOption(active.key, basis, active.serial, active.level - 1);
+    r.active = { id: option.id, serial: active.serial, orderIndex: active.orderIndex, key: active.key, level: active.level,
+      name: option.name, projectName: option.projectName, basis, productionTarget: option.productionTarget,
+      production: finite(active.production, 0, option.productionTarget),
+      offlineExcludedProduction: finite(active.offlineExcludedProduction, 0, s.offline ? s.offline.production : 0) };
+  }
+  _researchProgress(amount) {
+    const active = this.state.research.active;
+    if (active) active.production = Math.min(active.productionTarget, active.production + finite(amount));
+  }
+  startResearch(key, quote) {
+    if (!RESEARCH_KEYS.includes(key)) return fail('invalid-research');
+    const s = this.state, r = s.research, current = this._researchOption(key);
+    if (!quote || typeof quote !== 'object' || Array.isArray(quote)
+      || ['key', 'id', 'serial', 'level', 'maxLevel', 'productionTarget', 'multiplier'].some(field => quote[field] !== current[field])
+      || !this._sameFactoryBasis(quote.basis, current.basis)
+      || (current.preview ? !quote.preview || ['label', 'before', 'after', 'unit'].some(field => quote.preview[field] !== current.preview[field]) : quote.preview !== null)) return fail('stale-research');
+    if (!current.canStart) return fail(current.reason);
+    r.active = { id: current.id, serial: r.serial, orderIndex: s.orderIndex, key, level: current.level + 1,
+      name: current.name, projectName: current.projectName, basis: current.basis, productionTarget: current.productionTarget,
+      production: 0, offlineExcludedProduction: s.offline ? s.offline.production : 0 };
+    r.serial++;
+    this._event('research', { action: 'start', id: current.id, key, level: r.active.level, name: current.name, projectName: current.projectName });
+    return { ok: true, ...this._research().active };
+  }
+  cancelResearch(id) {
+    const r = this.state.research;
+    if (!r.active || id !== r.active.id) return fail('stale-research');
+    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
+    const active = r.active; r.active = null; r.serial++;
+    this._event('research', { action: 'cancel', id, key: active.key, level: active.level, name: active.name, projectName: active.projectName });
+    return { ok: true, id };
+  }
+  claimResearch(id) {
+    const r = this.state.research, active = this._research().active;
+    if (!active || id !== active.id) return fail('stale-research');
+    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
+    if (!active.ready) return fail('research-not-ready');
+    const prior = this._production();
+    r.levels[active.key] = active.level; r.active = null; r.serial++;
+    const next = this._production(), [label, field, unit] = active.key === 'yield' ? ['自动产量', 'baseAuto', '份/秒'] : ['每份售价', 'price', '金币/份'];
+    const result = { id, key: active.key, level: active.level, name: active.name, projectName: active.projectName,
+      before: prior[field], after: next[field], label, unit, multiplier: Math.pow(CONFIG.research.multiplier, active.level) };
+    this._event('research', { action: 'claim', ...result }); return { ok: true, ...result };
+  }
   evolve() {
     const next = CONFIG.machines[this.state.machine + 1]; if (!next) return fail('max-machine');
     if (this.state.orderIndex < next.requiredOrders) return fail('orders-required');
@@ -399,14 +511,7 @@ class Game {
       && active.id === `commission:${active.serial}:${active.orderIndex}:${active.kind}` && active.basis && typeof active.basis === 'object') {
       // Freeze the accepted permanent factory, then rebuild all prices and goals from definitions.
       // A save cannot supply its own reward amount, goal count, title or readiness flag.
-      const basis = active.basis, stageMachine = CONFIG.machines.filter(item => item.requiredOrders <= active.orderIndex).length - 1;
-      const machine = integer(basis.machine, 0, Math.min(s.machine, stageMachine));
-      const safeBasis = {
-        machine, brandLevel: integer(basis.brandLevel, 0, Math.min(s.brandLevel, this._brandCap(machine))),
-        upgrades: Object.fromEntries(KEYS.map(key => [key, integer(basis.upgrades && basis.upgrades[key], 0, s.upgrades[key])])),
-        refinements: Object.fromEntries(REFINEMENT_KEYS.map(key => [key, integer(basis.refinements && basis.refinements[key], 0,
-          Math.min(s.refinements[key], CONFIG.refinements[key].levels.filter(level => machine >= level.requiredMachine && active.orderIndex >= level.requiredOrders).length))]))
-      };
+      const safeBasis = this._canonicalFactoryBasis(active.basis, active.orderIndex);
       const restored = this._commissionOption(active.kind, safeBasis, active.serial, active.orderIndex);
       s.commissions.active = { ...restored, basis: safeBasis,
         production: finite(active.production, 0, restored.productionTarget), perfect: integer(active.perfect, 0, restored.perfectTarget),
@@ -447,7 +552,7 @@ class Game {
   }
   _commissionBasis() {
     const s = this.state;
-    return { machine: s.machine, upgrades: { ...s.upgrades }, brandLevel: s.brandLevel, refinements: { ...s.refinements } };
+    return { machine: s.machine, upgrades: { ...s.upgrades }, brandLevel: s.brandLevel, refinements: { ...s.refinements }, researchLevels: { ...s.research.levels } };
   }
   _commissionOption(kind, basis = this._commissionBasis(), serial = this.state.commissions.serial, orderIndex = this.state.orderIndex) {
     const p = this._production({ ...basis, productionMode: 'balanced', boostSeconds: 0 }), bulk = kind === 'bulk';
@@ -686,6 +791,8 @@ class Game {
     const active = this.state.commissions.active;
     if (active && active.kind === 'bulk') this._commissionProgress('production', Math.max(0, offline.production - active.offlineExcludedProduction));
     if (active) active.offlineExcludedProduction = 0;
+    const research = this.state.research.active;
+    if (research) { this._researchProgress(Math.max(0, offline.production - research.offlineExcludedProduction)); research.offlineExcludedProduction = 0; }
     this.state.offline = null; this.state.totalProduced = finite(this.state.totalProduced + offline.production); this._addCoins(offline.coins);
     for (const [id, q] of Object.entries(this.state.pendingRewards)) if (q.kind === 'offline') delete this.state.pendingRewards[id];
     this._event('offline', { coins: offline.coins, amount: offline.production, seconds: offline.seconds }); return { ok: true, coins: offline.coins, amount: offline.production, seconds: offline.seconds };
@@ -791,7 +898,7 @@ class Game {
       upgrades: KEYS.map(key => ({ key, name: CONFIG.upgrades[key].name, description: CONFIG.upgrades[key].description,
         level: s.upgrades[key], maxLevel: CONFIG.maxUpgradeLevel, cost: this._upgradeCost(key), canBuy: s.upgrades[key] < CONFIG.maxUpgradeLevel && s.coins >= this._upgradeCost(key), preview: this._upgradePreview(key, production), bulk: this._bulkUpgradeQuote(key, production) })),
       refinements: { unlocked: s.machine >= 4, title: '工艺强化', options: REFINEMENT_KEYS.map(key => this._refinementOption(key, production)) },
-      production, order, deliveries: this._deliveries(), commissions: this._commissions(), souvenirs: this._souvenirs(),
+      production, order, deliveries: this._deliveries(), commissions: this._commissions(), research: this._research(), souvenirs: this._souvenirs(),
       quests: this._quests(), energy: s.energy, energyMax: 100, boostSeconds: s.boostSeconds, tutorial: this._tutorial(), goal: this._goal(next, order),
       timing: { unlocked: s.bursts > 0, available: s.bursts > 0 && !this._timingAttempted && s.energy >= CONFIG.timingAttemptEnergy && s.energy < CONFIG.energyMax,
         attempted: this._timingAttempted, armed: this._timingArmed, progress: s.energy / CONFIG.energyMax,

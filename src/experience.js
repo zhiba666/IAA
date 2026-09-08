@@ -36,6 +36,12 @@ function selectCurrentTarget(view, ui = {}) {
   if (readyQuest) return questTarget(readyQuest);
   if (view.tutorial) return { ...view.tutorial, id: 'tutorial:' + view.tutorial.step, source: 'tutorial', ready: false };
   if (view.order && view.order.ready) return orderTarget();
+  const research=view.research,trial=research&&research.active;
+  const researchTarget=()=>({id:trial?trial.id:'research:available',source:'research',
+    title:trial?trial.ready?'研发完成 · 永久提升':trial.projectName+'试制中':'解锁新的风味课题',
+    text:trial?trial.ready?'免费验收，让工厂的永久能力再升一级。':'新增生产 '+shown(trial.production)+' / '+shown(trial.productionTarget)+' 份':'选择产量或售价路线，正常生产即可永久变强。',
+    action:'research',ready:!!(trial&&trial.ready)});
+  if(trial&&trial.ready)return researchTarget();
   const delivery=view.deliveries,part=delivery&&delivery.stages.find(item=>item.ready&&!item.claimed);
   if(part)return {id:'delivery:'+delivery.orderIndex+':'+part.stage,source:'delivery',title:'分段交付可以领奖了',
     text:'提前领取 '+shown(part.coins)+' 金币，计入本单总奖。',action:'order',ready:true,reward:part.coins};
@@ -46,7 +52,9 @@ function selectCurrentTarget(view, ui = {}) {
   if(active&&active.ready)return commissionTarget();
   const lesson = selectRecoveryLesson(view);
   if (lesson) return lesson;
+  if(trial)return researchTarget();
   if(active)return commissionTarget();
+  if(research&&research.unlocked&&!research.complete&&(view.upgrades||[]).every(item=>item.level>=item.maxLevel))return researchTarget();
   const collection=view.souvenirs;
   const equipmentComplete=!view.nextMachine&&(view.upgrades||[]).every(item=>item.level>=item.maxLevel)&&(!view.refinements||view.refinements.options.every(item=>item.level>=item.maxLevel));
   if(collection&&collection.unlocked&&!collection.complete&&equipmentComplete){
@@ -79,6 +87,8 @@ function snapshot(view) {
     commissionProgress: number(view.commissions&&view.commissions.active&&view.commissions.active.progress),
     commissionRemaining: number(view.commissions&&view.commissions.remaining),
     souvenirsOwned: number(view.souvenirs&&view.souvenirs.ownedCount),
+    researchLevels: number(view.research&&view.research.totalLevels),
+    researchProgress: number(view.research&&view.research.active&&view.research.active.progress),
     baseIncome: number(view.production && view.production.baseIncome)
   };
 }
@@ -190,6 +200,7 @@ function createExperienceTracker(options = {}) {
     if(event.type==='delivery')emit('experience_delivery',view,{stage:number(event.stage),coins:number(event.coins),orderIndex:current.orders});
     if(event.type==='commission')emit('experience_commission',view,{action:event.action,id:event.id,kind:event.kind,coins:number(event.coins),orderIndex:current.orders});
     if(event.type==='souvenir')emit('experience_souvenir',view,{key:event.key,cost:number(event.cost),ownedCount:current.souvenirsOwned,loopOrders:current.loopOrders});
+    if(event.type==='research')emit('experience_research',view,{action:event.action,id:event.id,key:event.key,level:number(event.level),before:number(event.before),after:number(event.after),totalLevels:current.researchLevels});
     if (['upgrade', 'upgradeBatch', 'refinement', 'order', 'evolve'].includes(event.type)) emit('experience_progress', view, {
       kind: event.type, key: event.key, level: event.level, orderIndex: current.orders, machine: current.machine,
       ...(event.type === 'upgradeBatch' ? { count: number(event.count), fromLevel: number(event.fromLevel), cost: number(event.cost) } : {}), ...attribution(view)
@@ -249,11 +260,12 @@ function createExperienceTracker(options = {}) {
     const visible = detail.visible !== false;
     const surface=visible&&(detail.modalType||(detail.ui&&detail.ui.modal&&detail.ui.modal.type));
     const active=view.commissions&&view.commissions.active;
-    const progressionSurface=['order','commissions','souvenirs'].includes(surface)?{
+    const progressionSurface=['order','commissions','souvenirs','research'].includes(surface)?{
       surface,orderIndex:current.orders,deliveryReadyCount:current.deliveryReadyCount,
       commissionKind:current.commissionKind,commissionReady:!!(active&&active.ready),
       commissionAvailable:!!(view.commissions&&view.commissions.available),commissionRemaining:current.commissionRemaining,
-      souvenirsOwned:current.souvenirsOwned
+      souvenirsOwned:current.souvenirsOwned,
+      ...(surface==='research'?{researchLevels:current.researchLevels,researchId:view.research&&view.research.active&&view.research.active.id||'',researchReady:!!(view.research&&view.research.active&&view.research.active.ready)}:{})
     }:null;
     const progressionKey=progressionSurface?JSON.stringify(progressionSurface):'';
     if(progressionKey&&progressionKey!==lastProgressionSurface)emit('experience_progression_visible',view,progressionSurface);

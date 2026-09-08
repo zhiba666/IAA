@@ -90,6 +90,11 @@ function selectNextStep(view, target = null, context = {}) {
 
   if (order && order.ready) return orderStep();
   if (view.canEvolve && next) return machineStep();
+  if(target&&target.source==='research'){
+    const active=view.research&&view.research.active;
+    return {id:target.id,kind:'research',action:'research',enabled:true,title:target.title,detail:target.text,
+      reason:'免费研发 · 金币可继续攒换代',buttonLabel:active?active.ready?'领取提升':'查看试制':'选择课题'};
+  }
   const delivery=deliveryStep();
   if(delivery)return delivery;
   const commission=commissionStep();

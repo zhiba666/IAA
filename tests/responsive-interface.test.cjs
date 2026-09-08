@@ -116,6 +116,80 @@ test('burst settlement retains its visible lifetime while an acknowledgement or 
   assert.equal(r.notice,null,'settlement expires after its visible lifetime');
 });
 
+test('generation previews disclose the new output form on compact safe-area screens',()=>{
+  const {PRODUCTION_FORMS}=require('../src/production-scene');
+  for(const [width,height,safeTop] of [[320,524,0],[320,568,44],[390,844,44]]){
+    for(let stage=0;stage<5;stage++){
+      const game=factory({machine:stage,coins:1e12,orderIndex:20}),form=PRODUCTION_FORMS[stage+1];
+      const output=render(game,width,height,{viewport:{width,height,safeTop},modal:{type:'machine'}});
+      checkLayout(output,'generation '+stage+' at '+height+' safe '+safeTop);
+      assert.ok(output.entries.some(entry=>entry.text===form.unit),'the next output unit stays fully readable');
+      assert.ok(output.entries.some(entry=>entry.text===form.rhythm),'the next production rhythm is disclosed');
+      assert.ok(output.actions.includes('evolve'),'the reviewed generation is directly available');
+    }
+    for(const page of [0,1])checkLayout(render(factory(),width,height,{viewport:{width,height,safeTop},modal:{type:'blueprint',page}}),'output blueprint safe '+safeTop);
+  }
+});
+
+test('generation celebration shows real permanent income growth and preserves a concurrent burst payout',()=>{
+  const {PRODUCTION_FORMS}=require('../src/production-scene'),game=factory({machine:3}),event={type:'evolve',machine:3,incomeBefore:100,incomeAfter:287};
+  for(const [width,height] of VIEWPORTS){
+    const output=render(game,width,height,{},r=>r.emit(event));checkLayout(output,'generation notice '+width);
+    assert.ok(output.entries.some(entry=>entry.text==='第 4 代 · '+PRODUCTION_FORMS[3].unit));
+    assert.ok(output.entries.some(entry=>entry.text===PRODUCTION_FORMS[3].rhythm+' · 自动金币 ×2.87'));
+    const r=output.r;
+    r.emit({type:'burst',amount:120,coins:240,perfect:true,bonusAmount:20});
+    assert.equal(r.notice.kind,'evolve','a burst cannot replace the generation reveal');
+    r.update(4,false);assert.equal(r.notice.kind,'evolve','a modal must not consume the reveal lifetime');
+    r.update(3.2,true);assert.equal(r.notice.kind,'burst');assert.equal(r.notice.life,2.4);
+    assert.equal(r.notice.bonusText,'火候额外 +20 份');
+    r.update(2.5,true);assert.equal(r.notice,null);assert.equal(r.queuedBurstNotice,null);
+  }
+});
+
+test('generation reveal occupies the goal area and keeps the tower and controls below its full banner',()=>{
+  for(const [width,height,safeTop,menuBottom] of [[320,568,0,0],[320,568,44,86],[390,844,44,86]])for(const goalExpanded of [false,true]){
+    const game=factory({machine:5,orderIndex:20}),ui={viewport:{width,height,safeTop,menuBottom},goalExpanded};
+    const ordinary=render(game,width,height,ui),ordinaryTap=ordinary.r.zones.find(zone=>zone.action==='tap');
+    let frame;
+    const output=render(game,width,height,ui,r=>{
+      const draw=r.scene.draw;r.scene.draw=function(x,y,w,h,view,options){frame={y,options};return draw.call(this,x,y,w,h,view,options);};
+      r.emit({type:'evolve',machine:5,incomeBefore:100,incomeAfter:320});
+    });
+    checkLayout(output,'generation tower reveal '+height+' expanded '+goalExpanded);
+    const {r}=output,banner={x:22,y:r.interface.feedbackY,w:width-44,h:54},tap=r.zones.find(zone=>zone.action==='tap');
+    const modes=r.zones.find(zone=>zone.action==='productionModes');
+    assert.ok(banner.y>=safeTop+8+10+70+6,'the full wallet remains above the banner');
+    assert.ok(banner.y>=modes.y+modes.h+6,'production modes remain above the banner');
+    assert.ok(tap.y>=banner.y+banner.h+6,'the reveal cannot intercept a production tap');
+    assert.ok(frame.y+frame.options.topInset>=banner.y+banner.h+6,'the tower is framed below the reveal');
+    assert.ok(!r.zones.some(zone=>['goalExpand','goalCollapse','target'].includes(zone.action)),'goal controls temporarily yield their area');
+    assert.equal(r.interface.visibleTarget,null);assert.equal(output.ui.goalExpanded,goalExpanded,'the user preference is retained');
+    for(const zone of r.zones){const overlap=intersect(banner,zone);assert.ok(overlap.w===0||overlap.h===0,'reveal remains clear of every control');}
+    r.update(4);r.draw(output.view,output.ui,0);
+    assert.equal(r.zones.some(zone=>zone.action===(goalExpanded?'goalCollapse':'goalExpand')),true,'the goal returns after the reveal');
+    assert.equal(r.zones.find(zone=>zone.action==='tap').y,ordinaryTap.y);
+    const burst=render(game,width,height,ui,r=>r.emit({type:'burst',amount:120,coins:240}));
+    assert.equal(burst.r.zones.find(zone=>zone.action==='tap').y,ordinaryTap.y,'ordinary bursts retain the existing layout');
+  }
+});
+
+test('an interstitial without a hide event preserves the complete generation reveal until return',()=>{
+  const game=factory({machine:4}),output=render(game,320,568,{adBusy:true,sceneDt:.1},r=>r.emit({type:'evolve',machine:4,incomeBefore:100,incomeAfter:320}));
+  const {r,view,ui,c}=output,sceneLife=r.scene.evolveTime,noticeLife=r.notice.life;
+  for(let i=0;i<50;i++)r.draw(view,ui,.1);
+  c.verify();
+  assert.equal(r.scene.evolveTime,sceneLife,'five seconds behind an SDK ad must not consume installation');
+  assert.equal(r.notice.life,noticeLife,'the announcement retains its existing visible-time policy');
+  assert.equal(r.scene.evolveLaunched,false);assert.equal(r.scene.units.length,0);
+  ui.adBusy=false;
+  for(let i=0;i<8;i++)r.draw(view,ui,.1);
+  c.verify();
+  assert.ok(r.scene.evolveLaunched,'the first batch launches 0.8 seconds after the ad closes');
+  assert.ok(r.scene.units.some(unit=>unit.kind==='evolve'));
+  assert.ok(Math.abs(r.notice.life-(noticeLife-.8))<1e-9,'only visible time consumes the announcement');
+});
+
 test('late growth and learning sheets fit compact safe-area viewports and expose exact purchase quotes',()=>{
   for(const [width,height] of [[320,524],[320,568],[390,844]]){
     const game=factory({machine:4,orderIndex:14,totalProduced:64000000,coins:1e10,upgrades:{tap:24,auto:24,value:24},offline:null});
@@ -442,7 +516,8 @@ test('responsive next step distinguishes useful investment, preserving funds, re
       [nextStepFactory({coins:30000}),'machine','machine'],
       [nextStepFactory({coins:30000,orderIndex:2,totalProduced:200}),'order','order'],
       [nextStepFactory({orderIndex:0,totalProduced:50}),'order','order'],
-      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'souvenir','souvenirs']
+      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'research','research'],
+      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},research:{levels:{yield:CONFIG.research.maxLevel,value:CONFIG.research.maxLevel},serial:48,active:null},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'souvenir','souvenirs']
     ];
     for(const [game,kind,action] of cases){
       const saved=JSON.stringify(game.exportSave(NOW));

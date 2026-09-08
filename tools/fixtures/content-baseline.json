@@ -1,0 +1,4757 @@
+{
+  "purpose": "Pre-content-expansion baseline: true permanent-upgrade gaps from order 10 through order 20, excluding temporary rewards and mode switches.",
+  "coreSha256": "62cf985a37124cf785a3ebd092c43db665b5298946e597a5c672648ae5d2eda7",
+  "originalGitSource": {
+    "revision": "29697ff8a2eac02e0b95f0cc2e6f8fec05547b8b",
+    "sha256": "5420f631dfd027ea926bfaa19f8185633991d947837b2c3ddba57da50a20332e",
+    "verifiedMatchingFields": [
+      "completedSeconds",
+      "orders",
+      "machines",
+      "purchases",
+      "mainlineLedger"
+    ],
+    "note": "Raw captured working-copy hash is preserved separately; the original Git core is independently replayed and all twelve complete timelines and earned ledgers match."
+  },
+  "assumptions": "Fresh save; canonical actions only; exactly 2 taps/s or 1 tap/5s; inspect, claim and buy every second; shortest marginal income payback investment strategy. Artisan uses ideal naturally earned perfect timing. Sparse taps do not mean sparse attention.",
+  "refinements": {
+    "yield": {
+      "name": "连续爆香",
+      "description": "每级产量 ×1.2，点击、自动与爆锅同步提升",
+      "multiplier": 1.2,
+      "levels": [
+        {
+          "requiredMachine": 4,
+          "requiredOrders": 14,
+          "cost": 1200000000
+        },
+        {
+          "requiredMachine": 4,
+          "requiredOrders": 16,
+          "cost": 65000000000
+        },
+        {
+          "requiredMachine": 5,
+          "requiredOrders": 18,
+          "cost": 150000000000
+        }
+      ]
+    },
+    "value": {
+      "name": "金装配方",
+      "description": "每级售价 ×1.2，生产出售与离线收益同步提升",
+      "multiplier": 1.2,
+      "levels": [
+        {
+          "requiredMachine": 4,
+          "requiredOrders": 14,
+          "cost": 1000000000
+        },
+        {
+          "requiredMachine": 4,
+          "requiredOrders": 16,
+          "cost": 30000000000
+        },
+        {
+          "requiredMachine": 5,
+          "requiredOrders": 18,
+          "cost": 90000000000
+        }
+      ]
+    }
+  },
+  "routes": [
+    {
+      "tapsPerSecond": 2,
+      "policy": "balanced",
+      "features": "ignore",
+      "perfectTiming": false,
+      "completedSeconds": 2778,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 169,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 200,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 240,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 460,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 40000000
+        },
+        {
+          "number": 12,
+          "seconds": 552,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 112000000
+        },
+        {
+          "number": 13,
+          "seconds": 660,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 14,
+          "seconds": 819,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 15,
+          "seconds": 988,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1800000000
+        },
+        {
+          "number": 16,
+          "seconds": 1162,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4400000000
+        },
+        {
+          "number": 17,
+          "seconds": 1465,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 10400000000
+        },
+        {
+          "number": 18,
+          "seconds": 1938,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 24000000000
+        },
+        {
+          "number": 19,
+          "seconds": 2346,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 52000000000
+        },
+        {
+          "number": 20,
+          "seconds": 2778,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 100000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 390,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 932,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2120,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 876736591899.4469,
+        "quests": 4204086880,
+        "orders": 193779284180,
+        "deliveries": 0,
+        "commissions": 0,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 494053966828.4811
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 728,
+        "topGaps": [
+          {
+            "seconds": 728,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1392,
+              "orderIndex": 16,
+              "coins": 906098.0787658691,
+              "totalProduced": 349142149.9365645,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2120,
+              "orderIndex": 18,
+              "coins": 227802683.49813843,
+              "totalProduced": 848004755.4071844,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 403,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 2375,
+              "orderIndex": 19,
+              "coins": 59613728.45089722,
+              "totalProduced": 1241855197.3440208,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 2778,
+              "orderIndex": 20,
+              "coins": 492053966828.4811,
+              "totalProduced": 2000934946.6849914,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 2,
+      "policy": "balanced",
+      "features": "bulk",
+      "perfectTiming": false,
+      "completedSeconds": 2452,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 169,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 200,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 240,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 414,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 499,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 584,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 734,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 832,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 1006,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1280,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 1746,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 2027,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 2452,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 339,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 734,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 1746,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 908453010607.1271,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 238402298411,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 764172683947.1461
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 702,
+        "topGaps": [
+          {
+            "seconds": 702,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1044,
+              "orderIndex": 16,
+              "coins": 4118449992.165207,
+              "totalProduced": 241989888.55106682,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 1746,
+              "orderIndex": 18,
+              "coins": 36542656004.85855,
+              "totalProduced": 720159297.1510693,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 552,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 1900,
+              "orderIndex": 18,
+              "coins": 6462854462.511444,
+              "totalProduced": 965380116.3013233,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 2452,
+              "orderIndex": 20,
+              "coins": 762172683947.1461,
+              "totalProduced": 2000480415.163215,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 2,
+      "policy": "balanced",
+      "features": "artisan",
+      "perfectTiming": true,
+      "completedSeconds": 2230,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 169,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 200,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 240,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 394,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 466,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 545,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 682,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 772,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 934,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1169,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 1600,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 1849,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 2230,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 320,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 682,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 1600,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 915751188393.0468,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 367294276128,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 900362839450.0486
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 666,
+        "topGaps": [
+          {
+            "seconds": 666,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 934,
+              "orderIndex": 16,
+              "coins": 9274730533.6167,
+              "totalProduced": 223748627.60592833,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 1600,
+              "orderIndex": 18,
+              "coins": 82563263747.66931,
+              "totalProduced": 724855069.9829344,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 540,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 1690,
+              "orderIndex": 18,
+              "coins": 3274634635.3847046,
+              "totalProduced": 881125270.3084109,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 2230,
+              "orderIndex": 20,
+              "coins": 898362839450.0486,
+              "totalProduced": 2006270712.6516826,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 2,
+      "policy": "goal-switch",
+      "features": "ignore",
+      "perfectTiming": false,
+      "completedSeconds": 2580,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 167,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 195,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 229,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 432,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 40000000
+        },
+        {
+          "number": 12,
+          "seconds": 515,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 112000000
+        },
+        {
+          "number": 13,
+          "seconds": 613,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 14,
+          "seconds": 751,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 15,
+          "seconds": 940,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1800000000
+        },
+        {
+          "number": 16,
+          "seconds": 1083,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4400000000
+        },
+        {
+          "number": 17,
+          "seconds": 1349,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 10400000000
+        },
+        {
+          "number": 18,
+          "seconds": 1740,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 24000000000
+        },
+        {
+          "number": 19,
+          "seconds": 2211,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 52000000000
+        },
+        {
+          "number": 20,
+          "seconds": 2580,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 100000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 360,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 889,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2042,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 743965342149.0259,
+        "quests": 4204086880,
+        "orders": 193779284180,
+        "deliveries": 0,
+        "commissions": 0,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 361282717078.0325
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 693,
+        "topGaps": [
+          {
+            "seconds": 693,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1349,
+              "orderIndex": 17,
+              "coins": 8154979801.868637,
+              "totalProduced": 400251662.8839471,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2042,
+              "orderIndex": 18,
+              "coins": 60138882.17474365,
+              "totalProduced": 886794546.2507339,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 275,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 2305,
+              "orderIndex": 19,
+              "coins": 441675304.4255371,
+              "totalProduced": 1381562392.0159922,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 2580,
+              "orderIndex": 20,
+              "coins": 359282717078.0325,
+              "totalProduced": 2008105196.6344457,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 2,
+      "policy": "goal-switch",
+      "features": "bulk",
+      "perfectTiming": false,
+      "completedSeconds": 2173,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 167,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 195,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 229,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 400,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 471,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 551,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 675,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 763,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 913,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1141,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 1537,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 1820,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 2173,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 326,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 681,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 1580,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 727438414071.6035,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 221435210703,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 566190999703.606
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 600,
+        "topGaps": [
+          {
+            "seconds": 600,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 980,
+              "orderIndex": 16,
+              "coins": 8106924485.957565,
+              "totalProduced": 268697275.10117114,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 1580,
+              "orderIndex": 18,
+              "coins": 8776112905.835114,
+              "totalProduced": 746394654.6029372,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 376,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 1797,
+              "orderIndex": 18,
+              "coins": 333636011.23526,
+              "totalProduced": 1146099419.51237,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 2173,
+              "orderIndex": 20,
+              "coins": 564190999703.606,
+              "totalProduced": 2000756437.1313357,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 2,
+      "policy": "goal-switch",
+      "features": "artisan",
+      "perfectTiming": true,
+      "completedSeconds": 1922,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 12,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 20,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 32,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 44,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 72,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 93,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 120,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 167,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 195,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 229,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 374,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 444,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 515,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 626,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 699,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 836,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1040,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 1395,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 1604,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 1922,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 66,
+          "upgrades": {
+            "tap": 8,
+            "auto": 7,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 160,
+          "upgrades": {
+            "tap": 13,
+            "auto": 12,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 303,
+          "upgrades": {
+            "tap": 18,
+            "auto": 18,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 626,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 1395,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 725125324941.5463,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 356139774262,
+        "upgrades": 8303966131,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 698582474132.544
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 535,
+        "topGaps": [
+          {
+            "seconds": 535,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 860,
+              "orderIndex": 16,
+              "coins": 9071137576.79953,
+              "totalProduced": 241797368.87003598,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 1395,
+              "orderIndex": 18,
+              "coins": 25113478198.509644,
+              "totalProduced": 720437038.1062316,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 414,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 1508,
+              "orderIndex": 18,
+              "coins": 2777260169.752136,
+              "totalProduced": 966058486.065549,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 1922,
+              "orderIndex": 20,
+              "coins": 696582474132.544,
+              "totalProduced": 2001192293.0215223,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "balanced",
+      "features": "ignore",
+      "perfectTiming": false,
+      "completedSeconds": 4572,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 373,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 430,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 500,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 847,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 40000000
+        },
+        {
+          "number": 12,
+          "seconds": 990,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 112000000
+        },
+        {
+          "number": 13,
+          "seconds": 1148,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 14,
+          "seconds": 1394,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 15,
+          "seconds": 1679,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1800000000
+        },
+        {
+          "number": 16,
+          "seconds": 1964,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4400000000
+        },
+        {
+          "number": 17,
+          "seconds": 2452,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 10400000000
+        },
+        {
+          "number": 18,
+          "seconds": 3215,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 24000000000
+        },
+        {
+          "number": 19,
+          "seconds": 3878,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 52000000000
+        },
+        {
+          "number": 20,
+          "seconds": 4572,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 100000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 748,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1588,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 3515,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 877847058498.0992,
+        "quests": 4204086880,
+        "orders": 193779284180,
+        "deliveries": 0,
+        "commissions": 0,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 495167552711.1417
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 1179,
+        "topGaps": [
+          {
+            "seconds": 1179,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 2336,
+              "orderIndex": 16,
+              "coins": 13776518.679077148,
+              "totalProduced": 349939756.93811053,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 3515,
+              "orderIndex": 18,
+              "coins": 53125942.55001831,
+              "totalProduced": 848312073.7370262,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 643,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 3929,
+              "orderIndex": 19,
+              "coins": 36210144.59814453,
+              "totalProduced": 1242555411.2018354,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 4572,
+              "orderIndex": 20,
+              "coins": 493167552711.1417,
+              "totalProduced": 2003836890.420902,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "balanced",
+      "features": "bulk",
+      "perfectTiming": false,
+      "completedSeconds": 4054,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 373,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 430,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 500,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 767,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 889,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 1027,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 1268,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 1430,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 1715,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 2147,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 2915,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 3361,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 4054,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 651,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1268,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2915,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 907944345583.5172,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 238810296517,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 764075136313.539
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 1129,
+        "topGaps": [
+          {
+            "seconds": 1129,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1786,
+              "orderIndex": 16,
+              "coins": 6543306668.370392,
+              "totalProduced": 248382311.80530986,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2915,
+              "orderIndex": 18,
+              "coins": 36536857922.52307,
+              "totalProduced": 720197465.3839383,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 898,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 3156,
+              "orderIndex": 18,
+              "coins": 3876957280.3709717,
+              "totalProduced": 960390824.1548487,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 4054,
+              "orderIndex": 20,
+              "coins": 762075136313.539,
+              "totalProduced": 2000309702.00049,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "balanced",
+      "features": "artisan",
+      "perfectTiming": true,
+      "completedSeconds": 3960,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 373,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 430,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 500,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 790,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 918,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 1061,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 1294,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 1451,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 1726,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 2144,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 2874,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 3301,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 3960,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 691,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1294,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2874,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 906640903981.3972,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 345634142765,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 869595540959.4128
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 1066,
+        "topGaps": [
+          {
+            "seconds": 1066,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1808,
+              "orderIndex": 16,
+              "coins": 2780446553.7904816,
+              "totalProduced": 253194557.3347979,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2874,
+              "orderIndex": 18,
+              "coins": 50918655698.6864,
+              "totalProduced": 720011805.430958,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 866,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 3094,
+              "orderIndex": 18,
+              "coins": 3621873411.091339,
+              "totalProduced": 950537054.5306385,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 3960,
+              "orderIndex": 20,
+              "coins": 867595540959.4128,
+              "totalProduced": 2000910953.231288,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "goal-switch",
+      "features": "ignore",
+      "perfectTiming": false,
+      "completedSeconds": 4245,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 371,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 427,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 485,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 794,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 40000000
+        },
+        {
+          "number": 12,
+          "seconds": 923,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 112000000
+        },
+        {
+          "number": 13,
+          "seconds": 1072,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 14,
+          "seconds": 1280,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 15,
+          "seconds": 1584,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1800000000
+        },
+        {
+          "number": 16,
+          "seconds": 1825,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4400000000
+        },
+        {
+          "number": 17,
+          "seconds": 2252,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 10400000000
+        },
+        {
+          "number": 18,
+          "seconds": 2884,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 24000000000
+        },
+        {
+          "number": 19,
+          "seconds": 3644,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 52000000000
+        },
+        {
+          "number": 20,
+          "seconds": 4245,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 100000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 699,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1505,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 3376,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 741668397471.813,
+        "quests": 4204086880,
+        "orders": 193779284180,
+        "deliveries": 0,
+        "commissions": 0,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 358988891684.7998
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 1124,
+        "topGaps": [
+          {
+            "seconds": 1124,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 2252,
+              "orderIndex": 17,
+              "coins": 7882411100.429962,
+              "totalProduced": 400038932.334429,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 3376,
+              "orderIndex": 18,
+              "coins": 95922010.94110107,
+              "totalProduced": 886093225.7191782,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 447,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 3798,
+              "orderIndex": 19,
+              "coins": 136935596.4505005,
+              "totalProduced": 1379001642.592239,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 4245,
+              "orderIndex": 20,
+              "coins": 356988891684.7998,
+              "totalProduced": 2000729726.50282,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "goal-switch",
+      "features": "bulk",
+      "perfectTiming": false,
+      "completedSeconds": 3572,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 371,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 427,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 485,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 732,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 845,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 959,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 1155,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 1291,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 1533,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1910,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 2541,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 3000,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 3572,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 638,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1155,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2620,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 729472566291.4971,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 218863052106,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 565656112610.4832
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 977,
+        "topGaps": [
+          {
+            "seconds": 977,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1643,
+              "orderIndex": 16,
+              "coins": 1883083516.9438705,
+              "totalProduced": 264250975.78796905,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2620,
+              "orderIndex": 18,
+              "coins": 5939992234.529907,
+              "totalProduced": 746294154.2974336,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 605,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 2967,
+              "orderIndex": 18,
+              "coins": 189056679.1230774,
+              "totalProduced": 1152367461.1838443,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 3572,
+              "orderIndex": 20,
+              "coins": 563656112610.4832,
+              "totalProduced": 2006079711.629976,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tapsPerSecond": 0.2,
+      "policy": "goal-switch",
+      "features": "artisan",
+      "perfectTiming": true,
+      "completedSeconds": 3545,
+      "orders": [
+        {
+          "number": 1,
+          "seconds": 46,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 180
+        },
+        {
+          "number": 2,
+          "seconds": 69,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 600
+        },
+        {
+          "number": 3,
+          "seconds": 93,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 2600
+        },
+        {
+          "number": 4,
+          "seconds": 136,
+          "machine": 0,
+          "isLoop": false,
+          "coins": 8800
+        },
+        {
+          "number": 5,
+          "seconds": 189,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 32000
+        },
+        {
+          "number": 6,
+          "seconds": 225,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 120000
+        },
+        {
+          "number": 7,
+          "seconds": 286,
+          "machine": 1,
+          "isLoop": false,
+          "coins": 480000
+        },
+        {
+          "number": 8,
+          "seconds": 371,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 1440000
+        },
+        {
+          "number": 9,
+          "seconds": 427,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 4400000
+        },
+        {
+          "number": 10,
+          "seconds": 485,
+          "machine": 2,
+          "isLoop": false,
+          "coins": 12800000
+        },
+        {
+          "number": 11,
+          "seconds": 753,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 16000000
+        },
+        {
+          "number": 12,
+          "seconds": 858,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 44800000
+        },
+        {
+          "number": 13,
+          "seconds": 989,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 115200000
+        },
+        {
+          "number": 14,
+          "seconds": 1182,
+          "machine": 3,
+          "isLoop": false,
+          "coins": 288000000
+        },
+        {
+          "number": 15,
+          "seconds": 1368,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 720000000
+        },
+        {
+          "number": 16,
+          "seconds": 1603,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 1760000000
+        },
+        {
+          "number": 17,
+          "seconds": 1967,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 4160000000
+        },
+        {
+          "number": 18,
+          "seconds": 2577,
+          "machine": 4,
+          "isLoop": false,
+          "coins": 9600000000
+        },
+        {
+          "number": 19,
+          "seconds": 3006,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 20800000000
+        },
+        {
+          "number": 20,
+          "seconds": 3545,
+          "machine": 5,
+          "isLoop": false,
+          "coins": 40000000000
+        }
+      ],
+      "machines": [
+        {
+          "machine": 1,
+          "seconds": 176,
+          "upgrades": {
+            "tap": 6,
+            "auto": 8,
+            "value": 7
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 2,
+          "seconds": 358,
+          "upgrades": {
+            "tap": 10,
+            "auto": 13,
+            "value": 12
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 3,
+          "seconds": 648,
+          "upgrades": {
+            "tap": 15,
+            "auto": 19,
+            "value": 18
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 4,
+          "seconds": 1261,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 0,
+            "value": 0
+          }
+        },
+        {
+          "machine": 5,
+          "seconds": 2644,
+          "upgrades": {
+            "tap": 24,
+            "auto": 24,
+            "value": 24
+          },
+          "refinements": {
+            "yield": 2,
+            "value": 2
+          }
+        }
+      ],
+      "mainlineLedger": {
+        "production": 725166066568.7057,
+        "quests": 4204086880,
+        "orders": 77523284180,
+        "deliveries": 116256000000,
+        "commissions": 296079426483,
+        "upgrades": 8300846847,
+        "refinements": 337200000000,
+        "machines": 235162030000,
+        "souvenirs": 0,
+        "finalCoins": 638565987264.6969
+      },
+      "permanentGrowth": {
+        "longestGapSeconds": 883,
+        "topGaps": [
+          {
+            "seconds": 883,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 2,
+              "seconds": 1761,
+              "orderIndex": 16,
+              "coins": 35355632.23586273,
+              "totalProduced": 292732258.4681027,
+              "machine": 4,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 150000000000,
+                  "reason": "refinement-stage-locked"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 2,
+                  "cost": 90000000000,
+                  "reason": "refinement-stage-locked"
+                }
+              ],
+              "nextMachine": {
+                "machine": 5,
+                "cost": 225000000000,
+                "requiredOrders": 18
+              }
+            },
+            "end": {
+              "type": "evolve",
+              "key": "machine",
+              "level": 5,
+              "seconds": 2644,
+              "orderIndex": 18,
+              "coins": 12057739630.933838,
+              "totalProduced": 747523710.9435236,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 2,
+                "value": 2
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 150000000000,
+                  "reason": "not-enough-coins"
+                },
+                {
+                  "key": "value",
+                  "level": 2,
+                  "unlockedLevel": 3,
+                  "cost": 90000000000,
+                  "reason": "not-enough-coins"
+                }
+              ],
+              "nextMachine": null
+            }
+          },
+          {
+            "seconds": 625,
+            "start": {
+              "type": "refinement",
+              "key": "yield",
+              "level": 3,
+              "seconds": 2920,
+              "orderIndex": 18,
+              "coins": 723266709.0853271,
+              "totalProduced": 1080358495.956851,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            },
+            "end": {
+              "type": "order",
+              "key": null,
+              "level": null,
+              "seconds": 3545,
+              "orderIndex": 20,
+              "coins": 636565987264.6969,
+              "totalProduced": 2000363968.5119472,
+              "machine": 5,
+              "upgrades": {
+                "tap": 24,
+                "auto": 24,
+                "value": 24
+              },
+              "refinements": {
+                "yield": 3,
+                "value": 3
+              },
+              "allBasicUpgradesMaxed": true,
+              "availableRefinements": [
+                {
+                  "key": "yield",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                },
+                {
+                  "key": "value",
+                  "level": 3,
+                  "unlockedLevel": 3,
+                  "cost": 0,
+                  "reason": "max-level"
+                }
+              ],
+              "nextMachine": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

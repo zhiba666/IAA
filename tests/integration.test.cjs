@@ -23,7 +23,7 @@ function harness(options = {}) {
   let now = START, frameTime = 1, nextFrame = null, drawnUI = null;
   let pointerHandler, hideHandler, showHandler, hidden = false, hitAction = null;
   let saveFailure = !!options.saveFailure;
-  const keyboard = {}, saves = [], analytics = [], rewardRequests = [], sounds = [], sidebarRequests=[];
+  const keyboard = {}, saves = [], analytics = [], rewardRequests = [], sounds = [], sidebarRequests=[], rendererEvents=[];
   const ctx = { setTransform() {}, fillRect() {}, beginPath() {}, moveTo() {}, lineTo() {}, stroke() {} };
   const canvas = { getContext: () => ctx, setAttribute() {} };
   const platform = {
@@ -51,7 +51,7 @@ function harness(options = {}) {
   class MockRenderer {
     constructor() { this.interface = new GameInterface(this); }
     actionAt() { return hitAction; }
-    emit() {}
+    emit(event) { rendererEvents.push(copy(event)); }
     draw(view, ui, dt) { drawnUI = copy(ui); drawnUI.animationDt = dt; }
   }
   class MockAudio {
@@ -82,7 +82,7 @@ function harness(options = {}) {
   }
   vm.runInContext('(function(require) {\n' + mainSource + '\n})', context)(mockedRequire);
   const h = {
-    platform, saves, analytics, rewardRequests, sounds, sidebarRequests,
+    platform, saves, analytics, rewardRequests, sounds, sidebarRequests, rendererEvents,
     snapshot: () => copy(context.__POPCORN__.snapshot()),
     lastUI: () => copy(drawnUI),
     ui() { h.frame(0); return copy(drawnUI); },
@@ -493,10 +493,11 @@ test('main: ordinary order toast uses the one actual settlement and repeated cla
   assert.equal(queued.ui().toast, '订单已发车，到账 +180 金币');
 });
 
-test('main: evolution feedback shows actual permanent income with sub-unit precision even during turbo', async t => {
+test('main: evolution forwards precise permanent income to its reveal and clears stale toast even during turbo', async t => {
   for (const boostSeconds of [0, CONFIG.turboDuration]) await t.test('boost seconds ' + boostSeconds, () => {
     const next = CONFIG.machines[1];
     const h = harness({ save: saved({ coins: next.cost, orderIndex: next.requiredOrders, totalProduced: CONFIG.orders[next.requiredOrders - 1].target, boostSeconds }) });
+    h.click('productionModes');assert.match(h.ui().toast,/双缸机/);
     const before = h.snapshot().production.baseIncome;
     h.click('evolve');
     const after = h.snapshot().production.baseIncome;
@@ -504,7 +505,13 @@ test('main: evolution feedback shows actual permanent income with sub-unit preci
     assert.ok(event);
     near(event.data.incomeBefore, before);
     near(event.data.incomeAfter, after);
-    assert.equal(h.ui().toast, '电热锅开动！自动金币/秒 0.4 → 1.08');
+    const reveals = h.rendererEvents.filter(e => e.type === 'evolve');
+    assert.equal(reveals.length,1,'one settled evolution launches one reveal');
+    assert.deepEqual(reveals[0],event.data,'the renderer receives the authoritative settled event');
+    near(reveals[0].incomeBefore,.4);near(reveals[0].incomeAfter,1.0752,'rendering receives full settlement precision before formatting');
+    assert.equal(h.ui().toast,'','an earlier toast cannot cover the production reveal');
+    assert.equal(h.ui().toastSeconds,0);assert.equal(h.ui().toastKind,'');
+    assert.equal(h.sounds.filter(name=>name==='machine').length,1);
     assert.equal(h.snapshot().state.machine, 1);
     assert.equal(h.snapshot().boostSeconds, boostSeconds);
   });

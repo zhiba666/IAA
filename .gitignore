@@ -5,3 +5,9 @@ artifacts/
 *.log
 config.local.json
 web/visual-check.html
+web/research-check.html
+web/production-growth-check.html
+docs/copyright/qa/manual/*.png
+docs/copyright/qa/manual/*.jpg
+docs/copyright/qa/program/*.png
+docs/copyright/qa/program/*.jpg

@@ -60,11 +60,11 @@ class AudioEngine {
       this.tone(880, 880, .13, .045, 'sine', .38);
       this.tone(1047, 1047, .15, .045, 'sine', .45);
     } else if (name === 'machine') {
-      // Installation, motor start and first shipment follow the scene's 0.68 s reveal.
+      // A low installation beat resolves into the first complete batch at 0.8 s.
       this.tone(180, 100, .13, .04, 'triangle', 0);
       this.tone(220, 120, .13, .04, 'triangle', .18);
       this.tone(80, 190, .32, .035, 'sine', .28);
-      [440, 554, 659, 880].forEach((frequency, index) => this.tone(frequency, frequency, .19, .055, 'sine', .66 + index * .075));
+      [440, 554, 659, 880].forEach((frequency, index) => this.tone(frequency, frequency, .23, .055, 'sine', .8 + index * .09));
     } else if (name === 'upgrade' || name === 'unlock') {
       [440, 554, 659, 880].forEach((frequency, index) => this.tone(frequency, frequency, 0.17, 0.06, 'sine', index * 0.075));
     } else if (name === 'order' || name === 'reward' || name === 'coin' || name === 'success') {
@@ -81,8 +81,8 @@ class AudioEngine {
   playNative(name) {
     // Bundled WAVs, reused contexts; official native API supports package-local paths.
     // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/basic-function/audio
-    const aliases = { tap:'pop', boom:'burst', unlock:'upgrade', machine:'upgrade', reward:'order', coin:'order', success:'order', win:'complete', deny:'error', offline:'order' };
-    const key = aliases[name] || (['pop','burst','upgrade','order','complete','error','heatReady'].includes(name)?name:'click');
+    const aliases = { tap:'pop', boom:'burst', unlock:'upgrade', reward:'order', coin:'order', success:'order', win:'complete', deny:'error', offline:'order' };
+    const key = aliases[name] || (['pop','burst','upgrade','machine','order','complete','error','heatReady'].includes(name)?name:'click');
     if (key==='pop' && Date.now()-this.lastNativePop<90) return;
     if (key==='pop') this.lastNativePop=Date.now();
     try {

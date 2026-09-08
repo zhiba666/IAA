@@ -48,7 +48,10 @@ const reasons={
   'souvenir-stage-locked':'继续完成循环订单，解锁这件收藏', 'souvenir-owned':'这件收藏已经陈列在工厂',
   'stale-souvenir':'收藏报价已变化，请重新查看', 'already-owned':'这件收藏已经陈列在工厂',
   'loops-required':'继续完成循环订单，解锁这件收藏', 'invalid-souvenir':'请选择面板中的收藏',
-  'invalid-delivery':'请重新查看本单交付进度', 'invalid-commission':'请选择面板中的委托'
+  'invalid-delivery':'请重新查看本单交付进度', 'invalid-commission':'请选择面板中的委托',
+  'research-locked':'完成第10张主线订单后开放研发', 'research-active':'先完成或放弃当前试制',
+  'research-not-ready':'试制产量尚未达标，继续生产即可', 'stale-research':'研发已变化，请重新查看课题',
+  'invalid-research':'请选择面板中的研发课题', 'research-max-level':'这条研发路线已全部完成'
 };
 function toast(message,kind='general') {ui.toast=message;ui.toastSeconds=3.5;ui.toastKind=kind;}
 function formatIncome(value) {return value<1000?value.toFixed(2).replace(/\.?0+$/,''):formatNumber(value);}
@@ -64,6 +67,7 @@ function openModal(type,focusUpgrade='') {
   const view=game.getView();
   if(type==='commissions')ui.modal.commissionQuotes=Object.fromEntries(view.commissions.options.map(option=>[option.kind,{...option}]));
   if(type==='souvenirs')ui.modal.souvenirQuotes=Object.fromEntries(view.souvenirs.options.map(option=>[option.key,{...option}]));
+  if(type==='research')ui.modal.researchQuotes=Object.fromEntries(view.research.options.map(option=>[option.key,{...option}]));
   ui.focusUpgrade=type==='upgrades'&&['tap','auto','value'].includes(focusUpgrade)?focusUpgrade:'';sound.play('click');
 }
 function configure() {sound.setEnabled(game.state.settings.sound);}
@@ -97,7 +101,7 @@ function processEvents() {
       if(e.source==='tap'){renderer.emit(e);sound.play('pop');}
       else if(e.source==='auto')renderer.emit(e);
     }else{
-      renderer.emit(e);sound.play(e.type==='evolve'?'machine':['quest','upgradeBatch','refinement','delivery','souvenir'].includes(e.type)||e.type==='commission'&&e.action==='claim'?'upgrade':['productionMode','commission'].includes(e.type)?'click':e.type);
+      renderer.emit(e);sound.play(e.type==='evolve'?'machine':['quest','upgradeBatch','refinement','delivery','souvenir'].includes(e.type)||['commission','research'].includes(e.type)&&e.action==='claim'?'upgrade':['productionMode','commission','research'].includes(e.type)?'click':e.type);
       platform.track(e.type,e);
       if(e.type==='burst'){
         // Settlement replaces the earlier timing acknowledgement, so its actual
@@ -105,7 +109,10 @@ function processEvents() {
         if(ui.toastKind==='timing'){ui.toast='';ui.toastSeconds=0;ui.toastKind='';}
         if(game.state.settings.haptics)platform.vibrate();
       }
-      if(e.type==='evolve')toast(`${e.name}开动！自动金币/秒 ${formatIncome(e.incomeBefore)} → ${formatIncome(e.incomeAfter)}`);
+      if(e.type==='evolve'){
+        ui.toast='';ui.toastSeconds=0;ui.toastKind='';
+        if(game.state.settings.haptics)platform.vibrate();
+      }
       if(e.type==='complete')ui.modal={type:'completion'};
     }
   }
@@ -184,6 +191,27 @@ function act(action) {
     const parts=action.split(':');if(parts.length!==3)return;
     const delivery=game.claimDelivery(Number(parts[2]),Number(parts[1]));
     if(result(delivery))toast('分段货款 +'+formatNumber(delivery.coins)+' 金币已到账');
+    return;
+  }
+  if(action.startsWith('researchStart:')){
+    if(!ui.modal||ui.modal.type!=='research')return;
+    const rest=action.slice('researchStart:'.length),separator=rest.indexOf(':');if(separator<0)return;
+    const key=rest.slice(0,separator),id=rest.slice(separator+1),quote=ui.modal.researchQuotes&&ui.modal.researchQuotes[key];
+    if(!quote||quote.id!==id)return;
+    if(result(game.startResearch(key,quote))){closeModal();ui.goalExpanded=true;toast('试制已开始 · 正常生产即可推进');}
+    return;
+  }
+  if(action.startsWith('researchClaim:')){
+    if(!ui.modal||ui.modal.type!=='research')return;
+    const claimed=game.claimResearch(action.slice('researchClaim:'.length));
+    if(result(claimed)){openModal('research');toast('永久提升 · '+formatIncome(claimed.before)+' → '+formatIncome(claimed.after)+' '+claimed.unit);}
+    return;
+  }
+  if(action.startsWith('researchCancel:')){
+    if(!ui.modal||ui.modal.type!=='research')return;
+    const id=action.slice('researchCancel:'.length);
+    if(ui.modal.cancelResearchId!==id){ui.modal.cancelResearchId=id;toast('本次进度将清空，再点一次放弃');return;}
+    if(result(game.cancelResearch(id))){openModal('research');toast('已放弃本次试制，永久等级保留');}
     return;
   }
   if(action.startsWith('commissionAccept:')){

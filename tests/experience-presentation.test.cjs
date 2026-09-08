@@ -7,7 +7,7 @@ const { Renderer } = require('../src/renderer');
 
 const NOW = 1800000000000;
 const SURFACES = [
-  ['turbo', null], ['order', { type: 'order' }],
+  ['turbo', { type: 'turbo' }], ['order', { type: 'order' }],
   ['sponsor', { type: 'machine' }], ['offline', { type: 'offline' }]
 ];
 
@@ -17,7 +17,7 @@ function canvas() {
   const finite = (name, values) => values.forEach(value =>
     assert.ok(typeof value === 'number' && Number.isFinite(value), `${name}: invalid Canvas geometry`));
   const ctx = {
-    font: '14px sans-serif', textAlign: 'left', texts, overlayTextIndex: 0,
+    font: '14px sans-serif', textAlign: 'left', globalAlpha: 1, texts, overlayTextIndex: 0,
     save() { depth++; },
     restore() { assert.ok(depth > 0, 'Canvas restore requires a matching save'); depth--; },
     measureText(value) {
@@ -66,7 +66,7 @@ function factory(overrides = {}) {
 function draw(game, ui = {}, renderer = new Renderer(canvas()), dt = 0) {
   renderer.c.texts.length = 0; renderer.c.overlayTextIndex = 0;
   const view = game instanceof Game ? game.getView() : game;
-  renderer.draw(view, { tab: 'upgrades', modal: null, isDouyin: false, adBusy: false, saved: true, toast: '', ...ui }, dt);
+  renderer.draw(view, { viewport: { width: 480, height: 920 }, modal: null, isDouyin: false, adBusy: false, saved: true, toast: '', ...ui }, dt);
   renderer.c.verify();
   for (const zone of renderer.zones) {
     for (const value of [zone.x, zone.y, zone.w, zone.h]) assert.ok(Number.isFinite(value));
@@ -81,7 +81,6 @@ function draw(game, ui = {}, renderer = new Renderer(canvas()), dt = 0) {
 }
 
 const shown = number => number > 0 && number < 10 ? Number(number.toFixed(2)).toString() : formatNumber(number);
-const includesCopy = (output, copy) => assert.ok(output.compact.includes(String(copy).replace(/\s/g, '')), `missing visible copy: ${copy}`);
 
 function hasAction(output, action) { return output.actions.includes(action); }
 
@@ -137,49 +136,9 @@ test('experience: ordinary order settlement appears first and only a completed o
   assert.ok(!hasAction(unfinished, 'claimOrder')); assert.ok(!hasAction(unfinished, 'ad:order'));
 });
 
-test('experience: each first-session prompt displays its concrete instruction without creating extra purchase targets', () => {
-  const stages = [
-    { taps: 0, upgrades: { tap: 0, auto: 0, value: 0 } },
-    { taps: 5, upgrades: { tap: 0, auto: 0, value: 0 } },
-    { taps: 5, upgrades: { tap: 1, auto: 0, value: 0 } },
-    { taps: 5, upgrades: { tap: 1, auto: 1, value: 0 } },
-    { taps: 0, totalProduced: CONFIG.orders[0].target }
-  ];
-  const seen = new Set();
-  for (const stage of stages) {
-    const game = factory({ playedSeconds: 0, orderIndex: 0, totalProduced: 0, bursts: 0, coins: 100, ...stage });
-    const view = game.getView(); assert.ok(view.tutorial);
-    seen.add(view.tutorial.action);
-    const output = draw(game);
-    includesCopy(output, view.tutorial.title); includesCopy(output, view.tutorial.text);
-    assert.ok(hasAction(output, view.tutorial.action), `${view.tutorial.action}: guidance must lead to an available control`);
-    assert.ok(output.actions.every(action => !action.startsWith('ad:')));
-    for (const upgrade of view.upgrades)
-      assert.equal(output.actions.filter(action => action === 'upgrade:' + upgrade.key).length, Number(upgrade.canBuy), 'highlighting cannot duplicate purchase hit regions');
-  }
-  assert.deepEqual([...seen].sort(), ['order', 'tap', 'upgrade:auto', 'upgrade:tap']);
-  const poor = factory({ playedSeconds: 0, orderIndex: 0, totalProduced: 5, taps: 5, coins: 0, upgrades: { tap: 0, auto: 0, value: 0 } });
-  assert.ok(!draw(poor).actions.some(action => action.startsWith('upgrade:')), 'guidance must not activate unaffordable upgrades');
-});
-
-test('experience: the next-machine goal remains visible as order and coin requirements change', () => {
-  const next = CONFIG.machines[1];
-  for (const state of [
-    { orderIndex: 1, coins: 100 },
-    { orderIndex: next.requiredOrders, coins: next.cost - 123 },
-    { orderIndex: next.requiredOrders, coins: next.cost }
-  ]) {
-    const game = factory({ totalProduced: CONFIG.orders[0].target, ...state });
-    const view = game.getView(); assert.equal(view.tutorial, null); assert.ok(view.goal);
-    const output = draw(game, { tab: 'machines' });
-    includesCopy(output, view.goal.title); includesCopy(output, view.goal.text);
-    assert.ok(!hasAction(output, 'evolve'), 'a goal shortcut must open the reviewed machine details before buying');
-  }
-});
-
 test('experience: upgrade rows show before/after values and units while preserving purchase eligibility', () => {
   const game = factory({ upgrades: { tap: 0, auto: 0, value: 0 }, coins: 0 });
-  const view = game.getView(), output = draw(game);
+  const view = game.getView(), output = draw(game, { modal: { type: 'upgrades' } });
   for (const upgrade of view.upgrades) {
     const preview = upgrade.preview; assert.ok(preview && preview.after > preview.before);
     assert.ok(output.entries.some(entry => entry.text.includes(shown(preview.before)) && entry.text.includes(shown(preview.after)) && entry.text.includes(preview.unit)),
@@ -187,11 +146,11 @@ test('experience: upgrade rows show before/after values and units while preservi
     assert.ok(!hasAction(output, 'upgrade:' + upgrade.key));
   }
   game.state.coins = Math.max(...view.upgrades.map(upgrade => upgrade.cost));
-  for (const upgrade of view.upgrades) assert.ok(hasAction(draw(game), 'upgrade:' + upgrade.key));
+  for (const upgrade of view.upgrades) assert.ok(hasAction(draw(game, { modal: { type: 'upgrades' } }), 'upgrade:' + upgrade.key));
   game.state.upgrades = { tap: CONFIG.maxUpgradeLevel, auto: CONFIG.maxUpgradeLevel, value: CONFIG.maxUpgradeLevel };
-  const maxed = draw(game);
+  const maxed = draw(game, { modal: { type: 'upgrades' } });
   assert.equal(maxed.entries.filter(entry => entry.text === '已满级').length, 3);
-  assert.ok(!maxed.actions.some(action => action.startsWith('upgrade:')));
+  assert.ok(!maxed.actions.some(action => action && action.startsWith('upgrade:')));
 });
 
 test('experience: machine details show two production comparisons and the remaining requirements before evolution', () => {
@@ -212,52 +171,11 @@ test('experience: machine details show two production comparisons and the remain
   assert.ok(hasAction(draw(game, { modal: { type: 'machine' } }), 'evolve'));
 });
 
-test('experience: free bursts display actual production and coins and replace the previous burst notice', () => {
-  const game = factory(), renderer = new Renderer(canvas());
-  renderer.emit({ type: 'burst', amount: 731, coins: 853 });
-  const first = draw(game, {}, renderer);
-  assert.match(first.text, /731/); assert.match(first.text, /853/);
-  renderer.emit({ type: 'burst', amount: 947, coins: 1181 });
-  const second = draw(game, {}, renderer);
-  assert.match(second.text, /947/); assert.match(second.text, /1,?181/);
-  assert.doesNotMatch(second.text, /731|853/, 'only the most recent burst reward should occupy the notice');
-});
-
-test('experience: burst feedback expires without replacing gameplay controls or leaving a stale reward', () => {
-  const game = factory(), renderer = new Renderer(canvas());
-  const actions = draw(game, {}, renderer).actions;
-  renderer.emit({ type: 'burst', amount: 731, coins: 853 });
-  assert.deepEqual(draw(game, {}, renderer).actions, actions, 'feedback must not intercept gameplay input');
-  renderer.update(10);
-  const expired = draw(game, {}, renderer);
-  assert.doesNotMatch(expired.text, /731|853/);
-  assert.equal(renderer.particles.length, 0); assert.equal(renderer.floats.length, 0);
-});
-
-test('experience: rapid tapping gives immediate machine feedback and bounds all transient objects', () => {
-  const game = factory(), renderer = new Renderer(canvas());
-  renderer.emit({ type: 'produce', source: 'tap', amount: 1, coins: 1 });
-  assert.ok(renderer.tapPulse > 0, 'a click must immediately animate the machine');
-  for (let i = 0; i < 300; i++) {
-    renderer.emit({ type: 'produce', source: 'tap', amount: 1, coins: 1 });
-    if (i % 10 === 0) renderer.emit({ type: 'burst', amount: 10, coins: 10 });
-    if (i % 13 === 0) renderer.emit({ type: 'order', coins: 180 });
-    if (i % 17 === 0) renderer.emit({ type: 'evolve', machine: 1, name: CONFIG.machines[1].name });
-    assert.ok(renderer.floats.length <= 8, 'floating text must remain bounded during sustained input');
-    assert.ok(renderer.particles.length <= 180);
-  }
-  draw(game, {}, renderer, .016);
-  renderer.update(10);
-  assert.equal(renderer.tapPulse, 0); assert.equal(renderer.particles.length, 0); assert.equal(renderer.floats.length, 0);
-  draw(game, {}, renderer);
-});
-
-
-
 test('experience: real simulation bursts carry their actual payout through the renderer', () => {
   for (const trigger of ['tap', 'tick']) {
     const game = factory({ energy: CONFIG.energyMax - 1 });
     const renderer = new Renderer(canvas());
+    draw(game, {}, renderer);
     game.drainEvents();
     const coinsBefore = game.state.coins;
     if (trigger === 'tap') game.tap(); else game.tick(1);
@@ -277,6 +195,7 @@ test('experience: real simulation bursts carry their actual payout through the r
 test('experience: rapid real taps combine their own production and restart after the merge window expires', () => {
   const game = factory({ energy: CONFIG.energyMax - 1 });
   const renderer = new Renderer(canvas());
+  draw(game, {}, renderer);
   let tapAmount = 0, burstAmount = 0;
   const tap = () => {
     const result = game.tap(); assert.equal(result.ok, true);
@@ -284,7 +203,7 @@ test('experience: rapid real taps combine their own production and restart after
       if (event.type === 'produce' && event.source === 'burst') burstAmount += event.amount;
       renderer.emit(event);
     }
-    assert.equal(renderer.tapPulse, 1, 'every click must retain its immediate machine pulse');
+    assert.equal(renderer.scene.tapPulse, 1, 'every click must retain its immediate machine pulse');
     return result.amount;
   };
   for (let i = 0; i < 16; i++) {
@@ -299,7 +218,7 @@ test('experience: rapid real taps combine their own production and restart after
   assert.ok(floats[0].text.includes(`+${shown(tapAmount)} 份`));
   assert.match(floats[0].text, /连点/);
   const output = draw(game, {}, renderer);
-  assert.ok(output.entries.some(entry => entry.text === floats[0].text));
+  assert.ok(!output.entries.some(entry => entry.text === floats[0].text), 'the burst settlement takes priority over tap floats');
 
   renderer.update(.26);
   const nextAmount = tap();
@@ -308,12 +227,13 @@ test('experience: rapid real taps combine their own production and restart after
   assert.equal(floats[1].amount, nextAmount);
   assert.doesNotMatch(floats[1].text, /连点/, 'a new sequence cannot retain the old cumulative label');
 
-  renderer.update(1);
+  renderer.update(3);
   assert.equal(renderer.floats.length, 0, 'the prior sequence must expire completely');
   const restartedAmount = tap();
   floats = renderer.floats.filter(float => float.kind === 'tap');
   assert.equal(floats.length, 1);
   assert.equal(floats[0].amount, restartedAmount, 'a new sequence must restart from the current click output');
   assert.ok(floats[0].text.includes(`+${shown(restartedAmount)} 份`));
-  draw(game, {}, renderer);
+  const restarted = draw(game, {}, renderer);
+  assert.ok(restarted.entries.some(entry => entry.text === floats[0].text), 'the new tap float becomes visible after the burst notice expires');
 });

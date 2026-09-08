@@ -5,6 +5,7 @@ const { selectCurrentTarget } = require('./experience');
 const { selectHeatGuide, selectRecoveryLesson } = require('./heat-guide');
 const { selectNextStep } = require('./next-step');
 const { selectOfflineSummary } = require('./offline-summary');
+const { PRODUCTION_FORMS } = require('./production-scene');
 const C={ink:'#283e32',muted:'#687764',paper:'#f8f6ed',white:'#fffdf7',green:'#366348',mint:'#deebd5',yellow:'#f4ca58',orange:'#df9954',line:'#dce3d2'};
 const rate=n=>n>0&&n<10?Number(n.toFixed(2)).toString():num(n);
 const HEALTH=['抵制不良游戏，拒绝盗版游戏。','注意自我保护，谨防受骗上当。','适度游戏益脑，沉迷游戏伤身。','合理安排时间，享受健康生活。'];
@@ -19,6 +20,7 @@ class GameInterface {
   lines(s,x,y,width,size=14,color=C.muted,line=21){return this.r.wrap(s,x,y,width,size,color,line);}
   box(x,y,w,h,fill=C.white,stroke){this.r.box(x,y,w,h,14,fill,stroke);}
   preview(cx,cy,size,stage){this.r.scene.drawMachinePreview(cx-size/2,cy-size/2,size,stage);}
+  productionPreview(cx,cy,size,stage){this.r.scene.drawProductionPreview(cx-size/2,cy-size/2,size,stage);}
   button(x,y,w,label,action,{fill=C.green,color=C.white,disabled=false,h=44,size=15,subLabel=''}={}){this.box(x,y,w,h,disabled?'#e6e8de':fill);if(!disabled&&action===this.r.guideAction)this.r.box(x-2,y-2,w+4,h+4,15,null,C.orange);this.label(label,x+w/2,y+h/2-(subLabel?8:0),w-16,size,disabled?C.muted:color,700,'center');if(subLabel)this.label(subLabel,x+w/2,y+h/2+11,w-16,11,disabled?C.muted:color,500,'center');if(!disabled)this.r.hit(x,y,w,h,action);}
   adButton(v,kind,y,label,placement='sheet'){const offer=v.rewards[kind];this.button(22,y,this.w-44,'广告 · '+(offer.available?label:this.r.rewardStatus(v,kind)),'ad:'+kind,{fill:C.yellow,color:C.ink,disabled:!offer.available});this.adEntries.push({kind,placement,available:offer.available,reason:offer.reason||''});}
   draw(v,ui,dt){
@@ -55,10 +57,14 @@ class GameInterface {
     const navY=h-52,sceneBottom=navY-8,sceneH=sceneBottom-sceneTop,heatY=sceneBottom-76;
     const walletX=x+10,walletY=hudTop+10,walletW=Math.min(184,cw-160);
     const orderX=w-152,orderY=Math.max(walletY,(ui.viewport.menuBottom||0)+8),orderW=130,modeY=orderY+48;
+    const evolving=!!(r.notice&&r.notice.kind==='evolve'&&!ui.toast&&!ui.modal);
     const expanded=this.isGoalExpanded(v,ui),goalY=Math.max(hudTop+112,modeY+52),goalH=132;
-    const tapTop=expanded?goalY+goalH+8:Math.max(hudTop+138,modeY+52);
-    this.feedbackY=tapTop+4;
-    r.scene.update(ui.sceneDt===undefined?dt:ui.sceneDt,v);
+    const ordinaryTapTop=expanded?goalY+goalH+8:Math.max(hudTop+138,modeY+52);
+    // Temporarily use the goal area for the reveal, then restore the player's
+    // expansion preference. The machine frame starts below the full banner.
+    this.feedbackY=evolving?Math.max(walletY+70,modeY+44)+6:ordinaryTapTop+4;
+    const tapTop=evolving?this.feedbackY+60:ordinaryTapTop;
+    r.scene.update(ui.adBusy?0:ui.sceneDt===undefined?dt:ui.sceneDt,v);
     r.scene.draw(x,sceneTop,cw,sceneH,v,{topInset:tapTop-sceneTop,bottomInset:112});
     // Read-only balances float over the scene, outside the production hit area.
     this.box(walletX,walletY,walletW,70,'rgba(255,253,247,.96)');
@@ -73,8 +79,8 @@ class GameInterface {
       this.label(v.boostSeconds>0?'增压 '+Math.ceil(v.boostSeconds)+' 秒':'第 '+(v.state.machine+1)+' 阶段',orderX+8,modeY+32,orderW-16,11,C.muted);
     }
     if(r.notice&&!ui.toast){
-      const yy=this.feedbackY,perfect=r.notice.perfect;
-      this.box(x+10,yy,cw-20,54,perfect?'#fff0bc':'#fff8df',perfect?'#c29b3f':undefined);
+      const yy=this.feedbackY,perfect=r.notice.perfect,evolved=r.notice.kind==='evolve';
+      this.box(x+10,yy,cw-20,54,evolved?C.mint:perfect?'#fff0bc':'#fff8df',evolved?C.green:perfect?'#c29b3f':undefined);
       this.label(r.notice.title,w/2,yy+17,cw-40,16,C.green,800,'center');
       this.label(perfect?r.notice.bonusText:r.notice.text,w/2,yy+39,cw-40,13,C.ink,600,'center');
     }
@@ -91,8 +97,10 @@ class GameInterface {
     this.progress(orderX+10,orderY+30,orderW-20,5,v.order.stageProgress,v.order.ready?C.yellow:C.green,v.order.ready?'#628169':'#dce5d5');
     r.hit(orderX,orderY,orderW,44,'order');
     this.heat(v,heatY);
-    this.goal(v,ui,target,goalY,goalH);
-    const nav=[['升级','upgrades'],['订单'+(sideReward?' · 奖':''),'order'],['任务'+(v.quests.readyCount?' · '+v.quests.readyCount:''),'quests'],['工厂','workshop']];
+    if(!evolving)this.goal(v,ui,target,goalY,goalH);
+    const researchReady=v.research&&v.research.active&&v.research.active.ready;
+    const researchNew=v.research&&v.research.unlocked&&!v.research.totalLevels&&!v.research.active;
+    const nav=[['升级'+(researchReady?' · 奖':researchNew?' · 新':''),'upgrades'],['订单'+(sideReward?' · 奖':''),'order'],['任务'+(v.quests.readyCount?' · '+v.quests.readyCount:''),'quests'],['工厂','workshop']];
     nav.forEach(([name,action],i)=>this.button(x+i*(cw+6)/4,navY,(cw-18)/4,name,action,{fill:action==='order'&&v.order.ready?C.green:C.mint,color:action==='order'&&v.order.ready?C.white:C.green,size:14}));
   }
   orderPercent(order){return order.ready?100:Math.min(99,Math.floor(order.stageProgress*100));}
@@ -149,17 +157,20 @@ class GameInterface {
     const m=ui.modal,r=this.r;r.zones=[];this.adEntries=[];
     this.top=12;this.bottom=this.h-12;this.bodyTop=80;this.box(6,this.top,this.w-12,this.h-24,C.white);
     this.button(this.w-56,19,44,'×','close',{fill:'#edf0e5',color:C.green,size:25,disabled:ui.adBusy});
-    const titles={upgrades:'设备升级',refinements:'工艺强化',heatLesson:'余热接力',workshop:'我的工厂',quests:'成长任务',order:'订单装车',commissions:'可选委托',souvenirs:'竣工收藏',machine:'设备换代',blueprint:'工厂蓝图',brand:'品牌合作',reward:'本次广告奖励',offline:'欢迎回来，小厂长',settings:'工厂设置',help:'玩法说明',privacy:'存档与隐私',health:'健康游戏忠告',sidebar:'侧边栏再来玩',stats:'经营记录',completion:'工厂竣工纪念',turbo:'涡轮增压',productionModes:'生产档位'};
+    const titles={researchBook:'研发手册',research:'风味研发',upgrades:'设备升级',refinements:'工艺强化',heatLesson:'余热接力',workshop:'我的工厂',quests:'成长任务',order:'订单装车',commissions:'可选委托',souvenirs:'竣工收藏',machine:'设备换代',blueprint:'工厂蓝图',brand:'品牌合作',reward:'本次广告奖励',offline:'欢迎回来，小厂长',settings:'工厂设置',help:'玩法说明',privacy:'存档与隐私',health:'健康游戏忠告',sidebar:'侧边栏再来玩',stats:'经营记录',completion:'工厂竣工纪念',turbo:'涡轮增压',productionModes:'生产档位'};
     const craftEntry=m.type==='upgrades'&&v.refinements&&v.refinements.unlocked;
     if(m.type==='heatLesson'&&!(v.milestones&&v.milestones.heatRecovery&&v.milestones.heatRecovery.unlocked))titles.heatLesson='火候练习';
     const commissionEntry=m.type==='order'&&v.commissions&&(v.commissions.unlocked||v.commissions.active);
-    if(ui.toast)this.label(ui.toast,22,43,this.w-(craftEntry||m.type==='refinements'||commissionEntry?188:m.type==='workshop'?144:88),14,C.green,700);
+    if(ui.toast)this.label(ui.toast,22,43,this.w-(craftEntry||m.type==='refinements'||m.type==='research'||commissionEntry?188:m.type==='workshop'?144:88),14,C.green,700);
     else this.text(titles[m.type]||'我的工厂',22,43,21,C.ink,800);
     if(m.type==='workshop')this.button(this.w-112,19,44,'⚙','settings',{fill:C.mint,color:C.green,size:22});
     if(craftEntry)this.button(this.w-150,19,86,'工艺 ›','refinements',{fill:C.yellow,color:C.green,size:13});
     if(m.type==='refinements')this.button(this.w-150,19,86,'升级 ›','upgrades',{fill:C.mint,color:C.green,size:13});
     if(commissionEntry)this.button(this.w-150,19,86,v.commissions.active&&v.commissions.active.ready?'委托 · 奖':'委托 ›','commissions',{fill:C.yellow,color:C.green,size:13});
+    if(m.type==='research')this.button(this.w-150,19,86,'手册 ›','researchBook',{fill:C.yellow,color:C.green,size:13});
     const type=m.type;
+    if(type==='research') { this.research(v,m); return; }
+    if(type==='researchBook') { this.researchBook(v); return; }
     if(type==='upgrades')this.upgrades(v,m,ui.focusUpgrade);
     else if(type==='refinements')this.refinements(v,m);
     else if(type==='heatLesson')this.heatLesson(v);
@@ -213,19 +224,73 @@ class GameInterface {
       this.text('余热接力 · 多头机＋爆裂玉米Lv16',22,428,14,C.green,700);
       this.lines('完美爆锅后，接下来10次点击各额外+1能量。',22,452,this.w-44,13,C.muted,19);
     }else if(!bulkUnlocked)this.lines('永久升级随设备换代保留。',22,428,this.w-44,14,C.muted,21);
-    this.backButton();
+    if(v.research&&v.research.unlocked)this.button(22,this.h-64,this.w-44,v.research.active&&v.research.active.ready?'研发完成 · 领取永久提升':'免费风味研发 · '+v.research.totalLevels+' / '+v.research.maxLevels,'research',{fill:C.yellow,color:C.green});
+    else this.backButton();
   }
   workshop(v){
-    const n=v.nextMachine,modes=v.productionModes,unlocked=modes&&modes.unlocked,small=this.h<650;
+    const n=v.nextMachine,modes=v.productionModes,unlocked=modes&&modes.unlocked,small=this.h<(v.research&&v.research.unlocked?760:650);
     this.preview(this.w/2,small?120:147,small?80:125,v.state.machine);
     this.text(v.machine.name,this.w/2,small?174:208,18,C.green,750,'center');
     const rows=[['下一台：'+(n?n.name:'全部落成'),'machine'],['六阶段工厂蓝图','blueprint']];
+    if(v.research&&v.research.unlocked)rows.push(['风味研发 · '+v.research.totalLevels+' / '+v.research.maxLevels,'research']);
     if(unlocked){const current=modes.options.find(mode=>mode.id===modes.current);rows.push(['生产档位 · '+current.name,'productionModes']);}
     rows.push(['品牌合作 · 累计 +'+v.brand.bonusPercent+'%','brand'],['涡轮增压 · '+(v.boostSeconds>0?'剩余 '+Math.ceil(v.boostSeconds)+' 秒':'自动产速 ×3'),'turbo'],['经营记录','stats']);
     if(v.souvenirs&&v.souvenirs.unlocked)rows.push(['竣工收藏 · '+v.souvenirs.ownedCount+' / '+v.souvenirs.total,'souvenirs']);
     const short={machine:n?'设备换代':'设备已落成',blueprint:'工厂蓝图',productionModes:'生产档位',brand:'品牌 +'+v.brand.bonusPercent+'%',turbo:'涡轮增压',stats:'经营记录',souvenirs:'竣工收藏 '+(v.souvenirs?v.souvenirs.ownedCount:0)+'/3'};
-    rows.forEach(([s,a],i)=>this.button(small?22+i%2*(this.w-38)/2:22,(small?195:232)+(small?Math.floor(i/2)*54:i*53),small?(this.w-50)/2:this.w-44,small?short[a]:s,a,{fill:a==='souvenirs'?C.yellow:C.mint,color:C.green,size:small?14:15}));
+    short.research=v.research&&v.research.active&&v.research.active.ready?'研发 · 领提升':'免费风味研发';
+    rows.forEach(([s,a],i)=>this.button(small?22+i%2*(this.w-38)/2:22,(small?195:232)+(small?Math.floor(i/2)*54:i*53),small?(this.w-50)/2:this.w-44,small?short[a]:s,a,{fill:['souvenirs','research'].includes(a)?C.yellow:C.mint,color:C.green,size:small?14:15}));
     this.backButton();
+  }
+  research(v,m){
+    const research=v.research;m.researchQuotes={};
+    if(!research||!research.unlocked){this.lines('完成第10张主线订单，开放风味研发。\n选择课题，正常生产即可获得永久提升。',22,99,this.w-44,16,C.green,26);this.backButton();return;}
+    const active=research.active,compact=this.h<600;
+    this.label('研发手册 · '+research.totalLevels+' / '+research.maxLevels+' 项',22,91,this.w-44,17,C.green,750);
+    this.label('免费试制 · 产量同时推进主线和委托',22,116,this.w-44,12,C.muted);
+    if(active){
+      this.box(16,136,this.w-32,compact?171:195,C.mint);
+      this.label(active.projectName+' · '+active.level+'级',28,160,this.w-56,18,C.ink,750);
+      const bonus=Math.round((CONFIG.research.multiplier-1)*100);
+      this.label(active.key==='yield'?'产量永久 +'+bonus+'% · 点击、自动、爆锅':'售价永久 +'+bonus+'% · 出售与离线',28,188,this.w-56,12,C.green);
+      this.progress(28,211,this.w-56,10,active.progress);
+      this.label(num(Math.min(active.production,active.productionTarget))+' / '+num(active.productionTarget)+' 份',28,242,this.w-56,15,C.ink,650);
+      this.label(active.ready?'试制完成，领取后立即生效':'自动生产、点击、爆锅和后续离线均可推进',28,272,this.w-56,12,C.muted);
+      if(!compact)this.label('同一时间研究一项，验收后可选另一条路线。',22,359,this.w-44,12,C.green);
+      this.label('放弃清空本次进度；永久等级保留。',22,compact?332:383,this.w-44,12,C.muted);
+      this.button(22,this.h-170,this.w-44,active.ready?'验收 · 获得永久提升':'继续生产 · '+Math.floor(active.progress*100)+'%',active.ready?'researchClaim:'+active.id:'close',{fill:C.green});
+      this.button(22,this.h-116,this.w-44,'放弃本次试制','researchCancel:'+active.id,{fill:C.mint,color:C.green});
+    }else{
+      research.options.forEach((item,i)=>{
+        const y=136+i*(compact?146:167),p=item.preview,done=item.level>=item.maxLevel;
+        m.researchQuotes[item.key]={...item};
+        this.box(16,y,this.w-32,compact?138:156,i===0?C.mint:'#fff3d5');
+        this.label(item.name+' · '+item.level+' / '+item.maxLevel,28,y+22,this.w-56,17,C.ink,750);
+        this.label(done?'本路线全部完成':item.projectName+' · 下一级永久 +'+Math.round((CONFIG.research.multiplier-1)*100)+'%',28,y+48,this.w-56,13,C.green);
+        this.label(p?'常规 '+rate(p.before)+' → '+rate(p.after)+' '+p.unit:'永久能力持续生效',28,y+73,this.w-56,12,C.ink);
+        this.label(done?'研发手册已收录':'新增 '+num(item.productionTarget)+' 份',28,y+(compact?111:125),this.w-177,12,C.muted);
+        this.button(this.w-145,y+(compact?87:102),117,done?'已完成':'免费开始','researchStart:'+item.key+':'+item.id,{fill:C.green,disabled:!item.canStart,size:14});
+      });
+      if(!compact)this.label(research.complete?'所有课题已收录，继续工艺与竣工收藏。':'产量路线更快赶单，配方路线更快攒金币。',22,492,this.w-44,13,C.green);
+    }
+    this.backButton();
+  }
+  researchBook(v){
+    const research=v.research;
+    if(!research||!research.unlocked){this.lines('完成第10张主单，收录你的风味研发。',22,99,this.w-44,16,C.green,25);this.backButton();return;}
+    const half=(this.w-50)/2,levels=v.state.research.levels;
+    this.label('八组课题 · 每组完成三次试制',22,91,this.w-44,14,C.green,700);
+    ['yield','value'].forEach((key,column)=>{
+      const config=CONFIG.research.routes[key];
+      config.projects.forEach((name,index)=>{
+        const x=22+column*(half+6),y=114+index*76,completed=Math.max(0,Math.min(3,levels[key]-index*3));
+        this.box(x,y,half,68,completed===3?C.mint:'#f2f0e6');
+        this.label(name,x+11,y+17,half-22,14,C.ink,700);
+        this.label((key==='yield'?'产量':'售价')+' · '+completed+' / 3',x+11,y+39,half-22,11,C.green);
+        for(let dot=0;dot<3;dot++)this.r.box(x+11+dot*(half-28)/3,y+53,(half-40)/3,5,2,dot<completed?C.green:'#d7dbcc');
+      });
+    });
+    this.label('产量 ×'+Math.pow(CONFIG.research.multiplier,levels.yield).toFixed(2)+' · 售价 ×'+Math.pow(CONFIG.research.multiplier,levels.value).toFixed(2),22,432,this.w-44,13,C.green,750);
+    this.button(22,this.h-64,this.w-44,'返回风味研发','research',{fill:C.green});
   }
   refinements(v,m){
     const craft=v.refinements;
@@ -291,27 +356,40 @@ class GameInterface {
   }
   machine(v,m){
     if(m.type==='blueprint'){
-      const page=Math.max(0,Math.min(1,m.page||0)),perPage=3;
+      const page=Math.max(0,Math.min(1,m.page||0)),perPage=3,step=Math.min(118,Math.floor((this.h-218)/3));
       CONFIG.machines.slice(page*perPage,(page+1)*perPage).forEach((n,i)=>{
-        const index=page*perPage+i,y=87+i*115;
-        this.box(16,y,this.w-32,105,index===v.state.machine?C.mint:'#f2f2e8');
-        this.preview(73,y+57,89,index);this.text(n.name,128,y+24,16,C.ink,750);
-        this.label(index<=v.state.machine?'已落成':num(n.cost)+' 金币',128,y+47,this.w-151,14,C.green);
-        this.text(index===v.state.machine?'当前设备':index<v.state.machine?'已升级':n.requiredOrders+' 张主线订单',128,y+71,13,C.muted);
+        const index=page*perPage+i,y=84+i*step,form=PRODUCTION_FORMS[index];
+        this.box(16,y,this.w-32,step-7,index===v.state.machine?C.mint:'#f2f2e8');
+        this.productionPreview(64,y+(step-7)/2,72,index);
+        this.label(form.unit+' · '+n.name,110,y+18,this.w-132,13,C.ink,750);
+        this.label(form.rhythm,110,y+40,this.w-132,12,C.green,650);
+        this.label(index===v.state.machine?'当前产出':index<v.state.machine?'已落成':num(n.cost)+' 金币 · '+n.requiredOrders+' 单',110,y+61,this.w-132,11,C.muted);
         const ability=index===2?'解锁生产档位':index===3?'批量升级 · 玉米Lv16余热':index===4?'连续生产的自动流水线':'';
-        if(ability)this.label(ability,128,y+94,this.w-151,11,C.green);
+        if(ability)this.label(ability,110,y+82,this.w-132,11,C.green);
+        else this.label(form.unlock,110,y+82,this.w-132,11,C.green);
       });
-      this.button(22,this.h-122,112,page===0?'后 3 台 →':'← 前 3 台','blueprintPage:'+(1-page),{fill:C.mint,color:C.green});this.backButton();return;
+      this.button(22,this.h-122,112,page===0?'后 3 代 →':'← 前 3 代','blueprintPage:'+(1-page),{fill:C.mint,color:C.green});
+      this.label('产出形态 · '+(page+1)+' / 2',this.w-22,this.h-100,this.w-166,12,C.green,650,'right');this.backButton();return;
     }
     const n=v.nextMachine,p=v.machinePreview;
-    if(!n){this.text('六阶段设备已经全部落成',22,108,18,C.green,750);this.backButton();return;}
-    this.preview(this.w*.27,151,112,v.state.machine);this.r.icon('arrow',this.w/2-10,135,20,C.green);this.preview(this.w*.73,151,122,v.state.machine+1);
-    this.text(v.machine.name,this.w*.27,215,15,C.muted,600,'center');this.text(n.name,this.w*.73,215,16,C.green,750,'center');
-    this.text('永久自动金币 / 秒',22,244,14,C.muted);this.label(rate(p.incomeBefore)+' → '+rate(p.incomeAfter),22,269,this.w-44,24,C.green,800);
-    this.label('点击 '+rate(p.tapBefore)+' → '+rate(p.tapAfter)+' 份',22,293,this.w-44,14,C.ink);
+    if(!n){this.text('六代工厂，整垛出货',22,108,20,C.green,750);this.productionPreview(this.w/2,205,140,5);this.label(PRODUCTION_FORMS[5].rhythm,this.w/2,305,this.w-44,16,C.green,650,'center');this.backButton();return;}
+    const compact=this.h<640,cardY=81,cardH=compact?104:148,cardW=(this.w-56)/2;
+    [v.machine,n].forEach((machine,i)=>{
+      const stage=v.state.machine+i,x=22+i*(cardW+12),form=PRODUCTION_FORMS[stage];
+      this.box(x,cardY,cardW,cardH,i?C.mint:'#f0f2e8',i?C.green:undefined);
+      this.label(machine.name,x+cardW/2,cardY+16,cardW-14,13,i?C.green:C.muted,650,'center');
+      this.productionPreview(x+cardW/2,cardY+(compact?53:78),compact?80:112,stage);
+      this.label(form.unit,x+cardW/2,cardY+cardH-13,cardW-12,14,i?C.green:C.muted,750,'center');
+    });
+    this.r.arrow(this.w/2-10,cardY+cardH/2-10,20,C.green);
+    const form=PRODUCTION_FORMS[v.state.machine+1],y=cardY+cardH+21;
+    this.label(form.unlock,22,y,this.w-44,16,C.green,750);
+    this.label(form.rhythm,22,y+21,this.w-44,13,C.muted);
+    this.text('永久自动金币 / 秒',22,y+44,12,C.muted);this.label(rate(p.incomeBefore)+' → '+rate(p.incomeAfter),22,y+67,this.w-44,22,C.green,800);
+    this.label('点击 '+rate(p.tapBefore)+' → '+rate(p.tapAfter)+' 份',22,y+88,this.w-44,13,C.ink);
     const ability=n.id===2?'新能力：自由切换生产档位':n.id===3?(v.state.upgrades.tap>=16?'新能力：批量升级＋余热接力':'批量升级；玉米Lv16解锁余热'):n.id===4?'连续生产，开动自动流水线':'';
-    if(ability)this.label(ability,22,317,this.w-44,14,C.green,650);
-    this.text(v.state.coins>=n.cost?'金币已备齐':'还差 '+num(Math.ceil(n.cost-v.state.coins))+' 金币',22,344,16,C.ink,650);this.text('主线订单 '+Math.min(v.state.orderIndex,n.requiredOrders)+' / '+n.requiredOrders,22,370,14,C.muted);
+    this.label(ability||'永久升级保留，开机即按新形态出货',22,y+110,this.w-44,12,C.green,650);
+    this.label((v.state.coins>=n.cost?'金币已备齐':'还差 '+num(Math.ceil(n.cost-v.state.coins))+' 金币')+' · 订单 '+Math.min(v.state.orderIndex,n.requiredOrders)+' / '+n.requiredOrders,22,y+132,this.w-44,13,C.ink,650);
     const step=v.evolveReason==='not-enough-coins'?selectNextStep(v,null,{suppressModeAdvice:true}):null;
     if(step&&step.kind==='upgrade'&&step.enabled&&step.estimate){
       const y=this.h-176;this.box(22,y,this.w-44,44,C.green);
@@ -319,7 +397,7 @@ class GameInterface {
       this.label('按常驻收入估算，可更快攒齐',this.w/2,y+33,this.w-60,11,C.white,500,'center');
       this.r.hit(22,y,this.w-44,44,'fundingUpgrade:'+step.upgradeKey);
     }else if(step&&step.kind==='refinement')this.button(22,this.h-176,this.w-44,'查看提速工艺','refinements',{subLabel:'按常驻收入估算，可更快攒齐'});
-    else this.button(22,this.h-176,this.w-44,v.canEvolve?'换代，开动新机器！':v.evolveReason==='orders-required'?'先完成所需订单':'金币不足，继续生产','evolve',{disabled:!v.canEvolve});
+    else this.button(22,this.h-176,this.w-44,v.canEvolve?'换代，开启'+form.unit+'！':v.evolveReason==='orders-required'?'先完成所需订单':'金币不足，继续生产','evolve',{disabled:!v.canEvolve});
     this.adButton(v,'sponsor',this.h-120,'查看设备赞助','machine');this.backButton();
   }
   order(v){

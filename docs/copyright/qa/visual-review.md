@@ -1,5 +1,7 @@
 # 最终材料视觉与结构核验
 
+此页与 `validation.json` 保留原草稿的历史核验结果，不代表当前游戏源码。2026-09-08 清理了 45 张逐页 PNG 和 6 张概览 JPG；原始 PDF、DOCX、源码快照及审核记录仍保留。需要再次查看时，可用 Poppler 从 `deliverables/copyright/` 中的 PDF 重新渲染；页图不再纳入 Git。
+
 核验对象为deliverables/copyright下最终10页操作说明书PDF、对应DOCX及35页程序鉴别材料PDF。程序PDF包括1页内部说明封面与34页完整程序正文。未增加空代码或重复bundle补页。
 
 - 标准render_docx.py已调用，失败原因为系统缺少soffice。随后在新建、隐藏的Word实例中对同一份DOCX实际执行ExportAsFixedFormat导出PDF，未跳过实际文档渲染。使用Poppler将最终每个PDF页面导出PNG。
@@ -10,4 +12,4 @@
 - 9个源文件原始字节、源快照与SHA-256清单全部一致。长源行拼回验证通过，当前树与最终快照相同；renderer SHA-256为cfba584c4bc9f378ba537e60b9fad214849d04c72a8d083c294cb089421d5763。
 - 说明书第2至6页包含约31至32行正文（不计页眉页脚），正文末页和封面/图页较少；程序的排版行不等同非空逻辑源行。正式受理对末页、图页及折行的要求须按实际登记端核对，此处只确认草稿的可读性、完整来源和技术一致性，不声明登记合规已获认可。
 
-结构数据见validation.json。说明书概览为manual/overview-1.jpg与manual/overview-2.jpg；程序概览为program/overview-1.jpg至overview-4.jpg。所有page-NN.png均是内部QA文件，不作为额外交付物。
+历史结构数据见 `validation.json`。当时生成的 `manual/` 和 `program/` 下概览及逐页图片均为可重建的内部 QA 文件，不作为额外交付物。

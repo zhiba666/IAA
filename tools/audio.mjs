@@ -1,7 +1,7 @@
 // Original PCM sound assets for the native mini-game audio API.
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-const sounds={pop:[.10,[760]],burst:[.42,[220,330,440,550,660,770]],upgrade:[.48,[440,554,659,880]],order:[.36,[659,880,1047]],complete:[.82,[523,659,784,1047,784,1047]],click:[.07,[440]],error:[.14,[160]],heatReady:[.2,[880,1175]]};
+const sounds={pop:[.10,[760]],burst:[.42,[220,330,440,550,660,770]],upgrade:[.48,[440,554,659,880]],machine:[1.44,[180,120,90,120,190,440,554,659,880]],order:[.36,[659,880,1047]],complete:[.82,[523,659,784,1047,784,1047]],click:[.07,[440]],error:[.14,[160]],heatReady:[.2,[880,1175]]};
 export async function generateAudio(directory){
   await mkdir(directory,{recursive:true});
   for(const [name,[duration,notes]] of Object.entries(sounds)){

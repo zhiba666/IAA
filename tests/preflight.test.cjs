@@ -15,7 +15,7 @@ function fixture(overrides = {}) {
     'project.config.json': JSON.stringify({ appid: config.appId, compileType: 'game', setting: { urlCheck: true } }),
     'config.js': `globalThis.POPCORN_CONFIG = ${JSON.stringify(config)};\n`,
     'game.bundle.js': '/* test-only bundle */'.repeat(10),
-    ...Object.fromEntries(['pop', 'burst', 'upgrade', 'order', 'complete', 'click', 'error', 'heatReady'].map(name => [`audio/${name}.wav`, wav]))
+    ...Object.fromEntries(['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error', 'heatReady'].map(name => [`audio/${name}.wav`, wav]))
   }).map(([name, value]) => [name, Buffer.isBuffer(value) ? value : Buffer.from(value)]));
   return { files, entries: [...files].map(([name, bytes]) => ({ name, size: bytes.length })), localConfigText: JSON.stringify(config) };
 }
@@ -142,10 +142,12 @@ test('preflight catches missing and corrupt WAV assets', async () => {
   const { inspectPackage } = await api;
   const input = fixture();
   input.files.delete('audio/pop.wav');
+  input.files.delete('audio/machine.wav');
   input.files.set('audio/click.wav', Buffer.from('not a wav'));
   const report = inspectPackage(input);
   assert.equal(report.codeReady, false);
   assert.match(report.checks.find(check => check.code === 'package-files').message, /pop.wav/);
+  assert.match(report.checks.find(check => check.code === 'package-files').message, /machine.wav/);
   assert.match(report.checks.find(check => check.code === 'audio-format').message, /click.wav/);
 });
 
