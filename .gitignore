@@ -1,0 +1,7 @@
+node_modules/
+web/game.bundle.js
+build/
+artifacts/
+*.log
+config.local.json
+web/visual-check.html

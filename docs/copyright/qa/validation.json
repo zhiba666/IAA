@@ -1,0 +1,481 @@
+{
+  "manual": {
+    "file": "小小爆米花厂_1.0.0_操作说明书_内部草稿.pdf",
+    "pages": 10,
+    "all_pages_A4": true,
+    "details": [
+      {
+        "page": 1,
+        "text_lines_including_headers": 14,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          521.8801000000002,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 2,
+        "text_lines_including_headers": 34,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          522.72925,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 3,
+        "text_lines_including_headers": 34,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          523.8034000000001,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 4,
+        "text_lines_including_headers": 33,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          522.6091,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 5,
+        "text_lines_including_headers": 34,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          521.8801000000002,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 6,
+        "text_lines_including_headers": 34,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          522.24735,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 7,
+        "text_lines_including_headers": 26,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          521.8801000000002,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 8,
+        "text_lines_including_headers": 11,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          521.8801000000002,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 9,
+        "text_lines_including_headers": 9,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          519.834,
+          806.7379999999999
+        ]
+      },
+      {
+        "page": 10,
+        "text_lines_including_headers": 9,
+        "text_bounds_pt": [
+          70.8,
+          36.83000000000004,
+          524.3933999999999,
+          806.7379999999999
+        ]
+      }
+    ]
+  },
+  "program": {
+    "file": "小小爆米花厂_1.0.0_程序鉴别材料_内部草稿.pdf",
+    "pages": 35,
+    "all_pages_A4": true,
+    "details": [
+      {
+        "page": 1,
+        "text_lines_including_headers": 24,
+        "text_bounds_pt": [
+          55.0,
+          70.26480000000004,
+          545.0,
+          658.2057178
+        ]
+      },
+      {
+        "page": 2,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 3,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 4,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 5,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 6,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 7,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 8,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 9,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 10,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 11,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 12,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 13,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 14,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 15,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 16,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 17,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 18,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 19,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 20,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 21,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 22,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 23,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 24,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 25,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 26,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 27,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 28,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 29,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 30,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 31,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 32,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 33,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 34,
+        "text_lines_including_headers": 53,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      },
+      {
+        "page": 35,
+        "text_lines_including_headers": 10,
+        "text_bounds_pt": [
+          40.0,
+          20.296050000000037,
+          555.0,
+          803.0148
+        ]
+      }
+    ]
+  },
+  "docx": {
+    "file": "小小爆米花厂_1.0.0_操作说明书_内部草稿.docx",
+    "paragraphs": 117,
+    "inline_images": 6,
+    "author": "",
+    "page_width_mm": 210.00861111111112,
+    "page_height_mm": 297.0036111111111,
+    "renderer": "Microsoft Word ExportAsFixedFormat, then Poppler",
+    "standard_render_docx": "Attempted; missing soffice (WinError 2), Word used for actual DOCX rendering"
+  },
+  "source_integrity": {
+    "files": 9,
+    "all_match_current_tree": true,
+    "all_match_snapshot": true
+  }
+}

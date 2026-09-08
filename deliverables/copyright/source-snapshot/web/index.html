@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+  <meta name="theme-color" content="#edf2e9">
+  <meta name="description" content="从一口手摇锅，到整座爆米花工厂。点击、爆锅、升级，创造属于你的爆米花纪录。">
+  <title>小小爆米花厂 · 第一版</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e9eee5}
+    body{touch-action:none;overscroll-behavior:none;font-family:system-ui,'Microsoft YaHei',sans-serif}
+    canvas{display:block;position:fixed;inset:0;width:100%;height:100%;touch-action:none;outline:none}
+    .loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;color:#264333;gap:12px;pointer-events:none}
+    .loading strong{font-size:24px}.loading span{font-size:13px;color:#6e7d71}
+    .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading"><strong>小小爆米花厂</strong><span>正在给第一锅玉米加热…</span></div>
+  <p class="sr-only">游戏快捷键：空格生产，1、2、3升级，O领取订单，M查看机器，Escape关闭面板。浏览器广告为明确标注的模拟体验。</p>
+  <script>globalThis.POPCORN_CONFIG={allowSimulatedAds:true,appId:'',rewardAdUnitId:'',interstitialAdUnitId:''};</script>
+  <script src="game.bundle.js"></script>
+</body>
+</html>

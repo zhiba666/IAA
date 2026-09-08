@@ -1,0 +1,1658 @@
+﻿file_id,path,line,continuation,text,pdf_page,program_page,printed_row
+1,src/main.js,1,0,'use strict';,2,1,1
+1,src/main.js,2,0,"const { Game, CONFIG, formatNumber } = require('./core');",2,1,2
+1,src/main.js,3,0,const { createPlatform } = require('./platform');,2,1,3
+1,src/main.js,4,0,const { AudioEngine } = require('./audio');,2,1,4
+1,src/main.js,5,0,const { Renderer } = require('./renderer');,2,1,5
+1,src/main.js,6,0,,2,1,6
+1,src/main.js,7,0,const platform = createPlatform();,2,1,7
+1,src/main.js,8,0,const canvas = platform.canvas;,2,1,8
+1,src/main.js,9,0,const ctx = canvas.getContext('2d');,2,1,9
+1,src/main.js,10,0,const sound = new AudioEngine();,2,1,10
+1,src/main.js,11,0,const initialSave=platform.load();,2,1,11
+1,src/main.js,12,0,let initialLoadError=platform.lastStorageError;,2,1,12
+1,src/main.js,13,0,let game = new Game({ save: initialSave });,2,1,13
+1,src/main.js,14,0,const renderer = new Renderer(ctx);,2,1,14
+1,src/main.js,15,0,"const ui = { tab:'upgrades', modal:null, toast:'', toastSeconds:0, adBusy:false, saved:false, ",2,1,15
+1,src/main.js,15,1,"isDouyin:platform.isDouyin,",2,1,16
+1,src/main.js,16,0,"  startup:true, sidebarBusy:false, sidebar:{supported:false,checking:false,fromSidebar:false} };",2,1,17
+1,src/main.js,17,0,// Only display real identifiers explicitly supplied in the local release configuration.,2,1,18
+1,src/main.js,18,0,const publication=platform.config&&platform.config.publication||{};,2,1,19
+1,src/main.js,19,0,"ui.publication=[['批准文号',publication.approvalNumber],['网络游戏出版号',",2,1,20
+1,src/main.js,19,1,"publication.publicationNumber],['著作权登记号',publication.copyrightNumber]]",2,1,21
+1,src/main.js,20,0,"  .filter(([,value])=>typeof value==='string'&&value.trim()).map(([label,value])=>`${label}：${",2,1,22
+1,src/main.js,20,1,"value.trim().slice(0,100)}`);",2,1,23
+1,src/main.js,21,0,"let scale=1, ox=0, oy=0, ratio=1, width=480, height=920;",2,1,24
+1,src/main.js,22,0,"let hidden=false, hideForAd=false, lastTime=0, saveTimer=0, autoParticleTimer=0, ",2,1,25
+1,src/main.js,22,1,"toastSaveFailed=false, pointer=null;",2,1,26
+1,src/main.js,23,0,const reasons={,2,1,27
+1,src/main.js,24,0,"  'not-enough-coins':'金币还差一点，继续生产吧', 'orders-required':'先完成所需主线订单', ",2,1,28
+1,src/main.js,24,1,"'max-level':'这项升级已经满级',",2,1,29
+1,src/main.js,25,0,"  'max-machine':'全部设备已经落成', 'order-not-ready':'再生产一些，就能装车了', ",2,1,30
+1,src/main.js,25,1,"'intro-first':'先熟悉工厂，营业 90 秒后开放激励',",2,1,31
+1,src/main.js,26,0,"  'reward-cooldown':'激励正在准备，请稍后再来', 'no-offline-reward':'离线收益已经领取', ",2,1,32
+1,src/main.js,26,1,"'already-affordable':'金币足够，可以直接换代',",2,1,33
+1,src/main.js,27,0,"  'production-required':'先提升自动生产能力', 'already-claimed':'这份奖励已经到账', ",2,1,34
+1,src/main.js,27,1,"'stale-order':'订单已结算，奖励不会重复领取',",2,1,35
+1,src/main.js,28,0,"  'stale-offline':'离线收益已变化，请重新查看', 'unknown-reward':'这次奖励已失效，请重新选择', ",2,1,36
+1,src/main.js,28,1,"'busy':'广告正在处理中',",2,1,37
+1,src/main.js,29,0,"  'unavailable':'广告暂不可用，工厂仍可正常生产', 'cancelled':'未完整观看，未发放广告奖励', ",2,1,38
+1,src/main.js,29,1,"'failed':'广告加载失败，请稍后再试',",2,1,39
+1,src/main.js,30,0,  'timeout':'广告响应超时，工厂可继续营业',2,1,40
+1,src/main.js,31,0,};,2,1,41
+1,src/main.js,32,0,function toast(message) {ui.toast=message;ui.toastSeconds=3.5;},2,1,42
+1,src/main.js,33,0,function save() {,2,1,43
+1,src/main.js,34,0,  const ok=platform.save(game.exportSave());ui.saved=ok;,2,1,44
+1,src/main.js,35,0,  if(!ok&&!toastSaveFailed){toast('当前进度暂未保存，请检查设备存储空间');toastSaveFailed=true;},2,1,45
+1,src/main.js,36,0,  if(ok)toastSaveFailed=false;,2,1,46
+1,src/main.js,37,0,  return ok;,2,1,47
+1,src/main.js,38,0,},2,1,48
+1,src/main.js,39,0,function closeModal() {if(ui.adBusy)return;if(ui.modal&&ui.modal.quote)game.cancelReward(ui.modal.quot,2,1,49
+1,src/main.js,39,1,e.id);ui.modal=null;save();},2,1,50
+1,src/main.js,40,0,function openModal(type) {if(ui.adBusy)return;closeModal();ui.modal={type};sound.play('click');},3,2,1
+1,src/main.js,41,0,function configure() {sound.setEnabled(game.state.settings.sound);},3,2,2
+1,src/main.js,42,0,function restore() {,3,2,3
+1,src/main.js,43,0,  configure();,3,2,4
+1,src/main.js,44,0,  // Pending quotes survive snapshots only to guarantee unique identifiers. A restarted app,3,2,5
+1,src/main.js,45,0,"  // has no verified SDK completion callback, so it must discard unfulfilled requests.",3,2,6
+1,src/main.js,46,0,  for(const id of Object.keys(game.state.pendingRewards))game.cancelReward(id);,3,2,7
+1,src/main.js,47,0,  ui.modal=game.state.offline&&game.state.offline.coins>0?{type:'offline'}:null;,3,2,8
+1,src/main.js,48,0,  if(game.loadWarning)toast(game.loadWarning);,3,2,9
+1,src/main.js,49,0,  else if(initialLoadError){toast('存档读取失败，已安全开始新工厂');initialLoadError='';},3,2,10
+1,src/main.js,50,0,  save();,3,2,11
+1,src/main.js,51,0,},3,2,12
+1,src/main.js,52,0,function resize(info) {,3,2,13
+1,src/main.js,53,0,"  width=info.width;height=info.height;ratio=Math.min(2,info.pixelRatio||1);",3,2,14
+1,src/main.js,54,0,  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);,3,2,15
+1,src/main.js,55,0,  const safe=info.safeArea||{};,3,2,16
+1,src/main.js,56,0,"  const top=platform.isDouyin?Math.max(0,safe.top||0)+18:0;",3,2,17
+1,src/main.js,57,0,"  const bottom=platform.isDouyin?Math.max(0,height-(safe.bottom||height))+6:0;",3,2,18
+1,src/main.js,58,0,"  scale=Math.min(width/480,(height-top-bottom)/920);ox=(width-480*scale)/2;",3,2,19
+1,src/main.js,58,1,oy=top+(height-top-bottom-920*scale)/2;,3,2,20
+1,src/main.js,59,0,},3,2,21
+1,src/main.js,60,0,function processEvents() {,3,2,22
+1,src/main.js,61,0,  for(const e of game.drainEvents()){,3,2,23
+1,src/main.js,62,0,    if(e.type==='produce'){,3,2,24
+1,src/main.js,63,0,      if(e.source==='tap'){renderer.emit(e);sound.play('pop');},3,2,25
+1,src/main.js,64,0,      else if(e.source==='auto'&&autoParticleTimer>=.12){renderer.emit(e);autoParticleTimer=0;},3,2,26
+1,src/main.js,65,0,    }else{,3,2,27
+1,src/main.js,66,0,      renderer.emit(e);sound.play(e.type==='evolve'?'machine':e.type);,3,2,28
+1,src/main.js,67,0,"      platform.track(e.type,e);",3,2,29
+1,src/main.js,68,0,      if(e.type==='burst'&&game.state.settings.haptics)platform.vibrate();,3,2,30
+1,src/main.js,69,0,      if(e.type==='evolve')toast(`${game.getView().machine.name}开动了！`);,3,2,31
+1,src/main.js,70,0,      if(e.type==='complete')ui.modal={type:'completion'};,3,2,32
+1,src/main.js,71,0,    },3,2,33
+1,src/main.js,72,0,  },3,2,34
+1,src/main.js,73,0,},3,2,35
+1,src/main.js,74,0,function result(actionResult) {,3,2,36
+1,src/main.js,75,0,  if(!actionResult||!actionResult.ok){if(actionResult)toast(reasons[actionResult.reason]||'暂时无法操作,3,2,37
+1,src/main.js,75,1,，请稍后再试');return false;},3,2,38
+1,src/main.js,76,0,  processEvents();save();return true;,3,2,39
+1,src/main.js,77,0,},3,2,40
+1,src/main.js,78,0,function offerReward(kind) {,3,2,41
+1,src/main.js,79,0,"  const view=game.getView(),offer=view.rewards[kind];",3,2,42
+1,src/main.js,80,0,  if(!offer||!offer.available){toast(offer&&offer.reason==='reward-cooldown'?`下次激励还需 ${,3,2,43
+1,src/main.js,80,1,Math.ceil(offer.cooldown)} 秒`:reasons[offer&&offer.reason]||'本次激励暂不可用');return;},3,2,44
+1,src/main.js,81,0,  closeModal();const quote=game.quoteReward(kind);,3,2,45
+1,src/main.js,82,0,  if(!quote){toast('奖励正在准备，请稍后再试');return;},3,2,46
+1,src/main.js,83,0,"  ui.modal={type:'reward',quote};platform.track('reward_offer',{kind,amount:quote.amount});save();",3,2,47
+1,src/main.js,84,0,},3,2,48
+1,src/main.js,85,0,async function watch(simulate) {,3,2,49
+1,src/main.js,86,0,  if(ui.adBusy||!ui.modal||!ui.modal.quote)return;,3,2,50
+1,src/main.js,87,0,  const quote=ui.modal.quote;ui.adBusy=true;save();,4,3,1
+1,src/main.js,88,0,  let response;,4,3,2
+1,src/main.js,89,0,"  try{response=await platform.reward(quote.kind,simulate?{simulate}:undefined);}catch(_){response={",4,3,3
+1,src/main.js,89,1,"completed:false,reason:'failed'};}",4,3,4
+1,src/main.js,90,0,  ui.adBusy=false;,4,3,5
+1,src/main.js,91,0,  if(response.completed){,4,3,6
+1,src/main.js,92,0,    ui.modal=null;const applied=game.applyReward(quote.id);,4,3,7
+1,src/main.js,93,0,    if(result(applied)){toast(quote.kind==='turbo'?'涡轮启动！自动生产 3 倍，持续 90 秒':`奖励到账 +${,4,3,8
+1,src/main.js,93,1,"formatNumber(applied.coins)} 金币`);platform.track('reward_granted',{kind:quote.kind,",4,3,9
+1,src/main.js,93,2,coins:applied.coins});},4,3,10
+1,src/main.js,94,0,  }else{,4,3,11
+1,src/main.js,95,0,    game.cancelReward(quote.id);,4,3,12
+1,src/main.js,96,0,    ui.modal=quote.kind==='order'?{type:'order'}:quote.kind==='offline'&&game.state.offline?{,4,3,13
+1,src/main.js,96,1,type:'offline'}:quote.kind==='sponsor'?{type:'machine'}:null;,4,3,14
+1,src/main.js,97,0,    toast(reasons[response.reason]||'广告未完成，奖励未领取');save();,4,3,15
+1,src/main.js,98,0,  },4,3,16
+1,src/main.js,99,0,  lastTime=0;,4,3,17
+1,src/main.js,100,0,},4,3,18
+1,src/main.js,101,0,async function maybeInterstitial() {,4,3,19
+1,src/main.js,102,0,  if(ui.adBusy||hidden||ui.modal)return;,4,3,20
+1,src/main.js,103,0,  ui.adBusy=true;,4,3,21
+1,src/main.js,104,0,  try{await platform.interstitial();}finally{ui.adBusy=false;lastTime=0;save();},4,3,22
+1,src/main.js,105,0,},4,3,23
+1,src/main.js,106,0,async function visitSidebar() {,4,3,24
+1,src/main.js,107,0,  if(ui.sidebarBusy||typeof platform.navigateSidebar!=='function')return;,4,3,25
+1,src/main.js,108,0,  ui.sidebarBusy=true;save();,4,3,26
+1,src/main.js,109,0,  try {,4,3,27
+1,src/main.js,110,0,"    // Invoke the native API within this click stack, before the first await.",4,3,28
+1,src/main.js,111,0,    const response=await platform.navigateSidebar();,4,3,29
+1,src/main.js,112,0,    if(!response.ok)toast(response.reason==='checking'?'入口正在准备，请稍后再试':'暂时无法打开侧边栏，请,4,3,30
+1,src/main.js,112,1,稍后再试');,4,3,31
+1,src/main.js,113,0,  }catch(_){toast('暂时无法打开侧边栏，请稍后再试');},4,3,32
+1,src/main.js,114,0,  finally{ui.sidebarBusy=false;},4,3,33
+1,src/main.js,115,0,},4,3,34
+1,src/main.js,116,0,function act(action) {,4,3,35
+1,src/main.js,117,0,  if(!action||ui.adBusy)return;,4,3,36
+1,src/main.js,118,0,  if(ui.startup){,4,3,37
+1,src/main.js,119,0,    if(action==='start'){ui.startup=false;pointer=null;lastTime=0;sound.unlock();save();},4,3,38
+1,src/main.js,120,0,    return;,4,3,39
+1,src/main.js,121,0,  },4,3,40
+1,src/main.js,122,0,  sound.unlock();,4,3,41
+1,src/main.js,123,0,  if(action==='tap'){if(!ui.modal){game.tap();processEvents();}return;},4,3,42
+1,src/main.js,124,0,  if(action.startsWith('tab:')){ui.tab=action.slice(4);sound.play('click');return;},4,3,43
+1,src/main.js,125,0,  if(action.startsWith('upgrade:')){const key=action.slice(8);if(result(game.buyUpgrade(key)))platform,4,3,44
+1,src/main.js,125,1,".track('upgrade_purchase',{kind:key,afterReward:game.state.playedSeconds-game.state.lastRewardAt<60});",4,3,45
+1,src/main.js,125,2,return;},4,3,46
+1,src/main.js,126,0,  if(action.startsWith('ad:')){offerReward(action.slice(3));return;},4,3,47
+1,src/main.js,127,0,  if(action.startsWith('simulate:')){watch(action.slice(9));return;},4,3,48
+1,src/main.js,128,0,"  if(action.startsWith('setting:')){const key=action.slice(8);game.setSetting(key,",4,3,49
+1,src/main.js,128,1,!game.state.settings[key]);configure();if(game.state.settings.sound)sound.play('click');save();return;,4,3,50
+1,src/main.js,128,2,},5,4,1
+1,src/main.js,129,0,  if(action==='watch'){watch();return;},5,4,2
+1,src/main.js,130,0,  if(action==='visitSidebar'){visitSidebar();return;},5,4,3
+1,src/main.js,131,0,  if(action==='close'){closeModal();return;},5,4,4
+1,src/main.js,132,0,  if(action==='claimOrder'){ui.modal=null;if(result(game.claimOrder())){toast('订单已发车，金币到账！');,5,4,5
+1,src/main.js,132,1,if(game.state.orderIndex%4===0)maybeInterstitial();}return;},5,4,6
+1,src/main.js,133,0,  if(action==='claimOffline'){ui.modal=null;if(result(game.claimOffline()))toast('离线收益已领取，欢迎回,5,4,7
+1,src/main.js,133,1,来！');return;},5,4,8
+1,src/main.js,134,0,  if(action==='evolve'){ui.modal=null;if(result(game.evolve())){ui.tab='machines';maybeInterstitial();,5,4,9
+1,src/main.js,134,1,}return;},5,4,10
+1,src/main.js,135,0,  if(action==='completion'&&!game.getView().completed){toast('完成 20 个主线订单后，可获得竣工纪念');,5,4,11
+1,src/main.js,135,1,return;},5,4,12
+1,src/main.js,136,0,  openModal(action);,5,4,13
+1,src/main.js,137,0,},5,4,14
+1,src/main.js,138,0,,5,4,15
+1,src/main.js,139,0,platform.onPointer(e=>{,5,4,16
+1,src/main.js,140,0,"  const x=(e.x-ox)/scale,y=(e.y-oy)/scale;",5,4,17
+1,src/main.js,141,0,  if(e.type==='down'){,5,4,18
+1,src/main.js,142,0,    if(pointer)return;,5,4,19
+1,src/main.js,143,0,"    const action=renderer.actionAt(x,y);pointer={id:e.id,action,x,y};",5,4,20
+1,src/main.js,144,0,"    // Production responds immediately. Reward/navigation buttons activate on release,",5,4,21
+1,src/main.js,145,0,    // so repeated production taps cannot drift into an ad request.,5,4,22
+1,src/main.js,146,0,    if(action==='tap')act(action);,5,4,23
+1,src/main.js,147,0,  }else if((e.type==='up'||e.type==='cancel')&&pointer&&pointer.id===e.id){,5,4,24
+1,src/main.js,148,0,    const p=pointer;pointer=null;,5,4,25
+1,src/main.js,149,0,"    if(e.type==='up'&&p.action!=='tap'&&renderer.actionAt(x,y)===p.action&&Math.hypot(x-p.x,",5,4,26
+1,src/main.js,149,1,y-p.y)<20)act(p.action);,5,4,27
+1,src/main.js,150,0,  },5,4,28
+1,src/main.js,151,0,});,5,4,29
+1,src/main.js,152,0,platform.onResize(resize);,5,4,30
+1,src/main.js,153,0,platform.onHide(()=>{hideForAd=ui.adBusy;hidden=true;pointer=null;sound.setEnabled(false);save();});,5,4,31
+1,src/main.js,154,0,platform.onShow(()=>{,5,4,32
+1,src/main.js,155,0,  hidden=false;lastTime=0;,5,4,33
+1,src/main.js,156,0,  const settledAdAbsence=hideForAd&&!ui.adBusy&&(Date.now()-game.state.savedAt)>=CONFIG.offlineMinSeco,5,4,34
+1,src/main.js,156,1,nds*1000;,5,4,35
+1,src/main.js,157,0,  if(!hideForAd||settledAdAbsence){const snapshot=game.exportSave(game.state.savedAt);game=new Game({,5,4,36
+1,src/main.js,157,1,"save:snapshot});restore();platform.track('session_resume',{});}",5,4,37
+1,src/main.js,158,0,  hideForAd=false;,5,4,38
+1,src/main.js,159,0,  configure();,5,4,39
+1,src/main.js,160,0,});,5,4,40
+1,src/main.js,161,0,"// The Douyin IDE also exposes browser globals, but tt canvases have no DOM API.",5,4,41
+1,src/main.js,162,0,if(!platform.isDouyin&&typeof document!=='undefined'){,5,4,42
+1,src/main.js,163,0,"  canvas.id='game';canvas.setAttribute('aria-label','小小爆米花厂游戏画面');canvas.setAttribute('role',",5,4,43
+1,src/main.js,163,1,'application');canvas.tabIndex=0;,5,4,44
+1,src/main.js,164,0,  const loading=document.getElementById('loading');if(loading)loading.remove();,5,4,45
+1,src/main.js,165,0,"  window.addEventListener('keydown',e=>{",5,4,46
+1,src/main.js,166,0,    if(ui.startup){if(e.code==='Enter'){e.preventDefault();act('start');}return;},5,4,47
+1,src/main.js,167,0,    if(e.repeat&&e.code!=='Space')return;,5,4,48
+1,src/main.js,168,0,    if(e.code==='Escape'){act('close');return;},5,4,49
+1,src/main.js,169,0,    if(ui.modal)return;,5,4,50
+1,src/main.js,170,0,"    const keys={Space:'tap',Digit1:'upgrade:tap',Digit2:'upgrade:auto',Digit3:'upgrade:value',",6,5,1
+1,src/main.js,170,1,"KeyO:'order',KeyM:'machine'};",6,5,2
+1,src/main.js,171,0,    if(keys[e.code]){e.preventDefault();act(keys[e.code]);},6,5,3
+1,src/main.js,172,0,  });,6,5,4
+1,src/main.js,173,0,  // Read-only diagnostics for QA; no cheats or developer controls in the player flow.,6,5,5
+1,src/main.js,174,0,"  globalThis.__POPCORN__={snapshot:()=>JSON.parse(JSON.stringify(game.getView())),",6,5,6
+1,src/main.js,174,1,"analytics:()=>platform.getAnalytics(),version:'1.0.0'};",6,5,7
+1,src/main.js,175,0,},6,5,8
+1,src/main.js,176,0,"restore();resize(platform.getSystemInfo());platform.track('session_start',{isDouyin:platform.isDouyin}",6,5,9
+1,src/main.js,176,1,);,6,5,10
+1,src/main.js,177,0,if(typeof platform.checkSidebar==='function')platform.checkSidebar().catch(()=>{});,6,5,11
+1,src/main.js,178,0,const runtimeGlobal=typeof globalThis!=='undefined'?globalThis:GameGlobal;,6,5,12
+1,src/main.js,179,0,const requestFrame=typeof requestAnimationFrame==='function'?requestAnimationFrame.bind(runtimeGlobal),6,5,13
+1,src/main.js,179,1,":cb=>setTimeout(()=>cb(Date.now()),1000/30);",6,5,14
+1,src/main.js,180,0,function frame(time) {,6,5,15
+1,src/main.js,181,0,"  const dt=lastTime?Math.max(0,Math.min(60,(time-lastTime)/1000)):0;lastTime=time;",6,5,16
+1,src/main.js,182,0,  if(!hidden){,6,5,17
+1,src/main.js,183,0,    if(!ui.adBusy){,6,5,18
+1,src/main.js,184,0,      if(!ui.startup){game.tick(dt);autoParticleTimer+=dt;processEvents();},6,5,19
+1,src/main.js,185,0,      saveTimer+=dt;if(saveTimer>=5){saveTimer=0;save();},6,5,20
+1,src/main.js,186,0,    },6,5,21
+1,src/main.js,187,0,    if(!ui.startup&&ui.toastSeconds>0){ui.toastSeconds-=dt;if(ui.toastSeconds<=0)ui.toast='';},6,5,22
+1,src/main.js,188,0,    if(typeof platform.getSidebarState==='function')ui.sidebar=platform.getSidebarState();,6,5,23
+1,src/main.js,189,0,"    ctx.setTransform(ratio,0,0,ratio,0,0);ctx.fillStyle='#e9eee5';ctx.fillRect(0,0,width,height);",6,5,24
+1,src/main.js,190,0,    // Subtle vertical rails make the portrait canvas feel intentional on wide screens.,6,5,25
+1,src/main.js,191,0,"    if(width>480*scale+60){ctx.strokeStyle='#dce3d7';ctx.lineWidth=1;for(const x of [ox-22,",6,5,26
+1,src/main.js,191,1,"ox+480*scale+22]){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,height);ctx.stroke();}}",6,5,27
+1,src/main.js,192,0,"    ctx.setTransform(ratio*scale,0,0,ratio*scale,ratio*ox,ratio*oy);renderer.draw(game.getView(),ui,",6,5,28
+1,src/main.js,192,1,"Math.min(.05,dt));",6,5,29
+1,src/main.js,193,0,  },6,5,30
+1,src/main.js,194,0,  requestFrame(frame);,6,5,31
+1,src/main.js,195,0,},6,5,32
+1,src/main.js,196,0,requestFrame(frame);,6,5,33
+2,src/core.js,1,0,'use strict';,6,5,34
+2,src/core.js,2,0,// Platform-independent simulation. Tick uses seconds; save timestamps use milliseconds.,6,5,35
+2,src/core.js,3,0,const CONFIG = {,6,5,36
+2,src/core.js,4,0,"  version: 1, title: '小小爆米花厂', energyMax: 100, tapEnergy: 2, passiveEnergy: 1,",6,5,37
+2,src/core.js,5,0,"  maxUpgradeLevel: 24, autoLevelGrowth: 1.3, turboMultiplier: 3, turboDuration: 90,",6,5,38
+2,src/core.js,6,0,"  rewardUnlockSeconds: 90, rewardCooldownSeconds: 120,",6,5,39
+2,src/core.js,7,0,"  offlineMaxSeconds: 28800, offlineEfficiency: 0.5, offlineMinSeconds: 30,",6,5,40
+2,src/core.js,8,0,  machines: [,6,5,41
+2,src/core.js,9,0,"    { id: 0, name: '手摇锅', description: '一把玉米，开启你的工厂梦', color: '#f3b35b', multiplier: 1, ",6,5,42
+2,src/core.js,9,1,"priceMultiplier: 1, cost: 0, requiredOrders: 0 },",6,5,43
+2,src/core.js,10,0,"    { id: 1, name: '电热锅', description: '恒温加热，香气开始飘满街', color: '#ed785d', multiplier: 2.4,",6,5,44
+2,src/core.js,10,1," priceMultiplier: 1.12, cost: 30000, requiredOrders: 3 },",6,5,45
+2,src/core.js,11,0,"    { id: 2, name: '双缸机', description: '双锅轮转，让每一份等待更短', color: '#66bfaa', multiplier: ",6,5,46
+2,src/core.js,11,1,"5.5, priceMultiplier: 1.25, cost: 2000000, requiredOrders: 6 },",6,5,47
+2,src/core.js,12,0,"    { id: 3, name: '多头机', description: '六头齐开，爆米花像瀑布落下', color: '#6baacb', multiplier: ",6,5,48
+2,src/core.js,12,1,"12, priceMultiplier: 1.4, cost: 160000000, requiredOrders: 10 },",6,5,49
+2,src/core.js,13,0,"    { id: 4, name: '自动流水线', description: '连续生产，整座工厂为你运转', color: '#9c86cf', ",6,5,50
+2,src/core.js,13,1,"multiplier: 26, priceMultiplier: 1.6, cost: 10000000000, requiredOrders: 14 },",7,6,1
+2,src/core.js,14,0,"    { id: 5, name: '巨型爆米花塔', description: '让金色爆米花，点亮整座城市', color: '#e5ad4d', ",7,6,2
+2,src/core.js,14,1,"multiplier: 60, priceMultiplier: 1.8, cost: 225000000000, requiredOrders: 18 }",7,6,3
+2,src/core.js,15,0,"  ],",7,6,4
+2,src/core.js,16,0,  upgrades: {,7,6,5
+2,src/core.js,17,0,"    tap: { name: '爆裂玉米', description: '每次点击产量提升', baseCost: 16, growth: 2.1 },",7,6,6
+2,src/core.js,18,0,"    auto: { name: '自动火力', description: '持续自动生产并出售', baseCost: 24, growth: 2.1 },",7,6,7
+2,src/core.js,19,0,"    value: { name: '焦糖配方', description: '所有爆米花的售价提升', baseCost: 32, growth: 2.1 }",7,6,8
+2,src/core.js,20,0,"  },",7,6,9
+2,src/core.js,21,0,  orders: [,7,6,10
+2,src/core.js,22,0,"    { name: '街角第一桶', target: 50, reward: 180 },",7,6,11
+2,src/core.js,23,0,"    { name: '放学后的香气', target: 200, reward: 600 },",7,6,12
+2,src/core.js,24,0,"    { name: '周末小摊', target: 800, reward: 2600 },",7,6,13
+2,src/core.js,25,0,"    { name: '社区电影夜', target: 2500, reward: 8800 },",7,6,14
+2,src/core.js,26,0,"    { name: '甜蜜下午茶', target: 7000, reward: 32000 },",7,6,15
+2,src/core.js,27,0,"    { name: '校园运动会', target: 20000, reward: 120000 },",7,6,16
+2,src/core.js,28,0,"    { name: '双倍快乐', target: 60000, reward: 480000 },",7,6,17
+2,src/core.js,29,0,"    { name: '公园嘉年华', target: 150000, reward: 1440000 },",7,6,18
+2,src/core.js,30,0,"    { name: '满座电影院', target: 350000, reward: 4400000 },",7,6,19
+2,src/core.js,31,0,"    { name: '全城首映礼', target: 800000, reward: 12800000 },",7,6,20
+2,src/core.js,32,0,"    { name: '星光音乐节', target: 7200000, reward: 40000000 },",7,6,21
+2,src/core.js,33,0,"    { name: '金色美食街', target: 16000000, reward: 112000000 },",7,6,22
+2,src/core.js,34,0,"    { name: '跨城快递', target: 32000000, reward: 288000000 },",7,6,23
+2,src/core.js,35,0,"    { name: '连锁店开张', target: 64000000, reward: 720000000 },",7,6,24
+2,src/core.js,36,0,"    { name: '超级体育场', target: 120000000, reward: 1800000000 },",7,6,25
+2,src/core.js,37,0,"    { name: '海滨烟花夜', target: 220000000, reward: 4400000000 },",7,6,26
+2,src/core.js,38,0,"    { name: '全国巡游', target: 400000000, reward: 10400000000 },",7,6,27
+2,src/core.js,39,0,"    { name: '城市庆典', target: 720000000, reward: 24000000000 },",7,6,28
+2,src/core.js,40,0,"    { name: '云端甜品节', target: 1200000000, reward: 52000000000 },",7,6,29
+2,src/core.js,41,0,"    { name: '世界爆米花日', target: 2000000000, reward: 100000000000 }",7,6,30
+2,src/core.js,42,0,  ],7,6,31
+2,src/core.js,43,0,};,7,6,32
+2,src/core.js,44,0,const MAX_NUMBER = 1e150;,7,6,33
+2,src/core.js,45,0,"const KEYS = ['tap', 'auto', 'value'];",7,6,34
+2,src/core.js,46,0,"const REWARDS = ['turbo', 'order', 'sponsor', 'offline'];",7,6,35
+2,src/core.js,47,0,"const finite = (n, fallback = 0, max = MAX_NUMBER) => typeof n === 'number' && Number.isFinite(n) ? ",7,6,36
+2,src/core.js,47,1,"Math.max(0, Math.min(max, n)) : fallback;",7,6,37
+2,src/core.js,48,0,"const integer = (n, fallback = 0, max = MAX_NUMBER) => Math.floor(finite(n, fallback, max));",7,6,38
+2,src/core.js,49,0,const clone = obj => JSON.parse(JSON.stringify(obj));,7,6,39
+2,src/core.js,50,0,"const fail = reason => ({ ok: false, reason });",7,6,40
+2,src/core.js,51,0,"const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);",7,6,41
+2,src/core.js,52,0,function formatNumber(value) {,7,6,42
+2,src/core.js,53,0,  const n = finite(value);,7,6,43
+2,src/core.js,54,0,"  const trim = x => x.replace(/\.0+$|0$/, '').replace(/\.$/, '');",7,6,44
+2,src/core.js,55,0,  if (n < 10000) return Math.floor(n).toLocaleString('zh-CN');,7,6,45
+2,src/core.js,56,0,  if (n < 100000000) return trim((n / 10000).toFixed(n < 100000 ? 2 : 1)) + '万';,7,6,46
+2,src/core.js,57,0,  if (n < 1e12) return trim((n / 1e8).toFixed(n < 1e9 ? 2 : 1)) + '亿';,7,6,47
+2,src/core.js,58,0,  return trim((n / 1e12).toFixed(1)) + '万亿';,7,6,48
+2,src/core.js,59,0,},7,6,49
+2,src/core.js,60,0,function freshState(now) {,7,6,50
+2,src/core.js,61,0,  return {,8,7,1
+2,src/core.js,62,0,"    version: 1, savedAt: now, coins: 0, totalProduced: 0, totalCoins: 0,",8,7,2
+2,src/core.js,63,0,"    taps: 0, bursts: 0, machine: 0, upgrades: { tap: 0, auto: 0, value: 0 },",8,7,3
+2,src/core.js,64,0,"    orderIndex: 0, loopIndex: 0, energy: 0, boostSeconds: 0, playedSeconds: 0,",8,7,4
+2,src/core.js,65,0,"    settings: { sound: true, haptics: true }, offline: null, rewardSerial: 0,",8,7,5
+2,src/core.js,66,0,"    rewardedCount: 0, lastRewardAt: -CONFIG.rewardCooldownSeconds,",8,7,6
+2,src/core.js,67,0,"    pendingRewards: {}, claimedRewards: [], completedAt: null",8,7,7
+2,src/core.js,68,0,  };,8,7,8
+2,src/core.js,69,0,},8,7,9
+2,src/core.js,70,0,class Game {,8,7,10
+2,src/core.js,71,0,"  constructor({ save = null, now = Date.now() } = {}) {",8,7,11
+2,src/core.js,72,0,"    this.events = []; this.now = finite(now, Date.now()); this.state = freshState(this.now); ",8,7,12
+2,src/core.js,72,1,this.loadWarning = null;,8,7,13
+2,src/core.js,73,0,    if (save) this._restore(save);,8,7,14
+2,src/core.js,74,0,  },8,7,15
+2,src/core.js,75,0,  _restore(input) {,8,7,16
+2,src/core.js,76,0,    let save;,8,7,17
+2,src/core.js,77,0,    try { save = typeof input === 'string' ? JSON.parse(input) : input; },8,7,18
+2,src/core.js,78,0,    catch (_) { this.loadWarning = '存档读取失败，已安全开始新工厂'; return; },8,7,19
+2,src/core.js,79,0,    if (!save || typeof save !== 'object' || Array.isArray(save) || save.version !== CONFIG.version) {,8,7,20
+2,src/core.js,80,0,      this.loadWarning = '存档版本不兼容，已安全开始新工厂'; return;,8,7,21
+2,src/core.js,81,0,    },8,7,22
+2,src/core.js,82,0,    const s = this.state;,8,7,23
+2,src/core.js,83,0,"    for (const key of ['coins', 'totalProduced', 'totalCoins', 'playedSeconds']) s[key] = ",8,7,24
+2,src/core.js,83,1,finite(save[key]);,8,7,25
+2,src/core.js,84,0,"    for (const key of ['taps', 'bursts', 'loopIndex', 'rewardSerial', 'rewardedCount']) s[key] = ",8,7,26
+2,src/core.js,84,1,integer(save[key]);,8,7,27
+2,src/core.js,85,0,"    s.totalCoins = Math.max(s.totalCoins, s.coins);",8,7,28
+2,src/core.js,86,0,"    s.machine = integer(save.machine, 0, 5); s.orderIndex = integer(save.orderIndex, 0, 20);",8,7,29
+2,src/core.js,87,0,    while (s.orderIndex > 0 && CONFIG.orders[s.orderIndex - 1].target > s.totalProduced) ,8,7,30
+2,src/core.js,87,1,s.orderIndex--;,8,7,31
+2,src/core.js,88,0,    if (s.orderIndex < 20) s.loopIndex = 0;,8,7,32
+2,src/core.js,89,0,    while (s.machine > 0 && CONFIG.machines[s.machine].requiredOrders > s.orderIndex) s.machine--;,8,7,33
+2,src/core.js,90,0,"    for (const key of KEYS) s.upgrades[key] = integer(save.upgrades && save.upgrades[key], 0, ",8,7,34
+2,src/core.js,90,1,CONFIG.maxUpgradeLevel);,8,7,35
+2,src/core.js,91,0,"    s.energy = finite(save.energy, 0, CONFIG.energyMax - 1e-10);",8,7,36
+2,src/core.js,92,0,"    s.boostSeconds = finite(save.boostSeconds, 0, 86400);",8,7,37
+2,src/core.js,93,0,    s.lastRewardAt = typeof save.lastRewardAt === 'number' && Number.isFinite(save.lastRewardAt),8,7,38
+2,src/core.js,94,0,"      ? Math.min(s.playedSeconds, Math.max(-CONFIG.rewardCooldownSeconds, save.lastRewardAt)) : ",8,7,39
+2,src/core.js,94,1,-CONFIG.rewardCooldownSeconds;,8,7,40
+2,src/core.js,95,0,"    for (const key of ['sound', 'haptics']) if (save.settings && typeof save.settings[key] === ",8,7,41
+2,src/core.js,95,1,'boolean') s.settings[key] = save.settings[key];,8,7,42
+2,src/core.js,96,0,    s.claimedRewards = Array.isArray(save.claimedRewards) ? save.claimedRewards.filter(x => typeof x ,8,7,43
+2,src/core.js,96,1,=== 'string' && x.length < 100).slice(-128) : [];,8,7,44
+2,src/core.js,97,0,"    if (s.orderIndex === 20) s.completedAt = finite(save.completedAt, s.playedSeconds);",8,7,45
+2,src/core.js,98,0,    if (save.offline && typeof save.offline.id === 'string') {,8,7,46
+2,src/core.js,99,0,      const o = save.offline;,8,7,47
+2,src/core.js,100,0,"      s.offline = { id: o.id.slice(0, 100), seconds: finite(o.seconds, 0, CONFIG.offlineMaxSeconds), ",8,7,48
+2,src/core.js,100,1,"production: finite(o.production), coins: finite(o.coins) };",8,7,49
+2,src/core.js,101,0,    },8,7,50
+2,src/core.js,102,0,    if (save.pendingRewards && typeof save.pendingRewards === 'object') {,9,8,1
+2,src/core.js,103,0,"      for (const [id, q] of Object.entries(save.pendingRewards).slice(-4)) {",9,8,2
+2,src/core.js,104,0,        if (!q || typeof q !== 'object' || id !== q.id || !/^reward:\d+:\d+$/.test(id) || id.length > ,9,8,3
+2,src/core.js,104,1,100 || !REWARDS.includes(q.kind) || s.claimedRewards.includes(id)) continue;,9,8,4
+2,src/core.js,105,0,        s.pendingRewards[id] = {,9,8,5
+2,src/core.js,106,0,"          id, kind: q.kind, title: String(q.title || '').slice(0, 100), description: ",9,8,6
+2,src/core.js,106,1,"String(q.description || '').slice(0, 100), amount: finite(q.amount),",9,8,7
+2,src/core.js,107,0,"          duration: finite(q.duration, 0, CONFIG.turboDuration), orderIndex: integer(q.orderIndex), ",9,8,8
+2,src/core.js,107,1,"loopIndex: integer(q.loopIndex),",9,8,9
+2,src/core.js,108,0,"          offlineId: typeof q.offlineId === 'string' ? q.offlineId.slice(0, 100) : null, machine: ",9,8,10
+2,src/core.js,108,1,"integer(q.machine, 0, 5), createdAt: finite(q.createdAt)",9,8,11
+2,src/core.js,109,0,        };,9,8,12
+2,src/core.js,110,0,      },9,8,13
+2,src/core.js,111,0,    },9,8,14
+2,src/core.js,112,0,"    const savedAt = finite(save.savedAt, this.now);",9,8,15
+2,src/core.js,113,0,"    const elapsed = Math.max(0, (this.now - savedAt) / 1000);",9,8,16
+2,src/core.js,114,0,"    s.boostSeconds = Math.max(0, s.boostSeconds - elapsed);",9,8,17
+2,src/core.js,115,0,"    s.lastRewardAt = Math.max(-CONFIG.rewardCooldownSeconds, s.lastRewardAt - elapsed);",9,8,18
+2,src/core.js,116,0,    if (elapsed >= CONFIG.offlineMinSeconds) {,9,8,19
+2,src/core.js,117,0,"      const seconds = Math.min(elapsed, CONFIG.offlineMaxSeconds - (s.offline ? s.offline.seconds : ",9,8,20
+2,src/core.js,117,1,0));,9,8,21
+2,src/core.js,118,0,      if (seconds > 0) {,9,8,22
+2,src/core.js,119,0,"        const p = this._production(), prior = s.offline;",9,8,23
+2,src/core.js,120,0,        const production = p.baseAuto * seconds * CONFIG.offlineEfficiency;,9,8,24
+2,src/core.js,121,0,        s.offline = {,9,8,25
+2,src/core.js,122,0,"          id: 'offline:' + savedAt + ':' + Math.floor(this.now), seconds: seconds + (prior ? ",9,8,26
+2,src/core.js,122,1,"prior.seconds : 0),",9,8,27
+2,src/core.js,123,0,"          production: production + (prior ? prior.production : 0), coins: production * p.price + ",9,8,28
+2,src/core.js,123,1,(prior ? prior.coins : 0),9,8,29
+2,src/core.js,124,0,        };,9,8,30
+2,src/core.js,125,0,"        for (const [id, q] of Object.entries(s.pendingRewards)) if (q.kind === 'offline') delete ",9,8,31
+2,src/core.js,125,1,s.pendingRewards[id];,9,8,32
+2,src/core.js,126,0,      },9,8,33
+2,src/core.js,127,0,    },9,8,34
+2,src/core.js,128,0,    s.savedAt = this.now;,9,8,35
+2,src/core.js,129,0,  },9,8,36
+2,src/core.js,130,0,  _production() {,9,8,37
+2,src/core.js,131,0,"    const s = this.state, m = CONFIG.machines[s.machine];",9,8,38
+2,src/core.js,132,0,"    const tap = (1 + 0.8 * s.upgrades.tap) * Math.pow(1.2, s.upgrades.tap) * m.multiplier;",9,8,39
+2,src/core.js,133,0,"    const baseAuto = (0.4 + 0.7 * s.upgrades.auto) * Math.pow(CONFIG.autoLevelGrowth, ",9,8,40
+2,src/core.js,133,1,s.upgrades.auto) * m.multiplier;,9,8,41
+2,src/core.js,134,0,"    const price = (1 + 0.2 * s.upgrades.value) * Math.pow(1.15, s.upgrades.value) * m.priceMultiplier;",9,8,42
+2,src/core.js,135,0,"    return { tap, auto: baseAuto * (s.boostSeconds > 0 ? 3 : 1), baseAuto, price, baseIncome: ",9,8,43
+2,src/core.js,135,1,"baseAuto * price, turboMultiplier: s.boostSeconds > 0 ? 3 : 1 };",9,8,44
+2,src/core.js,136,0,  },9,8,45
+2,src/core.js,137,0,  _addCoins(coins) { this.state.coins = finite(this.state.coins + coins); this.state.totalCoins = ,9,8,46
+2,src/core.js,137,1,finite(this.state.totalCoins + coins); },9,8,47
+2,src/core.js,138,0,"  _produce(amount, source) {",9,8,48
+2,src/core.js,139,0,    const n = finite(amount); if (!n) return;,9,8,49
+2,src/core.js,140,0,    const coins = finite(n * this._production().price);,9,8,50
+2,src/core.js,141,0,    this.state.totalProduced = finite(this.state.totalProduced + n); this._addCoins(coins);,10,9,1
+2,src/core.js,142,0,"    this._event('produce', { source, amount: n, coins });",10,9,2
+2,src/core.js,143,0,  },10,9,3
+2,src/core.js,144,0,"  _event(type, extra = {}) {",10,9,4
+2,src/core.js,145,0,    if (this.events.length >= 160) this.events.shift();,10,9,5
+2,src/core.js,146,0,"    this.events.push({ type, ...extra });",10,9,6
+2,src/core.js,147,0,  },10,9,7
+2,src/core.js,148,0,  _addEnergy(amount) {,10,9,8
+2,src/core.js,149,0,    this.state.energy += amount;,10,9,9
+2,src/core.js,150,0,    while (this.state.energy >= CONFIG.energyMax) {,10,9,10
+2,src/core.js,151,0,      this.state.energy -= CONFIG.energyMax;,10,9,11
+2,src/core.js,152,0,"      const p = this._production(), production = p.tap * 24 + p.baseAuto * 8;",10,9,12
+2,src/core.js,153,0,"      this._produce(production, 'burst'); this.state.bursts++; this._event('burst', { amount: ",10,9,13
+2,src/core.js,153,1,production });,10,9,14
+2,src/core.js,154,0,    },10,9,15
+2,src/core.js,155,0,  },10,9,16
+2,src/core.js,156,0,  tick(dt) {,10,9,17
+2,src/core.js,157,0,    if (typeof dt !== 'number' || !Number.isFinite(dt) || dt <= 0) return fail('invalid-time');,10,9,18
+2,src/core.js,158,0,"    dt = Math.min(dt, 60);",10,9,19
+2,src/core.js,159,0,"    const p = this._production(), boostedTime = Math.min(dt, this.state.boostSeconds);",10,9,20
+2,src/core.js,160,0,"    this._produce(p.baseAuto * (dt + boostedTime * 2), 'auto');",10,9,21
+2,src/core.js,161,0,"    this.state.boostSeconds = Math.max(0, this.state.boostSeconds - dt); this.state.playedSeconds += ",10,9,22
+2,src/core.js,161,1,dt;,10,9,23
+2,src/core.js,162,0,"    this._addEnergy(dt * CONFIG.passiveEnergy); return { ok: true, seconds: dt };",10,9,24
+2,src/core.js,163,0,  },10,9,25
+2,src/core.js,164,0,  tap() {,10,9,26
+2,src/core.js,165,0,    const amount = this._production().tap;,10,9,27
+2,src/core.js,166,0,"    this.state.taps++; this._produce(amount, 'tap'); this._addEnergy(CONFIG.tapEnergy); return { ok: ",10,9,28
+2,src/core.js,166,1,"true, amount };",10,9,29
+2,src/core.js,167,0,  },10,9,30
+2,src/core.js,168,0,  _upgradeCost(key) {,10,9,31
+2,src/core.js,169,0,    const u = CONFIG.upgrades[key];,10,9,32
+2,src/core.js,170,0,"    return Math.ceil(u.baseCost * Math.pow(u.growth, this.state.upgrades[key]) * (1 + ",10,9,33
+2,src/core.js,170,1,this.state.machine * 0.45));,10,9,34
+2,src/core.js,171,0,  },10,9,35
+2,src/core.js,172,0,  buyUpgrade(key) {,10,9,36
+2,src/core.js,173,0,    if (!KEYS.includes(key)) return fail('invalid-upgrade');,10,9,37
+2,src/core.js,174,0,    if (this.state.upgrades[key] >= CONFIG.maxUpgradeLevel) return fail('max-level');,10,9,38
+2,src/core.js,175,0,    const cost = this._upgradeCost(key); if (this.state.coins < cost) return fail('not-enough-coins');,10,9,39
+2,src/core.js,176,0,    this.state.coins -= cost; this.state.upgrades[key]++;,10,9,40
+2,src/core.js,177,0,"    this._event('upgrade', { key, level: this.state.upgrades[key], cost }); return { ok: true, key, ",10,9,41
+2,src/core.js,177,1,"level: this.state.upgrades[key], cost };",10,9,42
+2,src/core.js,178,0,  },10,9,43
+2,src/core.js,179,0,  evolve() {,10,9,44
+2,src/core.js,180,0,    const next = CONFIG.machines[this.state.machine + 1]; if (!next) return fail('max-machine');,10,9,45
+2,src/core.js,181,0,    if (this.state.orderIndex < next.requiredOrders) return fail('orders-required');,10,9,46
+2,src/core.js,182,0,    if (this.state.coins < next.cost) return fail('not-enough-coins');,10,9,47
+2,src/core.js,183,0,    this.state.coins -= next.cost; this.state.machine++;,10,9,48
+2,src/core.js,184,0,"    this._event('evolve', { machine: this.state.machine, name: next.name }); return { ok: true, ",10,9,49
+2,src/core.js,184,1,machine: this.state.machine };,10,9,50
+2,src/core.js,185,0,  },11,10,1
+2,src/core.js,186,0,  _order() {,11,10,2
+2,src/core.js,187,0,"    const s = this.state, isLoop = s.orderIndex >= 20;",11,10,3
+2,src/core.js,188,0,    const order = isLoop ? {,11,10,4
+2,src/core.js,189,0,"      name: ['城市返场订单', '全球甜蜜补货', '金色派对专供', '爆米花王国'][s.loopIndex % 4] + ' · ' + ",11,10,5
+2,src/core.js,189,1,"(s.loopIndex + 1),",11,10,6
+2,src/core.js,190,0,"      target: finite(CONFIG.orders[19].target * Math.pow(1.35, Math.min(s.loopIndex + 1, 1000))),",11,10,7
+2,src/core.js,191,0,"      reward: finite(CONFIG.orders[19].reward * Math.pow(1.3, Math.min(s.loopIndex, 1000)))",11,10,8
+2,src/core.js,192,0,    } : CONFIG.orders[s.orderIndex];,11,10,9
+2,src/core.js,193,0,"    const previousTarget = isLoop ? finite(CONFIG.orders[19].target * Math.pow(1.35, ",11,10,10
+2,src/core.js,193,1,"Math.min(s.loopIndex, 1000))) : (s.orderIndex > 0 ? CONFIG.orders[s.orderIndex - 1].target : 0);",11,10,11
+2,src/core.js,194,0,    return {,11,10,12
+2,src/core.js,195,0,"      ...order, index: isLoop ? 20 + s.loopIndex : s.orderIndex, number: isLoop ? s.loopIndex + 1 : ",11,10,13
+2,src/core.js,195,1,"s.orderIndex + 1,",11,10,14
+2,src/core.js,196,0,"      progress: Math.min(1, s.totalProduced / order.target), stageProgress: Math.max(0, Math.min(1, ",11,10,15
+2,src/core.js,196,1,"(s.totalProduced - previousTarget) / Math.max(1, order.target - previousTarget))),",11,10,16
+2,src/core.js,197,0,"      ready: s.totalProduced >= order.target, isLoop",11,10,17
+2,src/core.js,198,0,    };,11,10,18
+2,src/core.js,199,0,  },11,10,19
+2,src/core.js,200,0,  claimOrder() { return this._claimOrder(1); },11,10,20
+2,src/core.js,201,0,"  _claimOrder(multiplier, frozenBonus = 0) {",11,10,21
+2,src/core.js,202,0,    const order = this._order(); if (!order.ready) return fail('order-not-ready');,11,10,22
+2,src/core.js,203,0,    const coins = finite(order.reward * multiplier + frozenBonus); this._addCoins(coins);,11,10,23
+2,src/core.js,204,0,    multiplier = coins / order.reward;,11,10,24
+2,src/core.js,205,0,    if (order.isLoop) this.state.loopIndex++; else this.state.orderIndex++;,11,10,25
+2,src/core.js,206,0,"    for (const [id, q] of Object.entries(this.state.pendingRewards)) if (q.kind === 'order') delete ",11,10,26
+2,src/core.js,206,1,this.state.pendingRewards[id];,11,10,27
+2,src/core.js,207,0,"    this._event('order', { index: order.index, name: order.name, coins, multiplier, isLoop: ",11,10,28
+2,src/core.js,207,1,order.isLoop });,11,10,29
+2,src/core.js,208,0,    if (this.state.orderIndex === 20 && !order.isLoop) { this.state.completedAt = ,11,10,30
+2,src/core.js,208,1,"this.state.playedSeconds; this._event('complete', { seconds: this.state.playedSeconds }); }",11,10,31
+2,src/core.js,209,0,"    return { ok: true, coins, order, multiplier };",11,10,32
+2,src/core.js,210,0,  },11,10,33
+2,src/core.js,211,0,  _rewardOffer(kind) {,11,10,34
+2,src/core.js,212,0,    const s = this.state; if (!REWARDS.includes(kind)) return null;,11,10,35
+2,src/core.js,213,0,"    const p = this._production(), next = CONFIG.machines[s.machine + 1], order = this._order();",11,10,36
+2,src/core.js,214,0,"    let amount = 0, title = '', description = '', reason = '';",11,10,37
+2,src/core.js,215,0,    if (kind === 'turbo') {,11,10,38
+2,src/core.js,216,0,      amount = CONFIG.turboDuration; title = '涡轮增压'; description = '自动生产 3 倍 · 90 秒';,11,10,39
+2,src/core.js,217,0,    } else if (kind === 'order') {,11,10,40
+2,src/core.js,218,0,      amount = order.reward * 2; title = '订单加价'; description = '额外 +' + formatNumber(amount) + ' ,11,10,41
+2,src/core.js,218,1,金币 · 总奖励 3 倍';,11,10,42
+2,src/core.js,219,0,      if (!order.ready) reason = 'order-not-ready';,11,10,43
+2,src/core.js,220,0,    } else if (kind === 'sponsor') {,11,10,44
+2,src/core.js,221,0,"      amount = next ? Math.floor(Math.min(p.baseIncome * 120, next.cost * 0.6)) : 0;",11,10,45
+2,src/core.js,222,0,      title = '设备赞助'; description = '获得 ' + formatNumber(amount) + ' 金币';,11,10,46
+2,src/core.js,223,0,      if (!next) reason = 'max-machine';,11,10,47
+2,src/core.js,224,0,      else if (s.coins >= next.cost) reason = 'already-affordable';,11,10,48
+2,src/core.js,225,0,      else if (s.orderIndex < next.requiredOrders) reason = 'orders-required';,11,10,49
+2,src/core.js,226,0,      else if (amount < 1) reason = 'production-required';,11,10,50
+2,src/core.js,227,0,    } else {,12,11,1
+2,src/core.js,228,0,      amount = s.offline ? s.offline.coins : 0; title = '离线翻倍'; description = '额外 +' + ,12,11,2
+2,src/core.js,228,1,formatNumber(amount) + ' 金币';,12,11,3
+2,src/core.js,229,0,      if (!s.offline) reason = 'no-offline-reward';,12,11,4
+2,src/core.js,230,0,    },12,11,5
+2,src/core.js,231,0,    if (!reason && s.playedSeconds < CONFIG.rewardUnlockSeconds) reason = 'intro-first';,12,11,6
+2,src/core.js,232,0,"    const cooldown = Math.max(0, CONFIG.rewardCooldownSeconds - (s.playedSeconds - s.lastRewardAt));",12,11,7
+2,src/core.js,233,0,    if (!reason && cooldown > 0) reason = 'reward-cooldown';,12,11,8
+2,src/core.js,234,0,"    return { kind, title, description, amount, duration: kind === 'turbo' ? 90 : undefined, ",12,11,9
+2,src/core.js,234,1,"available: !reason, reason, cooldown };",12,11,10
+2,src/core.js,235,0,  },12,11,11
+2,src/core.js,236,0,  quoteReward(kind) {,12,11,12
+2,src/core.js,237,0,    const offer = this._rewardOffer(kind); if (!offer || !offer.available) return null;,12,11,13
+2,src/core.js,238,0,"    const s = this.state, existing = Object.values(s.pendingRewards)[0];",12,11,14
+2,src/core.js,239,0,    if (existing) return existing.kind === kind ? clone(existing) : null;,12,11,15
+2,src/core.js,240,0,    s.rewardSerial++;,12,11,16
+2,src/core.js,241,0,    const id = 'reward:' + s.rewardSerial + ':' + Math.floor(s.playedSeconds * 1000);,12,11,17
+2,src/core.js,242,0,"    const quote = { id, kind, title: offer.title, description: offer.description, amount: ",12,11,18
+2,src/core.js,242,1,"offer.amount, duration: offer.duration || 0,",12,11,19
+2,src/core.js,243,0,"      orderIndex: s.orderIndex, loopIndex: s.loopIndex, offlineId: s.offline ? s.offline.id : null, ",12,11,20
+2,src/core.js,243,1,"machine: s.machine, createdAt: s.playedSeconds };",12,11,21
+2,src/core.js,244,0,    s.pendingRewards[id] = quote; return clone(quote);,12,11,22
+2,src/core.js,245,0,  },12,11,23
+2,src/core.js,246,0,  cancelReward(id) {,12,11,24
+2,src/core.js,247,0,"    if (!has(this.state.pendingRewards, id)) return fail('unknown-reward');",12,11,25
+2,src/core.js,248,0,    delete this.state.pendingRewards[id]; return { ok: true };,12,11,26
+2,src/core.js,249,0,  },12,11,27
+2,src/core.js,250,0,  applyReward(id) {,12,11,28
+2,src/core.js,251,0,    const s = this.state;,12,11,29
+2,src/core.js,252,0,    if (s.claimedRewards.includes(id)) return fail('already-claimed');,12,11,30
+2,src/core.js,253,0,"    if (!has(s.pendingRewards, id)) return fail('unknown-reward');",12,11,31
+2,src/core.js,254,0,    const q = s.pendingRewards[id];,12,11,32
+2,src/core.js,255,0,    if (q.kind === 'order' && (q.orderIndex !== s.orderIndex || q.loopIndex !== s.loopIndex || ,12,11,33
+2,src/core.js,255,1,!this._order().ready)) { delete s.pendingRewards[id]; return fail('stale-order'); },12,11,34
+2,src/core.js,256,0,    if (q.kind === 'offline' && (!s.offline || q.offlineId !== s.offline.id)) { delete ,12,11,35
+2,src/core.js,256,1,s.pendingRewards[id]; return fail('stale-offline'); },12,11,36
+2,src/core.js,257,0,    delete s.pendingRewards[id]; s.claimedRewards.push(id); s.claimedRewards = ,12,11,37
+2,src/core.js,257,1,s.claimedRewards.slice(-128);,12,11,38
+2,src/core.js,258,0,    s.lastRewardAt = s.playedSeconds; s.rewardedCount++;,12,11,39
+2,src/core.js,259,0,    let coins = 0;,12,11,40
+2,src/core.js,260,0,"    if (q.kind === 'turbo') s.boostSeconds = Math.min(86400, s.boostSeconds + q.duration);",12,11,41
+2,src/core.js,261,0,"    else if (q.kind === 'order') { const result = this._claimOrder(1, q.amount); coins = result.coins;",12,11,42
+2,src/core.js,261,1, },12,11,43
+2,src/core.js,262,0,    else if (q.kind === 'sponsor') { this._addCoins(q.amount); coins = q.amount; },12,11,44
+2,src/core.js,263,0,    else if (q.kind === 'offline') { const result = this._claimOffline(); this._addCoins(q.amount); ,12,11,45
+2,src/core.js,263,1,coins = result.coins + q.amount; },12,11,46
+2,src/core.js,264,0,"    this._event('reward', { kind: q.kind, amount: q.amount, coins, id }); return { ok: true, kind: ",12,11,47
+2,src/core.js,264,1,"q.kind, amount: q.amount, coins, duration: q.duration };",12,11,48
+2,src/core.js,265,0,  },12,11,49
+2,src/core.js,266,0,  claimOffline() { return this._claimOffline(); },12,11,50
+2,src/core.js,267,0,  _claimOffline() {,13,12,1
+2,src/core.js,268,0,    const offline = this.state.offline; if (!offline) return fail('no-offline-reward');,13,12,2
+2,src/core.js,269,0,    this.state.offline = null; this.state.totalProduced = finite(this.state.totalProduced + ,13,12,3
+2,src/core.js,269,1,offline.production); this._addCoins(offline.coins);,13,12,4
+2,src/core.js,270,0,"    for (const [id, q] of Object.entries(this.state.pendingRewards)) if (q.kind === 'offline') delete ",13,12,5
+2,src/core.js,270,1,this.state.pendingRewards[id];,13,12,6
+2,src/core.js,271,0,"    this._event('offline', { coins: offline.coins, amount: offline.production, seconds: ",13,12,7
+2,src/core.js,271,1,"offline.seconds }); return { ok: true, coins: offline.coins, amount: offline.production, seconds: ",13,12,8
+2,src/core.js,271,2,offline.seconds };,13,12,9
+2,src/core.js,272,0,  },13,12,10
+2,src/core.js,273,0,"  setSetting(key, value) {",13,12,11
+2,src/core.js,274,0,"    if (!['sound', 'haptics'].includes(key) || typeof value !== 'boolean') return ",13,12,12
+2,src/core.js,274,1,fail('invalid-setting');,13,12,13
+2,src/core.js,275,0,    this.state.settings[key] = value; return { ok: true };,13,12,14
+2,src/core.js,276,0,  },13,12,15
+2,src/core.js,277,0,  _tutorial() {,13,12,16
+2,src/core.js,278,0,    const s = this.state;,13,12,17
+2,src/core.js,279,0,"    if (s.taps < 5) return { step: 0, title: '轻点机器，开始爆香', text: ",13,12,18
+2,src/core.js,279,1,"'点一下就生产并出售一份爆米花。先试试点 5 下！', action: 'tap' };",13,12,19
+2,src/core.js,280,0,"    if (s.upgrades.tap < 1) return { step: 1, title: '让每次点击更有分量', text: ",13,12,20
+2,src/core.js,280,1,"'在下方升级「爆裂玉米」，每点一下都能生产更多。', action: 'upgrade-tap' };",13,12,21
+2,src/core.js,281,0,"    if (s.upgrades.auto < 1) return { step: 2, title: '请一团火焰帮你工作', text: ",13,12,22
+2,src/core.js,281,1,"'升级「自动火力」，松开手也能持续生产、自动赚金币。', action: 'upgrade-auto' };",13,12,23
+2,src/core.js,282,0,"    if (s.bursts < 1) return { step: 3, title: '爆锅倒计时', text: ",13,12,24
+2,src/core.js,282,1,"'继续点击积攒能量，满格会免费触发爆米花大喷发！', action: 'tap' };",13,12,25
+2,src/core.js,283,0,"    if (s.orderIndex < 1) return { step: 4, title: '签收你的第一笔订单', text: ",13,12,26
+2,src/core.js,283,1,"'累计产量已经达标。领取订单，拿到额外金币奖励。', action: 'order' };",13,12,27
+2,src/core.js,284,0,    return null;,13,12,28
+2,src/core.js,285,0,  },13,12,29
+2,src/core.js,286,0,  getView() {,13,12,30
+2,src/core.js,287,0,"    const s = this.state, next = CONFIG.machines[s.machine + 1] || null;",13,12,31
+2,src/core.js,288,0,    return {,13,12,32
+2,src/core.js,289,0,"      state: s, machine: CONFIG.machines[s.machine], nextMachine: next,",13,12,33
+2,src/core.js,290,0,"      upgrades: KEYS.map(key => ({ key, name: CONFIG.upgrades[key].name, description: ",13,12,34
+2,src/core.js,290,1,"CONFIG.upgrades[key].description,",13,12,35
+2,src/core.js,291,0,"        level: s.upgrades[key], maxLevel: CONFIG.maxUpgradeLevel, cost: this._upgradeCost(key), ",13,12,36
+2,src/core.js,291,1,"canBuy: s.upgrades[key] < CONFIG.maxUpgradeLevel && s.coins >= this._upgradeCost(key) })),",13,12,37
+2,src/core.js,292,0,"      production: this._production(), order: this._order(), energy: s.energy, energyMax: 100, ",13,12,38
+2,src/core.js,292,1,"boostSeconds: s.boostSeconds, tutorial: this._tutorial(),",13,12,39
+2,src/core.js,293,0,"      canEvolve: !!next && s.orderIndex >= next.requiredOrders && s.coins >= next.cost,",13,12,40
+2,src/core.js,294,0,      evolveReason: !next ? 'max-machine' : s.orderIndex < next.requiredOrders ? 'orders-required' : ,13,12,41
+2,src/core.js,294,1,"s.coins < next.cost ? 'not-enough-coins' : '',",13,12,42
+2,src/core.js,295,0,"      completed: s.orderIndex >= 20, offline: s.offline, loadWarning: this.loadWarning,",13,12,43
+2,src/core.js,296,0,"      rewards: Object.fromEntries(REWARDS.map(kind => [kind, this._rewardOffer(kind)])),",13,12,44
+2,src/core.js,297,0,"      stats: { totalProduced: s.totalProduced, totalCoins: s.totalCoins, playedSeconds: ",13,12,45
+2,src/core.js,297,1,"s.playedSeconds, taps: s.taps, bursts: s.bursts,",13,12,46
+2,src/core.js,298,0,"        orders: s.orderIndex, loopOrders: s.loopIndex, rewardedCount: s.rewardedCount, completedAt: ",13,12,47
+2,src/core.js,298,1,s.completedAt },13,12,48
+2,src/core.js,299,0,    };,13,12,49
+2,src/core.js,300,0,  },13,12,50
+2,src/core.js,301,0,  drainEvents() { const result = this.events; this.events = []; return result; },14,13,1
+2,src/core.js,302,0,"  exportSave(now = Date.now()) { this.state.savedAt = finite(now, this.now); return clone(this.state);",14,13,2
+2,src/core.js,302,1, },14,13,3
+2,src/core.js,303,0,},14,13,4
+2,src/core.js,304,0,"module.exports = { CONFIG, Game, formatNumber };",14,13,5
+2,src/core.js,305,0,,14,13,6
+3,src/platform.js,1,0,'use strict';,14,13,7
+3,src/platform.js,2,0,,14,13,8
+3,src/platform.js,3,0,// SDK references checked 2026-09-05. No credentials or live ad IDs are bundled.,14,13,9
+3,src/platform.js,4,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/drawing/,14,13,10
+3,src/platform.js,4,1,picture/tt-create-canvas,14,13,11
+3,src/platform.js,5,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/foundati,14,13,12
+3,src/platform.js,5,1,on/system/click-event/tt-on-touch-start,14,13,13
+3,src/platform.js,6,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/ad/incen,14,13,14
+3,src/platform.js,6,1,tive-ads,14,13,15
+3,src/platform.js,7,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/ads/inte,14,13,16
+3,src/platform.js,7,1,rstitial-ad/interstitial-ad-notice,14,13,17
+3,src/platform.js,8,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduc,14,13,18
+3,src/platform.js,8,1,tion-for-tech,14,13,19
+3,src/platform.js,9,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-cap,14,13,20
+3,src/platform.js,9,1,acity/sidebar-capacity/tt-check-scene,14,13,21
+3,src/platform.js,10,0,// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-cap,14,13,22
+3,src/platform.js,10,1,acity/sidebar-capacity/tt-navigate-to-scene,14,13,23
+3,src/platform.js,11,0,const SAVE_KEY = 'little_popcorn_factory_v1';,14,13,24
+3,src/platform.js,12,0,,14,13,25
+3,src/platform.js,13,0,function createPlatform() {,14,13,26
+3,src/platform.js,14,0,  const root = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;,14,13,27
+3,src/platform.js,15,0,  const sdk = typeof tt !== 'undefined' ? tt : root.tt;,14,13,28
+3,src/platform.js,16,0,  const isDouyin = !!(sdk && typeof sdk.createCanvas === 'function');,14,13,29
+3,src/platform.js,17,0,"  const config = Object.assign({ appId: '', rewardAdUnitId: '', interstitialAdUnitId: '',",14,13,30
+3,src/platform.js,18,0,"    allowSimulatedAds: false, analyticsEnabled: false, debug: false }, root.POPCORN_CONFIG || {});",14,13,31
+3,src/platform.js,19,0,  const doc = typeof document !== 'undefined' ? document : null;,14,13,32
+3,src/platform.js,20,0,  const win = typeof window !== 'undefined' ? window : root;,14,13,33
+3,src/platform.js,21,0,  const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);,14,13,34
+3,src/platform.js,22,0,"  const callbacks = { hide: [], show: [], pointer: [], resize: [] };",14,13,35
+3,src/platform.js,23,0,  const analytics = [];,14,13,36
+3,src/platform.js,24,0,  const startedAt = Date.now();,14,13,37
+3,src/platform.js,25,0,  let lastRewardEnd = -Infinity;,14,13,38
+3,src/platform.js,26,0,  let lastInterstitial = -Infinity;,14,13,39
+3,src/platform.js,27,0,  let nextInterstitialAttempt = 0;,14,13,40
+3,src/platform.js,28,0,  let earlyInterstitialCount = 0;,14,13,41
+3,src/platform.js,29,0,  let adBusy = false;,14,13,42
+3,src/platform.js,30,0,  let rewardAd = null;,14,13,43
+3,src/platform.js,31,0,  let lastStorageError = '';,14,13,44
+3,src/platform.js,32,0,  let hidden = false;,14,13,45
+3,src/platform.js,33,0,"  const sidebar = { supported: false, checking: false, fromSidebar: false };",14,13,46
+3,src/platform.js,34,0,  let sidebarShowSubscribed = false;,14,13,47
+3,src/platform.js,35,0,  let sidebarShowObserved = false;,14,13,48
+3,src/platform.js,36,0,  let sidebarCheck = null;,14,13,49
+3,src/platform.js,37,0,  let sidebarNavigation = null;,14,13,50
+3,src/platform.js,38,0,,15,14,1
+3,src/platform.js,39,0,"  function subscribe(name, callback) {",15,14,2
+3,src/platform.js,40,0,    if (typeof callback !== 'function') return function () {};,15,14,3
+3,src/platform.js,41,0,    callbacks[name].push(callback);,15,14,4
+3,src/platform.js,42,0,    return function () {,15,14,5
+3,src/platform.js,43,0,      const index = callbacks[name].indexOf(callback);,15,14,6
+3,src/platform.js,44,0,"      if (index >= 0) callbacks[name].splice(index, 1);",15,14,7
+3,src/platform.js,45,0,    };,15,14,8
+3,src/platform.js,46,0,  },15,14,9
+3,src/platform.js,47,0,,15,14,10
+3,src/platform.js,48,0,"  function emit(name, value) {",15,14,11
+3,src/platform.js,49,0,    callbacks[name].slice().forEach(function (callback) { callback(value); });,15,14,12
+3,src/platform.js,50,0,  },15,14,13
+3,src/platform.js,51,0,,15,14,14
+3,src/platform.js,52,0,  function getSystemInfo() {,15,14,15
+3,src/platform.js,53,0,    let raw = {};,15,14,16
+3,src/platform.js,54,0,    if (isDouyin && typeof sdk.getSystemInfoSync === 'function') {,15,14,17
+3,src/platform.js,55,0,      try { raw = sdk.getSystemInfoSync() || {}; } catch (_) { /* fallback below */ },15,14,18
+3,src/platform.js,56,0,    },15,14,19
+3,src/platform.js,57,0,"    const width = positive(raw.windowWidth || raw.screenWidth || win.innerWidth, 480);",15,14,20
+3,src/platform.js,58,0,"    const height = positive(raw.windowHeight || raw.screenHeight || win.innerHeight, 840);",15,14,21
+3,src/platform.js,59,0,"    const pixelRatio = positive(raw.pixelRatio || win.devicePixelRatio, 1);",15,14,22
+3,src/platform.js,60,0,"    return Object.assign({}, raw, {",15,14,23
+3,src/platform.js,61,0,"      width: width, height: height, windowWidth: width, windowHeight: height,",15,14,24
+3,src/platform.js,62,0,"      pixelRatio: pixelRatio,",15,14,25
+3,src/platform.js,63,0,"      safeArea: raw.safeArea || { left: 0, top: 0, right: width, bottom: height, width: width, ",15,14,26
+3,src/platform.js,63,1,height: height },15,14,27
+3,src/platform.js,64,0,    });,15,14,28
+3,src/platform.js,65,0,  },15,14,29
+3,src/platform.js,66,0,,15,14,30
+3,src/platform.js,67,0,  function notifyHidden() {,15,14,31
+3,src/platform.js,68,0,    if (hidden) return;,15,14,32
+3,src/platform.js,69,0,    hidden = true;,15,14,33
+3,src/platform.js,70,0,    emit('hide');,15,14,34
+3,src/platform.js,71,0,  },15,14,35
+3,src/platform.js,72,0,,15,14,36
+3,src/platform.js,73,0,  function notifyShown(value) {,15,14,37
+3,src/platform.js,74,0,    if (isDouyin) {,15,14,38
+3,src/platform.js,75,0,"      // Read every native callback, including the cold-start callback and a",15,14,39
+3,src/platform.js,76,0,      // repeated show without hide. Never reuse stale launch options on resume.,15,14,40
+3,src/platform.js,77,0,      sidebarShowObserved = true;,15,14,41
+3,src/platform.js,78,0,      sidebar.fromSidebar = isSidebarLaunch(value);,15,14,42
+3,src/platform.js,79,0,    },15,14,43
+3,src/platform.js,80,0,    // A returning device may have changed size even without a resize API.,15,14,44
+3,src/platform.js,81,0,"    emit('resize', getSystemInfo());",15,14,45
+3,src/platform.js,82,0,    if (!hidden) return;,15,14,46
+3,src/platform.js,83,0,    hidden = false;,15,14,47
+3,src/platform.js,84,0,"    emit('show', value);",15,14,48
+3,src/platform.js,85,0,  },15,14,49
+3,src/platform.js,86,0,,15,14,50
+3,src/platform.js,87,0,  if (isDouyin) {,16,15,1
+3,src/platform.js,88,0,"    // Register synchronously during game.js initialization, before querying any",16,15,2
+3,src/platform.js,89,0,    // optional capability. Missing/broken sidebar support cannot stop gameplay.,16,15,3
+3,src/platform.js,90,0,    if (typeof sdk.onShow === 'function') {,16,15,4
+3,src/platform.js,91,0,      try { sdk.onShow(notifyShown); sidebarShowSubscribed = true; } catch (_) {},16,15,5
+3,src/platform.js,92,0,    },16,15,6
+3,src/platform.js,93,0,    if (!sidebarShowObserved && typeof sdk.getLaunchOptionsSync === 'function') {,16,15,7
+3,src/platform.js,94,0,      try {,16,15,8
+3,src/platform.js,95,0,        const launch = sdk.getLaunchOptionsSync();,16,15,9
+3,src/platform.js,96,0,        if (!sidebarShowObserved) sidebar.fromSidebar = isSidebarLaunch(launch);,16,15,10
+3,src/platform.js,97,0,      } catch (_) { /* onShow remains the authoritative warm-start source */ },16,15,11
+3,src/platform.js,98,0,    },16,15,12
+3,src/platform.js,99,0,"    const touchMethods = [['onTouchStart', 'down'], ['onTouchMove', 'move'],",16,15,13
+3,src/platform.js,100,0,"      ['onTouchEnd', 'up'], ['onTouchCancel', 'cancel']];",16,15,14
+3,src/platform.js,101,0,    touchMethods.forEach(function (pair) {,16,15,15
+3,src/platform.js,102,0,      if (typeof sdk[pair[0]] !== 'function') return;,16,15,16
+3,src/platform.js,103,0,      sdk[pair[0]](function (event) {,16,15,17
+3,src/platform.js,104,0,        const points = event.changedTouches || event.touches || [];,16,15,18
+3,src/platform.js,105,0,        points.forEach(function (point) {,16,15,19
+3,src/platform.js,106,0,"          emit('pointer', { type: pair[1], x: number(point.screenX, point.clientX),",16,15,20
+3,src/platform.js,107,0,"            y: number(point.screenY, point.clientY), id: point.identifier == null ? 0 : ",16,15,21
+3,src/platform.js,107,1,point.identifier });,16,15,22
+3,src/platform.js,108,0,        });,16,15,23
+3,src/platform.js,109,0,      });,16,15,24
+3,src/platform.js,110,0,    });,16,15,25
+3,src/platform.js,111,0,    if (typeof sdk.onHide === 'function') sdk.onHide(notifyHidden);,16,15,26
+3,src/platform.js,112,0,    // Feature detection: this event is not present in every mini-game runtime.,16,15,27
+3,src/platform.js,113,0,"    if (typeof sdk.onWindowResize === 'function') sdk.onWindowResize(function () { emit('resize', ",16,15,28
+3,src/platform.js,113,1,getSystemInfo()); });,16,15,29
+3,src/platform.js,114,0,  } else {,16,15,30
+3,src/platform.js,115,0,    canvas.style.touchAction = 'none';,16,15,31
+3,src/platform.js,116,0,"    [['pointerdown', 'down'], ['pointermove', 'move'], ['pointerup', 'up'], ['pointercancel', ",16,15,32
+3,src/platform.js,116,1,'cancel']].forEach(function (pair) {,16,15,33
+3,src/platform.js,117,0,"      canvas.addEventListener(pair[0], function (event) {",16,15,34
+3,src/platform.js,118,0,        if (event.pointerType === 'mouse' && pair[1] === 'down' && event.button !== 0) return;,16,15,35
+3,src/platform.js,119,0,        event.preventDefault();,16,15,36
+3,src/platform.js,120,0,        if (pair[1] === 'down' && canvas.setPointerCapture) {,16,15,37
+3,src/platform.js,121,0,          try { canvas.setPointerCapture(event.pointerId); } catch (_) { /* unsupported pointer ,16,15,38
+3,src/platform.js,121,1,capture */ },16,15,39
+3,src/platform.js,122,0,        },16,15,40
+3,src/platform.js,123,0,        const rect = canvas.getBoundingClientRect();,16,15,41
+3,src/platform.js,124,0,"        emit('pointer', { type: pair[1], x: event.clientX - rect.left,",16,15,42
+3,src/platform.js,125,0,"          y: event.clientY - rect.top, id: event.pointerId == null ? 0 : event.pointerId });",16,15,43
+3,src/platform.js,126,0,"      }, { passive: false });",16,15,44
+3,src/platform.js,127,0,    });,16,15,45
+3,src/platform.js,128,0,"    doc.addEventListener('visibilitychange', function () { if (doc.hidden) notifyHidden(); else ",16,15,46
+3,src/platform.js,128,1,notifyShown(); });,16,15,47
+3,src/platform.js,129,0,"    win.addEventListener('pagehide', notifyHidden);",16,15,48
+3,src/platform.js,130,0,"    win.addEventListener('pageshow', notifyShown);",16,15,49
+3,src/platform.js,131,0,"    win.addEventListener('resize', function () { emit('resize', getSystemInfo()); });",16,15,50
+3,src/platform.js,132,0,  },17,16,1
+3,src/platform.js,133,0,,17,16,2
+3,src/platform.js,134,0,  function getSidebarState() {,17,16,3
+3,src/platform.js,135,0,"    return Object.assign({}, sidebar);",17,16,4
+3,src/platform.js,136,0,  },17,16,5
+3,src/platform.js,137,0,,17,16,6
+3,src/platform.js,138,0,  function hasSidebarApi() {,17,16,7
+3,src/platform.js,139,0,    return isDouyin && sidebarShowSubscribed && typeof sdk.checkScene === 'function' &&,17,16,8
+3,src/platform.js,140,0,      typeof sdk.navigateToScene === 'function';,17,16,9
+3,src/platform.js,141,0,  },17,16,10
+3,src/platform.js,142,0,,17,16,11
+3,src/platform.js,143,0,  function checkSidebar() {,17,16,12
+3,src/platform.js,144,0,    if (sidebarCheck) return sidebarCheck;,17,16,13
+3,src/platform.js,145,0,    sidebar.supported = false;,17,16,14
+3,src/platform.js,146,0,    if (!hasSidebarApi()) return Promise.resolve(getSidebarState());,17,16,15
+3,src/platform.js,147,0,    sidebar.checking = true;,17,16,16
+3,src/platform.js,148,0,    let resolveCheck;,17,16,17
+3,src/platform.js,149,0,    const pending = new Promise(function (resolve) { resolveCheck = resolve; });,17,16,18
+3,src/platform.js,150,0,    sidebarCheck = pending;,17,16,19
+3,src/platform.js,151,0,    let settled = false;,17,16,20
+3,src/platform.js,152,0,    let timer = null;,17,16,21
+3,src/platform.js,153,0,    function finish(supported) {,17,16,22
+3,src/platform.js,154,0,      if (settled) return;,17,16,23
+3,src/platform.js,155,0,      settled = true;,17,16,24
+3,src/platform.js,156,0,      if (timer != null) clearTimeout(timer);,17,16,25
+3,src/platform.js,157,0,      sidebar.supported = supported === true;,17,16,26
+3,src/platform.js,158,0,      sidebar.checking = false;,17,16,27
+3,src/platform.js,159,0,      sidebarCheck = null;,17,16,28
+3,src/platform.js,160,0,      resolveCheck(getSidebarState());,17,16,29
+3,src/platform.js,161,0,    },17,16,30
+3,src/platform.js,162,0,    try {,17,16,31
+3,src/platform.js,163,0,"      timer = setTimeout(function () { finish(false); }, 5000);",17,16,32
+3,src/platform.js,164,0,"      const returned = sdk.checkScene({ scene: 'sidebar',",17,16,33
+3,src/platform.js,165,0,"        success: function (result) { finish(!!(result && result.isExist === true)); },",17,16,34
+3,src/platform.js,166,0,        fail: function () { finish(false); } });,17,16,35
+3,src/platform.js,167,0,      // The documented API is callback-based; a Promise fulfillment is not,17,16,36
+3,src/platform.js,168,0,      // evidence of support. Consume unexpected rejections defensively.,17,16,37
+3,src/platform.js,169,0,      if (returned && typeof returned.then === 'function') Promise.resolve(returned).catch(function ,17,16,38
+3,src/platform.js,169,1,() { finish(false); });,17,16,39
+3,src/platform.js,170,0,    } catch (_) { finish(false); },17,16,40
+3,src/platform.js,171,0,    return pending;,17,16,41
+3,src/platform.js,172,0,  },17,16,42
+3,src/platform.js,173,0,,17,16,43
+3,src/platform.js,174,0,  function navigateSidebar() {,17,16,44
+3,src/platform.js,175,0,    // Only invoke from an explicit user action. Do not defer navigation behind,17,16,45
+3,src/platform.js,176,0,"    // an async capability probe, which can lose the runtime's user gesture.",17,16,46
+3,src/platform.js,177,0,"    if (sidebar.checking) return Promise.resolve({ ok: false, reason: 'checking' });",17,16,47
+3,src/platform.js,178,0,"    if (!sidebar.supported || !hasSidebarApi()) return Promise.resolve({ ok: false, reason: ",17,16,48
+3,src/platform.js,178,1,'unavailable' });,17,16,49
+3,src/platform.js,179,0,"    if (adBusy || sidebarNavigation) return Promise.resolve({ ok: false, reason: 'busy' });",17,16,50
+3,src/platform.js,180,0,"    if (hidden) return Promise.resolve({ ok: false, reason: 'hidden' });",18,17,1
+3,src/platform.js,181,0,    let resolveNavigation;,18,17,2
+3,src/platform.js,182,0,    const pending = new Promise(function (resolve) { resolveNavigation = resolve; });,18,17,3
+3,src/platform.js,183,0,    sidebarNavigation = pending;,18,17,4
+3,src/platform.js,184,0,    let settled = false;,18,17,5
+3,src/platform.js,185,0,    let timer = null;,18,17,6
+3,src/platform.js,186,0,"    function finish(ok, reason) {",18,17,7
+3,src/platform.js,187,0,      if (settled) return;,18,17,8
+3,src/platform.js,188,0,      settled = true;,18,17,9
+3,src/platform.js,189,0,      if (timer != null) clearTimeout(timer);,18,17,10
+3,src/platform.js,190,0,      sidebarNavigation = null;,18,17,11
+3,src/platform.js,191,0,"      // A successful jump only means the sidebar opened, never that the user",18,17,12
+3,src/platform.js,192,0,      // returned from it. Only native launch/onShow parameters change that flag.,18,17,13
+3,src/platform.js,193,0,"      resolveNavigation({ ok: ok, reason: reason });",18,17,14
+3,src/platform.js,194,0,    },18,17,15
+3,src/platform.js,195,0,    try {,18,17,16
+3,src/platform.js,196,0,"      timer = setTimeout(function () { finish(false, 'timeout'); }, 10000);",18,17,17
+3,src/platform.js,197,0,"      const returned = sdk.navigateToScene({ scene: 'sidebar',",18,17,18
+3,src/platform.js,198,0,"        success: function () { finish(true, 'navigated'); },",18,17,19
+3,src/platform.js,199,0,"        fail: function () { finish(false, 'failed'); } });",18,17,20
+3,src/platform.js,200,0,      if (returned && typeof returned.then === 'function') Promise.resolve(returned).catch(function ,18,17,21
+3,src/platform.js,200,1,"() { finish(false, 'failed'); });",18,17,22
+3,src/platform.js,201,0,"    } catch (_) { finish(false, 'failed'); }",18,17,23
+3,src/platform.js,202,0,    return pending;,18,17,24
+3,src/platform.js,203,0,  },18,17,25
+3,src/platform.js,204,0,,18,17,26
+3,src/platform.js,205,0,"  function track(event, data) {",18,17,27
+3,src/platform.js,206,0,"    const cleanEvent = String(event || 'unknown').replace(/[^a-zA-Z0-9_]/g, '_').slice(0, 64);",18,17,28
+3,src/platform.js,207,0,    const cleanData = {};,18,17,29
+3,src/platform.js,208,0,"    Object.keys(data || {}).slice(0, 24).forEach(function (key) {",18,17,30
+3,src/platform.js,209,0,      const value = data[key];,18,17,31
+3,src/platform.js,210,0,      if (typeof value === 'number' && Number.isFinite(value)) cleanData[key] = value;,18,17,32
+3,src/platform.js,211,0,"      else if (typeof value === 'string') cleanData[key] = value.slice(0, 120);",18,17,33
+3,src/platform.js,212,0,      else if (typeof value === 'boolean') cleanData[key] = value ? 1 : 0;,18,17,34
+3,src/platform.js,213,0,    });,18,17,35
+3,src/platform.js,214,0,"    analytics.push({ event: cleanEvent, data: cleanData, time: Date.now() });",18,17,36
+3,src/platform.js,215,0,    if (analytics.length > 200) analytics.shift();,18,17,37
+3,src/platform.js,216,0,    // Production reporting is an explicit deployment choice; debug events stay in memory by default.,18,17,38
+3,src/platform.js,217,0,    if (isDouyin && config.analyticsEnabled === true && typeof sdk.reportAnalytics === 'function') {,18,17,39
+3,src/platform.js,218,0,"      try { sdk.reportAnalytics(cleanEvent, cleanData); } catch (_) { /* metrics must not interrupt ",18,17,40
+3,src/platform.js,218,1,play */ },18,17,41
+3,src/platform.js,219,0,    },18,17,42
+3,src/platform.js,220,0,  },18,17,43
+3,src/platform.js,221,0,,18,17,44
+3,src/platform.js,222,0,  function load() {,18,17,45
+3,src/platform.js,223,0,    lastStorageError = '';,18,17,46
+3,src/platform.js,224,0,    try {,18,17,47
+3,src/platform.js,225,0,      const value = isDouyin ? sdk.getStorageSync(SAVE_KEY) : win.localStorage.getItem(SAVE_KEY);,18,17,48
+3,src/platform.js,226,0,      if (value == null || value === '') return null;,18,17,49
+3,src/platform.js,227,0,      const parsed = typeof value === 'string' ? JSON.parse(value) : value;,18,17,50
+3,src/platform.js,228,0,      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new ,19,18,1
+3,src/platform.js,228,1,Error('invalid-save');,19,18,2
+3,src/platform.js,229,0,      return parsed;,19,18,3
+3,src/platform.js,230,0,    } catch (error) {,19,18,4
+3,src/platform.js,231,0,      lastStorageError = String(error && error.message || error);,19,18,5
+3,src/platform.js,232,0,      return null;,19,18,6
+3,src/platform.js,233,0,    },19,18,7
+3,src/platform.js,234,0,  },19,18,8
+3,src/platform.js,235,0,,19,18,9
+3,src/platform.js,236,0,  function save(data) {,19,18,10
+3,src/platform.js,237,0,    lastStorageError = '';,19,18,11
+3,src/platform.js,238,0,    try {,19,18,12
+3,src/platform.js,239,0,      const encoded = JSON.stringify(data);,19,18,13
+3,src/platform.js,240,0,      if (typeof encoded !== 'string') throw new Error('invalid-save');,19,18,14
+3,src/platform.js,241,0,"      if (isDouyin) sdk.setStorageSync(SAVE_KEY, encoded);",19,18,15
+3,src/platform.js,242,0,"      else win.localStorage.setItem(SAVE_KEY, encoded);",19,18,16
+3,src/platform.js,243,0,      return true;,19,18,17
+3,src/platform.js,244,0,    } catch (error) {,19,18,18
+3,src/platform.js,245,0,      lastStorageError = String(error && error.message || error);,19,18,19
+3,src/platform.js,246,0,      return false;,19,18,20
+3,src/platform.js,247,0,    },19,18,21
+3,src/platform.js,248,0,  },19,18,22
+3,src/platform.js,249,0,,19,18,23
+3,src/platform.js,250,0,"  function reward(kind, options) {",19,18,24
+3,src/platform.js,251,0,"    if (adBusy) return Promise.resolve({ completed: false, reason: 'busy' });",19,18,25
+3,src/platform.js,252,0,    if (!isDouyin) {,19,18,26
+3,src/platform.js,253,0,      const outcome = options && options.simulate;,19,18,27
+3,src/platform.js,254,0,"      if (config.allowSimulatedAds !== true) return Promise.resolve({ completed: false, reason: ",19,18,28
+3,src/platform.js,254,1,'unavailable' });,19,18,29
+3,src/platform.js,255,0,"      if (['complete', 'cancel', 'fail'].indexOf(outcome) === -1) {",19,18,30
+3,src/platform.js,256,0,"        return Promise.resolve({ completed: false, reason: 'simulation-choice-required', simulated: ",19,18,31
+3,src/platform.js,256,1,true });,19,18,32
+3,src/platform.js,257,0,      },19,18,33
+3,src/platform.js,258,0,      lastRewardEnd = Date.now();,19,18,34
+3,src/platform.js,259,0,      const completed = outcome === 'complete';,19,18,35
+3,src/platform.js,260,0,"      track('ad_simulated', { kind: kind, outcome: outcome });",19,18,36
+3,src/platform.js,261,0,"      return Promise.resolve({ completed: completed, simulated: true,",19,18,37
+3,src/platform.js,262,0,        reason: completed ? 'simulated-complete' : outcome === 'cancel' ? 'cancelled' : 'failed' });,19,18,38
+3,src/platform.js,263,0,    },19,18,39
+3,src/platform.js,264,0,    if (!validId(config.appId) || !validId(config.rewardAdUnitId) || typeof sdk.createRewardedVideoAd ,19,18,40
+3,src/platform.js,264,1,!== 'function') {,19,18,41
+3,src/platform.js,265,0,"      track('ad_unavailable', { kind: kind, placement: 'reward' });",19,18,42
+3,src/platform.js,266,0,"      return Promise.resolve({ completed: false, reason: 'unavailable' });",19,18,43
+3,src/platform.js,267,0,    },19,18,44
+3,src/platform.js,268,0,    adBusy = true;,19,18,45
+3,src/platform.js,269,0,"    track('ad_request', { kind: kind, placement: 'reward' });",19,18,46
+3,src/platform.js,270,0,    return new Promise(function (resolve) {,19,18,47
+3,src/platform.js,271,0,      let settled = false;,19,18,48
+3,src/platform.js,272,0,      let timer = null;,19,18,49
+3,src/platform.js,273,0,      let ad = null;,19,18,50
+3,src/platform.js,274,0,"      function finish(completed, reason, error) {",20,19,1
+3,src/platform.js,275,0,        if (settled) return;,20,19,2
+3,src/platform.js,276,0,        settled = true;,20,19,3
+3,src/platform.js,277,0,        if (timer != null) clearTimeout(timer);,20,19,4
+3,src/platform.js,278,0,        if (ad) {,20,19,5
+3,src/platform.js,279,0,          if (typeof ad.offClose === 'function') ad.offClose(onClose);,20,19,6
+3,src/platform.js,280,0,          if (typeof ad.offError === 'function') ad.offError(onError);,20,19,7
+3,src/platform.js,281,0,        },20,19,8
+3,src/platform.js,282,0,        adBusy = false;,20,19,9
+3,src/platform.js,283,0,        lastRewardEnd = Date.now();,20,19,10
+3,src/platform.js,284,0,"        track(completed ? 'ad_complete' : 'ad_incomplete', { kind: kind, reason: reason,",20,19,11
+3,src/platform.js,285,0,          code: error && (error.errCode || error.errNo) || 0 });,20,19,12
+3,src/platform.js,286,0,"        resolve({ completed: completed, reason: reason });",20,19,13
+3,src/platform.js,287,0,      },20,19,14
+3,src/platform.js,288,0,      function onClose(result) {,20,19,15
+3,src/platform.js,289,0,        // Missing/undefined onClose payload must never grant a reward.,20,19,16
+3,src/platform.js,290,0,"        finish(!!(result && result.isEnded === true), result && result.isEnded === true ? 'completed' ",20,19,17
+3,src/platform.js,290,1,: 'cancelled');,20,19,18
+3,src/platform.js,291,0,      },20,19,19
+3,src/platform.js,292,0,"      function onError(error) { finish(false, 'failed', error); }",20,19,20
+3,src/platform.js,293,0,      try {,20,19,21
+3,src/platform.js,294,0,"        if (!rewardAd) rewardAd = sdk.createRewardedVideoAd({ adUnitId: config.rewardAdUnitId, ",20,19,22
+3,src/platform.js,294,1,multiton: false });,20,19,23
+3,src/platform.js,295,0,        ad = rewardAd;,20,19,24
+3,src/platform.js,296,0,        if (!ad || typeof ad.onClose !== 'function' || typeof ad.onError !== 'function' || typeof ,20,19,25
+3,src/platform.js,296,1,ad.show !== 'function') {,20,19,26
+3,src/platform.js,297,0,"          finish(false, 'unavailable');",20,19,27
+3,src/platform.js,298,0,          return;,20,19,28
+3,src/platform.js,299,0,        },20,19,29
+3,src/platform.js,300,0,        ad.onClose(onClose);,20,19,30
+3,src/platform.js,301,0,        ad.onError(onError);,20,19,31
+3,src/platform.js,302,0,        timer = setTimeout(function () {,20,19,32
+3,src/platform.js,303,0,"          finish(false, 'timeout');",20,19,33
+3,src/platform.js,304,0,          try { if (ad && typeof ad.destroy === 'function') ad.destroy(); } catch (_) { /* safe ,20,19,34
+3,src/platform.js,304,1,teardown */ },20,19,35
+3,src/platform.js,305,0,          rewardAd = null;,20,19,36
+3,src/platform.js,306,0,"        }, 180000);",20,19,37
+3,src/platform.js,307,0,"        // Douyin recommends show directly, with completion driven only by onClose.",20,19,38
+3,src/platform.js,308,0,        Promise.resolve(ad.show()).catch(onError);,20,19,39
+3,src/platform.js,309,0,"      } catch (error) { finish(false, 'failed', error); }",20,19,40
+3,src/platform.js,310,0,    });,20,19,41
+3,src/platform.js,311,0,  },20,19,42
+3,src/platform.js,312,0,,20,19,43
+3,src/platform.js,313,0,  function interstitial() {,20,19,44
+3,src/platform.js,314,0,    const now = Date.now();,20,19,45
+3,src/platform.js,315,0,    const elapsed = now - startedAt;,20,19,46
+3,src/platform.js,316,0,    // Call only after a settled order group or completed machine transition.,20,19,47
+3,src/platform.js,317,0,"    // These are product caps, stricter than the SDK's 30s/60s minimums.",20,19,48
+3,src/platform.js,318,0,    if (!isDouyin || adBusy || elapsed < 90000 || now - lastInterstitial < 120000 ||,20,19,49
+3,src/platform.js,319,0,      now - lastRewardEnd < 60000 || now < nextInterstitialAttempt ||,20,19,50
+3,src/platform.js,320,0,      (elapsed < 1200000 && earlyInterstitialCount >= 2) ||,21,20,1
+3,src/platform.js,321,0,      !validId(config.appId) || !validId(config.interstitialAdUnitId) ||,21,20,2
+3,src/platform.js,322,0,      typeof sdk.createInterstitialAd !== 'function') return Promise.resolve(false);,21,20,3
+3,src/platform.js,323,0,    adBusy = true;,21,20,4
+3,src/platform.js,324,0,    nextInterstitialAttempt = now + 30000;,21,20,5
+3,src/platform.js,325,0,    return new Promise(function (resolve) {,21,20,6
+3,src/platform.js,326,0,      let settled = false;,21,20,7
+3,src/platform.js,327,0,      let shown = false;,21,20,8
+3,src/platform.js,328,0,      let showRequested = false;,21,20,9
+3,src/platform.js,329,0,      let timer = null;,21,20,10
+3,src/platform.js,330,0,      let ad = null;,21,20,11
+3,src/platform.js,331,0,      function markShown() {,21,20,12
+3,src/platform.js,332,0,        if (shown) return;,21,20,13
+3,src/platform.js,333,0,        shown = true;,21,20,14
+3,src/platform.js,334,0,        lastInterstitial = Date.now();,21,20,15
+3,src/platform.js,335,0,        if (lastInterstitial - startedAt < 1200000) earlyInterstitialCount++;,21,20,16
+3,src/platform.js,336,0,"        track('ad_impression', { placement: 'interstitial' });",21,20,17
+3,src/platform.js,337,0,      },21,20,18
+3,src/platform.js,338,0,      function finish(success) {,21,20,19
+3,src/platform.js,339,0,        if (settled) return;,21,20,20
+3,src/platform.js,340,0,        settled = true;,21,20,21
+3,src/platform.js,341,0,        if (timer != null) clearTimeout(timer);,21,20,22
+3,src/platform.js,342,0,        if (ad) {,21,20,23
+3,src/platform.js,343,0,          if (typeof ad.offClose === 'function') ad.offClose(onClose);,21,20,24
+3,src/platform.js,344,0,          if (typeof ad.offError === 'function') ad.offError(onError);,21,20,25
+3,src/platform.js,345,0,          if (typeof ad.offLoad === 'function') ad.offLoad(onLoad);,21,20,26
+3,src/platform.js,346,0,          // SDK only permits destruction after an interstitial has been shown.,21,20,27
+3,src/platform.js,347,0,          if (shown && typeof ad.destroy === 'function') { try { ad.destroy(); } catch (_) {} },21,20,28
+3,src/platform.js,348,0,        },21,20,29
+3,src/platform.js,349,0,        adBusy = false;,21,20,30
+3,src/platform.js,350,0,        resolve(success);,21,20,31
+3,src/platform.js,351,0,      },21,20,32
+3,src/platform.js,352,0,      function onClose() { if (settled) return; markShown(); finish(true); },21,20,33
+3,src/platform.js,353,0,      function onError(error) {,21,20,34
+3,src/platform.js,354,0,        if (settled) return;,21,20,35
+3,src/platform.js,355,0,"        track('ad_incomplete', { placement: 'interstitial', code: error && (error.errCode || ",21,20,36
+3,src/platform.js,355,1,error.errNo) || 0 });,21,20,37
+3,src/platform.js,356,0,        finish(false);,21,20,38
+3,src/platform.js,357,0,      },21,20,39
+3,src/platform.js,358,0,      function onLoad() {,21,20,40
+3,src/platform.js,359,0,        if (settled || showRequested) return;,21,20,41
+3,src/platform.js,360,0,        showRequested = true;,21,20,42
+3,src/platform.js,361,0,        try { Promise.resolve(ad.show()).then(function () { if (!settled) markShown(); },21,20,43
+3,src/platform.js,361,1,).catch(onError); },21,20,44
+3,src/platform.js,362,0,        catch (error) { onError(error); },21,20,45
+3,src/platform.js,363,0,      },21,20,46
+3,src/platform.js,364,0,      try {,21,20,47
+3,src/platform.js,365,0,        ad = sdk.createInterstitialAd({ adUnitId: config.interstitialAdUnitId });,21,20,48
+3,src/platform.js,366,0,        if (!ad || typeof ad.show !== 'function' || typeof ad.load !== 'function' ||,21,20,49
+3,src/platform.js,367,0,          typeof ad.onClose !== 'function' || typeof ad.onError !== 'function') { finish(false); ,21,20,50
+3,src/platform.js,367,1,return; },22,21,1
+3,src/platform.js,368,0,        ad.onClose(onClose);,22,21,2
+3,src/platform.js,369,0,        ad.onError(onError);,22,21,3
+3,src/platform.js,370,0,        if (typeof ad.onLoad === 'function') ad.onLoad(onLoad);,22,21,4
+3,src/platform.js,371,0,"        timer = setTimeout(function () { finish(false); }, 180000);",22,21,5
+3,src/platform.js,372,0,        const loading = ad.load();,22,21,6
+3,src/platform.js,373,0,        if (loading && typeof loading.then === 'function') loading.then(onLoad).catch(onError);,22,21,7
+3,src/platform.js,374,0,      } catch (error) { onError(error); },22,21,8
+3,src/platform.js,375,0,    });,22,21,9
+3,src/platform.js,376,0,  },22,21,10
+3,src/platform.js,377,0,,22,21,11
+3,src/platform.js,378,0,  function vibrate() {,22,21,12
+3,src/platform.js,379,0,    try {,22,21,13
+3,src/platform.js,380,0,      if (isDouyin && typeof sdk.vibrateShort === 'function') sdk.vibrateShort({ fail: function () {} ,22,21,14
+3,src/platform.js,380,1,});,22,21,15
+3,src/platform.js,381,0,      else if (win.navigator && typeof win.navigator.vibrate === 'function') ,22,21,16
+3,src/platform.js,381,1,win.navigator.vibrate(12);,22,21,17
+3,src/platform.js,382,0,    } catch (_) { /* haptics are optional */ },22,21,18
+3,src/platform.js,383,0,  },22,21,19
+3,src/platform.js,384,0,,22,21,20
+3,src/platform.js,385,0,  return {,22,21,21
+3,src/platform.js,386,0,"    canvas: canvas, isDouyin: isDouyin, config: config, load: load, save: save,",22,21,22
+3,src/platform.js,387,0,"    onHide: function (callback) { return subscribe('hide', callback); },",22,21,23
+3,src/platform.js,388,0,"    onShow: function (callback) { return subscribe('show', callback); },",22,21,24
+3,src/platform.js,389,0,"    onPointer: function (callback) { return subscribe('pointer', callback); },",22,21,25
+3,src/platform.js,390,0,"    onResize: function (callback) { return subscribe('resize', callback); },",22,21,26
+3,src/platform.js,391,0,"    reward: reward, interstitial: interstitial, track: track, getSystemInfo: getSystemInfo, vibrate: ",22,21,27
+3,src/platform.js,391,1,"vibrate,",22,21,28
+3,src/platform.js,392,0,"    getSidebarState: getSidebarState, checkSidebar: checkSidebar, navigateSidebar: navigateSidebar,",22,21,29
+3,src/platform.js,393,0,"    getAnalytics: function () { return analytics.map(function (entry) { return Object.assign({}, ",22,21,30
+3,src/platform.js,393,1,"entry, { data: Object.assign({}, entry.data) }); }); },",22,21,31
+3,src/platform.js,394,0,"    get lastStorageError() { return lastStorageError; },",22,21,32
+3,src/platform.js,395,0,    get adBusy() { return adBusy; },22,21,33
+3,src/platform.js,396,0,  };,22,21,34
+3,src/platform.js,397,0,},22,21,35
+3,src/platform.js,398,0,,22,21,36
+3,src/platform.js,399,0,function isSidebarLaunch(value) {,22,21,37
+3,src/platform.js,400,0,  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;,22,21,38
+3,src/platform.js,401,0,  // Prefer the official onShow fields when present; do not treat custom query,22,21,39
+3,src/platform.js,402,0,"  // parameters, scene-shaped strings, or contradictory metadata as a return.",22,21,40
+3,src/platform.js,403,0,  if (value.launch_from != null || value.location != null) {,22,21,41
+3,src/platform.js,404,0,    return value.launch_from === 'homepage' &&,22,21,42
+3,src/platform.js,405,0,      (value.location === 'sidebar_card' || value.location === 'homepage_expand');,22,21,43
+3,src/platform.js,406,0,  },22,21,44
+3,src/platform.js,407,0,  // Cold-start fallback for hosts whose getLaunchOptionsSync only provides scene.,22,21,45
+3,src/platform.js,408,0,  // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/operation1/user-ops/-retention/si,22,21,46
+3,src/platform.js,408,1,debar,22,21,47
+3,src/platform.js,409,0,"  return ['021036', '101036', '181036', '261036'].indexOf(value.scene) !== -1;",22,21,48
+3,src/platform.js,410,0,},22,21,49
+3,src/platform.js,411,0,,22,21,50
+3,src/platform.js,412,0,function createBrowserCanvas(doc) {,23,22,1
+3,src/platform.js,413,0,  if (!doc) throw new Error('A browser document or Douyin tt runtime is required.');,23,22,2
+3,src/platform.js,414,0,  let canvas = doc.getElementById('game') || doc.querySelector('canvas');,23,22,3
+3,src/platform.js,415,0,  if (!canvas) {,23,22,4
+3,src/platform.js,416,0,    canvas = doc.createElement('canvas');,23,22,5
+3,src/platform.js,417,0,    canvas.id = 'game';,23,22,6
+3,src/platform.js,418,0,    doc.body.appendChild(canvas);,23,22,7
+3,src/platform.js,419,0,  },23,22,8
+3,src/platform.js,420,0,  return canvas;,23,22,9
+3,src/platform.js,421,0,},23,22,10
+3,src/platform.js,422,0,,23,22,11
+3,src/platform.js,423,0,function validId(value) {,23,22,12
+3,src/platform.js,424,0,  return typeof value === 'string' && value.trim().length > 0 && !/^(YOUR_|REPLACE|TODO|test|placehold,23,22,13
+3,src/platform.js,424,1,er)/i.test(value);,23,22,14
+3,src/platform.js,425,0,},23,22,15
+3,src/platform.js,426,0,,23,22,16
+3,src/platform.js,427,0,"function positive(value, fallback) { return Number.isFinite(Number(value)) && Number(value) > 0 ? ",23,22,17
+3,src/platform.js,427,1,Number(value) : fallback; },23,22,18
+3,src/platform.js,428,0,"function number(value, fallback) { return Number.isFinite(Number(value)) ? Number(value) : ",23,22,19
+3,src/platform.js,428,1,Number(fallback) || 0; },23,22,20
+3,src/platform.js,429,0,,23,22,21
+3,src/platform.js,430,0,"module.exports = { createPlatform: createPlatform, SAVE_KEY: SAVE_KEY };",23,22,22
+4,src/renderer.js,1,0,'use strict';,23,22,23
+4,src/renderer.js,2,0,"const { CONFIG, formatNumber: num } = require('./core');",23,22,24
+4,src/renderer.js,3,0,"const C = { ink:'#283e32', muted:'#849084', paper:'#f8f6ed', white:'#fffdf7', green:'#366348', ",23,22,25
+4,src/renderer.js,3,1,"mint:'#deebd5', yellow:'#f4ca58', orange:'#e09a55', line:'#e1e4d7', purple:'#ddd4ef' };",23,22,26
+4,src/renderer.js,4,0,"const FONT = '""Microsoft YaHei"", ""PingFang SC"", system-ui, sans-serif';",23,22,27
+4,src/renderer.js,5,0,const rate = n => n>0&&n<10?Number(n.toFixed(2)).toString():num(n);,23,22,28
+4,src/renderer.js,6,0,// Full standard text required before gameplay; not an age-rating or identity system.,23,22,29
+4,src/renderer.js,7,0,"const HEALTH_ADVISORY = ['抵制不良游戏，拒绝盗版游戏。','注意自我保护，谨防受骗上当。',",23,22,30
+4,src/renderer.js,7,1,"'适度游戏益脑，沉迷游戏伤身。','合理安排时间，享受健康生活。'];",23,22,31
+4,src/renderer.js,8,0,class Renderer {,23,22,32
+4,src/renderer.js,9,0,  constructor(ctx) { this.c=ctx; this.zones=[]; this.t=0; this.particles=[]; this.floats=[]; ,23,22,33
+4,src/renderer.js,9,1,this.flash=0; this.truck=0; },23,22,34
+4,src/renderer.js,10,0,"  box(x,y,w,h,r=14,fill=C.white,stroke) { const c=this.c; c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,",23,22,35
+4,src/renderer.js,10,1,"y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath(); ",23,22,36
+4,src/renderer.js,10,2,if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke();} },23,22,37
+4,src/renderer.js,11,0,"  text(s,x,y,size=14,color=C.ink,weight=400,align='left') { const c=this.c;c.font=`${weight} ${size}",23,22,38
+4,src/renderer.js,11,1,"px ${FONT}`;c.fillStyle=color;c.textAlign=align;c.textBaseline='middle';c.fillText(String(s),x,y); }",23,22,39
+4,src/renderer.js,12,0,"  wrap(s,x,y,width,size=14,color=C.muted,line=24) { const c=this.c;c.font=`400 ${size}px ${FONT}`;let ",23,22,40
+4,src/renderer.js,12,1,"str='',n=0;for(const char of String(s)){if(char==='\n'||c.measureText(str+char).width>width){",23,22,41
+4,src/renderer.js,12,2,"this.text(str,x,y+n*line,size,color);str=char==='\n'?'':char;n++;}else str+=char;}",23,22,42
+4,src/renderer.js,12,3,"if(str)this.text(str,x,y+n*line,size,color);return(n+1)*line; }",23,22,43
+4,src/renderer.js,13,0,"  circle(x,y,r,fill,stroke){const c=this.c;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;",23,22,44
+4,src/renderer.js,13,1,c.fill();if(stroke){c.strokeStyle=stroke;c.stroke();}},23,22,45
+4,src/renderer.js,14,0,"  line(x,y,xx,yy,color=C.ink,width=2){const c=this.c;c.beginPath();c.moveTo(x,y);c.lineTo(xx,yy);",23,22,46
+4,src/renderer.js,14,1,c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.stroke();},23,22,47
+4,src/renderer.js,15,0,"  hit(x,y,w,h,action) { this.zones.push({x,y,w,h,action}); }",23,22,48
+4,src/renderer.js,16,0,"  button(x,y,w,h,label,action,opts={}) { const fill=opts.disabled?'#e6e8de':opts.fill||C.green;",23,22,49
+4,src/renderer.js,16,1,"this.box(x,y,w,h,opts.radius||14,fill,opts.stroke);this.text(label,x+w/2,y+h/2,opts.size||15,",23,22,50
+4,src/renderer.js,16,2,"opts.disabled?'#99a092':opts.color||C.white,opts.weight||650,'center');if(!opts.disabled)this.hit(x,y,",24,23,1
+4,src/renderer.js,16,3,"w,h,action); }",24,23,2
+4,src/renderer.js,17,0,"  icon(type,x,y,s=22,color=C.ink) { const c=this.c;c.save();c.translate(x,y);c.scale(s/24,s/24);",24,23,3
+4,src/renderer.js,17,1,c.strokeStyle=color;c.fillStyle=color;c.lineWidth=1.8;c.lineCap='round';c.lineJoin='round';,24,23,4
+4,src/renderer.js,18,0,"    if(type==='coin'){this.circle(12,12,9,'#f8d56e','#d7a642');this.text('•',12,11,20,'#b78723',700,",24,23,5
+4,src/renderer.js,18,1,'center');},24,23,6
+4,src/renderer.js,19,0,"    else if(type==='bolt'){c.beginPath();c.moveTo(14,1);c.lineTo(5,14);c.lineTo(11,14);c.lineTo(9,23);",24,23,7
+4,src/renderer.js,19,1,"c.lineTo(20,9);c.lineTo(13,9);c.closePath();c.fill();}",24,23,8
+4,src/renderer.js,20,0,"    else if(type==='arrow'){this.line(5,12,19,12,color,2);this.line(14,6,20,12,color,2);this.line(14,",24,23,9
+4,src/renderer.js,20,1,"18,20,12,color,2);}",24,23,10
+4,src/renderer.js,21,0,"    else if(type==='play'){c.beginPath();c.moveTo(8,5);c.lineTo(19,12);c.lineTo(8,19);c.closePath();",24,23,11
+4,src/renderer.js,21,1,c.fill();},24,23,12
+4,src/renderer.js,22,0,"    else if(type==='gear'){for(let i=0;i<8;i++){c.save();c.translate(12,12);c.rotate(i*Math.PI/4);",24,23,13
+4,src/renderer.js,22,1,"c.fillRect(-2,-12,4,5);c.restore();}this.circle(12,12,8,color);this.circle(12,12,3,C.paper);}",24,23,14
+4,src/renderer.js,23,0,"    else if(type==='factory'){this.box(2,11,20,11,2,null,color);this.line(3,11,9,6,color);this.line(9,",24,23,15
+4,src/renderer.js,23,1,"6,9,11,color);this.line(9,11,16,6,color);this.line(16,6,16,11,color);c.fillRect(18,2,3,9);for(let i=0;",24,23,16
+4,src/renderer.js,23,2,"i<3;i++)c.fillRect(6+i*5,15,2,3);}",24,23,17
+4,src/renderer.js,24,0,"    else if(type==='chart'){this.line(3,2,3,22,color);this.line(3,22,23,22,color);c.fillRect(7,12,3,",24,23,18
+4,src/renderer.js,24,1,"7);c.fillRect(13,8,3,11);c.fillRect(19,3,3,16);}",24,23,19
+4,src/renderer.js,25,0,"    else if(type==='hand'){this.circle(12,15,7,color);this.box(9,2,5,14,2,color);this.box(5,10,5,9,2,",24,23,20
+4,src/renderer.js,25,1,color);},24,23,21
+4,src/renderer.js,26,0,"    else if(type==='check'){this.line(4,12,9,17,color,3);this.line(9,17,20,5,color,3);}",24,23,22
+4,src/renderer.js,27,0,"    else if(type==='close'){this.line(6,6,18,18,color);this.line(18,6,6,18,color);}",24,23,23
+4,src/renderer.js,28,0,"    else {this.circle(12,12,8,color);}",24,23,24
+4,src/renderer.js,29,0,    c.restore();,24,23,25
+4,src/renderer.js,30,0,  },24,23,26
+4,src/renderer.js,31,0,"  popcorn(x,y,r=5,angle=0) { const c=this.c;c.save();c.translate(x,y);c.rotate(angle);",24,23,27
+4,src/renderer.js,31,1,"this.circle(-r*.5,0,r*.66,'#fff8d5');this.circle(r*.4,-r*.35,r*.7,'#fffce9');this.circle(r*.45,r*.5,",24,23,28
+4,src/renderer.js,31,2,"r*.65,'#ffeab0');this.circle(-r*.4,r*.55,r*.58,'#fff5c8');this.circle(-r*.05,r*.1,r*.36,'#f0c867');",24,23,29
+4,src/renderer.js,31,3,c.restore(); },24,23,30
+4,src/renderer.js,32,0,  emit(event) {,24,23,31
+4,src/renderer.js,33,0,    if(event.type==='produce'||event.type==='burst') { const burst=event.type==='burst';const ,24,23,32
+4,src/renderer.js,33,1,"count=burst?65:event.source==='tap'?5:Math.min(5,Math.ceil(event.amount/10));for(let i=0;",24,23,33
+4,src/renderer.js,33,2,"i<count&&this.particles.length<180;i++)this.particles.push({x:240+(Math.random()-.5)*74,y:390,",24,23,34
+4,src/renderer.js,33,3,"vx:(Math.random()-.5)*(burst?300:90),vy:-40-Math.random()*(burst?300:110),life:1.5+Math.random(),",24,23,35
+4,src/renderer.js,33,4,"r:4+Math.random()*5,a:Math.random()*6});if(event.source==='tap')this.floats.push({text:`+${",24,23,36
+4,src/renderer.js,33,5,"num(event.amount)}`,x:240+(Math.random()-.5)*80,y:364,life:.8});if(burst)this.flash=1; }",24,23,37
+4,src/renderer.js,34,0,"    if(event.type==='order'){this.truck=1;this.floats.push({text:'订单发车！',x:240,y:420,life:1.7});}",24,23,38
+4,src/renderer.js,35,0,    if(event.type==='evolve'){this.flash=1;for(let i=0;i<55&&this.particles.length<180;,24,23,39
+4,src/renderer.js,35,1,"i++)this.particles.push({x:50+Math.random()*380,y:260,vx:(Math.random()-.5)*130,",24,23,40
+4,src/renderer.js,35,2,"vy:-80-Math.random()*140,life:2+Math.random(),r:5,a:0});}",24,23,41
+4,src/renderer.js,36,0,  },24,23,42
+4,src/renderer.js,37,0,"  update(dt) {this.t+=dt;this.flash=Math.max(0,this.flash-dt*1.5);this.truck=Math.max(0,",24,23,43
+4,src/renderer.js,37,1,this.truck-dt*.45);for(const p of this.particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=370*dt;p.life-=dt;,24,23,44
+4,src/renderer.js,37,2,p.a+=dt*2;}this.particles=this.particles.filter(p=>p.life>0&&p.y<545);for(const p of this.floats){,24,23,45
+4,src/renderer.js,37,3,p.y-=35*dt;p.life-=dt;}this.floats=this.floats.filter(p=>p.life>0);},24,23,46
+4,src/renderer.js,38,0,"  draw(view,ui,dt) {",24,23,47
+4,src/renderer.js,39,0,"    this.update(dt);this.zones=[];const c=this.c;c.clearRect(0,0,480,920);this.box(0,0,480,920,0,",24,23,48
+4,src/renderer.js,39,1,C.paper);,24,23,49
+4,src/renderer.js,40,0,    if(ui.startup){this.welcome(ui);return;},24,23,50
+4,src/renderer.js,41,0,    // Top bar / account,25,24,1
+4,src/renderer.js,42,0,"    this.text('POPCORN WORKS',24,29,10,C.green,750);this.text('小小爆米花厂',24,60,26,C.ink,800);",25,24,2
+4,src/renderer.js,43,0,    if(ui.isDouyin&&ui.sidebar&&ui.sidebar.supported){,25,24,3
+4,src/renderer.js,44,0,"      this.box(287,18,120,27,13,C.mint);this.text('侧边栏再来玩',347,31,12,C.green,650,'center');",25,24,4
+4,src/renderer.js,44,1,"this.hit(282,12,130,46,'sidebar');",25,24,5
+4,src/renderer.js,45,0,"    }else{this.box(287,18,120,27,13,ui.isDouyin?C.mint:C.purple);this.circle(300,31,3,",25,24,6
+4,src/renderer.js,45,1,"ui.isDouyin?C.green:'#9380ae');this.text(ui.isDouyin?'工厂营业中':'试玩 · 激励模拟',311,31,11,C.ink,",25,24,7
+4,src/renderer.js,45,2,600);},25,24,8
+4,src/renderer.js,46,0,    const gearY=ui.isDouyin?41:21; // Keep the native menu capsule clear of the settings button ,25,24,9
+4,src/renderer.js,46,1,center.,25,24,10
+4,src/renderer.js,47,0,"    this.box(421,gearY,36,36,12,'#ebece1');this.icon('gear',430,gearY+9,18);this.hit(416,gearY-5,46,",25,24,11
+4,src/renderer.js,47,1,"46,'settings');",25,24,12
+4,src/renderer.js,48,0,"    this.box(24,88,432,69,18,C.white,C.line);this.icon('coin',40,101,28);this.text('可用金币',78,107,",25,24,13
+4,src/renderer.js,48,1,"11,C.muted);this.text(num(view.state.coins),78,132,27,C.ink,800);",25,24,14
+4,src/renderer.js,49,0,"    this.line(240,105,240,141,C.line,1);this.text('自动收益 / 秒',262,107,11,C.muted);this.text(`+${",25,24,15
+4,src/renderer.js,49,1,"rate(view.production.auto*view.production.price)}`,262,132,23,C.green,750);",25,24,16
+4,src/renderer.js,50,0,"    this.text('01  /  今日生产',24,181,12,C.ink,700);this.text(`累计 ${num(view.state.totalProduced)} ",25,24,17
+4,src/renderer.js,50,1,"份`,456,181,12,C.muted,400,'right');",25,24,18
+4,src/renderer.js,51,0,    this.order(view);,25,24,19
+4,src/renderer.js,52,0,"    this.factory(view,ui);",25,24,20
+4,src/renderer.js,53,0,"    this.bottom(view,ui);",25,24,21
+4,src/renderer.js,54,0,"    if(view.offline&&view.offline.coins>0){this.text('离线收益待领取 →',26,905,11,C.green,650);",25,24,22
+4,src/renderer.js,54,1,"this.hit(24,893,170,26,'offline');}else this.text(ui.saved?'已自动保存':'本地存档',26,905,10,C.muted);",25,24,23
+4,src/renderer.js,54,2,"this.text('点击生产  /  放置也有收获',454,905,10,C.muted,400,'right');",25,24,24
+4,src/renderer.js,55,0,"    if(ui.modal)this.modal(view,ui);",25,24,25
+4,src/renderer.js,56,0,"    if(ui.toast){const y=ui.modal?174:550;this.box(36,y,408,44,13,'#2d4535');this.text(ui.toast,240,",25,24,26
+4,src/renderer.js,56,1,"y+22,12,C.white,600,'center');}",25,24,27
+4,src/renderer.js,57,0,  },25,24,28
+4,src/renderer.js,58,0,  welcome(ui) {,25,24,29
+4,src/renderer.js,59,0,"    this.box(24,28,432,864,28,C.mint);",25,24,30
+4,src/renderer.js,60,0,"    this.text('POPCORN WORKS',240,83,12,C.green,750,'center');",25,24,31
+4,src/renderer.js,61,0,"    this.text('小小爆米花厂',240,129,34,C.ink,800,'center');",25,24,32
+4,src/renderer.js,62,0,"    this.text('从一口小锅，开始今天的收获',240,172,15,C.green,500,'center');",25,24,33
+4,src/renderer.js,63,0,"    this.circle(240,263,58,'#edf1dd');",25,24,34
+4,src/renderer.js,64,0,"    this.popcorn(240,253,29,-.1);this.popcorn(181,280,10,.3);this.popcorn(299,229,12,-.4);",25,24,35
+4,src/renderer.js,65,0,"    this.box(44,349,392,302,23,C.white);",25,24,36
+4,src/renderer.js,66,0,"    this.text('健康游戏忠告',240,394,27,C.ink,750,'center');",25,24,37
+4,src/renderer.js,67,0,"    HEALTH_ADVISORY.forEach((line,i)=>this.text(line,240,453+i*42,20,C.ink,500,'center'));",25,24,38
+4,src/renderer.js,68,0,    let y=677;,25,24,39
+4,src/renderer.js,69,0,"    for(const line of ui.publication||[]){y+=this.wrap(line,54,y,372,12,C.green,17)+3;}",25,24,40
+4,src/renderer.js,70,0,"    this.button(64,786,352,57,'开始经营','start',{size:20});",25,24,41
+4,src/renderer.js,71,0,"    this.text('小小爆米花厂 · 1.0.0',240,863,12,C.green,500,'center');",25,24,42
+4,src/renderer.js,72,0,  },25,24,43
+4,src/renderer.js,73,0,"  order(v) {const o=v.order;this.box(24,198,432,82,18,'#e9eddf');this.box(37,213,45,45,12,C.white);",25,24,44
+4,src/renderer.js,73,1,"this.icon(o.ready?'check':'factory',48,224,23,C.green);this.text(o.isLoop?`循环订单 ${",25,24,45
+4,src/renderer.js,73,2,"v.state.loopIndex+1}`:`订单 ${String(v.state.orderIndex+1).padStart(2,'0')} / 20`,94,217,10,C.muted,",25,24,46
+4,src/renderer.js,73,3,"650);this.text(o.name,94,237,15,C.ink,750);",25,24,47
+4,src/renderer.js,74,0,"    this.box(94,254,228,5,2,'#d5ddca');this.box(94,254,Math.max(5,228*Math.min(1,o.progress)),5,2,",25,24,48
+4,src/renderer.js,74,1,"C.green);this.text(o.ready?'可以发车':`${num(v.state.totalProduced)} / ${num(o.target)}`,439,265,10,",25,24,49
+4,src/renderer.js,74,2,"C.muted,500,'right');this.button(340,211,102,34,o.ready?'装车结算':'查看订单','order',{",25,24,50
+4,src/renderer.js,74,3,"fill:o.ready?C.yellow:C.white,color:C.ink,size:12}); }",26,25,1
+4,src/renderer.js,75,0,"  factory(v,ui) {",26,25,2
+4,src/renderer.js,76,0,"    const c=this.c;this.box(24,293,432,285,22,'#e1ebd8');c.save();this.box(24,293,432,285,22,null);",26,25,3
+4,src/renderer.js,76,1,c.clip();,26,25,4
+4,src/renderer.js,77,0,"    for(let x=40;x<470;x+=36){this.line(x,305,x,568,'#d4e0cb',.6);}for(let y=308;y<580;",26,25,5
+4,src/renderer.js,77,1,"y+=36)this.line(28,y,452,y,'#d4e0cb',.6);",26,25,6
+4,src/renderer.js,78,0,"    this.circle(374,334,70,'#e9f0e3');this.circle(386,326,48,'#f1f4e9');this.line(31,520,450,520,",26,25,7
+4,src/renderer.js,78,1,"'#bacdb1',2);",26,25,8
+4,src/renderer.js,79,0,"    this.box(42,309,127,26,13,'#f5f6e8');this.circle(55,322,3,C.green);this.text(v.machine.name,66,",26,25,9
+4,src/renderer.js,79,1,"322,11,C.ink,650);",26,25,10
+4,src/renderer.js,80,0,"    if(v.boostSeconds>0){this.box(312,309,128,26,13,C.yellow);this.icon('bolt',321,314,15,C.ink);",26,25,11
+4,src/renderer.js,80,1,"this.text(`3 倍增压 ${Math.ceil(v.boostSeconds)}s`,342,322,11,C.ink,600);}else this.text(`STAGE 0${",26,25,12
+4,src/renderer.js,80,2,"v.state.machine+1}`,434,322,10,'#82917b',650,'right');",26,25,13
+4,src/renderer.js,81,0,    // wall shelves and corn sacks,26,25,14
+4,src/renderer.js,82,0,"    this.line(44,416,102,416,'#b6c4a9',5);for(let i=0;i<3;i++){this.box(49+i*17,383,12,31,3,",26,25,15
+4,src/renderer.js,82,1,"i%2?'#e8b74e':'#b9cb9e');this.line(52+i*17,390,58+i*17,390,'#f9efc8',2);}",26,25,16
+4,src/renderer.js,83,0,"    this.box(364,470,45,48,7,'#d9c793');this.line(370,479,403,479,'#b09c64',2);this.text('CORN',386,",26,25,17
+4,src/renderer.js,83,1,"497,9,'#8e7c4d',700,'center');this.box(408,484,33,34,6,'#e6d7ac');",26,25,18
+4,src/renderer.js,84,0,"    c.save();c.translate(240,421);this.drawMachine(v.state.machine,",26,25,19
+4,src/renderer.js,84,1,v.production.auto>0||this.particles.length>0);c.restore();,26,25,20
+4,src/renderer.js,85,0,    // striped popcorn bucket,26,25,21
+4,src/renderer.js,86,0,"    c.save();c.translate(242,504);c.beginPath();c.moveTo(-49,-29);c.lineTo(49,-29);c.lineTo(37,31);",26,25,22
+4,src/renderer.js,86,1,"c.lineTo(-37,31);c.closePath();c.fillStyle='#fff9e8';c.fill();c.save();c.clip();for(let i=-40;i<50;",26,25,23
+4,src/renderer.js,86,2,"i+=23){c.save();c.rotate(.06);c.fillStyle='#d89465';c.fillRect(i,-30,12,64);c.restore();}c.restore();",26,25,24
+4,src/renderer.js,86,3,"this.box(-51,-32,102,8,4,'#fffbee');",26,25,25
+4,src/renderer.js,87,0,"    const pile=13+Math.min(40,Math.floor(v.state.machine*6+v.energy/7));for(let i=0;i<pile;i++){const ",26,25,26
+4,src/renderer.js,87,1,"x=Math.sin(i*31.2)*39,y=-29-Math.abs(Math.cos(i*11.8))*16-(i%5);this.popcorn(x,y,5.5,i);}this.box(-20,",26,25,27
+4,src/renderer.js,87,2,"-6,40,22,9,'#fff9e7');this.text('POP!',0,5,12,C.ink,900,'center');c.restore();",26,25,28
+4,src/renderer.js,88,0,"    for(const p of this.particles){c.globalAlpha=Math.min(1,p.life*2);this.popcorn(p.x,p.y,p.r,p.a);}",26,25,29
+4,src/renderer.js,88,1,c.globalAlpha=1;,26,25,30
+4,src/renderer.js,89,0,"    if(this.truck>0){const x=480-(1-this.truck)*750;this.box(x,474,110,54,8,'#f7c85d');this.box(x+103,",26,25,31
+4,src/renderer.js,89,1,"489,45,39,6,'#658769');this.box(x+111,494,24,15,3,'#dfeadb');this.circle(x+26,532,11,C.ink);",26,25,32
+4,src/renderer.js,89,2,"this.circle(x+123,532,11,C.ink);this.circle(x+26,532,5,C.white);this.circle(x+123,532,5,C.white);",26,25,33
+4,src/renderer.js,89,3,"this.text('POPCORN',x+55,502,11,C.ink,750,'center');}",26,25,34
+4,src/renderer.js,90,0,"    for(const f of this.floats){c.globalAlpha=Math.min(1,f.life*2);this.text(f.text,f.x,f.y,21,",26,25,35
+4,src/renderer.js,90,1,"C.green,800,'center');}c.globalAlpha=1;",26,25,36
+4,src/renderer.js,91,0,"    if(this.flash>0){c.globalAlpha=this.flash*.4;c.fillStyle='#fff7cb';c.fillRect(24,293,432,285);",26,25,37
+4,src/renderer.js,91,1,c.globalAlpha=1;}c.restore();,26,25,38
+4,src/renderer.js,92,0,"    this.hit(24,340,432,203,'tap');",26,25,39
+4,src/renderer.js,93,0,"    this.box(44,548,392,19,9,'#cbd9c2');this.box(44,548,Math.max(18,392*v.energy/100),19,9,C.yellow);",26,25,40
+4,src/renderer.js,93,1,"this.text(v.energy>80?'快要爆锅了！继续点击':'免费爆锅能量',57,558,10,C.ink,650);this.text(`${",26,25,41
+4,src/renderer.js,93,2,"Math.floor(v.energy)} / 100`,422,558,10,C.ink,650,'right');",26,25,42
+4,src/renderer.js,94,0,"    this.button(24,590,283,55,'点一下，爆米花！','tap',{fill:C.green,size:18});this.icon('hand',45,605,",26,25,43
+4,src/renderer.js,94,1,"24,C.white);this.text(`+${num(v.production.tap)} 份`,280,631,10,'#bed5bd',500,'right');",26,25,44
+4,src/renderer.js,95,0,"    this.button(317,590,139,55,v.boostSeconds>0?'续时增压':'涡轮增压','ad:turbo',{fill:C.yellow,",26,25,45
+4,src/renderer.js,95,1,"color:C.ink,size:15});this.text('广告 · 3 倍 / 90 秒',387,633,10,'#755b23',500,'center');",26,25,46
+4,src/renderer.js,96,0,"    if(v.tutorial){this.text(`小厂长提示 · ${v.tutorial.title}`,240,663,12,C.green,600,'center');}",26,25,47
+4,src/renderer.js,96,1,else this.text(`每次点击 +${num(v.production.tap*v.production.price)} 金币  ·  每份售价 ${,26,25,48
+4,src/renderer.js,96,2,"rate(v.production.price)}`,240,663,11,C.muted,400,'center');",26,25,49
+4,src/renderer.js,97,0,  },26,25,50
+4,src/renderer.js,98,0,"  drawMachine(stage,active) {",27,26,1
+4,src/renderer.js,99,0,"    const c=this.c,bob=active?Math.sin(this.t*12)*1.1:0;c.translate(0,bob);if(stage===5)c.scale(.73,",27,26,2
+4,src/renderer.js,99,1,.73);,27,26,3
+4,src/renderer.js,100,0,"    const colors=['#d2a567','#85a898','#b398bf','#7e9bad','#d1956d','#cead4b'];const ",27,26,4
+4,src/renderer.js,100,1,color=colors[stage];,27,26,5
+4,src/renderer.js,101,0,"    this.box(-98,31,196,17,6,'#a4b69a');this.box(-83,48,13,37,3,'#8c9f85');this.box(70,48,13,37,3,",27,26,6
+4,src/renderer.js,101,1,'#8c9f85');,27,26,7
+4,src/renderer.js,102,0,"    if(stage===0){this.box(-74,-25,148,58,15,color);this.box(-61,-16,122,28,8,'#f5dfb1');this.box(-80,",27,26,8
+4,src/renderer.js,102,1,"-34,160,13,6,'#8c7753');this.box(-33,-43,66,9,4,'#bd9b5b');this.line(77,-9,106,-9,'#78674c',5);",27,26,9
+4,src/renderer.js,102,2,"this.line(106,-9,106,-29,'#78674c',5);this.box(98,-37,18,14,6,'#4c6b50');this.box(-19,17,38,15,5,",27,26,10
+4,src/renderer.js,102,3,'#6e7e61');},27,26,11
+4,src/renderer.js,103,0,"    else if(stage===1){this.box(-73,-61,146,93,18,color);this.box(-59,-47,118,51,10,'#d8e8ce');",27,26,12
+4,src/renderer.js,103,1,"this.box(-49,-37,98,33,6,'#f5e5ab');this.box(-82,-69,164,14,6,'#567465');this.circle(43,18,7,",27,26,13
+4,src/renderer.js,103,2,"'#f9d36a');this.box(-54,13,61,10,4,'#527161');this.box(-22,30,44,13,4,'#567465');}",27,26,14
+4,src/renderer.js,104,0,"    else if(stage===2){this.box(-98,-28,196,61,12,color);for(const x of [-49,49]){this.box(x-35,-74,",27,26,15
+4,src/renderer.js,104,1,"70,68,12,'#ede5ee');this.box(x-41,-83,82,14,5,'#877192');this.box(x-27,-61,54,38,8,'#f4dfa5');",27,26,16
+4,src/renderer.js,104,2,"this.circle(x,15,9,'#6f647e');this.circle(x,15,4,C.yellow);}this.box(-18,30,36,17,4,'#877192');}",27,26,17
+4,src/renderer.js,105,0,"    else if(stage===3){this.box(-103,-66,206,99,13,color);this.box(-112,-76,224,14,5,'#547183');",27,26,18
+4,src/renderer.js,105,1,"for(const x of [-83,-50,-17,16,49,82]){this.box(x-13,-53,26,54,6,'#dfe9e8');this.box(x-9,-47,18,36,4,",27,26,19
+4,src/renderer.js,105,2,"'#f4dfad');this.box(x-5,3,10,19,3,'#4f6c7d');}this.box(-86,26,172,12,5,'#536e7a');}",27,26,20
+4,src/renderer.js,106,0,"    else if(stage===4){this.box(-124,-55,95,86,10,color);this.box(-113,-43,73,40,6,'#f1ddb3');",27,26,21
+4,src/renderer.js,106,1,"this.box(-132,-66,111,15,6,'#997057');this.box(-19,-84,111,80,12,'#e7c9a0');this.box(-29,-92,131,14,5,",27,26,22
+4,src/renderer.js,106,2,"'#a47859');this.box(-3,-70,80,40,6,'#fff0c8');this.box(-125,17,257,22,9,'#61785e');for(let i=0;i<12;",27,26,23
+4,src/renderer.js,106,3,"i++){const x=-115+i*21+(this.t*28%21);this.line(x,22,x-8,34,'#a8bba0',2);}this.box(30,-4,24,32,4,",27,26,24
+4,src/renderer.js,106,4,'#b38c68');},27,26,25
+4,src/renderer.js,107,0,"    else {this.box(-91,-36,182,67,15,'#c7ad58');this.box(-62,-85,124,53,13,'#e8cd71');this.box(-40,",27,26,26
+4,src/renderer.js,107,1,"-133,80,52,12,'#f3d889');this.box(-99,-45,198,13,5,'#9b8849');this.box(-70,-94,140,13,5,'#a78c47');",27,26,27
+4,src/renderer.js,107,2,"this.box(-46,-141,92,12,5,'#b69a4f');for(let i=0;i<3;i++){this.box(-68+i*53,-23,30,37,7,'#f7ecbd');",27,26,28
+4,src/renderer.js,107,3,"this.circle(-53+i*53,-4,6,'#b39643');}this.box(-27,-70,54,25,7,'#fff0c6');this.circle(0,-111,12,",27,26,29
+4,src/renderer.js,107,4,"'#fff7d7');this.text('★',0,-111,16,'#b68c2d',700,'center');this.line(0,-144,0,-168,'#9d8649',3);",27,26,30
+4,src/renderer.js,107,5,"this.box(1,-166,31,16,2,'#d88964');}",27,26,31
+4,src/renderer.js,108,0,    const kernels=stage===0?9:12+stage*3;for(let i=0;i<kernels;i++){const ,27,26,32
+4,src/renderer.js,108,1,"x=Math.sin(i*3.4+this.t*(active?2:0))*48;this.popcorn(x,-29-Math.abs(Math.cos(i*5.8+this.t))*9,4,i);}",27,26,33
+4,src/renderer.js,109,0,"    if(active){for(let i=0;i<3;i++){c.globalAlpha=.22;this.circle(-25+i*24,-103-(this.t*16+i*18)%45,",27,26,34
+4,src/renderer.js,109,1,"7+(this.t*3+i)%8,'#ffffff');}c.globalAlpha=1;}",27,26,35
+4,src/renderer.js,110,0,  },27,26,36
+4,src/renderer.js,111,0,"  bottom(v,ui) {",27,26,37
+4,src/renderer.js,112,0,"    const tabs=[['upgrades','bolt','设备升级'],['machines','factory','工厂蓝图'],['stats','chart',",27,26,38
+4,src/renderer.js,112,1,"'经营记录']];tabs.forEach(([id,icon,label],i)=>{const x=24+i*147;this.box(x,684,138,38,12,",27,26,39
+4,src/renderer.js,112,2,"ui.tab===id?C.mint:'#eeeee5');this.icon(icon,x+15,694,17,ui.tab===id?C.green:C.muted);this.text(label,",27,26,40
+4,src/renderer.js,112,3,"x+43,703,12,ui.tab===id?C.green:C.muted,650);this.hit(x,684,138,38,'tab:'+id);});",27,26,41
+4,src/renderer.js,113,0,"    if(ui.tab==='upgrades'){v.upgrades.forEach((u,i)=>{const y=733+i*52;this.box(24,y,432,46,12,",27,26,42
+4,src/renderer.js,113,1,"C.white,C.line);this.box(34,y+7,32,32,9,[C.mint,C.purple,'#f7e7b1'][i]);this.icon(['hand','bolt',",27,26,43
+4,src/renderer.js,113,2,"'coin'][i],41,y+14,18);this.text(u.name,77,y+14,13,C.ink,700);this.text(`Lv.${u.level}  ·  ${",27,26,44
+4,src/renderer.js,113,3,"u.description}`,77,y+33,10,C.muted);this.button(329,y+7,116,32,u.level>=u.maxLevel?'已满级':num(u.cost",27,26,45
+4,src/renderer.js,113,4,")+'  升级','upgrade:'+u.key,{disabled:!u.canBuy,fill:C.green,size:12});});}",27,26,46
+4,src/renderer.js,114,0,"    else if(ui.tab==='machines'){this.box(24,733,432,149,16,C.white,C.line);const next=v.nextMachine;",27,26,47
+4,src/renderer.js,114,1,"this.text(next?'下一站，工厂长大了':'六阶工厂 · 已全部落成',42,754,12,C.muted);",27,26,48
+4,src/renderer.js,114,2,"this.text(next?next.name:'巨型爆米花塔',42,782,23,C.ink,800);this.wrap(next?next.description:'每一粒小小",27,26,49
+4,src/renderer.js,114,3,"玉米，都成了今天的盛大收获。继续完成循环订单，刷新生产纪录。',42,807,252,11,C.muted,18);if(next){",27,26,50
+4,src/renderer.js,114,4,"this.button(324,751,115,42,'查看换代','machine',{fill:C.yellow,color:C.ink,size:13});this.text(`${",28,27,1
+4,src/renderer.js,114,5,"num(next.cost)} 金币`,381,813,11,C.muted,500,'center');this.text(`订单 ${v.state.orderIndex}/${",28,27,2
+4,src/renderer.js,114,6,"next.requiredOrders}`,381,834,11,C.muted,500,'center');}else{this.button(324,759,115,42,'竣工纪念',",28,27,3
+4,src/renderer.js,114,7,"'completion',{fill:C.yellow,color:C.ink,size:13});}this.button(42,854,394,20,'查看全部 6 个阶段  →',",28,27,4
+4,src/renderer.js,114,8,"'blueprint',{fill:C.white,color:C.green,size:11});}",28,27,5
+4,src/renderer.js,115,0,"    else {this.box(24,733,432,149,16,C.white,C.line);const stats=[['总生产',",28,27,6
+4,src/renderer.js,115,1,"num(v.state.totalProduced)+' 份'],['完成订单',String(v.state.orderIndex+v.state.loopIndex)+' 单'],",28,27,7
+4,src/renderer.js,115,2,"['免费爆锅',String(v.state.bursts)+' 次'],['累计营业',num(v.state.totalCoins)+' 金币']];",28,27,8
+4,src/renderer.js,115,3,"stats.forEach(([label,value],i)=>{const x=44+(i%2)*217,y=756+Math.floor(i/2)*67;this.text(label,x,y,",28,27,9
+4,src/renderer.js,115,4,"11,C.muted);this.text(value,x,y+26,19,C.ink,750);});}",28,27,10
+4,src/renderer.js,116,0,  },28,27,11
+4,src/renderer.js,117,0,"  modal(v,ui) {",28,27,12
+4,src/renderer.js,118,0,"    const m=ui.modal,c=this.c;this.zones=[];c.fillStyle='rgba(31,48,36,.45)';c.fillRect(0,0,480,920);",28,27,13
+4,src/renderer.js,118,1,"const tall=m.type==='blueprint',settings=m.type==='settings',y=tall?133:settings?176:239,",28,27,14
+4,src/renderer.js,118,2,"h=tall?666:settings?568:446;this.box(24,y,432,h,24,C.white);this.box(423,y+14,22,22,8,'#efeee4');",28,27,15
+4,src/renderer.js,118,3,"this.icon('close',423,y+14,22,C.muted);if(!ui.adBusy)this.hit(410,y+5,42,42,'close');",28,27,16
+4,src/renderer.js,119,0,"    const title=(s,sub)=>{this.text(s,48,y+44,24,C.ink,800);if(sub)this.wrap(sub,48,y+82,378,13,",28,27,17
+4,src/renderer.js,119,1,"C.muted,22);};",28,27,18
+4,src/renderer.js,120,0,"    if(m.type==='order'){const o=v.order;title(o.ready?'这一车，满载而归':o.name,",28,27,19
+4,src/renderer.js,120,1,o.ready?'爆米花已装好，选择本次订单的结算方式。':'持续生产即可完成订单，生产出的爆米花会自动出售。');,28,27,20
+4,src/renderer.js,120,2,"this.box(48,y+130,384,103,16,'#f2eedb');this.text(o.name,68,y+155,14,C.ink,650);this.text(`基础奖励  ",28,27,21
+4,src/renderer.js,120,3,"${num(o.reward)} 金币`,68,y+190,23,C.ink,750);this.text(`${num(v.state.totalProduced)} / ${",28,27,22
+4,src/renderer.js,120,4,"num(o.target)} 份`,68,y+217,11,C.muted);if(o.ready){this.button(48,y+255,384,53,`广告加价 · 共 ${",28,27,23
+4,src/renderer.js,120,5,"num(o.reward*3)} 金币`,'ad:order',{fill:C.yellow,color:C.ink});this.button(48,y+321,384,49,`直接装车 ",28,27,24
+4,src/renderer.js,120,6,"· ${num(o.reward)} 金币`,'claimOrder',{fill:C.green});this.text('广告未完成时，仍可直接领取基础奖励',",28,27,25
+4,src/renderer.js,120,7,"240,y+397,11,C.muted,400,'center');}else{this.button(48,y+310,384,50,'回到工厂，继续生产','close');",28,27,26
+4,src/renderer.js,120,8,"this.text(`进度 ${Math.min(100,o.progress*100).toFixed(0)}%`,240,y+270,20,C.green,700,'center');}}",28,27,27
+4,src/renderer.js,121,0,"    else if(m.type==='machine'){const n=v.nextMachine;if(!n){title('全阶段设备已落成',",28,27,28
+4,src/renderer.js,121,1,"'继续生产，刷新你的工厂纪录。');this.button(48,y+315,384,50,'回到工厂','close');return;}title(n.name,",28,27,29
+4,src/renderer.js,121,2,"n.description);this.box(48,y+130,384,103,16,C.mint);this.text('设备换代条件',68,y+153,12,C.muted);",28,27,30
+4,src/renderer.js,121,3,"this.text(`${num(n.cost)} 金币`,68,y+184,25,C.ink,750);this.text(`已完成 ${v.state.orderIndex} / ${",28,27,31
+4,src/renderer.js,121,4,"n.requiredOrders} 个主线订单`,68,y+215,12,C.green);this.button(48,y+255,384,53,",28,27,32
+4,src/renderer.js,121,5,v.canEvolve?'换代，开动新机器！':(v.evolveReason==='orders-required'?'先完成所需订单':'金币不足，继续生产',28,27,33
+4,src/renderer.js,121,6,"),'evolve',{disabled:!v.canEvolve});this.button(48,y+322,384,49,'广告 · 获取设备赞助','ad:sponsor',{",28,27,34
+4,src/renderer.js,121,7,"fill:C.yellow,color:C.ink,disabled:v.state.coins>=n.cost});",28,27,35
+4,src/renderer.js,121,8,"this.text('永久升级保留，产量与售价随设备一起成长',240,y+400,11,C.muted,400,'center');}",28,27,36
+4,src/renderer.js,122,0,"    else if(m.type==='offline'){const o=v.offline;title('欢迎回来，小厂长',",28,27,37
+4,src/renderer.js,122,1,"o?'你离开的时间里，工厂也在认真营业。':'离线收益已经领取。');if(o){this.box(48,y+131,384,98,16,C.mint);",28,27,38
+4,src/renderer.js,122,2,"this.text(`离线营业 ${this.duration(o.seconds)}`,68,y+157,13,C.green);this.text(`+${num(o.coins)} ",28,27,39
+4,src/renderer.js,122,3,"金币`,68,y+195,29,C.ink,800);this.button(48,y+253,384,53,`广告翻倍 · 共 ${num(o.coins*2)} 金币`,",28,27,40
+4,src/renderer.js,122,4,"'ad:offline',{fill:C.yellow,color:C.ink});this.button(48,y+319,384,50,'领取收益，开工！',",28,27,41
+4,src/renderer.js,122,5,"'claimOffline');this.text('最多结算 8 小时，按永久自动产能的 50% 计算',240,y+400,11,C.muted,400,",28,27,42
+4,src/renderer.js,122,6,'center');}},28,27,43
+4,src/renderer.js,123,0,"    else if(m.type==='reward'){const q=m.quote;title('本次激励奖励',q.title);this.box(48,y+126,384,99,",28,27,44
+4,src/renderer.js,123,1,"16,'#f4e9c5');const s=q.kind==='turbo'?'自动产速 ×3，持续 90 秒':(q.kind==='order'||q.kind==='offline'",28,27,45
+4,src/renderer.js,123,2,"?`额外 +${num(q.amount)} 金币`:`奖励 +${num(q.amount)} 金币`);this.text(s,240,y+162,22,C.ink,750,",28,27,46
+4,src/renderer.js,123,3,'center');this.text(q.kind==='order'?`本单共领取 ${num(q.amount*1.5)} ,28,27,47
+4,src/renderer.js,123,4,"金币`:q.kind==='offline'?`本次共领取 ${num(q.amount*2)} 金币`:'完成后按当前显示的奖励结算',240,y+199,12,",28,27,48
+4,src/renderer.js,123,5,"C.muted,400,'center');if(ui.isDouyin){this.button(48,y+255,384,53,ui.adBusy?'广告加载 / ",28,27,49
+4,src/renderer.js,123,6,"播放中…':'观看广告，领取奖励','watch',{disabled:ui.adBusy,fill:C.yellow,color:C.ink});}else{",28,27,50
+4,src/renderer.js,123,7,"this.text('浏览器模拟体验 · 不会播放真实广告',240,y+247,12,C.green,650,'center');this.button(48,y+274,",29,28,1
+4,src/renderer.js,123,8,"384,50,'模拟完整观看 → 领取奖励','simulate:complete',{fill:C.yellow,color:C.ink,disabled:ui.adBusy});",29,28,2
+4,src/renderer.js,123,9,"this.button(48,y+336,185,42,'模拟中途关闭','simulate:cancel',{fill:'#eceee3',color:C.ink,size:12,",29,28,3
+4,src/renderer.js,123,10,"disabled:ui.adBusy});this.button(247,y+336,185,42,'模拟加载失败','simulate:fail',{fill:'#eceee3',",29,28,4
+4,src/renderer.js,123,11,"color:C.ink,size:12,disabled:ui.adBusy});}this.text('可随时关闭；未完成观看不会发放奖励',240,y+405,11,",29,28,5
+4,src/renderer.js,123,12,"C.muted,400,'center');}",29,28,6
+4,src/renderer.js,124,0,"    else if(m.type==='settings'){title('工厂设置','小小爆米花厂 · 1.0.0');this.button(48,y+132,384,47,",29,28,7
+4,src/renderer.js,124,1,"`音效                 ${v.state.settings.sound?'已开启':'已关闭'}`,'setting:sound',{fill:C.mint,",29,28,8
+4,src/renderer.js,124,2,"color:C.ink});this.button(48,y+191,384,47,`震动反馈             ${",29,28,9
+4,src/renderer.js,124,3,"v.state.settings.haptics?'已开启':'已关闭'}`,'setting:haptics',{fill:C.mint,color:C.ink});",29,28,10
+4,src/renderer.js,124,4,"this.button(48,y+250,384,47,'玩法说明','help',{fill:'#eeeee5',color:C.ink});this.button(48,y+309,384,",29,28,11
+4,src/renderer.js,124,5,"47,'存档与隐私','privacy',{fill:'#eeeee5',color:C.ink});this.button(48,y+368,384,47,'健康游戏忠告',",29,28,12
+4,src/renderer.js,124,6,"'health',{fill:'#eeeee5',color:C.ink});if(ui.isDouyin&&ui.sidebar&&ui.sidebar.supported)this.button(48",29,28,13
+4,src/renderer.js,124,7,",y+427,384,47,'从侧边栏回到工厂','sidebar',{fill:C.mint,color:C.ink});",29,28,14
+4,src/renderer.js,124,8,"this.text('进度仅保存于当前设备，请勿清除应用数据',240,y+526,11,C.muted,400,'center');}",29,28,15
+4,src/renderer.js,125,0,"    else if(m.type==='health'){title('健康游戏忠告','合理安排时间，休息后再来收获。');",29,28,16
+4,src/renderer.js,125,1,"HEALTH_ADVISORY.forEach((line,i)=>this.text(line,240,y+143+i*43,20,C.ink,500,'center'));",29,28,17
+4,src/renderer.js,125,2,"this.button(48,y+362,384,49,'回到工厂','close');}",29,28,18
+4,src/renderer.js,126,0,    else if(m.type==='sidebar'){,29,28,19
+4,src/renderer.js,127,0,"      title('从侧边栏，再回到工厂',ui.sidebar&&ui.sidebar.fromSidebar?'欢迎回来，你已从侧边栏进入工厂。':'",29,28,20
+4,src/renderer.js,127,1,下次来玩，可以从抖音侧边栏找到工厂。');,29,28,21
+4,src/renderer.js,128,0,"      this.box(48,y+136,384,118,16,C.mint);",29,28,22
+4,src/renderer.js,129,0,"      this.text('抖音首页侧边栏',240,y+174,21,C.green,750,'center');",29,28,23
+4,src/renderer.js,130,0,"      this.text('找到「小小爆米花厂」，继续今天的经营',240,y+219,14,C.ink,500,'center');",29,28,24
+4,src/renderer.js,131,0,"      this.button(48,y+283,384,49,ui.sidebarBusy?'正在打开…':'去侧边栏看看','visitSidebar',{",29,28,25
+4,src/renderer.js,131,1,disabled:ui.sidebarBusy||!ui.sidebar||!ui.sidebar.supported});,29,28,26
+4,src/renderer.js,132,0,"      this.button(48,y+346,384,43,'继续经营','close',{fill:'#eeeee5',color:C.ink});",29,28,27
+4,src/renderer.js,133,0,    },29,28,28
+4,src/renderer.js,134,0,"    else if(m.type==='help'){title('一口锅，也能有大梦想','点击生产 → 免费爆锅 → 完成订单 → 升级换代');",29,28,29
+4,src/renderer.js,134,1,this.wrap('① 点击锅或绿色按钮，爆米花自动售卖。\n② 升级自动生产，松开手也能持续赚钱。\n③ ,29,28,30
+4,src/renderer.js,134,2,能量积满自动爆锅；升级三条永久产线。\n④ 完成订单并攒够金币，解锁下一台机器。\n⑤ 完成 20 ,29,28,31
+4,src/renderer.js,134,3,"单后继续循环订单、刷新纪录。',48,y+139,380,14,C.ink,32);this.text('电脑：空格生产 · 1/2/3 升级 · O 订单 ",29,28,32
+4,src/renderer.js,134,4,"· M 机器',240,y+329,11,C.muted,400,'center');this.button(48,y+362,384,49,'开工！','close');}",29,28,33
+4,src/renderer.js,135,0,"    else if(m.type==='privacy'){title('存档与隐私','进度保存在当前浏览器或小游戏的本地存储中。');",29,28,34
+4,src/renderer.js,135,1,this.wrap('游戏保存金币、设备、订单、音效设置及最后离开时间，用于恢复进度与计算离线收益。\n本版无账号、无云存,29,28,35
+4,src/renderer.js,135,2,档，不主动上传游戏埋点。抖音广告的数据处理以平台实际说明为准。\n每 5 秒及离开时自动保存。清理浏览器或应用数据后,29,28,36
+4,src/renderer.js,135,3,"，本地进度可能丢失。',48,y+136,382,14,C.ink,27);this.button(48,y+362,384,49,'知道了','close');}",29,28,37
+4,src/renderer.js,136,0,"    else if(m.type==='blueprint'){title('从小锅，到大工厂','每一次换代，产量与售价一起提升。');",29,28,38
+4,src/renderer.js,136,1,"CONFIG.machines.forEach((machine,i)=>{const yy=y+128+i*77;this.box(48,yy,384,65,13,",29,28,39
+4,src/renderer.js,136,2,"i===v.state.machine?C.mint:'#f2f1e8');this.box(61,yy+14,36,36,11,i<=v.state.machine?machine.color:'#e1",29,28,40
+4,src/renderer.js,136,3,"e3d8');this.text(String(i+1).padStart(2,'0'),79,yy+32,14,C.ink,750,'center');this.text(machine.name,",29,28,41
+4,src/renderer.js,136,4,"111,yy+23,15,C.ink,700);this.text(i<=v.state.machine?'已落成':`${num(machine.cost)} 金币 · ${",29,28,42
+4,src/renderer.js,136,5,"machine.requiredOrders} 个订单`,111,yy+46,11,C.muted);if(i===v.state.machine)this.text('当前',410,",29,28,43
+4,src/renderer.js,136,6,"yy+30,11,C.green,600,'right');});this.button(48,y+604,384,40,'回到工厂','close');}",29,28,44
+4,src/renderer.js,137,0,"    else if(m.type==='completion'){title('小小工厂，大大梦想','20 个主线订单完成！每一锅都算数。');",29,28,45
+4,src/renderer.js,137,1,"this.box(48,y+126,384,136,18,C.mint);this.text('POPCORN WORKS',240,y+152,12,C.green,750,'center');",29,28,46
+4,src/renderer.js,137,2,"this.text('工厂竣工纪念',240,y+193,31,C.ink,800,'center');this.text(`累计生产 ${",29,28,47
+4,src/renderer.js,137,3,"num(v.state.totalProduced)} 份 · ${v.state.bursts} 次爆锅`,240,y+238,12,C.green,550,'center');",29,28,48
+4,src/renderer.js,137,4,"this.wrap('新的循环订单已经到站。机器还在转，让下一份纪录更香一点。',48,y+291,380,14,C.muted,25);",29,28,49
+4,src/renderer.js,137,5,"this.button(48,y+362,384,49,'继续营业，刷新纪录','close');}",29,28,50
+4,src/renderer.js,138,0,  },30,29,1
+4,src/renderer.js,139,0,  duration(seconds){const m=Math.floor(seconds/60);return m>=60?`${Math.floor(m/60)} 小时 ${m%60} ,30,29,2
+4,src/renderer.js,139,1,分钟`:`${m} 分钟`;},30,29,3
+4,src/renderer.js,140,0,"  actionAt(x,y){for(let i=this.zones.length-1;i>=0;i--){const z=this.zones[i];",30,29,4
+4,src/renderer.js,140,1,if(x>=z.x&&x<=z.x+z.w&&y>=z.y&&y<=z.y+z.h)return z.action;}return null;},30,29,5
+4,src/renderer.js,141,0,},30,29,6
+4,src/renderer.js,142,0,"module.exports={Renderer,HEALTH_ADVISORY};",30,29,7
+4,src/renderer.js,143,0,,30,29,8
+4,src/renderer.js,144,0,,30,29,9
+4,src/renderer.js,145,0,,30,29,10
+5,src/audio.js,1,0,'use strict';,30,29,11
+5,src/audio.js,2,0,,30,29,12
+5,src/audio.js,3,0,"// Original, procedural sound effects. No downloads or third-party audio assets.",30,29,13
+5,src/audio.js,4,0,// Native runtimes without Web Audio safely remain silent; gameplay does not depend on sound.,30,29,14
+5,src/audio.js,5,0,class AudioEngine {,30,29,15
+5,src/audio.js,6,0,  constructor() {,30,29,16
+5,src/audio.js,7,0,    this.enabled = true;,30,29,17
+5,src/audio.js,8,0,    this.context = null;,30,29,18
+5,src/audio.js,9,0,    this.lastPop = -Infinity;,30,29,19
+5,src/audio.js,10,0,    this.voices = 0;,30,29,20
+5,src/audio.js,11,0,    this.unavailable = false;,30,29,21
+5,src/audio.js,12,0,    this.native = typeof tt !== 'undefined' && typeof tt.createInnerAudioContext === 'function' ? tt ,30,29,22
+5,src/audio.js,12,1,: null;,30,29,23
+5,src/audio.js,13,0,    this.nativeSounds = {};,30,29,24
+5,src/audio.js,14,0,    this.lastNativePop = 0;,30,29,25
+5,src/audio.js,15,0,  },30,29,26
+5,src/audio.js,16,0,,30,29,27
+5,src/audio.js,17,0,  setEnabled(enabled) {,30,29,28
+5,src/audio.js,18,0,    this.enabled = !!enabled;,30,29,29
+5,src/audio.js,19,0,    if (!this.enabled) for (const audio of Object.values(this.nativeSounds)) { try { audio.stop(); } ,30,29,30
+5,src/audio.js,19,1,catch (_) {} },30,29,31
+5,src/audio.js,20,0,    if (!this.enabled && this.context && typeof this.context.suspend === 'function') {,30,29,32
+5,src/audio.js,21,0,      try { Promise.resolve(this.context.suspend()).catch(function () {}); } catch (_) {},30,29,33
+5,src/audio.js,22,0,    },30,29,34
+5,src/audio.js,23,0,  },30,29,35
+5,src/audio.js,24,0,,30,29,36
+5,src/audio.js,25,0,  unlock() {,30,29,37
+5,src/audio.js,26,0,    if (this.native) return;,30,29,38
+5,src/audio.js,27,0,    if (!this.enabled || this.unavailable) return;,30,29,39
+5,src/audio.js,28,0,    try {,30,29,40
+5,src/audio.js,29,0,      if (!this.context) {,30,29,41
+5,src/audio.js,30,0,        const root = typeof globalThis !== 'undefined' ? globalThis : {};,30,29,42
+5,src/audio.js,31,0,        const Context = root.AudioContext || root.webkitAudioContext;,30,29,43
+5,src/audio.js,32,0,        if (!Context) { this.unavailable = true; return; },30,29,44
+5,src/audio.js,33,0,        this.context = new Context();,30,29,45
+5,src/audio.js,34,0,      },30,29,46
+5,src/audio.js,35,0,      if (this.context.state === 'suspended' && typeof this.context.resume === 'function') {,30,29,47
+5,src/audio.js,36,0,        Promise.resolve(this.context.resume()).catch(function () {});,30,29,48
+5,src/audio.js,37,0,      },30,29,49
+5,src/audio.js,38,0,    } catch (_) { this.unavailable = true; },30,29,50
+5,src/audio.js,39,0,  },31,30,1
+5,src/audio.js,40,0,,31,30,2
+5,src/audio.js,41,0,  play(name) {,31,30,3
+5,src/audio.js,42,0,    if (!this.enabled) return;,31,30,4
+5,src/audio.js,43,0,    if (this.native) { this.playNative(name); return; },31,30,5
+5,src/audio.js,44,0,    this.unlock();,31,30,6
+5,src/audio.js,45,0,    const context = this.context;,31,30,7
+5,src/audio.js,46,0,    if (!context || context.state === 'suspended' || context.state === 'closed' || this.voices > 18) ,31,30,8
+5,src/audio.js,46,1,return;,31,30,9
+5,src/audio.js,47,0,    const now = context.currentTime;,31,30,10
+5,src/audio.js,48,0,    if (name === 'pop' || name === 'tap' || name === 'click') {,31,30,11
+5,src/audio.js,49,0,      if (now - this.lastPop < 0.035) return;,31,30,12
+5,src/audio.js,50,0,      this.lastPop = now;,31,30,13
+5,src/audio.js,51,0,"      this.tone(640 + Math.random() * 240, 140, 0.085, 0.07, 'triangle', 0);",31,30,14
+5,src/audio.js,52,0,    } else if (name === 'burst' || name === 'boom') {,31,30,15
+5,src/audio.js,53,0,"      for (let index = 0; index < 7; index++) this.tone(300 + index * 80, 100, 0.12, 0.055, ",31,30,16
+5,src/audio.js,53,1,"'triangle', index * 0.035);",31,30,17
+5,src/audio.js,54,0,"      this.tone(190, 85, 0.28, 0.08, 'sine', 0);",31,30,18
+5,src/audio.js,55,0,    } else if (name === 'upgrade' || name === 'unlock' || name === 'machine') {,31,30,19
+5,src/audio.js,56,0,"      [440, 554, 659, 880].forEach((frequency, index) => this.tone(frequency, frequency, 0.17, 0.06, ",31,30,20
+5,src/audio.js,56,1,"'sine', index * 0.075));",31,30,21
+5,src/audio.js,57,0,    } else if (name === 'order' || name === 'reward' || name === 'coin' || name === 'success') {,31,30,22
+5,src/audio.js,58,0,"      [659, 880, 1047].forEach((frequency, index) => this.tone(frequency, frequency * 1.04, 0.13, ",31,30,23
+5,src/audio.js,58,1,"0.055, 'sine', index * 0.075));",31,30,24
+5,src/audio.js,59,0,    } else if (name === 'complete' || name === 'win') {,31,30,25
+5,src/audio.js,60,0,"      [523, 659, 784, 1047, 784, 1047].forEach((frequency, index) => this.tone(frequency, frequency, ",31,30,26
+5,src/audio.js,60,1,"0.22, 0.06, 'sine', index * 0.12));",31,30,27
+5,src/audio.js,61,0,    } else if (name === 'error' || name === 'deny') {,31,30,28
+5,src/audio.js,62,0,"      this.tone(160, 120, 0.13, 0.035, 'triangle', 0);",31,30,29
+5,src/audio.js,63,0,    } else {,31,30,30
+5,src/audio.js,64,0,"      this.tone(440, 390, 0.05, 0.025, 'sine', 0);",31,30,31
+5,src/audio.js,65,0,    },31,30,32
+5,src/audio.js,66,0,  },31,30,33
+5,src/audio.js,67,0,,31,30,34
+5,src/audio.js,68,0,  playNative(name) {,31,30,35
+5,src/audio.js,69,0,"    // Bundled WAVs, reused contexts; official native API supports package-local paths.",31,30,36
+5,src/audio.js,70,0,    // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/basic-function/au,31,30,37
+5,src/audio.js,70,1,dio,31,30,38
+5,src/audio.js,71,0,"    const aliases = { tap:'pop', boom:'burst', unlock:'upgrade', machine:'upgrade', reward:'order', ",31,30,39
+5,src/audio.js,71,1,"coin:'order', success:'order', win:'complete', deny:'error', offline:'order' };",31,30,40
+5,src/audio.js,72,0,"    const key = aliases[name] || (['pop','burst','upgrade','order','complete',",31,30,41
+5,src/audio.js,72,1,'error'].includes(name)?name:'click');,31,30,42
+5,src/audio.js,73,0,    if (key==='pop' && Date.now()-this.lastNativePop<90) return;,31,30,43
+5,src/audio.js,74,0,    if (key==='pop') this.lastNativePop=Date.now();,31,30,44
+5,src/audio.js,75,0,    try {,31,30,45
+5,src/audio.js,76,0,      if (!this.nativeSounds[key]) {,31,30,46
+5,src/audio.js,77,0,        const audio=this.native.createInnerAudioContext();,31,30,47
+5,src/audio.js,78,0,        audio.src='audio/'+key+'.wav';audio.loop=false;audio.volume=.45;audio.obeyMuteSwitch=true;,31,30,48
+5,src/audio.js,79,0,        if(typeof audio.onError==='function')audio.onError(()=>{});,31,30,49
+5,src/audio.js,80,0,        this.nativeSounds[key]=audio;,31,30,50
+5,src/audio.js,81,0,      },32,31,1
+5,src/audio.js,82,0,      const audio=this.nativeSounds[key];audio.stop();audio.play();,32,31,2
+5,src/audio.js,83,0,    } catch (_) { /* Unsupported native audio safely degrades without interrupting play. */ },32,31,3
+5,src/audio.js,84,0,  },32,31,4
+5,src/audio.js,85,0,,32,31,5
+5,src/audio.js,86,0,"  tone(frequency, endFrequency, duration, volume, type, delay) {",32,31,6
+5,src/audio.js,87,0,    const context = this.context;,32,31,7
+5,src/audio.js,88,0,    if (!context || this.voices >= 20) return;,32,31,8
+5,src/audio.js,89,0,    try {,32,31,9
+5,src/audio.js,90,0,      const start = context.currentTime + delay;,32,31,10
+5,src/audio.js,91,0,      const oscillator = context.createOscillator();,32,31,11
+5,src/audio.js,92,0,      const gain = context.createGain();,32,31,12
+5,src/audio.js,93,0,      oscillator.type = type;,32,31,13
+5,src/audio.js,94,0,"      oscillator.frequency.setValueAtTime(frequency, start);",32,31,14
+5,src/audio.js,95,0,"      oscillator.frequency.exponentialRampToValueAtTime(Math.max(20, endFrequency), start + duration);",32,31,15
+5,src/audio.js,96,0,"      gain.gain.setValueAtTime(0.0001, start);",32,31,16
+5,src/audio.js,97,0,"      gain.gain.exponentialRampToValueAtTime(volume, start + 0.008);",32,31,17
+5,src/audio.js,98,0,"      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);",32,31,18
+5,src/audio.js,99,0,      oscillator.connect(gain);,32,31,19
+5,src/audio.js,100,0,      gain.connect(context.destination);,32,31,20
+5,src/audio.js,101,0,      this.voices++;,32,31,21
+5,src/audio.js,102,0,      oscillator.onended = () => {,32,31,22
+5,src/audio.js,103,0,"        this.voices = Math.max(0, this.voices - 1);",32,31,23
+5,src/audio.js,104,0,        try { oscillator.disconnect(); gain.disconnect(); } catch (_) {},32,31,24
+5,src/audio.js,105,0,      };,32,31,25
+5,src/audio.js,106,0,      oscillator.start(start);,32,31,26
+5,src/audio.js,107,0,      oscillator.stop(start + duration + 0.02);,32,31,27
+5,src/audio.js,108,0,    } catch (_) { /* unsupported Web Audio nodes degrade without affecting the game */ },32,31,28
+5,src/audio.js,109,0,  },32,31,29
+5,src/audio.js,110,0,},32,31,30
+5,src/audio.js,111,0,,32,31,31
+5,src/audio.js,112,0,module.exports = { AudioEngine: AudioEngine };,32,31,32
+6,tools/build.mjs,1,0,"import { readFile, writeFile, mkdir } from 'node:fs/promises';",32,31,33
+6,tools/build.mjs,2,0,import path from 'node:path';,32,31,34
+6,tools/build.mjs,3,0,import { fileURLToPath } from 'node:url';,32,31,35
+6,tools/build.mjs,4,0,import { generateAudio } from './audio.mjs';,32,31,36
+6,tools/build.mjs,5,0,"const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');",32,31,37
+6,tools/build.mjs,6,0,const modules = new Map();,32,31,38
+6,tools/build.mjs,7,0,async function collect(file) {,32,31,39
+6,tools/build.mjs,8,0,"  const id = path.relative(root, file).replaceAll('\\', '/');",32,31,40
+6,tools/build.mjs,9,0,  if (modules.has(id)) return id;,32,31,41
+6,tools/build.mjs,10,0,"  modules.set(id, '');",32,31,42
+6,tools/build.mjs,11,0,"  let source = await readFile(file, 'utf8');",32,31,43
+6,tools/build.mjs,12,0,"  const requires = [...source.matchAll(/require\(['""](\.\.?\/[^'""]+)['""]\)/g)];",32,31,44
+6,tools/build.mjs,13,0,  for (const match of requires) {,32,31,45
+6,tools/build.mjs,14,0,"    const dependency = path.resolve(path.dirname(file), match[1].endsWith('.js') ? match[1] : ",32,31,46
+6,tools/build.mjs,14,1,match[1] + '.js');,32,31,47
+6,tools/build.mjs,15,0,    if (!dependency.startsWith(root + path.sep)) throw new Error('Dependency outside project');,32,31,48
+6,tools/build.mjs,16,0,    const dependencyId = await collect(dependency);,32,31,49
+6,tools/build.mjs,17,0,"    source = source.replace(match[0], `require(${JSON.stringify(dependencyId)})`);",32,31,50
+6,tools/build.mjs,18,0,  },33,32,1
+6,tools/build.mjs,19,0,"  modules.set(id, source);",33,32,2
+6,tools/build.mjs,20,0,  return id;,33,32,3
+6,tools/build.mjs,21,0,},33,32,4
+6,tools/build.mjs,22,0,"const entry = await collect(path.join(root, 'src/main.js'));",33,32,5
+6,tools/build.mjs,23,0,const bundle = `/* 小小爆米花厂 v1.0 | generated by npm run build */\n(function(){\n'use strict';,33,32,6
+6,tools/build.mjs,23,1,"\nconst modules={${[...modules].map(([id, source]) => `${JSON.stringify(id)}:function(module,exports,",33,32,7
+6,tools/build.mjs,23,2,"require){\n${source}\n}`).join(',\n')}};\nconst cache={}; function require(id){if(cache[id])return ",33,32,8
+6,tools/build.mjs,23,3,cache[id].exports;if(!modules[id])throw new Error('Unknown module '+id);const m=cache[id]={exports:{}},33,32,9
+6,tools/build.mjs,23,4,";modules[id](m,m.exports,require);return m.exports;} require(${JSON.stringify(entry)});\n})();\n`;",33,32,10
+6,tools/build.mjs,24,0,"await mkdir(path.join(root, 'build/douyin'), { recursive: true });",33,32,11
+6,tools/build.mjs,25,0,"await mkdir(path.join(root, 'web'), { recursive: true });",33,32,12
+6,tools/build.mjs,26,0,"await writeFile(path.join(root, 'web/game.bundle.js'), bundle);",33,32,13
+6,tools/build.mjs,27,0,"await writeFile(path.join(root, 'build/douyin/game.bundle.js'), bundle);",33,32,14
+6,tools/build.mjs,28,0,"await writeFile(path.join(root, 'build/douyin/game.js'), ""require('./config.js');",33,32,15
+6,tools/build.mjs,28,1,"\nrequire('./game.bundle.js');\n"");",33,32,16
+6,tools/build.mjs,29,0,"await writeFile(path.join(root, 'build/douyin/game.json'), JSON.stringify({ deviceOrientation: ",33,32,17
+6,tools/build.mjs,29,1,"'portrait', showStatusBar: false }, null, 2));",33,32,18
+6,tools/build.mjs,30,0,"let config = {appId:'',rewardAdUnitId:'',interstitialAdUnitId:'',allowSimulatedAds:false};",33,32,19
+6,tools/build.mjs,31,0,"try { config = {...config,...JSON.parse(await readFile(path.join(root,'config.local.json'),'utf8'))}; ",33,32,20
+6,tools/build.mjs,31,1,},33,32,21
+6,tools/build.mjs,32,0,catch(error) { if(error.code!=='ENOENT')throw new Error('config.local.json 无效: '+error.message); },33,32,22
+6,tools/build.mjs,33,0,config.allowSimulatedAds=false;,33,32,23
+6,tools/build.mjs,34,0,"await writeFile(path.join(root, 'build/douyin/config.js'), '(typeof globalThis !== ""undefined"" ? ",33,32,24
+6,tools/build.mjs,34,1,"globalThis : GameGlobal).POPCORN_CONFIG = '+JSON.stringify(config,null,2)+';\n');",33,32,25
+6,tools/build.mjs,35,0,"await writeFile(path.join(root, 'build/douyin/project.config.json'), JSON.stringify({ description: ",33,32,26
+6,tools/build.mjs,35,1,"'小小爆米花厂', setting: { es6: true, minified: false, urlCheck: true }, appid: config.appId, ",33,32,27
+6,tools/build.mjs,35,2,"projectname: 'tiny-popcorn-factory', compileType: 'game' }, null, 2));",33,32,28
+6,tools/build.mjs,36,0,"await generateAudio(path.join(root,'build/douyin/audio'));",33,32,29
+6,tools/build.mjs,37,0,console.log(`Built ${modules.size} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: ,33,32,30
+6,tools/build.mjs,37,1,web/ · Douyin: build/douyin/`);,33,32,31
+7,tools/audio.mjs,1,0,// Original PCM sound assets for the native mini-game audio API.,33,32,32
+7,tools/audio.mjs,2,0,"import { mkdir, writeFile } from 'node:fs/promises';",33,32,33
+7,tools/audio.mjs,3,0,import path from 'node:path';,33,32,34
+7,tools/audio.mjs,4,0,"const sounds={pop:[.10,[760]],burst:[.42,[220,330,440,550,660,770]],upgrade:[.48,[440,554,659,880]],",33,32,35
+7,tools/audio.mjs,4,1,"order:[.36,[659,880,1047]],complete:[.82,[523,659,784,1047,784,1047]],click:[.07,[440]],error:[.14,",33,32,36
+7,tools/audio.mjs,4,2,[160]]};,33,32,37
+7,tools/audio.mjs,5,0,export async function generateAudio(directory){,33,32,38
+7,tools/audio.mjs,6,0,"  await mkdir(directory,{recursive:true});",33,32,39
+7,tools/audio.mjs,7,0,"  for(const [name,[duration,notes]] of Object.entries(sounds)){",33,32,40
+7,tools/audio.mjs,8,0,"    const rate=22050,count=Math.ceil(rate*duration),buf=Buffer.alloc(44+count*2);",33,32,41
+7,tools/audio.mjs,9,0,"    buf.write('RIFF',0);buf.writeUInt32LE(36+count*2,4);buf.write('WAVEfmt ',8);buf.writeUInt32LE(16,",33,32,42
+7,tools/audio.mjs,9,1,"16);buf.writeUInt16LE(1,20);buf.writeUInt16LE(1,22);buf.writeUInt32LE(rate,24);",33,32,43
+7,tools/audio.mjs,9,2,"buf.writeUInt32LE(rate*2,28);buf.writeUInt16LE(2,32);buf.writeUInt16LE(16,34);buf.write('data',36);",33,32,44
+7,tools/audio.mjs,9,3,"buf.writeUInt32LE(count*2,40);",33,32,45
+7,tools/audio.mjs,10,0,    for(let i=0;i<count;i++){,33,32,46
+7,tools/audio.mjs,11,0,"      const t=i/rate,noteLength=duration/notes.length,index=Math.min(notes.length-1,",33,32,47
+7,tools/audio.mjs,11,1,"Math.floor(t/noteLength)),local=t-index*noteLength;",33,32,48
+7,tools/audio.mjs,12,0,"      const envelope=Math.min(1,local/.004)*Math.max(0,1-local/noteLength)**1.8;",33,32,49
+7,tools/audio.mjs,13,0,"      const freq=notes[index],phase=2*Math.PI*(freq*local-(name==='pop'?220*local*local:0));",33,32,50
+7,tools/audio.mjs,14,0,      const value=Math.sin(phase)*envelope*.25;,34,33,1
+7,tools/audio.mjs,15,0,"      buf.writeInt16LE(Math.round(value*32767),44+i*2);",34,33,2
+7,tools/audio.mjs,16,0,    },34,33,3
+7,tools/audio.mjs,17,0,"    await writeFile(path.join(directory,name+'.wav'),buf);",34,33,4
+7,tools/audio.mjs,18,0,  },34,33,5
+7,tools/audio.mjs,19,0,},34,33,6
+8,tools/serve.mjs,1,0,import http from 'node:http';,34,33,7
+8,tools/serve.mjs,2,0,import path from 'node:path';,34,33,8
+8,tools/serve.mjs,3,0,import { readFile } from 'node:fs/promises';,34,33,9
+8,tools/serve.mjs,4,0,import { fileURLToPath } from 'node:url';,34,33,10
+8,tools/serve.mjs,5,0,"const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../web');",34,33,11
+8,tools/serve.mjs,6,0,const port = Number(process.env.PORT || 4173);,34,33,12
+8,tools/serve.mjs,7,0,"const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', ",34,33,13
+8,tools/serve.mjs,7,1,"'.css':'text/css; charset=utf-8', '.svg':'image/svg+xml' };",34,33,14
+8,tools/serve.mjs,8,0,"http.createServer(async (req, res) => {",34,33,15
+8,tools/serve.mjs,9,0,  try {,34,33,16
+8,tools/serve.mjs,10,0,"    const url = new URL(req.url, 'http://localhost');",34,33,17
+8,tools/serve.mjs,11,0,"    const target = path.resolve(root, '.' + decodeURIComponent(url.pathname === '/' ? '/index.html' : ",34,33,18
+8,tools/serve.mjs,11,1,url.pathname));,34,33,19
+8,tools/serve.mjs,12,0,    if (!target.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; },34,33,20
+8,tools/serve.mjs,13,0,    const data = await readFile(target);,34,33,21
+8,tools/serve.mjs,14,0,"    res.writeHead(200, { 'Content-Type': types[path.extname(target)] || 'application/octet-stream', ",34,33,22
+8,tools/serve.mjs,14,1,'Cache-Control':'no-store' }); res.end(data);,34,33,23
+8,tools/serve.mjs,15,0,  } catch { res.writeHead(404); res.end('Not found'); },34,33,24
+8,tools/serve.mjs,16,0,"}).listen(port, '127.0.0.1', () => console.log(`小小爆米花厂 http://127.0.0.1:${port}`));",34,33,25
+9,web/index.html,1,0,<!doctype html>,34,33,26
+9,web/index.html,2,0,"<html lang=""zh-CN"">",34,33,27
+9,web/index.html,3,0,<head>,34,33,28
+9,web/index.html,4,0,"  <meta charset=""UTF-8"">",34,33,29
+9,web/index.html,5,0,"  <meta name=""viewport"" content=""width=device-width, initial-scale=1, viewport-fit=cover, ",34,33,30
+9,web/index.html,5,1,"maximum-scale=1"">",34,33,31
+9,web/index.html,6,0,"  <meta name=""theme-color"" content=""#edf2e9"">",34,33,32
+9,web/index.html,7,0,"  <meta name=""description"" content=""从一口手摇锅，到整座爆米花工厂。点击、爆锅、升级，创造属于你的爆米花纪录",34,33,33
+9,web/index.html,7,1,"。"">",34,33,34
+9,web/index.html,8,0,  <title>小小爆米花厂 · 第一版</title>,34,33,35
+9,web/index.html,9,0,  <style>,34,33,36
+9,web/index.html,10,0,"    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;",34,33,37
+9,web/index.html,10,1,background:#e9eee5},34,33,38
+9,web/index.html,11,0,"    body{touch-action:none;overscroll-behavior:none;font-family:system-ui,'Microsoft YaHei',",34,33,39
+9,web/index.html,11,1,sans-serif},34,33,40
+9,web/index.html,12,0,    canvas{display:block;position:fixed;inset:0;width:100%;height:100%;touch-action:none;outline:none},34,33,41
+9,web/index.html,13,0,    .loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;color:#264333;,34,33,42
+9,web/index.html,13,1,gap:12px;pointer-events:none},34,33,43
+9,web/index.html,14,0,    .loading strong{font-size:24px}.loading span{font-size:13px;color:#6e7d71},34,33,44
+9,web/index.html,15,0,    .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden},34,33,45
+9,web/index.html,16,0,  </style>,34,33,46
+9,web/index.html,17,0,</head>,34,33,47
+9,web/index.html,18,0,<body>,34,33,48
+9,web/index.html,19,0,"  <div class=""loading"" id=""loading""><strong>小小爆米花厂</strong><span>正在给第一锅玉米加热…</span></div",34,33,49
+9,web/index.html,19,1,>,34,33,50
+9,web/index.html,20,0,"  <p class=""sr-only"">游戏快捷键：空格生产，1、2、3升级，O领取订单，M查看机器，Escape关闭面板。浏览器广告为明",35,34,1
+9,web/index.html,20,1,确标注的模拟体验。</p>,35,34,2
+9,web/index.html,21,0,"  <script>globalThis.POPCORN_CONFIG={allowSimulatedAds:true,appId:'',rewardAdUnitId:'',",35,34,3
+9,web/index.html,21,1,interstitialAdUnitId:''};</script>,35,34,4
+9,web/index.html,22,0,"  <script src=""game.bundle.js""></script>",35,34,5
+9,web/index.html,23,0,</body>,35,34,6
+9,web/index.html,24,0,</html>,35,34,7

@@ -1,0 +1,97 @@
+{
+  "software": "小小爆米花厂",
+  "version": "1.0.0",
+  "status": "内部草稿 / 待权利人确认",
+  "snapshot_created_utc": "2026-09-05T13:38:21.002552+00:00",
+  "source_files": [
+    {
+      "id": 1,
+      "path": "src/main.js",
+      "bytes": 12058,
+      "physical_lines": 196,
+      "printed_rows": 233,
+      "sha256": "be6410f2f9371879b7ee12aef57691c47b5b0209d66a4b6e7a9a0c914c88420b"
+    },
+    {
+      "id": 2,
+      "path": "src/core.js",
+      "bytes": 21111,
+      "physical_lines": 305,
+      "printed_rows": 373,
+      "sha256": "582982c55611b292a8b6677545b19edecedf3772d1d74e016a3278de125d0644"
+    },
+    {
+      "id": 3,
+      "path": "src/platform.js",
+      "bytes": 20215,
+      "physical_lines": 430,
+      "printed_rows": 466,
+      "sha256": "1fda6633df8a5ba384504e772adf1d5e61a5c7999ba8d9f696a875fcdeeac10d"
+    },
+    {
+      "id": 4,
+      "path": "src/renderer.js",
+      "bytes": 26569,
+      "physical_lines": 145,
+      "printed_rows": 338,
+      "sha256": "cfba584c4bc9f378ba537e60b9fad214849d04c72a8d083c294cb089421d5763"
+    },
+    {
+      "id": 5,
+      "path": "src/audio.js",
+      "bytes": 5315,
+      "physical_lines": 112,
+      "printed_rows": 122,
+      "sha256": "6ae7ac722860eab0d5e3e6cae12ce1c4187b58083c1dcf7ec525e8467e0b75b5"
+    },
+    {
+      "id": 6,
+      "path": "tools/build.mjs",
+      "bytes": 3043,
+      "physical_lines": 37,
+      "printed_rows": 49,
+      "sha256": "04622527806b7a88eb83bc3fa2e866855199f71cca9df913996db13839d38c77"
+    },
+    {
+      "id": 7,
+      "path": "tools/audio.mjs",
+      "bytes": 1418,
+      "physical_lines": 19,
+      "printed_rows": 25,
+      "sha256": "313e02f38c89a2c68358c20b695aa1502d62670e1ded690775b77ff9808f212d"
+    },
+    {
+      "id": 8,
+      "path": "tools/serve.mjs",
+      "bytes": 1076,
+      "physical_lines": 16,
+      "printed_rows": 19,
+      "sha256": "5724f0094e9e34b150b9720ebbb782262f612759344dd3ae58cfabd658a950b1"
+    },
+    {
+      "id": 9,
+      "path": "web/index.html",
+      "bytes": 1544,
+      "physical_lines": 24,
+      "printed_rows": 32,
+      "sha256": "3e1740855c289da1cbf9fb64932b5bb26c24f44a35e6a0a27efd66669ca1fc66"
+    }
+  ],
+  "original_lines": 1284,
+  "printed_rows": 1657,
+  "full_program_pages": 34,
+  "included_program_pages": 34,
+  "cover_pages": 1,
+  "page_size": "A4",
+  "program_rows_per_page": 50,
+  "last_page_rows": 7,
+  "folding_verified_reversible": true,
+  "excluded": [
+    "config.local.json",
+    "build/**",
+    "web/game.bundle.js",
+    "tests/**",
+    "node_modules/**"
+  ],
+  "official_reference": "https://banshi.beijing.gov.cn/pubtask/task/1/110000000000/3e283672-76be-4c8c-98e8-0bebe9bd06bf_app.html"
+}
