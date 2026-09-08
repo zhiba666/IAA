@@ -1,8 +1,10 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG, formatNumber } = require('../src/core.js');
-const fresh = () => new Game({ now: 1000000 });
+const { Game, CONFIG, QUEST_CHAPTERS, formatNumber } = require('../src/core.js');
+// Isolate economy from one-time teaching grants (covered in quests.test).
+const fresh = () => { const game=legacyGame({now:1000000});game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));return game; };
 const close = (actual, expected, label) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-8, Math.abs(expected) * 1e-10), `${label || 'value'}: ${actual} ≠ ${expected}`);
 const advance = (game, seconds, step = 1) => { while (seconds > 0) { const dt = Math.min(step, seconds); game.tick(dt); seconds -= dt; } };
 function eligible(kind) {
@@ -18,12 +20,12 @@ test('one tap produces and sells immediately, with energy and events', () => {
   const game = fresh(); const result = game.tap();
   assert.equal(result.amount, 1); assert.equal(game.state.coins, 1);
   assert.equal(game.state.totalProduced, 1); assert.equal(game.state.taps, 1); assert.equal(game.state.energy, 2);
-  assert.deepEqual(game.drainEvents(), [{ type: 'produce', source: 'tap', amount: 1, coins: 1 }]);
+  assert.deepEqual(game.drainEvents().map(({type,source,amount,coins})=>({type,source,amount,coins})), [{ type: 'produce', source: 'tap', amount: 1, coins: 1 }]);
   assert.deepEqual(game.drainEvents(), []);
 });
 test('starter automation runs without any input or adverts', () => {
   const game = fresh(); game.tick(10);
-  assert.equal(game.state.coins, 4); assert.equal(game.state.totalProduced, 4);
+  close(game.state.coins, 4); close(game.state.totalProduced, 4);
   assert.equal(game.state.energy, 10); assert.equal(game.state.taps, 0); assert.equal(game.state.rewardedCount, 0);
 });
 test('free burst includes permanent tap and automation and consumes energy', () => {
@@ -67,33 +69,6 @@ test('machines require main orders and exact funds, without an advert prerequisi
   close(game.getView().production.tap / before.tap, machine.multiplier);
   close(game.getView().production.price / before.price, machine.priceMultiplier);
 });
-test('all 20 main orders settle once and continue with growing loop orders', () => {
-  const game = fresh(); let expected = 0;
-  for (const [index, order] of CONFIG.orders.entries()) {
-    game.state.totalProduced = order.target - 0.001;
-    assert.equal(game.claimOrder().reason, 'order-not-ready');
-    game.state.totalProduced = order.target; game.state.playedSeconds = index + 1;
-    assert.equal(game.claimOrder().coins, order.reward); expected += order.reward;
-    assert.equal(game.state.orderIndex, index + 1); assert.equal(game.claimOrder().reason, 'order-not-ready');
-  }
-  assert.equal(game.state.coins, expected); assert.equal(game.state.completedAt, 20);
-  assert.equal(game.drainEvents().filter(e => e.type === 'complete').length, 1);
-  for (let i = 0; i < 5; i++) {
-    const order = game.getView().order; assert.equal(order.isLoop, true); assert.equal(order.number, i + 1);
-    close(order.target, CONFIG.orders[19].target * Math.pow(1.35, i + 1));
-    game.state.totalProduced = order.target; game.claimOrder();
-  }
-  assert.equal(game.state.orderIndex, 20); assert.equal(game.state.loopIndex, 5); assert.equal(game.state.completedAt, 20);
-  const restored = new Game({ save: game.exportSave(1000000), now: 1000000 });
-  assert.equal(restored.state.loopIndex, 5); assert.equal(restored.claimOrder().reason, 'order-not-ready');
-});
-test('a large production jump can settle several ready orders sequentially without consuming output', () => {
-  const game = fresh(); game.state.totalProduced = CONFIG.orders[19].target;
-  for (let i = 0; i < 20; i++) assert.equal(game.claimOrder().order.index, i);
-  assert.equal(game.state.coins, CONFIG.orders.reduce((sum, order) => sum + order.reward, 0));
-  assert.equal(game.state.totalProduced, CONFIG.orders[19].target); assert.equal(game.state.orderIndex, 20);
-  assert.equal(game.claimOrder().reason, 'order-not-ready');
-});
 test('unavailable rewards return no request and preserve resources', () => {
   const game = fresh();
   for (const kind of ['turbo', 'order', 'sponsor', 'offline', 'bogus']) assert.equal(game.quoteReward(kind), null);
@@ -134,8 +109,7 @@ for (const kind of ['turbo', 'order', 'sponsor', 'offline']) {
 }
 test('reward completion has no cooldown; turbo can immediately extend duration without stacking multipliers', () => {
   const game = eligible('turbo'); let quote = game.quoteReward('turbo'); game.applyReward(quote.id);
-  assert.equal(CONFIG.rewardCooldownSeconds, 0);
-  assert.equal(game.getView().rewards.turbo.available, true); assert.equal(game.getView().rewards.turbo.cooldown, 0);
+  assert.equal(game.getView().rewards.turbo.available, true);
   const nextQuote = game.quoteReward('turbo'); assert.ok(nextQuote); assert.notEqual(nextQuote.id, quote.id);
   // A retained valid request promises a duration even if another boost remains.
   game.state.boostSeconds = 30; quote = game.quoteReward('turbo'); game.applyReward(quote.id);
@@ -181,6 +155,7 @@ test('malformed JSON and versions produce a playable initial factory', () => {
 test('corrupt numeric fields are sanitized; orders and machines cannot exceed production prerequisites', () => {
   const save = fresh().exportSave(1000000);
   Object.assign(save, { coins: -7, totalCoins: Infinity, totalProduced: NaN, machine: 99, orderIndex: 999, energy: 999, boostSeconds: Infinity, taps: 1.7, loopIndex: 100, playedSeconds: 'bad' });
+  delete save.factory; // exercise the original cumulative-save validation
   save.upgrades = { tap: 99, auto: -10, value: Infinity }; save.settings = { sound: false, haptics: 'bad' };
   save.pendingRewards = { hacked: { id: 'hacked', kind: 'sponsor', amount: Infinity } };
   const game = new Game({ save, now: 1000000 });
@@ -202,4 +177,24 @@ test('invalid dt cannot corrupt resources and a single oversized tick is bounded
 test('number formatting handles zero, decimals and Chinese unit boundaries', () => {
   assert.equal(formatNumber(0), '0'); assert.equal(formatNumber(-1), '0'); assert.equal(formatNumber(1234.9), '1,234');
   assert.equal(formatNumber(10000), '1万'); assert.equal(formatNumber(12000), '1.2万'); assert.equal(formatNumber(100000000), '1亿');
+});
+
+test('six introductory orders use cumulative output; later orders require a chosen customer and end after twenty',()=>{
+ const game=fresh();game.state.totalProduced=CONFIG.orders.at(-1).target;
+ for(let i=0;i<6;i++)assert.equal(game.claimOrder().order.index,i);
+ assert.equal(game.getView().order.awaitingSelection,true);
+ assert.equal(game.claimOrder().ok,false);
+ for(let i=6;i<20;i++){
+   game.state.machine=CONFIG.machines.filter(m=>m.requiredOrders<=i).length-1;
+   assert.equal(game.acceptContract('cinema').ok,true);
+   for(let sec=0;sec<180&&!game.getView().order.ready;sec++)game.tick(1);
+   const order=game.getView().order;assert.equal(order.ready,true);
+   const before=game.state.coins,paid=game.claimOrder();
+   close(game.state.coins-before,paid.coins);
+   assert.equal(game.claimOrder().ok,false);
+ }
+ assert.equal(game.state.orderIndex,20);assert.equal(game.getView().order.completed,true);
+ assert.equal(game.getView().order.isLoop,false);assert.equal(game.getView().rewards.order.available,false);
+ const copy=new Game({save:game.exportSave(1000000),now:1000000});
+ assert.equal(copy.state.orderIndex,20);assert.equal(copy.getView().order.completed,true);
 });

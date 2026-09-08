@@ -4,5 +4,6 @@
   "interstitialAdUnitId": "",
   "allowSimulatedAds": false,
   "analyticsEnabled": false,
-  "debug": false
+  "debug": false,
+  "developerHoldTap": false
 }

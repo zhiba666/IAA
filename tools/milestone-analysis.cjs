@@ -1,4 +1,6 @@
 'use strict';
+// Historical heat-recovery comparison. The milestone and controller are retired.
+function retiredAnalysis() { throw new Error('历史完美爆锅与余热分析已停用，不适用于当前合同与自动爆锅规则；请运行 node tests/balance.cjs。原报告仅作历史记录。'); }
 // Read-only core simulation. --output may write only artifacts/milestone-analysis.json.
 // node tools/milestone-analysis.cjs --output artifacts/milestone-analysis.json
 const assert = require('node:assert/strict');
@@ -32,6 +34,7 @@ function expectedIncome(production, tapsPerSecond) {
 // Same balanced / marginal-income-payback policy and one-second action ordering as
 // midgame-analysis, stopping at the evolve event before the new machine's quest.
 function earnMultihead(tapsPerSecond) {
+  retiredAnalysis();
   const game = new Game({ now: NOW }), cache = new Map();
   const ledger = { productionUnits: 0, productionCoins: 0, orderCoins: 0, questCoins: 0, upgradeCosts: 0, machineCosts: 0 };
   function collect() {
@@ -113,6 +116,7 @@ function naturallyUnlockHeat(save, tapsPerSecond) {
 }
 
 function measureWindow(save, tapsPerSecond, scenario) {
+  retiredAnalysis();
   const game = new Game({ save, now: NOW });
   if (scenario === 'ideal-perfect-without-recovery') game._heatRecoveryUnlocked = () => false;
   const start = summary(game), steps = Math.round(DURATION / STEP), tapEverySteps = Math.round(1 / (tapsPerSecond * STEP));
@@ -130,7 +134,7 @@ function measureWindow(save, tapsPerSecond, scenario) {
         source.units += event.amount; source.coins += event.coins;
       }
       if (event.type === 'burst') {
-        metrics.burstCount++; if (event.perfect) metrics.perfectCount++;
+        metrics.burstCount++;
         if (event.heatRecoveryTaps) {
           metrics.recoveryGrantEvents++; metrics.recoveryTapsGranted += event.heatRecoveryTaps;
           const restored = new Game({ save: game.exportSave(NOW), now: NOW });
@@ -142,23 +146,14 @@ function measureWindow(save, tapsPerSecond, scenario) {
       assert.ok(!['upgrade', 'upgradeBatch', 'evolve', 'order', 'quest', 'productionMode', 'reward'].includes(event.type), 'No spending or claims in a fixed window');
     }
   }
-  function armPerfect() {
-    if (scenario === 'no-ignition') return;
-    const view = game.getView();
-    if (view.timing.available && view.energy >= CONFIG.timingWindowStart && view.energy <= CONFIG.timingWindowEnd) {
-      const result = game.tryPerfectBurst(); assert.equal(result.ok, true); assert.equal(result.perfect, true);
-      metrics.timingAttempts++; collect();
-    }
-  }
-  armPerfect();
   for (let step = 1; step <= steps; step++) {
-    assert.equal(game.tick(STEP).ok, true); collect(); armPerfect();
+    assert.equal(game.tick(STEP).ok, true); collect();
     if (step % tapEverySteps === 0) {
       const result = game.tap(); assert.equal(result.ok, true); metrics.tapCalls++;
       if (result.recoveryUsed) metrics.recoveryTapsUsed++;
       if (tapSchedule.firstTapSeconds === null) tapSchedule.firstTapSeconds = step * STEP;
       tapSchedule.lastTapSeconds = step * STEP;
-      collect(); armPerfect();
+      collect();
     }
   }
   const end = summary(game);
@@ -203,6 +198,7 @@ function compareBatch(save, key) {
 }
 
 function run() {
+  retiredAnalysis();
   const coreSha256 = hash(CORE_PATH), midgameSha256 = hash(MIDGAME_PATH), midgame = JSON.parse(fs.readFileSync(MIDGAME_PATH, 'utf8'));
   const naturalRoutes = [], experiments = [], preparations = [];
   let batchSource = null;
@@ -253,7 +249,7 @@ function run() {
     configuration: { machine: CONFIG.machines[3], heatRecoveryUnlockMachine: CONFIG.heatRecoveryUnlockMachine,
       heatRecoveryUpgradeLevel: CONFIG.heatRecoveryUpgradeLevel, heatRecoveryMaxTaps: CONFIG.heatRecoveryMaxTaps,
       heatRecoveryEnergyPerTap: CONFIG.heatRecoveryEnergyPerTap, bulkUpgradeUnlockMachine: CONFIG.bulkUpgradeUnlockMachine,
-      bulkUpgradeMaxCount: CONFIG.bulkUpgradeMaxCount, timingWindow: [CONFIG.timingWindowStart, CONFIG.timingWindowEnd], timingBonusPercent: CONFIG.timingBonusPercent },
+      bulkUpgradeMaxCount: CONFIG.bulkUpgradeMaxCount },
     verified: { naturalArrivalMatchesMidgameArtifact: true, naturalCoinLedgersReconcile: true, noInjectedFunds: true,
       exactFractionalTapCadence: true, fixedWindowLedgersReconcile: true, allIdealBurstsPerfect: true,
       recoveryGrantUseBalance: true, heatRecoverySaveRestore: true, batchSavedStateExactlyEqualsSingles: true,

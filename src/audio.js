@@ -49,9 +49,6 @@ class AudioEngine {
       if (now - this.lastPop < 0.035) return;
       this.lastPop = now;
       this.tone(640 + Math.random() * 240, 140, 0.085, 0.07, 'triangle', 0);
-    } else if (name === 'heatReady') {
-      this.tone(880, 1047, .09, .035, 'sine', 0);
-      this.tone(1175, 1175, .1, .03, 'sine', .09);
     } else if (name === 'burst' || name === 'boom') {
       // Short pressure rise, scattered pops, then the higher notes of a filled bucket.
       this.tone(120, 290, 0.085, 0.035, 'sine', 0);
@@ -82,7 +79,7 @@ class AudioEngine {
     // Bundled WAVs, reused contexts; official native API supports package-local paths.
     // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/basic-function/audio
     const aliases = { tap:'pop', boom:'burst', unlock:'upgrade', reward:'order', coin:'order', success:'order', win:'complete', deny:'error', offline:'order' };
-    const key = aliases[name] || (['pop','burst','upgrade','machine','order','complete','error','heatReady'].includes(name)?name:'click');
+    const key = aliases[name] || (['pop','burst','upgrade','machine','order','complete','error'].includes(name)?name:'click');
     if (key==='pop' && Date.now()-this.lastNativePop<90) return;
     if (key==='pop') this.lastNativePop=Date.now();
     try {

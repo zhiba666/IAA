@@ -1,4 +1,6 @@
 'use strict';
+// Historical research/commission analysis. Its baseline belongs to retired rules.
+function retiredAnalysis() { throw new Error('历史研发分析已停用，不适用于当前合同与自动爆锅规则；请运行 node tests/balance.cjs。原报告仅作历史记录。'); }
 // Controlled fresh-save comparisons. Sparse tapping still includes attentive one-second decisions.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -20,6 +22,7 @@ function summarizeGaps(events, start, end) {
 }
 
 function simulate({ tapsPerSecond, policy, features, research = false, researchPolicy = 'alternate', finishResearch = false }) {
+  retiredAnalysis();
   assert.ok(!finishResearch || research);
   const game = new Game({ now: NOW }), cache = new Map(), orders = [], machines = [], growth = [], claims = [], researchStarts = [];
   const ledger = { production: 0, quests: 0, orders: 0, deliveries: 0, commissions: 0, upgrades: 0, refinements: 0, machines: 0 };
@@ -86,13 +89,6 @@ function simulate({ tapsPerSecond, policy, features, research = false, researchP
     choices.sort((a, b) => a.payback - b.payback || a.cost - b.cost);
     const c = choices[0] || null; cache.set(cacheKey, c); return c;
   }
-  function armPerfect() {
-    if (features !== 'artisan' || game.state.orderIndex < 10 || game.state.orderIndex >= 20) return;
-    const v = game.getView();
-    if (v.timing.available && v.energy >= CONFIG.timingWindowStart && v.energy <= CONFIG.timingWindowEnd) {
-      const r = game.tryPerfectBurst(); assert.equal(r.ok, true); assert.equal(r.perfect, true); collect();
-    }
-  }
   function claimResearch() {
     if (!research) return;
     const active = game.getView().research.active;
@@ -143,9 +139,9 @@ function simulate({ tapsPerSecond, policy, features, research = false, researchP
         assert.equal(game.acceptCommission(option.kind, option).ok, true); collect();
       }
     }
-    const count = scheduledTaps(game.state.playedSeconds, tapsPerSecond); armPerfect();
-    for (let i = 0; i < count; i++) { game.tap(); collect(); armPerfect(); }
-    game.tick(1); collect(); armPerfect();
+    const count = scheduledTaps(game.state.playedSeconds, tapsPerSecond);
+    for (let i = 0; i < count; i++) { game.tap(); collect(); }
+    game.tick(1); collect();
   }
   assert.ok(game.state.completedAt);
   if (finishResearch) {
@@ -174,6 +170,7 @@ function simulate({ tapsPerSecond, policy, features, research = false, researchP
 }
 
 function run() {
+  retiredAnalysis();
   const baseline = JSON.parse(fs.readFileSync(BASELINE_FILE, 'utf8'));
   const routes = [], comparisons = [];
   for (const old of baseline.routes) {

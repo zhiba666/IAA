@@ -16,7 +16,7 @@ function createPlatform() {
   const sdk = typeof tt !== 'undefined' ? tt : root.tt;
   const isDouyin = !!(sdk && typeof sdk.createCanvas === 'function');
   const config = Object.assign({ appId: '', rewardAdUnitId: '', interstitialAdUnitId: '',
-    allowSimulatedAds: false, analyticsEnabled: false, debug: false }, root.POPCORN_CONFIG || {});
+    allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false }, root.POPCORN_CONFIG || {});
   const doc = typeof document !== 'undefined' ? document : null;
   const win = typeof window !== 'undefined' ? window : root;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
@@ -130,6 +130,13 @@ function createPlatform() {
     if (typeof sdk.onWindowResize === 'function') sdk.onWindowResize(function () { emit('resize', getSystemInfo()); });
   } else {
     canvas.style.touchAction = 'none';
+    const activePointers = new Map();
+    function cancelPointer(id) {
+      const point = activePointers.get(id);
+      if (!point) return;
+      activePointers.delete(id);
+      emit('pointer', { type: 'cancel', x: point.x, y: point.y, id: id });
+    }
     [['pointerdown', 'down'], ['pointermove', 'move'], ['pointerup', 'up'], ['pointercancel', 'cancel']].forEach(function (pair) {
       canvas.addEventListener(pair[0], function (event) {
         if (event.pointerType === 'mouse' && pair[1] === 'down' && event.button !== 0) return;
@@ -138,10 +145,18 @@ function createPlatform() {
           try { canvas.setPointerCapture(event.pointerId); } catch (_) { /* unsupported pointer capture */ }
         }
         const rect = canvas.getBoundingClientRect();
-        emit('pointer', { type: pair[1], x: event.clientX - rect.left,
-          y: event.clientY - rect.top, id: event.pointerId == null ? 0 : event.pointerId });
+        const point = { type: pair[1], x: event.clientX - rect.left,
+          y: event.clientY - rect.top, id: event.pointerId == null ? 0 : event.pointerId };
+        if (pair[1] === 'down' || pair[1] === 'move' && activePointers.has(point.id)) activePointers.set(point.id, point);
+        else if (pair[1] === 'up' || pair[1] === 'cancel') activePointers.delete(point.id);
+        emit('pointer', point);
       }, { passive: false });
     });
+    canvas.addEventListener('lostpointercapture', function (event) {
+      cancelPointer(event.pointerId == null ? 0 : event.pointerId);
+    });
+    // Focus loss ends held input without starting an offline/foreground cycle.
+    win.addEventListener('blur', function () { activePointers.forEach(function (_, id) { cancelPointer(id); }); });
     doc.addEventListener('visibilitychange', function () { if (doc.hidden) notifyHidden(); else notifyShown(); });
     win.addEventListener('pagehide', notifyHidden);
     win.addEventListener('pageshow', notifyShown);

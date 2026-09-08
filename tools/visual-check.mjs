@@ -1,35 +1,17 @@
 // Local, isolated visual QA only. This page is never included in the Douyin package.
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { bundleCommonJS, allowQAModule } from './bundle.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourceRoot = path.join(root, 'src') + path.sep;
-const modules = new Map();
-async function collect(filename) {
-  if (!filename.startsWith(sourceRoot) || /[\\/](main|platform)\.js$/.test(filename)) {
-    throw new Error('Visual fixtures must use presentation and core modules only');
-  }
-  const id = path.relative(root, filename).replaceAll('\\', '/');
-  if (modules.has(id)) return id;
-  modules.set(id, '');
-  let source = await readFile(filename, 'utf8');
-  for (const match of [...source.matchAll(/require\(['"](\.\.?\/[^'"]+)['"]\)/g)]) {
-    const file = path.resolve(path.dirname(filename), match[1].endsWith('.js') ? match[1] : match[1] + '.js');
-    const dependency = await collect(file);
-    source = source.replace(match[0], 'require(' + JSON.stringify(dependency) + ')');
-  }
-  modules.set(id, source);
-  return id;
-}
-
 function visualFixtures(require) {
   'use strict';
   const { Game, CONFIG } = require('src/core.js');
   const { Renderer } = require('src/renderer.js');
+  const { dispatchQAAction } = require('tools/qa-actions.cjs');
   const { selectCurrentTarget } = require('src/experience.js');
   const { selectOfflineSummary } = require('src/offline-summary.js');
-  const { selectNextStep } = require('src/next-step.js');
   const NOW = 1800000000000;
   const canvas = document.getElementById('game');
   const report = document.getElementById('report');
@@ -47,11 +29,8 @@ function visualFixtures(require) {
     { id: 'craft-stage', name: '第17单 · 二级工艺', modal:'refinements', state:{...base,machine:4,orderIndex:16,totalProduced:220000000,coins:7e10,upgrades:{tap:24,auto:24,value:24},refinements:{yield:1,value:1},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}} },
     { id: 'gold-tower', name: '金装塔 · 成长外观', state:{...base,machine:5,orderIndex:19,totalProduced:1200000000,coins:1e10,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}} },
     { id: 'mode-advice', name: '缺资金 · 切档建议', state:{...base,machine:2,orderIndex:10,totalProduced:847526.7689210637,coins:19440801.157558426,upgrades:{tap:16,auto:17,value:17}} },
-    { id: 'heat-lesson', name: '余热 · 首次练习', modal:'heatLesson', state:{...base,machine:3,orderIndex:10,totalProduced:3000000,coins:1e8,energy:92,upgrades:{tap:18,auto:18,value:18}} },
     { id: 'midgame-funding', name: '第11单 · 攒多头机', modal: 'machine', state: { ...base, machine: 2, orderIndex: 10, totalProduced: 847526.7689210637, coins: 19440801.157558426, upgrades: { tap: 16, auto: 17, value: 17 } } },
-    { id: 'heat-unlock', name: '多头机 · 余热门槛', modal: 'upgrades', state: { ...base, machine: 3, orderIndex: 10, totalProduced: 3000000, coins: 1e9, upgrades: { tap: 15, auto: 19, value: 18 } } },
-    { id: 'heat-ready', name: '多头机 · 完美接力', state: { ...base, machine: 3, orderIndex: 10, totalProduced: 3000000, coins: 1e8, energy: 92, upgrades: { tap: 18, auto: 18, value: 18 } } },
-    { id: 'heat-active', name: '余热 · 剩余10次', state: { ...base, machine: 3, orderIndex: 10, totalProduced: 3000000, coins: 1e8, energy: 0, heatRecoveryTaps: 10, upgrades: { tap: 18, auto: 18, value: 18 } } },
+    { id: 'auto-burst-near', name: '多头机 · 即将自动出锅', state: { ...base, machine: 3, orderIndex: 10, totalProduced: 3000000, coins: 1e8, energy: 92, upgrades: { tap: 18, auto: 18, value: 18 } } },
     { id: 'bulk-buy', name: '批量 · 实际级数', modal: 'upgrades', quantity: 5, state: { ...base, machine: 3, orderIndex: 10, totalProduced: 3000000, coins: 1e9, upgrades: { tap: 18, auto: 18, value: 18 } } },
     { id: 'bulk-reserve', name: '批量 · 预留换代款', modal: 'upgrades', quantity: 5, state: { ...base, machine: 3, orderIndex: 14, totalProduced: 64000000, coins: 1e10, upgrades: { tap: 18, auto: 18, value: 18 } } },
     { id: 'mode-home', name: '双缸机 · 选择档位', state: { ...base, machine: 2, orderIndex: 6, totalProduced: 20000, coins: 1000, upgrades: { tap: 8, auto: 8, value: 6 } } },
@@ -121,7 +100,7 @@ function visualFixtures(require) {
         game.state.claimedQuests.push(...ready.map(q => q.id));
       }
     }
-    ui = { viewport: dimensions(), tab: 'upgrades', isDouyin: false, adBusy: false, modal: null, toast: '',
+    ui = { viewport: dimensions(), isDouyin: false, adBusy: false, modal: null, toast: '',
       startup: false, questGuideId: selected.guide || '' };
     if (selected.modal) ui.modal = { type: selected.modal, ...(selected.modal === 'upgrades' ? { quantity: selected.quantity || 1 } : {}) };
     canvas.width = ui.viewport.width;
@@ -134,82 +113,11 @@ function visualFixtures(require) {
     for (const button of fixtures.children) button.setAttribute('aria-pressed', String(button.dataset.fixture === selected.id));
     draw();
   }
-  function open(type, focusUpgrade = '') {
-    ui.modal = { type, ...(type === 'upgrades' ? { quantity: 1 } : {}) };
-    ui.focusUpgrade = type === 'upgrades' ? focusUpgrade : '';
-    if (type === 'quests') ui.modal.chapterId = game.getView().quests.activeChapterId;
-  }
   function dispatch(action) {
     if (!action) return;
-    let result = null;
-    if(action==='goalExpand'||action==='goalCollapse'){
-      if(action==='goalCollapse'){const step=selectNextStep(game.getView(),selectCurrentTarget(game.getView(),ui),ui);if(step.kind==='mode')ui.dismissedModeSuggestion=step.id;}
-      ui.goalExpanded=action==='goalExpand';
-    }else if(action.startsWith('modeAdvice:')){
-      const step=selectNextStep(game.getView(),selectCurrentTarget(game.getView(),ui),ui);
-      if(step.kind!=='mode'||step.id!==action.slice(11))return;
-      ui.dismissedModeSuggestion=step.id;open('productionModes');ui.modal.advice=step;
-    }else if(action==='skipHeatLesson'){result=game.dismissHeatRecoveryGuide();ui.modal=null;ui.goalExpanded=undefined;}
-    else if(action==='practiceHeat'){ui.modal=null;ui.goalExpanded=undefined;}
-    else if(action.startsWith('refinement:')){const [,key,level,cost]=action.split(':');result=game.buyRefinement(key,{level:Number(level),cost:Number(cost)});}
-    else if (action === 'target') {
-      const target = selectCurrentTarget(game.getView(), ui);
-      if (!target || !target.action) return;
-      if (target.action.startsWith('upgrade:')) open('upgrades', target.action.slice(8));
-      else return dispatch(target.action);
-    } else if (action === 'tap') { if (!ui.modal) result = game.tap(); }
-    else if (action === 'timing') { if (!ui.modal) {result = game.tryPerfectBurst();if(result.ok){ui.toast=result.perfect?'火候正好！本锅额外 +20%':'下锅再挑战';ui.toastKind='timing';}} }
-    else if (action.startsWith('delivery:')) { const [,orderIndex,stage]=action.split(':');result=game.claimDelivery(Number(stage),Number(orderIndex)); }
-    else if (action.startsWith('commissionAccept:')) {
-      const rest=action.slice('commissionAccept:'.length),separator=rest.indexOf(':'),kind=rest.slice(0,separator),id=rest.slice(separator+1);
-      const quote=ui.modal&&ui.modal.commissionQuotes&&ui.modal.commissionQuotes[kind];
-      if(quote&&quote.id===id){result=game.acceptCommission(kind,quote);if(result.ok){ui.modal=null;ui.goalExpanded=true;}}
-    }
-    else if (action.startsWith('commissionClaim:')) { result=game.claimCommission(action.slice('commissionClaim:'.length));if(result.ok)open('commissions'); }
-    else if (action.startsWith('commissionCancel:')) { result=game.cancelCommission(action.slice('commissionCancel:'.length));if(result.ok)open('commissions'); }
-    else if (action.startsWith('souvenir:')) { const key=action.slice('souvenir:'.length);result=game.buySouvenir(key,ui.modal&&ui.modal.souvenirQuotes&&ui.modal.souvenirQuotes[key]);if(result.ok)open('souvenirs'); }
-    else if (action.startsWith('upgradeQuantity:')) {
-      const quantity = Number(action.slice(16));
-      if (ui.modal && ui.modal.type === 'upgrades' && game.getView().milestones.bulkUpgrade.unlocked && [1, CONFIG.bulkUpgradeMaxCount].includes(quantity)) ui.modal.quantity = quantity;
-    }
-    else if (action.startsWith('upgradeBatch:')) {
-      if (ui.modal && ui.modal.type === 'upgrades' && ui.modal.quantity === CONFIG.bulkUpgradeMaxCount) {
-        const [, key, fromLevel, count, cost] = action.split(':');
-        result = game.buyUpgradeBatch(key, { fromLevel: Number(fromLevel), count: Number(count), cost: Number(cost) });
-      }
-    }
-    else if (action.startsWith('fundingUpgrade:')) {
-      const step = selectNextStep(game.getView(),null,{suppressModeAdvice:true});
-      if (ui.modal && ui.modal.type === 'machine' && step.kind === 'upgrade' && step.enabled && step.estimate && step.upgradeKey === action.slice(15)) {
-        open('upgrades', step.upgradeKey);
-      }
-    }
-    else if (action.startsWith('productionMode:')) result = game.setProductionMode(action.slice(15));
-    else if (action === 'claimOffline') { ui.modal = null; result = game.claimOffline(); }
-    else if (action.startsWith('upgrade:')) result = game.buyUpgrade(action.slice(8));
-    else if (action.startsWith('questClaim:')) result = game.claimQuest(action.slice(11));
-    else if (action === 'claimOrder') { ui.modal = null; result = game.claimOrder(); }
-    else if (action === 'evolve') { ui.modal = null; result = game.evolve(); }
-    else if (action === 'close') ui.modal = null;
-    else if (action.startsWith('tab:')) open(({ machines: 'machine', upgrades: 'upgrades', stats: 'stats', brand: 'brand' })[action.slice(4)] || 'workshop');
-    else if (action.startsWith('questChapter:')) { if (ui.modal) { ui.modal.chapterId = action.slice(13); ui.modal.page = 0; } }
-    else if (action.startsWith('questPage:') || action.startsWith('blueprintPage:')) { if (ui.modal) ui.modal.page = Number(action.split(':')[1]) || 0; }
-    else if (action.startsWith('questGo:')) {
-      const quest = game.getView().quests.chapters.flatMap(chapter => chapter.quests).find(q => q.id === action.slice(8));
-      if (quest && !quest.locked && !quest.claimed) {
-        ui.questGuideId = quest.id;
-        if (quest.action.startsWith('upgrade:')) open('upgrades', quest.action.slice(8));
-        else if (['machine', 'order'].includes(quest.action)) open(quest.action);
-        else ui.modal = null;
-      }
-    } else if (action.startsWith('setting:')) {
-      const key = action.slice(8);
-      result = game.setSetting(key, !game.state.settings[key]);
-    } else if (['upgrades', 'order', 'machine', 'quests', 'workshop', 'settings', 'help', 'privacy',
-      'health', 'stats', 'blueprint', 'completion', 'brand', 'turbo', 'productionModes', 'offline','refinements','heatLesson','commissions','souvenirs'].includes(action)) open(action);
-    else result = { ok: false, reason: '本地夹具不执行广告、平台或存档操作' };
+    const result = dispatchQAAction(game, ui, action);
     lastAction = { action, result };
-    for (const event of game.drainEvents()) {renderer.emit(event);if(event.type==='burst'&&ui.toastKind==='timing'){ui.toast='';ui.toastKind='';}}
+    for (const event of game.drainEvents()) renderer.emit(event);
     draw();
   }
   function point(event) {
@@ -245,11 +153,10 @@ function visualFixtures(require) {
   select('fresh');
 }
 
-await collect(path.join(root, 'src/core.js'));
-await collect(path.join(root, 'src/renderer.js'));
-const bundle = `const modules={${[...modules].map(([id, source]) => JSON.stringify(id) + ':function(module,exports,require){\n' + source + '\n}').join(',\n')}};
-const cache={};function require(id){if(cache[id])return cache[id].exports;if(!modules[id])throw new Error('Unknown fixture module '+id);const m=cache[id]={exports:{}};modules[id](m,m.exports,require);return m.exports;}
-(${visualFixtures.toString()})(require);`;
+const { code: bundle, moduleIds } = await bundleCommonJS({
+  root, entries: ['src/core.js', 'src/renderer.js', 'tools/qa-actions.cjs'],
+  allowModule: allowQAModule, initialize: visualFixtures
+});
 const html = `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>本地视觉夹具 · 档位与回归</title>
@@ -268,9 +175,7 @@ h2{font-size:16px;margin:0 0 8px}pre{font:12px/1.5 Consolas,monospace;white-spac
 <div class="controls"><label for="viewport">画布尺寸</label><select id="viewport" aria-label="画布尺寸"><option value="320x524">320 × 524 · 安全区</option><option value="320x568">320 × 568 · 小屏</option><option value="390x844" selected>390 × 844 · 常规</option></select><button id="reset" type="button">复原当前夹具</button><span>切换尺寸也会复原当前夹具。</span></div>
 <p id="status" role="status"></p>
 <main><canvas id="game" role="application" tabindex="0" aria-label="隔离夹具游戏画面"></canvas><aside aria-label="视觉夹具只读报告"><h2>当前目标、推荐与操作结果</h2><pre id="report" aria-label="视觉夹具 JSON 报告"></pre></aside></main>
-<script>(function(){${bundle.replaceAll('</script', '<\\/script')}})();</script></body></html>`;
+<script>${bundle.replaceAll('</script', '<\\/script')}</script></body></html>`;
 await writeFile(path.join(root, 'web/visual-check.html'), html);
 console.log('Local-only visual fixtures: /visual-check.html');
-console.log('Included ' + modules.size + ' core/presentation modules; no main, platform or storage adapter.');
-
-
+console.log('Included ' + moduleIds.length + ' core/presentation modules; no main, platform or storage adapter.');

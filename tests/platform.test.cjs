@@ -54,7 +54,9 @@ function harness(options = {}) {
     getSystemInfoSync: () => ({ windowWidth: 390, windowHeight: 844, pixelRatio: 3 }),
     onHide(fn) { lifecycle.hide = fn; }, onShow(fn) { lifecycle.show = fn; },
     onTouchStart(fn) { pointerEvents.touchstart = fn; },
+    onTouchMove(fn) { pointerEvents.touchmove = fn; },
     onTouchEnd(fn) { pointerEvents.touchend = fn; },
+    onTouchCancel(fn) { pointerEvents.touchcancel = fn; },
     getStorageSync(key) { if (options.storageFailure) throw new Error('storage denied'); return storage.get(key); },
     setStorageSync(key, value) { if (options.storageFailure) throw new Error('storage full'); storage.set(key, value); },
     createRewardedVideoAd(config) {
@@ -103,6 +105,75 @@ function harness(options = {}) {
 }
 
 async function flush() { for (let i = 0; i < 5; i++) await Promise.resolve(); }
+
+function browserPointer(h, type, id, x = 100, y = 200, overrides = {}) {
+  h.pointerEvents[type]({ pointerId: id, clientX: x, clientY: y,
+    pointerType: 'touch', button: 0, preventDefault() {}, ...overrides });
+}
+
+test('config: developer hold tapping is disabled unless explicitly configured', () => {
+  for (const browser of [true, false]) {
+    assert.equal(harness({ browser }).platform.config.developerHoldTap, false);
+    assert.equal(harness({ browser, config: { developerHoldTap: true } }).platform.config.developerHoldTap, true);
+  }
+});
+
+test('browser input: lost capture cancels only the matching active pointer at its latest position', () => {
+  const h = harness({ browser: true }), events = [];
+  h.platform.onPointer(point => events.push({ ...point }));
+  browserPointer(h, 'pointerdown', 0);
+  browserPointer(h, 'pointerdown', 7);
+  browserPointer(h, 'pointermove', 0, 160, 290);
+  h.pointerEvents.lostpointercapture({ pointerId: 9 });
+  assert.equal(events.length, 3, 'an unrelated capture loss cannot cancel a held pointer');
+  h.pointerEvents.lostpointercapture({ pointerId: 0 });
+  assert.deepEqual(events.at(-1), { type: 'cancel', x: 148, y: 270, id: 0 });
+  h.pointerEvents.lostpointercapture({ pointerId: 0 });
+  assert.equal(events.length, 4, 'duplicate capture loss cannot emit a second cancel');
+  h.browserEvents.blur();
+  assert.deepEqual(events.at(-1), { type: 'cancel', x: 88, y: 180, id: 7 });
+  assert.equal(events.length, 5, 'the other held pointer remains tracked until focus loss');
+});
+
+test('browser input: blur cancels held pointers without changing lifecycle or cancelling released input', () => {
+  const h = harness({ browser: true }), events = [];
+  let hides = 0, shows = 0, resizes = 0;
+  h.platform.onPointer(point => events.push({ ...point }));
+  h.platform.onHide(() => hides++); h.platform.onShow(() => shows++); h.platform.onResize(() => resizes++);
+  browserPointer(h, 'pointermove', 1);
+  browserPointer(h, 'pointerdown', 2);
+  browserPointer(h, 'pointerup', 2);
+  browserPointer(h, 'pointerdown', 3);
+  browserPointer(h, 'pointercancel', 3);
+  browserPointer(h, 'pointerdown', 4, 100, 200, { pointerType: 'mouse', button: 2 });
+  browserPointer(h, 'pointerdown', 5);
+  browserPointer(h, 'pointerdown', 6);
+  h.browserEvents.blur();
+  assert.deepEqual(events.filter(point => point.type === 'cancel').map(point => point.id), [3, 5, 6]);
+  const count = events.length;
+  h.browserEvents.blur();
+  for (const pointerId of [2, 3, 5, 6]) h.pointerEvents.lostpointercapture({ pointerId });
+  assert.equal(events.length, count, 'released, cancelled and already blurred pointers are cleared');
+  assert.equal(hides, 0); assert.equal(shows, 0); assert.equal(resizes, 0);
+});
+
+test('native input: touch cancellation forwards changed pointers with matching identifiers', () => {
+  const h = harness(), events = [];
+  h.platform.onPointer(point => events.push({ ...point }));
+  h.pointerEvents.touchstart({ changedTouches: [
+    { identifier: 0, screenX: 100, screenY: 200 }, { identifier: 7, clientX: 120, clientY: 240 }
+  ] });
+  h.pointerEvents.touchcancel({
+    changedTouches: [{ identifier: 0, screenX: 110, screenY: 220 }],
+    touches: [{ identifier: 7, clientX: 120, clientY: 240 }]
+  });
+  assert.deepEqual(events, [
+    { type: 'down', x: 100, y: 200, id: 0 },
+    { type: 'down', x: 120, y: 240, id: 7 },
+    { type: 'cancel', x: 110, y: 220, id: 0 }
+  ]);
+});
+
 async function showInterstitial(h) {
   const promise = h.platform.interstitial();
   await flush();

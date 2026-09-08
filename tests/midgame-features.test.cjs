@@ -1,24 +1,22 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core');
 const NOW = 1000000;
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-8, Math.abs(expected) * 1e-10), `${actual} != ${expected}`);
 function factory(machine = 4, tapLevel = 16) {
-  const game = new Game({ now: NOW });
+  const game = legacyGame({ now: NOW });
   game.state.machine = machine;
   game.state.orderIndex = CONFIG.machines[machine].requiredOrders;
   game.state.totalProduced = game.state.orderIndex ? CONFIG.orders[game.state.orderIndex - 1].target : 0;
   game.state.upgrades = { tap: tapLevel, auto: 12, value: 10 };
   game.state.playedSeconds = CONFIG.rewardUnlockSeconds;
   game.state.bursts = 1;
+  game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));
+  game.state.factory.completedContracts = Math.max(0, game.state.orderIndex - 6);
+  game._autoQuests(); game.drainEvents();
   return game;
-}
-function perfect(game, energy = 92) {
-  game.state.energy = energy;
-  assert.equal(game.tryPerfectBurst().perfect, true);
-  game.tick(100 - energy);
-  return game.drainEvents().find(event => event.type === 'burst');
 }
 function price(key, level, machine = 4) {
   const config = CONFIG.upgrades[key];
@@ -34,94 +32,12 @@ function noMutation(game, callback, reason) {
   assert.deepEqual(game.exportSave(NOW), before); assert.deepEqual(game.drainEvents(), []);
 }
 
-test('residual heat requires both multi-head equipment and tap level 16, and unlock alone grants no charges', () => {
-  for (const [machine, level, unlocked] of [[2, 16, false], [3, 15, false], [3, 16, true], [5, 24, true]]) {
-    const game = factory(machine, level), milestone = game.getView().milestones.heatRecovery;
-    assert.deepEqual(milestone, { unlocked, remainingTaps: 0, maxTaps: 10, energyPerTap: 1, requiredMachine: 3, requiredUpgradeLevel: 16, upgradeKey: 'tap' });
-    const event = perfect(game);
-    assert.equal(game.state.heatRecoveryTaps, unlocked ? 10 : 0);
-    assert.equal(event.heatRecoveryTaps, unlocked ? 10 : undefined);
-  }
-  const upgrade = factory(3, 15); upgrade.state.coins = price('tap', 15, 3);
-  assert.equal(upgrade.buyUpgrade('tap').ok, true); assert.equal(upgrade.getView().milestones.heatRecovery.unlocked, true);
-  assert.equal(upgrade.state.heatRecoveryTaps, 0);
-});
 
-test('only an actual perfect burst grants residual heat; arming, a miss and ordinary bursts do not', () => {
-  const game = factory(); game.state.energy = 92;
-  assert.equal(game.tryPerfectBurst().perfect, true); assert.equal(game.state.heatRecoveryTaps, 0);
-  game.tick(8); assert.equal(game.state.heatRecoveryTaps, 10);
-  game.state.heatRecoveryTaps = 0; game.state.energy = 80;
-  assert.equal(game.tryPerfectBurst().perfect, false); game.tick(20); assert.equal(game.state.heatRecoveryTaps, 0);
-  game.state.energy = 99; game.tick(1); assert.equal(game.state.heatRecoveryTaps, 0);
-});
 
-test('ten recovered taps each give one extra energy without changing tap amounts, sale prices or turbo', () => {
-  for (const mode of ['balanced', 'rush', 'premium']) {
-    const normal = factory(), recovered = factory();
-    for (const game of [normal, recovered]) { game.setProductionMode(mode); game.state.boostSeconds = 30; game.drainEvents(); }
-    recovered.state.heatRecoveryTaps = 10;
-    assert.deepEqual(recovered.getView().production, normal.getView().production);
-    for (let i = 0; i < 10; i++) {
-      const plain = normal.tap(), warm = recovered.tap();
-      close(plain.amount, warm.amount); assert.equal(warm.recoveryUsed, true); assert.equal(warm.heatRecoveryTaps, 9 - i);
-    }
-    assert.equal(normal.state.energy, 20); assert.equal(recovered.state.energy, 30);
-    assert.deepEqual(recovered.drainEvents(), normal.drainEvents(), 'residual heat does not alter sale events');
-    close(recovered.state.coins, normal.state.coins); assert.equal(recovered.state.boostSeconds, 30);
-    assert.equal(recovered.tap().recoveryUsed, false); assert.equal(recovered.state.energy, 32);
-  }
-});
 
-test('passive production and ordinary bursts retain earned charges, and the next perfect burst refreshes rather than stacks', () => {
-  const game = factory(); game.state.heatRecoveryTaps = 7; game.state.energy = 99;
-  game.tick(1); assert.equal(game.state.heatRecoveryTaps, 7);
-  assert.equal(game.drainEvents().find(event => event.type === 'burst').heatRecoveryTaps, undefined);
-  game.state.energy = 98;
-  assert.equal(game.tap().heatRecoveryTaps, 6); assert.equal(game.state.energy, 1);
-  assert.equal(game.drainEvents().find(event => event.type === 'burst').heatRecoveryTaps, undefined);
-  assert.equal(perfect(game).heatRecoveryTaps, 10); assert.equal(game.state.heatRecoveryTaps, 10);
-  assert.equal(perfect(game).heatRecoveryTaps, 10); assert.equal(game.state.heatRecoveryTaps, 10);
-});
 
-test('a recovered tap that triggers a perfect burst consumes the old charge before receiving ten new charges', () => {
-  const game = factory(); game.state.heatRecoveryTaps = 1; game.state.energy = 98;
-  const p = game.getView().production; assert.equal(game.tryPerfectBurst().perfect, true);
-  const result = game.tap(), event = game.drainEvents().find(item => item.type === 'burst');
-  assert.equal(result.recoveryUsed, true); assert.equal(result.heatRecoveryTaps, 10); assert.equal(game.state.energy, 1);
-  close(event.amount, (p.tap * 24 + p.baseAuto * 8) * 1.2);
-  assert.equal(event.heatRecoveryTaps, 10); assert.equal(event.perfect, true);
-});
 
-test('residual heat is saved only as earned uses, validated after equipment and upgrades, and never consumed offline', () => {
-  const source = factory(); perfect(source); source.tap(); source.tap();
-  const save = source.exportSave(NOW), p = source.getView().production;
-  const restored = new Game({ save, now: NOW + 60000 });
-  assert.equal(restored.state.heatRecoveryTaps, 8); assert.equal(restored.state.energy, source.state.energy);
-  close(restored.state.offline.production, p.baseAuto * 60 * .5); close(restored.state.offline.coins, p.baseIncome * 60 * .5);
-  restored.claimOffline(); assert.equal(restored.state.heatRecoveryTaps, 8);
-  for (const [value, expected] of [[undefined, 0], [null, 0], [Infinity, 0], ['10', 0], [-1, 0], [7.9, 7], [100, 10]]) {
-    const input = { ...save, heatRecoveryTaps: value }, game = new Game({ save: input, now: NOW });
-    assert.equal(game.state.heatRecoveryTaps, expected);
-  }
-  const old = { ...save }; delete old.heatRecoveryTaps;
-  assert.equal(new Game({ save: old, now: NOW }).state.heatRecoveryTaps, 0);
-  for (const input of [
-    { ...save, machine: 2 },
-    { ...save, upgrades: { ...save.upgrades, tap: 15 } },
-    { ...save, orderIndex: 6, totalProduced: CONFIG.orders[5].target }
-  ]) assert.equal(new Game({ save: input, now: NOW }).state.heatRecoveryTaps, 0);
-});
 
-test('saved heat does not save an armed perfect timing attempt or award a fresh set on reload', () => {
-  const game = factory(); game.state.heatRecoveryTaps = 4; game.state.energy = 98;
-  assert.equal(game.tryPerfectBurst().perfect, true);
-  const restored = new Game({ save: game.exportSave(NOW), now: NOW });
-  assert.equal(restored.getView().timing.armed, false);
-  restored.tap(); assert.equal(restored.state.heatRecoveryTaps, 3);
-  const burst = restored.drainEvents().find(event => event.type === 'burst');
-  assert.equal(burst.perfect, false); assert.equal(burst.heatRecoveryTaps, undefined);
-});
 
 test('batch upgrade quotes unlock at machine 3 and preserve all existing single-purchase fields and behavior', () => {
   assert.equal(factory(3).getView().milestones.bulkUpgrade.unlocked, true);
@@ -149,11 +65,11 @@ test('batch quotes sum rounded per-level prices and show precisely the affordabl
   }
 });
 
-test('batch prices, permanent output and balances match the exact same number of single upgrades in every mode', () => {
-  for (const mode of ['balanced', 'rush', 'premium']) for (const key of ['tap', 'auto', 'value']) {
+test('batch prices, permanent output and balances match the exact same number of single upgrades for the current campaign', () => {
+  for (const mode of ['balanced']) for (const key of ['tap', 'auto', 'value']) {
     const game = factory(); game.state.brandLevel = 5; game.state.coins = totalPrice(key, game.state.upgrades[key], 5) + 123;
     game.state.totalCoins = game.state.coins;
-    game.state.boostSeconds = 90; game.state.heatRecoveryTaps = 7; game.setProductionMode(mode); game.drainEvents();
+    game.state.boostSeconds = 90; game.setProductionMode(mode); game.drainEvents();
     const singles = new Game({ save: game.exportSave(NOW), now: NOW }), quote = bulk(game, key);
     const result = game.buyUpgradeBatch(key, quote); assert.equal(result.ok, true); assert.equal(result.count, 5);
     for (let i = 0; i < quote.count; i++) assert.equal(singles.buyUpgrade(key).ok, true);
@@ -232,15 +148,16 @@ test('pending advertisements block batches until resolved without invalidating o
 });
 
 test('milestone and batch previews are read-only, omit turbo from permanent gains, and leave accrued offline packs unchanged', () => {
-  const game = factory(); game.state.coins = 1e10; game.state.heatRecoveryTaps = 5;
+  const game = factory(); game.state.coins = 1e10;
   game.state.offline = { id: 'offline:earned', seconds: 60, production: 100, coins: 200 };
   const before = game.exportSave(NOW), first = bulk(game);
   for (let i = 0; i < 5; i++) game.getView();
   assert.deepEqual(game.exportSave(NOW), before); assert.deepEqual(game.drainEvents(), []);
   game.state.boostSeconds = 90; assert.deepEqual(bulk(game), first);
   const pack = { ...game.state.offline }; assert.equal(game.buyUpgradeBatch('auto', first).ok, true);
-  assert.deepEqual(game.state.offline, pack); assert.equal(game.state.heatRecoveryTaps, 5);
+  assert.deepEqual(game.state.offline, pack); assert.equal(game.state.heatRecoveryTaps, 0);
   const reload = new Game({ save: game.exportSave(NOW), now: NOW });
-  assert.equal(reload.state.upgrades.auto, first.toLevel); assert.equal(reload.state.heatRecoveryTaps, 5);
-  assert.deepEqual(reload.state.offline, pack);
+  assert.equal(reload.state.upgrades.auto, first.toLevel); assert.equal(reload.state.heatRecoveryTaps, 0);
+  for(const key of ['id','seconds','production','coins'])assert.equal(reload.state.offline[key],pack[key]);
+  assert.equal(reload.state.offline.factorySegments[0].contractId,null);
 });

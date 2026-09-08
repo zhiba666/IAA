@@ -3,9 +3,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const AUDIO_FILES = ['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error', 'heatReady'].map(name => `audio/${name}.wav`);
+export const AUDIO_FILES = ['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error'].map(name => `audio/${name}.wav`);
 export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES];
-const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false };
+const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false };
 const ID_LABELS = { appId: '小游戏 AppID', rewardAdUnitId: '激励视频广告位', interstitialAdUnitId: '插屏广告位' };
 const MAX_PACKAGE_BYTES = 20 * 1024 * 1024;
 
@@ -62,15 +62,16 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     if (!config) continue;
     const unknownKeys = Object.keys(config).filter(key => !Object.hasOwn(CONFIG_DEFAULTS, key));
     if (unknownKeys.length) add(`${label}-unknown-config`, 'error', `${label}配置含非预期字段，请仅保留示例中的字段；不要写入 AppSecret、登录令牌等密钥。`);
-    for (const key of ['allowSimulatedAds', 'analyticsEnabled', 'debug']) {
+    for (const key of ['allowSimulatedAds', 'analyticsEnabled', 'debug', 'developerHoldTap']) {
       if (config[key] !== undefined && typeof config[key] !== 'boolean') add(`${label}-${key}-type`, 'error', `${label}配置 ${key} 必须是 true 或 false。`);
     }
   }
   if (built) {
     add('simulated-ads-disabled', built.allowSimulatedAds === false ? 'pass' : 'error', built.allowSimulatedAds === false ? '抖音包已禁用模拟广告奖励。' : '抖音包未明确禁用模拟广告，禁止继续联调。');
     add('debug-disabled', built.debug !== true ? 'pass' : 'error', built.debug !== true ? '抖音包未开启调试修改配置。' : '抖音包 debug 已开启，恢复 false 并重新构建。');
+    add('developer-hold-disabled', built.developerHoldTap === false ? 'pass' : 'error', built.developerHoldTap === false ? '发布包已明确关闭开发长按连点。' : '当前包未关闭开发长按连点，仅用于开发调试；发布验收前运行 npm run build 重新构建。');
     if (local) {
-      const expected = { ...CONFIG_DEFAULTS, ...local, allowSimulatedAds: false };
+      const expected = { ...CONFIG_DEFAULTS, ...local, allowSimulatedAds: false, developerHoldTap: false };
       const actual = { ...CONFIG_DEFAULTS, ...built };
       const mismatches = Object.keys(CONFIG_DEFAULTS).filter(key => expected[key] !== actual[key]);
       add('config-synchronized', mismatches.length ? 'error' : 'pass', mismatches.length ? `本地与构建配置不一致（${mismatches.join('、')}），请运行 npm run build；不要只改构建目录。` : '本地配置与构建配置一致。');

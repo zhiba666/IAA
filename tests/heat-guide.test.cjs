@@ -2,95 +2,65 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Game, CONFIG } = require('../src/core');
+const { legacyGame } = require('./legacy-fixture.cjs');
 const { selectHeatGuide } = require('../src/heat-guide');
 
-function factory(energy = 0, unlocked = true) {
+function factory(energy = 0, bursts = 1) {
   const game = new Game({ now: 1000000 });
-  game.state.energy = energy;
-  game.state.bursts = unlocked ? 1 : 0;
+  game.state.energy = energy; game.state.bursts = bursts;
   return game;
 }
 
-for (const [energy, state, canAttempt] of [
-  [0, 'heating', false], [79.99, 'heating', false],
-  [80, 'ready', true], [91.99, 'ready', true],
-  [92, 'perfect', true], [98, 'perfect', true],
-  [98.01, 'late', true], [99.9, 'late', true], [100, 'late', false]
-]) {
-  test(`heat guide preserves exact core boundaries at ${energy} energy`, () => {
-    const game = factory(energy), view = game.getView(), guide = selectHeatGuide(view);
-    assert.equal(guide.state, state);
-    assert.equal(guide.canAttempt, canAttempt);
-    assert.equal(guide.canAttempt, view.timing.available);
-    assert.equal(guide.energy, energy);
+test('energy guidance uses the same automatic cycle before and after the first burst', () => {
+  for (const bursts of [0, 1, 100]) for (const energy of [0, 79.99, 80, 91.99, 92, 98, 98.01, 99.9, 100]) {
+    const guide = selectHeatGuide(factory(energy, bursts).getView());
+    assert.equal(guide.state, 'heating'); assert.equal(guide.energy, energy);
     assert.equal(guide.progress, energy / CONFIG.energyMax);
-    assert.equal(guide.windowStart, view.timing.windowStart);
-    assert.equal(guide.windowEnd, view.timing.windowEnd);
-    assert.ok(guide.title && guide.hint && guide.buttonLabel);
-    assert.ok([...guide.buttonLabel].length <= 8);
-  });
-}
-
-test('the first pot teaches automatic free bursts before exposing a timing attempt', () => {
-  for (const energy of [0, 80, 92, 98, 99.9]) {
-    const game = factory(energy, false), guide = selectHeatGuide(game.getView());
-    assert.equal(guide.state, 'locked');
-    assert.equal(guide.canAttempt, false);
-    assert.match(guide.title, /自动爆锅/);
-    assert.match(guide.hint, /首次爆锅后/);
+    assert.match(guide.title, /自动爆锅/); assert.match(guide.hint, /自动出锅/);
+    assert.doesNotMatch(JSON.stringify(guide), /canAttempt|windowStart|windowEnd|完美|提前|最佳/);
   }
-  const game = factory(99, false);
+});
+
+test('energy guidance reports remaining charge and starts the next cycle after automatic payout', () => {
+  assert.match(selectHeatGuide(factory(0).getView()).hint, /100 格后/);
+  const game = factory(99);
+  assert.match(selectHeatGuide(game.getView()).hint, /1 格后/);
   game.tick(1);
-  assert.equal(selectHeatGuide(game.getView()).state, 'heating');
-});
-
-test('heating tells the player the remaining energy and the configured best window', () => {
-  assert.match(selectHeatGuide(factory(0).getView()).hint, new RegExp(`${CONFIG.timingAttemptEnergy} 格后`));
-  const close = selectHeatGuide(factory(CONFIG.timingAttemptEnergy - 0.01).getView());
-  assert.match(close.hint, /1 格后/);
-  assert.ok(close.hint.includes(`${CONFIG.timingWindowStart}–${CONFIG.timingWindowEnd}`));
-});
-
-test('a successful attempt stays visibly armed past the best window until its burst', () => {
-  const game = factory(CONFIG.timingWindowStart);
-  assert.equal(game.tryPerfectBurst().perfect, true);
-  game.tick(CONFIG.timingWindowEnd - CONFIG.timingWindowStart + 1);
   const guide = selectHeatGuide(game.getView());
-  assert.equal(guide.state, 'armed');
-  assert.equal(guide.canAttempt, false);
-  assert.ok(guide.title.includes(`+${CONFIG.timingBonusPercent}%`));
-  assert.match(guide.hint, /蓄满后/);
-  game.tick(CONFIG.energyMax - game.state.energy);
-  assert.equal(selectHeatGuide(game.getView()).state, 'heating');
-  assert.equal(game.drainEvents().find(event => event.type === 'burst').perfect, true);
+  assert.equal(guide.state, 'heating'); assert.equal(guide.energy, 0);
+  assert.match(guide.hint, /100 格后/);
+  assert.equal(game.drainEvents().filter(event => event.type === 'burst').length, 1);
 });
 
-test('early and late misses show normal free production and cannot invite another attempt', () => {
-  for (const energy of [CONFIG.timingAttemptEnergy, CONFIG.timingWindowEnd + 0.01]) {
-    const game = factory(energy);
-    assert.equal(game.tryPerfectBurst().perfect, false);
-    const guide = selectHeatGuide(game.getView());
-    assert.equal(guide.state, 'missed');
-    assert.equal(guide.canAttempt, false);
-    assert.match(guide.title, /照常爆锅/);
-    assert.match(guide.buttonLabel, /已尝试/);
-    game.tick(CONFIG.energyMax - energy);
-    assert.equal(selectHeatGuide(game.getView()).state, 'heating');
-    assert.equal(game.drainEvents().find(event => event.type === 'burst').perfect, false);
-  }
+test('an empty equipped pressure tank explains that the next full pot is stored', () => {
+  const game = legacyGame({ now: 1000000 });
+  game.state.machine = 2; game.state.energy = 80;
+  game.state.factory.owned.push('pressure'); game.setPressureMode('hold');
+  const guide = selectHeatGuide(game.getView());
+  assert.equal(guide.state, 'heating'); assert.match(guide.title, /自动储锅/);
+  assert.match(guide.hint, /20 格后存入蓄压罐/);
+  game.tick(4);
+  assert.equal(selectHeatGuide(game.getView()).state, 'stored');
 });
 
-test('heat selection is read only and tolerates an absent initial view', () => {
-  const game = factory(CONFIG.timingWindowStart);
-  const view = game.getView(), before = game.exportSave(1000000);
-  const viewBefore = JSON.stringify(view);
-  Object.freeze(view.timing); Object.freeze(view);
-  selectHeatGuide(view);
-  assert.equal(JSON.stringify(view), viewBefore);
+test('stored-pressure guidance explains release while ordinary production can continue', () => {
+  const game = legacyGame({ now: 1000000 });
+  game.state.energy = 99; game.state.bursts = 1; game.state.machine = 2;
+  game.state.factory.owned.push('pressure'); game.setPressureMode('hold'); game.tick(1);
+  const before = game.exportSave(1000000), guide = selectHeatGuide(game.getView());
+  assert.equal(guide.state, 'stored'); assert.match(guide.buttonLabel, /放出/); assert.match(guide.hint, /仍会继续/);
   assert.deepEqual(game.exportSave(1000000), before);
+  game.releasePressure(); assert.equal(selectHeatGuide(game.getView()).state, 'heating');
+});
+
+test('heat selection is read only and tolerates absent or malformed initial energy', () => {
+  const game = factory(92), view = game.getView(), before = game.exportSave(1000000), viewBefore = JSON.stringify(view);
+  Object.freeze(view.factory); Object.freeze(view);
+  selectHeatGuide(view);
+  assert.equal(JSON.stringify(view), viewBefore); assert.deepEqual(game.exportSave(1000000), before);
   assert.deepEqual(game.drainEvents(), []);
   const empty = selectHeatGuide();
-  assert.equal(empty.state, 'locked');
-  assert.equal(empty.progress, 0);
-  assert.equal(empty.canAttempt, false);
+  assert.equal(empty.state, 'heating'); assert.equal(empty.progress, 0);
+  for (const energy of [undefined, '92', NaN, Infinity, -5]) assert.equal(selectHeatGuide({ energy }).progress, 0);
+  assert.equal(selectHeatGuide({ energy: 101 }).progress, 1);
 });

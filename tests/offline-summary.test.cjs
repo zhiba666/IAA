@@ -1,13 +1,15 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core');
+const { legacyGame } = require('./legacy-fixture.cjs');
 const { selectOfflineSummary } = require('../src/offline-summary');
 const NOW = 1800000000000;
 function factory(patch = {}) {
-  const game = new Game({ now: NOW });
+  const game = legacyGame({ now: NOW });
   Object.assign(game.state, { taps: 20, bursts: 1, coins: 10, orderIndex: 1, totalProduced: 60,
     upgrades: { tap: 1, auto: 1, value: 1 }, offline: { id: 'offline:summary', seconds: 600, production: 120, coins: 120 } }, patch);
+  game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));
   return game;
 }
 function deepFreeze(value) {
@@ -61,13 +63,29 @@ test('offline summary distinguishes a funded machine from its unclaimed-order re
   game.claimOffline(); assert.equal(game.evolve().ok, true);
 });
 
-test('offline summary respects loop-order stage progress and can run on a deeply frozen view', () => {
+test('offline summary preserves campaign completion and can run on a deeply frozen view', () => {
   const game = factory({ machine: 5, orderIndex: 20, loopIndex: 1, totalProduced: 2.8e9,
     offline: { id: 'offline:loop', seconds: 3600, production: 1e8, coins: 1e9 } });
   const summary = selectOfflineSummary(game.getView());
-  game.claimOffline(); close(summary.order.progressAfter, game.getView().order.stageProgress);
+  assert.equal(summary.order.progressAfter,1); assert.equal(summary.nextStep.action,'completion');
+  game.claimOffline(); assert.equal(game.getView().order.completed,true); assert.equal(game.claimOrder().ok,false);
   const frozenGame = factory(), view = frozenGame.getView(), before = JSON.stringify(view), events = JSON.stringify(frozenGame.events);
   deepFreeze(view);
   assert.deepEqual(selectOfflineSummary(view), selectOfflineSummary(view));
   assert.equal(JSON.stringify(view), before); assert.equal(JSON.stringify(frozenGame.events), events);
+});
+
+for(const kind of ['cinema','gift','festival'])test('offline summary matches restored '+kind+' contract cash and requirements',()=>{
+  const source=factory({machine:2,orderIndex:6,offline:null,totalProduced:20000,coins:20000});
+  assert.ok(source.acceptContract(kind).ok);source.tick(1);
+  const game=new Game({save:source.exportSave(NOW),now:NOW+600000}),view=game.getView();
+  const before=game.exportSave(NOW),summary=selectOfflineSummary(view);
+  assert.deepEqual(game.exportSave(NOW),before);
+  assert.equal(summary.coins,view.offline.cashCoins);
+  assert.equal(summary.contractCoins,view.offline.contractCoins);
+  const claimed=game.claimOffline();assert.ok(claimed.ok);
+  close(summary.coinsAfter,game.state.coins);
+  close(summary.order.progressAfter,game.getView().order.stageProgress);
+  assert.equal(summary.order.readyAfter,game.getView().order.ready);
+  if(kind==='festival')assert.equal(game.getView().contracts.active.batches,0);
 });

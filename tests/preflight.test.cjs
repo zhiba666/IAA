@@ -6,7 +6,7 @@ const api = import('../tools/preflight.mjs');
 
 function fixture(overrides = {}) {
   // Test-only synthetic strings are never written to project config or game packages.
-  const config = { appId: 'tt93af724b168dc950e2', rewardAdUnitId: 'r8c93af724b168dc95', interstitialAdUnitId: 'i5b81ed690ac734f2', allowSimulatedAds: false, analyticsEnabled: false, debug: false, ...overrides };
+  const config = { appId: 'tt93af724b168dc950e2', rewardAdUnitId: 'r8c93af724b168dc95', interstitialAdUnitId: 'i5b81ed690ac734f2', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, ...overrides };
   const wav = Buffer.alloc(46);
   wav.write('RIFF', 0); wav.writeUInt32LE(38, 4); wav.write('WAVE', 8);
   const files = new Map(Object.entries({
@@ -15,7 +15,7 @@ function fixture(overrides = {}) {
     'project.config.json': JSON.stringify({ appid: config.appId, compileType: 'game', setting: { urlCheck: true } }),
     'config.js': `globalThis.POPCORN_CONFIG = ${JSON.stringify(config)};\n`,
     'game.bundle.js': '/* test-only bundle */'.repeat(10),
-    ...Object.fromEntries(['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error', 'heatReady'].map(name => [`audio/${name}.wav`, wav]))
+    ...Object.fromEntries(['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error'].map(name => [`audio/${name}.wav`, wav]))
   }).map(([name, value]) => [name, Buffer.isBuffer(value) ? value : Buffer.from(value)]));
   return { files, entries: [...files].map(([name, bytes]) => ({ name, size: bytes.length })), localConfigText: JSON.stringify(config) };
 }
@@ -86,6 +86,25 @@ test('preflight permits forced simulated-ad disable when local config requests s
   const input = fixture();
   input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), allowSimulatedAds: true });
   assert.equal(inspectPackage(input).codeReady, true);
+});
+
+test('preflight rejects development hold tapping unless the release config explicitly disables it', async () => {
+  const { inspectPackage, formatReport } = await api;
+  for (const value of [true, 'false', undefined]) {
+    const report = inspectPackage(fixture({ developerHoldTap: value }));
+    assert.equal(report.codeReady, false);
+    assert.equal(report.checks.find(check => check.code === 'developer-hold-disabled').status, 'error');
+    assert.match(formatReport(report), /npm run build/);
+  }
+});
+
+test('preflight accepts a release build overriding a local developer hold request', async () => {
+  const { inspectPackage } = await api;
+  const input = fixture();
+  input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), developerHoldTap: true });
+  const report = inspectPackage(input);
+  assert.equal(report.codeReady, true);
+  assert.equal(report.checks.find(check => check.code === 'config-synchronized').status, 'pass');
 });
 
 test('preflight identifies stale configuration without exposing IDs', async () => {

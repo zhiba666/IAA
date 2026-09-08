@@ -1,36 +1,18 @@
 // Isolated, local-only production/evolution QA. Never included in release bundles.
 // Run: node tools/production-growth-check.mjs; npm start
 // Open in Chrome: http://127.0.0.1:4173/production-growth-check.html
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { bundleCommonJS, allowQAModule } from './bundle.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourceRoot = path.join(root, 'src') + path.sep;
-const modules = new Map();
-async function collect(filename) {
-  if (!filename.startsWith(sourceRoot) || /[\\/](main|platform)\.js$/.test(filename)) {
-    throw new Error('Production QA may include core/presentation modules only');
-  }
-  const id = path.relative(root, filename).replaceAll('\\', '/');
-  if (modules.has(id)) return id;
-  modules.set(id, '');
-  let source = await readFile(filename, 'utf8');
-  for (const match of [...source.matchAll(/require\(['"](\.\.?\/[^'"]+)['"]\)/g)]) {
-    const filename = path.resolve(path.dirname(path.join(root, id)), match[1].endsWith('.js') ? match[1] : match[1] + '.js');
-    source = source.replace(match[0], 'require(' + JSON.stringify(await collect(filename)) + ')');
-  }
-  modules.set(id, source);
-  return id;
-}
-
 function productionGrowthQA(require) {
   'use strict';
   const { Game, CONFIG } = require('src/core.js');
   const { Renderer } = require('src/renderer.js');
+  const { dispatchQAAction } = require('tools/qa-actions.cjs');
   const { PRODUCTION_FORMS, ProductionScene } = require('src/production-scene.js');
-  const { selectCurrentTarget } = require('src/experience.js');
-  const { selectNextStep } = require('src/next-step.js');
   const NOW = 1800000000000;
   const $ = id => document.getElementById(id);
   const canvas = $('game'), report = $('report'), status = $('status');
@@ -76,7 +58,7 @@ function productionGrowthQA(require) {
   function select(kind, stage) {
     selection = { kind, stage };
     game = seed(stage, kind === 'evolve');
-    ui = { viewport: dimensions(), tab: 'upgrades', isDouyin: false, adBusy: false, modal: null,
+    ui = { viewport: dimensions(), isDouyin: false, adBusy: false, modal: null,
       toast: '', startup: false, questGuideId: '' };
     canvas.width = ui.viewport.width; canvas.height = ui.viewport.height;
     canvas.style.width = canvas.width + 'px'; canvas.style.height = canvas.height + 'px';
@@ -142,52 +124,12 @@ function productionGrowthQA(require) {
     renderer.lastView = game.getView();
     if (!evolve('QA 五次串行换代；本步仅预置金币与合法订单条件').ok) throw new Error('Serial evolution fixture could not evolve');
   }
-  function open(type) {
-    ui.modal = { type, ...(type === 'upgrades' ? { quantity: 1 } : {}) };
-    if (type === 'quests') ui.modal.chapterId = game.getView().quests.activeChapterId;
-  }
   function dispatch(action) {
     if (!action) return;
     chain = null;
-    let result = null;
-    if (action === 'evolve') { evolve('画布按钮 / QA 换代按钮'); draw(0); return; }
-    if (action === 'tap') { if (!ui.modal) result = game.tap(); }
-    else if (action === 'timing') { if (!ui.modal) result = game.tryPerfectBurst(); }
-    else if (action === 'target') {
-      const target = selectCurrentTarget(game.getView(), ui);
-      if (target && target.action) {
-        if (target.action.startsWith('upgrade:')) { open('upgrades'); ui.focusUpgrade = target.action.slice(8); }
-        else { dispatch(target.action); return; }
-      }
-    } else if (action === 'goalExpand' || action === 'goalCollapse') ui.goalExpanded = action === 'goalExpand';
-    else if (action.startsWith('modeAdvice:')) {
-      const step = selectNextStep(game.getView(), selectCurrentTarget(game.getView(), ui), ui);
-      if (step.kind === 'mode' && step.id === action.slice(11)) { ui.dismissedModeSuggestion = step.id; open('productionModes'); ui.modal.advice = step; }
-    } else if (action === 'close') ui.modal = null;
-    else if (action === 'practiceHeat') ui.modal = null;
-    else if (action === 'skipHeatLesson') { result = game.dismissHeatRecoveryGuide(); ui.modal = null; }
-    else if (action === 'claimOrder') { result = game.claimOrder(); ui.modal = null; }
-    else if (action.startsWith('productionMode:')) result = game.setProductionMode(action.slice(15));
-    else if (action.startsWith('upgrade:')) result = game.buyUpgrade(action.slice(8));
-    else if (action.startsWith('refinement:')) { const [, key, level, cost] = action.split(':'); result = game.buyRefinement(key, { level: Number(level), cost: Number(cost) }); }
-    else if (action.startsWith('upgradeQuantity:')) { if (ui.modal) ui.modal.quantity = Number(action.slice(16)); }
-    else if (action.startsWith('upgradeBatch:')) { const [, key, fromLevel, count, cost] = action.split(':'); result = game.buyUpgradeBatch(key, { fromLevel: Number(fromLevel), count: Number(count), cost: Number(cost) }); }
-    else if (action.startsWith('questClaim:')) result = game.claimQuest(action.slice(11));
-    else if (action.startsWith('delivery:')) { const [, orderIndex, stage] = action.split(':'); result = game.claimDelivery(Number(stage), Number(orderIndex)); }
-    else if (action.startsWith('questChapter:')) { if (ui.modal) { ui.modal.chapterId = action.slice(13); ui.modal.page = 0; } }
-    else if (action.startsWith('questPage:') || action.startsWith('blueprintPage:')) { if (ui.modal) ui.modal.page = Number(action.split(':')[1]) || 0; }
-    else if (action.startsWith('questGo:')) {
-      const quest = game.getView().quests.chapters.flatMap(chapter => chapter.quests).find(item => item.id === action.slice(8));
-      if (quest && !quest.locked && !quest.claimed) {
-        ui.questGuideId = quest.id;
-        if (quest.action.startsWith('upgrade:')) { open('upgrades'); ui.focusUpgrade = quest.action.slice(8); }
-        else if (['machine', 'order'].includes(quest.action)) open(quest.action);
-        else ui.modal = null;
-      }
-    } else if (action.startsWith('tab:')) open(({ machines: 'machine', upgrades: 'upgrades', stats: 'stats', brand: 'brand' })[action.slice(4)] || 'workshop');
-    else if (['machine', 'blueprint', 'order', 'upgrades', 'productionModes', 'workshop', 'quests', 'refinements', 'heatLesson', 'stats', 'brand', 'settings', 'help', 'completion', 'commissions', 'souvenirs', 'research'].includes(action)) open(action);
-    else result = { ok: false, reason: '此生产 QA 工具不处理该操作：' + action };
-    lastAction = { action, result }; drain(); draw(0);
+    const result = dispatchQAAction(game, ui, action, { evolve: () => evolve('画布按钮 / QA 换代按钮') });
+    if (action !== 'evolve') lastAction = { action, result };
+    drain(); draw(0);
   }
   function snapshot() {
     const view = game.getView(), scene = renderer.scene;
@@ -284,11 +226,10 @@ function productionGrowthQA(require) {
   select('stage', 0); requestAnimationFrame(frame);
 }
 
-await collect(path.join(root, 'src/core.js'));
-await collect(path.join(root, 'src/renderer.js'));
-const bundle = `const modules={${[...modules].map(([id, source]) => JSON.stringify(id) + ':function(module,exports,require){\n' + source + '\n}').join(',\n')}};
-const cache={};function require(id){if(cache[id])return cache[id].exports;if(!modules[id])throw new Error('Unknown QA module '+id);const m=cache[id]={exports:{}};modules[id](m,m.exports,require);return m.exports;}
-(${productionGrowthQA.toString()})(require);`;
+const { code: bundle, moduleIds } = await bundleCommonJS({
+  root, entries: ['src/core.js', 'src/renderer.js', 'tools/qa-actions.cjs'],
+  allowModule: allowQAModule, initialize: productionGrowthQA
+});
 const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>本地产出成长 QA · 六阶段与五次换代</title>
 <style>*{box-sizing:border-box}:root{color-scheme:light}body{margin:20px;background:#edf1eb;color:#283e32;font:14px/1.5 system-ui,"Microsoft YaHei",sans-serif}h1{font-size:22px;margin:0 0 4px}p{margin:6px 0 12px}.controls,#transitions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}button,select{font:inherit;min-height:42px;padding:8px 12px;color:inherit;background:#fffdf7;border:1px solid #b8c9b2;border-radius:8px}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}button[aria-pressed=true],#evolve:not(:disabled){background:#366348;color:white}#status{font-weight:650}main{display:flex;align-items:flex-start;gap:20px}canvas{display:block;flex:none;touch-action:none;box-shadow:0 0 0 1px #bdceb6}aside{min-width:350px;max-width:750px;max-height:932px;overflow:auto;padding:16px;border:1px solid #d4dfce;border-radius:8px;background:#fffdf7}h2{font-size:16px;margin:0 0 10px}pre{margin:0;font:12px/1.5 Consolas,monospace;white-space:pre-wrap;word-break:break-word}.note{max-width:1100px;color:#68785f}.qa{border-style:dashed}@media(max-width:760px){main{flex-wrap:wrap}body{margin:10px}aside{min-width:0;width:100%}}</style></head><body>
 <h1>本地产出成长 QA · 六阶段与五次换代</h1>
@@ -298,8 +239,8 @@ const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><met
 <div class="controls"><button id="tap" type="button">真实点击生产</button><button id="evolve" type="button">真实换代</button><button id="machine" type="button">打开换代面板</button><button id="blueprint" type="button">打开六阶段蓝图</button><button class="qa" id="pause" type="button">QA：暂停</button><button class="qa" id="step" type="button" disabled>QA：单步 1/60 秒</button><button class="qa" id="stepHalf" type="button" disabled>QA：推进 0.5 秒</button><button class="qa" id="replay" type="button">QA：回放当前换代</button><button class="qa" id="chain" type="button">QA：串行播放五次换代</button></div>
 <p class="note">QA 暂停/回放不属于游戏功能。串行播放每隔 4.5 秒预置下一步合法条件，再真实调用 Game.evolve；每次事件和渲染接收结果记录在右侧。切换阶段或尺寸会复原夹具。</p>
 <p id="status" role="status"></p><main><div><canvas id="game" role="application" tabindex="0" aria-label="真实游戏生产画面"></canvas><h2 style="margin-top:18px">六种产出单位 · 静态对照</h2><canvas id="comparison" role="img" aria-label="六阶段产出单位对照，使用真实产物预览绘制"></canvas></div><aside aria-label="产出与换代只读状态"><h2>只读状态 · 产出单位与事件链</h2><pre id="report" aria-label="生产成长 QA JSON 报告"></pre></aside></main>
-<script>(function(){${bundle.replaceAll('</script', '<\\/script')}})();</script></body></html>`;
+<script>${bundle.replaceAll('</script', '<\\/script')}</script></body></html>`;
 await mkdir(path.join(root, 'web'), { recursive: true });
 await writeFile(path.join(root, 'web/production-growth-check.html'), html);
 console.log('Local-only production growth QA: /production-growth-check.html');
-console.log('Included ' + modules.size + ' core/presentation modules; no main, platform or storage adapter.');
+console.log('Included ' + moduleIds.length + ' core/presentation modules; no main, platform or storage adapter.');

@@ -1,4 +1,5 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 
 const assert=require('node:assert/strict');
 const test=require('node:test');
@@ -8,7 +9,7 @@ const {selectCurrentTarget}=require('../src/experience');
 
 const NOW=1800000000000;
 const VIEWPORTS=[[320,568],[360,800],[390,844],[430,932],[480,697],[480,920]];
-// Full sheet combinations use one compact and one tall layout. Home and timing
+// Full sheet combinations use one compact and one tall layout. Home and energy
 // hit regions still cover every viewport; the 700px pagination regression stays below.
 const SHEET_VIEWPORTS=[VIEWPORTS[0],VIEWPORTS[2]];
 const identity=()=>[1,0,0,1,0,0];
@@ -51,7 +52,7 @@ function canvas(width,height) {
 }
 
 function factory(overrides={}) {
-  const game=new Game({now:NOW});
+  const game=legacyGame({now:NOW});
   Object.assign(game.state,{machine:1,orderIndex:6,totalProduced:60000,coins:1000,playedSeconds:120,taps:10,bursts:1,
     upgrades:{tap:3,auto:4,value:2},offline:{id:'offline:responsive',seconds:600,production:240,coins:300}},overrides);
   return game;
@@ -60,9 +61,9 @@ function factory(overrides={}) {
 function render(game,width,height,ui={},beforeDraw=null) {
   const c=canvas(width,height),r=new Renderer(c),originalHit=r.hit;
   r.hit=function(x,y,w,h,action){originalHit.call(this,x,y,w,h,action);Object.assign(this.zones[this.zones.length-1],{paintSerial:c.serial(),screen:c.bounds(x,y,w,h)});};
-  const view=game.getView(),state={viewport:{width,height},tab:'upgrades',isDouyin:false,adBusy:false,modal:null,toast:'',...ui};
+  const view=game.getView(),state={viewport:{width,height},isDouyin:false,adBusy:false,modal:null,toast:'',...ui};
   // Prime the active scene without painting a discarded frame into the geometry log.
-  r.viewport=state.viewport;r.lastView=view;
+  r.lastView=view;
   if(beforeDraw)beforeDraw(r,view);
   r.draw(view,state,.016);c.verify();
   const entries=c.text.filter(item=>item.serial>c.overlaySerial);
@@ -104,14 +105,14 @@ function actionOnText(output,label) {
 test('burst settlement retains its visible lifetime while an acknowledgement or sheet covers it',()=>{
   const game=factory(),c=canvas(320,568),r=new Renderer(c);
   const ui={viewport:{width:320,height:568},modal:null,toast:'上一条操作提示',startup:false,adBusy:false};
-  r.emit({type:'burst',amount:120,coins:240,perfect:true,bonusAmount:20});
+  r.emit({type:'burst',amount:120,coins:240,source:'pot'});
   for(let i=0;i<80;i++)r.draw(game.getView(),ui,.05);
   assert.equal(r.notice.life,2.4,'hidden reward must not expire behind a toast');
   ui.toast='';ui.modal={type:'upgrades'};
   for(let i=0;i<60;i++)r.draw(game.getView(),ui,.05);
   assert.equal(r.notice.life,2.4,'management time must not consume reward display time');
   ui.modal=null;c.text.length=0;r.draw(game.getView(),ui,.05);
-  assert.ok(c.text.some(entry=>entry.text.includes('火候额外 +20')),'actual bonus is drawn after returning');
+  assert.ok(c.text.some(entry=>entry.text==='本次现款 +240 金币'),'actual payout is drawn after returning');
   for(let i=0;i<49;i++)r.draw(game.getView(),ui,.05);
   assert.equal(r.notice,null,'settlement expires after its visible lifetime');
 });
@@ -138,11 +139,11 @@ test('generation celebration shows real permanent income growth and preserves a 
     assert.ok(output.entries.some(entry=>entry.text==='第 4 代 · '+PRODUCTION_FORMS[3].unit));
     assert.ok(output.entries.some(entry=>entry.text===PRODUCTION_FORMS[3].rhythm+' · 自动金币 ×2.87'));
     const r=output.r;
-    r.emit({type:'burst',amount:120,coins:240,perfect:true,bonusAmount:20});
+    r.emit({type:'burst',amount:120,coins:240,source:'pot'});
     assert.equal(r.notice.kind,'evolve','a burst cannot replace the generation reveal');
     r.update(4,false);assert.equal(r.notice.kind,'evolve','a modal must not consume the reveal lifetime');
     r.update(3.2,true);assert.equal(r.notice.kind,'burst');assert.equal(r.notice.life,2.4);
-    assert.equal(r.notice.bonusText,'火候额外 +20 份');
+    assert.equal(r.notice.text,'本次现款 +240 金币');
     r.update(2.5,true);assert.equal(r.notice,null);assert.equal(r.queuedBurstNotice,null);
   }
 });
@@ -158,9 +159,9 @@ test('generation reveal occupies the goal area and keeps the tower and controls 
     });
     checkLayout(output,'generation tower reveal '+height+' expanded '+goalExpanded);
     const {r}=output,banner={x:22,y:r.interface.feedbackY,w:width-44,h:54},tap=r.zones.find(zone=>zone.action==='tap');
-    const modes=r.zones.find(zone=>zone.action==='productionModes');
+    const modes=r.zones.find(zone=>zone.action==='modules');
     assert.ok(banner.y>=safeTop+8+10+70+6,'the full wallet remains above the banner');
-    assert.ok(banner.y>=modes.y+modes.h+6,'production modes remain above the banner');
+    if(modes)assert.ok(banner.y>=modes.y+modes.h+6,'visible module controls remain above the banner');
     assert.ok(tap.y>=banner.y+banner.h+6,'the reveal cannot intercept a production tap');
     assert.ok(frame.y+frame.options.topInset>=banner.y+banner.h+6,'the tower is framed below the reveal');
     assert.ok(!r.zones.some(zone=>['goalExpand','goalCollapse','target'].includes(zone.action)),'goal controls temporarily yield their area');
@@ -190,40 +191,29 @@ test('an interstitial without a hide event preserves the complete generation rev
   assert.ok(Math.abs(r.notice.life-(noticeLife-.8))<1e-9,'only visible time consumes the announcement');
 });
 
-test('late growth and learning sheets fit compact safe-area viewports and expose exact purchase quotes',()=>{
-  for(const [width,height] of [[320,524],[320,568],[390,844]]){
-    const game=factory({machine:4,orderIndex:14,totalProduced:64000000,coins:1e10,upgrades:{tap:24,auto:24,value:24},offline:null});
-    for(const type of ['refinements','heatLesson','productionModes']){
-      const output=render(game,width,height,{modal:{type,advice:type==='productionModes'?{modeId:'rush',bottleneck:'production'}:undefined}});
-      checkLayout(output,type+' safe-area '+height);
-      if(type==='refinements')for(const item of game.getView().refinements.options){
-        assert.ok(output.actions.includes('refinement:'+item.key+':'+item.level+':'+item.cost));
-      }
-    }
-    const upgrades=render(game,width,height,{modal:{type:'upgrades'}});checkLayout(upgrades,'late upgrade entry');
-    assert.ok(upgrades.actions.includes('refinements'));
-    const learning=render(game,width,height);checkLayout(learning,'first heat lesson');
-  }
-});
 
 for(const [width,height] of VIEWPORTS) {
   test(`responsive ${width}×${height}: fresh, affordable, boosted and final factories keep readable controls`,()=>{
     const cases=[new Game({now:NOW}),factory(),factory({boostSeconds:90}),factory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24}})];
     for(const [index,game] of cases.entries()) {
       const output=render(game,width,height);checkLayout(output,'home '+index);
-      for(const action of ['tap','upgrades','order','quests','workshop'])assert.ok(output.actions.includes(action));
-      assert.ok(!output.actions.includes('settings'),'settings live inside the factory sheet');
+      assert.ok(output.actions.includes('tap'));
+      for(const [action,feature] of [['upgrades','tapUpgrade'],['order','orders'],['quests','records'],['workshop','workshop']])
+        assert.equal(output.actions.includes(action),output.view.onboarding.features[feature],action+' follows its unlock');
+      assert.ok(output.actions.includes('settings'),'settings remain reachable before the factory unlocks');
+      assert.ok(output.actions.includes('guidebook'),'learned mechanics can be reviewed from home');
       assert.ok(!output.entries.some(e=>e.text==='小小爆米花厂'),'the startup title does not reserve a row during production');
       const target=selectCurrentTarget(output.view,output.ui);
-      assert.deepEqual(output.r.currentTarget,target);assert.equal(output.r.guideAction,target.action);
+      assert.equal(output.r.guideAction,target.action);
       const expanded=!!output.view.tutorial;
-      assert.ok(output.actions.includes(expanded?'goalCollapse':'goalExpand'));
+      if(expanded)assert.ok(!output.actions.includes('goalCollapse'),'the first six goals stay visible');
+      else assert.ok(output.actions.includes('goalExpand'));
       assert.equal(!!output.r.interface.visibleTarget,expanded);
       if(expanded)assert.ok(output.entries.some(e=>e.text===target.title||e.text.endsWith('…')&&target.title.startsWith(e.text.slice(0,-1))),'the expanded current target title must be visible');
       const income=output.view.production.auto*output.view.production.price;
-      const incomeText='自动 +'+(income>0&&income<10?Number(income.toFixed(2)).toString():formatNumber(income))+' /秒';
+      const incomeText=output.view.onboarding.features.autoUpgrade?'自动 +'+(income>0&&income<10?Number(income.toFixed(2)).toString():formatNumber(income))+' /秒':'点击生产，即时赚金币';
       const wallet=[output.entries.find(e=>e.text===formatNumber(game.state.coins)),output.entries.find(e=>e.text===incomeText)];
-      assert.ok(wallet.every(Boolean),'the floating wallet keeps both the current balance and actual income visible');
+      assert.ok(wallet.every(Boolean),'the wallet shows income after it unlocks and a production cue beforehand');
       for(const entry of wallet){
         for(const dx of [1,entry.w/2,entry.w-1])assert.equal(output.r.actionAt(entry.x+dx,entry.y+entry.h/2),null,'reading balances must never trigger production or another action');
       }
@@ -233,7 +223,7 @@ for(const [width,height] of VIEWPORTS) {
 
 for(const [width,height] of SHEET_VIEWPORTS) {
   test(`responsive ${width}×${height}: main sheets keep controls and copy separate`,async t=>{
-    for(const type of ['upgrades','workshop','machine','order','offline','brand','turbo','settings','stats','help','privacy','health','completion'])await t.test(type,()=>{
+    for(const type of ['upgrades','workshop','machine','order','offline','brand','turbo','settings','restart','stats','help','privacy','health','completion'])await t.test(type,()=>{
       const output=render(factory(),width,height,{modal:{type}});checkLayout(output,type);
       assert.ok(output.actions.includes('close'),'sheets must permit returning to production');
       assert.ok(!output.actions.includes('tap'),'modal input must not leak to the production bay');
@@ -258,7 +248,7 @@ for(const [width,height] of SHEET_VIEWPORTS) {
 
   test(`responsive ${width}×${height}: all five reward confirmations work in browser and native modes`,async t=>{
     for(const kind of ['turbo','order','sponsor','offline','brand'])for(const isDouyin of [false,true])await t.test(kind+(isDouyin?' native':' browser'),()=>{
-      const game=factory(),quote=game.quoteReward(kind);assert.ok(quote,kind+' fixture must produce a real authorized quote');
+      const game=factory(kind==='order'?{orderIndex:3}:{}),quote=game.quoteReward(kind);assert.ok(quote,kind+' fixture must produce a real authorized quote');
       const output=render(game,width,height,{isDouyin,modal:{type:'reward',quote}});checkLayout(output,'reward '+kind);
       assert.ok(output.actions.includes(isDouyin?'watch':'simulate:complete'));
       if(!isDouyin)for(const action of ['simulate:cancel','simulate:fail'])assert.ok(output.actions.includes(action));
@@ -268,18 +258,18 @@ for(const [width,height] of SHEET_VIEWPORTS) {
 
   test(`responsive ${width}×${height}: normal collection and optional ads have equal-sized controls`,()=>{
     for(const [type,normal,ad] of [['order','claimOrder','ad:order'],['offline','claimOffline','ad:offline']]) {
-      const output=render(factory(),width,height,{modal:{type}}),direct=output.r.zones.find(z=>z.action===normal),rewarded=output.r.zones.find(z=>z.action===ad);
+      const output=render(factory(type==='order'?{orderIndex:3}:{}),width,height,{modal:{type}}),direct=output.r.zones.find(z=>z.action===normal),rewarded=output.r.zones.find(z=>z.action===ad);
       assert.ok(direct&&rewarded,'both collection choices must be available');
       assert.equal(direct.screen.x,rewarded.screen.x);assert.equal(direct.screen.w,rewarded.screen.w);
       assert.equal(direct.screen.h,rewarded.screen.h,'the ad option must not get a larger touch target');
     }
   });
 
-  test(`responsive ${width}×${height}: completed main orders show the actual loop order number`,()=>{
+  test(`responsive ${width}×${height}: completed campaign shows a finite ending even for legacy loop saves`,()=>{
     for(const loopIndex of [0,4]) {
       const output=render(factory({machine:5,orderIndex:20,loopIndex,totalProduced:2e10}),width,height,{modal:{type:'order'}});
       checkLayout(output,'loop order '+loopIndex);
-      assert.ok(output.entries.some(entry=>entry.text==='循环订单 '+(loopIndex+1)));
+      assert.ok(output.entries.some(entry=>entry.text==='20单完成 · 工厂竣工'));
       assert.ok(!output.entries.some(entry=>/订单\s*21\s*\/\s*20/.test(entry.text)));
     }
   });
@@ -308,33 +298,6 @@ test('responsive brand details preserve eligibility and show actual permanent in
   }
 });
 
-test('responsive quests switch from navigation to one-time claims and keep reviewed or locked chapters inactive',()=>{
-  const fresh=new Game({now:NOW}),chapters=fresh.getView().quests.chapters;
-  const drawChapter=(game,chapterId)=>{
-    const output=render(game,390,844,{modal:{type:'quests',chapterId}});
-    checkLayout(output,'quest state');
-    assert.ok(output.actions.includes('close'));assert.ok(!output.actions.includes('tap'));
-    return output;
-  };
-  const first=chapters[0],initial=drawChapter(fresh,first.id);
-  for(const quest of first.quests)assert.ok(initial.actions.includes('questGo:'+quest.id));
-  const game=factory({machine:5,orderIndex:20,totalProduced:2e9,taps:50,upgrades:{tap:1,auto:4,value:6}});
-  const ready=drawChapter(game,first.id);
-  for(const quest of first.quests)assert.ok(ready.actions.includes('questClaim:'+quest.id));
-  assert.ok(game.claimQuest(first.quests[0].id).ok);
-  const claimed=drawChapter(game,first.id);
-  assert.ok(!claimed.actions.includes('questClaim:'+first.quests[0].id));
-  assert.ok(!claimed.actions.includes('questGo:'+first.quests[0].id));
-  for(const quest of first.quests.slice(1)) {
-    assert.ok(claimed.actions.includes('questClaim:'+quest.id));assert.ok(game.claimQuest(quest.id).ok);
-  }
-  assert.equal(game.getView().quests.activeChapterId,chapters[1].id);
-  for(const chapter of [first,chapters[3]]) {
-    const output=drawChapter(game,chapter.id);
-    assert.ok(!output.actions.some(action=>/^quest(?:Claim|Go):/.test(action)));
-    assert.ok(output.entries.some(e=>e.text===chapter.quests[0].title),'review stays on the selected chapter');
-  }
-});
 
 test('responsive quest pagination keeps the formerly cramped 700px viewport accessible',()=>{
   const game=factory(),chapter=game.getView().quests.chapters[0];
@@ -345,63 +308,42 @@ test('responsive quest pagination keeps the formerly cramped 700px viewport acce
   }
 });
 
-test('responsive target copy, highlighted action and tracked quest stay in sync as readiness changes',()=>{
-  const game=new Game({now:NOW});game.state.coins=100;
-  const ui={questGuideId:'start-tap-upgrade',goalExpanded:true};
-  let output=render(game,320,568,ui);
-  assert.equal(output.r.currentTarget.id,'start-tap-upgrade');assert.equal(output.r.guideAction,'upgrade:tap');
-  assert.ok(output.actions.includes('upgrade:tap'));
-  assert.ok(output.entries.some(e=>e.text==='好玉米，更饱满'));
-  assert.equal(actionOnText(output,output.r.currentTarget.title),'target','the expanded goal title opens its current objective');
-  assert.ok(game.buyUpgrade('tap').ok);output=render(game,320,568,ui);
-  assert.equal(output.r.currentTarget.action,'questClaim:start-tap-upgrade');
-  assert.equal(output.r.guideAction,'questClaim:start-tap-upgrade');
-  assert.ok(output.entries.some(e=>e.text.includes('目标已达成')));
-  assert.ok(game.claimQuest('start-tap-upgrade').ok);output=render(game,320,568,ui);
-  assert.notEqual(output.r.currentTarget.id,'start-tap-upgrade','claimed quests must stop driving the current target');
-});
 
-test('responsive timing controls stay in place across unlock and disabled input never produces',()=>{
+test('responsive energy progress keeps a full scale and cannot trigger production',()=>{
   for(const [width,height] of VIEWPORTS) {
-    let originalControls;
-    for(const state of ['locked','waiting','ready','perfect','missed','armed']) {
-      const game=factory({bursts:state==='locked'?0:1,energy:state==='waiting'?40:['perfect','armed'].includes(state)?94:84});
-      if(state==='missed'||state==='armed')assert.equal(game.tryPerfectBurst().ok,true);
-      const output=render(game,width,height,{goalExpanded:false});checkLayout(output,`timing ${width} ${state}`);
-      const timing=output.r.zones.find(z=>z.action==='timing'||z.action===null);
+    let originalBay;
+    for(const energy of [0,40,79.99,80,91.99,94,98.01,99.99]) {
+      const game=factory({energy});
+      const output=render(game,width,height,{goalExpanded:false});checkLayout(output,`energy ${width} ${energy}`);
       const production=output.r.zones.filter(z=>z.action==='tap');
       const bay=production[0];
       assert.equal(production.length,1,'the machine is the only production control outside teaching recommendations');
-      assert.ok(timing&&bay,'the machine and timing retain separate input regions');
+      assert.ok(bay);assert.ok(!output.actions.includes('timing'),'charging does not expose a manual ignition action');
       const geometry=z=>({x:z.x,y:z.y,w:z.w,h:z.h});
-      const controls={bay:geometry(bay),timing:geometry(timing)};
-      if(originalControls)assert.deepEqual(controls,originalControls,'unlock and attempt states must not move the controls');
-      else originalControls=controls;
-      assert.ok(bay.y+bay.h<timing.y,'the machine ends before the timing dock with a real gap');
-      const action=['ready','perfect'].includes(state)?'timing':null;
-      for(const [dx,dy] of [[1,1],[timing.w-1,1],[1,timing.h-1],[timing.w-1,timing.h-1],[timing.w/2,timing.h/2]]) {
-        assert.equal(output.r.actionAt(timing.x+dx,timing.y+dy),action,`${state}: timing must not fall through to production`);
-      }
+      if(originalBay)assert.deepEqual(geometry(bay),originalBay,'energy thresholds must not move the production surface');
+      else originalBay=geometry(bay);
+      const trackY=height-88,bar=output.c.fills.filter(fill=>Math.abs(fill.y-trackY)<.001&&Math.abs(fill.h-12)<.001);
+      assert.equal(bar[0].w,width-60,'the energy track uses the full dock width at every charge level');
+      if(energy>0)assert.ok(Math.abs(bar[1].w/bar[0].w-energy/CONFIG.energyMax)<1e-9,'the final segment never zooms or changes scale');
+      else assert.equal(bar.length,1,'an empty pot has no progress fill');
+      for(const x of [bar[0].x+1,width/2,bar[0].x+bar[0].w-1])assert.equal(output.r.actionAt(x,trackY+6),null,'the read-only energy track cannot produce');
       for(const [dx,dy] of [[1,1],[bay.w-1,1],[1,bay.h-1],[bay.w-1,bay.h-1],[bay.w/2,bay.h/2]]) {
         assert.equal(output.r.actionAt(bay.x+dx,bay.y+dy),'tap','machine edges and the lower thumb area must keep producing');
       }
-      assert.equal(output.r.actionAt(timing.x+timing.w/2,bay.y+bay.h+1),null,'the separation below the machine must not produce or ignite');
+      assert.equal(output.r.actionAt(width/2,bay.y+bay.h+1),null,'the separation below the machine must not produce');
     }
   }
 });
 
-test('responsive heat guidance shows representative states despite rounded energy on the smallest screen',()=>{
-  // Exact threshold pairs live in heat-guide.test.cjs. Here check that the UI
-  // renders each actionable state, including values rounded across a boundary.
-  const cases=[[79.99,'正在升温','等待升温',false],[91.99,'末段火候','尝试点火',true],
-    [94,'最佳火候 · 现在点火','现在点火',true],[98.01,'已过最佳火候','尝试点火',true]];
+test('responsive energy guidance consistently explains automatic output on the smallest screen',()=>{
   const [width,height]=VIEWPORTS[0];
-  for(const [energy,title,button,available] of cases) {
+  for(const energy of [79.99,80,91.99,94,98.01]) {
     const output=render(factory({energy}),width,height);checkLayout(output,`heat ${width} ${energy}`);
-    assert.ok(output.entries.some(e=>e.text.startsWith(title)),`${energy}: show the actual heat state`);
-    assert.ok(output.entries.some(e=>e.text===button));
-    assert.equal(output.actions.includes('timing'),available);
-    assert.equal(output.entries.some(e=>e.text==='最佳火候 · 现在点火'),energy>=92&&energy<=98);
+    assert.ok(output.entries.some(e=>e.text==='蓄满自动爆锅'));
+    assert.ok(output.entries.some(e=>e.text===energy.toFixed(1)+' / '+CONFIG.energyMax));
+    assert.ok(output.entries.some(e=>e.text.includes('格后自动出锅')));
+    assert.equal(output.actions.includes('timing'),false);
+    assert.ok(!output.entries.some(e=>/火候|点火|提前出锅|放大/.test(e.text)));
   }
 });
 
@@ -412,7 +354,7 @@ test('responsive order progress describes the current milestone and preserves ov
     const assertProgress=(percent,ready=false)=>{
       const home=render(game,width,height),sheet=render(game,width,height,{modal:{type:'order'}});
       checkLayout(home,'order progress home');checkLayout(sheet,'order progress sheet');
-      assert.ok(home.entries.some(e=>e.text===(ready?'本单达标 · 领金币':`本单 ${percent}%  ›`)));
+      assert.ok(home.entries.some(e=>e.text===(ready?'本单达标 · 装车':`本单 ${percent}%  ›`)));
       assert.ok(sheet.entries.some(e=>e.text===(ready?'已达标':percent+'%')));
       assert.equal(sheet.actions.includes('claimOrder'),ready);
       const orderChip=home.r.zones.find(z=>z.action==='order'&&z.y<height/2);
@@ -425,47 +367,32 @@ test('responsive order progress describes the current milestone and preserves ov
     assert.ok(game.claimOrder().ok);assert.equal(game.state.totalProduced,500);assertProgress(50);
     // A rounded 100% must not imply that an unfinished order is claimable.
     game.state.totalProduced=CONFIG.orders[2].target-.01;assertProgress(99);
-    game.state.orderIndex=19;
-    const lastTarget=CONFIG.orders[19].target;
-    game.state.totalProduced=lastTarget*1.175;
-    assert.ok(game.claimOrder().ok);assert.equal(game.getView().order.isLoop,true);
-    assertProgress(50);
-    const loopSheet=render(game,width,height,{modal:{type:'order'}});
-    assert.ok(loopSheet.entries.some(e=>e.text==='循环订单 1'));
+
   }
 });
 
 test('responsive production feedback shows real payouts, lets action confirmations take priority and expires without blocking controls',()=>{
   const shown=n=>n>0&&n<10?Number(n.toFixed(2)).toString():formatNumber(n);
   for(const [width,height] of VIEWPORTS)for(const toast of ['', '订单奖励已到账']) {
-    const game=factory({energy:94}),normalGame=factory({energy:94});
-    assert.ok(game.tryPerfectBurst().perfect);game.tick(6);normalGame.tick(6);
-    const perfect=game.drainEvents().find(e=>e.type==='burst'),normal=normalGame.drainEvents().find(e=>e.type==='burst');
-    assert.ok(perfect&&normal&&perfect.bonusAmount>0);
+    const game=factory({energy:99});game.tick(1);
+    const burst=game.drainEvents().find(e=>e.type==='burst');
+    assert.ok(burst&&burst.amount>0);
     const base=render(game,width,height,{toast});
-    const output=render(game,width,height,{toast},r=>{r.emit(normal);r.emit(perfect);});
-    checkLayout(output,`perfect notice ${width} ${toast}`);
+    const output=render(game,width,height,{toast},r=>r.emit(burst));
+    checkLayout(output,`automatic burst notice ${width} ${toast}`);
     assert.deepEqual(output.actions,base.actions,'feedback must not add or remove any gameplay control');
-    assert.equal(output.r.notice.title,`完美爆锅 +${shown(perfect.amount)} 份`);
-    assert.equal(output.r.notice.bonusText,`火候额外 +${shown(perfect.bonusAmount)} 份`,'the bonus is the real event amount');
+    assert.equal(output.r.notice.title,`自动爆锅 +${shown(burst.amount)} 份`);
+    assert.equal(output.r.notice.text,`本次现款 +${shown(burst.coins)} 金币`,'the displayed payout comes from the real automatic burst');
     assert.equal(output.entries.some(e=>e.text===output.r.notice.title),!toast,'an action confirmation temporarily takes priority over the burst notice');
-    assert.equal(output.entries.some(e=>e.text===output.r.notice.bonusText),!toast);
+    assert.equal(output.entries.some(e=>e.text===output.r.notice.text),!toast);
     if(toast){
       const confirmation=output.entries.find(e=>e.text===toast);
       assert.ok(confirmation,'the action confirmation must be visible');
       assert.equal(output.r.actionAt(confirmation.x+confirmation.w/2,confirmation.y+confirmation.h/2),'tap','transient confirmations must not block the machine');
       assert.ok(output.entries.some(e=>e.text.startsWith('点机器 · 每次 +')),'action confirmations leave the production hint readable');
     }
-    assert.ok(!output.entries.some(e=>e.text.startsWith('免费爆锅 +')));
-    const ordinary=render(game,width,height,{toast},r=>{r.emit(perfect);r.emit(normal);});
-    checkLayout(ordinary,`normal notice ${width} ${toast}`);
-    assert.equal(ordinary.r.notice.perfect,false);assert.equal(ordinary.r.notice.bonusText,'');
-    assert.equal(ordinary.r.notice.title,`免费爆锅 +${shown(normal.amount)} 份`);
-    assert.equal(ordinary.r.notice.text,`自动售出 +${shown(normal.coins)} 金币`);
-    assert.equal(ordinary.entries.some(e=>e.text===ordinary.r.notice.title),!toast);
-    assert.equal(ordinary.entries.some(e=>e.text===ordinary.r.notice.text),!toast);
-    assert.ok(!ordinary.entries.some(e=>/完美爆锅|火候额外/.test(e.text)));
-    const expired=render(game,width,height,{toast},r=>{r.emit(perfect);r.update(3);});
+    assert.ok(!output.entries.some(e=>/完美爆锅|火候额外/.test(e.text)));
+    const expired=render(game,width,height,{toast},r=>{r.emit(burst);r.update(3);});
     checkLayout(expired,`expired notice ${width} ${toast}`);
     assert.equal(expired.r.notice,null);assert.deepEqual(expired.actions,base.actions);
     assert.ok(!expired.entries.some(e=>/完美爆锅|火候额外/.test(e.text)));
@@ -482,27 +409,9 @@ test('responsive reward confirmation renders its frozen preview as the factory k
 });
 
 
-test('responsive next step follows the selected task through purchase and reward, including saving for that upgrade',()=>{
-  for(const [width,height] of VIEWPORTS){
-    const game=new Game({now:NOW}),ui={questGuideId:'start-tap-upgrade',goalExpanded:true};game.state.coins=100;
-    let output=render(game,width,height,ui);checkLayout(output,'tracked upgrade');
-    assert.equal(output.r.interface.recommendation.action,'upgrade:tap');
-    assert.equal(actionOnText(output,output.r.interface.recommendation.buttonLabel),'upgrade:tap');
-    assert.ok(game.buyUpgrade('tap').ok);output=render(game,width,height,ui);checkLayout(output,'tracked reward');
-    assert.equal(output.r.interface.recommendation.action,'questClaim:start-tap-upgrade');
-    assert.equal(actionOnText(output,output.r.interface.recommendation.buttonLabel),'questClaim:start-tap-upgrade');
-    assert.ok(!output.actions.some(action=>action&&action.startsWith('upgrade:')),'an earned reward must not be replaced by a cheap purchase');
-    const waiting=new Game({now:NOW});waiting.state.taps=5;waiting.state.claimedQuests=['start-taps','start-tap-upgrade'];waiting.state.upgrades.tap=1;waiting.state.coins=17;
-    output=render(waiting,width,height);checkLayout(output,'tutorial saving');
-    assert.equal(output.r.currentTarget.upgradeKey,'auto');
-    assert.equal(output.r.interface.recommendation.upgradeKey,'auto');
-    assert.equal(output.r.interface.recommendation.enabled,false);
-    assert.equal(actionOnText(output,output.r.interface.recommendation.buttonLabel),null);
-  }
-});
 
 function nextStepFactory(overrides={}){
-  const game=new Game({now:NOW});game.state.claimedQuests=game.getView().quests.chapters.flatMap(c=>c.quests.map(q=>q.id));
+  const game=legacyGame({now:NOW});game.state.claimedQuests=game.getView().quests.chapters.flatMap(c=>c.quests.map(q=>q.id));
   Object.assign(game.state,{taps:5,bursts:1,orderIndex:3,totalProduced:800,coins:1000,upgrades:{tap:1,auto:4,value:1}},overrides);
   return game;
 }
@@ -516,8 +425,8 @@ test('responsive next step distinguishes useful investment, preserving funds, re
       [nextStepFactory({coins:30000}),'machine','machine'],
       [nextStepFactory({coins:30000,orderIndex:2,totalProduced:200}),'order','order'],
       [nextStepFactory({orderIndex:0,totalProduced:50}),'order','order'],
-      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'research','research'],
-      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},research:{levels:{yield:CONFIG.research.maxLevel,value:CONFIG.research.maxLevel},serial:48,active:null},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'souvenir','souvenirs']
+      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'completion','completion'],
+      [nextStepFactory({machine:5,orderIndex:20,totalProduced:2e9,coins:1e12,upgrades:{tap:24,auto:24,value:24},refinements:{yield:3,value:3},research:{levels:{yield:CONFIG.research.maxLevel,value:CONFIG.research.maxLevel},serial:48,active:null},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}}),'completion','completion']
     ];
     for(const [game,kind,action] of cases){
       const saved=JSON.stringify(game.exportSave(NOW));
@@ -548,8 +457,8 @@ test('responsive target and recommendation exposure only describe an expanded vi
 });
 
 
-test('home floats one collapsible goal over the scene and keeps production clear of every control',()=>{
-  const games=[new Game({now:NOW}),factory(),factory({machine:2}),factory({machine:5,coins:1e12,orderIndex:20,totalProduced:2e9})];
+test('established home floats one collapsible goal over the scene and keeps production clear of every control',()=>{
+  const games=[legacyGame({now:NOW}),factory(),factory({machine:2}),factory({machine:5,coins:1e12,orderIndex:20,totalProduced:2e9})];
   for(const [width,height] of VIEWPORTS){
     let sceneGeometry;
     for(const goalExpanded of [false,true]){
@@ -577,8 +486,8 @@ test('home floats one collapsible goal over the scene and keeps production clear
         }
         const nav=output.r.zones.find(zone=>zone.action==='upgrades');
         assert.ok(scene.y+scene.h<=nav.y&&nav.y-(scene.y+scene.h)<20,'only a small gap separates scene and fixed bottom navigation');
-        const relevant=[bay,...output.r.zones.filter(z=>['timing','upgrades','workshop'].includes(z.action)||z.action===null)].map(({x,y,w,h})=>({x,y,w,h}));
-        if(controls)assert.deepEqual(relevant,controls,'goal readiness and mode unlock do not move production or navigation');else controls=relevant;
+        const relevant=output.r.zones.filter(z=>['upgrades','workshop'].includes(z.action)).map(({x,y,w,h})=>({x,y,w,h}));
+        if(controls)assert.deepEqual(relevant,controls,'goal readiness and module unlock do not move the bottom navigation');else controls=relevant;
         assert.equal(JSON.stringify(game.exportSave(NOW)),saved);
       }
     }
@@ -590,12 +499,19 @@ test('home floats one collapsible goal over the scene and keeps production clear
   }
 });
 
-test('goal defaults teach new players and preserve an explicit choice without exposing hidden purchases',()=>{
+test('beginner goals stay visible, while established goals preserve the player collapse preference',()=>{
   for(const game of [new Game({now:NOW}),nextStepFactory()]){
     const view=game.getView(),fresh=!!view.tutorial;
     const initial=render(game,480,697);
     assert.equal(initial.r.interface.isGoalExpanded(view,{}),fresh);
     const hidden=render(game,480,697,{goalExpanded:false});
+    if(fresh){
+      assert.equal(hidden.r.interface.isGoalExpanded(view,{goalExpanded:false}),true);
+      assert.ok(!hidden.actions.includes('goalExpand'));assert.ok(!hidden.actions.includes('goalCollapse'));
+      assert.equal(hidden.r.interface.visibleTarget.source,'onboarding');
+      assert.ok(!hidden.actions.some(action=>action&&/^(upgrade:|questClaim:)/.test(action)));
+      continue;
+    }
     assert.equal(hidden.r.interface.isGoalExpanded(view,{goalExpanded:false}),false);
     assert.ok(hidden.actions.includes('goalExpand'));
     assert.ok(!hidden.actions.includes('target'));
@@ -607,37 +523,92 @@ test('goal defaults teach new players and preserve an explicit choice without ex
   }
 });
 
-test('production modes show real current-to-option comparisons and reachable entries without intercepting production',()=>{
-  const shown=n=>n>0&&n<10?Number(n.toFixed(2)).toString():formatNumber(n);
-  for(const [width,height] of VIEWPORTS){
-    const locked=render(factory({machine:1}),width,height);
-    assert.ok(!locked.actions.includes('productionModes'));
-    const lockedSheet=render(factory({machine:1}),width,height,{modal:{type:'productionModes'}});checkLayout(lockedSheet,'locked modes');
-    assert.ok(!lockedSheet.actions.some(action=>action&&action.startsWith('productionMode:')));
-    const game=factory({machine:2,boostSeconds:90});
-    for(const id of ['balanced','rush','premium']){
-      assert.ok(game.setProductionMode(id).ok);
-      const view=game.getView(),current=view.productionModes.options.find(mode=>mode.id===id);
-      const home=render(game,width,height);checkLayout(home,'mode home '+id);
-      assert.ok(home.entries.some(entry=>entry.text.startsWith(current.name))&&home.entries.some(entry=>entry.text.includes('增压')),'mode and active turbo remain visible together');
-      const entrance=home.r.zones.find(zone=>zone.action==='productionModes');
-      assert.ok(entrance);assert.equal(entrance.h,44);assert.equal(home.r.actionAt(entrance.x+entrance.w/2,entrance.y+entrance.h/2),'productionModes');
-      const saved=JSON.stringify(game.exportSave(NOW));
-      const sheet=render(game,width,height,{modal:{type:'productionModes'}});checkLayout(sheet,'production modes '+id);
-      assert.ok(!sheet.actions.includes('tap'));
-      for(const option of view.productionModes.options){
-        assert.equal(sheet.actions.includes('productionMode:'+option.id),!option.selected);
-        assert.ok(sheet.entries.some(entry=>entry.text==='产量 '+shown(current.preview.baseAuto)+' → '+shown(option.preview.baseAuto)+' 份/秒'));
-        assert.ok(sheet.entries.some(entry=>entry.text==='收入 '+shown(current.preview.baseIncome)+' → '+shown(option.preview.baseIncome)+' 金币/秒'));
-      }
-      const copy=sheet.entries.map(entry=>entry.text).join('');
-      assert.match(copy,/收入 -4%/);assert.match(copy,/产量 -20%/);assert.match(copy,/点击、爆锅也按档位/);assert.match(copy,/离线按离开时档位/);
-      assert.equal(JSON.stringify(game.exportSave(NOW)),saved,'comparison must not switch modes or change stored rewards');
-      const workshop=render(game,width,height,{modal:{type:'workshop'}});checkLayout(workshop,'unlocked workshop');
-      assert.ok(workshop.actions.includes('productionModes'));assert.ok(workshop.actions.includes('stats'));assert.ok(workshop.actions.includes('close'));
+test('practice guidance points at real controls without adding duplicate production or observe actions',()=>{
+  const goals=[
+    {id:'practice-tap',title:'点一下锅',text:'点锅，赚到第一笔金币',action:'tap',anchor:'machine',phase:'produce'},
+    {id:'practice-upgrade',title:'升级爆米花',text:'金币够了，点底部「升级」',action:'upgrade:tap',anchor:'upgrades',phase:'buy',upgradeKey:'tap'},
+    {id:'practice-verify',title:'再点一下锅',text:'产量增加了',action:'tap',anchor:'machine',phase:'verify',before:1,after:2.16,unit:'份/次'},
+    {id:'practice-observe',title:'松手看看',text:'不用点击，金币也在增长',action:'observe',anchor:'wallet',phase:'observe',observationSeconds:2,observationTarget:4},
+    {id:'practice-order',title:'装车领取奖励',text:'点右上角订单，把爆米花装车',action:'order',anchor:'order',phase:'deliver'}
+  ];
+  for(const [width,height,safeTop,menuBottom] of [[320,568,0,0],[320,568,44,86],[390,844,44,86]])for(const goal of goals){
+    const game=factory({coins:1000,totalProduced:10,orderIndex:0});
+    const outlines=[];
+    const configure=(r,view)=>{
+      view.onboarding.goal={...goal,step:2,total:6};
+      const original=r.interface.guideOutline;
+      r.interface.guideOutline=function(x,y,w,h){outlines.push({x,y,w,h});return original.call(this,x,y,w,h);};
+    };
+    const output=render(game,width,height,{viewport:{width,height,safeTop,menuBottom},guideIdleSeconds:6},configure);
+    checkLayout(output,'practice '+goal.id+' '+width+' safe '+safeTop);
+    assert.equal(output.actions.filter(action=>action==='tap').length,1,'the machine is the only production control');
+    assert.ok(!output.actions.includes('observe'),'observation must never look clickable');
+    assert.ok(output.actions.includes('guideSkip'),'practice can be skipped without opening another sheet');
+    if(goal.anchor==='machine'){
+      const f=output.r.scene.screenFrame;
+      assert.equal(output.r.actionAt(f.x+216*f.scale,f.y+130*f.scale),'tap','the highlighted machine remains directly tappable');
     }
+    if(goal.anchor==='upgrades'){
+      const entrance=output.r.zones.find(z=>z.action==='upgrades');
+      assert.ok(outlines.some(o=>o.x===entrance.x&&o.y===entrance.y),'the real upgrade entrance is highlighted');
+      outlines.length=0;
+      const sheet=render(game,width,height,{viewport:{width,height,safeTop,menuBottom},modal:{type:'upgrades'}},configure);
+      checkLayout(sheet,'practice upgrade purchase '+width);
+      const purchase=sheet.r.zones.find(z=>z.action==='upgrade:tap');
+      const sheetInset=Math.max(safeTop,menuBottom-11);
+      assert.ok(purchase&&outlines.some(o=>o.x===purchase.x&&o.y+sheetInset===purchase.y),'guidance highlights the purchase button itself');
+    }
+    if(goal.phase==='verify')assert.ok(output.entries.some(e=>e.text.includes('1 → 2.16')),'verification shows the real before and after output');
   }
 });
+
+test('real practice goals highlight the first shipment and stop recommending purchases during verification',()=>{
+  const game=new Game({now:NOW});
+  const earn=key=>{for(let i=0;i<100&&!game.getView().upgrades.find(u=>u.key===key).canBuy;i++)game.tap();};
+  const highlighted=(modal,focusUpgrade='')=>{
+    const outlines=[],borders=[];
+    const output=render(game,320,568,{viewport:{width:320,height:568,safeTop:44,menuBottom:86},modal,focusUpgrade},r=>{
+      const outline=r.interface.guideOutline,box=r.interface.box;
+      r.interface.guideOutline=function(x,y,w,h){outlines.push({x,y,w,h});return outline.call(this,x,y,w,h);};
+      r.interface.box=function(x,y,w,h,fill,stroke){if(stroke==='#df9954')borders.push({x,y,w,h});return box.call(this,x,y,w,h,fill,stroke);};
+    });
+    checkLayout(output,'real practice '+modal.type);
+    return{...output,outlines,borders};
+  };
+  earn('tap');assert.ok(game.buyUpgrade('tap').ok);
+  assert.equal(game.getView().onboarding.goal.phase,'verify');
+  const verify=highlighted({type:'upgrades'},'tap');
+  assert.equal(verify.outlines.length,0,'reopening upgrades during verification cannot recommend another purchase');
+  assert.equal(verify.borders.length,0,'a stale upgrade focus cannot outline a row during verification');
+  game.tap();earn('auto');assert.ok(game.buyUpgrade('auto').ok);
+  for(let i=0;i<12;i++){game.tick(.25);game.observeOnboarding(.25);}
+  for(let i=0;i<100&&!game.getView().order.ready;i++)game.tap();
+  assert.equal(game.getView().onboarding.goal.action,'order');
+  assert.equal(game.getView().onboarding.goal.phase,'deliver');
+  const order=highlighted({type:'order'}),claim=order.r.zones.find(z=>z.action==='claimOrder');
+  assert.ok(claim,'the first shipment is ready and uses the real claim action');
+  assert.ok(order.outlines.some(o=>o.x===claim.x&&o.y+75===claim.y),'the real order goal highlights the actual shipment button');
+  assert.ok(!order.r.zones.filter(z=>z.action.startsWith('ad:')).some(z=>order.outlines.some(o=>o.x===z.x&&o.y+75===z.y)),'practice never highlights an optional ad');
+});
+
+test('unread help does not replace operating goals and every help close simply returns to production',()=>{
+  const game=factory(),lesson={id:'heat',title:'自动爆锅',benefit:'满格自动出锅',instruction:'松手等待能量蓄满',buttonLabel:'试一试'};
+  const configure=(r,view)=>{view.onboarding={...view.onboarding,goal:null,lesson,lessons:[lesson],skipped:true,completed:false};view.tutorial=null;};
+  for(const [width,height,safeTop] of [[320,568,44],[390,844,44]]){
+    const home=render(game,width,height,{viewport:{width,height,safeTop},goalExpanded:true},configure);
+    checkLayout(home,'unread help home');
+    assert.notEqual(home.r.interface.visibleTarget&&home.r.interface.visibleTarget.source,'onboarding');
+    for(const replay of [false,true]){
+      const guide=render(game,width,height,{viewport:{width,height,safeTop},modal:{type:'guide',guideId:'heat',replay}},configure);
+      checkLayout(guide,'manual help '+replay);
+      assert.ok(guide.actions.every(action=>action==='close'),'neither close nor the bottom button advances or navigates gameplay');
+    }
+    const book=render(game,width,height,{viewport:{width,height,safeTop},modal:{type:'guidebook'}},configure);
+    checkLayout(book,'resume guidebook');
+    assert.ok(book.actions.includes('guideResume'));
+  }
+});
+
 
 test('offline summary shows pending production, ordinary-claim order progress and the next useful action',()=>{
   for(const [width,height] of SHEET_VIEWPORTS)for(const [production,percent,ready] of [[30,40,false],[120,100,true]]){
@@ -649,7 +620,7 @@ test('offline summary shows pending production, ordinary-claim order progress an
     assert.equal(output.entries.some(entry=>entry.text==='本单达标，可领取订单奖励'),ready);
     if(ready)assert.ok(output.entries.some(entry=>entry.text==='领取后可装车'));
     const copy=output.entries.map(entry=>entry.text).join('');
-    assert.match(copy,/广告只翻倍金币/);
+    assert.match(copy,/广告只翻倍本次现款/);
     assert.equal(JSON.stringify(game.exportSave(NOW)),saved,'reading the offline summary never claims it');
   }
 });
@@ -720,56 +691,4 @@ test('bulk upgrade zero-count states explain money, level caps and protected mac
     assert.ok(!locked.actions.some(action=>action&&/^upgrade(?:Quantity|Batch):/.test(action)));
     assert.ok(locked.actions.includes('upgrade:tap'),'locked quantity requests keep ordinary single upgrades');
   }
-});
-
-test('heat recovery keeps the remaining assisted taps and per-tap yield inside the machine interaction area',()=>{
-  for(const [width,height] of VIEWPORTS){
-    const game=factory({machine:3,upgrades:{tap:16,auto:4,value:2},heatRecoveryTaps:10,energy:40});
-    let geometry;
-    for(const remaining of [10,1,0]){
-      game.state.heatRecoveryTaps=remaining;
-      const output=render(game,width,height);checkLayout(output,'heat recovery '+remaining);
-      const bay=output.r.zones.find(zone=>zone.action==='tap');
-      assert.ok(bay,'the machine must remain available when recovery expires');
-      const current={x:bay.x,y:bay.y,w:bay.w,h:bay.h};
-      if(geometry)assert.deepEqual(current,geometry);else geometry=current;
-      assert.equal(output.r.actionAt(bay.x+bay.w/2,bay.y+bay.h/2),'tap');
-      const recovery=output.entries.find(entry=>entry.text==='余热×'+remaining+' · 每次+1能量');
-      assert.equal(!!recovery,remaining>0);
-      const yieldHint=output.entries.find(entry=>entry.text.startsWith('点机器 · 每次 +'));
-      assert.ok(yieldHint,'per-tap yield stays visible with and without residual heat');
-      for(const entry of [yieldHint,recovery].filter(Boolean)) {
-        assert.equal(output.r.actionAt(entry.x+entry.w/2,entry.y+entry.h/2),'tap','the machine hint itself must be tappable');
-      }
-    }
-    const upgrades=render(game,width,height,{modal:{type:'upgrades'}});checkLayout(upgrades,'heat upgrade unlocked');
-    assert.ok(upgrades.entries.some(entry=>entry.text==='余热接力已解锁'));
-    const blueprint=render(game,width,height,{modal:{type:'blueprint',page:1}});checkLayout(blueprint,'milestone blueprint');
-    assert.match(blueprint.entries.map(entry=>entry.text).join(''),/批量升级 · 玉米Lv16余热/);
-    const next=render(factory({machine:2,upgrades:{tap:15,auto:4,value:2}}),width,height,{modal:{type:'machine'}});checkLayout(next,'milestone before level');
-    assert.ok(next.entries.some(entry=>entry.text==='批量升级；玉米Lv16解锁余热'));
-    const ready=render(factory({machine:2,upgrades:{tap:16,auto:4,value:2}}),width,height,{modal:{type:'machine'}});checkLayout(ready,'milestone ready');
-    assert.ok(ready.entries.some(entry=>entry.text==='新能力：批量升级＋余热接力'));
-    const help=render(game,width,height,{modal:{type:'help'}});checkLayout(help,'milestone help');
-    const copy=help.entries.map(entry=>entry.text).join('');
-    assert.match(copy,/刷新不叠加/);assert.match(copy,/余热可保存/);assert.match(copy,/多头机开放最多5级批量升级/);
-  }
-});
-
-test('machine funding offers a beneficial upgrade route while ready and unaffordable states keep their own actions',()=>{
-  const state={machine:2,orderIndex:10,totalProduced:847526.7689210637,coins:19440801.157558426,
-    upgrades:{tap:16,auto:17,value:17}},game=factory(state);
-  const output=render(game,320,568,{modal:{type:'machine'}});checkLayout(output,'funding guidance');
-  const step=require('../src/next-step').selectNextStep(game.getView(),null,{suppressModeAdvice:true});
-  assert.ok(step.estimate&&step.enabled);
-  assert.ok(output.actions.includes('fundingUpgrade:'+step.upgradeKey));
-  assert.ok(!output.actions.includes('evolve'));
-  assert.ok(output.entries.some(entry=>entry.text==='按常驻收入估算，可更快攒齐'));
-  for(const [coins,canEvolve] of [[CONFIG.machines[3].cost,true],[0,false]]){
-    const other=render(factory({...state,coins}),320,568,{modal:{type:'machine'}});checkLayout(other,'funding state');
-    assert.equal(other.actions.includes('evolve'),canEvolve);
-    assert.ok(!other.actions.some(action=>action&&action.startsWith('fundingUpgrade:')));
-  }
-  const early=render(factory({machine:0}),320,568,{modal:{type:'upgrades'}});checkLayout(early,'early disclosure');
-  assert.ok(!early.entries.some(entry=>entry.text.includes('余热')),'early upgrade screen teaches current capabilities');
 });

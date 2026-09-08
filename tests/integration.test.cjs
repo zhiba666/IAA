@@ -1,225 +1,147 @@
 'use strict';
 
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
 const test = require('node:test');
-const vm = require('node:vm');
-const { Game, CONFIG } = require('../src/core');
-const { GameInterface } = require('../src/interface');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core');
+const { harness, START } = require('./app-harness.cjs');
+const { legacyGame } = require('./legacy-fixture.cjs');
 
-const START = 1800000000000;
-const coreSource = fs.readFileSync(path.join(__dirname, '../src/core.js'), 'utf8');
-const mainSource = fs.readFileSync(path.join(__dirname, '../src/main.js'), 'utf8');
 const copy = value => JSON.parse(JSON.stringify(value));
 
 function saved(overrides = {}) {
-  return Object.assign(new Game({ now: START }).exportSave(START), overrides);
-}
-
-// Run the actual application and economy together. Only the environment-facing
-// platform, sounds and drawing are replaced, so tests drive real input handlers.
-function harness(options = {}) {
-  let now = START, frameTime = 1, nextFrame = null, drawnUI = null;
-  let pointerHandler, hideHandler, showHandler, hidden = false, hitAction = null;
-  let saveFailure = !!options.saveFailure;
-  const keyboard = {}, saves = [], analytics = [], rewardRequests = [], sounds = [], sidebarRequests=[], rendererEvents=[];
-  const ctx = { setTransform() {}, fillRect() {}, beginPath() {}, moveTo() {}, lineTo() {}, stroke() {} };
-  const canvas = { getContext: () => ctx, setAttribute() {} };
-  const platform = {
-    canvas, isDouyin: false, config: { allowSimulatedAds: true },
-    lastStorageError: '',
-    load() { this.lastStorageError = options.loadError || ''; return options.save == null ? null : copy(options.save); },
-    save(value) {
-      this.lastStorageError = saveFailure ? 'storage full' : '';
-      if (!saveFailure) saves.push(copy(value));
-      return !saveFailure;
-    },
-    onPointer(fn) { pointerHandler = fn; }, onHide(fn) { hideHandler = fn; },
-    onShow(fn) { showHandler = fn; }, onResize() {},
-    getSystemInfo: () => ({ width: 480, height: 920, pixelRatio: 1 }),
-    track(event, data) { analytics.push({ event, data: copy(data || {}) }); },
-    getAnalytics: () => copy(analytics), vibrate() {},
-    reward(kind, requestOptions) {
-      return new Promise((resolve, reject) => rewardRequests.push({ kind, options: requestOptions, resolve, reject }));
-    },
-    interstitial: () => Promise.resolve(false),
-    getSidebarState:()=>({supported:!!options.sidebarSupported,checking:false,fromSidebar:false}),
-    checkSidebar:()=>Promise.resolve(),
-    navigateSidebar() { return new Promise(resolve=>sidebarRequests.push(resolve)); }
-  };
-  class MockRenderer {
-    constructor() { this.interface = new GameInterface(this); }
-    actionAt() { return hitAction; }
-    emit(event) { rendererEvents.push(copy(event)); }
-    draw(view, ui, dt) { drawnUI = copy(ui); drawnUI.animationDt = dt; }
-  }
-  class MockAudio {
-    setEnabled(enabled) { this.enabled = enabled; }
-    unlock() {}
-    play(name) { sounds.push(name); }
-  }
-  const context = vm.createContext({
-    Date: class extends Date { static now() { return now; } },
-    document: { getElementById: () => null },
-    window: { addEventListener(name, fn) { keyboard[name] = fn; } },
-    requestAnimationFrame(fn) {
-      assert.equal(nextFrame, null, 'only one animation frame should be scheduled');
-      nextFrame = fn;
-    }
-  });
-  const coreModule = { exports: {} };
-  vm.runInContext('(function(module, exports) {\n' + coreSource + '\n})', context)(coreModule, coreModule.exports);
-  function mockedRequire(name) {
-    if (name === './core') return coreModule.exports;
-    if (name === './platform') return { createPlatform: () => platform };
-    if (name === './audio') return { AudioEngine: MockAudio };
-    if (name === './renderer') return { Renderer: MockRenderer };
-    if (name === './experience') return require('../src/experience');
-    if (name === './offline-summary') return require('../src/offline-summary');
-    if (name === './next-step') return require('../src/next-step');
-    throw new Error('Unexpected dependency: ' + name);
-  }
-  vm.runInContext('(function(require) {\n' + mainSource + '\n})', context)(mockedRequire);
-  const h = {
-    platform, saves, analytics, rewardRequests, sounds, sidebarRequests, rendererEvents,
-    snapshot: () => copy(context.__POPCORN__.snapshot()),
-    lastUI: () => copy(drawnUI),
-    ui() { h.frame(0); return copy(drawnUI); },
-    frame(ms) {
-      now += ms; frameTime += ms;
-      const fn = nextFrame; nextFrame = null;
-      assert.equal(typeof fn, 'function'); fn(frameTime);
-    },
-    advance(ms) { now += ms; frameTime += ms; },
-    hide() { if (!hidden) { hidden = true; hideHandler(); } },
-    show() { if (hidden) { hidden = false; showHandler(); } },
-    click(action) {
-      hitAction = action;
-      pointerHandler({ type: 'down', id: 1, x: 100, y: 100 });
-      pointerHandler({ type: 'up', id: 1, x: 100, y: 100 });
-      hitAction = null;
-    },
-    key(code, repeat = false) {
-      const event = { code, repeat, prevented: false, preventDefault() { this.prevented = true; } };
-      keyboard.keydown(event); return event;
-    },
-    setSaveFailure(value) { saveFailure = value; }
-  };
-  h.frame(0);
-  if(options.autoStart!==false){h.click('start');h.frame(0);}
-  return h;
+  // Most fixtures isolate economic and host behavior from automatic milestones.
+  // Teaching tests explicitly request an empty claimedQuests list or a fresh app.
+  return Object.assign(legacyGame({ now: START }).exportSave(START), { claimedQuests: QUEST_CHAPTERS.flatMap(c => c.quests.map(q => q.id)) }, overrides);
 }
 
 async function flush() { for (let i = 0; i < 6; i++) await Promise.resolve(); }
 
+test('main: developer long press keeps short taps immediate and repeats at 100 taps/second across frame rates', () => {
+  for (const intervals of [[33, 33, 34], [16, 17, 17], [8, 8, 9], [7, 41, 12, 90]]) {
+    const h = harness({ config: { developerHoldTap: true } });
+    h.pointer('down'); assert.equal(h.snapshot().state.taps, 1);
+    h.frame(349); assert.equal(h.snapshot().state.taps, 1);
+    h.frame(1); assert.equal(h.snapshot().state.taps, 1);
+    let elapsed = 0, frame = 0;
+    while (elapsed < 2000) {
+      const ms = Math.min(intervals[frame++ % intervals.length], 2000 - elapsed);
+      h.frame(ms); elapsed += ms;
+    }
+    assert.equal(h.snapshot().state.taps, 201, 'two seconds of held production gives 200 extra taps');
+    h.pointer('up'); h.frame(1000);
+    assert.equal(h.snapshot().state.taps, 201, 'release does not click again or leave a timer running');
+    h.pointer('down'); h.frame(100); h.pointer('up'); h.frame(1000);
+    assert.equal(h.snapshot().state.taps, 202, 'a fresh short press still gives exactly one tap');
+  }
+});
+
+test('main: held production requires an explicit boolean development flag', () => {
+  for (const developerHoldTap of [undefined, false, 'true', 1]) {
+    const h = harness({ config: { developerHoldTap, debug: true } });
+    h.pointer('down'); h.frame(350); h.frame(2000); h.pointer('up');
+    assert.equal(h.snapshot().state.taps, 1);
+  }
+});
+
+test('main: developer held taps use the normal tutorial economy, burst and persistence paths', () => {
+  const save = saved();
+  const held = harness({ config: { developerHoldTap: true }, save }), manual = harness({ save });
+  held.pointer('down'); manual.click('tap');
+  held.frame(350); manual.frame(350);
+  held.frame(1000); manual.frame(1000);
+  for (let i = 0; i < 100; i++) manual.click('tap');
+  held.pointer('up');
+  assert.deepEqual(held.snapshot(), manual.snapshot());
+  assert.equal(held.rendererEvents.filter(e => e.type === 'produce' && e.source === 'tap').length, 101);
+  held.hide();
+  assert.equal(held.saves.at(-1).taps, save.taps + 101);
+});
+
+test('main: developer holds stop on cancel, leaving production, backgrounding, panels and resizing', () => {
+  for (const cancel of [
+    h => h.pointer('cancel'),
+    h => { h.pointer('move', 'upgrades', 1, 150, 150); h.pointer('move', 'tap'); },
+    h => { h.hide(); h.advance(10000); h.show(); },
+    h => { h.key('KeyO'); h.key('Escape'); },
+    h => h.resize()
+  ]) {
+    const h = harness({ config: { developerHoldTap: true } });
+    h.pointer('down'); h.frame(350); h.frame(1000);
+    assert.equal(h.snapshot().state.taps, 101);
+    cancel(h); h.frame(0); h.frame(1000);
+    assert.equal(h.snapshot().state.taps, 101, 'the interrupted gesture cannot resume itself');
+    h.pointer('up'); h.pointer('down'); h.frame(350); h.frame(1000);
+    assert.equal(h.snapshot().state.taps, 202, 'a new gesture can repeat normally');
+  }
+});
+
+test('main: a second finger cannot multiply production or release the held finger', () => {
+  const h = harness({ config: { developerHoldTap: true } });
+  h.pointer('down'); h.pointer('down', 'tap', 2);
+  h.frame(350); h.frame(1000);
+  assert.equal(h.snapshot().state.taps, 101);
+  h.pointer('cancel', 'tap', 2); h.pointer('up', 'tap', 2); h.frame(1000);
+  assert.equal(h.snapshot().state.taps, 201);
+  h.pointer('up'); h.frame(1000);
+  assert.equal(h.snapshot().state.taps, 201);
+});
+
+test('main: startup, panels, ads and non-production controls never acquire developer repeat', () => {
+  const h = harness({ config: { developerHoldTap: true }, autoStart: false, save: readyOrderSave() });
+  h.pointer('down'); h.frame(2000); h.pointer('up');
+  assert.equal(h.snapshot().state.taps, 0);
+  h.click('start'); h.frame(0);
+  h.pointer('down', 'order'); h.frame(2000);
+  assert.equal(h.ui().modal, null, 'navigation still waits for release');
+  h.pointer('up', 'order'); assert.equal(h.ui().modal.type, 'order');
+  h.pointer('down'); h.frame(2000); h.pointer('up');
+  assert.equal(h.snapshot().state.taps, 0, 'a panel blocks production');
+  h.click('ad:order'); h.click('watch');
+  h.pointer('down'); h.frame(2000); h.pointer('up');
+  assert.equal(h.snapshot().state.taps, 0);
+  assert.equal(h.rewardRequests.length, 1, 'holding never replays an ad request');
+});
+
+test('main: developer hold uses touch-down time and discards excessive stalled-frame backlog', () => {
+  const h = harness({ config: { developerHoldTap: true } });
+  h.advance(5000); h.pointer('down'); h.frame(0);
+  assert.equal(h.snapshot().state.taps, 1, 'time before touch-down cannot count as holding');
+  h.frame(350); h.frame(10000);
+  assert.equal(h.snapshot().state.taps, 101, 'one stalled frame catches up at most one second');
+  h.frame(10); assert.equal(h.snapshot().state.taps, 102, 'discarded time is never replayed in later frames');
+});
+
 function growthSave(overrides={}) {
-  const game=new Game({now:START});
+  const game=legacyGame({now:START});
   Object.assign(game.state,{machine:4,orderIndex:14,totalProduced:64000000,coins:1e10,taps:20,bursts:1,energy:85,
     playedSeconds:120,upgrades:{tap:24,auto:24,value:24},learning:{heatRecoveryUses:10,heatRecoveryDismissed:false}},overrides);
-  for(let i=0;i<4;i++){
-    const ready=game.getView().quests.chapters.flatMap(c=>c.quests).filter(q=>q.ready);
-    if(!ready.length)break;
-    game.state.claimedQuests.push(...ready.map(q=>q.id));
-  }
+  game.state.claimedQuests = QUEST_CHAPTERS.flatMap(c => c.quests.map(q => q.id));
   return game.exportSave(START);
 }
 
-test('main: craft quotes require their panel and a replay cannot buy the next level',()=>{
-  const h=harness({save:growthSave({orderIndex:16,totalProduced:220000000,coins:1e12})});
-  const item=h.snapshot().refinements.options[0],action='refinement:'+item.key+':'+item.level+':'+item.cost;
-  const before=h.snapshot().state.coins;
-  h.click(action);assert.equal(h.snapshot().state.coins,before);
-  h.click('upgrades');h.click('refinements');assert.equal(h.ui().modal.type,'refinements');
-  h.click(action);assert.equal(h.snapshot().state.refinements.yield,1);assert.equal(h.snapshot().state.coins,before-item.cost);
-  h.click(action);assert.equal(h.snapshot().state.refinements.yield,1);assert.equal(h.snapshot().state.coins,before-item.cost);
-  const restored=harness({save:h.saves.at(-1)});assert.equal(restored.snapshot().state.refinements.yield,1);
-});
-
-test('main: mode advice never changes production on open, and folding it restores upgrade guidance',()=>{
-  const save=growthSave({machine:2,orderIndex:10,totalProduced:847526.7689210637,coins:19440801.157558426,upgrades:{tap:16,auto:17,value:17}});
-  const h=harness({save}),{selectNextStep}=require('../src/next-step'),{selectCurrentTarget}=require('../src/experience');
-  const step=()=>selectNextStep(h.snapshot(),selectCurrentTarget(h.snapshot(),h.ui()),h.ui());
-  assert.equal(step().kind,'mode');const id=step().id;
-  h.click('goalExpand');h.click('goalCollapse');assert.equal(h.ui().dismissedModeSuggestion,id);assert.equal(step().kind,'upgrade');
-  const other=harness({save});const advice=selectNextStep(other.snapshot(),selectCurrentTarget(other.snapshot(),other.ui()),other.ui());
-  other.click(advice.action);assert.equal(other.ui().modal.type,'productionModes');assert.equal(other.snapshot().state.productionMode,'balanced');
-  other.click('productionMode:'+advice.modeId);assert.equal(other.snapshot().state.productionMode,advice.modeId);
-});
-
-test('main: residual heat practice completes after ten uses and a skipped lesson stays skipped on reload',()=>{
-  const save=growthSave({machine:3,orderIndex:10,totalProduced:3000000,energy:92,learning:{heatRecoveryUses:0,heatRecoveryDismissed:false}});
-  const h=harness({save});h.click('heatLesson');h.click('practiceHeat');h.click('timing');h.frame(8000);
-  assert.equal(h.snapshot().state.heatRecoveryTaps,10);
-  for(let i=0;i<10;i++)h.click('tap');
-  assert.equal(h.snapshot().state.learning.heatRecoveryUses,10);
-  assert.notEqual(require('../src/experience').selectCurrentTarget(h.snapshot(),h.ui()).source,'learning');
-  const skipped=harness({save});skipped.click('heatLesson');skipped.click('skipHeatLesson');
-  assert.equal(skipped.snapshot().state.learning.heatRecoveryDismissed,true);
-  const restored=harness({save:skipped.saves.at(-1)});assert.equal(restored.snapshot().state.learning.heatRecoveryDismissed,true);
-  assert.equal(restored.snapshot().state.heatRecoveryTaps,0,'skipping never grants charges');
-});
-
-test('main: timing cue sounds once per pot and remains quiet behind a sheet',()=>{
+test('main: automatic pots keep producing behind sheets without a timing cue',()=>{
   const h=harness({save:growthSave({energy:90})});
-  h.click('upgrades');h.frame(2000);assert.equal(h.sounds.filter(s=>s==='heatReady').length,0);
-  h.click('close');h.frame(0);h.frame(1000);assert.equal(h.sounds.filter(s=>s==='heatReady').length,1);
-  h.frame(6000);h.frame(60000);h.frame(33000);assert.equal(h.sounds.filter(s=>s==='heatReady').length,2);
+  h.click('upgrades');h.frame(1000);
+  assert.equal(h.snapshot().state.bursts,1,'the old perfect interval cannot settle a pot');
+  h.frame(500);
+  assert.equal(h.snapshot().state.bursts,2);
+  assert.equal(h.ui().modal.type,'upgrades');
+  assert.equal(h.sounds.filter(s=>s==='burst').length,1);
+  assert.equal(h.sounds.includes('heatReady'),false);
 });
 function readyOrderSave() { return saved({ coins: 10, totalProduced: CONFIG.orders[0].target, playedSeconds: CONFIG.rewardUnlockSeconds }); }
 
-test('main: an immediate perfect burst replaces its timing acknowledgement',()=>{
+test('main: retired ignition input and F shortcut cannot produce before an automatic pot',()=>{
   const h=harness({save:growthSave({energy:96})});
-  h.click('timing');assert.equal(h.ui().toastKind,'timing');
-  h.click('tap');h.click('tap');
+  const before=h.snapshot();
+  assert.equal(h.key('KeyF').prevented,false);
+  h.click('timing');
+  assert.deepEqual(h.snapshot(),before);
+  assert.equal(h.rendererEvents.some(e=>e.type==='burst'),false);
+  h.frame(1000);
   assert.equal(h.snapshot().state.bursts,2);
-  assert.equal(h.ui().toast,'','actual burst settlement is no longer covered by timing copy');
-});
-
-test('main: staged delivery requires its order panel and persists a single advance payment',()=>{
-  const h=harness({save:growthSave({machine:2,orderIndex:10,totalProduced:4000000,coins:1e8})});
-  const before=h.snapshot(),stage=before.deliveries.stages[0],action='delivery:10:1';
-  h.click(action);assert.equal(h.snapshot().state.coins,before.state.coins);
-  h.click('order');h.click(action);
-  assert.equal(h.snapshot().state.coins,before.state.coins+stage.coins);
-  assert.equal(h.snapshot().order.reward,before.order.reward-stage.coins);
-  h.click(action);assert.equal(h.snapshot().state.coins,before.state.coins+stage.coins);
-  const restored=harness({save:h.saves.at(-1)});
-  assert.deepEqual(restored.snapshot().state.deliveries.claimed,[1]);
-  assert.equal(restored.snapshot().order.reward,before.order.reward-stage.coins);
-});
-
-test('main: commission selection captures the offer, returns to production and settles once',()=>{
-  const h=harness({save:growthSave()}),option=h.snapshot().commissions.options.find(item=>item.kind==='bulk');
-  const accept='commissionAccept:bulk:'+option.id;
-  h.click(accept);assert.equal(h.snapshot().commissions.active,null);
-  h.click('commissions');assert.equal(h.ui().modal.commissionQuotes.bulk.id,option.id);
-  h.click(accept);assert.equal(h.ui().modal,null);
-  assert.equal(h.snapshot().commissions.active.id,option.id);
-  h.click(accept);assert.equal(h.snapshot().commissions.active.id,option.id);
-  h.frame(60000);h.frame(15000);
-  assert.equal(h.snapshot().commissions.active.ready,true);
-  const before=h.snapshot().state.coins;
-  h.click('commissionClaim:'+option.id);assert.equal(h.snapshot().state.coins,before);
-  h.click('commissions');h.click('commissionClaim:'+option.id);
-  assert.equal(h.snapshot().state.coins,before+option.reward);
-  assert.equal(h.snapshot().commissions.active,null);
-  h.click('commissionClaim:'+option.id);assert.equal(h.snapshot().state.coins,before+option.reward);
-  const restored=harness({save:h.saves.at(-1)});
-  assert.equal(restored.snapshot().commissions.remaining,2);
-});
-
-test('main: artisan commission counts actual perfect pots and consumed recovery across normal actions',()=>{
-  const h=harness({save:growthSave({machine:3,orderIndex:10,totalProduced:3000000,energy:96})});
-  h.click('commissions');const quote=h.ui().modal.commissionQuotes.artisan;
-  h.click('commissionAccept:artisan:'+quote.id);h.click('timing');h.click('tap');h.click('tap');
-  assert.equal(h.snapshot().commissions.active.perfect,1);
-  for(let i=0;i<10;i++)h.click('tap');
-  assert.equal(h.snapshot().commissions.active.recovery,10);
-  h.frame(60000);h.frame(2000);h.click('timing');h.frame(8000);
-  assert.equal(h.snapshot().commissions.active.ready,true);
-  h.click('commissions');const coins=h.snapshot().state.coins;
-  h.click('commissionClaim:'+quote.id);assert.equal(h.snapshot().state.coins,coins+quote.reward);
+  assert.equal(h.rendererEvents.filter(e=>e.type==='burst').length,1);
+  assert.equal(h.analytics.some(e=>e.event==='timing'||e.event==='experience_timing'),false);
 });
 
 test('main: souvenirs require the collection panel, charge once and survive restart',()=>{
@@ -274,15 +196,17 @@ test('main: sidebar navigation is user-triggered, single-flight and never grants
 
 test('main: storage save failures warn without stopping play, and later saves can recover', () => {
   const h = harness({ saveFailure: true });
-  assert.equal(h.ui().saved, false);
+  assert.equal(h.saves.length, 0);
   assert.match(h.ui().toast, /进度暂未保存/);
   h.key('Space');
   assert.equal(h.snapshot().state.coins, 1);
   h.setSaveFailure(false); h.click('close');
-  assert.equal(h.ui().saved, true);
   assert.equal(h.saves.at(-1).coins, 1);
+  h.frame(4000);assert.equal(h.ui().toast,'');
+  const savedCount=h.saves.length;
   h.setSaveFailure(true); h.click('close');
   assert.match(h.ui().toast, /进度暂未保存/);
+  assert.equal(h.saves.length,savedCount);
 });
 
 test('main: corrupt platform load and incompatible game saves show a readable recovery message', async t => {
@@ -419,9 +343,9 @@ test('main: expanding or collapsing a goal only changes its visibility, even whe
   }
 });
 
-test('main: Escape closes a sheet before collapsing guidance and respects a player who hid the tutorial',()=>{
+test('main: Escape closes a sheet before collapsing established-factory guidance and preserves the player choice',()=>{
   const h=harness();
-  assert.ok(h.snapshot().tutorial,'new-player guidance is initially eligible to expand');
+  h.click('goalExpand');
   h.key('Escape');assert.equal(h.ui().goalExpanded,false);
   h.key('Space');assert.equal(h.ui().goalExpanded,false,'production does not reopen dismissed teaching');
   h.click('goalExpand');assert.equal(h.ui().goalExpanded,true);
@@ -497,7 +421,7 @@ test('main: evolution forwards precise permanent income to its reveal and clears
   for (const boostSeconds of [0, CONFIG.turboDuration]) await t.test('boost seconds ' + boostSeconds, () => {
     const next = CONFIG.machines[1];
     const h = harness({ save: saved({ coins: next.cost, orderIndex: next.requiredOrders, totalProduced: CONFIG.orders[next.requiredOrders - 1].target, boostSeconds }) });
-    h.click('productionModes');assert.match(h.ui().toast,/双缸机/);
+    h.click('modules');assert.match(h.ui().toast,/解锁/);
     const before = h.snapshot().production.baseIncome;
     h.click('evolve');
     const after = h.snapshot().production.baseIncome;
@@ -517,36 +441,35 @@ test('main: evolution forwards precise permanent income to its reveal and clears
   });
 });
 
-test('main: task rewards need explicit release, save once and stay claimed after reload', () => {
+test('main: teaching milestones pay automatically, persist and cannot be claimed a second time', () => {
   const h = harness();
   for(let i=0;i<5;i++)h.click('tap');
-  const task = h.snapshot().quests.focus;
-  assert.equal(task.ready, true);
+  const task = h.snapshot().quests.chapters[0].quests.find(q => q.id === 'start-taps');
+  assert.equal(task.claimed, true); assert.equal(task.ready, false);
   const before = h.snapshot().state.coins;
   h.key('KeyQ');
   assert.equal(h.ui().modal.type, 'quests');
   h.click('questClaim:'+task.id);
-  assert.equal(h.snapshot().state.coins, before+task.reward);
-  assert.match(h.ui().toast, /金币已到账/);
+  assert.equal(h.snapshot().state.coins, before);
   assert.equal(h.analytics.filter(e=>e.event==='quest').length, 1);
   assert.ok(h.sounds.includes('upgrade'));
   h.click('questClaim:'+task.id);
-  assert.equal(h.snapshot().state.coins, before+task.reward);
+  assert.equal(h.snapshot().state.coins, before);
   const restored = harness({save:h.saves.at(-1)});
   restored.click('questClaim:'+task.id);
-  assert.equal(restored.snapshot().state.coins, before+task.reward);
+  assert.equal(restored.snapshot().state.coins, before);
   assert.equal(restored.snapshot().quests.claimedCount, 1);
   assert.equal(h.rewardRequests.length, 0);
 });
 
 test('main: task navigation reveals upgrades without buying or producing', () => {
-  const h=harness({save:saved({coins:100})});
+  const h=harness({save:saved({coins:100,claimedQuests:[]})});
   const quests=h.snapshot().quests, chapter=quests.chapters[0];
   const tap=chapter.quests.find(q=>q.action==='tap');
   const upgrade=chapter.quests.find(q=>q.action==='upgrade:tap');
   assert.ok(tap&&upgrade);
   h.click('quests');h.click('questGo:'+upgrade.id);
-  assert.equal(h.ui().modal.type,'upgrades');assert.equal(h.ui().tab,'upgrades');
+  assert.equal(h.ui().modal.type,'upgrades');
   assert.equal(h.snapshot().state.coins,100);assert.equal(h.snapshot().state.upgrades.tap,0);
   assert.equal(h.ui().questGuideId,upgrade.id);
   h.click('quests');h.click('questGo:'+tap.id);
@@ -559,7 +482,7 @@ test('main: task navigation reveals upgrades without buying or producing', () =>
 });
 
 test('main: task claims and Q respect startup, reward playback and modal keyboard guards', () => {
-  const seed=saved({taps:5,totalProduced:50,playedSeconds:120});
+  const seed=saved({taps:5,totalProduced:50,playedSeconds:120,claimedQuests:[]});
   const h=harness({save:seed,autoStart:false}), task=h.snapshot().quests.focus;
   const before=h.snapshot().state.coins;
   h.key('KeyQ');h.click('quests');h.click('questClaim:'+task.id);
@@ -567,7 +490,7 @@ test('main: task claims and Q respect startup, reward playback and modal keyboar
   h.click('start');h.click('order');h.key('KeyQ');assert.equal(h.ui().modal.type,'order');
   h.click('ad:order');h.click('watch');h.click('questClaim:'+task.id);h.click('quests');
   assert.equal(h.ui().adBusy,true);assert.equal(h.snapshot().state.coins,before);
-  assert.equal(h.snapshot().quests.claimedCount,0);
+  assert.equal(h.snapshot().quests.claimedCount,1);
 });
 
 
@@ -587,7 +510,7 @@ test('main: consecutive complete brand adverts grant one permanent level each wi
     h.frame(60000);assert.equal(h.snapshot().state.playedSeconds,seconds);
     h.rewardRequests[level-1].resolve({completed:true});await flush();
     assert.equal(h.snapshot().state.brandLevel,level);
-    assert.equal(h.ui().modal.type,'brand');assert.equal(h.ui().tab,'brand');
+    assert.equal(h.ui().modal.type,'brand');
     assert.ok(h.ui().toast.includes('Lv.'+level));assert.ok(h.ui().toast.includes('永久'));
     assert.equal(h.saves.at(-1).brandLevel,level);
     near(h.snapshot().production.baseIncome,before*(1+level*CONFIG.brandBonusPerLevel));
@@ -639,37 +562,6 @@ test('main: ordinary first upgrades and task rewards are not attributed to watch
 });
 
 
-test('main: unlocked production choices require their panel, persist and leave pending offline rewards unchanged', () => {
-  const h = harness({ save: saved({ machine: 2, orderIndex: 6, totalProduced: 20000, coins: 1000,
-    taps: 10, bursts: 1, upgrades: { tap: 4, auto: 4, value: 4 } }) });
-  const baseline = h.snapshot().production;
-  h.click('productionMode:rush'); assert.equal(h.snapshot().state.productionMode, 'balanced');
-  h.key('KeyP'); assert.equal(h.ui().modal.type, 'productionModes');
-  h.click('productionMode:rush');
-  assert.equal(h.snapshot().state.productionMode, 'rush');
-  near(h.snapshot().production.baseAuto, baseline.baseAuto * 1.2);
-  near(h.snapshot().production.baseIncome, baseline.baseIncome * .96);
-  assert.equal(h.saves.at(-1).productionMode, 'rush');
-  assert.equal(h.analytics.filter(item => item.event === 'experience_production_mode').length, 1);
-  h.click('productionMode:rush');
-  assert.equal(h.analytics.filter(item => item.event === 'experience_production_mode').length, 1);
-  h.click('close'); h.hide(); h.advance(60000); h.show();
-  assert.equal(h.snapshot().state.productionMode, 'rush');
-  const pending = h.snapshot().offline;
-  h.click('close'); h.click('productionModes'); h.click('productionMode:premium');
-  assert.deepEqual(h.snapshot().offline, pending);
-  h.click('close'); h.click('offline'); h.click('claimOffline');
-  assert.equal(h.snapshot().offline, null);
-  assert.match(h.ui().toast, /离线收益已到账/);
-});
-
-test('main: early factories cannot open production choices or use its keyboard shortcut', () => {
-  const h = harness();
-  h.key('KeyP'); assert.equal(h.ui().modal, null);
-  assert.match(h.ui().toast, /双缸机/);
-  h.click('productionMode:premium'); assert.equal(h.snapshot().state.productionMode, 'balanced');
-});
-
 function batchSave(overrides = {}) {
   return saved({ machine: 4, orderIndex: 14, totalProduced: CONFIG.orders[13].target,
     coins: 1e9, taps: 20, bursts: 1, playedSeconds: 120,
@@ -717,24 +609,9 @@ test('main: early batches stay locked and a later batch preserves the already-co
   assert.equal(h.snapshot().upgrades.find(u => u.key === 'auto').bulk.count, 0);
 });
 
-test('main: earned heat recovery survives background and offline collection without granting more charges', () => {
-  const h = harness({ save: batchSave({ machine: 3, orderIndex: 10, totalProduced: CONFIG.orders[9].target, energy: 92 }) });
-  h.click('timing'); h.frame(8000);
-  assert.equal(h.snapshot().milestones.heatRecovery.remainingTaps, 10);
-  h.click('tap'); assert.equal(h.snapshot().state.heatRecoveryTaps, 9);
-  const energy = h.snapshot().energy;
-  h.hide(); h.advance(60000); h.show();
-  assert.equal(h.snapshot().state.heatRecoveryTaps, 9);
-  assert.equal(h.snapshot().energy, energy);
-  assert.equal(h.ui().modal.type, 'offline'); h.click('claimOffline');
-  assert.equal(h.snapshot().state.heatRecoveryTaps, 9);
-  h.click('tap'); assert.equal(h.snapshot().state.heatRecoveryTaps, 8);
-  assert.equal(h.snapshot().energy, energy + CONFIG.tapEnergy + CONFIG.heatRecoveryEnergyPerTap);
-});
-
 test('main: funding guidance opens the current beneficial upgrade without spending machine savings', () => {
   const h = harness({ save: saved({ machine: 2, orderIndex: 10, totalProduced: 847526.7689210637,
-    coins: 19440801.157558426, taps: 20, bursts: 1, upgrades: { tap: 16, auto: 17, value: 17 } }) });
+    coins: 1000000, taps: 20, bursts: 1, upgrades: { tap: 12, auto: 12, value: 12 } }) });
   const step = require('../src/next-step').selectNextStep(h.snapshot(),null,{suppressModeAdvice:true});
   assert.equal(step.kind, 'upgrade'); assert.ok(step.estimate);
   const before = h.snapshot().state;
@@ -745,4 +622,100 @@ test('main: funding guidance opens the current beneficial upgrade without spendi
   assert.equal(h.snapshot().state.coins, before.coins);
   assert.deepEqual(h.snapshot().state.upgrades, before.upgrades);
   h.click('close'); h.click('upgrades'); assert.equal(h.ui().focusUpgrade, '', 'normal entry does not retain old navigation focus');
+});
+
+function contractSave(overrides = {}) {
+  return saved({ machine: 2, orderIndex: 6, totalProduced: CONFIG.orders[5].target, coins: 10000000,
+    taps: 20, bursts: 3, energy: 0, playedSeconds: 200, upgrades: { tap: 12, auto: 12, value: 12 }, ...overrides });
+}
+function chooseContract(h, kind) {
+  h.click('order');
+  const quote = h.ui().modal.contractQuotes[kind];
+  h.click('contractAccept:' + kind + ':' + quote.id);
+  assert.equal(h.snapshot().contracts.active.id, quote.id);
+  return quote;
+}
+test('main: contract actions parse the entire quoted ID and require the matching order panel', () => {
+  const h = harness({ save: contractSave() }), quote = h.snapshot().contracts.options.find(o => o.kind === 'cinema');
+  const action = 'contractAccept:cinema:' + quote.id;
+  assert.ok(quote.id.split(':').length > 2, 'the ID itself contains separators');
+  h.click(action); assert.equal(h.snapshot().contracts.active, null);
+  h.click('order'); assert.equal(h.ui().modal.contractQuotes.cinema.id, quote.id);
+  h.click(action + ':forged'); assert.equal(h.snapshot().contracts.active, null);
+  h.click(action); assert.equal(h.snapshot().contracts.active.id, quote.id); assert.equal(h.ui().modal, null);
+  h.click(action); assert.equal(h.snapshot().contracts.active.id, quote.id);
+  assert.equal(h.analytics.filter(e => e.event === 'contract' && e.data.action === 'accept').length, 1);
+  assert.equal(h.saves.at(-1).factory.active.id, quote.id);
+});
+test('main: a changed factory invalidates the displayed contract quote before acceptance', () => {
+  const h = harness({ save: contractSave() }); h.click('order');
+  const quote = h.ui().modal.contractQuotes.gift;
+  h.click('upgrade:auto');
+  assert.equal(h.snapshot().state.upgrades.auto, 13);
+  h.click('contractAccept:gift:' + quote.id);
+  assert.equal(h.snapshot().contracts.active, null);
+  assert.equal(h.ui().modal.type, 'order');
+  assert.notEqual(h.ui().modal.contractQuotes.gift.basis, quote.basis);
+});
+test('main: abandoning a contract requires two deliberate clicks and does not reclaim held goods', () => {
+  const h = harness({ save: contractSave() }), quote = chooseContract(h, 'gift');
+  h.frame(3000); const before = h.snapshot(); assert.ok(before.contracts.active.heldCoins > 0);
+  const action = 'contractCancel:' + quote.id;
+  h.click(action); assert.equal(h.snapshot().contracts.active.id, quote.id);
+  h.click('order'); h.click(action);
+  assert.equal(h.snapshot().contracts.active.id, quote.id); assert.equal(h.ui().modal.cancelContractId, quote.id);
+  h.click(action); assert.equal(h.snapshot().contracts.active, null);
+  assert.equal(h.snapshot().state.coins, before.state.coins); assert.equal(h.snapshot().state.orderIndex, 6);
+  const replacement = h.ui().modal.contractQuotes.gift;
+  assert.notEqual(replacement.id, quote.id);
+  h.click('contractAccept:gift:' + replacement.id);
+  assert.equal(h.snapshot().contracts.active.progress, 0); assert.equal(h.snapshot().contracts.active.heldCoins, 0);
+});
+test('main: the catalogue preserves all owned devices through panel actions, accepted contracts and restart', () => {
+  const save = contractSave({ orderIndex: 8 });
+  const h = harness({ save });
+  const owned = h.snapshot().factory.owned;
+  assert.deepEqual(owned.slice().sort(), ['coating', 'packer', 'pressure']);
+  h.click('module:packer'); assert.deepEqual(h.snapshot().factory.owned, owned);
+  h.key('KeyP'); assert.equal(h.ui().modal.type, 'modules');
+  h.click('module:pressure'); assert.deepEqual(h.snapshot().factory.owned, owned);
+  h.click('pressureMode:hold'); assert.equal(h.snapshot().factory.pressureMode, 'hold');
+  h.click('close'); chooseContract(h, 'festival');
+  h.click('modules'); h.click('module:pressure');
+  assert.deepEqual(h.snapshot().factory.owned, owned); assert.equal(h.snapshot().factory.canConfigure, false);
+  const restarted = harness({ save: h.saves.at(-1) });
+  assert.deepEqual(restarted.snapshot().factory.owned, owned); assert.equal(restarted.snapshot().factory.pressureMode, 'hold');
+  assert.equal(restarted.snapshot().contracts.active.kind, 'festival');
+});
+test('main: stored pressure uses its own release action, respects sheets and persists one actual burst', () => {
+  const save = contractSave(); save.factory.owned = ['pressure', 'coating']; save.factory.pressureMode = 'hold';
+  const h = harness({ save }); h.frame(20000);
+  assert.equal(h.snapshot().factory.storedBurst, true);
+  const before = h.snapshot(); h.click('order'); h.click('releasePressure');
+  assert.equal(h.snapshot().state.bursts, before.state.bursts);
+  h.key('Escape'); h.key('KeyR');
+  assert.equal(h.snapshot().state.bursts, before.state.bursts + 1); assert.equal(h.snapshot().factory.storedBurst, false);
+  assert.ok(h.rendererEvents.some(e => e.type === 'burst' && e.source === 'pressure'));
+  h.key('KeyR'); assert.equal(h.snapshot().state.bursts, before.state.bursts + 1);
+  const restarted = harness({ save: h.saves.at(-1) });
+  assert.equal(restarted.snapshot().factory.storedBurst, false); assert.equal(restarted.snapshot().state.bursts, before.state.bursts + 1);
+});
+test('main: developer repeat cannot bypass the later per-pot operation limit', () => {
+  const h = harness({ save: contractSave(), config: { developerHoldTap: true } });
+  const taps = h.snapshot().state.taps;
+  h.pointer('down'); h.frame(350); h.frame(1000); h.frame(1000); h.frame(1000); h.pointer('up');
+  assert.equal(h.snapshot().state.taps - taps, 3); assert.equal(h.snapshot().factory.tapsRemaining, 0);
+});
+test('main: a rewarded contract delivery settles its held goods once and survives restart', async () => {
+  const h = harness({ save: contractSave() }); chooseContract(h, 'cinema'); h.frame(60000);
+  assert.equal(h.snapshot().order.ready, true);
+  const order = h.snapshot().order, coins = h.snapshot().state.coins;
+  assert.ok(order.heldCoins > 0);
+  beginOrderAd(h); const amount = h.ui().modal.quote.amount;
+  h.rewardRequests[0].resolve({ completed: true, reason: 'completed' }); await flush();
+  near(h.snapshot().state.coins - coins, order.reward + amount);
+  assert.equal(h.snapshot().state.orderIndex, 7); assert.equal(h.snapshot().contracts.active, null);
+  h.click('claimOrder'); assert.equal(h.snapshot().state.orderIndex, 7);
+  const restarted = harness({ save: h.saves.at(-1) });
+  assert.equal(restarted.snapshot().state.orderIndex, 7); assert.equal(restarted.snapshot().order.awaitingSelection, true);
 });

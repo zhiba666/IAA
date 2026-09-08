@@ -1,4 +1,5 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core');
@@ -8,7 +9,7 @@ const { selectNextStep } = require('../src/next-step');
 const NOW = 1800000000000;
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-8, Math.abs(expected) * 1e-10), `${actual} differs from ${expected}`);
 const readyFactory = (coins = 1000) => {
-  const game = new Game({ now: NOW });
+  const game = legacyGame({ now: NOW });
   Object.assign(game.state, { coins, taps: 5, bursts: 1, orderIndex: 3, totalProduced: 800,
     upgrades: { tap: 1, auto: 4, value: 1 },
     claimedQuests: QUEST_CHAPTERS.slice(0, 2).flatMap(chapter => chapter.quests.map(quest => quest.id)) });
@@ -69,16 +70,18 @@ test('next step: crossing the actual machine affordability threshold changes sav
   assert.equal(game.evolve().ok, true); assert.equal(game.state.machine, 1);
 });
 
-test('next step: a ready tracked quest remains the concrete action ahead of purchases and a ready machine', () => {
+test('next step: completed teaching rewards arrive automatically and stop asking for manual claims', () => {
   const game = readyFactory(30000), view = game.getView();
   const target = selectCurrentTarget(view, { questGuideId: 'expand-electric' });
   // This quest is not ready until the machine evolves; complete it in core first.
   assert.equal(target.ready, false);
-  game.evolve();
+  const before=game.state.coins;game.evolve();
   const completedView = game.getView(), completed = selectCurrentTarget(completedView, { questGuideId: 'expand-electric' });
   const step = selectNextStep(completedView, completed);
-  assert.equal(step.kind, 'quest'); assert.equal(step.action, 'questClaim:expand-electric');
-  assert.equal(game.claimQuest(step.action.slice('questClaim:'.length)).ok, true);
+  assert.ok(game.state.claimedQuests.includes('expand-electric'));
+  assert.equal(game.state.coins,before-CONFIG.machines[1].cost+1500);
+  assert.notEqual(step.kind,'quest');assert.ok(!step.action.startsWith('questClaim:'));
+  assert.notEqual(completed.id,'expand-electric');
 });
 
 test('next step: a selected ready machine takes priority even when another order can be collected', () => {
@@ -107,13 +110,15 @@ test('next step: a tracked recipe target keeps its direction while the cheaper p
 
 test('next step: a tutorial upgradeKey preserves the intended automatic upgrade while the target action asks for production', () => {
   const game = new Game({ now: NOW });
-  Object.assign(game.state, { taps: 5, coins: 23.9, upgrades: { tap: 1, auto: 0, value: 0 } });
+  for(let i=0;i<8;i++)game.tap();
+  game.buyUpgrade('tap');game.tap();
+  game.state.coins=23.9;
   const view = game.getView(), target = { ...view.tutorial, id: 'tutorial:2', source: 'tutorial', upgradeKey: 'auto' };
   assert.equal(target.action, 'tap');
   const step = selectNextStep(view, target);
-  assert.equal(step.upgradeKey, 'auto'); assert.equal(step.enabled, false); assert.match(step.reason, /1 金币/);
+  assert.equal(step.upgradeKey, 'auto'); assert.equal(step.action, 'tap'); assert.equal(step.enabled, true); assert.match(step.detail, /1 金币/);
   game.state.coins = CONFIG.upgrades.auto.baseCost;
-  assert.equal(selectNextStep(game.getView(), target).enabled, true);
+  assert.equal(selectNextStep(game.getView(), target).action, 'upgrade:auto');
 });
 
 test('next step: tap and burst teaching continues production without inventing a helpful upgrade', () => {
@@ -167,6 +172,9 @@ test('next step: temporary turbo does not change an investment or its permanent-
 test('next step: brand production bonuses are included in the real purchased income estimate', () => {
   const game = readyFactory(100000);
   Object.assign(game.state, { machine: 1, orderIndex: 6, totalProduced: 20000, brandLevel: 2 });
+  // Settle rewards earned by the fixture's already completed machine/orders
+  // before comparing the marginal effect of its next investment.
+  game.tick(1);game.drainEvents();
   const view = game.getView(), target = { ...view.goal, source: 'machine' }, step = selectNextStep(view, target);
   assert.equal(step.kind, 'upgrade');
   const before = secondsToMachine(game);
@@ -175,11 +183,12 @@ test('next step: brand production bonuses are included in the real purchased inc
   close(step.estimate.afterSeconds, secondsToMachine(game));
 });
 
-test('next step: final-machine loop orders still favor production, and maxed auto falls back to honest per-click output', () => {
+test('next step: an unfinished final-machine contract can still improve real per-click output after auto is maxed', () => {
   const game = readyFactory(1e20);
-  Object.assign(game.state, { machine: 5, orderIndex: 20, totalProduced: CONFIG.orders[19].target,
+  Object.assign(game.state, { machine: 5, orderIndex: 19, totalProduced: CONFIG.orders[18].target,
     upgrades: { tap: 1, auto: CONFIG.maxUpgradeLevel, value: 1 } });
-  const view = game.getView(); assert.equal(view.order.isLoop, true);
+  assert.ok(game.acceptContract('cinema').ok);
+  const view = game.getView(); assert.equal(view.order.isLoop, false);assert.equal(view.order.completed,false);
   const step = selectNextStep(view, { ...view.goal, source: 'order' }, { suppressModeAdvice: true });
   assert.equal(step.upgradeKey, 'tap'); assert.match(step.detail, /份\/次/);
   const before = view.production;
@@ -190,10 +199,12 @@ test('next step: final-machine loop orders still favor production, and maxed aut
 
 test('next step: fully upgraded production offers the active order instead of a disabled level-24 purchase', () => {
   const game = readyFactory(1e20);
-  Object.assign(game.state, { machine: 5, orderIndex: 20, totalProduced: CONFIG.orders[19].target,
+  Object.assign(game.state, { machine: 5, orderIndex: 19, totalProduced: CONFIG.orders[18].target,
     upgrades: { tap: CONFIG.maxUpgradeLevel, auto: CONFIG.maxUpgradeLevel, value: 1 }, refinements:{yield:3,value:3} });
+  assert.ok(game.acceptContract('gift').ok);
   const step = selectNextStep(game.getView(), null, { suppressModeAdvice: true });
-  assert.equal(step.kind, 'order'); assert.equal(step.enabled, true);
+  assert.equal(step.kind, 'contract'); assert.equal(step.enabled, true);assert.equal(step.action,'order');
+  assert.match(step.detail,/糖衣成品/);
   assert.equal(step.upgradeKey, undefined);
 });
 
@@ -215,4 +226,30 @@ test('next step: an unusable preview cannot produce a bogus investment or nonfin
   assert.equal(step.kind, 'save'); assert.equal(step.estimate, undefined);
   view.production.baseIncome = 0;
   assert.equal(selectNextStep(view, null).kind, 'save');
+});
+
+test('next step: selecting a contract never chooses or equips a module on the player behalf',()=>{
+  const game=readyFactory(1000);Object.assign(game.state,{machine:2,orderIndex:6,totalProduced:20000});
+  const before=game.exportSave(NOW),events=game.drainEvents();
+  for(let i=0;i<5;i++){const step=select(game);assert.equal(step.kind,'order');assert.equal(step.action,'order');assert.match(step.detail,/客户需求/);}
+  assert.deepEqual(game.exportSave(NOW),before);assert.equal(game.getView().contracts.active,null);assert.deepEqual(game.drainEvents(),events);
+});
+
+test('next step: missing machine capability recommends real funding or evolution before offering an unusable contract',()=>{
+  for(const [machine,orderIndex] of [[1,6],[2,10],[3,14],[4,18]]){
+    const game=readyFactory(1);Object.assign(game.state,{machine,orderIndex,totalProduced:CONFIG.orders[orderIndex-1].target});
+    assert.equal(game.getView().order.awaitingSelection,true);assert.ok(game.getView().contracts.options.every(item=>!item.canAccept));
+    assert.equal(select(game).action,'machine');
+    game.state.coins=CONFIG.machines[machine+1].cost;assert.equal(select(game).kind,'machine');
+    assert.ok(game.evolve().ok);assert.equal(select(game).action,'order');
+  }
+});
+
+test('next step: stored pressure becomes an explicit production action and completion stays finite',()=>{
+  const game=readyFactory(1000);Object.assign(game.state,{machine:2,orderIndex:6,totalProduced:20000});
+  game.state.factory.owned.push('pressure');game.setPressureMode('hold');assert.ok(game.acceptContract('festival').ok);
+  game.state.energy=99;game.tick(1);const step=select(game);assert.equal(step.kind,'pressure');assert.equal(step.action,'releasePressure');
+  assert.ok(game.releasePressure().ok);assert.notEqual(select(game).action,'releasePressure');
+  Object.assign(game.state,{machine:5,orderIndex:20});
+  const completed=select(game);assert.equal(completed.kind,'completion');assert.equal(completed.action,'completion');assert.equal(completed.upgradeKey,undefined);
 });

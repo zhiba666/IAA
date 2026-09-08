@@ -1,4 +1,6 @@
 'use strict';
+// Historical delivery/commission analysis; never overwrite its old reports with current rules.
+function retiredAnalysis() { throw new Error('历史交付与委托分析已停用，不适用于当前合同与自动爆锅规则；请运行 node tests/balance.cjs。原报告仅作历史记录。'); }
 // Reproducible canonical-action simulations; fixed strategies are not human playtests.
 // node tools/progression-analysis.cjs --output artifacts/progression-analysis.json
 const assert = require('node:assert/strict');
@@ -71,6 +73,7 @@ function auditEarnedSave(save) {
     durationSeconds: game.state.playedSeconds - initialSeconds, contractIncome, capSurvivesReload: true };
 }
 function simulate({ tapsPerSecond = 2, policy = 'balanced', features = 'ignore', perfectTiming = features === 'artisan', finishCollection = false } = {}) {
+  retiredAnalysis();
   const game = new Game({ now: NOW }), cache = new Map(), orders = [], machines = [], purchases = [], rewards = [], deliveries = [], commissions = [], timing = [], souvenirs = [];
   const ledger = { production: 0, quests: 0, orders: 0, deliveries: 0, commissions: 0, upgrades: 0, refinements: 0, machines: 0, souvenirs: 0 };
   const mainRewards = new Map();
@@ -97,7 +100,6 @@ function simulate({ tapsPerSecond = 2, policy = 'balanced', features = 'ignore',
       }
       if (['upgrade', 'refinement', 'evolve'].includes(event.type)) purchases.push({ type: event.type, key: event.key || 'machine', level: event.level || event.machine, seconds, orderIndex: s.orderIndex, cost: event.cost || CONFIG.machines[event.machine].cost });
       if (['quest', 'order'].includes(event.type)) rewards.push({ type: event.type, seconds, coins: event.coins });
-      if (event.type === 'burst' && event.perfect) timing.push({ seconds, bonusAmount: event.bonusAmount, recoveryGranted: !!event.heatRecoveryTaps });
     }
   }
   function claimQuests() {
@@ -166,13 +168,6 @@ function simulate({ tapsPerSecond = 2, policy = 'balanced', features = 'ignore',
     rejectWithoutCoins(() => game.acceptCommission(option.kind, option), 'Double commission acceptance');
     if (!prematureCommissionChecked) { rejectWithoutCoins(() => game.claimCommission(active.id), 'Unfinished commission'); prematureCommissionChecked = true; }
   }
-  function armPerfect() {
-    if (!perfectTiming || game.state.orderIndex < 10 || game.state.orderIndex >= 20) return;
-    const v = game.getView();
-    if (v.timing.available && v.energy >= CONFIG.timingWindowStart && v.energy <= CONFIG.timingWindowEnd) {
-      const result = game.tryPerfectBurst(); assert.equal(result.ok, true); assert.equal(result.perfect, true); collect();
-    }
-  }
   function buyCollection() {
     if (!finishCollection || game.state.orderIndex < 20 || game.state.machine < 5) return;
     if (collectibleStart === null) collectibleStart = game.state.playedSeconds;
@@ -198,9 +193,8 @@ function simulate({ tapsPerSecond = 2, policy = 'balanced', features = 'ignore',
     buyCollection(); acceptCommission();
     if (mainline && (!finishCollection || game.getView().souvenirs.complete)) break;
     const count = scheduledTaps(game.state.playedSeconds, tapsPerSecond);
-    armPerfect();
-    for (let i = 0; i < count; i++) { game.tap(); collect(); armPerfect(); }
-    game.tick(1); collect(); armPerfect();
+    for (let i = 0; i < count; i++) { game.tap(); collect(); }
+    game.tick(1); collect();
   }
   assert.ok(mainline, 'The fresh-save route must finish within the limit');
   assert.equal(game.state.taps, Math.floor(game.state.playedSeconds * tapsPerSecond + 1e-9), 'Exact tap cadence');
@@ -237,6 +231,7 @@ function simulate({ tapsPerSecond = 2, policy = 'balanced', features = 'ignore',
 }
 
 function run() {
+  retiredAnalysis();
   const routes = [], comparisons = [];
   for (const tapsPerSecond of [2, 0.2]) for (const policy of ['balanced', 'goal-switch']) {
     const ignore = simulate({ tapsPerSecond, policy });
@@ -265,7 +260,7 @@ function run() {
       mode: 'balanced throughout; goal-switch uses rush, except premium while saving for an order-eligible next machine.',
       mainline: 'Claim quests, completed commissions and ready delivery stages immediately, then mainline orders; never postpone a mainline claim for a commission.',
       commissions: 'Accept the selected kind immediately after purchases; continue production normally; no cancellations in mainline routes. Up to three payouts per current mainline order; active commissions survive mainline advancement.',
-      artisan: 'Both the artisan route and its no-feature control call tryPerfectBurst whenever natural energy reaches 92–98 after mainline order 10 and before order 20; inspect once per second and between taps. This isolates new-feature gains from existing perfect-burst/heat-recovery benefits. The ideal scripted timing is feasible through normal controls but is not measured player accuracy.',
+      artisan: 'Historical artisan comparisons used a retired perfect-burst controller. That controller has been removed and this analysis cannot run against current rules.',
       discreteGap: 'Counts mainline/quest/delivery/commission claims and upgrades/refinements/machine purchases; excludes continuous production, taps and automatic bursts.',
       collection: 'Continue the enhanced active balanced route past order 20, claiming loop orders and buying each naturally eligible souvenir with earned coins.' },
     coreSha256: crypto.createHash('sha256').update(fs.readFileSync(path.resolve(__dirname, '../src/core.js'))).digest('hex'), baseline: BASELINE,

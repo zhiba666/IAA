@@ -58,7 +58,7 @@ function factory(options = {}) {
 function draw(game, options = {}, renderer = null) {
   const ctx = renderer ? renderer.c : stubCanvas();
   const r = renderer || new Renderer(ctx);
-  r.draw(game.getView(), Object.assign({ viewport: { width: 480, height: 920 }, modal: null, isDouyin: false, adBusy: false, saved: true, toast: '' }, options), 0.016);
+  r.draw(game.getView(), Object.assign({ viewport: { width: 480, height: 920 }, modal: null, isDouyin: false, adBusy: false, toast: '' }, options), 0.016);
   ctx.verify();
   for (const zone of r.zones) {
     finiteNumbers('hit region', [zone.x, zone.y, zone.w, zone.h]);
@@ -92,9 +92,23 @@ test('renderer: sidebar entry requires native support and navigation disables wh
   }
 });
 
-test('renderer: a fresh factory displays its fractional 0.4 coins/second rather than rounding down to zero', () => {
-  const output = draw(new Game({ now: NOW }));
+test('renderer: unlocking automatic upgrades reveals the fractional starter income without rounding it down', () => {
+  const game = new Game({ now: NOW }); game.state.upgrades.tap = 1;
+  const output = draw(game);
   assert.ok(output.text.includes('自动 +0.4 /秒'));
+});
+
+test('renderer: production receipts distinguish settled cash from reserved contract stock and stay bounded',()=>{
+  const r=new Renderer(stubCanvas());
+  r.emit({type:'produce',source:'tap',amount:5,coins:2,heldProduction:3});
+  assert.deepEqual(r.receipts.map(({target,amount})=>({target,amount})),[{target:'wallet',amount:2},{target:'order',amount:3}]);
+  r.emit({type:'burst',amount:5,coins:2,heldProduction:3});
+  assert.equal(r.receipts.length,2,'the burst celebration cannot duplicate a production settlement');
+  r.update(1);
+  r.emit({type:'produce',source:'tap',amount:5,coins:0,heldProduction:5});
+  assert.deepEqual(r.receipts.map(item=>item.target),['order'],'reserved goods cannot pretend to be spendable coins');
+  for(let i=0;i<200;i++){r.emit({type:'produce',source:'auto',amount:1,coins:.4,heldProduction:.6});r.update(.01);assert.ok(r.receipts.length<=10);}
+  draw(factory(),{},r);r.update(2);assert.equal(r.receipts.length,0);
 });
 
 function nativeAudio(options = {}) {

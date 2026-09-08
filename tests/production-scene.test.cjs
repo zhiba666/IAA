@@ -137,21 +137,27 @@ test('production scene: bursts dispatch one hero and keep fixed accents even whe
   }
 });
 
-test('production scene: perfect bursts use eight distinct accents independent of bonus size',()=>{
-  const normal=new ProductionScene(canvas());normal.emit({type:'burst',perfect:false,bonusAmount:80},5);
-  assert.equal(normal.perfectTime,0);assert.equal(normal.particles.some(p=>p.kind==='perfect'),false);
-  for(const bonusAmount of [0,80,1e90,NaN,Infinity,-2,undefined]) {
-    const scene=new ProductionScene(canvas());scene.emit({type:'burst',perfect:true,bonusAmount},5);
-    assert.ok(scene.perfectTime>0);assert.equal(scene.particles.filter(p=>p.kind==='burst').length,18);
-    const accents=scene.particles.filter(p=>p.kind==='perfect');
-    assert.equal(accents.length,8);assert.ok(accents.every(p=>p.accent));
-    assert.ok(accents.every(p=>scene.ports().some(port=>port.x===p.port)));
-    assert.equal(scene.units.length,1,'perfect accents do not duplicate the shipment');
+test('production scene: stored pressure waits for release while automatic bursts keep their feedback',()=>{
+  const scene=new ProductionScene(canvas());
+  scene.emit({type:'pressure',action:'store',amount:1000},5);
+  assert.ok(scene.pressurePulse>0);assert.equal(scene.units.length,0,'storage is not a shipment');
+  assert.equal(scene.particles.length,0);
+  for(const source of ['pressure','pot']){
+    scene.emit({type:'burst',source,amount:1000},5);
+    assert.ok(scene.burstTime>0);assert.equal(scene.particles.filter(p=>p.kind==='burst').length,18);
+    assert.equal(scene.units.length,1,'each release has one hero batch');
+    assert.equal(scene.units[0].kind,source==='pressure'?'pressure':'burst');
     scene.update(.1);scene.draw(0,0,296,117);scene.c.verify();
-    scene.update(5);assert.equal(scene.particles.length,0);assert.equal(scene.perfectTime,0);
+    scene.update(5);assert.equal(scene.particles.length,0);assert.equal(scene.burstTime,0);
   }
-  const scene=new ProductionScene(canvas());scene.emit({type:'burst',perfect:'true',bonusAmount:1000});
-  assert.equal(scene.perfectTime,0);assert.equal(scene.particles.some(p=>p.kind==='perfect'),false);
+});
+
+test('production scene: souvenir celebrations retain their distinct sparkles without shipping goods',()=>{
+  const scene=new ProductionScene(canvas());scene.emit({type:'souvenir'},5);
+  assert.equal(scene.particles.length,12);assert.equal(scene.units.length,0);
+  assert.ok(scene.particles.every(p=>p.kind==='sparkle'&&p.accent));
+  scene.update(.1);scene.draw(0,0,296,117);scene.c.verify();
+  scene.update(5);assert.equal(scene.particles.length,0);
 });
 
 test('production scene: evolution clears old output and reveals a first hero batch without blocking taps',()=>{
@@ -174,14 +180,14 @@ test('production scene: evolution clears old output and reveals a first hero bat
   assert.ok(simulate(40,4).scene.packTravel>0);
 });
 
-test('production scene: rapid taps, perfect bursts and repeated evolution stay responsive and bounded',()=>{
+test('production scene: rapid taps, automatic bursts and repeated evolution stay responsive and bounded',()=>{
   const scene=new ProductionScene(canvas());
   for(let i=0;i<90;i++) {
     const stage=i%6;scene.emit({type:'evolve',machine:stage});
     scene.emit({type:'produce',source:'tap',amount:1e90});
     assert.ok(scene.tapPulse>0);assert.equal(scene.particles.length,stage===0?3:2);
-    scene.emit({type:'burst',perfect:true,bonusAmount:1e90});
-    assert.ok(scene.burstTime>0);assert.ok(scene.perfectTime>0);
+    scene.emit({type:'burst',source:'pot',amount:1e90});
+    assert.ok(scene.burstTime>0);
     assert.equal(scene.particles.filter(p=>p.kind==='burst').length,18);
     scene.update(.05,{state:{machine:stage}});
     assert.ok(scene.units.every(unit=>unit.stage===stage),'new generations do not retain old production units');
@@ -189,10 +195,10 @@ test('production scene: rapid taps, perfect bursts and repeated evolution stay r
     scene.draw(0,0,296,378,{state:{machine:stage}},{topInset:104,bottomInset:112});
   }
   scene.update(.8);assert.ok(scene.units.some(unit=>unit.kind==='evolve'&&unit.hero&&unit.stage===5));
-  scene.emit({type:'burst',perfect:true});assert.ok(scene.units.some(unit=>unit.kind==='burst'&&unit.hero));
+  scene.emit({type:'burst',source:'pot'});assert.ok(scene.units.some(unit=>unit.kind==='burst'&&unit.hero));
   scene.c.verify();scene.update(5);
   assert.equal(scene.units.length,0);assert.equal(scene.particles.length,0);
-  assert.equal(scene.burstTime,0);assert.equal(scene.perfectTime,0);assert.equal(scene.evolveTime,0);
+  assert.equal(scene.burstTime,0);assert.equal(scene.evolveTime,0);
 });
 
 test('production scene: claimed orders briefly depart while production remains responsive',()=>{
@@ -207,7 +213,7 @@ test('production scene: every generation and preview draws finite geometry witho
   for(let stage=0;stage<6;stage++) {
     const scene=simulate(20,stage).scene;
     scene.emit({type:'evolve',machine:stage});scene.update(.85);
-    scene.emit({type:'burst',amount:300,perfect:true,bonusAmount:50},stage);
+    scene.emit({type:'burst',amount:300,source:'pot'},stage);
     for(const [w,h] of [[432,220],[288,145],[640,240],[296,108],[296,117],[366,393]])scene.draw(0,0,w,h,{state:{machine:stage}});
     scene.draw(12,53,366,630,{state:{machine:stage}},{topInset:128,bottomInset:106});
     scene.drawMachinePreview(20,20,110,stage);scene.drawProductionPreview(20,20,110,stage);scene.c.verify();
@@ -230,7 +236,7 @@ test('production scene: framing accommodates phone layouts and reserved overlay 
 
 test('production scene: previews leave active output, animation and generation state untouched',()=>{
   const scene=simulate(60,4).scene;
-  scene.emit({type:'burst',perfect:true,bonusAmount:200},4);scene.emit({type:'order'});
+  scene.emit({type:'burst',source:'pot',amount:1200},4);scene.emit({type:'order'});
   const before=snapshot(scene),units=scene.units,particles=scene.particles;
   for(let stage=0;stage<6;stage++) {
     scene.drawMachinePreview(20,20,110,stage);scene.drawProductionPreview(20,20,110,stage);
@@ -243,7 +249,7 @@ test('production scene: previews leave active output, animation and generation s
 test('production scene: visual events and rendering never mutate economic state or payouts',()=>{
   const view=deepFreeze({state:{machine:4,coins:213,stock:47,totalProduced:980,upgrades:{auto:12,value:12},refinements:{yield:2,value:1}},productionModes:{current:'premium'}});
   const before=structuredClone(view),scene=new ProductionScene(canvas());
-  for(const event of [{type:'produce',source:'auto',amount:100},{type:'produce',source:'tap',amount:80},{type:'produce',source:'burst',amount:1000},{type:'burst',amount:1000,perfect:true,bonusAmount:200},{type:'evolve',machine:4},{type:'order'}])scene.emit(deepFreeze(event),view);
+  for(const event of [{type:'produce',source:'auto',amount:100},{type:'produce',source:'tap',amount:80},{type:'produce',source:'burst',amount:1000},{type:'burst',amount:1000,source:'pot'},{type:'evolve',machine:4},{type:'order'}])scene.emit(deepFreeze(event),view);
   for(let i=0;i<20;i++) {
     scene.update(.1,view);scene.draw(0,0,366,393,view);
     scene.drawProductionPreview(0,0,80,i%6);
@@ -256,7 +262,7 @@ test('production scene: invalid events and long pauses cannot create delayed pro
   for(const event of [null,undefined,{},false])scene.emit(event);
   for(const source of ['auto','tap'])for(const amount of [-1,0,NaN,Infinity,undefined])scene.emit({type:'produce',source,amount});
   scene.update(NaN);scene.update(-1);assert.equal(scene.pendingAuto,0);assert.equal(dispatches.length,0);
-  scene.emit({type:'burst',perfect:true});scene.emit({type:'evolve',machine:5});
+  scene.emit({type:'burst',source:'pot'});scene.emit({type:'evolve',machine:5});
   scene.emit({type:'produce',source:'auto',amount:1e90});
   const count=dispatches.length;scene.update(5);scene.update(.12);
   assert.equal(scene.particles.length,0);assert.equal(scene.units.length,0);assert.equal(scene.pendingAuto,0);

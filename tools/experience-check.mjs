@@ -105,7 +105,7 @@ function monitor() {
           loopIndex: state.loopIndex, name: view.order.name, progress: view.order.progress, stageProgress: view.order.stageProgress,
           target: view.order.target, reward: view.order.reward },
         canEvolve: view.canEvolve, evolveReason: view.evolveReason,
-        production: view.production, energy: view.energy, timing: view.timing ? copy(view.timing) : null, boostSeconds: view.boostSeconds
+        production: view.production, energy: view.energy, boostSeconds: view.boostSeconds
       };
       const analytics = api.analytics();
       report.analytics = Array.isArray(analytics) ? copy(analytics) : [];

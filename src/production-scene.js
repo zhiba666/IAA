@@ -14,8 +14,10 @@ const PRODUCTION_FORMS = Object.freeze([
 ].map(form=>Object.freeze(form)));
 const WINDOW = .12;
 const FRAME_X = [[100,346],[102,330],[102,330],[92,340],[74,378],[80,378]];
-const FRAME_Y = [[80,243],[54,243],[40,243],[47,243],[31,243],[0,243]], PERFECT_DURATION = 1.8;
+const FRAME_Y = [[80,243],[54,243],[40,243],[47,243],[31,243],[0,243]];
 const C = { ink:'#283e32', green:'#366348', yellow:'#f4ca58', cream:'#fff9e8', line:'#b9cbae' };
+const MODULE_IDS = ['pressure','coating','packer','feeder','reclaimer','inspector'];
+const MODULE_CENTERS = {pressure:[69,174],coating:[349,136],packer:[356,195],feeder:[69,70],reclaimer:[69,113],inspector:[356,77]};
 const BAY = [
   {wall:'#e1ebd8',grid:'#d4e0cb',wood:'#b3bf9e',trim:'#8f9d7c'},
   {wall:'#e2ede0',grid:'#d2e2d0',wood:'#a9bfa4',trim:'#78997c'},
@@ -32,10 +34,13 @@ class ProductionScene {
   constructor(ctx) {
     this.c=ctx;this.t=0;this.stage=0;this.productionMode='balanced';this.particles=[];this.pendingAuto=0;this.windowTime=0;
     this.autoCredit=0;this.autoCadence=0;this.flow=0;this.packTravel=0;this.portIndex=0;
-    this.tapPulse=0;this.bucketPulse=0;this.burstTime=0;this.perfectTime=0;this.evolveTime=0;this.evolveLaunched=false;this.orderTime=0;
-    this.producedInWindow=0;this.emitted=0;this.units=[];this.dispatched=0;this.lastDispatch=-10;
+    this.tapPulse=0;this.bucketPulse=0;this.burstTime=0;this.evolveTime=0;this.evolveLaunched=false;this.orderTime=0;
+    this.units=[];this.dispatched=0;this.lastDispatch=-10;
     this.evolveFrom=0;this.impactTime=0;
     this.autoLevel=0;this.recipeTier=0;this.yieldLevel=0;this.finishLevel=0;this.driveTime=0;this.souvenirs=[];
+    this.modules=[];this.storedPressure=false;this.chargeProgress=0;this.coatingProgress=0;this.packProgress=0;
+    this.coatingPulse=0;this.packerPulse=0;this.pressurePulse=0;this.contractKind=null;
+    this.feederPulse=0;this.inspectorPulse=0;this.moduleInstalls={};
   }
 
   syncView(view) {
@@ -49,6 +54,14 @@ class ProductionScene {
     this.yieldLevel=clamp(Math.floor(positive(refinements.yield)),0,3);
     this.finishLevel=clamp(Math.floor(positive(refinements.value)),0,3);
     this.souvenirs=Array.isArray(state.souvenirs)?state.souvenirs.filter(key=>['sign','cup','starlight'].includes(key)):[];
+    const factory=view.factory;
+    const owned=factory&&(Array.isArray(factory.owned)?factory.owned:factory.equipped);
+    this.modules=factory&&factory.unlocked&&Array.isArray(owned)?MODULE_IDS.filter(id=>owned.includes(id)):[];
+    this.storedPressure=!!(factory&&factory.storedBurst);
+    this.chargeProgress=clamp(positive(factory&&factory.chargeProgress),0,1);
+    this.coatingProgress=clamp(positive(factory&&factory.coatingProgress),0,1);
+    this.packProgress=clamp(positive(factory&&factory.packProgress),0,1);
+    this.contractKind=view.contracts&&view.contracts.active?view.contracts.active.kind:null;
   }
 
   setStage(stage) {
@@ -66,25 +79,33 @@ class ProductionScene {
       else if(event.source==='tap') {
         this.tapPulse=1;
         this.spray(this.stage===0?3:2,'tap');this.dispatch('tap');
-      }
+      } else if(event.source==='feeder')this.feederPulse=1;
       // The core sends a separate burst event with its payout after produce/burst.
+    } else if(event.type==='batch') {
+      if(event.kind==='coating')this.coatingPulse=1;
+      if(event.kind==='packer')this.packerPulse=1;
+      if(event.kind==='feeder')this.feederPulse=1;
+      if(positive(event.amount)&&['coating','packer'].includes(event.kind))this.dispatch(event.kind);
+    } else if(event.type==='pressure'&&event.action==='store') {
+      this.pressurePulse=1;this.tapPulse=.5;
+    } else if(event.type==='module') {
+      const owned=Array.isArray(event.owned)?event.owned:event.equipped;
+      if(Array.isArray(owned))this.modules=MODULE_IDS.filter(id=>owned.includes(id));
+      if(event.action==='unlock'&&MODULE_IDS.includes(event.id))this.moduleInstalls[event.id]=1.4;
     } else if(event.type==='burst') {
       this.burstTime=1.6;this.tapPulse=1;this.bucketPulse=1;
-      this.spray(18,'burst',true);this.dispatch('burst');
-      this.perfectTime=event.perfect===true?PERFECT_DURATION:0;
-      if(this.perfectTime>0) {
-        // The bonus changes visual richness only; the core remains the payout authority.
-        this.spray(8,'perfect',true);
-      }
+      this.spray(18,'burst',true);this.dispatch(event.source==='pressure'?'pressure':'burst');
+      if(event.source==='pressure')this.pressurePulse=1;
     } else if(event.type==='evolve') {
       this.evolveFrom=this.stage;
       if(Number.isFinite(event.machine))this.setStage(machineStage(event.machine));
       this.units.length=0;this.particles.length=0;
       this.evolveTime=EVOLVE_DURATION;this.evolveLaunched=false;this.tapPulse=0;
     } else if(event.type==='souvenir') {
-      this.spray(12,'perfect',true);
+      this.spray(12,'sparkle',true);
     } else if(event.type==='order'||event.type==='delivery') {
       this.orderTime=1.65;
+      if(event.type==='order'&&this.modules.includes('inspector'))this.inspectorPulse=1;
     }
   }
 
@@ -93,9 +114,14 @@ class ProductionScene {
     this.syncView(view);
     this.t+=dt;this.tapPulse=Math.max(0,this.tapPulse-dt*5);
     this.bucketPulse=Math.max(0,this.bucketPulse-dt*4);this.burstTime=Math.max(0,this.burstTime-dt);
-    this.perfectTime=Math.max(0,this.perfectTime-dt);
     this.evolveTime=Math.max(0,this.evolveTime-dt);this.orderTime=Math.max(0,this.orderTime-dt);
     this.impactTime=Math.max(0,this.impactTime-dt);
+    this.coatingPulse=Math.max(0,this.coatingPulse-dt*2);this.packerPulse=Math.max(0,this.packerPulse-dt*2);this.pressurePulse=Math.max(0,this.pressurePulse-dt);
+    this.feederPulse=Math.max(0,this.feederPulse-dt*1.5);this.inspectorPulse=Math.max(0,this.inspectorPulse-dt*.8);
+    for(const id of Object.keys(this.moduleInstalls)) {
+      this.moduleInstalls[id]=Math.max(0,this.moduleInstalls[id]-dt);
+      if(!this.moduleInstalls[id])delete this.moduleInstalls[id];
+    }
     // Drop stale effects after a pause instead of replaying an expensive backlog.
     if(dt>1) {
       this.particles.length=0;this.units.length=0;this.pendingAuto=0;this.windowTime=0;this.autoCredit=0;
@@ -112,7 +138,7 @@ class ProductionScene {
     this.windowTime+=dt;this.autoCadence+=dt;
     if(this.windowTime+1e-9>=WINDOW) {
       const elapsed=this.windowTime,amount=this.pendingAuto;
-      this.producedInWindow=amount;this.pendingAuto=0;this.windowTime=0;
+      this.pendingAuto=0;this.windowTime=0;
       const visibleRate=amount>0?Math.min(10,2*Math.log2(1+amount/elapsed)):0;
       this.flow=visibleRate;
       this.autoCredit=Math.min(16,this.autoCredit+visibleRate*elapsed*(this.productionMode==='rush'?1.15:this.productionMode==='premium'?.85:1));
@@ -125,14 +151,14 @@ class ProductionScene {
   }
 
   dispatch(kind) {
-    const hero=kind==='burst'||kind==='evolve';
+    const hero=kind==='burst'||kind==='pressure'||kind==='evolve';
     // Production is settled by Game. A package is a visual batch, never inventory.
     const clearAt=[.3,.76,.98,.98,.78,.94][this.stage];
     if(!hero&&(this.t-this.lastDispatch<.5||this.units.some(unit=>unit.progress<clearAt)||this.units.filter(unit=>!unit.hero).length>=3))return false;
     if(this.evolveTime>2&&kind!=='evolve')return false;
     if(hero)this.units.length=0;
     if(this.units.length>=UNIT_LIMIT)this.units.shift();
-    this.units.push({stage:this.stage,kind,hero,progress:0,duration:hero?2.6:2.7});
+    this.units.push({stage:this.stage,kind,hero,coated:kind==='coating',boxed:kind==='packer',progress:0,duration:hero?2.6:2.7});
     this.lastDispatch=this.t;this.dispatched++;return true;
   }
 
@@ -145,7 +171,7 @@ class ProductionScene {
   spray(count,kind,priority=false) {
     count=clamp(Math.floor(count),0,PARTICLE_LIMIT);
     if(priority&&this.particles.length+count>PARTICLE_LIMIT)this.particles.splice(0,this.particles.length+count-PARTICLE_LIMIT);
-    const ports=this.ports(),perfect=kind==='perfect',burst=kind==='burst'||perfect,celebrate=kind==='celebrate';
+    const ports=this.ports(),sparkle=kind==='sparkle',burst=kind==='burst'||sparkle,celebrate=kind==='celebrate';
     for(let i=0;i<count&&this.particles.length<PARTICLE_LIMIT;i++) {
       const port=ports[this.portIndex++%ports.length],spread=burst?140:celebrate?120:45;
       const originX=celebrate?55+Math.random()*322:port.x;
@@ -153,8 +179,7 @@ class ProductionScene {
         vx:(Math.random()-.5)*spread+(216-originX)*.22,vy:celebrate?-35-Math.random()*65:burst?-100-Math.random()*140:-50-Math.random()*65,
         gravity:burst?280:240,life:burst?1.7:celebrate?1.5:1.25,r:(burst?4.5:3.5)+Math.random()*2,
         a:Math.random()*6,floor:celebrate?213:this.stage>=4?180:183,kind,port:port.x,
-        accent:perfect?(i%2?'#568861':'#d5a434'):null});
-      this.emitted++;
+        accent:sparkle?(i%2?'#568861':'#d5a434'):null});
     }
   }
 
@@ -190,7 +215,8 @@ class ProductionScene {
     // Overlay controls reserve room without reducing the card's full backdrop.
     const topInset=clamp(positive(options&&options.topInset),0,h);
     const bottomInset=clamp(positive(options&&options.bottomInset),0,h-topInset);
-    const height=h-topInset-bottomInset,[top,bottom]=FRAME_Y[this.stage],[left,right]=FRAME_X[this.stage];
+    const height=h-topInset-bottomInset,[top,bottom]=FRAME_Y[this.stage];
+    const [left,right]=this.modules.length?[Math.min(44,FRAME_X[this.stage][0]),Math.max(390,FRAME_X[this.stage][1])]:FRAME_X[this.stage];
     const scale=Math.min(w/(right-left),height/(bottom-top));
     return {scale,x:w/2-(left+right)/2*scale,y:topInset+(height-(bottom-top)*scale)/2-top*scale};
   }
@@ -199,6 +225,7 @@ class ProductionScene {
     if(![x,y,w,h].every(Number.isFinite)||w<=0||h<=0)return;
     this.syncView(view);
     const c=this.c,frame=this.framing(w,h,options),scale=frame.scale,bay=BAY[this.stage];
+    this.screenFrame={x:x+frame.x,y:y+frame.y,scale};
     c.save();this.box(x,y,w,h,18,bay.wall);c.clip();
     // Continue the subtle backdrop over the full card, including tall screens.
     for(let xx=x+16;xx<x+w;xx+=32)this.line(xx,y,xx,y+h,bay.grid,.6);
@@ -210,17 +237,6 @@ class ProductionScene {
       const progress=1-this.burstTime/1.6;c.save();c.globalAlpha=Math.max(0,(1-progress)*.5);
       this.circle(216,136,26+progress*145,'#fff2b3');
       for(let i=0;i<12;i++){const a=i*Math.PI/6;this.line(216+Math.cos(a)*(55+progress*60),136+Math.sin(a)*(55+progress*60),216+Math.cos(a)*(66+progress*76),136+Math.sin(a)*(66+progress*76),'#e8bd49',3);}c.restore();
-    }
-    if(this.perfectTime>0) {
-      const progress=1-this.perfectTime/PERFECT_DURATION,radius=55+progress*57;
-      c.save();c.globalAlpha=clamp((1-progress)*1.25,0,1);
-      c.beginPath();c.arc(216,130,radius,0,Math.PI*2);c.strokeStyle='#568861';c.lineWidth=3;c.stroke();
-      c.beginPath();c.arc(216,130,radius+8,0,Math.PI*2);c.strokeStyle='#e0b33f';c.lineWidth=2;c.stroke();
-      for(let i=0;i<8;i++) {
-        const a=i*Math.PI/4+progress*.35;
-        this.sparkle(216+Math.cos(a)*(radius+16),130+Math.sin(a)*(radius+16),6*(1-progress*.5),a,i%2?'#568861':'#d5a434');
-      }
-      c.restore();
     }
     const elapsed=EVOLVE_DURATION-this.evolveTime,retiring=this.evolveTime>0&&elapsed<.28;
     const install=this.evolveTime>0?1-clamp((elapsed-.28)/.52,0,1):0;
@@ -236,10 +252,118 @@ class ProductionScene {
     c.restore();
     c.save();if(this.evolveTime>2)c.globalAlpha=1-install;
     this.outputStation();c.restore();
+    if(!retiring)this.drawAttachments();
     for(const unit of this.units)this.drawUnit(unit);
-    for(const p of this.particles){c.save();c.globalAlpha=clamp(p.life*3,0,1);if(p.kind==='perfect')this.sparkle(p.x,p.y,p.r,p.a,p.accent);else this.popcorn(p.x,p.y,p.r,p.a);c.restore();}
+    for(const p of this.particles){c.save();c.globalAlpha=clamp(p.life*3,0,1);if(p.kind==='sparkle')this.sparkle(p.x,p.y,p.r,p.a,p.accent);else this.popcorn(p.x,p.y,p.r,p.a);c.restore();}
     if(this.orderTime>0)this.shipment();
     c.restore();
+  }
+
+  drawModulePreview(x,y,size,id) {
+    if(!(size>0)||!MODULE_IDS.includes(id))return;
+    const c=this.c;c.save();c.translate(x,y);c.scale(size/40,size/40);
+    if(id==='pressure'){
+      this.box(9,6,22,29,9,'#72aeb9',C.ink);this.box(14,1,12,8,3,'#366f83');
+      this.circle(20,17,7,'#f4fbf9');this.line(20,17,24,13,'#366f83',2);this.line(11,30,29,30,'#366f83',3);
+    }else if(id==='coating'){
+      this.box(5,7,30,22,6,'#dca14b',C.ink);this.circle(20,18,8,'#fff0c5');
+      this.line(13,18,27,18,'#b87a30',3);this.line(20,11,20,25,'#b87a30',3);this.circle(13,34,3,'#d69b40');this.circle(26,35,2,'#d69b40');
+    }else if(id==='packer'){
+      this.box(5,21,29,16,3,'#a0b48d',C.ink);this.line(20,21,20,37,'#e5c769',3);
+      this.line(7,23,7,7,'#587653',4);this.line(7,7,29,7,'#587653',4);this.line(29,7,29,17,'#587653',4);this.line(25,17,33,17,'#587653',3);
+    }else if(id==='feeder'){
+      this.box(4,4,32,7,3,'#cd9860',C.ink);
+      c.beginPath();c.moveTo(7,11);c.lineTo(33,11);c.lineTo(25,26);c.lineTo(15,26);c.closePath();c.fillStyle='#edc886';c.fill();
+      for(let i=0;i<3;i++)this.circle(13+i*7,14+i%2*4,2.7,'#fff3ba');
+      this.box(15,25,10,8,2,'#987040');this.line(6,35,34,35,'#617756',3);
+      this.circle(17,36,2,'#e6b350');this.circle(24,36,2,'#e6b350');
+    }else if(id==='reclaimer'){
+      this.box(3,8,34,28,6,'#79aaa2',C.ink);
+      for(let i=0;i<3;i++)this.line(8+i*5,13,8+i*5,30,'#447e78',2);
+      this.circle(28,22,9,'#dcefe1');this.recoveryRotor(28,22,6,0);
+      this.line(8,8,8,3,'#73a196',3);this.line(19,8,19,3,'#73a196',3);
+    }else if(id==='inspector'){
+      this.box(4,3,32,25,5,'#998cae',C.ink);this.box(8,7,24,16,3,'#edf4df');
+      this.line(13,15,18,20,'#527d59',3);this.line(18,20,27,10,'#527d59',3);
+      this.line(20,28,20,34,'#78668c',4);this.box(9,34,22,4,2,'#78668c');
+    }
+    c.restore();
+  }
+
+  recoveryRotor(x,y,r,angle) {
+    for(let i=0;i<4;i++){
+      const a=angle+i*Math.PI/2;
+      this.line(x+Math.cos(a)*r*.25,y+Math.sin(a)*r*.25,x+Math.cos(a+.35)*r,y+Math.sin(a+.35)*r,'#447e78',2.4);
+    }
+    this.circle(x,y,2,'#f3e6a8');
+  }
+
+  drawAttachment(id,draw) {
+    if(!this.modules.includes(id))return;
+    const c=this.c,remaining=this.moduleInstalls[id]||0,[x,y]=MODULE_CENTERS[id];
+    c.save();
+    if(remaining>0){
+      const progress=1-remaining/1.4;
+      c.translate(0,-Math.sin(progress*Math.PI)*4);
+      c.save();c.globalAlpha*=Math.sin(progress*Math.PI)*.5;
+      this.circle(x,y,25+progress*7,'#fff4be');
+      for(const sign of [-1,1])this.sparkle(x+sign*22,y-21+progress*6,3+Math.sin(progress*Math.PI)*2,progress,'#d1ae45');
+      c.restore();
+    }
+    draw();c.restore();
+  }
+
+  drawAttachments() {
+    const c=this.c;
+    // Each device owns a compact side bay. Output remains on the center lane,
+    // including the wide carton machine and the final pallet tower.
+    this.drawAttachment('feeder',()=>{
+      this.line(79,87,94,87,'#987040',4);this.line(94,87,105,103,'#987040',4);
+      this.drawModulePreview(49,48,40,'feeder');
+      if(this.feederPulse>0)for(let i=0;i<3;i++){
+        const progress=(1-this.feederPulse+i*.2)%1;
+        this.circle(80+progress*20,86+progress*14,2.5,'#f1c663');
+      }
+    });
+    this.drawAttachment('reclaimer',()=>{
+      this.box(51,98,36,29,6,'#79aaa2',C.ink);
+      for(let i=0;i<3;i++)this.line(56+i*5,104,56+i*5,121,'#447e78',2);
+      this.circle(77,112,9,'#dcefe1');this.recoveryRotor(77,112,6,this.t*1.7);
+      this.line(57,98,57,92,'#73a196',3);this.line(66,98,66,92,'#73a196',3);
+      this.circle(83,101,2.1,'#e9da79');
+    });
+    this.drawAttachment('pressure',()=>{
+      this.line(81,174,131,174,'#558a95',4);this.line(131,174,140,153,'#558a95',4);
+      this.box(51,140,36,67,13,'#7eb4be',C.ink);this.box(60,130,18,14,4,'#366f83');
+      this.box(59,172,20,27,5,'#eaf6f4');
+      const fill=this.storedPressure?1:this.chargeProgress;
+      if(fill)this.box(61,197-23*fill,16,23*fill,3,this.storedPressure?'#f4ca58':'#64a4b3');
+      this.circle(69,157,11,'#fffdf1');this.line(69,157,69+Math.cos(-2.3+fill*3.5)*7,157+Math.sin(-2.3+fill*3.5)*7,'#366f83',2);
+      if(this.storedPressure)this.circle(79,140,4,'#f4ca58');
+      if(this.pressurePulse>0){c.save();c.globalAlpha*=this.pressurePulse;this.circle(69,171,25,'rgba(101,167,183,.25)');c.restore();}
+    });
+    this.drawAttachment('inspector',()=>{
+      this.drawModulePreview(336,54,40,'inspector');
+      if(this.inspectorPulse>0){
+        c.save();c.globalAlpha*=this.inspectorPulse;
+        this.box(344,61,24,16,3,'#f6efb7');this.line(349,69,354,74,'#527d59',3);this.line(354,74,363,64,'#527d59',3);
+        this.sparkle(377,61,5,this.t,'#d8b14e');c.restore();
+      }
+    });
+    this.drawAttachment('coating',()=>{
+      this.line(339,154,301,181,'#bd8840',5);this.box(329,114,40,45,9,'#dfaa5b',C.ink);
+      this.circle(349,136,15,'#ffe7ad');
+      const a=this.driveTime*1.4;for(let i=0;i<4;i++){const angle=a+i*Math.PI/2;this.line(349+Math.cos(angle)*4,136+Math.sin(angle)*4,349+Math.cos(angle)*11,136+Math.sin(angle)*11,'#b77830',3);}
+      this.box(344,157,10,13,3,'#bd8840');
+      if(this.coatingPulse>0)for(let i=0;i<3;i++)this.circle(301+i*8,181+((this.t*24+i*8)%22),2.6,'#c58736');
+      this.box(332,102,34,6,3,'#f7e7bc');if(this.coatingProgress)this.box(332,102,34*this.coatingProgress,6,3,'#c58736');
+    });
+    this.drawAttachment('packer',()=>{
+      this.line(322,222,382,222,'#6c8b61',5);this.line(331,219,331,173,'#6c8b61',5);this.line(331,173,370,173,'#6c8b61',5);
+      const press=this.packerPulse*7;this.line(370,173,370,192+press,'#6c8b61',5);this.line(360,192+press,380,192+press,'#466746',4);
+      this.box(344,202,27,18,3,'#c8b080');this.line(357,202,357,220,'#f4da82',4);
+      this.box(330,161,42,6,3,'#e9eedb');if(this.packProgress)this.box(330,161,42*this.packProgress,6,3,'#739568');
+    });
   }
 
   workshop() {
@@ -419,7 +543,16 @@ class ProductionScene {
       c.save();c.globalAlpha*=.55*(1-travel);this.box(x-48,y-38,96,56,10,'#fff1bc');c.restore();
     }
     const size=stage===0?1:unit.hero?1.1:stage===3?.82:.88;
-    this.product(stage,x,y,size,form);
+    if(unit.boxed)this.product(Math.max(4,stage),x,y,size*.9,form);
+    else this.product(stage,x,y,size,form);
+    if(unit.coated){
+      for(let i=0;i<4;i++)this.line(x-20+i*13,y-27,x-15+i*13,y-15,'#d19434',3);
+      this.sparkle(x+37,y-29,5,this.t,'#d19434');
+    }
+    if(unit.kind==='pressure'){
+      this.line(x-47,y-14,x-34,y-14,'#4d91a3',3);this.line(x-51,y-5,x-34,y-5,'#4d91a3',3);
+      this.sparkle(x+40,y-24,6,this.t,'#4d91a3');
+    }
     if(unit.hero&&form>.9&&travel<.55){
       this.sparkle(x-43,y-28,5,0,'#d4ad47');this.sparkle(x+43,y-20,4,0,'#6b936e');
     }
@@ -553,4 +686,3 @@ class ProductionScene {
 }
 
 module.exports={ProductionScene,PARTICLE_LIMIT,UNIT_LIMIT,PRODUCTION_FORMS,EVOLVE_DURATION};
-

@@ -1,9 +1,12 @@
 // Original PCM sound assets for the native mini-game audio API.
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, unlink } from 'node:fs/promises';
 import path from 'node:path';
-const sounds={pop:[.10,[760]],burst:[.42,[220,330,440,550,660,770]],upgrade:[.48,[440,554,659,880]],machine:[1.44,[180,120,90,120,190,440,554,659,880]],order:[.36,[659,880,1047]],complete:[.82,[523,659,784,1047,784,1047]],click:[.07,[440]],error:[.14,[160]],heatReady:[.2,[880,1175]]};
+const sounds={pop:[.10,[760]],burst:[.42,[220,330,440,550,660,770]],upgrade:[.48,[440,554,659,880]],machine:[1.44,[180,120,90,120,190,440,554,659,880]],order:[.36,[659,880,1047]],complete:[.82,[523,659,784,1047,784,1047]],click:[.07,[440]],error:[.14,[160]]};
 export async function generateAudio(directory){
   await mkdir(directory,{recursive:true});
+  // A previous build may still contain the retired perfect-window cue.
+  try { await unlink(path.join(directory,'heatReady.wav')); }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
   for(const [name,[duration,notes]] of Object.entries(sounds)){
     const rate=22050,count=Math.ceil(rate*duration),buf=Buffer.alloc(44+count*2);
     buf.write('RIFF',0);buf.writeUInt32LE(36+count*2,4);buf.write('WAVEfmt ',8);buf.writeUInt32LE(16,16);buf.writeUInt16LE(1,20);buf.writeUInt16LE(1,22);buf.writeUInt32LE(rate,24);buf.writeUInt32LE(rate*2,28);buf.writeUInt16LE(2,32);buf.writeUInt16LE(16,34);buf.write('data',36);buf.writeUInt32LE(count*2,40);

@@ -1,14 +1,16 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core.js');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core.js');
 
 const now = 1000000;
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-8, Math.abs(expected) * 1e-10), `${actual} != ${expected}`);
 function factory() {
-  const game = new Game({ now });
+  const game = legacyGame({ now });
   Object.assign(game.state, { playedSeconds: 120, coins: 20000, totalCoins: 20000, orderIndex: 3, totalProduced: 2500 });
   game.state.upgrades = { tap: 3, auto: 4, value: 2 };
+  game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));
   return game;
 }
 function copy(game) { return new Game({ save: game.exportSave(now), now }); }
@@ -22,7 +24,6 @@ test('all reward previews are readable view data and do not change saves, events
     assert.equal(typeof offer.impact.title, 'string', kind);
     assert.equal(typeof offer.impact.detail, 'string', kind);
     assert.ok(offer.impact.title.length && offer.impact.detail.length, kind);
-    assert.equal(offer.cooldown, 0, kind);
   }
   assert.deepEqual(game.exportSave(now), before);
   assert.deepEqual(game.drainEvents(), []);

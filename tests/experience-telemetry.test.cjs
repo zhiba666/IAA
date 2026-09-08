@@ -2,9 +2,10 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Game, CONFIG } = require('../src/core');
+const { legacyGame } = require('./legacy-fixture.cjs');
 const { selectCurrentTarget, createExperienceTracker } = require('../src/experience');
 const NOW = 1800000000000;
-const fresh = () => new Game({ now: NOW });
+const fresh = () => legacyGame({ now: NOW });
 const entries = (tracker, event) => tracker.export().events.filter(item => item.event === event);
 const drain = (tracker, game) => tracker.recordEvents(game.drainEvents(), game.getView());
 function playable(game) {
@@ -12,29 +13,6 @@ function playable(game) {
     upgrades: { tap: 1, auto: 1, value: 0 }, playedSeconds: 90, coins: 100 });
 }
 
-test('experience telemetry: one target coordinates tracked tasks, direct claims and first-session priority', () => {
-  const game = fresh();
-  assert.equal(selectCurrentTarget(game.getView()).source, 'tutorial');
-  for (let i = 0; i < 5; i++) game.tap();
-  let target = selectCurrentTarget(game.getView());
-  assert.equal(target.id, 'start-taps'); assert.equal(target.action, 'questClaim:start-taps');
-  assert.equal(target.source, 'quest'); assert.equal(target.ready, true); assert.match(target.text, /8 金币/);
-  const tracked = { questGuideId: 'start-auto-upgrade' };
-  target = selectCurrentTarget(game.getView(), tracked);
-  assert.equal(target.id, 'start-auto-upgrade'); assert.equal(target.action, 'upgrade:auto');
-  assert.equal(target.title, '让火力接班'); assert.match(target.text, /下一级还差/);
-  game.state.coins = 100; game.buyUpgrade('auto');
-  target = selectCurrentTarget(game.getView(), tracked);
-  assert.equal(target.action, 'questClaim:start-auto-upgrade');
-  game.claimQuest('start-auto-upgrade');
-  assert.equal(selectCurrentTarget(game.getView(), tracked).id, 'start-taps');
-  game.state.totalProduced = 50;
-  assert.equal(selectCurrentTarget(game.getView()).source, 'order', 'first ready order precedes untracked old task rewards');
-  assert.equal(selectCurrentTarget(game.getView(), { questGuideId: 'start-taps' }).source, 'quest');
-  game.claimOrder(); game.state.orderIndex = 3; game.state.coins = CONFIG.machines[1].cost;
-  assert.equal(selectCurrentTarget(game.getView()).action, 'machine');
-  assert.equal(selectCurrentTarget(game.getView(), { questGuideId: 'expand-electric' }).action, 'machine', 'locked tracked task is ignored');
-});
 
 test('experience telemetry: events retain genuine first milestones without inventing history from an existing save', () => {
   const game = fresh(), tracker = createExperienceTracker({ initialView: game.getView() });
@@ -58,7 +36,7 @@ test('experience telemetry: target and actual rendered ad entries deduplicate un
   tracker.observe(game.getView(), detail);
   game.tick(1); tracker.observe(game.getView(), detail); tracker.observe(game.getView(), detail);
   assert.equal(entries(tracker, 'experience_target_visible').length, 1, 'changing countdown text is not a new target');
-  assert.equal(entries(tracker, 'experience_tutorial_step').length, 1);
+  assert.equal(entries(tracker, 'experience_tutorial_step').length, 0, 'established factories do not replay beginner steps');
   assert.equal(entries(tracker, 'experience_ad_entry').length, 1);
   assert.equal(tracker.export().ads.turbo.unavailableImpressions, 1);
   game.state.playedSeconds = 90; tracker.observe(game.getView(), detail);
@@ -69,7 +47,7 @@ test('experience telemetry: target and actual rendered ad entries deduplicate un
   tracker.recordAdClick('turbo', game.getView(), { placement: 'factory' });
   assert.equal(tracker.export().ads.turbo.clicks, 1);
   tracker.observe(game.getView(), { target: selectCurrentTarget(game.getView(), { questGuideId: 'start-auto-upgrade' }) });
-  assert.equal(entries(tracker, 'experience_tutorial_step').length, 2, 'a hidden underlying tutorial is not counted as visible');
+  assert.equal(entries(tracker, 'experience_tutorial_step').length, 0, 'quest tracking cannot invent beginner exposure');
 });
 
 test('experience telemetry: recommendation exposure deduplicates changing prices, estimates and copy while keeping its current snapshot', () => {
@@ -242,27 +220,6 @@ test('experience telemetry: modal and hidden target semantics preserve ad exposu
   assert.deepEqual(tracker.export().target, selectCurrentTarget(game.getView()));
 });
 
-test('experience telemetry: free timing attempts record their result without replacing the first free burst milestone', () => {
-  const game = fresh(), tracker = createExperienceTracker({ initialView: game.getView() });
-  assert.equal(game.tryPerfectBurst().ok, false);drain(tracker, game);
-  assert.equal(entries(tracker, 'experience_timing').length, 0);
-  assert.equal(tracker.export().milestones.first_burst, undefined);
-  game.tick(60);game.tick(40);drain(tracker, game);
-  const firstBurst=tracker.export().milestones.first_burst;
-  assert.equal(firstBurst.data.name, 'first_burst');
-  assert.equal(game.tryPerfectBurst().ok, false);drain(tracker, game);
-  game.tick(60);game.tick(20);drain(tracker, game);
-  const before=game.exportSave(NOW);
-  assert.equal(game.tryPerfectBurst().perfect, false);
-  assert.equal(game.tryPerfectBurst().ok, false);drain(tracker, game);
-  assert.deepEqual(game.exportSave(NOW), before, 'a miss neither charges nor changes production');
-  game.tick(20);game.tick(60);game.tick(34);drain(tracker, game);
-  assert.equal(game.tryPerfectBurst().perfect, true);
-  game.tick(2);drain(tracker, game);
-  const attempts=entries(tracker, 'experience_timing');
-  assert.deepEqual(attempts.map(entry=>[entry.data.perfect,entry.data.energy,entry.data.bonusPercent,entry.data.burstNumber]), [[false,80,0,2],[true,94,20,3]], 'reports retain the attempt energy, even when event processing is delayed');
-  assert.deepEqual(tracker.export().milestones.first_burst,firstBurst);
-});
 
 test('experience telemetry: order-ad transaction is attributed to its own kind and overlapping windows disclose other grants', () => {
   const game = fresh(); playable(game); game.state.orderIndex = 0;
@@ -301,18 +258,6 @@ test('experience telemetry: bounded reports and throwing analytics callbacks can
   assert.equal(JSON.stringify(game.state), before);
 });
 
-test('experience telemetry: production choice records the actual selected economics without inventing a reward', () => {
-  const game = new Game({ now: NOW });
-  Object.assign(game.state, { machine: 2, orderIndex: 6, totalProduced: 20000 });
-  const tracker = createExperienceTracker({ initialView: game.getView() });
-  game.setProductionMode('premium'); drain(tracker, game);
-  const recorded = entries(tracker, 'experience_production_mode');
-  assert.equal(recorded.length, 1); assert.equal(recorded[0].data.from, 'balanced');
-  assert.equal(recorded[0].data.to, 'premium');
-  assert.equal(recorded[0].data.baseIncome, game.getView().production.baseIncome);
-  assert.equal(tracker.export().current.productionMode, 'premium');
-  assert.equal(entries(tracker, 'experience_reward_granted').length, 0);
-});
 
 test('experience telemetry: a bulk purchase records one transaction and its actual levels without an ad reward', () => {
   const game = fresh();
@@ -328,18 +273,79 @@ test('experience telemetry: a bulk purchase records one transaction and its actu
   assert.equal(entries(tracker, 'experience_reward_granted').length, 0);
 });
 
-test('experience telemetry: heat recovery is recorded only when a perfect burst actually grants it', () => {
-  const game = fresh();
-  Object.assign(game.state, { machine: 3, orderIndex: 10, totalProduced: CONFIG.orders[9].target, bursts: 1, energy: 92,
-    upgrades: { tap: 16, auto: 16, value: 16 } });
-  const tracker = createExperienceTracker({ initialView: game.getView() });
-  game.tryPerfectBurst(); drain(tracker, game);
-  assert.equal(entries(tracker, 'experience_heat_recovery').length, 0, 'arming has not paid a burst');
-  game.tick(8); drain(tracker, game);
-  assert.equal(entries(tracker, 'experience_heat_recovery').length, 1);
-  assert.equal(entries(tracker, 'experience_heat_recovery')[0].data.grantedTaps, 10);
-  game.tap(); game.tap(); drain(tracker, game);
-  assert.equal(tracker.export().current.heatRecoveryTaps, 8);
-  assert.equal(entries(tracker, 'experience_heat_recovery').length, 1);
-  assert.equal(entries(tracker, 'experience_reward_granted').length, 0);
+
+test('experience telemetry: automatic teaching rewards advance the target without a claim action', () => {
+  const game=new Game({now:NOW});
+  assert.equal(selectCurrentTarget(game.getView()).source,'onboarding');
+  for(let i=0;i<5;i++)game.tap();
+  assert.ok(game.state.claimedQuests.includes('start-taps'));
+  assert.equal(selectCurrentTarget(game.getView()).id,'onboarding:tap');
+  const tracked={questGuideId:'start-auto-upgrade'};
+  assert.equal(selectCurrentTarget(game.getView(),tracked).upgradeKey,'tap', 'tracking later records cannot override the first required purchase');
+  game.state.coins=100; game.buyUpgrade('tap');game.tap();game.buyUpgrade('auto');
+  assert.ok(game.state.claimedQuests.includes('start-auto-upgrade'));
+  assert.notEqual(selectCurrentTarget(game.getView(),tracked).action,'questClaim:start-auto-upgrade');
+  assert.equal(selectCurrentTarget(game.getView()).action,'observe');
+  game.tick(3);game.observeOnboarding(3);
+  game.state.totalProduced=50;
+  assert.equal(selectCurrentTarget(game.getView()).action,'order');
+  game.claimOrder();game.buyUpgrade('value');game.tap();
+  game.state.orderIndex=3;game.state.coins=CONFIG.machines[1].cost;game.state.bursts=1;
+  assert.equal(selectCurrentTarget(game.getView()).action,'machine');
+  assert.equal(selectCurrentTarget(game.getView(),{questGuideId:'start-taps'}).action,'machine');
+});
+
+test('experience telemetry: automatic pots preserve the first burst milestone without timing events', () => {
+  const game=fresh(),tracker=createExperienceTracker({initialView:game.getView()});
+  game.tick(60);game.tick(40);drain(tracker,game);
+  const first=tracker.export().milestones.first_burst;
+  assert.equal(first.data.name,'first_burst');
+  for(const energy of [80,94]){
+    game.state.energy=energy;const before=game.state.bursts;
+    game.tick(99-energy);drain(tracker,game);
+    assert.equal(game.state.bursts,before);
+    game.tick(1);drain(tracker,game);
+    assert.equal(game.state.bursts,before+1);
+  }
+  assert.equal(entries(tracker,'experience_timing').length,0);
+  assert.equal(entries(tracker,'experience_heat_recovery').length,0);
+  assert.deepEqual(tracker.export().milestones.first_burst,first);
+});
+
+test('experience telemetry: equipment acquisition and customer choices record the permanent collection without an ad grant', () => {
+  const game=fresh();Object.assign(game.state,{machine:2,orderIndex:6,totalProduced:20000});
+  const tracker=createExperienceTracker({initialView:game.getView()});
+  game.state.factory.owned=[];game.state.orderIndex=7;game._autoQuests();drain(tracker,game);
+  game.state.orderIndex=8;game._autoQuests();drain(tracker,game);
+  game.acceptContract('festival');drain(tracker,game);
+  assert.equal(entries(tracker,'experience_module').length,3);
+  const choice=entries(tracker,'experience_contract')[0].data;
+  assert.equal(choice.kind,'festival');assert.equal(choice.action,'accept');
+  assert.deepEqual(choice.modules.split(',').sort(),['coating','packer','pressure']);
+  assert.equal(tracker.export().current.contractKind,'festival');
+  assert.equal(entries(tracker,'experience_reward_granted').length,0);
+});
+
+test('experience telemetry: pressure storage and actual release each record one event', () => {
+  const game=fresh();Object.assign(game.state,{machine:2,orderIndex:6,bursts:1,energy:99});
+  game.state.factory.owned.push('pressure');game.setPressureMode('hold');game.drainEvents();
+  const tracker=createExperienceTracker({initialView:game.getView()});
+  game.tick(1);drain(tracker,game);
+  assert.equal(tracker.export().current.storedBurst,true);
+  game.releasePressure();drain(tracker,game);
+  const after=game.exportSave(NOW);assert.equal(game.releasePressure().ok,false);drain(tracker,game);
+  assert.deepEqual(game.exportSave(NOW),after);
+  assert.deepEqual(entries(tracker,'experience_pressure').map(e=>e.data.action),['store','release']);
+  assert.equal(tracker.export().current.storedBurst,false);
+  assert.equal(entries(tracker,'experience_reward_granted').length,0);
+});
+
+test('experience telemetry: automatic pressure records one automatic payout without inventing manual storage or a release action', () => {
+  const game=fresh();Object.assign(game.state,{machine:2,orderIndex:8,bursts:1,energy:95});
+  game._autoQuests();game.drainEvents();
+  const tracker=createExperienceTracker({initialView:game.getView()});
+  game.tick(1);drain(tracker,game);
+  assert.deepEqual(entries(tracker,'experience_pressure').map(e=>e.data.action),['auto']);
+  assert.equal(tracker.export().current.storedBurst,false);
+  assert.equal(entries(tracker,'experience_reward_granted').length,0);
 });

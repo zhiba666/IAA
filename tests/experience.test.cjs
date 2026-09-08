@@ -1,7 +1,8 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core');
+const { legacyGame } = require('./legacy-fixture.cjs');
 
 const NOW = 1800000000000;
 const fresh = () => new Game({ now: NOW });
@@ -11,51 +12,66 @@ const finishTutorial = game => Object.assign(game.state, { taps: 5, bursts: 1, o
 
 test('experience: tutorial shows tap progress and switches from saving to the affordable upgrade', () => {
   const game = fresh();
-  assert.match(tutorial(game).text, /0\/5/);
+  assert.equal(tutorial(game).action,'tap');
+  assert.equal(tutorial(game).anchor,'machine');
   for (let i = 0; i < 5; i++) game.tap();
-  assert.equal(tutorial(game).step, 1);
+  assert.equal(tutorial(game).step, 2);
   assert.equal(tutorial(game).action, 'tap');
-  assert.match(tutorial(game).text, /还差 11 金币/);
+  assert.match(tutorial(game).text, /还差 3 金币/);
   game.state.coins = 15.8;
   assert.match(tutorial(game).text, /还差 1 金币/);
   game.state.coins = CONFIG.upgrades.tap.baseCost;
   assert.equal(tutorial(game).action, 'upgrade:tap');
   assert.equal(game.buyUpgrade('tap').ok, true);
-  assert.equal(tutorial(game).step, 2);
+  assert.equal(tutorial(game).phase,'verify');
+  game.tap();
+  assert.equal(tutorial(game).step, 3);
   assert.equal(tutorial(game).action, 'tap');
   game.state.coins = CONFIG.upgrades.auto.baseCost;
   assert.equal(tutorial(game).action, 'upgrade:auto');
 });
 
-test('experience: a ready first order takes priority and early collection does not repeat completed steps', () => {
+test('experience: sufficient output still teaches upgrades before opening the first order', () => {
   const game = fresh();
   game.state.totalProduced = CONFIG.orders[0].target;
+  game.state.coins = 100;
+  assert.equal(tutorial(game).step, 2);
+  assert.equal(tutorial(game).action, 'upgrade:tap');
+  assert.equal(game.claimOrder().reason, 'guide-locked');
+  assert.equal(game.buyUpgrade('tap').ok, true);
+  assert.equal(tutorial(game).phase,'verify');
+  game.tap();
+  assert.equal(tutorial(game).step, 3);
+  assert.equal(game.buyUpgrade('auto').ok, true);
+  assert.equal(tutorial(game).action,'observe');
+  game.tick(3);game.observeOnboarding(3);
   assert.equal(tutorial(game).step, 4);
   assert.equal(tutorial(game).action, 'order');
   assert.match(tutorial(game).text, /180 金币/);
   assert.equal(game.claimOrder().ok, true);
-  assert.equal(tutorial(game).step, 0);
-  for (let i = 0; i < 5; i++) game.tap();
-  assert.equal(game.buyUpgrade('auto').ok, true);
-  assert.equal(tutorial(game).step, 1);
-  assert.equal(game.buyUpgrade('tap').ok, true);
-  assert.equal(tutorial(game).step, 3);
-  while (game.state.bursts < 1) game.tap();
+  assert.equal(tutorial(game).step, 5);
+  assert.equal(game.buyUpgrade('value').ok, true);
+  assert.equal(tutorial(game).phase, 'verify');
+  game.tap();
   assert.equal(tutorial(game), null);
+  assert.equal(game.state.bursts,0,'the practice loop does not wait for an automatic burst');
 });
 
-test('experience: tutorial derives skipped steps and recovery from the existing save', () => {
+test('experience: tutorial restores pending observation without repeating successful purchases', () => {
   const game = fresh();
   game.state.coins = 100;
-  assert.equal(game.buyUpgrade('auto').ok, true);
+  game.state.totalProduced = 16;
   assert.equal(game.buyUpgrade('tap').ok, true);
+  assert.equal(game.buyUpgrade('auto').ok, true);
   for (let i = 0; i < 3; i++) game.tap();
   const snapshot = game.exportSave(NOW), savedKeys = Object.keys(snapshot);
   const restored = new Game({ save: snapshot, now: NOW });
   assert.deepEqual(tutorial(restored), tutorial(game));
-  assert.match(tutorial(restored).text, /3\/5/);
+  assert.equal(tutorial(restored).phase, 'observe');
   restored.tap(); restored.tap();
-  assert.equal(tutorial(restored).step, 3);
+  assert.equal(tutorial(restored).phase, 'observe');
+  restored.tick(3);restored.observeOnboarding(3);
+  assert.equal(tutorial(restored).step, 4);
   assert.equal(tutorial(restored).action, 'tap');
   assert.deepEqual(Object.keys(restored.exportSave(NOW)), savedKeys);
   restored.state.bursts = 1;
@@ -68,7 +84,7 @@ test('experience: all upgrade previews match the purchased output and ignore tem
   const fields = { tap: 'tap', auto: 'baseIncome', value: 'price' };
   const units = { tap: '份/次', auto: '金币/秒', value: '金币/份' };
   for (const machine of [0, 3, 5]) for (const level of [0, 7, CONFIG.maxUpgradeLevel - 1]) for (const key of Object.keys(fields)) {
-    const game = fresh();
+    const game = legacyGame({ now: NOW });
     game.state.machine = machine;
     game.state.upgrades = { tap: level, auto: level, value: level };
     game.state.coins = 1e30;
@@ -98,6 +114,7 @@ test('experience: real burst feedback agrees with production events and saved pr
     const game = fresh(), orderIndex = CONFIG.machines[machine].requiredOrders;
     Object.assign(game.state, { machine, orderIndex, totalProduced: orderIndex ? CONFIG.orders[orderIndex - 1].target : 0,
       coins: 100, energy: 98, boostSeconds, upgrades: { tap: level, auto: level, value: level } });
+    game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));
     const before = game.exportSave(NOW), production = game.getView().production;
     game.tap();
     const events = game.drainEvents(), burst = events.find(e => e.type === 'burst');
@@ -153,24 +170,23 @@ test('experience: next-machine goal distinguishes missing orders, missing coins 
   game.state.totalProduced = CONFIG.orders[game.state.orderIndex - 1].target;
   game.state.coins -= 0.2;
   goal = game.getView().goal;
-  assert.match(goal.text, /还差 1 金币/); assert.equal(goal.action, 'tab:machines');
+  assert.match(goal.text, /还差 1 金币/); assert.equal(goal.action, 'machine');
   game.state.coins = CONFIG.machines[1].cost;
   assert.equal(game.getView().goal.action, 'machine');
   const restored = new Game({ save: game.exportSave(NOW), now: NOW });
   assert.deepEqual(restored.getView().goal, game.getView().goal);
 });
 
-test('experience: after all machines the goal follows the current main or loop order', () => {
-  const game = fresh(); finishTutorial(game);
-  Object.assign(game.state, { machine: 5, orderIndex: 18, totalProduced: CONFIG.orders[17].target });
-  assert.equal(game.getView().machinePreview, null);
-  assert.match(game.getView().goal.title, /云端甜品节/);
-  assert.equal(game.getView().goal.action, 'order');
-  game.state.orderIndex = CONFIG.orders.length;
-  game.state.totalProduced = CONFIG.orders[19].target;
-  assert.match(game.getView().goal.title, /城市返场订单/);
-  game.state.totalProduced = game.getView().order.target;
-  assert.match(game.getView().goal.title, /可以装车/);
-  assert.equal(game.claimOrder().ok, true);
-  assert.match(game.getView().goal.title, /全球甜蜜补货/);
+
+test('experience: the final machine leads to chosen customers and a permanent completion screen', () => {
+  const game=fresh(); finishTutorial(game);
+  Object.assign(game.state,{machine:5,orderIndex:18});
+  assert.equal(game.getView().machinePreview,null);
+  assert.match(game.getView().goal.title,/选择/);
+  assert.equal(game.acceptContract('gift').ok,true);
+  assert.match(game.getView().goal.title,/糖衣/);
+  game.state.orderIndex=20;game.state.factory.active=null;
+  assert.match(game.getView().goal.title,/竣工/);
+  assert.equal(game.getView().goal.action,'souvenirs');
+  assert.equal(game.claimOrder().ok,false);
 });

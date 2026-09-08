@@ -4,7 +4,6 @@
 const REWARD_KINDS = ['turbo', 'order', 'sponsor', 'offline', 'brand'];
 const AD_REASONS = ['completed', 'simulated-complete', 'cancelled', 'failed', 'timeout', 'unavailable', 'busy', 'simulation-choice-required'];
 const UPGRADE_KEYS = ['tap', 'auto', 'value'];
-const { selectRecoveryLesson } = require('./heat-guide');
 const copy = value => JSON.parse(JSON.stringify(value));
 const number = value => typeof value === 'number' && Number.isFinite(value) ? value : 0;
 const label = value => typeof value === 'string' ? value.slice(0, 160) : '';
@@ -16,55 +15,29 @@ const shown = value => {
 };
 
 function selectCurrentTarget(view, ui = {}) {
-  const quests = view.quests ? view.quests.chapters.flatMap(chapter => chapter.quests) : [];
-  const usable = quest => quest && !quest.claimed && !quest.locked;
-  const questTarget = quest => ({
-    id: quest.id, source: 'quest', title: quest.title,
-    text: quest.ready ? '目标已达成，领取 ' + shown(quest.reward) + ' 金币。' : quest.hint || quest.description,
-    action: quest.ready ? 'questClaim:' + quest.id : quest.action,
-    ready: !!quest.ready, reward: quest.reward
-  });
-  const tracked = quests.find(quest => quest.id === ui.questGuideId && usable(quest));
-  if (tracked) return questTarget(tracked);
-  const orderTarget = () => ({
-    id: 'order:' + view.order.index + ':' + Number(!!view.order.isLoop), source: 'order',
-    title: '订单可以装车了', text: '打开订单，直接装车领取 ' + shown(view.order.reward) + ' 金币。', action: 'order', ready: true
-  });
-  if (view.order && view.order.ready && view.state.orderIndex === 0) return orderTarget();
-  if (view.canEvolve && view.goal) return { ...view.goal, id: 'machine:' + view.nextMachine.id, source: 'machine', ready: true };
-  const readyQuest = quests.find(quest => usable(quest) && quest.ready);
-  if (readyQuest) return questTarget(readyQuest);
-  if (view.tutorial) return { ...view.tutorial, id: 'tutorial:' + view.tutorial.step, source: 'tutorial', ready: false };
-  if (view.order && view.order.ready) return orderTarget();
-  const research=view.research,trial=research&&research.active;
-  const researchTarget=()=>({id:trial?trial.id:'research:available',source:'research',
-    title:trial?trial.ready?'研发完成 · 永久提升':trial.projectName+'试制中':'解锁新的风味课题',
-    text:trial?trial.ready?'免费验收，让工厂的永久能力再升一级。':'新增生产 '+shown(trial.production)+' / '+shown(trial.productionTarget)+' 份':'选择产量或售价路线，正常生产即可永久变强。',
-    action:'research',ready:!!(trial&&trial.ready)});
-  if(trial&&trial.ready)return researchTarget();
-  const delivery=view.deliveries,part=delivery&&delivery.stages.find(item=>item.ready&&!item.claimed);
-  if(part)return {id:'delivery:'+delivery.orderIndex+':'+part.stage,source:'delivery',title:'分段交付可以领奖了',
-    text:'提前领取 '+shown(part.coins)+' 金币，计入本单总奖。',action:'order',ready:true,reward:part.coins};
-  const active=view.commissions&&view.commissions.active;
-  const commissionTarget=()=>({id:active.id,source:'commission',title:active.ready?'委托奖励可以领取了':active.title,
-    text:active.ready?'领取额外奖励 '+shown(active.reward)+' 金币。':active.kind==='bulk'?'新增生产 '+shown(Math.min(active.production,active.productionTarget))+' / '+shown(active.productionTarget)+' 份':'完美爆锅 '+Math.min(active.perfect,active.perfectTarget)+' / '+active.perfectTarget+' 次'+(active.recoveryTarget>0?' · 余热 '+Math.min(active.recovery,active.recoveryTarget)+' / '+active.recoveryTarget:'')+'。',
-    action:'commissions',ready:!!active.ready,reward:active.reward});
-  if(active&&active.ready)return commissionTarget();
-  const lesson = selectRecoveryLesson(view);
-  if (lesson) return lesson;
-  if(trial)return researchTarget();
-  if(active)return commissionTarget();
-  if(research&&research.unlocked&&!research.complete&&(view.upgrades||[]).every(item=>item.level>=item.maxLevel))return researchTarget();
-  const collection=view.souvenirs;
-  const equipmentComplete=!view.nextMachine&&(view.upgrades||[]).every(item=>item.level>=item.maxLevel)&&(!view.refinements||view.refinements.options.every(item=>item.level>=item.maxLevel));
-  if(collection&&collection.unlocked&&!collection.complete&&equipmentComplete){
-    const item=collection.options.find(option=>!option.owned&&option.canBuy)||collection.options.find(option=>!option.owned);
-    if(item)return {id:'souvenir:'+item.key,source:'souvenir',title:'竣工后的工厂，由你布置',
-      text:item.canBuy?item.name+' · '+shown(item.cost)+' 金币':view.state.loopIndex<item.requiredLoops?'再完成 '+(item.requiredLoops-view.state.loopIndex)+' 张循环订单':'为'+item.name+'再攒 '+shown(item.cost-view.state.coins)+' 金币',
-      action:'souvenirs',ready:false};
+  if(view.onboarding&&view.onboarding.goal)return view.onboarding.goal;
+  const state=view.state||{},order=view.order,next=view.nextMachine;
+  const quests=view.quests?view.quests.chapters.flatMap(chapter=>chapter.quests):[];
+  const tracked=quests.find(quest=>quest.id===ui.questGuideId&&!quest.claimed&&!quest.locked&&!quest.ready);
+  if(tracked)return {id:tracked.id,source:'quest',title:tracked.title,text:tracked.hint||tracked.description,action:tracked.action,ready:false};
+  if(view.canEvolve&&next)return {id:'machine:'+next.id,source:'machine',title:'开动'+next.name,text:'金币和订单都已备齐，换代解锁新能力。',action:'machine',ready:true};
+  if(order&&order.completed)return {id:'complete',source:'completion',title:'工厂已竣工',text:'回顾从小锅到爆米花塔的建厂历程。',action:'completion',ready:true};
+  if(order&&order.ready)return {id:'order:'+order.index,source:'order',title:'订单可以装车了',text:'交付本单，领取 '+shown(order.reward)+' 金币。',action:'order',ready:true};
+  if(view.tutorial)return {...view.tutorial,id:'tutorial:'+view.tutorial.step,source:'tutorial',ready:false};
+  if(order&&order.awaitingSelection&&next&&state.orderIndex>=next.requiredOrders)return {id:'machine:'+next.id,source:'machine',title:'为'+next.name+'攒钱',
+    text:'还差 '+shown(next.cost-state.coins)+' 金币，换代后继续接单。',action:'machine',ready:false};
+  if(order&&order.awaitingSelection)return {id:'contract:choose:'+state.orderIndex,source:'contract',title:'选择你的下一位客户',
+    text:'比较客户需求，完成合同还能推进设备收集。',action:'order',ready:false};
+  if(view.factory&&view.factory.storedBurst)return {id:'pressure:stored',source:'pressure',title:'蓄压锅已备好',
+    text:'选择需要集中出货的时机，放出储存的这一锅。',action:'releasePressure',ready:false};
+  const active=view.contracts&&view.contracts.active;
+  if(active){
+    const requirement=(active.requirements||[]).find(item=>item.current<item.target);
+    return {id:active.id,source:'contract',title:active.title,
+      text:requirement?requirement.label+' '+shown(requirement.current)+' / '+shown(requirement.target)+' '+requirement.unit:active.description,
+      action:'order',ready:active.ready};
   }
-  if (view.goal) return { ...view.goal, id: view.nextMachine ? 'machine:' + view.nextMachine.id : 'order:' + view.order.index,
-    source: view.nextMachine ? 'machine' : 'order', ready: false };
+  if(view.goal)return {...view.goal,id:next?'machine:'+next.id:'order:'+(order&&order.index),source:next?'machine':'order',ready:false};
   return null;
 }
 
@@ -89,6 +62,10 @@ function snapshot(view) {
     souvenirsOwned: number(view.souvenirs&&view.souvenirs.ownedCount),
     researchLevels: number(view.research&&view.research.totalLevels),
     researchProgress: number(view.research&&view.research.active&&view.research.active.progress),
+    contractKind: label(view.contracts&&view.contracts.active&&view.contracts.active.kind),
+    contractProgress: number(view.contracts&&view.contracts.active&&view.contracts.active.progress),
+    equippedModules: (view.factory&&view.factory.equipped||[]).join(','),
+    storedBurst: !!(view.factory&&view.factory.storedBurst),
     baseIncome: number(view.production && view.production.baseIncome)
   };
 }
@@ -187,19 +164,18 @@ function createExperienceTracker(options = {}) {
     if (event.type === 'burst') milestone('first_burst', view, 'bursts', current.bursts === 1);
     if (event.type === 'order' && !event.isLoop) milestone('first_order', view, 'orders', current.orders === 1);
     if (event.type === 'evolve') milestone('first_evolve', view, 'machine', current.machine === 1);
+    if (event.type === 'onboardingPractice') emit('experience_onboarding_practice', view, { id: label(event.id) });
     if (event.type === 'productionMode') emit('experience_production_mode', view, {
       from: event.from, to: event.to, machine: current.machine, orderIndex: current.orders,
       baseAuto: number(view.production && view.production.baseAuto), baseIncome: current.baseIncome,
       orderReady: !!(view.order && view.order.ready), ...attribution(view)
     });
-    if (event.type === 'timing') emit('experience_timing', view, { perfect: event.perfect === true,
-      energy: number(event.energy), bonusPercent: number(event.bonusPercent), burstNumber: number(event.burstNumber) });
-    if (event.type === 'burst' && event.perfect === true && event.heatRecoveryTaps > 0) emit('experience_heat_recovery', view, {
-      grantedTaps: number(event.heatRecoveryTaps), machine: current.machine, tapLevel: current.upgrades.tap
-    });
     if(event.type==='delivery')emit('experience_delivery',view,{stage:number(event.stage),coins:number(event.coins),orderIndex:current.orders});
     if(event.type==='commission')emit('experience_commission',view,{action:event.action,id:event.id,kind:event.kind,coins:number(event.coins),orderIndex:current.orders});
     if(event.type==='souvenir')emit('experience_souvenir',view,{key:event.key,cost:number(event.cost),ownedCount:current.souvenirsOwned,loopOrders:current.loopOrders});
+    if(event.type==='contract')emit('experience_contract',view,{action:event.action,id:event.id,kind:event.kind,coins:number(event.coins),orderIndex:current.orders,modules:current.equippedModules});
+    if(event.type==='module')emit('experience_module',view,{id:event.id,action:event.action,modules:current.equippedModules});
+    if(event.type==='pressure'||event.type==='burst'&&event.source==='pressure')emit('experience_pressure',view,{action:event.type==='pressure'?'store':event.automatic?'auto':'release',contractKind:current.contractKind});
     if(event.type==='research')emit('experience_research',view,{action:event.action,id:event.id,key:event.key,level:number(event.level),before:number(event.before),after:number(event.after),totalLevels:current.researchLevels});
     if (['upgrade', 'upgradeBatch', 'refinement', 'order', 'evolve'].includes(event.type)) emit('experience_progress', view, {
       kind: event.type, key: event.key, level: event.level, orderIndex: current.orders, machine: current.machine,
@@ -260,8 +236,9 @@ function createExperienceTracker(options = {}) {
     const visible = detail.visible !== false;
     const surface=visible&&(detail.modalType||(detail.ui&&detail.ui.modal&&detail.ui.modal.type));
     const active=view.commissions&&view.commissions.active;
-    const progressionSurface=['order','commissions','souvenirs','research'].includes(surface)?{
+    const progressionSurface=['order','modules','souvenirs'].includes(surface)?{
       surface,orderIndex:current.orders,deliveryReadyCount:current.deliveryReadyCount,
+      contractKind:current.contractKind,contractProgress:current.contractProgress,modules:current.equippedModules,
       commissionKind:current.commissionKind,commissionReady:!!(active&&active.ready),
       commissionAvailable:!!(view.commissions&&view.commissions.available),commissionRemaining:current.commissionRemaining,
       souvenirsOwned:current.souvenirsOwned,
@@ -284,7 +261,7 @@ function createExperienceTracker(options = {}) {
     ]) : '';
     if (recommendationKey && recommendationKey !== lastRecommendation) emit('experience_recommendation_visible', view, recommendation);
     lastRecommendation = recommendationKey;
-    const tutorialKey = visible && target && target.source === 'tutorial' && view.tutorial ? String(view.tutorial.step) : '';
+    const tutorialKey = visible && target && ['tutorial','onboarding'].includes(target.source) && view.tutorial ? String(view.tutorial.step) : '';
     if (tutorialKey && tutorialKey !== lastTutorial) {
       if (!tutorialSteps.includes(view.tutorial.step)) tutorialSteps.push(view.tutorial.step);
       emit('experience_tutorial_step', view, { step: view.tutorial.step, action: view.tutorial.action });
@@ -318,4 +295,3 @@ function createExperienceTracker(options = {}) {
 }
 
 module.exports = { selectCurrentTarget, createExperienceTracker };
-

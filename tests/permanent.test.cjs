@@ -1,16 +1,18 @@
 'use strict';
+const { legacyGame } = require('./legacy-fixture.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core.js');
+const { Game, CONFIG, QUEST_CHAPTERS } = require('../src/core.js');
 const NOW = 1000000;
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-8, Math.abs(expected) * 1e-10), `${actual} != ${expected}`);
 function factory(machine = 1, level = 0) {
-  const game = new Game({ now: NOW });
+  const game = legacyGame({ now: NOW });
   game.state.machine = machine;
   game.state.orderIndex = CONFIG.machines[machine].requiredOrders;
   game.state.totalProduced = game.state.orderIndex ? CONFIG.orders[game.state.orderIndex - 1].target : 0;
   game.state.playedSeconds = CONFIG.rewardUnlockSeconds;
   game.state.brandLevel = level;
+  game.state.claimedQuests=QUEST_CHAPTERS.flatMap(c=>c.quests.map(q=>q.id));
   return game;
 }
 function completeBrand(game) {
@@ -127,16 +129,6 @@ test('upgrade, machine, and next brand previews match actual outcomes including 
   close(game.getView().production.baseIncome, preview.incomeAfter);
 });
 
-test('brand does not multiply normal orders, rewarded orders, or one-time quest coins', () => {
-  for (const level of [0, 6]) {
-    const game = factory(3, level); const order = game.getView().order;
-    game.state.totalProduced = order.target; assert.equal(game.claimOrder().coins, order.reward);
-    const rewardedOrder = game.getView().order; game.state.totalProduced = rewardedOrder.target;
-    const quote = game.quoteReward('order'); assert.ok(quote);
-    assert.equal(game.applyReward(quote.id).coins, rewardedOrder.reward * 3);
-    game.state.taps = 5; assert.equal(game.claimQuest('start-taps').coins, 8);
-  }
-});
 
 test('new offline earnings restore brand before calculation, boost production and coins and ignore temporary turbo', () => {
   const game = factory(3, 5); game.state.upgrades = { tap: 4, auto: 7, value: 6 }; game.state.boostSeconds = 90;
@@ -222,12 +214,14 @@ test('cancelled or failed brand requests award nothing and keep a retry availabl
 });
 
 test('all eligible advertisements can follow each other immediately while pending requests remain exclusive', () => {
-  const game = factory(2); game.state.totalProduced = game.getView().order.target;
+  const game = factory(2); game.acceptContract('cinema');
+  while(!game.getView().order.ready)game.tick(1);
+  game.state.playedSeconds=CONFIG.rewardUnlockSeconds;
   game.state.offline = { id: 'offline:test', seconds: 60, production: 20, coins: 22 };
   const first = game.quoteReward('brand'); assert.ok(first); assert.equal(game.quoteReward('turbo'), null);
   assert.deepEqual(game.quoteReward('brand'), first); assert.equal(game.applyReward(first.id).ok, true);
   for (const kind of ['turbo', 'order', 'offline', 'brand']) {
-    const offer = game.getView().rewards[kind]; assert.equal(offer.available, true); assert.equal(offer.cooldown, 0);
+    const offer = game.getView().rewards[kind]; assert.equal(offer.available, true);
     const quote = game.quoteReward(kind); assert.ok(quote); assert.equal(game.applyReward(quote.id).ok, true);
   }
   assert.equal(game.state.playedSeconds, CONFIG.rewardUnlockSeconds); assert.equal(game.state.brandLevel, 2);
@@ -239,4 +233,23 @@ test('never rewarded timestamps remain outside the post-ad analytics window even
   const restored = new Game({ save: game.exportSave(NOW), now: NOW }); assert.ok(restored.state.lastRewardAt < -120);
   const save = game.exportSave(NOW); delete save.lastRewardAt;
   assert.ok(new Game({ save, now: NOW }).state.lastRewardAt < -120);
+});
+
+test('brand preserves quoted contract settlement and fixed automatic teaching rewards', () => {
+  for(const level of [0,6]){
+    const game=factory(3,level);
+    assert.ok(game.acceptContract('cinema').ok);
+    const reward=game.getView().contracts.active.reward;
+    while(!game.getView().order.ready)game.tick(1);
+    const order=game.getView().order;assert.equal(order.reward, reward+game.getView().contracts.active.heldCoins);
+    assert.equal(game.claimOrder().coins,order.reward);
+    assert.ok(game.acceptContract('cinema').ok);
+    while(!game.getView().order.ready)game.tick(1);
+    const next=game.getView().order; const quote=game.quoteReward('order');assert.ok(quote);
+    assert.equal(game.applyReward(quote.id).coins,next.reward*3);
+    const teaching=factory(3,level);
+    teaching.state.claimedQuests=[]; teaching.state.taps=4;teaching.drainEvents();teaching.tap();
+    assert.equal(teaching.drainEvents().find(e=>e.type==='quest'&&e.id==='start-taps').coins,8);
+    assert.equal(teaching.claimQuest('start-taps').ok,false);
+  }
 });

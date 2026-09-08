@@ -3,10 +3,9 @@
 const CONFIG = {
   version: 1, title: '小小爆米花厂', energyMax: 100, tapEnergy: 2, passiveEnergy: 1,
   maxUpgradeLevel: 24, autoLevelGrowth: 1.3, turboMultiplier: 3, turboDuration: 90,
-  timingAttemptEnergy: 80, timingWindowStart: 92, timingWindowEnd: 98, timingBonusPercent: 20,
   heatRecoveryUnlockMachine: 3, heatRecoveryUpgradeLevel: 16, heatRecoveryMaxTaps: 10, heatRecoveryEnergyPerTap: 1,
   bulkUpgradeUnlockMachine: 3, bulkUpgradeMaxCount: 5,
-  rewardUnlockSeconds: 90, rewardCooldownSeconds: 0,
+  rewardUnlockSeconds: 90,
   brandMaxLevel: 10, brandBonusPerLevel: 0.2, brandLevelsPerMachine: 2,
   offlineMaxSeconds: 28800, offlineEfficiency: 0.5, offlineMinSeconds: 30,
   productionModeUnlockMachine: 2,
@@ -18,10 +17,10 @@ const CONFIG = {
   machines: [
     { id: 0, name: '手摇锅', description: '一把玉米，开启你的工厂梦', color: '#f3b35b', multiplier: 1, priceMultiplier: 1, cost: 0, requiredOrders: 0 },
     { id: 1, name: '电热锅', description: '恒温加热，香气开始飘满街', color: '#ed785d', multiplier: 2.4, priceMultiplier: 1.12, cost: 30000, requiredOrders: 3 },
-    { id: 2, name: '双缸机', description: '双锅轮转，让每一份等待更短', color: '#66bfaa', multiplier: 5.5, priceMultiplier: 1.25, cost: 2000000, requiredOrders: 6 },
-    { id: 3, name: '多头机', description: '六头齐开，爆米花像瀑布落下', color: '#6baacb', multiplier: 12, priceMultiplier: 1.4, cost: 160000000, requiredOrders: 10 },
-    { id: 4, name: '自动流水线', description: '连续生产，整座工厂为你运转', color: '#9c86cf', multiplier: 26, priceMultiplier: 1.6, cost: 10000000000, requiredOrders: 14 },
-    { id: 5, name: '巨型爆米花塔', description: '让金色爆米花，点亮整座城市', color: '#e5ad4d', multiplier: 60, priceMultiplier: 1.8, cost: 225000000000, requiredOrders: 18 }
+    { id: 2, name: '双缸机', description: '收集永久设备，开始按合同安排生产', color: '#66bfaa', multiplier: 5.5, priceMultiplier: 1.25, cost: 400000, requiredOrders: 6 },
+    { id: 3, name: '多头机', description: '六头齐开，爆米花像瀑布落下', color: '#6baacb', multiplier: 12, priceMultiplier: 1.4, cost: 12000000, requiredOrders: 10 },
+    { id: 4, name: '自动流水线', description: '连续生产，整座工厂为你运转', color: '#9c86cf', multiplier: 26, priceMultiplier: 1.6, cost: 600000000, requiredOrders: 14 },
+    { id: 5, name: '巨型爆米花塔', description: '让金色爆米花，点亮整座城市', color: '#e5ad4d', multiplier: 60, priceMultiplier: 1.8, cost: 18000000000, requiredOrders: 18 }
   ],
   upgrades: {
     tap: { name: '爆裂玉米', description: '每次点击产量提升', baseCost: 16, growth: 2.1 },
@@ -88,7 +87,7 @@ const QUEST_CHAPTERS = [
     {"id":"expand-electric","title":"告别手摇锅","description":"换代至电热锅","hint":"完成 3 单并攒够 3万 金币后换代。","action":"machine","metric":"machine","target":1,"reward":1500},
     {"id":"expand-recipe","title":"招牌焦糖味","description":"焦糖配方达到 Lv.6","hint":"配方升级提高所有爆米花的售价。","action":"upgrade:value","metric":"upgrade","key":"value","target":6,"reward":800},
     {"id":"expand-orders","title":"接住大订单","description":"装车完成 6 张主线订单","hint":"持续生产并装车，备齐双缸机订单条件。","action":"order","metric":"orderIndex","target":6,"reward":4000},
-    {"id":"expand-twin","title":"双锅齐开","description":"换代至双缸机","hint":"完成 6 单并攒够 200万 金币后换代。","action":"machine","metric":"machine","target":2,"reward":80000}
+    {"id":"expand-twin","title":"双锅齐开","description":"换代至双缸机","hint":"完成 6 单并攒够 40万 金币后换代，开放合同与两个改造槽。","action":"machine","metric":"machine","target":2,"reward":80000}
   ] },
   { id: 'finish', title: '竣工', subtitle: '从街角小摊到城市里的金色地标', quests: [
     {"id":"finish-multi","title":"六头齐开","description":"换代至多头机","hint":"继续升级与装车，达标后开动多头机。","action":"machine","metric":"machine","target":3,"reward":4000000},
@@ -133,9 +132,13 @@ function freshState(now) {
     version: 1, savedAt: now, coins: 0, totalProduced: 0, totalCoins: 0,
     taps: 0, bursts: 0, machine: 0, brandLevel: 0, productionMode: 'balanced', upgrades: { tap: 0, auto: 0, value: 0 },
     refinements: { yield: 0, value: 0 }, learning: { heatRecoveryDismissed: false, heatRecoveryUses: 0 },
+    onboarding: { version: 2, legacy: false, seen: [], skipped: false,
+      practice: { production: false, tapVerified: false, autoObserved: false, orderClaimed: false, valueVerified: false },
+      baselines: { tap: null, auto: null, value: null }, autoObservationSeconds: 0 },
     research: { levels: { yield: 0, value: 0 }, serial: 0, active: null },
     orderIndex: 0, loopIndex: 0, energy: 0, boostSeconds: 0, playedSeconds: 0, heatRecoveryTaps: 0,
     deliveries: { orderIndex: 0, claimed: [] }, commissions: { serial: 0, orderIndex: 0, claimed: 0, active: null }, souvenirs: [],
+    factory: { version: 3, owned: [], pressureMode: 'auto', contractCounts: { cinema: 0, gift: 0, festival: 0 }, serial: 0, active: null, storedBurst: null, tapsThisPot: 0, tapCooldown: 0, completedContracts: 0 },
     settings: { sound: true, haptics: true }, offline: null, rewardSerial: 0,
     rewardedCount: 0, lastRewardAt: NEVER_REWARDED_AT,
     pendingRewards: {}, claimedRewards: [], claimedQuests: [], completedAt: null
@@ -144,11 +147,9 @@ function freshState(now) {
 class Game {
   constructor({ save = null, now = Date.now() } = {}) {
     this.events = []; this.now = finite(now, Date.now()); this.state = freshState(this.now); this.loadWarning = null;
-    // Timing belongs to this live pot only. It is deliberately absent from saves.
-    this._timingAttempted = false; this._timingArmed = false;
     if (save) this._restore(save);
   }
-  _restore(input) {
+  _restoreLegacyState(input) {
     let save;
     try { save = typeof input === 'string' ? JSON.parse(input) : input; }
     catch (_) { this.loadWarning = '存档读取失败，已安全开始新工厂'; return; }
@@ -223,9 +224,6 @@ class Game {
     }
     s.savedAt = this.now;
   }
-  _heatRecoveryUnlocked() {
-    return this.state.machine >= CONFIG.heatRecoveryUnlockMachine && this.state.upgrades.tap >= CONFIG.heatRecoveryUpgradeLevel;
-  }
   _brandCap(machine = this.state.machine) { return Math.min(CONFIG.brandMaxLevel, machine * CONFIG.brandLevelsPerMachine); }
   _production({ machine = this.state.machine, upgrades = this.state.upgrades, boostSeconds = this.state.boostSeconds, brandLevel = this.state.brandLevel, productionMode = this.state.productionMode, refinements = this.state.refinements, researchLevels = this.state.research.levels } = {}) {
     const m = CONFIG.machines[machine], brandMultiplier = 1 + brandLevel * CONFIG.brandBonusPerLevel;
@@ -237,70 +235,10 @@ class Game {
     const price = (1 + 0.2 * upgrades.value) * Math.pow(1.15, upgrades.value) * m.priceMultiplier * mode.priceMultiplier * priceMultiplier;
     return { tap, auto: baseAuto * (boostSeconds > 0 ? 3 : 1), baseAuto, price, baseIncome: baseAuto * price, turboMultiplier: boostSeconds > 0 ? 3 : 1 };
   }
-  setProductionMode(id) {
-    if (!CONFIG.productionModes.some(mode => mode.id === id)) return fail('invalid-production-mode');
-    if (this.state.machine < CONFIG.productionModeUnlockMachine) return fail('production-mode-locked');
-    const from = this.state.productionMode;
-    if (from === id) return { ok: true, productionMode: id, changed: false };
-    // A pending rewarded offer keeps its quoted economy until completion or cancellation.
-    if (Object.keys(this.state.pendingRewards).length > 0) return fail('busy');
-    this.state.productionMode = id; this._event('productionMode', { from, to: id });
-    return { ok: true, productionMode: id, changed: true };
-  }
   _addCoins(coins) { this.state.coins = finite(this.state.coins + coins); this.state.totalCoins = finite(this.state.totalCoins + coins); }
-  _produce(amount, source) {
-    const n = finite(amount); if (!n) return;
-    const coins = finite(n * this._production().price);
-    this.state.totalProduced = finite(this.state.totalProduced + n); this._addCoins(coins);
-    this._commissionProgress('production', n);
-    this._researchProgress(n);
-    this._event('produce', { source, amount: n, coins });
-  }
   _event(type, extra = {}) {
     if (this.events.length >= 160) this.events.shift();
     this.events.push({ type, ...extra });
-  }
-  _addEnergy(amount) {
-    this.state.energy += amount;
-    while (this.state.energy >= CONFIG.energyMax) {
-      this.state.energy -= CONFIG.energyMax;
-      const p = this._production(), baseProduction = p.tap * 24 + p.baseAuto * 8, perfect = this._timingArmed;
-      const bonusAmount = perfect ? baseProduction * CONFIG.timingBonusPercent / 100 : 0;
-      const production = baseProduction + bonusAmount;
-      this._produce(production, 'burst'); this.state.bursts++;
-      if (perfect) this._commissionProgress('perfect', 1);
-      this._timingAttempted = false; this._timingArmed = false;
-      const recoveryGranted = perfect && this._heatRecoveryUnlocked();
-      if (recoveryGranted) this.state.heatRecoveryTaps = CONFIG.heatRecoveryMaxTaps;
-      this._event('burst', { amount: production, coins: finite(production * p.price), perfect, bonusAmount,
-        ...(recoveryGranted ? { heatRecoveryTaps: CONFIG.heatRecoveryMaxTaps } : {}) });
-    }
-  }
-  tick(dt) {
-    if (typeof dt !== 'number' || !Number.isFinite(dt) || dt <= 0) return fail('invalid-time');
-    dt = Math.min(dt, 60);
-    const p = this._production(), boostedTime = Math.min(dt, this.state.boostSeconds);
-    this._produce(p.baseAuto * (dt + boostedTime * 2), 'auto');
-    this.state.boostSeconds = Math.max(0, this.state.boostSeconds - dt); this.state.playedSeconds += dt;
-    this._addEnergy(dt * CONFIG.passiveEnergy); return { ok: true, seconds: dt };
-  }
-  tap() {
-    const amount = this._production().tap, recoveryUsed = this._heatRecoveryUnlocked() && this.state.heatRecoveryTaps > 0;
-    // Consume the previous pot's heat first: a perfect burst triggered by this tap grants all ten new uses.
-    if (recoveryUsed) { this.state.heatRecoveryTaps--; this.state.learning.heatRecoveryUses = Math.min(CONFIG.heatRecoveryMaxTaps, this.state.learning.heatRecoveryUses + 1); this._commissionProgress('recovery', 1); }
-    this.state.taps++; this._produce(amount, 'tap');
-    this._addEnergy(CONFIG.tapEnergy + (recoveryUsed ? CONFIG.heatRecoveryEnergyPerTap : 0));
-    return { ok: true, amount, recoveryUsed, heatRecoveryTaps: this.state.heatRecoveryTaps };
-  }
-  tryPerfectBurst() {
-    const s = this.state;
-    if (s.bursts < 1) return { ok: false, perfect: false, reason: 'timing-locked' };
-    if (this._timingAttempted) return { ok: false, perfect: false, reason: 'timing-already-attempted' };
-    if (s.energy < CONFIG.timingAttemptEnergy || s.energy >= CONFIG.energyMax) return { ok: false, perfect: false, reason: 'timing-not-ready' };
-    this._timingAttempted = true;
-    this._timingArmed = s.energy >= CONFIG.timingWindowStart && s.energy <= CONFIG.timingWindowEnd;
-    this._event('timing', { perfect: this._timingArmed, energy: s.energy, bonusPercent: this._timingArmed ? CONFIG.timingBonusPercent : 0, burstNumber: s.bursts + 1 });
-    return { ok: true, perfect: this._timingArmed, reason: this._timingArmed ? '' : 'timing-missed' };
   }
   _upgradeCost(key, level = this.state.upgrades[key]) {
     const u = CONFIG.upgrades[key];
@@ -328,7 +266,7 @@ class Game {
     return { count, cost, fromLevel, toLevel: fromLevel + count, canBuy: count > 0, reason, reservedCoins,
       preview: count > 0 ? this._upgradePreview(key, before, count) : null };
   }
-  buyUpgradeBatch(key, quote) {
+  _purchaseUpgradeBatch(key, quote) {
     if (!KEYS.includes(key)) return fail('invalid-upgrade');
     const s = this.state;
     if (s.machine < CONFIG.bulkUpgradeUnlockMachine) return fail('bulk-upgrade-locked');
@@ -348,7 +286,7 @@ class Game {
     const purchase = { key, fromLevel: quote.fromLevel, level: s.upgrades[key], count: quote.count, cost };
     this._event('upgradeBatch', purchase); return { ok: true, ...purchase };
   }
-  buyUpgrade(key) {
+  _purchaseUpgrade(key) {
     if (!KEYS.includes(key)) return fail('invalid-upgrade');
     if (this.state.upgrades[key] >= CONFIG.maxUpgradeLevel) return fail('max-level');
     const cost = this._upgradeCost(key); if (this.state.coins < cost) return fail('not-enough-coins');
@@ -357,33 +295,6 @@ class Game {
   }
   _refinementCap(key) {
     return CONFIG.refinements[key].levels.filter(level => this.state.machine >= level.requiredMachine && this.state.orderIndex >= level.requiredOrders).length;
-  }
-  _refinementOption(key, before = this._production()) {
-    const s = this.state, config = CONFIG.refinements[key], level = s.refinements[key], maxLevel = config.levels.length;
-    const unlockedLevel = this._refinementCap(key), next = config.levels[level] || null;
-    const cost = next ? next.cost : 0;
-    const reason = !next ? 'max-level' : level >= unlockedLevel ? s.machine < 4 ? 'refinement-locked' : 'refinement-stage-locked' : Object.keys(s.pendingRewards).length ? 'busy' : s.coins < cost ? 'not-enough-coins' : '';
-    const after = next ? this._production({ refinements: { ...s.refinements, [key]: level + 1 } }) : null;
-    const [label, field, unit] = key === 'yield' ? ['自动产量', 'baseAuto', '份/秒'] : ['每份售价', 'price', '金币/份'];
-    const future = config.levels[Math.max(level, unlockedLevel)] || null;
-    const nextUnlockText = future ? `完成 ${future.requiredOrders} 单 · ${CONFIG.machines[future.requiredMachine].name}，开放 Lv.${Math.max(level, unlockedLevel) + 1}` : '全部工艺等级已开放';
-    return { key, name: config.name, description: config.description, level, maxLevel, unlockedLevel, cost, canBuy: !reason, reason,
-      preview: after ? { label, before: before[field], after: after[field], unit } : null,
-      nextUnlockText: level === maxLevel ? '已完成全部工艺强化' : nextUnlockText };
-  }
-  buyRefinement(key, quote) {
-    if (!REFINEMENT_KEYS.includes(key)) return fail('invalid-refinement');
-    if (quote !== undefined && (!quote || typeof quote !== 'object' || Array.isArray(quote) || !Number.isInteger(quote.level)
-      || quote.level < 0 || quote.level >= CONFIG.refinements[key].levels.length || !Number.isInteger(quote.cost) || quote.cost <= 0
-      || (has(quote, 'key') && quote.key !== key))) return fail('invalid-refinement-quote');
-    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
-    const option = this._refinementOption(key);
-    // A held button can only buy the level and price actually displayed. Replaying it cannot charge twice.
-    if (quote && (quote.level !== option.level || quote.cost !== option.cost)) return fail('stale-refinement');
-    if (!option.canBuy) return fail(option.reason);
-    this.state.coins -= option.cost; this.state.refinements[key]++;
-    const purchase = { key, name: option.name, fromLevel: option.level, level: this.state.refinements[key], cost: option.cost };
-    this._event('refinement', purchase); return { ok: true, ...purchase };
   }
   _canonicalFactoryBasis(basis, orderIndex = this.state.orderIndex) {
     const s = this.state, stageMachine = CONFIG.machines.filter(item => item.requiredOrders <= orderIndex).length - 1;
@@ -403,7 +314,7 @@ class Game {
       && [['upgrades', KEYS], ['refinements', REFINEMENT_KEYS], ['researchLevels', RESEARCH_KEYS]].every(([field, keys]) =>
         !!a[field] && typeof a[field] === 'object' && !Array.isArray(a[field]) && keys.every(key => a[field][key] === b[field][key]));
   }
-  _researchOption(key, basis = this._commissionBasis(), serial = this.state.research.serial, level = this.state.research.levels[key]) {
+  _legacyResearchOption(key, basis = this._commissionBasis(), serial = this.state.research.serial, level = this.state.research.levels[key]) {
     const s = this.state, config = CONFIG.research, route = config.routes[key], maxLevel = config.maxLevel;
     const before = this._production({ ...basis, productionMode: 'balanced', boostSeconds: 0 });
     const after = level < maxLevel ? this._production({ ...basis, researchLevels: { ...basis.researchLevels, [key]: level + 1 }, productionMode: 'balanced', boostSeconds: 0 }) : null;
@@ -415,17 +326,6 @@ class Game {
       description: route.description, productionTarget: Math.max(config.minProduction, Math.ceil(before.baseAuto * config.durationSeconds)),
       canStart: !reason, reason, preview: after ? { label, before: before[field], after: after[field], unit } : null,
       multiplier: Math.pow(config.multiplier, level), basis };
-  }
-  _research() {
-    const s = this.state, r = s.research, totalLevels = RESEARCH_KEYS.reduce((total, key) => total + r.levels[key], 0);
-    const maxLevels = CONFIG.research.maxLevel * RESEARCH_KEYS.length;
-    const active = r.active ? {
-      id: r.active.id, key: r.active.key, level: r.active.level, name: r.active.name, projectName: r.active.projectName,
-      productionTarget: r.active.productionTarget, production: r.active.production,
-      progress: Math.min(1, r.active.production / r.active.productionTarget), ready: r.active.production >= r.active.productionTarget
-    } : null;
-    return { unlocked: s.orderIndex >= CONFIG.research.unlockOrders, totalLevels, maxLevels, complete: totalLevels >= maxLevels,
-      options: RESEARCH_KEYS.map(key => this._researchOption(key)), active };
   }
   _restoreResearch(save) {
     const s = this.state, saved = save.research, r = s.research;
@@ -439,52 +339,13 @@ class Game {
       || !active.basis || typeof active.basis !== 'object' || Array.isArray(active.basis)) return;
     const basis = this._canonicalFactoryBasis(active.basis, active.orderIndex);
     if (basis.researchLevels[active.key] !== r.levels[active.key]) return;
-    const option = this._researchOption(active.key, basis, active.serial, active.level - 1);
+    const option = this._legacyResearchOption(active.key, basis, active.serial, active.level - 1);
     r.active = { id: option.id, serial: active.serial, orderIndex: active.orderIndex, key: active.key, level: active.level,
       name: option.name, projectName: option.projectName, basis, productionTarget: option.productionTarget,
       production: finite(active.production, 0, option.productionTarget),
       offlineExcludedProduction: finite(active.offlineExcludedProduction, 0, s.offline ? s.offline.production : 0) };
   }
-  _researchProgress(amount) {
-    const active = this.state.research.active;
-    if (active) active.production = Math.min(active.productionTarget, active.production + finite(amount));
-  }
-  startResearch(key, quote) {
-    if (!RESEARCH_KEYS.includes(key)) return fail('invalid-research');
-    const s = this.state, r = s.research, current = this._researchOption(key);
-    if (!quote || typeof quote !== 'object' || Array.isArray(quote)
-      || ['key', 'id', 'serial', 'level', 'maxLevel', 'productionTarget', 'multiplier'].some(field => quote[field] !== current[field])
-      || !this._sameFactoryBasis(quote.basis, current.basis)
-      || (current.preview ? !quote.preview || ['label', 'before', 'after', 'unit'].some(field => quote.preview[field] !== current.preview[field]) : quote.preview !== null)) return fail('stale-research');
-    if (!current.canStart) return fail(current.reason);
-    r.active = { id: current.id, serial: r.serial, orderIndex: s.orderIndex, key, level: current.level + 1,
-      name: current.name, projectName: current.projectName, basis: current.basis, productionTarget: current.productionTarget,
-      production: 0, offlineExcludedProduction: s.offline ? s.offline.production : 0 };
-    r.serial++;
-    this._event('research', { action: 'start', id: current.id, key, level: r.active.level, name: current.name, projectName: current.projectName });
-    return { ok: true, ...this._research().active };
-  }
-  cancelResearch(id) {
-    const r = this.state.research;
-    if (!r.active || id !== r.active.id) return fail('stale-research');
-    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
-    const active = r.active; r.active = null; r.serial++;
-    this._event('research', { action: 'cancel', id, key: active.key, level: active.level, name: active.name, projectName: active.projectName });
-    return { ok: true, id };
-  }
-  claimResearch(id) {
-    const r = this.state.research, active = this._research().active;
-    if (!active || id !== active.id) return fail('stale-research');
-    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
-    if (!active.ready) return fail('research-not-ready');
-    const prior = this._production();
-    r.levels[active.key] = active.level; r.active = null; r.serial++;
-    const next = this._production(), [label, field, unit] = active.key === 'yield' ? ['自动产量', 'baseAuto', '份/秒'] : ['每份售价', 'price', '金币/份'];
-    const result = { id, key: active.key, level: active.level, name: active.name, projectName: active.projectName,
-      before: prior[field], after: next[field], label, unit, multiplier: Math.pow(CONFIG.research.multiplier, active.level) };
-    this._event('research', { action: 'claim', ...result }); return { ok: true, ...result };
-  }
-  evolve() {
+  _evolveMachine() {
     const next = CONFIG.machines[this.state.machine + 1]; if (!next) return fail('max-machine');
     if (this.state.orderIndex < next.requiredOrders) return fail('orders-required');
     if (this.state.coins < next.cost) return fail('not-enough-coins');
@@ -509,10 +370,11 @@ class Game {
       && active.orderIndex >= 10 && active.orderIndex < 20 && active.orderIndex <= s.orderIndex
       && Number.isInteger(active.serial) && active.serial >= 0 && active.serial < s.commissions.serial
       && active.id === `commission:${active.serial}:${active.orderIndex}:${active.kind}` && active.basis && typeof active.basis === 'object') {
+      // Retired commissions are read only for one-time migration settlement.
       // Freeze the accepted permanent factory, then rebuild all prices and goals from definitions.
       // A save cannot supply its own reward amount, goal count, title or readiness flag.
       const safeBasis = this._canonicalFactoryBasis(active.basis, active.orderIndex);
-      const restored = this._commissionOption(active.kind, safeBasis, active.serial, active.orderIndex);
+      const restored = this._legacyCommissionOption(active.kind, safeBasis, active.serial, active.orderIndex);
       s.commissions.active = { ...restored, basis: safeBasis,
         production: finite(active.production, 0, restored.productionTarget), perfect: integer(active.perfect, 0, restored.perfectTarget),
         recovery: integer(active.recovery, 0, restored.recoveryTarget),
@@ -527,97 +389,19 @@ class Game {
     const previous = index > 0 ? CONFIG.orders[index - 1].target : 0;
     return previous + (order.target - previous) * stage / 4;
   }
-  _deliveries() {
-    const s = this.state, unlocked = s.orderIndex >= 10 && s.orderIndex < 20;
-    const claimed = s.deliveries.orderIndex === s.orderIndex ? s.deliveries.claimed : [];
-    const stages = unlocked ? [1, 2, 3].map(stage => {
-      const threshold = this._deliveryThreshold(stage), wasClaimed = claimed.includes(stage);
-      return { stage, threshold, coins: Math.floor(CONFIG.orders[s.orderIndex].reward * .2),
-        claimed: wasClaimed, ready: !wasClaimed && s.totalProduced >= threshold };
-    }) : [];
-    return { unlocked, orderIndex: s.orderIndex, stages, readyCount: stages.filter(stage => stage.ready).length };
-  }
-  claimDelivery(stage, expectedOrderIndex) {
-    if (!Number.isInteger(stage) || stage < 1 || stage > 3 || !Number.isInteger(expectedOrderIndex)) return fail('invalid-delivery');
-    if (expectedOrderIndex !== this.state.orderIndex) return fail('stale-order');
-    const deliveries = this._deliveries(); if (!deliveries.unlocked) return fail('delivery-locked');
-    const delivery = deliveries.stages[stage - 1];
-    if (delivery.claimed) return fail('already-claimed');
-    if (!delivery.ready) return fail('delivery-not-ready');
-    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
-    if (this.state.deliveries.orderIndex !== expectedOrderIndex) this.state.deliveries = { orderIndex: expectedOrderIndex, claimed: [] };
-    this.state.deliveries.claimed.push(stage); this._addCoins(delivery.coins);
-    this._event('delivery', { stage, orderIndex: expectedOrderIndex, coins: delivery.coins });
-    return { ok: true, stage, orderIndex: expectedOrderIndex, coins: delivery.coins };
-  }
   _commissionBasis() {
     const s = this.state;
     return { machine: s.machine, upgrades: { ...s.upgrades }, brandLevel: s.brandLevel, refinements: { ...s.refinements }, researchLevels: { ...s.research.levels } };
   }
-  _commissionOption(kind, basis = this._commissionBasis(), serial = this.state.commissions.serial, orderIndex = this.state.orderIndex) {
+  _legacyCommissionOption(kind, basis = this._commissionBasis(), serial = this.state.commissions.serial, orderIndex = this.state.orderIndex) {
     const p = this._production({ ...basis, productionMode: 'balanced', boostSeconds: 0 }), bulk = kind === 'bulk';
     const productionTarget = bulk ? Math.max(50, Math.ceil(p.baseAuto * 75)) : 0;
     const recoveryTarget = !bulk && basis.machine >= CONFIG.heatRecoveryUnlockMachine && basis.upgrades.tap >= CONFIG.heatRecoveryUpgradeLevel ? 10 : 0;
     return { kind, id: `commission:${serial}:${orderIndex}:${kind}`, serial, orderIndex,
       title: bulk ? '大批量补货' : '匠心精品单',
-      description: bulk ? `新生产 ${formatNumber(productionTarget)} 份 · 赶单档更快` : recoveryTarget ? '2 次完美爆锅 · 使用 10 次余热' : '完成 2 次完美爆锅',
       reward: Math.floor(p.baseIncome * (bulk ? 60 : 90)), productionTarget, perfectTarget: bulk ? 0 : 2, recoveryTarget };
   }
-  _commissions() {
-    const s = this.state, c = s.commissions, unlocked = s.orderIndex >= 10;
-    const remaining = s.orderIndex < 20 ? 3 - (c.orderIndex === s.orderIndex ? c.claimed : 0) : 0;
-    let active = null;
-    if (c.active) {
-      const a = c.active, parts = a.kind === 'bulk' ? [a.production / a.productionTarget]
-        : [a.perfect / a.perfectTarget, ...(a.recoveryTarget ? [a.recovery / a.recoveryTarget] : [])];
-      active = { id: a.id, kind: a.kind, title: a.title, description: a.description, reward: a.reward,
-        productionTarget: a.productionTarget, production: a.production, perfectTarget: a.perfectTarget, perfect: a.perfect,
-        recoveryTarget: a.recoveryTarget, recovery: a.recovery, ready: parts.every(value => value >= 1),
-        progress: Math.min(1, parts.reduce((sum, value) => sum + value, 0) / parts.length) };
-    }
-    return { unlocked, available: unlocked && remaining > 0 && !active && !Object.keys(s.pendingRewards).length,
-      remaining, options: unlocked && s.orderIndex < 20 ? COMMISSION_KINDS.map(kind => this._commissionOption(kind)) : [], active };
-  }
-  _commissionProgress(metric, amount) {
-    const active = this.state.commissions.active;
-    if (!active || (active.kind === 'bulk') !== (metric === 'production')) return;
-    active[metric] = Math.min(active[metric + 'Target'], active[metric] + finite(amount));
-  }
-  acceptCommission(kind, quote) {
-    if (!COMMISSION_KINDS.includes(kind)) return fail('invalid-commission');
-    const s = this.state, c = s.commissions, current = this._commissionOption(kind);
-    if (!quote || typeof quote !== 'object' || Array.isArray(quote)
-      || ['id', 'kind', 'serial', 'orderIndex', 'reward', 'productionTarget', 'perfectTarget', 'recoveryTarget'].some(key => quote[key] !== current[key])) return fail('stale-commission');
-    if (Object.keys(s.pendingRewards).length) return fail('busy');
-    if (s.orderIndex < 10 || s.orderIndex >= 20) return fail('commission-locked');
-    if (c.active) return fail('commission-active');
-    if (this._commissions().remaining <= 0) return fail('commission-limit');
-    if (c.orderIndex !== s.orderIndex) { c.orderIndex = s.orderIndex; c.claimed = 0; }
-    c.active = { ...current, basis: this._commissionBasis(), production: 0, perfect: 0, recovery: 0,
-      offlineExcludedProduction: s.offline ? s.offline.production : 0 };
-    c.serial++;
-    this._event('commission', { action: 'accept', id: current.id, kind, title: current.title, coins: 0 });
-    return { ok: true, ...this._commissions().active };
-  }
-  cancelCommission(id) {
-    const c = this.state.commissions;
-    if (!c.active || id !== c.active.id) return fail('stale-commission');
-    if (Object.keys(this.state.pendingRewards).length) return fail('busy');
-    const active = c.active; c.active = null; c.serial++;
-    this._event('commission', { action: 'cancel', id, kind: active.kind, title: active.title, coins: 0 });
-    return { ok: true, id };
-  }
-  claimCommission(id) {
-    const s = this.state, c = s.commissions, active = this._commissions().active;
-    if (!active || id !== active.id) return fail('stale-commission');
-    if (!active.ready) return fail('commission-not-ready');
-    if (Object.keys(s.pendingRewards).length) return fail('busy');
-    if (c.orderIndex !== s.orderIndex) { c.orderIndex = s.orderIndex; c.claimed = 0; }
-    c.active = null; c.claimed = Math.min(3, c.claimed + 1); c.serial++; this._addCoins(active.reward);
-    this._event('commission', { action: 'claim', id, kind: active.kind, title: active.title, coins: active.reward });
-    return { ok: true, id, kind: active.kind, title: active.title, coins: active.reward };
-  }
-  _souvenirs() {
+  _baseSouvenirs() {
     const s = this.state, unlocked = s.orderIndex === 20 && s.machine === 5;
     const options = SOUVENIRS.map(item => {
       const owned = s.souvenirs.includes(item.key);
@@ -628,7 +412,7 @@ class Game {
     const ownedCount = options.filter(option => option.owned).length;
     return { unlocked, ownedCount, total: SOUVENIRS.length, complete: ownedCount === SOUVENIRS.length, options };
   }
-  buySouvenir(key, quote) {
+  _purchaseSouvenir(key, quote) {
     const option = this._souvenirs().options.find(item => item.key === key);
     if (!option) return fail('invalid-souvenir');
     if (!quote || typeof quote !== 'object' || Array.isArray(quote)
@@ -638,38 +422,28 @@ class Game {
     this._event('souvenir', { key, name: option.name, cost: option.cost });
     return { ok: true, key, name: option.name, cost: option.cost };
   }
-  _order() {
-    const s = this.state, isLoop = s.orderIndex >= 20;
-    const order = isLoop ? {
-      name: ['城市返场订单', '全球甜蜜补货', '金色派对专供', '爆米花王国'][s.loopIndex % 4] + ' · ' + (s.loopIndex + 1),
-      target: finite(CONFIG.orders[19].target * Math.pow(1.35, Math.min(s.loopIndex + 1, 1000))),
-      reward: finite(CONFIG.orders[19].reward * Math.pow(1.3, Math.min(s.loopIndex, 1000)))
-    } : CONFIG.orders[s.orderIndex];
-    const previousTarget = isLoop ? finite(CONFIG.orders[19].target * Math.pow(1.35, Math.min(s.loopIndex, 1000))) : (s.orderIndex > 0 ? CONFIG.orders[s.orderIndex - 1].target : 0);
-    const paid = this._deliveries().stages.filter(stage => stage.claimed).reduce((sum, stage) => sum + stage.coins, 0);
+  _tutorialOrder() {
+    const s = this.state, order = CONFIG.orders[s.orderIndex];
+    const previousTarget = s.orderIndex > 0 ? CONFIG.orders[s.orderIndex - 1].target : 0;
     return {
-      ...order, fullReward: order.reward, reward: order.reward - paid,
-      index: isLoop ? 20 + s.loopIndex : s.orderIndex, number: isLoop ? s.loopIndex + 1 : s.orderIndex + 1,
+      ...order, fullReward: order.reward, reward: order.reward,
+      index: s.orderIndex, number: s.orderIndex + 1,
       progress: Math.min(1, s.totalProduced / order.target), stageProgress: Math.max(0, Math.min(1, (s.totalProduced - previousTarget) / Math.max(1, order.target - previousTarget))),
-      ready: s.totalProduced >= order.target, isLoop
+      ready: s.totalProduced >= order.target, isLoop: false
     };
   }
   claimOrder() { return this._claimOrder(1); }
-  _claimOrder(multiplier, frozenBonus = 0) {
+  _claimTutorialOrder(multiplier, frozenBonus = 0) {
+    if (this.state.orderIndex >= 6) return fail('tutorial-complete');
     const order = this._order(); if (!order.ready) return fail('order-not-ready');
     const coins = finite(order.reward * multiplier + frozenBonus); this._addCoins(coins);
     multiplier = coins / order.reward;
-    if (order.isLoop) this.state.loopIndex++; else {
-      this.state.orderIndex++;
-      this.state.deliveries = { orderIndex: this.state.orderIndex, claimed: [] };
-      this.state.commissions.orderIndex = this.state.orderIndex; this.state.commissions.claimed = 0; this.state.commissions.serial++;
-    }
+    this.state.orderIndex++;
     for (const [id, q] of Object.entries(this.state.pendingRewards)) if (q.kind === 'order') delete this.state.pendingRewards[id];
     this._event('order', { index: order.index, name: order.name, coins, multiplier, isLoop: order.isLoop });
-    if (this.state.orderIndex === 20 && !order.isLoop) { this.state.completedAt = this.state.playedSeconds; this._event('complete', { seconds: this.state.playedSeconds }); }
     return { ok: true, coins, order, multiplier };
   }
-  _rewardOffer(kind) {
+  _baseRewardOffer(kind) {
     const s = this.state; if (!REWARDS.includes(kind)) return null;
     const p = this._production(), next = CONFIG.machines[s.machine + 1], order = this._order();
     let amount = 0, title = '', description = '', reason = '';
@@ -695,8 +469,7 @@ class Game {
       if (!s.offline) reason = 'no-offline-reward';
     }
     if (!reason && s.playedSeconds < CONFIG.rewardUnlockSeconds) reason = 'intro-first';
-    const cooldown = 0;
-    return { kind, title, description, amount, duration: kind === 'turbo' ? 90 : undefined, available: !reason, reason, cooldown };
+    return { kind, title, description, amount, duration: kind === 'turbo' ? 90 : undefined, available: !reason, reason };
   }
   _rewardImpact(offer, production, next, order) {
     const s = this.state, extraCoins = finite(offer.amount);
@@ -741,7 +514,7 @@ class Game {
         tapBefore: production.tap, tapAfter: after.tap, bonusPercentBefore: bonusBefore, bonusPercentAfter: bonusAfter
       };
     }
-    const freeCoins = offer.kind === 'order' ? order.reward : (s.offline ? s.offline.coins : 0);
+    const freeCoins = offer.kind === 'order' ? order.reward : (s.offline ? this._offlineProjection(s.offline).cashCoins : 0);
     const totalCoins = finite(freeCoins + extraCoins);
     return {
       title: '额外 +' + formatNumber(extraCoins) + ' 金币',
@@ -786,17 +559,6 @@ class Game {
     return { ok: true, kind: q.kind, amount: q.amount, coins, duration: q.duration, ...brandResult };
   }
   claimOffline() { return this._claimOffline(); }
-  _claimOffline() {
-    const offline = this.state.offline; if (!offline) return fail('no-offline-reward');
-    const active = this.state.commissions.active;
-    if (active && active.kind === 'bulk') this._commissionProgress('production', Math.max(0, offline.production - active.offlineExcludedProduction));
-    if (active) active.offlineExcludedProduction = 0;
-    const research = this.state.research.active;
-    if (research) { this._researchProgress(Math.max(0, offline.production - research.offlineExcludedProduction)); research.offlineExcludedProduction = 0; }
-    this.state.offline = null; this.state.totalProduced = finite(this.state.totalProduced + offline.production); this._addCoins(offline.coins);
-    for (const [id, q] of Object.entries(this.state.pendingRewards)) if (q.kind === 'offline') delete this.state.pendingRewards[id];
-    this._event('offline', { coins: offline.coins, amount: offline.production, seconds: offline.seconds }); return { ok: true, coins: offline.coins, amount: offline.production, seconds: offline.seconds };
-  }
   setSetting(key, value) {
     if (!['sound', 'haptics'].includes(key) || typeof value !== 'boolean') return fail('invalid-setting');
     this.state.settings[key] = value; return { ok: true };
@@ -861,7 +623,7 @@ class Game {
     const [label, unit, field] = key === 'tap' ? ['点击产量', '份/次', 'tap'] : key === 'auto' ? ['永久自动收益', '金币/秒', 'baseIncome'] : ['每份售价', '金币/份', 'price'];
     return { label, unit, before: before[field], after: after[field] };
   }
-  _goal(next, order) {
+  _baseGoal(next, order) {
     const s = this.state;
     if (!next) return { title: order.ready ? '订单可以装车了' : '下一单：' + order.name,
       text: order.ready ? `直接装车可领取 ${formatNumber(order.reward)} 金币。` : `还需生产 ${formatNumber(Math.ceil(order.target - s.totalProduced))} 份。`, action: 'order' };
@@ -870,9 +632,9 @@ class Game {
     const missing = [];
     if (ordersMissing) missing.push(`${ordersMissing} 个主线订单`);
     if (coinsMissing) missing.push(`${formatNumber(Math.ceil(coinsMissing))} 金币`);
-    return { title: '下一台：' + next.name, text: '还差 ' + missing.join(' · ') + '。', action: ordersMissing ? 'order' : 'tab:machines' };
+    return { title: '下一台：' + next.name, text: '还差 ' + missing.join(' · ') + '。', action: ordersMissing ? 'order' : 'machine' };
   }
-  getView() {
+  _baseView() {
     const s = this.state, next = CONFIG.machines[s.machine + 1] || null, production = this._production(), order = this._order();
     const nextProduction = next ? this._production({ machine: s.machine + 1 }) : null;
     const nextBrandLevel = Math.min(CONFIG.brandMaxLevel, s.brandLevel + 1), brandAfter = this._production({ brandLevel: nextBrandLevel });
@@ -897,12 +659,9 @@ class Game {
         baseIncomeBefore: production.baseIncome, baseIncomeAfter: brandAfter.baseIncome },
       upgrades: KEYS.map(key => ({ key, name: CONFIG.upgrades[key].name, description: CONFIG.upgrades[key].description,
         level: s.upgrades[key], maxLevel: CONFIG.maxUpgradeLevel, cost: this._upgradeCost(key), canBuy: s.upgrades[key] < CONFIG.maxUpgradeLevel && s.coins >= this._upgradeCost(key), preview: this._upgradePreview(key, production), bulk: this._bulkUpgradeQuote(key, production) })),
-      refinements: { unlocked: s.machine >= 4, title: '工艺强化', options: REFINEMENT_KEYS.map(key => this._refinementOption(key, production)) },
+      refinements: { unlocked: false, options: [] },
       production, order, deliveries: this._deliveries(), commissions: this._commissions(), research: this._research(), souvenirs: this._souvenirs(),
       quests: this._quests(), energy: s.energy, energyMax: 100, boostSeconds: s.boostSeconds, tutorial: this._tutorial(), goal: this._goal(next, order),
-      timing: { unlocked: s.bursts > 0, available: s.bursts > 0 && !this._timingAttempted && s.energy >= CONFIG.timingAttemptEnergy && s.energy < CONFIG.energyMax,
-        attempted: this._timingAttempted, armed: this._timingArmed, progress: s.energy / CONFIG.energyMax,
-        windowStart: CONFIG.timingWindowStart / CONFIG.energyMax, windowEnd: CONFIG.timingWindowEnd / CONFIG.energyMax, bonusPercent: CONFIG.timingBonusPercent },
       machinePreview: nextProduction ? { tapBefore: production.tap, tapAfter: nextProduction.tap, incomeBefore: production.baseIncome, incomeAfter: nextProduction.baseIncome } : null,
       canEvolve: !!next && s.orderIndex >= next.requiredOrders && s.coins >= next.cost,
       evolveReason: !next ? 'max-machine' : s.orderIndex < next.requiredOrders ? 'orders-required' : s.coins < next.cost ? 'not-enough-coins' : '',
@@ -918,6 +677,5 @@ class Game {
   drainEvents() { const result = this.events; this.events = []; return result; }
   exportSave(now = Date.now()) { this.state.savedAt = finite(now, this.now); return clone(this.state); }
 }
+require('./factory-rules.js').installFactoryGame(Game, CONFIG, QUEST_CHAPTERS, formatNumber);
 module.exports = { CONFIG, QUEST_CHAPTERS, Game, formatNumber };
-
-
