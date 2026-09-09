@@ -7,11 +7,13 @@ class AudioEngine {
     this.enabled = true;
     this.context = null;
     this.lastPop = -Infinity;
+    this.lastShip = -Infinity;
     this.voices = 0;
     this.unavailable = false;
     this.native = typeof tt !== 'undefined' && typeof tt.createInnerAudioContext === 'function' ? tt : null;
     this.nativeSounds = {};
     this.lastNativePop = 0;
+    this.lastNativeShip = -Infinity;
   }
 
   setEnabled(enabled) {
@@ -45,7 +47,12 @@ class AudioEngine {
     const context = this.context;
     if (!context || context.state === 'suspended' || context.state === 'closed' || this.voices > 18) return;
     const now = context.currentTime;
-    if (name === 'pop' || name === 'tap' || name === 'click') {
+    if (name === 'ship') {
+      if (now - this.lastShip < .65) return;
+      this.lastShip = now;
+      // A quiet dispatch tick accompanies a group of real shipment events.
+      this.tone(680, 940, .075, .018, 'sine', 0);
+    } else if (name === 'pop' || name === 'tap' || name === 'click') {
       if (now - this.lastPop < 0.035) return;
       this.lastPop = now;
       this.tone(640 + Math.random() * 240, 140, 0.085, 0.07, 'triangle', 0);
@@ -79,13 +86,15 @@ class AudioEngine {
     // Bundled WAVs, reused contexts; official native API supports package-local paths.
     // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/basic-function/audio
     const aliases = { tap:'pop', boom:'burst', unlock:'upgrade', reward:'order', coin:'order', success:'order', win:'complete', deny:'error', offline:'order' };
-    const key = aliases[name] || (['pop','burst','upgrade','machine','order','complete','error'].includes(name)?name:'click');
+    const key = name === 'ship' ? 'ship' : aliases[name] || (['pop','burst','upgrade','machine','order','complete','error'].includes(name)?name:'click');
     if (key==='pop' && Date.now()-this.lastNativePop<90) return;
     if (key==='pop') this.lastNativePop=Date.now();
+    if (key==='ship' && Date.now()-this.lastNativeShip<650) return;
+    if (key==='ship') this.lastNativeShip=Date.now();
     try {
       if (!this.nativeSounds[key]) {
         const audio=this.native.createInnerAudioContext();
-        audio.src='audio/'+key+'.wav';audio.loop=false;audio.volume=.45;audio.obeyMuteSwitch=true;
+        audio.src='audio/'+(key==='ship'?'click':key)+'.wav';audio.loop=false;audio.volume=key==='ship'?.12:.45;audio.obeyMuteSwitch=true;
         if(typeof audio.onError==='function')audio.onError(()=>{});
         this.nativeSounds[key]=audio;
       }

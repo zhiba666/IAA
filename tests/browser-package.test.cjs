@@ -45,6 +45,13 @@ function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top 
     canvas, rect, storage, drawing,
     snapshot: () => JSON.parse(JSON.stringify(context.__POPCORN__.snapshot())),
     actions: () => renderer.zones.map(zone => zone.action),
+    verifyControls() {
+      for (const zone of renderer.zones.filter(item => item.action && item.action !== 'noop')) {
+        assert.ok(zone.w >= 44 && zone.h >= 44, '44px minimum touch target: ' + zone.action);
+        assert.ok(zone.x >= 0 && zone.y >= 0 && zone.x + zone.w <= Math.min(width, 480)
+          && zone.y + zone.h <= height, 'the entire control stays inside the visible viewport: ' + zone.action);
+      }
+    },
     frame(ms = 0) { now += ms; drawing.clear(); const fn = nextFrame; nextFrame = null; assert.equal(typeof fn,'function'); fn(now); assert.equal(drawing.depth(),0); },
     event(type,x,y,pointerType='mouse',id=1) {
       let prevented = false;
@@ -80,25 +87,62 @@ test('browser bundle routes real mouse and touch coordinates through platform an
     { width:960,height:900,pixelRatio:2 }
   ]) for (const pointerType of ['mouse','touch','pen']) {
     const h=browserBoot({...options,save});
+    h.verifyControls();
     assert.ok(h.actions().includes('station:cup'));
     const before=h.snapshot();
     h.clickAction('station:cup',pointerType,true);
-    assert.ok(h.actions().includes('upgrade:cup'),'actual pointer opens its station sheet');
-    assert.ok(!h.actions().includes('station:pop'),'sheet replaces underlying factory hit regions');
-    h.clickAction('upgrade:cup',pointerType,true);
+    assert.ok(h.actions().includes('upgrade:cup:1'),'actual pointer opens the quoted station controls');
+    assert.ok(h.actions().includes('station:pop'),'the factory remains directly selectable beside the compact controls');
+    h.verifyControls();
+    h.clickAction('upgrade:cup:1',pointerType,true);
     const after=h.snapshot();
     assert.equal(after.state.upgrades.cup,1);
     assert.equal(after.state.totalSpent-before.state.totalSpent,30);
     assert.equal(after.state.coins,before.state.coins-30);
     assert.ok(h.actions().includes('station:cup'));
+    assert.ok(h.actions().includes('reviewUpgrade'));
+    assert.ok(!h.actions().some(action => action && action.startsWith('upgrade:')));
+    h.verifyControls();
     assert.equal(JSON.parse(h.storage.get(KEY)).upgrades.cup,1,'browser storage receives the purchased upgrade');
   }
 });
 
-test('clicking the visible canvas center opens the initial cup station at 320 by 524', () => {
+test('the visible cup machine opens compact controls at 320 by 524 and keeps every station selectable', () => {
   const h=browserBoot();
-  h.clickAt(160,262,'mouse',true);
-  assert.ok(!h.actions().includes('station:pop'));
-  assert.ok(h.drawing.texts.some(entry=>entry.text==='工位改造'));
-  assert.ok(h.drawing.texts.some(entry=>entry.text==='装杯'));
+  h.clickAction('station:cup','mouse',true);
+  assert.ok(h.actions().includes('station:pop'));
+  assert.ok(h.actions().includes('collapseStation'));
+  assert.ok(h.drawing.texts.some(entry=>entry.text.includes('快速装杯头')));
+  assert.ok(h.drawing.texts.some(entry=>entry.text.includes('预计稳定出货')));
+  h.verifyControls();
+  h.clickAction('station:ship','touch',true);
+  assert.ok(h.drawing.texts.some(entry=>entry.text.includes('快速出货带')));
+  h.clickAction('collapseStation');
+  assert.ok(h.actions().includes('reviewUpgrade'));
+  h.clickAction('close');
+  assert.ok(!h.actions().includes('reviewUpgrade'));
+  assert.ok(!h.drawing.texts.some(entry=>/重构|旧存档/.test(entry.text)), 'migration details do not occupy the first factory scene');
+  h.clickAction('settings');
+  assert.ok(h.drawing.texts.some(entry=>entry.text.includes('旧存档保留')));
+  h.verifyControls();
+});
+
+test('repeated real pointer taps at the former purchase position never arm or buy the following upgrade', () => {
+  const game = new Game({ now: START }); game.tick(1000);
+  const save = game.exportSave(START); save.machine = 2;
+  for (const options of [{ width: 320, height: 524 }, { width: 390, height: 844 }]) {
+    const h = browserBoot({ ...options, save });
+    h.clickAction('station:cup');
+    const button = h.point('upgrade:cup:1');
+    h.clickAt(button.x, button.y, 'touch', true);
+    const after = h.snapshot();
+    assert.ok(after.stations.find(station => station.id === 'cup').upgrade.available, 'next tier is unlocked and affordable');
+    for (let i = 0; i < 6; i++) h.clickAt(button.x, button.y, 'touch', true);
+    assert.equal(h.snapshot().state.totalSpent, after.state.totalSpent);
+    assert.equal(h.snapshot().state.upgrades.cup, 1);
+    assert.ok(h.actions().includes('reviewUpgrade'), 'repeated taps do not reopen the next quote');
+    h.clickAction('reviewUpgrade');
+    h.clickAction('upgrade:cup:2');
+    assert.equal(h.snapshot().state.upgrades.cup, 2, 'explicitly reviewing the next quote still permits purchase');
+  }
 });

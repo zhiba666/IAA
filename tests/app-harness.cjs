@@ -71,6 +71,7 @@ function harness(options = {}) {
     hide() { hideHandler(); }, show() { showHandler({}); }, resize() { resizeHandler(info); },
     pointer(type, action = null, id = 1, x = 100, y = 100) { hitAction = action; pointerHandler({ type, id, x, y }); },
     click(action) { hitAction = action; pointerHandler({ type: 'down', id: 1, x: 100, y: 100 }); pointerHandler({ type: 'up', id: 1, x: 100, y: 100 }); hitAction = null; },
+    key(code, repeat = false) { if (events.keydown) events.keydown({ code, repeat, preventDefault() {} }); },
     setSaveFailure(value) { saveFailure = value; }
   };
   h.frame(0);

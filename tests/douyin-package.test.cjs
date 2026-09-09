@@ -12,15 +12,15 @@ const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 
 // Exercise the generated entry and every real bundled module. This bounded SDK
 // contract smoke test is not an IDE, an audio decoder, or a device test.
-function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTop = 47, menuApi = true } = {}) {
+function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTop = 47, menuApi = true, width = 390, height = 844 } = {}) {
   let now = 1800000000000, frameTime = 1, pendingFrame = null, canvasCount = 0;
   let depth = 0, operations = 0, layout = null, drawnViewport = null, renderer = null;
   let transform = [1, 0, 0, 1, 0, 0], currentPath = [];
   const states = [], fills = [], events = {}, storage = new Map(), sounds = [], texts = [], textPositions = [];
   // Leave native storage empty to exercise the genuine v2 first run.
-  const info = { windowWidth: 390, windowHeight: 844, pixelRatio: 3,
-    safeArea: { left: 0, top: safeTop, right: 390, bottom: 810, width: 390, height: 810 - safeTop } };
-  const menu = { left: 286, top: safeTop + 4, right: 378, bottom: safeTop + 36, width: 92, height: 32 };
+  const info = { windowWidth: width, windowHeight: height, pixelRatio: 3,
+    safeArea: { left: 0, top: safeTop, right: width, bottom: height - 34, width, height: height - 34 - safeTop } };
+  const menu = { left: width - 104, top: safeTop + 4, right: width - 12, bottom: safeTop + 36, width: 92, height: 32 };
   const point = (x, y) => {
     const [a, b, c, d, e, f] = transform, dpr = Math.min(2, info.pixelRatio);
     return { x: (a*x+c*y+e)/dpr, y: (b*x+d*y+f)/dpr };
@@ -189,6 +189,9 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
         assert.ok(!intersects(entry),'text must clear the native menu: '+entry.text);
       }
       for(const zone of renderer.zones.filter(zone=>zone.action && zone.action !== 'noop' && !(zone.x===0 && zone.y===0 && zone.w===info.windowWidth))) {
+        assert.ok(zone.w>=44&&zone.h>=44,'native controls retain a 44px minimum touch target: '+zone.action);
+        assert.ok(zone.x>=info.safeArea.left&&zone.x+zone.w<=info.safeArea.right,'control stays horizontally visible: '+zone.action);
+        assert.ok(zone.y+zone.h<=info.safeArea.bottom-6,'control clears the bottom safe area: '+zone.action);
         assert.ok(zone.y>=info.safeArea.top,'control must clear the status area: '+zone.action);
         assert.ok(!intersects({left:zone.x,right:zone.x+zone.w,top:zone.y,bottom:zone.y+zone.h}),'control must clear the native menu: '+zone.action);
       }
@@ -219,22 +222,39 @@ test('generated Douyin entry automatically runs the real pipeline without DOM or
     h.verifyLayout();
     for (const action of ['station:pop','station:cup','station:ship','settings']) assert.ok(h.actions().includes(action));
     assert.ok(!h.actions().some(action => /^(start|tap|ad|order|quest|brand|guidebook|offline)/.test(action)));
-    assert.ok(h.texts.some(text => /新工厂|重构/.test(text)), 'first-run migration notice is visible without a start gate');
+    assert.ok(!h.texts.some(text => /重构|旧存档/.test(text)), 'migration details are absent from the first factory scene');
+    h.clickAction('settings'); h.frame(0);
+    assert.ok(h.texts.some(text => /玩法已重构/.test(text)), 'version context remains available in settings');
+    assert.ok(h.texts.some(text => /旧存档保留/.test(text)), 'legacy save policy remains available in settings');
+    h.clickAction('close'); h.frame(0);
     for (let i = 0; i < 20; i++) h.frame(1000);
     assert.ok(h.snapshot().state.totalSold > 0, 'production and final dispatch happen without any tap');
     const before = h.snapshot();
     h.clickAction('station:cup'); h.frame(0);
-    assert.ok(h.actions().includes('upgrade:cup'));
-    h.clickAction('upgrade:cup'); h.frame(0);
+    assert.ok(h.actions().includes('upgrade:cup:1'));
+    assert.ok(h.actions().includes('station:pop'), 'compact controls keep other stations selectable');
+    h.verifyControls();
+    h.clickAction('upgrade:cup:1'); h.frame(0);
     const after = h.snapshot();
     assert.ok(after.state.coins < before.state.coins, 'real native input pays for the selected station');
     assert.ok(after.stations.find(station => station.id === 'cup').capacity > before.stations.find(station => station.id === 'cup').capacity);
+    assert.equal(after.state.totalSpent-before.state.totalSpent,30);
+    assert.equal(after.state.coins,before.state.coins-30);
+    assert.equal(after.throughput,before.throughput,'the forecast does not replace measured dispatch');
+    assert.ok(h.actions().includes('reviewUpgrade'),'purchase preserves selection in the collapsed controls');
+    assert.ok(!h.actions().some(action=>action.startsWith('upgrade:')),'next quote is not armed automatically');
+    h.verifyControls();
     const sound = h.sounds.find(audio => audio.src === 'audio/upgrade.wav');
     assert.ok(sound && sound.plays > 0, 'upgrade reuses the native sound adapter');
     assert.equal(sound.obeyMuteSwitch, true);
     const wav = fs.readFileSync(path.join(PACKAGE, sound.src));
     assert.equal(wav.toString('ascii', 0, 4), 'RIFF');
     assert.equal(wav.toString('ascii', 8, 12), 'WAVE');
+    const shipmentSound=h.sounds.find(audio=>audio.src==='audio/click.wav'&&audio.volume===.12);
+    assert.ok(shipmentSound&&shipmentSound.plays>0,'real shipments use the quiet bundled sound');
+    assert.ok(shipmentSound.plays<=Math.ceil(20/.65),'native shipment sound is grouped and limited');
+    assert.equal(after.state.totalProduced,after.state.totalSold+after.state.buffers.pop+after.state.buffers.cup
+      +Object.values(after.state.stations).reduce((n,station)=>n+station.jobs.reduce((sum,job)=>sum+(job?job.amount:0),0),0));
     h.events.onHide();
     const saved = h.saved(), operationCount = h.operations();
     h.frame(3600000);
@@ -257,12 +277,14 @@ test('native controls avoid device status insets and menu capsule after resize a
   for (const scenario of [
     { name: 'dynamic island', safeTop: 59 },
     { name: 'Android zero top inset', safeTop: 0 },
-    { name: 'no menu API', safeTop: 59, menuApi: false }
+    { name: 'no menu API', safeTop: 59, menuApi: false },
+    { name: 'small native viewport and capsule', width: 320, height: 524, safeTop: 28 }
   ]) await t.test(scenario.name, () => {
     const h = boot(scenario);
     h.verifyLayout(); h.verifyControls();
     for (const action of ['station:pop','station:cup','station:ship','settings']) {
       h.clickAction(action); h.frame(0); h.verifyControls();
+      if(action.startsWith('station:')) { h.clickAction('collapseStation'); h.frame(0); h.verifyControls(); }
       h.clickAction('close'); h.frame(0);
     }
     for (const event of ['onWindowResize', 'onShow']) {
@@ -272,6 +294,7 @@ test('native controls avoid device status insets and menu capsule after resize a
       h.menu.top = h.info.safeArea.top + 8; h.menu.bottom = h.menu.top + h.menu.height;
       h.events[event]({}); h.frame(0); h.verifyLayout(); h.verifyControls();
       h.clickAction('station:cup'); h.frame(0); h.verifyControls();
+      h.clickAction('collapseStation'); h.frame(0); h.verifyControls();
       h.clickAction('close'); h.frame(0);
     }
   });

@@ -1,8 +1,9 @@
 'use strict';
-const { Game } = require('./core');
+const { Game, CONFIG } = require('./core');
 const { createPlatform } = require('./platform');
 const { AudioEngine } = require('./audio');
 const { Renderer } = require('./renderer');
+const { ProductionInsights } = require('./production-insights');
 
 // The application owns input and lifecycle. Only Game advances stock or money.
 const platform = createPlatform();
@@ -11,10 +12,15 @@ const sound = new AudioEngine();
 const initialSave = platform.load();
 let game = new Game({ save: initialSave });
 let renderer = new Renderer(ctx);
+let insights = new ProductionInsights();
 const ui = { modal: null, toast: '', toastSeconds: 0, isDouyin: platform.isDouyin,
-  newFactory: !game.state.introSeen, sidebar: { supported: false }, sidebarBusy: false };
+  newFactory: !game.state.introSeen, sidebar: { supported: false }, sidebarBusy: false,
+  stationCollapsed: false, stationDetails: false, quote: null, purchaseFeedback: null,
+  rateUpdatingUntil: 0, shipment: null };
 let width = 480, height = 840, ratio = 1, ox = 0;
 let hidden = false, lastTime = null, saveTimer = 0, pointer = null, saveFailed = false;
+let pendingShipment = { amount: 0, coins: 0 }, lastShipmentTick = -Infinity;
+const shipmentInterval = Math.ceil(CONFIG.ticksPerSecond * .65);
 const stationIds = ['pop', 'cup', 'ship'];
 const reasons = {
   'not-enough-coins': '金币还不够，出货后再来改造',
@@ -37,11 +43,24 @@ function save() {
 function processEvents() {
   for (const event of game.drainEvents()) {
     renderer.emit(event);
+    if (event.type === 'ship') {
+      // These amounts have already been settled by Game. This aggregation only
+      // paints feedback and throttles sound; it never credits another shipment.
+      pendingShipment.amount += event.amount;
+      pendingShipment.coins += event.coins;
+    }
     if (event.type === 'upgrade' || event.type === 'evolve') {
       sound.play(event.type === 'evolve' ? 'machine' : 'upgrade');
       if (game.state.settings.haptics) platform.vibrate();
       platform.track(event.type, event);
     }
+  }
+  const tick = game.state.simulation.ticks;
+  if (pendingShipment.amount && tick - lastShipmentTick >= shipmentInterval) {
+    ui.shipment = { ...pendingShipment, atTick: tick };
+    pendingShipment = { amount: 0, coins: 0 };
+    lastShipmentTick = tick;
+    sound.play('ship');
   }
 }
 function result(response) {
@@ -72,6 +91,13 @@ async function visitSidebar() {
   } catch (_) { toast('暂时无法打开侧边栏，请稍后再试'); }
   finally { ui.sidebarBusy = false; }
 }
+function reviewUpgrade(stationId) {
+  const station = game.getView().stations.find(item => item.id === stationId);
+  ui.quote = station && station.upgrade ? { stationId, level: station.level + 1,
+    cost: station.upgrade.cost, name: station.upgrade.name } : null;
+  ui.stationCollapsed = false;
+  ui.stationDetails = false;
+}
 function act(action) {
   if (!action || hidden) return;
   sound.unlock();
@@ -79,23 +105,48 @@ function act(action) {
   if (action === 'dismissIntro') {
     game.acknowledgeIntro(); ui.newFactory = false; save(); return;
   }
-  if (action === 'settings' && !ui.modal) { ui.modal = { type: 'settings' }; return; }
-  if (action.startsWith('station:') && !ui.modal) {
+  if (action === 'settings' && (!ui.modal || ui.modal.type === 'station')) { ui.modal = { type: 'settings' }; return; }
+  if (action.startsWith('station:') && (!ui.modal || ui.modal.type === 'station')) {
     const stationId = action.slice(8);
-    if (stationIds.includes(stationId)) { ui.modal = { type: 'station', stationId }; sound.play('click'); }
+    if (stationIds.includes(stationId)) {
+      if (!ui.modal || ui.modal.stationId !== stationId) reviewUpgrade(stationId);
+      ui.modal = { type: 'station', stationId }; sound.play('click');
+    }
+    return;
+  }
+  if (action === 'reviewUpgrade' && ui.modal && ui.modal.type === 'station') {
+    reviewUpgrade(ui.modal.stationId);
+    return;
+  }
+  if (action === 'toggleDetails' && ui.modal && ui.modal.type === 'station' && !ui.stationCollapsed) {
+    ui.stationDetails = !ui.stationDetails;
+    return;
+  }
+  if (action === 'collapseStation' && ui.modal && ui.modal.type === 'station') {
+    ui.stationCollapsed = true;
+    ui.stationDetails = false;
     return;
   }
   if (action.startsWith('upgrade:')) {
-    const stationId = action.slice(8);
-    if (!ui.modal || ui.modal.type !== 'station' || ui.modal.stationId !== stationId || !stationIds.includes(stationId)) return;
+    // A pointer or Enter key carries the exact quote the player reviewed.
+    // Retain that quote after buying so a repeated input cannot buy the next tier.
+    const match = /^upgrade:(pop|cup|ship):(\d+)$/.exec(action);
+    if (!match) return;
+    const stationId = match[1], level = Number(match[2]), quote = ui.quote;
+    if (!ui.modal || ui.modal.type !== 'station' || ui.modal.stationId !== stationId || ui.stationCollapsed
+      || !quote || quote.stationId !== stationId || quote.level !== level || game.state.upgrades[stationId] + 1 !== level) return;
+    const upgrade = game.getView().stations.find(item => item.id === stationId).upgrade;
+    if (!upgrade || upgrade.cost !== quote.cost || upgrade.name !== quote.name) return;
     if (result(game.buyUpgrade(stationId))) {
-      ui.modal = null;
-      toast('工位改造完成，观察库存和实际出货速度');
+      ui.stationCollapsed = true;
+      ui.stationDetails = false;
+      ui.purchaseFeedback = { stationId, name: quote.name, atTick: game.state.simulation.ticks };
+      ui.rateUpdatingUntil = game.state.simulation.ticks + CONFIG.ticksPerSecond * 10;
     }
     return;
   }
   if (action === 'evolve' && !ui.modal) {
-    if (result(game.evolve())) toast('扩建完成，可改造新增工位');
+    if (result(game.evolve())) toast('仓位扩建完成，设备提速需另行购买');
     return;
   }
   if (action.startsWith('setting:') && ui.modal && ui.modal.type === 'settings') {
@@ -111,7 +162,9 @@ function act(action) {
     const fresh = new Game();
     // Replace this version's key only, and retain the active factory if writing fails.
     if (!platform.save(fresh.exportSave())) { toast('重新开始失败，当前工厂已保留'); return; }
-    game = fresh; renderer = new Renderer(ctx); ui.modal = null; ui.newFactory = true;
+    game = fresh; renderer = new Renderer(ctx); insights = new ProductionInsights(); ui.modal = null; ui.newFactory = true;
+    ui.quote = null; ui.purchaseFeedback = null; ui.stationCollapsed = false; ui.stationDetails = false;
+    ui.rateUpdatingUntil = 0; ui.shipment = null; pendingShipment = { amount: 0, coins: 0 }; lastShipmentTick = -Infinity;
     ui.toast = ''; ui.toastSeconds = 0; pointer = null; lastTime = null; saveTimer = 0; saveFailed = false;
     configure();
   }
@@ -128,7 +181,11 @@ platform.onPointer(event => {
   }
 });
 platform.onResize(resize);
-platform.onHide(() => { hidden = true; pointer = null; lastTime = null; configure(); save(); });
+platform.onHide(() => {
+  hidden = true; pointer = null; lastTime = null;
+  pendingShipment = { amount: 0, coins: 0 }; ui.shipment = null;
+  configure(); save();
+});
 platform.onShow(() => { hidden = false; lastTime = null; configure(); });
 
 // Native tt canvases have no DOM methods even when their IDE supplies window.
@@ -138,9 +195,11 @@ if (!platform.isDouyin && typeof document !== 'undefined') {
   const loading = document.getElementById('loading'); if (loading) loading.remove();
   window.addEventListener('keydown', event => {
     if (event.repeat) return;
-    const action = event.code === 'Escape' ? 'close' : ui.modal ?
-      event.code === 'Enter' && ui.modal.type === 'station' ? 'upgrade:' + ui.modal.stationId : null :
-      ({ Digit1: 'station:pop', Digit2: 'station:cup', Digit3: 'station:ship', KeyM: 'evolve', KeyS: 'settings' })[event.code];
+    const quote = ui.quote;
+    const action = event.code === 'Escape' ? 'close'
+      : event.code === 'Enter' && ui.modal && ui.modal.type === 'station' && quote
+        ? `upgrade:${quote.stationId}:${quote.level}`
+        : ({ Digit1: 'station:pop', Digit2: 'station:cup', Digit3: 'station:ship', KeyM: 'evolve', KeyS: 'settings' })[event.code];
     if (action) { event.preventDefault(); act(action); }
   });
 }
@@ -165,7 +224,7 @@ function frame(time) {
     if (typeof platform.getSidebarState === 'function') ui.sidebar = platform.getSidebarState();
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0); ctx.fillStyle = '#e9eee5'; ctx.fillRect(0, 0, width, height);
     ctx.setTransform(ratio, 0, 0, ratio, ratio * ox, 0);
-    renderer.draw(game.getView(), ui, Math.min(.1, dt));
+    renderer.draw(insights.enrich(game.getView()), ui, Math.min(.1, dt));
   }
   requestFrame(frame);
 }
