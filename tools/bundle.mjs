@@ -1,12 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-// QA runs real game/presentation code without the application or host adapters.
-export function allowQAModule(id) {
-  return id === 'tools/qa-actions.cjs' ||
-    (id.startsWith('src/') && !/\/(main|platform)\.js$/.test(id));
-}
-
 export async function bundleCommonJS({ root, entries, allowModule = () => true, initialize }) {
   root = path.resolve(root);
   const modules = new Map();

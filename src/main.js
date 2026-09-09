@@ -14,7 +14,7 @@ let game = new Game({ save: initialSave });
 let renderer = new Renderer(ctx);
 let insights = new ProductionInsights();
 const ui = { modal: null, toast: '', toastSeconds: 0, isDouyin: platform.isDouyin,
-  newFactory: !game.state.introSeen, sidebar: { supported: false }, sidebarBusy: false,
+  newFactory: !game.state.introSeen,
   stationCollapsed: false, stationDetails: false, quote: null, purchaseFeedback: null,
   rateUpdatingUntil: 0, shipment: null };
 let width = 480, height = 840, ratio = 1, ox = 0;
@@ -82,15 +82,6 @@ function resize(info) {
   const contentWidth = Math.min(width, 480); ox = (width - contentWidth) / 2;
   ui.viewport = { width: contentWidth, height: height - bottom, safeTop, menuBottom };
 }
-async function visitSidebar() {
-  if (ui.sidebarBusy || !ui.sidebar.supported) return;
-  ui.sidebarBusy = true;
-  try {
-    const response = await platform.navigateSidebar();
-    if (!response.ok) toast('暂时无法打开侧边栏，请稍后再试');
-  } catch (_) { toast('暂时无法打开侧边栏，请稍后再试'); }
-  finally { ui.sidebarBusy = false; }
-}
 function reviewUpgrade(stationId) {
   const station = game.getView().stations.find(item => item.id === stationId);
   ui.quote = station && station.upgrade ? { stationId, level: station.level + 1,
@@ -156,7 +147,6 @@ function act(action) {
     }
     return;
   }
-  if (action === 'visitSidebar' && ui.modal && ui.modal.type === 'settings') { visitSidebar(); return; }
   if (action === 'restart' && ui.modal && ui.modal.type === 'settings') { ui.modal = { type: 'restart' }; return; }
   if (action === 'confirmRestart' && ui.modal && ui.modal.type === 'restart') {
     const fresh = new Game();
@@ -209,7 +199,6 @@ configure(); resize(platform.getSystemInfo());
 if (game.loadWarning) toast(game.loadWarning);
 else if (platform.lastStorageError) toast('存档读取失败，已开始新工厂');
 save();
-if (typeof platform.checkSidebar === 'function') platform.checkSidebar();
 const requestFrame = typeof requestAnimationFrame === 'function' ? requestAnimationFrame.bind(runtimeGlobal) : callback => setTimeout(() => callback(Date.now()), 1000 / 30);
 function frame(time) {
   // OS sleep and browser freezing can skip hide/show events. Treat a stalled
@@ -221,7 +210,6 @@ function frame(time) {
     game.tick(dt); processEvents();
     saveTimer += dt; if (saveTimer >= 5) { saveTimer = 0; save(); }
     if (ui.toastSeconds > 0) { ui.toastSeconds -= dt; if (ui.toastSeconds <= 0) ui.toast = ''; }
-    if (typeof platform.getSidebarState === 'function') ui.sidebar = platform.getSidebarState();
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0); ctx.fillStyle = '#e9eee5'; ctx.fillRect(0, 0, width, height);
     ctx.setTransform(ratio, 0, 0, ratio, ratio * ox, 0);
     renderer.draw(insights.enrich(game.getView()), ui, Math.min(.1, dt));

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "factory_room",
+    "source": "factory_room-source.png",
+    "path": "assets/art/scene/factory_room.png",
+    "maxEdge": 768,
+    "opaque": true
+  },
+  {
+    "id": "factory_window",
+    "source": "factory_window-source.png",
+    "path": "assets/art/scene/factory_window.png",
+    "maxEdge": 256
+  },
+  {
+    "id": "factory_door",
+    "source": "factory_door-source.png",
+    "path": "assets/art/scene/factory_door.png",
+    "maxEdge": 256
+  },
+  {
+    "id": "product_double_tray",
+    "source": "product_double_tray-source.png",
+    "path": "assets/art/products/product_double_tray.png",
+    "maxEdge": 128
+  },
+  {
+    "id": "product_box_open",
+    "source": "product_box_open-source.png",
+    "path": "assets/art/products/product_box_open.png",
+    "maxEdge": 128
+  },
+  {
+    "id": "product_box_lid",
+    "source": "product_box_lid-source.png",
+    "path": "assets/art/products/product_box_lid.png",
+    "maxEdge": 128
+  },
+  {
+    "id": "ui_card",
+    "source": "ui_card-source.png",
+    "path": "assets/art/ui/ui_card.png",
+    "maxEdge": 384
+  },
+  {
+    "id": "ui_compact_bar",
+    "source": "ui_compact_bar-source.png",
+    "path": "assets/art/ui/ui_compact_bar.png",
+    "maxEdge": 384
+  },
+  {
+    "id": "fx_steam",
+    "source": "fx_steam-source.png",
+    "path": "assets/art/fx/fx_steam.png",
+    "maxEdge": 128
+  },
+  {
+    "id": "fx_sparkle",
+    "source": "fx_sparkle-source.png",
+    "path": "assets/art/fx/fx_sparkle.png",
+    "maxEdge": 128
+  },
+  {
+    "id": "product_box_front",
+    "source": "product_box_front-source.png",
+    "path": "assets/art/products/product_box_front.png",
+    "maxEdge": 128
+  }
+]

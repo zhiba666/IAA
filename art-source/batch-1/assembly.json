@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "status": "static_art_only_not_integrated",
+  "coordinateSpaces": "Each named rig uses its own assembly pixels; scale rigs uniformly.",
+  "rigs": {
+    "batch0": "art-source/batch-0/assembly.json",
+    "machinery": "art-source/batch-1/machinery/assembly.json",
+    "products": "art-source/batch-1/core/assembly.json",
+    "ui": "art-source/batch-1/ui-states/spec/layout.json"
+  },
+  "camera": {
+    "floorAxes": [
+      [
+        1,
+        0.55
+      ],
+      [
+        -1,
+        0.55
+      ]
+    ],
+    "light": "upper left",
+    "palette": [
+      "#219da5",
+      "#555f69",
+      "#ed4435",
+      "#f4c64e",
+      "#f5efe0"
+    ]
+  },
+  "scene": "art-source/batch-1/scene-layout.json",
+  "motion": "art-source/batch-1/ui-states/motion-spec.json"
+}

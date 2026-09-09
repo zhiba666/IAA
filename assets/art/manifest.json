@@ -1,0 +1,3853 @@
+{
+  "version": 2,
+  "batch": 1,
+  "batches": [
+    0,
+    1
+  ],
+  "scope": "artwork-only",
+  "date": "2026-09-09",
+  "assemblySource": "art-source/batch-1/assembly.json",
+  "compressedBytes": 4210125,
+  "decodedBytes": 16678144,
+  "budget": {
+    "p0TargetBytes": 2097152,
+    "completeTargetBytes": 4194304,
+    "decodedTargetBytes": 33554432,
+    "p0Met": false,
+    "completeTargetMet": false,
+    "decodedMet": true,
+    "note": "Exported batch 0 + 1 only; runtime atlases, source files and previews excluded. Complete art still needs G01/T01/B01."
+  },
+  "aliases": {
+    "product_pile_small": "product_cup_fill"
+  },
+  "entries": [
+    {
+      "id": "machine_cup_body",
+      "path": "assets/art/machines/machine_cup_body.png",
+      "width": 448,
+      "height": 640,
+      "displayWidth": 224,
+      "displayHeight": 320,
+      "anchor": {
+        "x": 224,
+        "y": 618
+      },
+      "layer": 10,
+      "input": [
+        100,
+        385
+      ],
+      "output": [
+        318,
+        516
+      ],
+      "slots": [
+        {
+          "id": "head_0",
+          "position": [
+            220.5,
+            222
+          ],
+          "rect": [
+            175,
+            222,
+            91,
+            155.306667
+          ]
+        }
+      ],
+      "clip": [
+        [
+          99,
+          309
+        ],
+        [
+          177,
+          258
+        ],
+        [
+          284,
+          318
+        ],
+        [
+          287,
+          537
+        ],
+        [
+          102,
+          431
+        ]
+      ],
+      "hitArea": {
+        "rect": [
+          0,
+          0,
+          448,
+          640
+        ],
+        "note": "Proposed local image area only; actual >=44px touch targets are deferred."
+      },
+      "source": "art-source/batch-0/machine-cup-source.png",
+      "sourceRect": [
+        45,
+        33,
+        626,
+        894
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "cupMachine",
+          "part": "body",
+          "rect": [
+            0,
+            0,
+            448,
+            640
+          ],
+          "layer": 10
+        }
+      ]
+    },
+    {
+      "id": "machine_cup_head",
+      "path": "assets/art/machines/machine_cup_head.png",
+      "width": 150,
+      "height": 256,
+      "displayWidth": 75,
+      "displayHeight": 128,
+      "anchor": {
+        "x": 75,
+        "y": 256
+      },
+      "layer": 20,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/machine-cup-source.png",
+      "sourceRect": [
+        734,
+        384,
+        212,
+        362
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "cupMachine",
+          "part": "head",
+          "rect": [
+            175,
+            222,
+            91,
+            155.306667
+          ],
+          "layer": 20
+        }
+      ]
+    },
+    {
+      "id": "machine_cup_front",
+      "path": "assets/art/machines/machine_cup_front.png",
+      "width": 384,
+      "height": 304,
+      "displayWidth": 192,
+      "displayHeight": 152,
+      "anchor": {
+        "x": 192,
+        "y": 304
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/machine-cup-source.png",
+      "sourceRect": [
+        1040,
+        583,
+        468,
+        371
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "cupMachine",
+          "part": "front",
+          "rect": [
+            71,
+            369,
+            286,
+            226.416667
+          ],
+          "layer": 50
+        }
+      ]
+    },
+    {
+      "id": "product_cup_empty",
+      "path": "assets/art/products/product_cup_empty.png",
+      "width": 104,
+      "height": 128,
+      "displayWidth": 52,
+      "displayHeight": 64,
+      "anchor": {
+        "x": 52,
+        "y": 121
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/products-source.png",
+      "sourceRect": [
+        68,
+        71,
+        501,
+        619
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "cupMachine",
+          "part": "cup",
+          "rect": [
+            180,
+            417,
+            92,
+            113.230769
+          ],
+          "layer": 30
+        },
+        {
+          "assembly": "cupProduct",
+          "part": "empty",
+          "rect": [
+            0,
+            0,
+            104,
+            128
+          ],
+          "layer": 10
+        }
+      ]
+    },
+    {
+      "id": "product_cup_fill",
+      "path": "assets/art/products/product_cup_fill.png",
+      "width": 128,
+      "height": 94,
+      "displayWidth": 64,
+      "displayHeight": 47,
+      "anchor": {
+        "x": 64,
+        "y": 94
+      },
+      "layer": 20,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": [
+        [
+          3,
+          -78
+        ],
+        [
+          101,
+          -78
+        ],
+        [
+          101,
+          14
+        ],
+        [
+          88,
+          29
+        ],
+        [
+          52,
+          35
+        ],
+        [
+          16,
+          29
+        ],
+        [
+          3,
+          14
+        ]
+      ],
+      "hitArea": null,
+      "source": "art-source/batch-0/products-source.png",
+      "sourceRect": [
+        656,
+        171,
+        560,
+        413
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "cupProduct",
+          "part": "fill",
+          "rect": [
+            3.12,
+            -38.12,
+            97.76,
+            71.7925
+          ],
+          "layer": 20
+        }
+      ]
+    },
+    {
+      "id": "product_kernel_a",
+      "path": "assets/art/products/product_kernel_a.png",
+      "width": 64,
+      "height": 61,
+      "displayWidth": 32,
+      "displayHeight": 30.5,
+      "anchor": {
+        "x": 32,
+        "y": 61
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/products-source.png",
+      "sourceRect": [
+        160,
+        823,
+        357,
+        343
+      ],
+      "batch": 0,
+      "intendedBinding": "job.progress / inventory amount",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "product_kernel_b",
+      "path": "assets/art/products/product_kernel_b.png",
+      "width": 64,
+      "height": 62,
+      "displayWidth": 32,
+      "displayHeight": 31,
+      "anchor": {
+        "x": 32,
+        "y": 62
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/products-source.png",
+      "sourceRect": [
+        745,
+        817,
+        360,
+        349
+      ],
+      "batch": 0,
+      "intendedBinding": "job.progress / inventory amount",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "conveyor_down_right",
+      "path": "assets/art/scene/conveyor_down_right.png",
+      "width": 512,
+      "height": 360,
+      "displayWidth": 256,
+      "displayHeight": 180,
+      "anchor": {
+        "x": 258,
+        "y": 267
+      },
+      "layer": 10,
+      "input": [
+        82,
+        66
+      ],
+      "output": [
+        430,
+        255
+      ],
+      "slots": [],
+      "clip": [
+        [
+          42,
+          72
+        ],
+        [
+          129,
+          26
+        ],
+        [
+          486,
+          226
+        ],
+        [
+          399,
+          278
+        ]
+      ],
+      "hitArea": null,
+      "source": "art-source/batch-0/conveyors-source.png",
+      "sourceRect": [
+        40,
+        148,
+        691,
+        486
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "conveyorRight",
+          "part": "back",
+          "rect": [
+            0,
+            0,
+            512,
+            360
+          ],
+          "layer": 10
+        }
+      ]
+    },
+    {
+      "id": "conveyor_down_left",
+      "path": "assets/art/scene/conveyor_down_left.png",
+      "width": 512,
+      "height": 358,
+      "displayWidth": 256,
+      "displayHeight": 179,
+      "anchor": {
+        "x": 259,
+        "y": 267
+      },
+      "layer": 10,
+      "input": [
+        426,
+        70
+      ],
+      "output": [
+        76,
+        260
+      ],
+      "slots": [],
+      "clip": [
+        [
+          383,
+          24
+        ],
+        [
+          477,
+          76
+        ],
+        [
+          133,
+          280
+        ],
+        [
+          34,
+          230
+        ]
+      ],
+      "hitArea": null,
+      "source": "art-source/batch-0/conveyors-source.png",
+      "sourceRect": [
+        805,
+        148,
+        693,
+        485
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "conveyorLeft",
+          "part": "back",
+          "rect": [
+            0,
+            0,
+            512,
+            358
+          ],
+          "layer": 10
+        }
+      ]
+    },
+    {
+      "id": "conveyor_front_right",
+      "path": "assets/art/scene/conveyor_front_right.png",
+      "width": 384,
+      "height": 248,
+      "displayWidth": 192,
+      "displayHeight": 124,
+      "anchor": {
+        "x": 192,
+        "y": 248
+      },
+      "layer": 30,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/conveyors-source.png",
+      "sourceRect": [
+        90,
+        600,
+        509,
+        329
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "conveyorRight",
+          "part": "front",
+          "rect": [
+            43,
+            85,
+            328,
+            211.833333
+          ],
+          "layer": 30
+        }
+      ]
+    },
+    {
+      "id": "conveyor_front_left",
+      "path": "assets/art/scene/conveyor_front_left.png",
+      "width": 384,
+      "height": 245,
+      "displayWidth": 192,
+      "displayHeight": 122.5,
+      "anchor": {
+        "x": 192,
+        "y": 245
+      },
+      "layer": 30,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/conveyors-source.png",
+      "sourceRect": [
+        923,
+        599,
+        516,
+        329
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "conveyorLeft",
+          "part": "front",
+          "rect": [
+            135,
+            86,
+            344,
+            219.479167
+          ],
+          "layer": 30
+        }
+      ]
+    },
+    {
+      "id": "buffer_bulk_back",
+      "path": "assets/art/scene/buffer_bulk_back.png",
+      "width": 512,
+      "height": 366,
+      "displayWidth": 256,
+      "displayHeight": 183,
+      "anchor": {
+        "x": 253,
+        "y": 314
+      },
+      "layer": 10,
+      "input": [
+        285,
+        141
+      ],
+      "output": [
+        177,
+        268
+      ],
+      "slots": [],
+      "clip": [
+        [
+          32,
+          117
+        ],
+        [
+          155,
+          22
+        ],
+        [
+          482,
+          153
+        ],
+        [
+          375,
+          247
+        ],
+        [
+          348,
+          322
+        ],
+        [
+          25,
+          210
+        ]
+      ],
+      "hitArea": null,
+      "source": "art-source/batch-0/buffer-source.png",
+      "sourceRect": [
+        125,
+        108,
+        1062,
+        760
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "bulkBuffer",
+          "part": "back",
+          "rect": [
+            0,
+            0,
+            512,
+            366
+          ],
+          "layer": 10
+        }
+      ]
+    },
+    {
+      "id": "buffer_bulk_front",
+      "path": "assets/art/scene/buffer_bulk_front.png",
+      "width": 384,
+      "height": 243,
+      "displayWidth": 192,
+      "displayHeight": 121.5,
+      "anchor": {
+        "x": 192,
+        "y": 243
+      },
+      "layer": 30,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-0/buffer-source.png",
+      "sourceRect": [
+        106,
+        702,
+        780,
+        494
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": [
+        {
+          "assembly": "bulkBuffer",
+          "part": "front",
+          "rect": [
+            0,
+            132,
+            366,
+            231.609375
+          ],
+          "layer": 30
+        }
+      ]
+    },
+    {
+      "id": "ui_hud_coin",
+      "path": "assets/art/ui/ui_hud_coin.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        58,
+        67,
+        683,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "ui_hud_rate",
+      "path": "assets/art/ui/ui_hud_rate.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        795,
+        67,
+        684,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "ui_panel",
+      "path": "assets/art/ui/ui_panel.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        58,
+        385,
+        683,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "ui_button_primary",
+      "path": "assets/art/ui/ui_button_primary.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        796,
+        385,
+        683,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "ui_button_secondary",
+      "path": "assets/art/ui/ui_button_secondary.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        59,
+        704,
+        683,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "ui_button_disabled",
+      "path": "assets/art/ui/ui_button_disabled.png",
+      "width": 384,
+      "height": 138,
+      "displayWidth": 128,
+      "displayHeight": 46,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "source": "art-source/batch-0/ui-source.png",
+      "sourceRect": [
+        796,
+        704,
+        683,
+        246
+      ],
+      "batch": 0,
+      "intendedBinding": "see art-source/batch-0/assembly.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "assemblyRefs": []
+    },
+    {
+      "id": "factory_room",
+      "path": "assets/art/scene/factory_room.png",
+      "width": 512,
+      "height": 768,
+      "displayWidth": 390,
+      "displayHeight": 585,
+      "anchor": {
+        "x": 256,
+        "y": 768
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/factory_room-source.png",
+      "sourceRect": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "batch": 1,
+      "bytes": 440532,
+      "decodedBytes": 1572864,
+      "assemblyRefs": [],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      },
+      "environmentLayer": "wall/floor plate"
+    },
+    {
+      "id": "factory_window",
+      "path": "assets/art/scene/factory_window.png",
+      "width": 256,
+      "height": 233,
+      "displayWidth": 128,
+      "displayHeight": 116.5,
+      "anchor": {
+        "x": 128,
+        "y": 233
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/factory_window-source.png",
+      "sourceRect": [
+        317,
+        90,
+        918,
+        836
+      ],
+      "batch": 1,
+      "bytes": 74041,
+      "decodedBytes": 238592,
+      "assemblyRefs": [],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      },
+      "environmentLayer": "left wall prop"
+    },
+    {
+      "id": "factory_door",
+      "path": "assets/art/scene/factory_door.png",
+      "width": 197,
+      "height": 256,
+      "displayWidth": 98.5,
+      "displayHeight": 128,
+      "anchor": {
+        "x": 98.5,
+        "y": 256
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/factory_door-source.png",
+      "sourceRect": [
+        321,
+        64,
+        779,
+        1011
+      ],
+      "batch": 1,
+      "bytes": 49263,
+      "decodedBytes": 201728,
+      "assemblyRefs": [],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      },
+      "environmentLayer": "left wall doorway prop"
+    },
+    {
+      "id": "product_double_tray",
+      "path": "assets/art/products/product_double_tray.png",
+      "width": 128,
+      "height": 80,
+      "displayWidth": 64,
+      "displayHeight": 40,
+      "anchor": {
+        "x": 64,
+        "y": 80
+      },
+      "layer": 10,
+      "input": [
+        56,
+        90
+      ],
+      "output": [
+        110,
+        118
+      ],
+      "slots": [
+        {
+          "id": "back_left",
+          "anchor": [
+            56,
+            109
+          ],
+          "width": 40,
+          "layer": 20,
+          "rect": [
+            36,
+            62.461538,
+            40,
+            49.230769
+          ]
+        },
+        {
+          "id": "front_right",
+          "anchor": [
+            104,
+            124
+          ],
+          "width": 40,
+          "layer": 30,
+          "rect": [
+            84,
+            77.461538,
+            40,
+            49.230769
+          ]
+        }
+      ],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/product_double_tray-source.png",
+      "sourceRect": [
+        100,
+        345,
+        1064,
+        668
+      ],
+      "batch": 1,
+      "bytes": 16026,
+      "decodedBytes": 40960,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/core/assembly.json",
+          "assembly": "doubleTray",
+          "rect": [
+            16,
+            68,
+            128,
+            80
+          ],
+          "layer": 10,
+          "anchor": [
+            80,
+            145
+          ],
+          "coordinateSpace": "assembly pixels"
+        },
+        {
+          "source": "art-source/batch-1/core/assembly.json",
+          "assembly": "doubleTray",
+          "rect": [
+            16,
+            68,
+            128,
+            80
+          ],
+          "layer": 40,
+          "anchor": [
+            80,
+            145
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "product_box_open",
+      "path": "assets/art/products/product_box_open.png",
+      "width": 127,
+      "height": 128,
+      "displayWidth": 63.5,
+      "displayHeight": 64,
+      "anchor": {
+        "x": 63.5,
+        "y": 128
+      },
+      "layer": 10,
+      "input": [
+        54,
+        98
+      ],
+      "output": [
+        106,
+        144
+      ],
+      "slots": [
+        {
+          "id": "back",
+          "anchor": [
+            80,
+            119
+          ],
+          "width": 35,
+          "layer": 20,
+          "rect": [
+            62.5,
+            78.278846,
+            35,
+            43.076923
+          ]
+        },
+        {
+          "id": "left",
+          "anchor": [
+            54,
+            136
+          ],
+          "width": 35,
+          "layer": 30,
+          "rect": [
+            36.5,
+            95.278846,
+            35,
+            43.076923
+          ]
+        },
+        {
+          "id": "right",
+          "anchor": [
+            106,
+            136
+          ],
+          "width": 35,
+          "layer": 31,
+          "rect": [
+            88.5,
+            95.278846,
+            35,
+            43.076923
+          ]
+        },
+        {
+          "id": "front",
+          "anchor": [
+            80,
+            152
+          ],
+          "width": 35,
+          "layer": 40,
+          "rect": [
+            62.5,
+            111.278846,
+            35,
+            43.076923
+          ]
+        }
+      ],
+      "clip": [
+        [
+          23,
+          56
+        ],
+        [
+          137,
+          56
+        ],
+        [
+          139,
+          153
+        ],
+        [
+          80,
+          177
+        ],
+        [
+          21,
+          153
+        ]
+      ],
+      "hitArea": null,
+      "source": "art-source/batch-1/core/product_box_open-source.png",
+      "sourceRect": [
+        97,
+        47,
+        1115,
+        1125
+      ],
+      "batch": 1,
+      "bytes": 24580,
+      "decodedBytes": 65024,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/core/assembly.json",
+          "assembly": "fourCupBox",
+          "rect": [
+            16,
+            50,
+            127,
+            128
+          ],
+          "layer": 10,
+          "anchor": [
+            80,
+            176
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "product_box_lid",
+      "path": "assets/art/products/product_box_lid.png",
+      "width": 128,
+      "height": 91,
+      "displayWidth": 64,
+      "displayHeight": 45.5,
+      "anchor": {
+        "x": 64,
+        "y": 91
+      },
+      "layer": 10,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/product_box_lid-source.png",
+      "sourceRect": [
+        44,
+        220,
+        1166,
+        830
+      ],
+      "batch": 1,
+      "bytes": 12401,
+      "decodedBytes": 46592,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/core/assembly.json",
+          "assembly": "fourCupBox",
+          "rect": [
+            15.5,
+            49,
+            128,
+            91
+          ],
+          "layer": 60,
+          "anchor": [
+            80,
+            176
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "ui_card",
+      "path": "assets/art/ui/ui_card.png",
+      "width": 384,
+      "height": 115,
+      "displayWidth": 128,
+      "displayHeight": 38.333333333333336,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/core/ui_card-source.png",
+      "sourceRect": [
+        52,
+        73,
+        1994,
+        598
+      ],
+      "batch": 1,
+      "bytes": 39840,
+      "decodedBytes": 176640,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_compact_bar",
+      "path": "assets/art/ui/ui_compact_bar.png",
+      "width": 384,
+      "height": 78,
+      "displayWidth": 128,
+      "displayHeight": 26,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/core/ui_compact_bar-source.png",
+      "sourceRect": [
+        85,
+        178,
+        1929,
+        393
+      ],
+      "batch": 1,
+      "bytes": 31056,
+      "decodedBytes": 119808,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "nineSlice": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "fx_steam",
+      "path": "assets/art/fx/fx_steam.png",
+      "width": 63,
+      "height": 128,
+      "displayWidth": 31.5,
+      "displayHeight": 64,
+      "anchor": {
+        "x": 31.5,
+        "y": 128
+      },
+      "layer": 70,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/fx_steam-source.png",
+      "sourceRect": [
+        413,
+        182,
+        433,
+        875
+      ],
+      "batch": 1,
+      "bytes": 12213,
+      "decodedBytes": 32256,
+      "assemblyRefs": [],
+      "intendedBinding": "real event only; see motion-spec.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "fx_sparkle",
+      "path": "assets/art/fx/fx_sparkle.png",
+      "width": 104,
+      "height": 128,
+      "displayWidth": 52,
+      "displayHeight": 64,
+      "anchor": {
+        "x": 52,
+        "y": 128
+      },
+      "layer": 70,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/fx_sparkle-source.png",
+      "sourceRect": [
+        388,
+        256,
+        543,
+        668
+      ],
+      "batch": 1,
+      "bytes": 11678,
+      "decodedBytes": 53248,
+      "assemblyRefs": [],
+      "intendedBinding": "real event only; see motion-spec.json",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "product_box_front",
+      "path": "assets/art/products/product_box_front.png",
+      "width": 128,
+      "height": 78,
+      "displayWidth": 64,
+      "displayHeight": 39,
+      "anchor": {
+        "x": 64,
+        "y": 78
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/core/product_box_front-source.png",
+      "sourceRect": [
+        46,
+        335,
+        1162,
+        707
+      ],
+      "batch": 1,
+      "bytes": 11375,
+      "decodedBytes": 39936,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/core/assembly.json",
+          "assembly": "fourCupBox",
+          "rect": [
+            15.5,
+            98,
+            128,
+            78
+          ],
+          "layer": 50,
+          "anchor": [
+            80,
+            176
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_pop_body",
+      "path": "assets/art/machines/machine_pop_body.png",
+      "width": 512,
+      "height": 489,
+      "displayWidth": 256,
+      "displayHeight": 244.5,
+      "anchor": {
+        "x": 256,
+        "y": 489
+      },
+      "layer": 10,
+      "input": [
+        335,
+        413
+      ],
+      "output": [
+        555,
+        562
+      ],
+      "slots": [
+        [
+          350,
+          272
+        ]
+      ],
+      "clip": [
+        [
+          155,
+          422
+        ],
+        [
+          162,
+          360
+        ],
+        [
+          230,
+          315
+        ],
+        [
+          365,
+          301
+        ],
+        [
+          490,
+          341
+        ],
+        [
+          550,
+          414
+        ],
+        [
+          521,
+          543
+        ],
+        [
+          380,
+          590
+        ],
+        [
+          212,
+          545
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            20,
+            140
+          ],
+          [
+            590,
+            210
+          ],
+          [
+            635,
+            675
+          ],
+          [
+            313,
+            765
+          ],
+          [
+            15,
+            602
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/pop-source.png",
+      "sourceRect": [
+        87,
+        150,
+        786,
+        751
+      ],
+      "batch": 1,
+      "bytes": 326872,
+      "decodedBytes": 1001472,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "popMachine",
+          "rect": [
+            0,
+            150,
+            640,
+            612
+          ],
+          "layer": 10,
+          "anchor": [
+            320,
+            750
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_pop_head",
+      "path": "assets/art/machines/machine_pop_head.png",
+      "width": 256,
+      "height": 248,
+      "displayWidth": 128,
+      "displayHeight": 124,
+      "anchor": {
+        "x": 128,
+        "y": 248
+      },
+      "layer": 20,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/pop-source.png",
+      "sourceRect": [
+        924,
+        47,
+        557,
+        539
+      ],
+      "batch": 1,
+      "bytes": 92668,
+      "decodedBytes": 253952,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "popMachine",
+          "rect": [
+            140,
+            0,
+            432,
+            418.5
+          ],
+          "layer": 20,
+          "anchor": [
+            320,
+            750
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_pop_front",
+      "path": "assets/art/machines/machine_pop_front.png",
+      "width": 384,
+      "height": 205,
+      "displayWidth": 192,
+      "displayHeight": 102.5,
+      "anchor": {
+        "x": 192,
+        "y": 205
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/pop-source.png",
+      "sourceRect": [
+        937,
+        621,
+        548,
+        293
+      ],
+      "batch": 1,
+      "bytes": 95647,
+      "decodedBytes": 314880,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "popMachine",
+          "rect": [
+            152,
+            436,
+            402,
+            214.6
+          ],
+          "layer": 50,
+          "anchor": [
+            320,
+            750
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_ship_body",
+      "path": "assets/art/machines/machine_ship_body.png",
+      "width": 499,
+      "height": 512,
+      "displayWidth": 249.5,
+      "displayHeight": 256,
+      "anchor": {
+        "x": 249.5,
+        "y": 512
+      },
+      "layer": 10,
+      "input": [
+        136,
+        394
+      ],
+      "output": [
+        450,
+        527
+      ],
+      "slots": [
+        [
+          304,
+          259
+        ]
+      ],
+      "clip": [
+        [
+          145,
+          270
+        ],
+        [
+          380,
+          326
+        ],
+        [
+          414,
+          420
+        ],
+        [
+          413,
+          515
+        ],
+        [
+          145,
+          422
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            25,
+            103
+          ],
+          [
+            393,
+            37
+          ],
+          [
+            620,
+            189
+          ],
+          [
+            621,
+            634
+          ],
+          [
+            300,
+            659
+          ],
+          [
+            8,
+            503
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/ship-source.png",
+      "sourceRect": [
+        65,
+        89,
+        831,
+        853
+      ],
+      "batch": 1,
+      "bytes": 297140,
+      "decodedBytes": 1021952,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "shipMachine",
+          "rect": [
+            8,
+            10,
+            623,
+            640
+          ],
+          "layer": 10,
+          "anchor": [
+            322,
+            637
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_ship_head",
+      "path": "assets/art/machines/machine_ship_head.png",
+      "width": 159,
+      "height": 256,
+      "displayWidth": 79.5,
+      "displayHeight": 128,
+      "anchor": {
+        "x": 79.5,
+        "y": 256
+      },
+      "layer": 20,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/ship-source.png",
+      "sourceRect": [
+        1069,
+        63,
+        301,
+        484
+      ],
+      "batch": 1,
+      "bytes": 58499,
+      "decodedBytes": 162816,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "shipMachine",
+          "rect": [
+            242,
+            197,
+            124.375,
+            200
+          ],
+          "layer": 20,
+          "anchor": [
+            322,
+            637
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "machine_ship_front",
+      "path": "assets/art/machines/machine_ship_front.png",
+      "width": 384,
+      "height": 222,
+      "displayWidth": 192,
+      "displayHeight": 111,
+      "anchor": {
+        "x": 192,
+        "y": 222
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/ship-source.png",
+      "sourceRect": [
+        984,
+        673,
+        512,
+        296
+      ],
+      "batch": 1,
+      "bytes": 64177,
+      "decodedBytes": 340992,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "shipMachine",
+          "rect": [
+            135,
+            399,
+            288,
+            166.5
+          ],
+          "layer": 50,
+          "anchor": [
+            322,
+            637
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_transfer_back",
+      "path": "assets/art/scene/conveyor_transfer_back.png",
+      "width": 512,
+      "height": 227,
+      "displayWidth": 256,
+      "displayHeight": 113.5,
+      "anchor": {
+        "x": 256,
+        "y": 227
+      },
+      "layer": 10,
+      "input": [
+        92,
+        152
+      ],
+      "output": [
+        425,
+        154
+      ],
+      "slots": [],
+      "clip": [
+        [
+          28,
+          134
+        ],
+        [
+          212,
+          34
+        ],
+        [
+          257,
+          14
+        ],
+        [
+          306,
+          39
+        ],
+        [
+          484,
+          134
+        ],
+        [
+          423,
+          190
+        ],
+        [
+          260,
+          104
+        ],
+        [
+          91,
+          190
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            24,
+            134
+          ],
+          [
+            235,
+            12
+          ],
+          [
+            482,
+            128
+          ],
+          [
+            420,
+            230
+          ],
+          [
+            267,
+            132
+          ],
+          [
+            92,
+            229
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/transfer-source.png",
+      "sourceRect": [
+        81,
+        33,
+        1374,
+        609
+      ],
+      "batch": 1,
+      "bytes": 144111,
+      "decodedBytes": 464896,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorTransfer",
+          "rect": [
+            0,
+            0,
+            512,
+            227
+          ],
+          "layer": 10,
+          "anchor": [
+            255,
+            230
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_transfer_front",
+      "path": "assets/art/scene/conveyor_transfer_front.png",
+      "width": 384,
+      "height": 121,
+      "displayWidth": 192,
+      "displayHeight": 60.5,
+      "anchor": {
+        "x": 192,
+        "y": 121
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/transfer-front-source.png",
+      "sourceRect": [
+        100,
+        475,
+        1055,
+        332
+      ],
+      "batch": 1,
+      "bytes": 25806,
+      "decodedBytes": 185856,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorTransfer",
+          "rect": [
+            91,
+            96,
+            332,
+            104.6146
+          ],
+          "layer": 50,
+          "anchor": [
+            255,
+            230
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_infeed_back",
+      "path": "assets/art/scene/conveyor_infeed_back.png",
+      "width": 512,
+      "height": 383,
+      "displayWidth": 256,
+      "displayHeight": 191.5,
+      "anchor": {
+        "x": 256,
+        "y": 383
+      },
+      "layer": 10,
+      "input": [
+        125,
+        104
+      ],
+      "output": [
+        446,
+        277
+      ],
+      "slots": [],
+      "clip": [
+        [
+          48,
+          76
+        ],
+        [
+          117,
+          32
+        ],
+        [
+          477,
+          228
+        ],
+        [
+          421,
+          286
+        ],
+        [
+          89,
+          145
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            17,
+            69
+          ],
+          [
+            119,
+            8
+          ],
+          [
+            503,
+            268
+          ],
+          [
+            419,
+            380
+          ],
+          [
+            83,
+            234
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/infeed-source.png",
+      "sourceRect": [
+        297,
+        11,
+        933,
+        698
+      ],
+      "batch": 1,
+      "bytes": 155686,
+      "decodedBytes": 784384,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorInfeed",
+          "rect": [
+            0,
+            0,
+            512,
+            383
+          ],
+          "layer": 10,
+          "anchor": [
+            255,
+            369
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_infeed_front",
+      "path": "assets/art/scene/conveyor_infeed_front.png",
+      "width": 384,
+      "height": 218,
+      "displayWidth": 192,
+      "displayHeight": 109,
+      "anchor": {
+        "x": 192,
+        "y": 218
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/infeed-source.png",
+      "sourceRect": [
+        365,
+        604,
+        712,
+        404
+      ],
+      "batch": 1,
+      "bytes": 34051,
+      "decodedBytes": 334848,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorInfeed",
+          "rect": [
+            67,
+            108,
+            364,
+            206.6458
+          ],
+          "layer": 50,
+          "anchor": [
+            255,
+            369
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_outfeed_back",
+      "path": "assets/art/scene/conveyor_outfeed_back.png",
+      "width": 512,
+      "height": 332,
+      "displayWidth": 256,
+      "displayHeight": 166,
+      "anchor": {
+        "x": 256,
+        "y": 332
+      },
+      "layer": 10,
+      "input": [
+        439,
+        65
+      ],
+      "output": [
+        75,
+        252
+      ],
+      "slots": [],
+      "clip": [
+        [
+          51,
+          210
+        ],
+        [
+          407,
+          29
+        ],
+        [
+          483,
+          69
+        ],
+        [
+          135,
+          261
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            13,
+            231
+          ],
+          [
+            393,
+            8
+          ],
+          [
+            504,
+            78
+          ],
+          [
+            500,
+            158
+          ],
+          [
+            177,
+            331
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/outfeed-source.png",
+      "sourceRect": [
+        223,
+        25,
+        1100,
+        713
+      ],
+      "batch": 1,
+      "bytes": 154442,
+      "decodedBytes": 679936,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorOutfeed",
+          "rect": [
+            0,
+            0,
+            512,
+            332
+          ],
+          "layer": 10,
+          "anchor": [
+            254,
+            323
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "conveyor_outfeed_front",
+      "path": "assets/art/scene/conveyor_outfeed_front.png",
+      "width": 384,
+      "height": 211,
+      "displayWidth": 192,
+      "displayHeight": 105.5,
+      "anchor": {
+        "x": 192,
+        "y": 211
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/outfeed-source.png",
+      "sourceRect": [
+        465,
+        534,
+        826,
+        454
+      ],
+      "batch": 1,
+      "bytes": 33067,
+      "decodedBytes": 324096,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "conveyorOutfeed",
+          "rect": [
+            127,
+            75,
+            356,
+            195.6146
+          ],
+          "layer": 50,
+          "anchor": [
+            254,
+            323
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "buffer_cups_back",
+      "path": "assets/art/scene/buffer_cups_back.png",
+      "width": 512,
+      "height": 349,
+      "displayWidth": 256,
+      "displayHeight": 174.5,
+      "anchor": {
+        "x": 256,
+        "y": 349
+      },
+      "layer": 10,
+      "input": [
+        115,
+        239
+      ],
+      "output": [
+        397,
+        239
+      ],
+      "slots": [
+        [
+          223,
+          60,
+          65,
+          80
+        ],
+        [
+          147,
+          110,
+          65,
+          80
+        ],
+        [
+          298,
+          110,
+          65,
+          80
+        ],
+        [
+          223,
+          160,
+          65,
+          80
+        ],
+        [
+          132,
+          172,
+          65,
+          80
+        ],
+        [
+          317,
+          172,
+          65,
+          80
+        ]
+      ],
+      "clip": [
+        [
+          27,
+          70
+        ],
+        [
+          250,
+          -55
+        ],
+        [
+          485,
+          70
+        ],
+        [
+          485,
+          220
+        ],
+        [
+          254,
+          339
+        ],
+        [
+          27,
+          220
+        ]
+      ],
+      "hitArea": {
+        "polygon": [
+          [
+            2,
+            153
+          ],
+          [
+            256,
+            3
+          ],
+          [
+            511,
+            154
+          ],
+          [
+            511,
+            218
+          ],
+          [
+            253,
+            369
+          ],
+          [
+            4,
+            218
+          ]
+        ],
+        "coordinateSpace": "assembly pixels",
+        "minimumLogicalSize": [
+          44,
+          44
+        ]
+      },
+      "source": "art-source/batch-1/machinery/buffer-v2-source.png",
+      "sourceRect": [
+        254,
+        11,
+        1030,
+        702
+      ],
+      "batch": 1,
+      "bytes": 158708,
+      "decodedBytes": 714752,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "cupsBuffer",
+          "rect": [
+            0,
+            0,
+            512,
+            349
+          ],
+          "layer": 10,
+          "anchor": [
+            256,
+            355
+          ],
+          "coordinateSpace": "assembly pixels"
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "buffer_cups_front",
+      "path": "assets/art/scene/buffer_cups_front.png",
+      "width": 384,
+      "height": 256,
+      "displayWidth": 192,
+      "displayHeight": 128,
+      "anchor": {
+        "x": 192,
+        "y": 256
+      },
+      "layer": 50,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": null,
+      "source": "art-source/batch-1/machinery/buffer-front-source.png",
+      "sourceRect": [
+        202,
+        371,
+        871,
+        580
+      ],
+      "batch": 1,
+      "bytes": 46707,
+      "decodedBytes": 393216,
+      "assemblyRefs": [
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "cupsBuffer",
+          "rect": [
+            8,
+            177,
+            248,
+            165.3333
+          ],
+          "layer": 50,
+          "anchor": [
+            256,
+            355
+          ],
+          "coordinateSpace": "assembly pixels"
+        },
+        {
+          "source": "art-source/batch-1/machinery/assembly.json",
+          "assembly": "cupsBuffer",
+          "rect": [
+            250,
+            177,
+            248,
+            165.3333
+          ],
+          "layer": 51,
+          "anchor": [
+            256,
+            355
+          ],
+          "coordinateSpace": "assembly pixels",
+          "flipX": true
+        }
+      ],
+      "intendedBinding": "see assemblyRefs; static artwork only",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "assembly pixels when polygon is present"
+      }
+    },
+    {
+      "id": "ui_icon_coin",
+      "path": "assets/art/ui/ui_icon_coin.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_coin-source.png",
+      "sourceRect": [
+        120,
+        121,
+        1015,
+        996
+      ],
+      "batch": 1,
+      "bytes": 16286,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_ship_speed",
+      "path": "assets/art/ui/ui_icon_ship_speed.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_ship_speed-source.png",
+      "sourceRect": [
+        49,
+        288,
+        1178,
+        715
+      ],
+      "batch": 1,
+      "bytes": 9307,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_pop",
+      "path": "assets/art/ui/ui_icon_pop.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_pop-source.png",
+      "sourceRect": [
+        180,
+        168,
+        894,
+        935
+      ],
+      "batch": 1,
+      "bytes": 18353,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_cup",
+      "path": "assets/art/ui/ui_icon_cup.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_cup-source.png",
+      "sourceRect": [
+        158,
+        71,
+        938,
+        1111
+      ],
+      "batch": 1,
+      "bytes": 15017,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_ship",
+      "path": "assets/art/ui/ui_icon_ship.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_ship-source.png",
+      "sourceRect": [
+        96,
+        112,
+        1062,
+        1030
+      ],
+      "batch": 1,
+      "bytes": 16955,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_settings",
+      "path": "assets/art/ui/ui_icon_settings.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_settings-source.png",
+      "sourceRect": [
+        77,
+        87,
+        1099,
+        1068
+      ],
+      "batch": 1,
+      "bytes": 12481,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_sound",
+      "path": "assets/art/ui/ui_icon_sound.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_sound-source.png",
+      "sourceRect": [
+        85,
+        182,
+        1111,
+        927
+      ],
+      "batch": 1,
+      "bytes": 11308,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_vibration",
+      "path": "assets/art/ui/ui_icon_vibration.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_vibration-source.png",
+      "sourceRect": [
+        126,
+        162,
+        1002,
+        933
+      ],
+      "batch": 1,
+      "bytes": 10889,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_close",
+      "path": "assets/art/ui/ui_icon_close.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_close-source.png",
+      "sourceRect": [
+        171,
+        186,
+        909,
+        888
+      ],
+      "batch": 1,
+      "bytes": 13325,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_arrow",
+      "path": "assets/art/ui/ui_icon_arrow.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_arrow-source.png",
+      "sourceRect": [
+        339,
+        160,
+        616,
+        941
+      ],
+      "batch": 1,
+      "bytes": 7658,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_upgrade",
+      "path": "assets/art/ui/ui_icon_upgrade.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_upgrade-source.png",
+      "sourceRect": [
+        147,
+        128,
+        959,
+        1007
+      ],
+      "batch": 1,
+      "bytes": 12174,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_expand",
+      "path": "assets/art/ui/ui_icon_expand.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_expand-source.png",
+      "sourceRect": [
+        126,
+        164,
+        1015,
+        946
+      ],
+      "batch": 1,
+      "bytes": 9473,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_check",
+      "path": "assets/art/ui/ui_icon_check.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_check-source.png",
+      "sourceRect": [
+        85,
+        208,
+        1105,
+        888
+      ],
+      "batch": 1,
+      "bytes": 8034,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_lock",
+      "path": "assets/art/ui/ui_icon_lock.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_lock-source.png",
+      "sourceRect": [
+        195,
+        100,
+        864,
+        1062
+      ],
+      "batch": 1,
+      "bytes": 12967,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_warning",
+      "path": "assets/art/ui/ui_icon_warning.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_warning-source.png",
+      "sourceRect": [
+        87,
+        150,
+        1079,
+        953
+      ],
+      "batch": 1,
+      "bytes": 10646,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    },
+    {
+      "id": "ui_icon_wait",
+      "path": "assets/art/ui/ui_icon_wait.png",
+      "width": 96,
+      "height": 96,
+      "displayWidth": 32,
+      "displayHeight": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "layer": 100,
+      "input": null,
+      "output": null,
+      "slots": [],
+      "clip": null,
+      "hitArea": {
+        "minimumLogicalSize": [
+          44,
+          44
+        ],
+        "note": "Icons display at 24-32 px inside an independent 44 px touch region."
+      },
+      "source": "art-source/batch-1/icons/ui_icon_wait-source.png",
+      "sourceRect": [
+        253,
+        104,
+        748,
+        1067
+      ],
+      "batch": 1,
+      "bytes": 13741,
+      "decodedBytes": 36864,
+      "assemblyRefs": [],
+      "intendedBinding": "runtime text / selection and reason overlays",
+      "status": {
+        "produced": true,
+        "exported": true,
+        "technicalPreviewChecked": true,
+        "integrated": false,
+        "stateBound": false,
+        "accepted": false
+      },
+      "coordinateSpaces": {
+        "anchor": "sprite pixels",
+        "display": "logical pixels",
+        "inputOutputSlotsClip": "assembly pixels; see assemblyRefs",
+        "hitArea": "logical pixels"
+      }
+    }
+  ]
+}

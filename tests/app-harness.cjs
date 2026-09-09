@@ -27,9 +27,7 @@ function harness(options = {}) {
     getSystemInfo: () => info, track(event, data) { analytics.push({ event, data: copy(data || {}) }); },
     getAnalytics: () => copy(analytics), vibrate() {},
     reward() { legacyCalls++; return Promise.resolve({ completed: false, reason: 'disabled' }); },
-    interstitial() { legacyCalls++; return Promise.resolve(false); },
-    getSidebarState: () => ({ supported: false, checking: false, fromSidebar: false }),
-    checkSidebar: () => Promise.resolve(), navigateSidebar() { legacyCalls++; return Promise.resolve(false); }
+    interstitial() { legacyCalls++; return Promise.resolve(false); }
   };
   class MockRenderer {
     constructor() { this.zones = []; }

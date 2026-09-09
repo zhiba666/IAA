@@ -1,0 +1,212 @@
+﻿[
+    {
+        "id":  "machine_pop_body",
+        "path":  "assets/art/machines/machine_pop_body.png",
+        "source":  "pop-source.png",
+        "sourceRect":  [
+                           87,
+                           150,
+                           786,
+                           751
+                       ],
+        "width":  512,
+        "height":  489,
+        "bytes":  326872,
+        "decodedBytes":  1001472
+    },
+    {
+        "id":  "machine_pop_head",
+        "path":  "assets/art/machines/machine_pop_head.png",
+        "source":  "pop-source.png",
+        "sourceRect":  [
+                           924,
+                           47,
+                           557,
+                           539
+                       ],
+        "width":  256,
+        "height":  248,
+        "bytes":  92668,
+        "decodedBytes":  253952
+    },
+    {
+        "id":  "machine_pop_front",
+        "path":  "assets/art/machines/machine_pop_front.png",
+        "source":  "pop-source.png",
+        "sourceRect":  [
+                           937,
+                           621,
+                           548,
+                           293
+                       ],
+        "width":  384,
+        "height":  205,
+        "bytes":  95647,
+        "decodedBytes":  314880
+    },
+    {
+        "id":  "machine_ship_body",
+        "path":  "assets/art/machines/machine_ship_body.png",
+        "source":  "ship-source.png",
+        "sourceRect":  [
+                           65,
+                           89,
+                           831,
+                           853
+                       ],
+        "width":  499,
+        "height":  512,
+        "bytes":  297140,
+        "decodedBytes":  1021952
+    },
+    {
+        "id":  "machine_ship_head",
+        "path":  "assets/art/machines/machine_ship_head.png",
+        "source":  "ship-source.png",
+        "sourceRect":  [
+                           1069,
+                           63,
+                           301,
+                           484
+                       ],
+        "width":  159,
+        "height":  256,
+        "bytes":  58499,
+        "decodedBytes":  162816
+    },
+    {
+        "id":  "machine_ship_front",
+        "path":  "assets/art/machines/machine_ship_front.png",
+        "source":  "ship-source.png",
+        "sourceRect":  [
+                           984,
+                           673,
+                           512,
+                           296
+                       ],
+        "width":  384,
+        "height":  222,
+        "bytes":  64177,
+        "decodedBytes":  340992
+    },
+    {
+        "id":  "conveyor_transfer_back",
+        "path":  "assets/art/scene/conveyor_transfer_back.png",
+        "source":  "transfer-source.png",
+        "sourceRect":  [
+                           81,
+                           33,
+                           1374,
+                           609
+                       ],
+        "width":  512,
+        "height":  227,
+        "bytes":  144111,
+        "decodedBytes":  464896
+    },
+    {
+        "id":  "conveyor_transfer_front",
+        "path":  "assets/art/scene/conveyor_transfer_front.png",
+        "source":  "transfer-front-source.png",
+        "sourceRect":  [
+                           100,
+                           475,
+                           1055,
+                           332
+                       ],
+        "width":  384,
+        "height":  121,
+        "bytes":  25806,
+        "decodedBytes":  185856
+    },
+    {
+        "id":  "conveyor_infeed_back",
+        "path":  "assets/art/scene/conveyor_infeed_back.png",
+        "source":  "infeed-source.png",
+        "sourceRect":  [
+                           297,
+                           11,
+                           933,
+                           698
+                       ],
+        "width":  512,
+        "height":  383,
+        "bytes":  155686,
+        "decodedBytes":  784384
+    },
+    {
+        "id":  "conveyor_infeed_front",
+        "path":  "assets/art/scene/conveyor_infeed_front.png",
+        "source":  "infeed-source.png",
+        "sourceRect":  [
+                           365,
+                           604,
+                           712,
+                           404
+                       ],
+        "width":  384,
+        "height":  218,
+        "bytes":  34051,
+        "decodedBytes":  334848
+    },
+    {
+        "id":  "conveyor_outfeed_back",
+        "path":  "assets/art/scene/conveyor_outfeed_back.png",
+        "source":  "outfeed-source.png",
+        "sourceRect":  [
+                           223,
+                           25,
+                           1100,
+                           713
+                       ],
+        "width":  512,
+        "height":  332,
+        "bytes":  154442,
+        "decodedBytes":  679936
+    },
+    {
+        "id":  "conveyor_outfeed_front",
+        "path":  "assets/art/scene/conveyor_outfeed_front.png",
+        "source":  "outfeed-source.png",
+        "sourceRect":  [
+                           465,
+                           534,
+                           826,
+                           454
+                       ],
+        "width":  384,
+        "height":  211,
+        "bytes":  33067,
+        "decodedBytes":  324096
+    },
+    {
+        "id":  "buffer_cups_back",
+        "path":  "assets/art/scene/buffer_cups_back.png",
+        "source":  "buffer-v2-source.png",
+        "sourceRect":  [
+                           254,
+                           11,
+                           1030,
+                           702
+                       ],
+        "width":  512,
+        "height":  349,
+        "bytes":  158708,
+        "decodedBytes":  714752
+    },
+    {
+        "id":  "buffer_cups_front",
+        "path":  "assets/art/scene/buffer_cups_front.png",
+        "source":  "buffer-front-source.png",
+        "sourceRect":  [
+                           202,
+                           371,
+                           871,
+                           580
+                       ],
+        "width":  384,
+        "height":  256,
+        "bytes":  46707,
+        "decodedBytes":  393216
+    }
+]

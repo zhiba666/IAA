@@ -1,0 +1,5 @@
+# Historical records stay in Git but are excluded from default ripgrep searches.
+# Read them explicitly with: rg --no-ignore <pattern> archive
+/archive/
+/docs/copyright/
+/deliverables/

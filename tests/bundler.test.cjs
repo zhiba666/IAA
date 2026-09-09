@@ -36,28 +36,15 @@ test('bundler preserves shared exports, circular dependencies and one-time modul
   assert.deepEqual(Array.from(context.result), ['b', 'a', true, 2]);
 });
 
-test('QA initialization executes without a browser or platform dependency', async t => {
+test('bundler rejects forbidden modules and dependencies outside the project', async t => {
   const root = await fixture(t, {
-    'src/core.js': 'module.exports={value:7};',
-    'tools/qa-actions.cjs': "module.exports=require('../src/core');"
+    'src/main.js': "module.exports=require('./blocked');",
+    'src/escape.js': "module.exports=require('../../outside');"
   });
-  const { bundleCommonJS, allowQAModule } = await api;
-  const { code } = await bundleCommonJS({ root, entries: ['tools/qa-actions.cjs'], allowModule: allowQAModule,
-    initialize: function start(require) { globalThis.result = require('tools/qa-actions.cjs').value; } });
-  const context = vm.createContext({});
-  vm.runInContext(code, context);
-  assert.equal(context.result, 7);
-});
-
-test('QA policy rejects forbidden entry points and transitive imports before reading them', async t => {
-  const root = await fixture(t, {
-    'src/presentation.js': "module.exports=require('./platform');",
-    'src/escape.js': "module.exports=require('../../outside');",
-    'tools/qa-actions.cjs': "module.exports=require('./other.cjs');"
-  });
-  const { bundleCommonJS, allowQAModule } = await api;
-  for (const entry of ['src/main.js', 'src/nested/main.js', 'src/platform.js', 'src/presentation.js', 'tools/qa-actions.cjs']) {
-    await assert.rejects(bundleCommonJS({ root, entries: [entry], allowModule: allowQAModule }), /Module not allowed/);
+  const { bundleCommonJS } = await api;
+  const allowModule = id => id !== 'src/blocked.js';
+  for (const entry of ['src/blocked.js', 'src/main.js']) {
+    await assert.rejects(bundleCommonJS({ root, entries: [entry], allowModule }), /Module not allowed/);
   }
   await assert.rejects(bundleCommonJS({ root, entries: ['src/escape.js'] }), /Dependency outside project/);
 });

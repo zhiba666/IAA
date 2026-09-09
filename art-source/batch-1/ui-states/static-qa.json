@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-09",
+  "scope": "static-ui-and-motion-specification",
+  "passed": true,
+  "source": "src/factory-rules.js",
+  "sourceSha256": "dafab7832c0ae749bfd0ffb6193c3057c6eca159eeed32491ce127f0ec511814",
+  "rules": {
+    "initialCapacity": {
+      "pop": 4,
+      "cup": 2,
+      "ship": 6
+    },
+    "initialBuffer": 12,
+    "cupUpgrade": {
+      "cost": 30,
+      "capacity": 6
+    },
+    "doubleCup": {
+      "cost": 200,
+      "requiredGeneration": 2
+    },
+    "expansion": {
+      "cost": 180,
+      "requiredSold": 100,
+      "targetRate": 3,
+      "bufferAfter": 24
+    }
+  },
+  "expansionFixtures": [
+    {
+      "id": "sold",
+      "coins": 46,
+      "sold": 76,
+      "rate": 3.2,
+      "spent": 30,
+      "rateReached": true,
+      "expectedReason": "sold"
+    },
+    {
+      "id": "rate",
+      "coins": 200,
+      "sold": 200,
+      "rate": 2,
+      "spent": 0,
+      "rateReached": false,
+      "expectedReason": "rate"
+    },
+    {
+      "id": "poor",
+      "coins": 70,
+      "sold": 100,
+      "rate": 3.2,
+      "spent": 30,
+      "rateReached": true,
+      "expectedReason": "poor"
+    },
+    {
+      "id": "ready",
+      "coins": 180,
+      "sold": 210,
+      "rate": 3.2,
+      "spent": 30,
+      "rateReached": true,
+      "expectedReason": "ready"
+    }
+  ],
+  "nineSlice": [
+    {
+      "id": "ui_card",
+      "width": 384,
+      "height": 115,
+      "slice": 32,
+      "center": [
+        320,
+        51
+      ],
+      "centerPositive": true
+    },
+    {
+      "id": "ui_compact_bar",
+      "width": 384,
+      "height": 78,
+      "slice": 32,
+      "center": [
+        320,
+        14
+      ],
+      "centerPositive": true
+    }
+  ],
+  "assemblies": 7,
+  "states": 24,
+  "motionGroups": 6,
+  "referencedPngCount": 34,
+  "absentPngs": [],
+  "scriptSyntaxChecked": true,
+  "browserLayoutChecked": false,
+  "gameIntegrated": false,
+  "failures": []
+}

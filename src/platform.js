@@ -7,8 +7,6 @@
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/ad/incentive-ads
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/ads/interstitial-ad/interstitial-ad-notice
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduction-for-tech
-// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-capacity/sidebar-capacity/tt-check-scene
-// https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-capacity/sidebar-capacity/tt-navigate-to-scene
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 
 function createPlatform() {
@@ -28,11 +26,6 @@ function createPlatform() {
   let adBusy = false;
   let lastStorageError = '';
   let hidden = false;
-  const sidebar = { supported: false, checking: false, fromSidebar: false };
-  let sidebarShowSubscribed = false;
-  let sidebarShowObserved = false;
-  let sidebarCheck = null;
-  let sidebarNavigation = null;
 
   function subscribe(name, callback) {
     if (typeof callback !== 'function') return function () {};
@@ -83,12 +76,6 @@ function createPlatform() {
   }
 
   function notifyShown(value) {
-    if (isDouyin) {
-      // Read every native callback, including the cold-start callback and a
-      // repeated show without hide. Never reuse stale launch options on resume.
-      sidebarShowObserved = true;
-      sidebar.fromSidebar = isSidebarLaunch(value);
-    }
     // A returning device may have changed size even without a resize API.
     emit('resize', getSystemInfo());
     if (!hidden) return;
@@ -97,16 +84,9 @@ function createPlatform() {
   }
 
   if (isDouyin) {
-    // Register synchronously during game.js initialization, before querying any
-    // optional capability. Missing/broken sidebar support cannot stop gameplay.
+    // Register lifecycle callbacks synchronously during game.js initialization.
     if (typeof sdk.onShow === 'function') {
-      try { sdk.onShow(notifyShown); sidebarShowSubscribed = true; } catch (_) {}
-    }
-    if (!sidebarShowObserved && typeof sdk.getLaunchOptionsSync === 'function') {
-      try {
-        const launch = sdk.getLaunchOptionsSync();
-        if (!sidebarShowObserved) sidebar.fromSidebar = isSidebarLaunch(launch);
-      } catch (_) { /* onShow remains the authoritative warm-start source */ }
+      try { sdk.onShow(notifyShown); } catch (_) {}
     }
     const touchMethods = [['onTouchStart', 'down'], ['onTouchMove', 'move'],
       ['onTouchEnd', 'up'], ['onTouchCancel', 'cancel']];
@@ -156,77 +136,6 @@ function createPlatform() {
     win.addEventListener('pagehide', notifyHidden);
     win.addEventListener('pageshow', notifyShown);
     win.addEventListener('resize', function () { emit('resize', getSystemInfo()); });
-  }
-
-  function getSidebarState() {
-    return Object.assign({}, sidebar);
-  }
-
-  function hasSidebarApi() {
-    return isDouyin && sidebarShowSubscribed && typeof sdk.checkScene === 'function' &&
-      typeof sdk.navigateToScene === 'function';
-  }
-
-  function checkSidebar() {
-    if (sidebarCheck) return sidebarCheck;
-    sidebar.supported = false;
-    if (!hasSidebarApi()) return Promise.resolve(getSidebarState());
-    sidebar.checking = true;
-    let resolveCheck;
-    const pending = new Promise(function (resolve) { resolveCheck = resolve; });
-    sidebarCheck = pending;
-    let settled = false;
-    let timer = null;
-    function finish(supported) {
-      if (settled) return;
-      settled = true;
-      if (timer != null) clearTimeout(timer);
-      sidebar.supported = supported === true;
-      sidebar.checking = false;
-      sidebarCheck = null;
-      resolveCheck(getSidebarState());
-    }
-    try {
-      timer = setTimeout(function () { finish(false); }, 5000);
-      const returned = sdk.checkScene({ scene: 'sidebar',
-        success: function (result) { finish(!!(result && result.isExist === true)); },
-        fail: function () { finish(false); } });
-      // The documented API is callback-based; a Promise fulfillment is not
-      // evidence of support. Consume unexpected rejections defensively.
-      if (returned && typeof returned.then === 'function') Promise.resolve(returned).catch(function () { finish(false); });
-    } catch (_) { finish(false); }
-    return pending;
-  }
-
-  function navigateSidebar() {
-    // Only invoke from an explicit user action. Do not defer navigation behind
-    // an async capability probe, which can lose the runtime's user gesture.
-    if (sidebar.checking) return Promise.resolve({ ok: false, reason: 'checking' });
-    if (!sidebar.supported || !hasSidebarApi()) return Promise.resolve({ ok: false, reason: 'unavailable' });
-    if (adBusy || sidebarNavigation) return Promise.resolve({ ok: false, reason: 'busy' });
-    if (hidden) return Promise.resolve({ ok: false, reason: 'hidden' });
-    let resolveNavigation;
-    const pending = new Promise(function (resolve) { resolveNavigation = resolve; });
-    sidebarNavigation = pending;
-    let settled = false;
-    let timer = null;
-    function finish(ok, reason) {
-      if (settled) return;
-      settled = true;
-      if (timer != null) clearTimeout(timer);
-      sidebarNavigation = null;
-      // A successful jump only means the sidebar opened, never that the user
-      // returned from it. Only native launch/onShow parameters change that flag.
-      resolveNavigation({ ok: ok, reason: reason });
-    }
-    try {
-      timer = setTimeout(function () { finish(false, 'timeout'); }, 10000);
-      const returned = sdk.navigateToScene({ scene: 'sidebar',
-        success: function () { finish(true, 'navigated'); },
-        fail: function () { finish(false, 'failed'); } });
-      if (returned && typeof returned.then === 'function') Promise.resolve(returned).catch(function () { finish(false, 'failed'); });
-    } catch (_) { finish(false, 'failed'); }
-    return pending;
   }
 
   function track(event, data) {
@@ -292,24 +201,10 @@ function createPlatform() {
     onPointer: function (callback) { return subscribe('pointer', callback); },
     onResize: function (callback) { return subscribe('resize', callback); },
     reward: reward, interstitial: interstitial, track: track, getSystemInfo: getSystemInfo, vibrate: vibrate,
-    getSidebarState: getSidebarState, checkSidebar: checkSidebar, navigateSidebar: navigateSidebar,
     getAnalytics: function () { return analytics.map(function (entry) { return Object.assign({}, entry, { data: Object.assign({}, entry.data) }); }); },
     get lastStorageError() { return lastStorageError; },
     get adBusy() { return adBusy; }
   };
-}
-
-function isSidebarLaunch(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  // Prefer the official onShow fields when present; do not treat custom query
-  // parameters, scene-shaped strings, or contradictory metadata as a return.
-  if (value.launch_from != null || value.location != null) {
-    return value.launch_from === 'homepage' &&
-      (value.location === 'sidebar_card' || value.location === 'homepage_expand');
-  }
-  // Cold-start fallback for hosts whose getLaunchOptionsSync only provides scene.
-  // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/operation1/user-ops/-retention/sidebar
-  return ['021036', '101036', '181036', '261036'].indexOf(value.scene) !== -1;
 }
 
 function createBrowserCanvas(doc) {

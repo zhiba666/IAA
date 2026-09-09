@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "batch": 1,
+  "scope": "artwork-only-static-ui-assemblies",
+  "status": {"produced": true, "integrated": false, "stateBound": false, "accepted": false},
+  "entry": "art-source/batch-1/ui-states/index.html",
+  "viewports": [{"id": "large", "width": 390, "height": 844}, {"id": "compact", "width": 320, "height": 524}],
+  "safeArea": {"defaultTop": 8, "alternateTop": 24, "bottom": 8, "horizontal": 8, "unit": "logical-pixel", "runtimeRule": "Reserve max(safeTop, menuBottom + 5), then place content below it. Reflow only inside the remaining viewport. Runtime safe-area integration is deferred."},
+  "layout": {"flow": ["safeTop", "header", "sceneObservation", "dock", "safeBottom"], "sceneMinHeight": {"large": 146, "compact": 144}, "dock": "Content-sized at bottom; header and dock do not overlap the reserved observation area.", "overflowRule": "Do not clip actionable text. If future copy or safe-area requirements exceed this sample, scroll dock content within its own region; keep header and the scene observation region visible."},
+  "touch": {"minWidth": 44, "minHeight": 44, "unit": "logical-pixel", "appliesTo": ["stationSelection", "tabs", "settings", "details", "close", "purchase", "reviewNext", "toggles", "restart", "cancel"]},
+  "typography": {"fontFamily": "system-ui, Microsoft YaHei, sans-serif", "body": {"large": 12, "compact": 11}, "caption": {"large": 11, "compact": 10}, "value": {"large": 19, "compact": 17}, "lineHeight": 1.4, "weights": [500, 750, 800], "numbers": "tabular-nums", "bakedText": false, "fontFilesAdded": false},
+  "assets": {"uiPath": "assets/art/ui/", "nineSlice": {"left": 32, "top": 32, "right": 32, "bottom": 32, "units": "source-pixel"}, "batch0Textures": ["ui_hud_coin", "ui_hud_rate", "ui_panel", "ui_button_primary", "ui_button_secondary", "ui_button_disabled"], "batch1Textures": ["ui_card", "ui_compact_bar"], "icons": ["coin", "ship_speed", "pop", "cup", "ship", "settings", "sound", "vibration", "close", "arrow", "upgrade", "expand", "check", "lock", "warning", "wait"], "iconNaming": "ui_icon_{name}.png", "iconExport": [96,96], "iconDisplay": [18,24]},
+  "textureGeometry": {"ui_card": {"width": 384, "height": 115, "stretchCenter": [320,51]}, "ui_compact_bar": {"width": 384, "height": 78, "stretchCenter": [320,14]}, "cssRule": "border-image-slice:32 fill uses source pixels, not percent; display border-image-width:11px. Corners remain fixed while only center and edge runs stretch.", "compactBarRule": "Use only for the folded horizontal strip, not a tall content panel. Card/panel textures serve expanded content."},
+  "sceneSlots": {"purpose": "Static observation-area placeholder composed from new independent machine body PNGs, not a finished production-line assembly or runtime layout", "machineIds": ["machine_pop_body", "machine_cup_body", "machine_ship_body"], "fullAssemblySource": "art-source/batch-1/machinery/assembly.json", "referencePolicy": "Only approved new art. No old screenshot or Canvas machine silhouette."},
+  "screens": [
+    {"id": "hud", "requirement": "U03-01", "name": "主 HUD", "states": ["initial", "selected", "shared", "observing"]},
+    {"id": "upgrade", "requirement": "U03-02", "name": "工位改造区", "states": ["ready", "poor", "expansion", "max", "stale"]},
+    {"id": "details", "requirement": "U03-03", "name": "改造详情", "states": ["processing", "waiting", "blocked", "insufficient"]},
+    {"id": "installed", "requirement": "U03-04", "name": "购买后折叠条", "states": ["installed"]},
+    {"id": "expansion", "requirement": "U03-05", "name": "扩建目标卡", "states": ["sold", "rate", "poor", "ready", "complete"]},
+    {"id": "settings", "requirement": "U03-06", "name": "设置", "states": ["on", "off", "error"]},
+    {"id": "restart", "requirement": "U03-07", "name": "重开确认", "states": ["confirm", "cancel"]}
+  ],
+  "previewSafety": {"gameModulesImported": false, "storageRead": false, "storageWrite": false, "simulationTimers": false, "purchaseExecuted": false, "textSource": "preview.js static fixtures", "snapshotApi": "window.artPreviewReport, populated after referenced images finish loading"}
+}

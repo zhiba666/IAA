@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-09",
+  "tool": "built-in image_gen",
+  "cliOrExternalAssetLibraryUsed": false,
+  "referenceUse": "Four approved images were visually inspected to define prompts; they were not edited or exported as runtime assets.",
+  "references": [
+    "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+    "output/imagegen/popcorn-ui-20260909/ui-components.png",
+    "output/imagegen/popcorn-ui-20260909/ui-upgrade-and-production.png",
+    "output/imagegen/popcorn-ui-20260909/ui-tasks-and-shipping.png"
+  ],
+  "generatedDirectory": "C:/Users/chenweilun/.codex/generated_images/01a0863f-6c4d-7640-bf21-09286a165a08",
+  "batches": [
+    {
+      "promptSection": "machine",
+      "retainedSource": "machine-cup-source.png",
+      "generatedFilename": "exec-28194130-894e-458c-be14-3395ba5c1fd9.png"
+    },
+    {
+      "promptSection": "products",
+      "retainedSource": "products-source.png",
+      "generatedFilename": "exec-9ab28a22-adf6-48a4-952e-0c3c844f1b1a.png"
+    },
+    {
+      "promptSection": "belts",
+      "retainedSource": "conveyors-source.png",
+      "generatedFilename": "exec-9beef3cb-bfc0-4045-9ae1-3f106012b3d3.png"
+    },
+    {
+      "promptSection": "bin",
+      "retainedSource": "buffer-source.png",
+      "generatedFilename": "exec-97f22a05-d1e5-441a-be13-cb6cc79352df.png"
+    },
+    {
+      "promptSection": "ui",
+      "retainedSource": "ui-source.png",
+      "generatedFilename": "exec-f2c92ef0-fe47-422c-92e1-bffefbbdf319.png"
+    }
+  ],
+  "postprocessing": "Connected-component separation (alpha >= 128 as core), preserving original alpha within a 2 source-pixel edge neighborhood, tight crop with transparent padding, uniform downscale. No painting or external matte."
+}

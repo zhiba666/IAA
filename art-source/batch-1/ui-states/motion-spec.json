@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "requirement": "F01",
+  "batch": 1,
+  "scope": "artwork-only-motion-specification",
+  "status": {"specified": true, "implementedInGame": false, "stateBound": false, "accepted": false},
+  "coordinateSystem": {"units": "logical pixels after uniform assembly scale", "floorAxes": [[1,0.55],[-1,0.55]], "light": "upper left", "layerOrder": ["body", "workingHead", "product", "foregroundGuard", "feedback"], "timelineProgress": "For job-driven tracks use clamp(job.progress, 0, 1), independently for each actual work-head slot. For event feedback use normalized visual elapsed time only."},
+  "assetPaths": {"steam": "assets/art/fx/fx_steam.png", "sparkle": "assets/art/fx/fx_sparkle.png", "coin": "assets/art/ui/ui_icon_coin.png", "kernelA": "assets/art/products/product_kernel_a.png", "kernelB": "assets/art/products/product_kernel_b.png", "cup": "assets/art/products/product_cup_empty.png", "cupFill": "assets/art/products/product_cup_fill.png", "tray": "assets/art/products/product_double_tray.png", "box": "assets/art/products/product_box_open.png", "boxFront": "assets/art/products/product_box_front.png", "lid": "assets/art/products/product_box_lid.png"},
+  "packageLayerOrder": ["product_box_open", "actual-job-cup-contents", "product_box_front", "product_box_lid"],
+  "bindingReferences": {"jobView": "src/core.js view stations[].jobs[]: amount, progress, complete", "realEvents": ["ship", "upgrade", "evolve"], "note": "These are observed existing fields and events, not new APIs implemented by this artwork delivery. Integrator must use the actual dispatch flow and consume each emitted event once."},
+  "invariants": [
+    "No visual track produces or consumes game inventory, coins, sales or jobs.",
+    "Draw portions from each job.amount captured when that job starts; upgrading batchSize never changes an existing job's visible portions.",
+    "Each installed head reads its own job; one blocked head must not freeze or complete its siblings.",
+    "An empty head has no product creation or looping processing effect. A completed blocked job holds its finished product without replaying completion effects.",
+    "Expansion preserves installed heads. Empty new slots remain covered until a real equipment purchase installs a head.",
+    "A ship effect consumes only a real positive ship event and displays only that event's already-settled coins. The animation never issues a second reward.",
+    "Textures, source files and UI example numbers are independent. Prices, counts, grades, progress and labels are runtime text.",
+    "Reduced motion changes visual displacement only; jobs and settlement retain the same timing and amount."
+  ],
+  "effects": [
+    {
+      "id": "pop", "name": "爆锅", "driver": "each active pop job.progress", "trigger": "A real job exists in this installed head, job.amount > 0 and !job.complete", "duration": "actual job duration; no fixed artificial cycle",
+      "assets": ["machine_pop_body", "machine_pop_head", "machine_pop_front", "product_kernel_a", "product_kernel_b", "fx_steam"],
+      "timeline": [
+        {"from": 0, "to": 0.15, "pose": "Work head settles toward operating position by up to 3 px; product stays within kettle content clip."},
+        {"from": 0.15, "to": 0.78, "pose": "Head shifts at most 1.5 px relative to its own pivot; reveal a bounded popcorn representation using actual progress and this job.amount."},
+        {"from": 0.78, "to": 1, "pose": "Settle completed popcorn at output pose; at most one steam patch per head rises up to 8 px and fades without obscuring product."}
+      ],
+      "completion": "At complete=true hold the finished job amount. Transfer out of the machine only when the authoritative job leaves its slot and downstream inventory reflects transfer.",
+      "blocked": "Hold completed kettle/output product; steam processing emission stops.", "idle": "Rest head, no popping or product emission.", "reducedMotion": "Keep clip/progress and final pose; remove shake and rising steam.", "maxPatchesPerHead": 1
+    },
+    {
+      "id": "cup", "name": "落料装杯", "driver": "each active cup job.progress", "trigger": "A real cup job has consumed a sufficient upstream batch", "duration": "actual job duration; no synthetic filling after job removal",
+      "assets": ["machine_cup_body", "machine_cup_head", "machine_cup_front", "product_cup_empty", "product_cup_fill", "product_kernel_a", "product_kernel_b"],
+      "timeline": [
+        {"from": 0, "to": 0.12, "pose": "Place an empty cup at the slot target; lower the independent head within its reviewed assembly travel."},
+        {"from": 0.12, "to": 0.86, "pose": "Raise product_cup_fill from empty to full through the cup-mouth clip. Up to two representative kernels can move along the nozzle-to-cup path, only for active processing."},
+        {"from": 0.86, "to": 1, "pose": "Return head to neutral; keep the filled cup behind the front guard. A dual-portion job uses the matching two-cup arrangement."}
+      ],
+      "completion": "Retain the completed cup(s) until actual downstream transfer; do not create an extra cup sprite on replay.",
+      "blocked": "Filled cup remains visible; nozzle and falling kernels stop.", "idle": "Empty/rest pose with no falling kernels. A partially stocked upstream buffer below batch requirement does not start filling.", "reducedMotion": "Keep continuous fill clipping; omit nozzle travel and falling kernels.", "maxPatchesPerHead": 2
+    },
+    {
+      "id": "pack", "name": "包装", "driver": "each active ship job.progress before settlement", "trigger": "A real ship job contains accepted cup portions", "duration": "actual ship job duration",
+      "assets": ["machine_ship_body", "machine_ship_head", "machine_ship_front", "product_cup_empty", "product_cup_fill", "product_double_tray", "product_box_open", "product_box_front", "product_box_lid"],
+      "timeline": [
+        {"from": 0, "to": 0.25, "pose": "Place this job.amount of represented filled cups into the reviewed single, dual-tray or box fixture. For boxes compose open back/body, cup contents, then product_box_front; the entire package remains behind the machine front guard."},
+        {"from": 0.25, "to": 0.75, "pose": "Move the individual packaging head down by at most 6 px. For amount >= 4, lower the separate box lid along its assembly path; no new portions appear."},
+        {"from": 0.75, "to": 1, "pose": "Head returns; single cup, dual tray or closed box holds at output anchor."}
+      ],
+      "completion": "Packaging produces no portions or coins; wait for the authoritative ship event for departure feedback.",
+      "blocked": "Hold completed package if a future output hold is exposed; do not infer shipping from pose completion.", "idle": "Rest head with no fabricated package.", "reducedMotion": "Switch through open and completed package poses without press displacement."
+    },
+    {
+      "id": "ship", "name": "自动出货", "driver": "real ship events followed by presentation-only elapsed time", "trigger": "event.type === 'ship' && event.amount > 0", "durationMs": 650,
+      "assets": ["product_cup_empty", "product_cup_fill", "product_double_tray", "product_box_open", "product_box_front", "product_box_lid", "ui_icon_coin"],
+      "timeline": [
+        {"from": 0, "to": 0.2, "pose": "Use the actual shipped package group at the machine output anchor; record event.amount and event.coins in a bounded visual aggregate."},
+        {"from": 0.2, "to": 0.85, "pose": "Move representative product toward the outbound scene edge along the reviewed conveyor axis by up to 42 px; display one independent +coins text receipt using the summed actual event coins."},
+        {"from": 0.85, "to": 1, "pose": "Fade departed product and coin receipt to zero, then remove presentation objects."}
+      ],
+      "aggregation": {"windowMs": 750, "sumFields": ["amount", "coins"], "maxVisibleProductGroups": 1, "maxCoinReceipts": 1, "rule": "Accumulate events while the visual channel is busy. Show bounded representative geometry while preserving summed text values. No dropped event is replayed into settlement."},
+      "idle": "No ship event means no departure or income animation.", "reducedMotion": "Keep one short static receipt for 500 ms; skip movement."
+    },
+    {
+      "id": "install", "name": "安装成功", "driver": "real upgrade event followed by presentation-only elapsed time", "trigger": "event.type === 'upgrade' after successful purchase commit", "durationMs": 700,
+      "assets": ["fx_sparkle", "ui_icon_check", "ui_compact_bar"],
+      "timeline": [
+        {"from": 0, "to": 0.2, "pose": "Keep the purchased station selected; tint its ground marker and show the installed confirmation strip."},
+        {"from": 0.2, "to": 0.65, "pose": "At most three separate sparkle patches scale from 0.85 to 1.05 and fade around the changed slot; never overlap a price or readout."},
+        {"from": 0.65, "to": 1, "pose": "Remove sparkles; retain the confirmation strip and its independent review-next action."}
+      ],
+      "completion": "Preserve in-flight old job.amount and head progress; existing jobs do not restart. Only purchased newly installed head slots become visible.",
+      "notTriggeredBy": ["insufficient coins", "requires expansion", "stale quote", "max level", "repeated click on old purchase target"], "reducedMotion": "Show check icon and confirmation strip, omit sparkle scaling.", "maxPatches": 3
+    },
+    {
+      "id": "expand", "name": "扩建", "driver": "real evolve event followed by presentation-only elapsed time", "trigger": "event.type === 'evolve' after a successful expansion commit", "durationMs": 900,
+      "assets": ["fx_sparkle", "ui_icon_expand", "ui_icon_check", "buffer_bulk_back", "buffer_bulk_front", "buffer_cups_back", "buffer_cups_front"],
+      "timeline": [
+        {"from": 0, "to": 0.2, "pose": "Show the new generation and actual capacity labels as independent text; retain all existing active job positions."},
+        {"from": 0.2, "to": 0.7, "pose": "Fade in only generation-specific chassis or storage extensions, and empty-slot covers; use at most four sparkle patches around the two buffers."},
+        {"from": 0.7, "to": 1, "pose": "Settle the expanded assembly; show that upgrades are available for separate purchase."}
+      ],
+      "completion": "Do not add heads, processing throughput, stock or coins beyond the authoritative expansion state. Gen-6 completion uses a label/check icon without invented rewards.",
+      "notTriggeredBy": ["sales threshold unmet", "rate threshold unmet", "insufficient coins", "already final generation"], "reducedMotion": "Apply final chassis/capacity state directly and show a static confirmation.", "maxPatches": 4
+    }
+  ],
+  "globalVisualLimits": {"maxSteamPatchesPerHead": 1, "maxFallingKernelsPerHead": 2, "maxSparklePatchesPerEvent": 4, "maxConcurrentIncomeReceipts": 1, "maxRepresentativeStockItemsPerBuffer": 24, "stockRendering": "At high capacity use clipped aggregate layers. Even 1 portion must remain visible. These are proposed presentation budgets, not runtime measurements."},
+  "staticReviewRequirements": ["Show idle, processing and complete-wait poses with unchanged assets.", "Check product behind foreground guards and inside mouth/bin clips.", "Check old smaller batches beside new larger batches without rewriting amount.", "Check concurrent mixed head states through independent per-slot poses.", "Check zero ship events yields no income receipt.", "Check multiple ship events aggregate exact amount and coins once.", "Document reduced-motion poses and finite effect lifetimes." ]
+}

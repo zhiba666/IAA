@@ -221,17 +221,14 @@ test('shipment feedback batches actual event receipts, expires visually and neve
 });
 
 test('upgrades retain their concrete installation name and later stages draw one pop machine with real working heads', () => {
-  const canvas = canvasHarness(), scene = new ProductionScene(canvas.ctx), game = new Game();
+  const canvas = canvasHarness(), scene = new ProductionScene(canvas.ctx);
   scene.emit({type:'upgrade',stationId:'cup',name:'快速装杯头'});
   assert.equal(scene.flash.name,'快速装杯头'); assert.equal(scene.flash.stationId,'cup');
   scene.update(.1); assert.ok(scene.flash.remaining>0);
-  const before = game.exportSave(1800000000000);
-  for (let stage = 0; stage < 6; stage++) scene.drawMachinePreview(0,0,160,stage);
-  assert.deepEqual(game.exportSave(1800000000000),before);
   assert.ok(stages.slice(1).some(view => view.stations.some(station => station.lanes > 1)));
   assert.ok(stages.slice(1).some(view => view.stations.find(station => station.id === 'ship').batchSize > 1));
   const machine = scene.drawMachine.bind(scene); let chassis = 0, actualHeads = 0;
-  scene.drawMachine = (stage,active,preview,station) => { chassis++; actualHeads=station.lanes; machine(stage,active,preview,station); };
+  scene.drawMachine = (stage,active,station) => { chassis++; actualHeads=station.lanes; machine(stage,active,station); };
   const pop = stages[5].stations.find(station => station.id === 'pop');
   scene.drawPop(12,12,150,54,pop,5);
   assert.equal(chassis,1, 'parallel production has one shared equipment housing');

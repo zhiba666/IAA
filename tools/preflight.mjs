@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const AUDIO_FILES = ['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error'].map(name => `audio/${name}.wav`);
+export const AUDIO_FILES = ['upgrade', 'machine', 'click', 'error'].map(name => `audio/${name}.wav`);
 export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES];
 const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false };
 const ID_LABELS = { appId: '小游戏 AppID' };

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "machine_pop_body",
+    "source": "pop-source.png",
+    "seed": [
+      430,
+      600
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/machines/machine_pop_body.png"
+  },
+  {
+    "id": "machine_pop_head",
+    "source": "pop-source.png",
+    "seed": [
+      1200,
+      300
+    ],
+    "maxEdge": 256,
+    "path": "assets/art/machines/machine_pop_head.png"
+  },
+  {
+    "id": "machine_pop_front",
+    "source": "pop-source.png",
+    "seed": [
+      1100,
+      800
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/machines/machine_pop_front.png"
+  },
+  {
+    "id": "machine_ship_body",
+    "source": "ship-source.png",
+    "seed": [
+      500,
+      200
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/machines/machine_ship_body.png"
+  },
+  {
+    "id": "machine_ship_head",
+    "source": "ship-source.png",
+    "seed": [
+      1200,
+      200
+    ],
+    "maxEdge": 256,
+    "path": "assets/art/machines/machine_ship_head.png"
+  },
+  {
+    "id": "machine_ship_front",
+    "source": "ship-source.png",
+    "seed": [
+      1200,
+      800
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/machines/machine_ship_front.png"
+  },
+  {
+    "id": "conveyor_transfer_back",
+    "source": "transfer-source.png",
+    "seed": [
+      768,
+      200
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/scene/conveyor_transfer_back.png"
+  },
+  {
+    "id": "conveyor_transfer_front",
+    "source": "transfer-front-source.png",
+    "seed": [
+      620,
+      500
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/scene/conveyor_transfer_front.png"
+  },
+  {
+    "id": "conveyor_infeed_back",
+    "source": "infeed-source.png",
+    "seed": [
+      600,
+      350
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/scene/conveyor_infeed_back.png"
+  },
+  {
+    "id": "conveyor_infeed_front",
+    "source": "infeed-source.png",
+    "seed": [
+      600,
+      750
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/scene/conveyor_infeed_front.png"
+  },
+  {
+    "id": "conveyor_outfeed_back",
+    "source": "outfeed-source.png",
+    "seed": [
+      700,
+      350
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/scene/conveyor_outfeed_back.png"
+  },
+  {
+    "id": "conveyor_outfeed_front",
+    "source": "outfeed-source.png",
+    "seed": [
+      800,
+      770
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/scene/conveyor_outfeed_front.png"
+  },
+  {
+    "id": "buffer_cups_back",
+    "source": "buffer-v2-source.png",
+    "seed": [
+      700,
+      400
+    ],
+    "maxEdge": 512,
+    "path": "assets/art/scene/buffer_cups_back.png"
+  },
+  {
+    "id": "buffer_cups_front",
+    "source": "buffer-front-source.png",
+    "seed": [
+      600,
+      650
+    ],
+    "maxEdge": 384,
+    "path": "assets/art/scene/buffer_cups_front.png"
+  }
+]

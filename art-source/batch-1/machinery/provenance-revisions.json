@@ -1,0 +1,26 @@
+{
+  "transferV2": {
+    "tool": "built-in image_gen",
+    "outputHint": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d\\exec-b7dfb19a-1092-4c8a-8a8d-0d2b72849f39.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "postprocess": "mechanical connected-component crop preserving original alpha within two-source-pixel edge margin, uniform downsampling only",
+    "status": "rejected_baked_checkerboard_not_exported"
+  },
+  "transferFront": {
+    "tool": "built-in image_gen",
+    "outputHint": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d\\exec-4adb2bb4-487b-4116-82ab-596db666df6d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "postprocess": "mechanical connected-component crop preserving original alpha within two-source-pixel edge margin, uniform downsampling only",
+    "status": "accepted_as_conveyor_transfer_front"
+  },
+  "bufferV2": {
+    "tool": "built-in image_gen",
+    "outputHint": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d\\exec-961e49bc-4221-4f54-b56e-f5cc26951931.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "postprocess": "mechanical connected-component crop preserving original alpha within two-source-pixel edge margin, uniform downsampling only",
+    "status": "back_only_front_projection_replaced"
+  },
+  "bufferFront": {
+    "tool": "built-in image_gen",
+    "outputHint": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0865b-6f4e-7111-ba71-abde80df417d\\exec-46bb207f-c356-4106-b901-2966e8414613.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+    "postprocess": "mechanical connected-component crop preserving original alpha within two-source-pixel edge margin, uniform downsampling only",
+    "status": "accepted_as_buffer_cups_front"
+  }
+}

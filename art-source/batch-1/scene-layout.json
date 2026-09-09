@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "batch": 1,
+  "scope": "static-art-assembly-only",
+  "status": {"produced": true, "integrated": false, "stateBound": false, "accepted": false},
+  "sheet": {"width": 1600, "height": 1800},
+  "camera": {"floorAxes": [[1,0.55],[-1,0.55]], "light": "upper left", "rule": "Uniform scaling and translation only; use each reviewed rig's own foreground/clip layers. The cups bin repeats its reviewed front rail with its existing flipX flag."},
+  "sources": {"batch0": "art-source/batch-0/assembly.json", "machinery": "art-source/batch-1/machinery/assembly.json", "packaging": "art-source/batch-1/core/assembly.json"},
+  "scene": {"width": 390, "height": 600, "background": {"id": "factory_room", "rect": [0,0,390,585]}, "window": {"id": "factory_window", "rect": [40,16,80,72.8125]}, "backgroundNote": "The room remains a single unmodified PNG. It is uniformly scaled to 390 px wide; a cream continuation below y=585 is outside the cropped review composition. The left-wall window is independent. The left-wall door is shown separately in the side panel."},
+  "viewports": [{"id":"primary","name":"390 × 600 · 主构图","translate":[30,120],"logicalWidth":390,"logicalHeight":600,"exportScale":2},{"id":"compact","name":"320 × 492 · 紧凑构图","translate":[920,120],"logicalWidth":320,"logicalHeight":492.307692,"exportScale":2}],
+  "nodes": [
+    {"id":"pop","source":"machinery","rig":"popMachine","kind":"machine","scale":0.23,"translate":[10,55],"state":"working"},
+    {"id":"belt_pop_bulk","source":"batch0","rig":"conveyorRight","kind":"belt","scale":0.25,"attach":{"from":"pop","fromPort":"output","toPort":"input"},"cargo":"kernels"},
+    {"id":"bulk","source":"batch0","rig":"bulkBuffer","kind":"buffer","scale":0.19,"attach":{"from":"belt_pop_bulk","fromPort":"output","toPort":"input"},"quantity":10,"capacity":12},
+    {"id":"belt_bulk_cup","source":"batch0","rig":"conveyorLeft","kind":"belt","scale":0.35,"attach":{"from":"bulk","fromPort":"output","toPort":"input"},"cargo":"kernels"},
+    {"id":"cup","source":"batch0","rig":"cupMachine","kind":"machine","scale":0.24,"attach":{"from":"belt_bulk_cup","fromPort":"output","toPort":"input"},"state":"filled"},
+    {"id":"belt_cup_stock","source":"batch0","rig":"conveyorRight","kind":"belt","scale":0.30,"attach":{"from":"cup","fromPort":"output","toPort":"input"},"cargo":"cups"},
+    {"id":"cups","source":"machinery","rig":"cupsBuffer","kind":"buffer","scale":0.18,"attach":{"from":"belt_cup_stock","fromPort":"output","toPort":"input"},"quantity":2,"capacity":12},
+    {"id":"belt_stock_ship","source":"batch0","rig":"conveyorLeft","kind":"belt","scale":0.46,"attach":{"from":"cups","fromPort":"output","toPort":"input"},"cargo":"cups"},
+    {"id":"ship","source":"machinery","rig":"shipMachine","kind":"machine","scale":0.22,"attach":{"from":"belt_stock_ship","fromPort":"output","toPort":"input"},"state":"single"},
+    {"id":"outfeed","source":"machinery","rig":"conveyorOutfeed","kind":"belt","scale":0.19,"attach":{"from":"ship","fromPort":"output","toPort":"input"},"cargo":"cups"}
+  ],
+  "labels": [{"text":"01  爆锅","x":173,"y":127},{"text":"待装 10 / 12","x":278,"y":277},{"text":"02  装杯","x":13,"y":354},{"text":"待发 2 / 12","x":283,"y":356},{"text":"03  出货","x":256,"y":519}],
+  "bufferStates": [{"id":"empty","label":"空仓","quantity":0,"capacity":12},{"id":"small","label":"少量","quantity":1,"capacity":12},{"id":"near","label":"接近满","quantity":10,"capacity":12},{"id":"full","label":"满仓","quantity":12,"capacity":12}],
+  "layerRule": "Draw belt assemblies first, then machine and stock rigs in anchor-y order. Each rig retains body/head, content clip and front-guard order; connecting endpoints overlap within the ports, without stretching or rotating a belt sprite. Conveyor cargo has a shared scene width: 14 logical px for cups and 6 px for kernels, regardless of belt sprite scale.",
+  "notes": ["The zigzag chain is pop → bulk inventory → cup → cup inventory → ship → outfeed. Each belt endpoint is derived from the adjoining reviewed rig port, not hand-drawn connecting lines.","This is a static spatial and occlusion reference. It does not implement production animation, input hit targets or a game screen.","All cups reuse the existing cup-mouth fill clip. Box and dual-tray rigs remain supported by the renderer but first-generation shipping uses one filled cup.","Warehouse examples use bounded representative products; the independently drawn quantities remain authoritative labels."]
+}

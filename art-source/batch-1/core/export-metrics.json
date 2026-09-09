@@ -1,0 +1,233 @@
+﻿[
+    {
+        "id":  "factory_room",
+        "path":  "assets/art/scene/factory_room.png",
+        "source":  "factory_room-source.png",
+        "sourceRect":  [
+                           0,
+                           0,
+                           1024,
+                           1536
+                       ],
+        "width":  512,
+        "height":  768,
+        "bytes":  440532,
+        "decodedBytes":  1572864,
+        "alpha":  {
+                      "transparent":  0,
+                      "nonzeroEdge":  2556,
+                      "translucent":  0,
+                      "opaque":  393216
+                  }
+    },
+    {
+        "id":  "factory_window",
+        "path":  "assets/art/scene/factory_window.png",
+        "source":  "factory_window-source.png",
+        "sourceRect":  [
+                           317,
+                           90,
+                           918,
+                           836
+                       ],
+        "width":  256,
+        "height":  233,
+        "bytes":  74041,
+        "decodedBytes":  238592,
+        "alpha":  {
+                      "transparent":  20893,
+                      "nonzeroEdge":  0,
+                      "translucent":  37961,
+                      "opaque":  794
+                  }
+    },
+    {
+        "id":  "factory_door",
+        "path":  "assets/art/scene/factory_door.png",
+        "source":  "factory_door-source.png",
+        "sourceRect":  [
+                           321,
+                           64,
+                           779,
+                           1011
+                       ],
+        "width":  197,
+        "height":  256,
+        "bytes":  49263,
+        "decodedBytes":  201728,
+        "alpha":  {
+                      "transparent":  28663,
+                      "nonzeroEdge":  1,
+                      "translucent":  20494,
+                      "opaque":  1275
+                  }
+    },
+    {
+        "id":  "product_double_tray",
+        "path":  "assets/art/products/product_double_tray.png",
+        "source":  "product_double_tray-source.png",
+        "sourceRect":  [
+                           100,
+                           345,
+                           1064,
+                           668
+                       ],
+        "width":  128,
+        "height":  80,
+        "bytes":  16026,
+        "decodedBytes":  40960,
+        "alpha":  {
+                      "transparent":  4899,
+                      "nonzeroEdge":  0,
+                      "translucent":  5050,
+                      "opaque":  291
+                  }
+    },
+    {
+        "id":  "product_box_open",
+        "path":  "assets/art/products/product_box_open.png",
+        "source":  "product_box_open-source.png",
+        "sourceRect":  [
+                           97,
+                           47,
+                           1115,
+                           1125
+                       ],
+        "width":  127,
+        "height":  128,
+        "bytes":  24580,
+        "decodedBytes":  65024,
+        "alpha":  {
+                      "transparent":  5958,
+                      "nonzeroEdge":  0,
+                      "translucent":  9918,
+                      "opaque":  380
+                  }
+    },
+    {
+        "id":  "product_box_lid",
+        "path":  "assets/art/products/product_box_lid.png",
+        "source":  "product_box_lid-source.png",
+        "sourceRect":  [
+                           44,
+                           220,
+                           1166,
+                           830
+                       ],
+        "width":  128,
+        "height":  91,
+        "bytes":  12401,
+        "decodedBytes":  46592,
+        "alpha":  {
+                      "transparent":  6028,
+                      "nonzeroEdge":  0,
+                      "translucent":  5341,
+                      "opaque":  279
+                  }
+    },
+    {
+        "id":  "ui_card",
+        "path":  "assets/art/ui/ui_card.png",
+        "source":  "ui_card-source.png",
+        "sourceRect":  [
+                           52,
+                           73,
+                           1994,
+                           598
+                       ],
+        "width":  384,
+        "height":  115,
+        "bytes":  39840,
+        "decodedBytes":  176640,
+        "alpha":  {
+                      "transparent":  4089,
+                      "nonzeroEdge":  0,
+                      "translucent":  39150,
+                      "opaque":  921
+                  }
+    },
+    {
+        "id":  "ui_compact_bar",
+        "path":  "assets/art/ui/ui_compact_bar.png",
+        "source":  "ui_compact_bar-source.png",
+        "sourceRect":  [
+                           85,
+                           178,
+                           1929,
+                           393
+                       ],
+        "width":  384,
+        "height":  78,
+        "bytes":  31056,
+        "decodedBytes":  119808,
+        "alpha":  {
+                      "transparent":  3610,
+                      "nonzeroEdge":  0,
+                      "translucent":  25497,
+                      "opaque":  845
+                  }
+    },
+    {
+        "id":  "fx_steam",
+        "path":  "assets/art/fx/fx_steam.png",
+        "source":  "fx_steam-source.png",
+        "sourceRect":  [
+                           413,
+                           182,
+                           433,
+                           875
+                       ],
+        "width":  63,
+        "height":  128,
+        "bytes":  12213,
+        "decodedBytes":  32256,
+        "alpha":  {
+                      "transparent":  3812,
+                      "nonzeroEdge":  0,
+                      "translucent":  4231,
+                      "opaque":  21
+                  }
+    },
+    {
+        "id":  "fx_sparkle",
+        "path":  "assets/art/fx/fx_sparkle.png",
+        "source":  "fx_sparkle-source.png",
+        "sourceRect":  [
+                           388,
+                           256,
+                           543,
+                           668
+                       ],
+        "width":  104,
+        "height":  128,
+        "bytes":  11678,
+        "decodedBytes":  53248,
+        "alpha":  {
+                      "transparent":  9002,
+                      "nonzeroEdge":  0,
+                      "translucent":  4005,
+                      "opaque":  305
+                  }
+    },
+    {
+        "id":  "product_box_front",
+        "path":  "assets/art/products/product_box_front.png",
+        "source":  "product_box_front-source.png",
+        "sourceRect":  [
+                           46,
+                           335,
+                           1162,
+                           707
+                       ],
+        "width":  128,
+        "height":  78,
+        "bytes":  11375,
+        "decodedBytes":  39936,
+        "alpha":  {
+                      "transparent":  4738,
+                      "nonzeroEdge":  0,
+                      "translucent":  4890,
+                      "opaque":  356
+                  }
+    }
+]

@@ -37,10 +37,6 @@ class Renderer {
     const c=this.c;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();
     if(stroke){c.strokeStyle=stroke;c.stroke();}
   }
-  line(x,y,xx,yy,color='#283e32',width=2) {
-    const c=this.c;c.beginPath();c.moveTo(x,y);c.lineTo(xx,yy);c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.stroke();
-  }
-  popcorn(x,y,r=5,angle=0){this.scene.popcorn(x,y,r,angle);}
   hit(x,y,w,h,action){if(w>0&&h>0)this.zones.push({x,y,w,h,action});}
   emit(event){this.scene.emit(event);}
   draw(view,ui,dt=0){this.interface.draw(view,ui,dt);}

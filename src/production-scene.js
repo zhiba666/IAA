@@ -2,16 +2,8 @@
 
 // Reuses the six original Canvas machine silhouettes. Processing and stock live
 // exclusively in core.js: every moving part reads a real job's progress.
-const C={ink:'#283e32',green:'#366348',yellow:'#f4ca58',cream:'#fff9e8'};
+const C={green:'#366348',cream:'#fff9e8'};
 const PALETTES=[['#eee5cb','#dfd2b0'],['#e4e9d7','#cfdbc2'],['#e8e1de','#d9ced0'],['#e0e8df','#cad9cf'],['#efe2ce','#ddcdb5'],['#ede5c9','#ded2ac']];
-const PRODUCTION_FORMS=Object.freeze([
-  {id:'cup',unit:'单份装杯',rhythm:'一口锅，一条线'},
-  {id:'electric',unit:'电热流水线',rhythm:'稳定供料，快装快发'},
-  {id:'parallel',unit:'并行工位',rhythm:'多路加工，合流出货'},
-  {id:'tray',unit:'整托包装',rhythm:'多头装杯，成批处理'},
-  {id:'carton',unit:'成箱包装',rhythm:'装箱封口，整批送出'},
-  {id:'pallet',unit:'整垛发运',rhythm:'多线合流，自动码垛'}
-].map(Object.freeze));
 const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
 const value=n=>Number.isFinite(n)?n:0;
 const machineStage=n=>clamp(Math.floor(value(n)),0,5);
@@ -129,7 +121,7 @@ class ProductionScene {
     // working heads inside it; we never tile and shrink complete machines.
     c.save();c.translate(x+w/2,y+h*.59);c.scale(scaleX,scaleY);
     this.driveTime=this.jobProgress(station,jobs.findIndex(job=>job&&!job.complete))*Math.PI*2;
-    this.drawMachine(stage,active,false,station);c.restore();
+    this.drawMachine(stage,active,station);c.restore();
   }
   drawCupStation(x,y,w,h,station,stage){
     const c=this.c,scaleX=w/160,scaleY=Math.min(h/130,scaleX),lanes=Math.min(6,Math.max(1,value(station.lanes)));
@@ -200,10 +192,8 @@ class ProductionScene {
     c.save();c.font='600 11px "Microsoft YaHei", "PingFang SC", sans-serif';c.textBaseline='middle';c.textAlign='left';c.fillStyle=ratio>.85?'#8c6428':'#677451';
     c.fillText((index?'待发':'待装')+' '+amount+' / '+capacity,x+binW+8,y+h*.5);c.restore();
   }
-  drawMachinePreview(x,y,size,stage){if(!(size>0))return;const c=this.c;c.save();c.translate(x+size/2,y+size*.65);c.scale(size/290,size/290);this.driveTime=0;this.drawMachine(machineStage(stage),false,true);c.restore();}
-  drawProductionPreview(x,y,size,stage){if(!(size>0))return;const c=this.c;c.save();if(stage<4)this.cup(x+size/2,y+size/2,1,size/60);else this.crate(x+size*.2,y+size*.25,size*.6,size*.5);c.restore();}
-  drawMachine(stage,active,preview=false,station=null) {
-    const c=this.c,time=preview?0:this.driveTime,bob=active?Math.sin(time*(stage===0?7:6))*.9:0;
+  drawMachine(stage,active,station) {
+    const c=this.c,time=this.driveTime,bob=active?Math.sin(time*(stage===0?7:6))*.9:0;
     c.translate(0,bob);if(stage===5)c.scale(.73,.73);
     const color=['#d2a567','#85a898','#b398bf','#7e9bad','#d1956d','#cead4b'][stage];
     this.box(-98,31,196,17,6,'#a4b69a');this.box(-83,48,13,29,3,'#8c9f85');this.box(70,48,13,29,3,'#8c9f85');
@@ -216,19 +206,16 @@ class ProductionScene {
       this.box(-82,-69,164,14,6,'#567465');this.circle(43,18,7,active?'#f9d36a':'#bad0b0');this.box(-54,13,61,10,4,'#527161');this.box(-22,30,44,13,4,'#567465');
     } else if(stage===2) {
       this.box(-98,-28,196,61,12,color);
-      if(station){this.box(-91,-74,182,68,12,'#ded5e3');this.box(-97,-83,194,14,5,'#877192');}
-      else for(const x of [-49,49]) {this.box(x-35,-74,70,68,12,'#ede5ee');this.box(x-41,-83,82,14,5,'#877192');this.box(x-27,-61,54,38,8,'#f4dfa5');this.circle(x,15,9,'#6f647e');this.circle(x,15,4,active&&Math.floor(time*5)%2===(x<0?0:1)?C.yellow:'#beb69d');}
+      this.box(-91,-74,182,68,12,'#ded5e3');this.box(-97,-83,194,14,5,'#877192');
     } else if(stage===3) {
       this.box(-103,-66,206,99,13,color);this.box(-112,-76,224,14,5,'#547183');
-      if(!station)for(const x of [-83,-50,-17,16,49,82]){this.box(x-13,-53,26,54,6,'#dfe9e8');this.box(x-9,-47,18,36,4,'#f4dfad');this.box(x-5,3,10,19,3,'#4f6c7d');}
       this.box(-86,26,172,12,5,'#536e7a');
     } else if(stage===4) {
-      this.box(-124,-55,95,86,10,color);if(!station)this.box(-113,-43,73,40,6,'#f1ddb3');this.box(-132,-66,111,15,6,'#997057');
-      this.box(-19,-84,111,80,12,'#e7c9a0');this.box(-29,-92,131,14,5,'#a47859');if(!station)this.box(-3,-70,80,40,6,'#fff0c8');else for(let i=0;i<3;i++)this.line(-4,-66+i*9,71,-66+i*9,'#c5a783',3);this.box(30,-4,24,32,4,'#b38c68');
+      this.box(-124,-55,95,86,10,color);this.box(-132,-66,111,15,6,'#997057');
+      this.box(-19,-84,111,80,12,'#e7c9a0');this.box(-29,-92,131,14,5,'#a47859');for(let i=0;i<3;i++)this.line(-4,-66+i*9,71,-66+i*9,'#c5a783',3);this.box(30,-4,24,32,4,'#b38c68');
     } else {
       this.box(-91,-36,182,67,15,'#c7ad58');this.box(-62,-85,124,53,13,'#e8cd71');this.box(-40,-133,80,52,12,'#f3d889');
       this.box(-99,-45,198,13,5,'#9b8849');this.box(-70,-94,140,13,5,'#a78c47');this.box(-46,-141,92,12,5,'#b69a4f');
-      if(!station)for(let i=0;i<3;i++){this.box(-68+i*53,-23,30,37,7,'#f7ecbd');this.circle(-53+i*53,-4,6,'#b39643');}
       this.box(-27,-70,54,25,7,'#fff0c6');this.circle(0,-111,12,'#fff7d7');this.circle(0,-111,5,'#b68c2d');
       this.line(0,-144,0,-168,'#9d8649',3);this.box(1,-166,31,16,2,'#d88964');
     }
@@ -241,21 +228,12 @@ class ProductionScene {
         this.line(mx,my,mx+Math.cos(a)*radius,my+Math.sin(a)*radius,'#f3e2ab',1.5);
       }
     }
-    // Purchased heads occupy one shared equipment body. Preview keeps each
-    // generation's original silhouette; live heads follow the true lane count.
-    if(station){
-      const lanes=Math.min(6,Math.max(1,value(station.lanes))),span=stage===4?205:stage===5?152:170;
-      const headW=Math.min(52,span/lanes-5),headY=stage===0?-23:stage===2?-64:stage===3?-52:stage===4?-27:stage===5?-24:-38;
-      const headH=stage===2?46:stage===3?51:26;
-      this.box(-span/2-5,headY-4,span+10,headH+13,7,'#c8c2a3');
-      for(let i=0;i<lanes;i++)this.drawPopHead((i-(lanes-1)/2)*span/lanes,headY,headW,headH,station,i);
-    }else{
-      const chambers=stage===2?[-49,49]:stage===3?[-83,-50,-17,16,49,82]:stage===4?[-77,36]:[0];
-      for(const [index,x] of chambers.entries())for(let i=0;i<(stage===3?2:5);i++){
-        const phase=(time*(active?1.8:0)+i*.18+index*.35)%1;
-        this.popcorn(x+(stage===3?5:20)*Math.sin(i*4.2),-24-Math.sin(phase*Math.PI)*10,2.7+phase*1.6,i);
-      }
-    }
+    // Purchased heads occupy one shared equipment body and follow the true lane count.
+    const lanes=Math.min(6,Math.max(1,value(station.lanes))),span=stage===4?205:stage===5?152:170;
+    const headW=Math.min(52,span/lanes-5),headY=stage===0?-23:stage===2?-64:stage===3?-52:stage===4?-27:stage===5?-24:-38;
+    const headH=stage===2?46:stage===3?51:26;
+    this.box(-span/2-5,headY-4,span+10,headH+13,7,'#c8c2a3');
+    for(let i=0;i<lanes;i++)this.drawPopHead((i-(lanes-1)/2)*span/lanes,headY,headW,headH,station,i);
     if(active) {
       const steamCount=2;
       c.save();c.globalAlpha=.2;
@@ -275,4 +253,4 @@ class ProductionScene {
 
 }
 
-module.exports={ProductionScene,PRODUCTION_FORMS};
+module.exports={ProductionScene};
