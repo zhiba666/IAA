@@ -1,3 +1,5 @@
+// Retired with the v2 pipeline; archived reports remain historical evidence.
+throw new Error('此脚本对应已停用的旧玩法。新生产线技术检查请运行 npm test；正式试玩请运行 npm start。');
 'use strict';
 // Historical heat-recovery comparison. The milestone and controller are retired.
 function retiredAnalysis() { throw new Error('历史完美爆锅与余热分析已停用，不适用于当前合同与自动爆锅规则；请运行 node tests/balance.cjs。原报告仅作历史记录。'); }

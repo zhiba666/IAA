@@ -10,7 +10,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const run = promisify(execFile);
 
-test('development and release builds isolate hold tapping on Web and native hosts, including rebuilds', async t => {
+test('both build modes disable legacy hold tapping and simulated ads on every host', async t => {
   const root = await mkdtemp(path.join(tmpdir(), 'popcorn-build-config-'));
   t.after(async () => {
     const resolved = await realpath(root);
@@ -34,27 +34,30 @@ test('development and release builds isolate hold tapping on Web and native host
     const webBundle = await readFile(path.join(root, 'web/game.bundle.js'), 'utf8');
     const nativeBundle = await readFile(path.join(root, 'build/douyin/game.bundle.js'), 'utf8');
     const nativeConfig = await readFile(path.join(root, 'build/douyin/config.js'), 'utf8');
+    assert.equal(webBundle, nativeBundle);
+    assert.match(webBundle, /v2\.0\.0.*pipeline/);
 
     const web = vm.createContext({ POPCORN_CONFIG: { developerHoldTap: !enabled, allowSimulatedAds: true } });
     vm.runInContext(webBundle, web);
-    assert.equal(web.startedWithHold, enabled, 'Web startup must use the build flag, ignoring entry config');
-    assert.equal(web.POPCORN_CONFIG.allowSimulatedAds, true, 'Web simulated-ad behavior is preserved');
+    assert.equal(web.startedWithHold, false, 'Web startup must use the build flag, ignoring entry config');
+    assert.equal(web.POPCORN_CONFIG.allowSimulatedAds, false, 'Web cannot re-enable legacy rewards');
 
     for (const gameGlobalOnly of [false, true]) {
       const native = vm.createContext({});
       native.GameGlobal = vm.runInContext('this', native);
       if (gameGlobalOnly) native.globalThis = undefined;
       vm.runInContext(nativeConfig, native);
-      assert.equal(native.POPCORN_CONFIG.developerHoldTap, enabled, 'native config must override local requests');
+      assert.equal(native.POPCORN_CONFIG.developerHoldTap, false, 'native config must override local requests');
       assert.equal(native.POPCORN_CONFIG.allowSimulatedAds, false);
       // A stale/manual config edit cannot re-enable the release bundle.
-      native.POPCORN_CONFIG.developerHoldTap = !enabled;
+      native.POPCORN_CONFIG.developerHoldTap = true;
+      native.POPCORN_CONFIG.allowSimulatedAds = true;
       vm.runInContext(nativeBundle, native);
-      assert.equal(native.startedWithHold, enabled, 'native startup must use the build flag on both global APIs');
+      assert.equal(native.startedWithHold, false, 'native startup must use the build flag on both global APIs');
     }
 
     const report = await inspectProject(root);
-    assert.equal(report.codeReady, !enabled, 'preflight must reject development packages and accept rebuilt release packages');
-    assert.equal(report.checks.find(check => check.code === 'developer-hold-disabled').status, enabled ? 'error' : 'pass');
+    assert.equal(report.codeReady, true, 'both build modes disable retired gameplay paths');
+    assert.equal(report.checks.find(check => check.code === 'developer-hold-disabled').status, 'pass');
   }
 });

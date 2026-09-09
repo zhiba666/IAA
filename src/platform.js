@@ -9,7 +9,7 @@
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduction-for-tech
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-capacity/sidebar-capacity/tt-check-scene
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/open-capacity/sidebar-capacity/tt-navigate-to-scene
-const SAVE_KEY = 'little_popcorn_factory_v1';
+const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 
 function createPlatform() {
   const root = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
@@ -17,20 +17,15 @@ function createPlatform() {
   const isDouyin = !!(sdk && typeof sdk.createCanvas === 'function');
   const config = Object.assign({ appId: '', rewardAdUnitId: '', interstitialAdUnitId: '',
     allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false }, root.POPCORN_CONFIG || {});
+  config.allowSimulatedAds = false;
+  config.developerHoldTap = false;
   const doc = typeof document !== 'undefined' ? document : null;
   const win = typeof window !== 'undefined' ? window : root;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
   const callbacks = { hide: [], show: [], pointer: [], resize: [] };
   const analytics = [];
-  const startedAt = Date.now();
-  let lastRewardEnd = -Infinity;
 
-  let nextInterstitialAttempt = 0;
-  let earlyInterstitialCount = 0;
   let adBusy = false;
-  let rewardAd = null;
-  let rewardAdCleanup = null;
-  const retiredRewardAds = new WeakSet();
   let lastStorageError = '';
   let hidden = false;
   const sidebar = { supported: false, checking: false, fromSidebar: false };
@@ -279,152 +274,9 @@ function createPlatform() {
     }
   }
 
-  function retireRewardAd(ad) {
-    if (rewardAd === ad) rewardAd = null;
-    if (!ad || (typeof ad !== 'object' && typeof ad !== 'function') || retiredRewardAds.has(ad)) return;
-    // A late event after an error belongs to this instance, not the next request.
-    // The SDK has one rewarded instance, so wait for async destruction before recreation.
-    retiredRewardAds.add(ad);
-    try {
-      if (typeof ad.destroy !== 'function') return;
-      const cleanup = ad.destroy();
-      if (cleanup && typeof cleanup.then === 'function') {
-        const pending = Promise.resolve(cleanup).then(function () {
-          if (rewardAdCleanup === pending) rewardAdCleanup = null;
-        }, function () {
-          if (rewardAdCleanup === pending) rewardAdCleanup = null;
-        });
-        rewardAdCleanup = pending;
-      }
-    } catch (_) { /* A failed destroy must not make the retired instance reusable. */ }
-  }
-
-  function reward(kind, options) {
-    if (adBusy) return Promise.resolve({ completed: false, reason: 'busy' });
-    if (!isDouyin) {
-      const outcome = options && options.simulate;
-      if (config.allowSimulatedAds !== true) return Promise.resolve({ completed: false, reason: 'unavailable' });
-      if (['complete', 'cancel', 'fail'].indexOf(outcome) === -1) {
-        return Promise.resolve({ completed: false, reason: 'simulation-choice-required', simulated: true });
-      }
-      lastRewardEnd = Date.now();
-      const completed = outcome === 'complete';
-      track('ad_simulated', { kind: kind, outcome: outcome });
-      return Promise.resolve({ completed: completed, simulated: true,
-        reason: completed ? 'simulated-complete' : outcome === 'cancel' ? 'cancelled' : 'failed' });
-    }
-    if (!validId(config.appId) || !validId(config.rewardAdUnitId) || typeof sdk.createRewardedVideoAd !== 'function') {
-      track('ad_unavailable', { kind: kind, placement: 'reward' });
-      return Promise.resolve({ completed: false, reason: 'unavailable' });
-    }
-    if (rewardAdCleanup) return Promise.resolve({ completed: false, reason: 'unavailable' });
-    adBusy = true;
-    track('ad_request', { kind: kind, placement: 'reward' });
-    return new Promise(function (resolve) {
-      let settled = false;
-      let timer = null;
-      let ad = null;
-      function finish(completed, reason, error) {
-        if (settled) return;
-        settled = true;
-        if (timer != null) clearTimeout(timer);
-        if (ad) {
-          try { if (typeof ad.offClose === 'function') ad.offClose(onClose); } catch (_) { /* old callbacks are settled */ }
-          try { if (typeof ad.offError === 'function') ad.offError(onError); } catch (_) { /* old callbacks are settled */ }
-        }
-        if (reason !== 'completed' && reason !== 'cancelled') retireRewardAd(ad);
-        adBusy = false;
-        lastRewardEnd = Date.now();
-        track(completed ? 'ad_complete' : 'ad_incomplete', { kind: kind, reason: reason,
-          code: error && (error.errCode || error.errNo) || 0 });
-        resolve({ completed: completed, reason: reason });
-      }
-      function onClose(result) {
-        // Missing/undefined onClose payload must never grant a reward.
-        finish(!!(result && result.isEnded === true), result && result.isEnded === true ? 'completed' : 'cancelled');
-      }
-      function onError(error) { finish(false, 'failed', error); }
-      try {
-        if (!rewardAd) rewardAd = sdk.createRewardedVideoAd({ adUnitId: config.rewardAdUnitId, multiton: false });
-        ad = rewardAd;
-        if (!ad || retiredRewardAds.has(ad) || typeof ad.onClose !== 'function' || typeof ad.onError !== 'function' || typeof ad.show !== 'function') {
-          finish(false, 'unavailable');
-          return;
-        }
-        ad.onClose(onClose);
-        ad.onError(onError);
-        timer = setTimeout(function () { finish(false, 'timeout'); }, 180000);
-        // Douyin recommends show directly, with completion driven only by onClose.
-        Promise.resolve(ad.show()).catch(onError);
-      } catch (error) { finish(false, 'failed', error); }
-    });
-  }
-
-  function interstitial() {
-    const now = Date.now();
-    const elapsed = now - startedAt;
-    // Call only after a settled order group or completed machine transition.
-    // Keep startup, post-reward spacing and retry protection; no 120-second product cooldown.
-    if (!isDouyin || adBusy || elapsed < 90000 ||
-      now - lastRewardEnd < 60000 || now < nextInterstitialAttempt ||
-      (elapsed < 1200000 && earlyInterstitialCount >= 2) ||
-      !validId(config.appId) || !validId(config.interstitialAdUnitId) ||
-      typeof sdk.createInterstitialAd !== 'function') return Promise.resolve(false);
-    adBusy = true;
-    nextInterstitialAttempt = now + 30000;
-    return new Promise(function (resolve) {
-      let settled = false;
-      let shown = false;
-      let showRequested = false;
-      let timer = null;
-      let ad = null;
-      function markShown() {
-        if (shown) return;
-        shown = true;
-        // Douyin requires 60 seconds between actual interstitial impressions.
-        nextInterstitialAttempt = Math.max(nextInterstitialAttempt, Date.now() + 60000);
-        if (Date.now() - startedAt < 1200000) earlyInterstitialCount++;
-        track('ad_impression', { placement: 'interstitial' });
-      }
-      function finish(success) {
-        if (settled) return;
-        settled = true;
-        if (timer != null) clearTimeout(timer);
-        if (ad) {
-          if (typeof ad.offClose === 'function') ad.offClose(onClose);
-          if (typeof ad.offError === 'function') ad.offError(onError);
-          if (typeof ad.offLoad === 'function') ad.offLoad(onLoad);
-          // SDK only permits destruction after an interstitial has been shown.
-          if (shown && typeof ad.destroy === 'function') { try { ad.destroy(); } catch (_) {} }
-        }
-        adBusy = false;
-        resolve(success);
-      }
-      function onClose() { if (settled) return; markShown(); finish(true); }
-      function onError(error) {
-        if (settled) return;
-        track('ad_incomplete', { placement: 'interstitial', code: error && (error.errCode || error.errNo) || 0 });
-        finish(false);
-      }
-      function onLoad() {
-        if (settled || showRequested) return;
-        showRequested = true;
-        try { Promise.resolve(ad.show()).then(function () { if (!settled) markShown(); }).catch(onError); }
-        catch (error) { onError(error); }
-      }
-      try {
-        ad = sdk.createInterstitialAd({ adUnitId: config.interstitialAdUnitId });
-        if (!ad || typeof ad.show !== 'function' || typeof ad.load !== 'function' ||
-          typeof ad.onClose !== 'function' || typeof ad.onError !== 'function') { finish(false); return; }
-        ad.onClose(onClose);
-        ad.onError(onError);
-        if (typeof ad.onLoad === 'function') ad.onLoad(onLoad);
-        timer = setTimeout(function () { finish(false); }, 180000);
-        const loading = ad.load();
-        if (loading && typeof loading.then === 'function') loading.then(onLoad).catch(onError);
-      } catch (error) { onError(error); }
-    });
-  }
+  // Retained platform interface; this version never creates ads or grants rewards.
+  function reward() { return Promise.resolve({ completed: false, reason: 'disabled' }); }
+  function interstitial() { return Promise.resolve(false); }
 
   function vibrate() {
     try {

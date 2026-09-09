@@ -6,7 +6,7 @@ const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 
 export const AUDIO_FILES = ['pop', 'burst', 'upgrade', 'machine', 'order', 'complete', 'click', 'error'].map(name => `audio/${name}.wav`);
 export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES];
 const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false };
-const ID_LABELS = { appId: '小游戏 AppID', rewardAdUnitId: '激励视频广告位', interstitialAdUnitId: '插屏广告位' };
+const ID_LABELS = { appId: '小游戏 AppID' };
 const MAX_PACKAGE_BYTES = 20 * 1024 * 1024;
 
 function object(value) { return value !== null && typeof value === 'object' && !Array.isArray(value); }
@@ -69,7 +69,7 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
   if (built) {
     add('simulated-ads-disabled', built.allowSimulatedAds === false ? 'pass' : 'error', built.allowSimulatedAds === false ? '抖音包已禁用模拟广告奖励。' : '抖音包未明确禁用模拟广告，禁止继续联调。');
     add('debug-disabled', built.debug !== true ? 'pass' : 'error', built.debug !== true ? '抖音包未开启调试修改配置。' : '抖音包 debug 已开启，恢复 false 并重新构建。');
-    add('developer-hold-disabled', built.developerHoldTap === false ? 'pass' : 'error', built.developerHoldTap === false ? '发布包已明确关闭开发长按连点。' : '当前包未关闭开发长按连点，仅用于开发调试；发布验收前运行 npm run build 重新构建。');
+    add('developer-hold-disabled', built.developerHoldTap === false ? 'pass' : 'error', built.developerHoldTap === false ? '流水线版本已明确停用开发长按连点。' : '当前包未关闭废弃连点功能；运行 npm run build 重新构建。');
     if (local) {
       const expected = { ...CONFIG_DEFAULTS, ...local, allowSimulatedAds: false, developerHoldTap: false };
       const actual = { ...CONFIG_DEFAULTS, ...built };
@@ -83,7 +83,8 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     const state = idState(local?.[key]);
     add(key, state === 'provided-unverified' ? 'pass' : 'pending', state === 'provided-unverified' ? `${label} 已填写；格式预检通过，真实性、归属和启用状态待平台核验。` : `${label} ${state === 'missing' ? '未填写' : state === 'placeholder' ? '仍为占位内容' : '格式不符合预期'}；请从对应小游戏后台复制，不要使用虚构 ID。`);
   }
-  add('platform-verification', 'manual', '待实际验证：IDE 登录及项目权限、测试账号/设备、预览启动、广告开通与回调、真机触摸/音效/存档/前后台恢复。此脚本不验证平台权限，不证明审核或发布就绪。');
+  add('ads-disabled', 'pass', '流水线版本停用全部广告入口与奖励，广告位不属于当前启用条件或严格预检要求。');
+  add('platform-verification', 'manual', '真机验收继续暂停：IDE 登录及项目权限、测试账号/设备、预览启动、真机触摸/音效/存档/前后台恢复仍未验证。此脚本不验证平台权限，不证明审核或发布就绪。');
   return { codeReady: !checks.some(check => check.status === 'error'), accountConfigReady: !checks.some(check => check.status === 'pending'), platformVerified: false, totalBytes, checks };
 }
 

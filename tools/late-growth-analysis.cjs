@@ -1,3 +1,5 @@
+// Retired with the v2 pipeline; archived reports remain historical evidence.
+throw new Error('此脚本对应已停用的旧玩法。新生产线技术检查请运行 npm test；正式试玩请运行 npm start。');
 'use strict';
 // Real core actions from a fresh save, fixed scripted strategies, no injected funding.
 // node tools/late-growth-analysis.cjs --output artifacts/late-growth-analysis.json

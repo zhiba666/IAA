@@ -66,9 +66,9 @@ test('preflight flags common placeholder, whitespace and non-string IDs', async 
   const { inspectPackage, idState } = await api;
   for (const id of ['YOUR_APP_ID', 'tttest1234567890', 'placeholder123', 'tt111111111111111111', '你的 AppID', ' real123456 ', 123]) {
     assert.notEqual(idState(id), 'provided-unverified');
-    const report = inspectPackage(fixture({ rewardAdUnitId: id }));
+    const report = inspectPackage(fixture({ appId: id }));
     assert.equal(report.accountConfigReady, false);
-    assert.equal(report.checks.find(check => check.code === 'rewardAdUnitId').status, 'pending');
+    assert.equal(report.checks.find(check => check.code === 'appId').status, 'pending');
   }
 });
 
@@ -208,4 +208,15 @@ test('preflight requires console verification for enabled analytics', async () =
   assert.equal(report.codeReady, true);
   assert.equal(report.accountConfigReady, false);
   assert.equal(report.checks.find(check => check.code === 'analytics-console').status, 'pending');
+});
+
+
+test('preflight strict mode does not require any disabled ad placement', async () => {
+  const { inspectPackage, exitCode } = await api;
+  const report = inspectPackage(fixture({ rewardAdUnitId: '', interstitialAdUnitId: '' }));
+  assert.equal(report.codeReady, true);
+  assert.equal(report.accountConfigReady, true);
+  assert.equal(exitCode(report, true), 0);
+  assert.equal(report.checks.find(check => check.code === 'ads-disabled').status, 'pass');
+  assert.ok(!report.checks.some(check => ['rewardAdUnitId', 'interstitialAdUnitId'].includes(check.code)));
 });
