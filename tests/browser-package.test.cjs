@@ -37,7 +37,7 @@ function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top 
     requestAnimationFrame(fn) { assert.equal(nextFrame,null); nextFrame = fn; }
   });
   let source = fs.readFileSync(path.resolve(__dirname,'../web/game.bundle.js'),'utf8');
-  const marker = 'let renderer = new Renderer(ctx);';
+  const marker = 'let renderer = new Renderer(ctx, art);';
   assert.equal(source.split(marker).length,2);
   source = source.replace(marker,marker+'\n__captureRenderer(renderer);');
   vm.runInContext(source,context);

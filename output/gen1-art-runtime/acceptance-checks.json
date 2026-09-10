@@ -1,0 +1,1033 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-09T15:05:11.924Z",
+  "scope": "first-generation-formal-entry-visual-acceptance",
+  "method": "Read saved PNG/JSON captures and HTTP logs only; newest timestamp per fixture/viewport/safe/panel group. Selected still pairs were copied, not moved, to evidence. No browser controlled and no storage modified by this audit.",
+  "boundary": "Generations 2–6 are outside this new-art acceptance. The double-full fixture is a conserved visual boundary, not a naturally reachable first-generation stock state.",
+  "selectedStillCount": 10,
+  "allSelectedChecksPassed": true,
+  "selectedStills": [
+    {
+      "key": "both-full-boundary-320x524-safe-collapsed",
+      "timestamp": 1788965751643,
+      "capturedAt": "2026-09-09T14:55:51.643Z",
+      "png": "evidence/both-full-boundary-320x524-safe-collapsed.png",
+      "json": "evidence/both-full-boundary-320x524-safe-collapsed.json",
+      "sourcePng": "runtime-captures/both-full-boundary-320x524-safe-collapsed-still-1788965751643.png",
+      "sourceJson": "runtime-captures/both-full-boundary-320x524-safe-collapsed-still-1788965751643.json",
+      "pngBytes": 219711,
+      "pngSha256": "787bf57c81916d48781ac7f0a6dc65b120d896ab083625104db606e673f3bb18",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": {
+        "top": 75,
+        "bottom": 40,
+        "left": 0,
+        "right": 0
+      },
+      "fixture": "both-full-boundary",
+      "fixtureKind": "conserved-visual-boundary",
+      "layout": "compact-return-loop",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 6,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 5.684341886080802e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.04619193989071043,
+        "minimumMachineWidth": 89.64201969673285,
+        "minimumMachineHeight": 105.64952321400656
+      },
+      "production": {
+        "coins": 0,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 0
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 12
+        },
+        "totalProduced": 27,
+        "totalSold": 0,
+        "inFlight": 3
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "both-full-boundary-320x524-safe-expanded",
+      "timestamp": 1788965718151,
+      "capturedAt": "2026-09-09T14:55:18.151Z",
+      "png": "evidence/both-full-boundary-320x524-safe-expanded.png",
+      "json": "evidence/both-full-boundary-320x524-safe-expanded.json",
+      "sourcePng": "runtime-captures/both-full-boundary-320x524-safe-expanded-still-1788965718151.png",
+      "sourceJson": "runtime-captures/both-full-boundary-320x524-safe-expanded-still-1788965718151.json",
+      "pngBytes": 218646,
+      "pngSha256": "eb292894b34a4e1e0e4bb2b7028f8964f28d8b9e6e498803d05b5d2fc1474dac",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": {
+        "top": 75,
+        "bottom": 40,
+        "left": 0,
+        "right": 0
+      },
+      "fixture": "both-full-boundary",
+      "fixtureKind": "conserved-visual-boundary",
+      "layout": "compact-return-loop",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 9,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 6.355287432313019e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.046191939890710486,
+        "minimumMachineWidth": 84.99028863092282,
+        "minimumMachineHeight": 100.16712588644474
+      },
+      "production": {
+        "coins": 0,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 0
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 12
+        },
+        "totalProduced": 27,
+        "totalSold": 0,
+        "inFlight": 3
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "both-full-boundary-390x844-safe-expanded",
+      "timestamp": 1788965689427,
+      "capturedAt": "2026-09-09T14:54:49.427Z",
+      "png": "evidence/both-full-boundary-390x844-safe-expanded.png",
+      "json": "evidence/both-full-boundary-390x844-safe-expanded.json",
+      "sourcePng": "runtime-captures/both-full-boundary-390x844-safe-expanded-still-1788965689427.png",
+      "sourceJson": "runtime-captures/both-full-boundary-390x844-safe-expanded-still-1788965689427.json",
+      "pngBytes": 420148,
+      "pngSha256": "1e43eaa2a32bbab4d3bc9b472c81a16b390e428f3144111753e316fff9b9eca1",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": {
+        "top": 75,
+        "bottom": 40,
+        "left": 0,
+        "right": 0
+      },
+      "fixture": "both-full-boundary",
+      "fixtureKind": "conserved-visual-boundary",
+      "layout": "tall-zigzag",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 9,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 1.1368683772161603e-13
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.07947928397147141,
+        "minimumMachineWidth": 85.32844960796656,
+        "minimumMachineHeight": 115.23150002861557
+      },
+      "production": {
+        "coins": 0,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 0
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 12
+        },
+        "totalProduced": 27,
+        "totalSold": 0,
+        "inFlight": 3
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "first-cup-before-320x524-browser-collapsed",
+      "timestamp": 1788965858698,
+      "capturedAt": "2026-09-09T14:57:38.698Z",
+      "png": "evidence/first-cup-before-320x524-browser-collapsed.png",
+      "json": "evidence/first-cup-before-320x524-browser-collapsed.json",
+      "sourcePng": "runtime-captures/first-cup-before-320x524-browser-collapsed-still-1788965858698.png",
+      "sourceJson": "runtime-captures/first-cup-before-320x524-browser-collapsed-still-1788965858698.json",
+      "pngBytes": 266332,
+      "pngSha256": "4cbfa01c35cf2099c54b6f85e0042cabd6066e4f8037595e7b99966ca0217f6a",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "first-cup-before",
+      "fixtureKind": "natural-production",
+      "layout": "compact-return-loop",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 6,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 5.684341886080802e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.04619193989071043,
+        "minimumMachineWidth": 89.64201969673285,
+        "minimumMachineHeight": 105.64952321400656
+      },
+      "production": {
+        "coins": 9,
+        "cupLevel": 1,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 18
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 0
+        },
+        "totalProduced": 53,
+        "totalSold": 39,
+        "inFlight": 2
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "first-cup-before-320x524-browser-expanded",
+      "timestamp": 1788965848324,
+      "capturedAt": "2026-09-09T14:57:28.325Z",
+      "png": "evidence/first-cup-before-320x524-browser-expanded.png",
+      "json": "evidence/first-cup-before-320x524-browser-expanded.json",
+      "sourcePng": "runtime-captures/first-cup-before-320x524-browser-expanded-still-1788965848324.png",
+      "sourceJson": "runtime-captures/first-cup-before-320x524-browser-expanded-still-1788965848324.json",
+      "pngBytes": 263331,
+      "pngSha256": "a8b5e7edb51578863f88205e9156c38802dca046c5365301956140eec994a168",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "first-cup-before",
+      "fixtureKind": "natural-production",
+      "layout": "compact-return-loop",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 10,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 5.684341886080802e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.04619193989071048,
+        "minimumMachineWidth": 89.64201969673285,
+        "minimumMachineHeight": 105.64952321400656
+      },
+      "production": {
+        "coins": 39,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 18
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 0
+        },
+        "totalProduced": 53,
+        "totalSold": 39,
+        "inFlight": 2
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "first-cup-before-320x524-browser-home",
+      "timestamp": 1788964928025,
+      "capturedAt": "2026-09-09T14:42:08.093Z",
+      "png": "evidence/first-cup-before-320x524-browser-home.png",
+      "json": "evidence/first-cup-before-320x524-browser-home.json",
+      "sourcePng": "runtime-captures/first-cup-before-320x524-browser-home-still-1788964928025.png",
+      "sourceJson": "runtime-captures/first-cup-before-320x524-browser-home-still-1788964928025.json",
+      "pngBytes": 249032,
+      "pngSha256": "9bceffdcdca78d6bfcf26b38e6d12357a952b596613ae9ad3977c0808f84431e",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "first-cup-before",
+      "fixtureKind": "natural-production",
+      "layout": "compact-return-loop",
+      "evidenceUse": "supplementary earlier home view; final fresh-shortage home and final expanded/collapsed files provide primary evidence",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 4,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 5.684341886080802e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.04619193989071048,
+        "minimumMachineWidth": 89.64201969673285,
+        "minimumMachineHeight": 105.64952321400656
+      },
+      "production": {
+        "coins": 39,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 18
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 0
+        },
+        "totalProduced": 53,
+        "totalSold": 39,
+        "inFlight": 2
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "first-cup-before-390x844-browser-collapsed",
+      "timestamp": 1788965630182,
+      "capturedAt": "2026-09-09T14:53:50.182Z",
+      "png": "evidence/first-cup-before-390x844-browser-collapsed.png",
+      "json": "evidence/first-cup-before-390x844-browser-collapsed.json",
+      "sourcePng": "runtime-captures/first-cup-before-390x844-browser-collapsed-still-1788965630182.png",
+      "sourceJson": "runtime-captures/first-cup-before-390x844-browser-collapsed-still-1788965630182.json",
+      "pngBytes": 499248,
+      "pngSha256": "a5e6ba0850efc2db1336d48e1a88a00ed35d5ac94d2294e545945c2408386cee",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "first-cup-before",
+      "fixtureKind": "natural-production",
+      "layout": "tall-zigzag",
+      "evidenceUse": "primary folded visual and later production evidence; not used to prove the immediate old-batch purchase boundary",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 6,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 1.1718571004216928e-13
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.07947928397147137,
+        "minimumMachineWidth": 120.7900335770546,
+        "minimumMachineHeight": 163.12046945115634
+      },
+      "production": {
+        "coins": 52,
+        "cupLevel": 1,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 20,
+            "remainingTicks": 12
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 0.4,
+            "complete": false
+          }
+        ],
+        "buffers": {
+          "pop": 0,
+          "cup": 0
+        },
+        "totalProduced": 85,
+        "totalSold": 82,
+        "inFlight": 3
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "first-cup-before-390x844-browser-expanded",
+      "timestamp": 1788965577557,
+      "capturedAt": "2026-09-09T14:52:57.557Z",
+      "png": "evidence/first-cup-before-390x844-browser-expanded.png",
+      "json": "evidence/first-cup-before-390x844-browser-expanded.json",
+      "sourcePng": "runtime-captures/first-cup-before-390x844-browser-expanded-still-1788965577557.png",
+      "sourceJson": "runtime-captures/first-cup-before-390x844-browser-expanded-still-1788965577557.json",
+      "pngBytes": 496111,
+      "pngSha256": "12caa0219cf7b54e09a193d62e431d06beca2edcb890d9d4f286c4a8266016ac",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "first-cup-before",
+      "fixtureKind": "natural-production",
+      "layout": "tall-zigzag",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 10,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 1.1718571004216928e-13
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.07947928397147128,
+        "minimumMachineWidth": 107.8912608023808,
+        "minimumMachineHeight": 145.7013678246437
+      },
+      "production": {
+        "coins": 39,
+        "cupLevel": 0,
+        "cupJobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 18
+          }
+        ],
+        "cupViewJobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ],
+        "buffers": {
+          "pop": 12,
+          "cup": 0
+        },
+        "totalProduced": 53,
+        "totalSold": 39,
+        "inFlight": 2
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "fresh-shortage-320x524-browser-home",
+      "timestamp": 1788965795540,
+      "capturedAt": "2026-09-09T14:56:35.540Z",
+      "png": "evidence/fresh-shortage-320x524-browser-home.png",
+      "json": "evidence/fresh-shortage-320x524-browser-home.json",
+      "sourcePng": "runtime-captures/fresh-shortage-320x524-browser-home-still-1788965795540.png",
+      "sourceJson": "runtime-captures/fresh-shortage-320x524-browser-home-still-1788965795540.json",
+      "pngBytes": 246990,
+      "pngSha256": "477e8d6d9cd63ea4310b5e2e153b6aa75e8dde76a89afa7a904a133f7ee39f09",
+      "viewport": {
+        "width": 320,
+        "height": 524,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "fresh-shortage",
+      "fixtureKind": "natural-production",
+      "layout": "compact-return-loop",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 4,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 5.684341886080802e-14
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.04619193989071048,
+        "minimumMachineWidth": 89.64201969673285,
+        "minimumMachineHeight": 105.64952321400656
+      },
+      "production": {
+        "coins": 0,
+        "cupLevel": 0,
+        "cupJobs": [
+          null
+        ],
+        "cupViewJobs": [
+          null
+        ],
+        "buffers": {
+          "pop": 0,
+          "cup": 0
+        },
+        "totalProduced": 1,
+        "totalSold": 0,
+        "inFlight": 1
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    },
+    {
+      "key": "fresh-shortage-390x844-browser-home",
+      "timestamp": 1788965807880,
+      "capturedAt": "2026-09-09T14:56:47.880Z",
+      "png": "evidence/fresh-shortage-390x844-browser-home.png",
+      "json": "evidence/fresh-shortage-390x844-browser-home.json",
+      "sourcePng": "runtime-captures/fresh-shortage-390x844-browser-home-still-1788965807880.png",
+      "sourceJson": "runtime-captures/fresh-shortage-390x844-browser-home-still-1788965807880.json",
+      "pngBytes": 475115,
+      "pngSha256": "c2b33edc03462e88f0ec952f3afec2eb0dfe8e7e878d14f12b81c75cd1041a58",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "devicePixelRatio": 1.0000000298023224
+      },
+      "safeArea": null,
+      "fixture": "fresh-shortage",
+      "fixtureKind": "natural-production",
+      "layout": "tall-zigzag",
+      "evidenceUse": "primary latest capture for this fixture/viewport/safe/panel group",
+      "assets": {
+        "requested": 41,
+        "loaded": 41,
+        "failed": 0,
+        "pending": 0
+      },
+      "runtimeErrors": [],
+      "touch": {
+        "count": 4,
+        "minimumWidth": 44,
+        "minimumHeight": 44
+      },
+      "path": {
+        "connections": 9,
+        "maximumGap": 1.1368683772161603e-13
+      },
+      "geometry": {
+        "maximumBinMachineOverlap": 0.07947928397147137,
+        "minimumMachineWidth": 111.58335717964857,
+        "minimumMachineHeight": 150.6873461912665
+      },
+      "production": {
+        "coins": 0,
+        "cupLevel": 0,
+        "cupJobs": [
+          null
+        ],
+        "cupViewJobs": [
+          null
+        ],
+        "buffers": {
+          "pop": 0,
+          "cup": 0
+        },
+        "totalProduced": 1,
+        "totalSold": 0,
+        "inFlight": 1
+      },
+      "checks": {
+        "pairedPng": true,
+        "pngSignature": true,
+        "pngDimensionsMatchCanvas": true,
+        "firstGeneration": true,
+        "all41RuntimeAssetsLoaded": true,
+        "noRuntimeErrors": true,
+        "everyZoneAtLeast44": true,
+        "everyZoneInsideSafeArea": true,
+        "completeProductionPath": true,
+        "everyPortConnected": true,
+        "machineJobsMatchSnapshot": true,
+        "buffersMatchSnapshot": true,
+        "inventoryConserved": true,
+        "moneyConserved": true,
+        "acceptedByRealCoreSaveValidator": true,
+        "oldCupWorkAndDurationConsistent": true
+      },
+      "passed": true
+    }
+  ],
+  "immediateFirstCupUpgrade": {
+    "beforePng": "evidence/first-cup-before-320x524-browser-expanded.png",
+    "beforeJson": "evidence/first-cup-before-320x524-browser-expanded.json",
+    "afterPng": "evidence/first-cup-before-320x524-browser-collapsed.png",
+    "afterJson": "evidence/first-cup-before-320x524-browser-collapsed.json",
+    "checks": {
+      "before39Coins": true,
+      "beforeCupLevel0": true,
+      "beforeProgress07": true,
+      "after9Coins": true,
+      "afterCupLevel1": true,
+      "afterProgress07": true,
+      "sameOldJob": true,
+      "oldAmount1Duration60Remaining18": true,
+      "only30CoinsDebited": true,
+      "noInstantNewShipment": true,
+      "noInstantInventoryRewrite": true,
+      "expandedPurchaseVisible": true,
+      "foldedNextReviewVisible": true,
+      "foldedCannotBuyAgain": true
+    },
+    "passed": true,
+    "note": "Only the latest 320 px still pair proves 39→9 coins and unchanged amount=1/duration=60/remaining=18/progress=0.7 at the instant of purchase; earlier asynchronous capture diagnostics are superseded."
+  },
+  "http": {
+    "source": "runtime-captures/request-report.json",
+    "auditSnapshotAt": "2026-09-09T15:05:11.920Z",
+    "lastRecordedRequestAt": "2026-09-09T15:01:02.926Z",
+    "totalRequests": 354,
+    "pngRequests": 287,
+    "png200": 287,
+    "uniquePngPaths": [
+      "/assets/art/fx/fx_sparkle.png",
+      "/assets/art/machines/machine_cup_body.png",
+      "/assets/art/machines/machine_cup_front.png",
+      "/assets/art/machines/machine_cup_head.png",
+      "/assets/art/machines/machine_pop_body.png",
+      "/assets/art/machines/machine_pop_front.png",
+      "/assets/art/machines/machine_pop_head.png",
+      "/assets/art/machines/machine_ship_body.png",
+      "/assets/art/machines/machine_ship_front.png",
+      "/assets/art/machines/machine_ship_head.png",
+      "/assets/art/products/product_cup_empty.png",
+      "/assets/art/products/product_cup_fill.png",
+      "/assets/art/products/product_kernel_a.png",
+      "/assets/art/products/product_kernel_b.png",
+      "/assets/art/scene/buffer_bulk_back.png",
+      "/assets/art/scene/buffer_bulk_front.png",
+      "/assets/art/scene/buffer_cups_back.png",
+      "/assets/art/scene/buffer_cups_front.png",
+      "/assets/art/scene/conveyor_down_left.png",
+      "/assets/art/scene/conveyor_down_right.png",
+      "/assets/art/scene/conveyor_front_left.png",
+      "/assets/art/scene/conveyor_front_right.png",
+      "/assets/art/scene/conveyor_outfeed_back.png",
+      "/assets/art/scene/conveyor_outfeed_front.png",
+      "/assets/art/scene/conveyor_transfer_back.png",
+      "/assets/art/scene/conveyor_transfer_front.png",
+      "/assets/art/scene/factory_room.png",
+      "/assets/art/scene/factory_window.png",
+      "/assets/art/ui/ui_button_disabled.png",
+      "/assets/art/ui/ui_button_primary.png",
+      "/assets/art/ui/ui_button_secondary.png",
+      "/assets/art/ui/ui_card.png",
+      "/assets/art/ui/ui_compact_bar.png",
+      "/assets/art/ui/ui_hud_coin.png",
+      "/assets/art/ui/ui_hud_rate.png",
+      "/assets/art/ui/ui_icon_coin.png",
+      "/assets/art/ui/ui_icon_cup.png",
+      "/assets/art/ui/ui_icon_pop.png",
+      "/assets/art/ui/ui_icon_settings.png",
+      "/assets/art/ui/ui_icon_ship.png",
+      "/assets/art/ui/ui_panel.png"
+    ],
+    "failedRequests": [],
+    "formalEntryFile": "web/index.html",
+    "formalBundleFile": "web/game.bundle.js",
+    "requestedBundlePaths": [
+      "/game.bundle.js"
+    ],
+    "bundleRequestCount": 7,
+    "bundle200": 7,
+    "latestBundleResponse": {
+      "at": "2026-09-09T14:57:16.896Z",
+      "method": "GET",
+      "path": "/game.bundle.js",
+      "status": 200,
+      "bytes": 137671
+    },
+    "currentFormalBundleBytes": 137671,
+    "currentFormalBundleSha256": "9edaff9b9d69dfa886f0b3e6ed4856b5cc3f675bf505d3a81926589b655f3f46",
+    "checks": {
+      "allPng200": true,
+      "exactly41UniquePngPaths": true,
+      "allRuntimePathsReceived200": true,
+      "sameFormalBundlePath": true,
+      "latestBundleSizeMatchesCurrentBuild": true,
+      "noHttpErrors": true
+    }
+  },
+  "recordings": [
+    {
+      "webm": "runtime-captures/first-cup-before-320x524-browser-collapsed-motion-1788966054917.webm",
+      "json": "runtime-captures/first-cup-before-320x524-browser-collapsed-motion-1788966054917.json",
+      "bytes": 35538,
+      "durationMs": 8011.200000047684,
+      "startCoins": 9,
+      "endCoins": 9,
+      "startCupLevel": 1,
+      "endCupLevel": 1,
+      "startErrors": 0,
+      "endErrors": 0,
+      "note": "折叠状态辅助片段：QA 时钟推进，但保存的生产快照金币仍 9、累计出货仍 39，不能作为持续生产主证据。",
+      "startSold": 39,
+      "endSold": 39,
+      "realSimulationTicksAdvanced": 12,
+      "qaClockAdvancedMs": 8150.600000000006,
+      "supplementaryOnly": true
+    },
+    {
+      "webm": "runtime-captures/first-cup-before-320x524-browser-expanded-motion-1788965852772.webm",
+      "json": "runtime-captures/first-cup-before-320x524-browser-expanded-motion-1788965852772.json",
+      "bytes": 61069,
+      "durationMs": 8021.799999952316,
+      "startCoins": 39,
+      "endCoins": 9,
+      "startCupLevel": 0,
+      "endCupLevel": 1,
+      "startErrors": 0,
+      "endErrors": 0,
+      "note": "冻结生产时钟下的真实购买及折叠：金币 39→9、cup 0→1；与最新静帧对共同证明旧批次未重置。",
+      "startSold": 39,
+      "endSold": 39,
+      "realSimulationTicksAdvanced": 0,
+      "qaClockAdvancedMs": 0,
+      "supplementaryOnly": false
+    },
+    {
+      "webm": "runtime-captures/first-cup-before-390x844-browser-expanded-motion-1788965605762.webm",
+      "json": "runtime-captures/first-cup-before-390x844-browser-expanded-motion-1788965605762.json",
+      "bytes": 1478531,
+      "durationMs": 8028.5,
+      "startCoins": 39,
+      "endCoins": 52,
+      "startCupLevel": 0,
+      "endCupLevel": 1,
+      "startErrors": 0,
+      "endErrors": 0,
+      "note": "真实购买并恢复生产：累计出货 39→82、金币 39→52（含扣款30），用于持续生产主证据；瞬时旧批次证据使用最新320 px静帧对。",
+      "startSold": 39,
+      "endSold": 82,
+      "realSimulationTicksAdvanced": 937,
+      "qaClockAdvancedMs": 7811,
+      "supplementaryOnly": false
+    }
+  ],
+  "excludedSupersededStills": [
+    "first-cup-before-320x524-browser-collapsed-still-1788964956228.json",
+    "first-cup-before-320x524-browser-expanded-still-1788964948474.json",
+    "first-cup-before-320x524-browser-home-still-1788964837138.json",
+    "first-cup-before-390x844-browser-expanded-still-1788965566445.json"
+  ],
+  "passed": true
+}

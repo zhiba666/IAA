@@ -48,6 +48,12 @@ function createPlatform() {
     const width = positive(raw.windowWidth || raw.screenWidth || win.innerWidth, 480);
     const height = positive(raw.windowHeight || raw.screenHeight || win.innerHeight, 840);
     const pixelRatio = positive(raw.pixelRatio || win.devicePixelRatio, 1);
+    if (!isDouyin && doc && doc.documentElement && typeof win.getComputedStyle === 'function') {
+      const style = win.getComputedStyle(doc.documentElement);
+      const inset = side => Math.max(0, parseFloat(style.getPropertyValue('--safe-' + side)) || 0);
+      const left = inset('left'), top = inset('top'), right = width - inset('right'), bottom = height - inset('bottom');
+      raw.safeArea = { left, top, right, bottom, width: right-left, height: bottom-top };
+    }
     let menuButton = null;
     if (isDouyin && typeof sdk.getMenuButtonLayout === 'function') {
       try {

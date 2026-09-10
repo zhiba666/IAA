@@ -1,0 +1,1210 @@
+{
+  "capturedAt": "2026-09-09T14:56:47.880Z",
+  "scope": "first-generation-visual-acceptance",
+  "fixture": "fresh-shortage",
+  "fixtureKind": "natural-production",
+  "fixtureDescription": "Fresh first-generation factory: no invented stock; cup and ship wait for real input.",
+  "paused": true,
+  "qaClockMs": 0,
+  "safeArea": null,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "devicePixelRatio": 1.0000000298023224
+  },
+  "canvas": {
+    "width": 390,
+    "height": 844
+  },
+  "snapshot": {
+    "state": {
+      "version": 2,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 0,
+      "machine": 0,
+      "upgrades": {
+        "pop": 0,
+        "cup": 0,
+        "ship": 0
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 0,
+      "totalProduced": 1,
+      "totalSold": 0,
+      "totalEarned": 0,
+      "totalSpent": 0,
+      "buffers": {
+        "pop": 0,
+        "cup": 0
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 30,
+              "remainingTicks": 30
+            }
+          ],
+          "processed": 0,
+          "history": []
+        },
+        "cup": {
+          "jobs": [
+            null
+          ],
+          "processed": 0,
+          "history": []
+        },
+        "ship": {
+          "jobs": [
+            null
+          ],
+          "processed": 0,
+          "history": []
+        }
+      },
+      "simulation": {
+        "ticks": 0,
+        "carry": 0
+      },
+      "milestones": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": null
+    },
+    "machine": {
+      "id": 0,
+      "name": "手摇锅",
+      "description": "自动开工，先疏通装杯积压",
+      "color": "#f3b35b",
+      "cost": 0,
+      "requiredSold": 0,
+      "targetRate": 0,
+      "buffers": {
+        "pop": 12,
+        "cup": 12
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 4,
+        "actualRate": 0,
+        "status": "running",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "均匀加热",
+          "cost": 100,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 2,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "快速装杯头",
+          "cost": 30,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 6,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "快速出货带",
+          "cost": 120,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 8,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 0,
+        "capacity": 12
+      },
+      {
+        "id": "cup",
+        "amount": 0,
+        "capacity": 12
+      }
+    ],
+    "throughput": 0,
+    "price": 1,
+    "expansion": {
+      "name": "电热锅",
+      "description": "扩建双锅工位，开放双头装杯与成组包装",
+      "cost": 180,
+      "requiredSold": 100,
+      "targetRate": 3,
+      "sold": 0,
+      "total": 100,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "onboarding": {
+      "phase": "observe",
+      "stationId": "cup",
+      "hint": "这里太慢，留意积压"
+    },
+    "loadWarning": null
+  },
+  "presentation": {
+    "layout": {
+      "header": {
+        "x": 8,
+        "y": 10,
+        "w": 374,
+        "h": 86
+      },
+      "scene": {
+        "x": 8,
+        "y": 96,
+        "w": 374,
+        "h": 582
+      },
+      "goal": {
+        "x": 8,
+        "y": 682,
+        "w": 374,
+        "h": 158
+      },
+      "dock": {
+        "x": 8,
+        "y": 682,
+        "w": 374,
+        "h": 158
+      }
+    },
+    "zones": [
+      {
+        "x": 338,
+        "y": 10,
+        "w": 44,
+        "h": 44,
+        "action": "settings"
+      },
+      {
+        "x": 33.22385013067783,
+        "y": 149.41689082203018,
+        "w": 147.98908792613366,
+        "h": 149.18254831263468,
+        "action": "station:pop"
+      },
+      {
+        "x": 79.07348480512792,
+        "y": 297.34371124973774,
+        "w": 111.58335717964857,
+        "h": 159.40479597092656,
+        "action": "station:cup"
+      },
+      {
+        "x": 122.99282702836759,
+        "y": 493.90144794826307,
+        "w": 139.95658062916118,
+        "h": 142.01140807722385,
+        "action": "station:ship"
+      }
+    ],
+    "art": {
+      "requested": 41,
+      "loaded": 41,
+      "failed": 0,
+      "pending": 0,
+      "complete": true,
+      "entries": [
+        {
+          "id": "machine_pop_body",
+          "path": "assets/art/machines/machine_pop_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 489
+        },
+        {
+          "id": "machine_pop_head",
+          "path": "assets/art/machines/machine_pop_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 256,
+          "height": 248
+        },
+        {
+          "id": "machine_pop_front",
+          "path": "assets/art/machines/machine_pop_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 205
+        },
+        {
+          "id": "machine_cup_body",
+          "path": "assets/art/machines/machine_cup_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 448,
+          "height": 640
+        },
+        {
+          "id": "machine_cup_head",
+          "path": "assets/art/machines/machine_cup_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 150,
+          "height": 256
+        },
+        {
+          "id": "machine_cup_front",
+          "path": "assets/art/machines/machine_cup_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 304
+        },
+        {
+          "id": "machine_ship_body",
+          "path": "assets/art/machines/machine_ship_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 499,
+          "height": 512
+        },
+        {
+          "id": "machine_ship_head",
+          "path": "assets/art/machines/machine_ship_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 159,
+          "height": 256
+        },
+        {
+          "id": "machine_ship_front",
+          "path": "assets/art/machines/machine_ship_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 222
+        },
+        {
+          "id": "buffer_bulk_back",
+          "path": "assets/art/scene/buffer_bulk_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 366
+        },
+        {
+          "id": "buffer_bulk_front",
+          "path": "assets/art/scene/buffer_bulk_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 243
+        },
+        {
+          "id": "buffer_cups_back",
+          "path": "assets/art/scene/buffer_cups_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 349
+        },
+        {
+          "id": "buffer_cups_front",
+          "path": "assets/art/scene/buffer_cups_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 256
+        },
+        {
+          "id": "conveyor_down_right",
+          "path": "assets/art/scene/conveyor_down_right.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 360
+        },
+        {
+          "id": "conveyor_front_right",
+          "path": "assets/art/scene/conveyor_front_right.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 248
+        },
+        {
+          "id": "conveyor_down_left",
+          "path": "assets/art/scene/conveyor_down_left.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 358
+        },
+        {
+          "id": "conveyor_front_left",
+          "path": "assets/art/scene/conveyor_front_left.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 245
+        },
+        {
+          "id": "conveyor_outfeed_back",
+          "path": "assets/art/scene/conveyor_outfeed_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 332
+        },
+        {
+          "id": "conveyor_outfeed_front",
+          "path": "assets/art/scene/conveyor_outfeed_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 211
+        },
+        {
+          "id": "conveyor_transfer_back",
+          "path": "assets/art/scene/conveyor_transfer_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 227
+        },
+        {
+          "id": "conveyor_transfer_front",
+          "path": "assets/art/scene/conveyor_transfer_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 121
+        },
+        {
+          "id": "product_kernel_a",
+          "path": "assets/art/products/product_kernel_a.png",
+          "status": "loaded",
+          "error": "",
+          "width": 64,
+          "height": 61
+        },
+        {
+          "id": "product_kernel_b",
+          "path": "assets/art/products/product_kernel_b.png",
+          "status": "loaded",
+          "error": "",
+          "width": 64,
+          "height": 62
+        },
+        {
+          "id": "product_cup_empty",
+          "path": "assets/art/products/product_cup_empty.png",
+          "status": "loaded",
+          "error": "",
+          "width": 104,
+          "height": 128
+        },
+        {
+          "id": "product_cup_fill",
+          "path": "assets/art/products/product_cup_fill.png",
+          "status": "loaded",
+          "error": "",
+          "width": 128,
+          "height": 94
+        },
+        {
+          "id": "factory_room",
+          "path": "assets/art/scene/factory_room.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 768
+        },
+        {
+          "id": "factory_window",
+          "path": "assets/art/scene/factory_window.png",
+          "status": "loaded",
+          "error": "",
+          "width": 256,
+          "height": 233
+        },
+        {
+          "id": "fx_sparkle",
+          "path": "assets/art/fx/fx_sparkle.png",
+          "status": "loaded",
+          "error": "",
+          "width": 104,
+          "height": 128
+        },
+        {
+          "id": "ui_hud_coin",
+          "path": "assets/art/ui/ui_hud_coin.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_hud_rate",
+          "path": "assets/art/ui/ui_hud_rate.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_panel",
+          "path": "assets/art/ui/ui_panel.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_button_primary",
+          "path": "assets/art/ui/ui_button_primary.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_button_secondary",
+          "path": "assets/art/ui/ui_button_secondary.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_button_disabled",
+          "path": "assets/art/ui/ui_button_disabled.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_card",
+          "path": "assets/art/ui/ui_card.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 115
+        },
+        {
+          "id": "ui_compact_bar",
+          "path": "assets/art/ui/ui_compact_bar.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 78
+        },
+        {
+          "id": "ui_icon_coin",
+          "path": "assets/art/ui/ui_icon_coin.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_pop",
+          "path": "assets/art/ui/ui_icon_pop.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_cup",
+          "path": "assets/art/ui/ui_icon_cup.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_ship",
+          "path": "assets/art/ui/ui_icon_ship.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_settings",
+          "path": "assets/art/ui/ui_icon_settings.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    "scene": {
+      "layout": "tall-zigzag",
+      "machines": [
+        {
+          "stationId": "pop",
+          "status": "running",
+          "rect": [
+            29.6434689711746,
+            116,
+            152.76292947213796,
+            183.79289952116596
+          ],
+          "ports": {
+            "input": [
+              109.60531486674681,
+              214.57982792498902
+            ],
+            "output": [
+              162.11757187279423,
+              250.14494744272113
+            ]
+          },
+          "jobs": [
+            {
+              "amount": 1,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0
+            }
+          ]
+        },
+        {
+          "stationId": "cup",
+          "status": "waiting",
+          "rect": [
+            79.07348480512792,
+            297.34371124973774,
+            111.58335717964857,
+            159.40479597092656
+          ],
+          "ports": {
+            "input": [
+              103.98048417558519,
+              393.23565882599826
+            ],
+            "output": [
+              158.27774280318204,
+              425.8638280012973
+            ]
+          },
+          "jobs": []
+        },
+        {
+          "stationId": "ship",
+          "status": "waiting",
+          "rect": [
+            121.16631374120072,
+            485.4538239951163,
+            146.12106297334935,
+            150.6873461912665
+          ],
+          "ports": {
+            "input": [
+              152.21703962303746,
+              575.4096033880845
+            ],
+            "output": [
+              223.907686144337,
+              605.7753867872336
+            ]
+          },
+          "jobs": []
+        }
+      ],
+      "buffers": [
+        {
+          "id": "pop",
+          "amount": 0,
+          "capacity": 12,
+          "rect": [
+            196.20902726110762,
+            271.378164406036,
+            100.95637078158681,
+            72.16803067589994
+          ],
+          "full": false
+        },
+        {
+          "id": "cup",
+          "amount": 0,
+          "capacity": 12,
+          "rect": [
+            245.1409031076518,
+            440.0608176424579,
+            95.64287758255593,
+            69.11692325301892
+          ],
+          "full": false
+        }
+      ],
+      "connections": [
+        {
+          "from": "pop",
+          "to": "belt_pop_bulk",
+          "fromPoint": [
+            162.11757187279423,
+            250.14494744272113
+          ],
+          "toPoint": [
+            162.11757187279423,
+            250.14494744272116
+          ],
+          "gap": 2.842170943040401e-14
+        },
+        {
+          "from": "belt_pop_bulk",
+          "to": "bulk",
+          "fromPoint": [
+            252.40544459070185,
+            299.1806024533089
+          ],
+          "toPoint": [
+            252.40544459070185,
+            299.1806024533089
+          ],
+          "gap": 0
+        },
+        {
+          "from": "bulk",
+          "to": "belt_bulk_cup",
+          "fromPoint": [
+            231.1099601289609,
+            324.22251473702283
+          ],
+          "toPoint": [
+            231.10996012896086,
+            324.22251473702283
+          ],
+          "gap": 2.842170943040401e-14
+        },
+        {
+          "from": "belt_bulk_cup",
+          "to": "cup",
+          "fromPoint": [
+            103.98048417558519,
+            393.2356588259982
+          ],
+          "toPoint": [
+            103.98048417558519,
+            393.23565882599826
+          ],
+          "gap": 5.684341886080802e-14
+        },
+        {
+          "from": "cup",
+          "to": "belt_cup_stock",
+          "fromPoint": [
+            158.27774280318204,
+            425.8638280012973
+          ],
+          "toPoint": [
+            158.27774280318206,
+            425.86382800129724
+          ],
+          "gap": 6.355287432313019e-14
+        },
+        {
+          "from": "belt_cup_stock",
+          "to": "cups",
+          "fromPoint": [
+            266.6231900646712,
+            484.7066140140025
+          ],
+          "toPoint": [
+            266.62319006467123,
+            484.7066140140025
+          ],
+          "gap": 5.684341886080802e-14
+        },
+        {
+          "from": "cups",
+          "to": "belt_stock_ship",
+          "fromPoint": [
+            319.30149373318835,
+            484.7066140140025
+          ],
+          "toPoint": [
+            319.30149373318835,
+            484.7066140140025
+          ],
+          "gap": 0
+        },
+        {
+          "from": "belt_stock_ship",
+          "to": "ship",
+          "fromPoint": [
+            152.21703962303746,
+            575.4096033880844
+          ],
+          "toPoint": [
+            152.21703962303746,
+            575.4096033880845
+          ],
+          "gap": 1.1368683772161603e-13
+        },
+        {
+          "from": "ship",
+          "to": "outfeed",
+          "fromPoint": [
+            223.907686144337,
+            605.7753867872336
+          ],
+          "toPoint": [
+            223.907686144337,
+            605.7753867872335
+          ],
+          "gap": 1.1368683772161603e-13
+        }
+      ],
+      "frame": {
+        "x": 8,
+        "y": 96,
+        "w": 374,
+        "h": 582
+      }
+    }
+  },
+  "errors": [],
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4192/__acceptance/runtime.js",
+      "initiatorType": "script",
+      "transferSize": 7295,
+      "encodedBodySize": 6995,
+      "decodedBodySize": 6995,
+      "duration": 22.799999952316284
+    },
+    {
+      "name": "http://127.0.0.1:4192/game.bundle.js",
+      "initiatorType": "script",
+      "transferSize": 137971,
+      "encodedBodySize": 137671,
+      "decodedBodySize": 137671,
+      "duration": 23
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_pop_body.png",
+      "initiatorType": "img",
+      "transferSize": 327172,
+      "encodedBodySize": 326872,
+      "decodedBodySize": 326872,
+      "duration": 32.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_pop_head.png",
+      "initiatorType": "img",
+      "transferSize": 92968,
+      "encodedBodySize": 92668,
+      "decodedBodySize": 92668,
+      "duration": 26.600000023841858
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_pop_front.png",
+      "initiatorType": "img",
+      "transferSize": 95947,
+      "encodedBodySize": 95647,
+      "decodedBodySize": 95647,
+      "duration": 29.899999976158142
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_cup_body.png",
+      "initiatorType": "img",
+      "transferSize": 339598,
+      "encodedBodySize": 339298,
+      "decodedBodySize": 339298,
+      "duration": 33.200000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_cup_head.png",
+      "initiatorType": "img",
+      "transferSize": 60046,
+      "encodedBodySize": 59746,
+      "decodedBodySize": 59746,
+      "duration": 32.799999952316284
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_cup_front.png",
+      "initiatorType": "img",
+      "transferSize": 90326,
+      "encodedBodySize": 90026,
+      "decodedBodySize": 90026,
+      "duration": 34.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_ship_body.png",
+      "initiatorType": "img",
+      "transferSize": 297440,
+      "encodedBodySize": 297140,
+      "decodedBodySize": 297140,
+      "duration": 37.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_ship_head.png",
+      "initiatorType": "img",
+      "transferSize": 58799,
+      "encodedBodySize": 58499,
+      "decodedBodySize": 58499,
+      "duration": 37.300000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/machines/machine_ship_front.png",
+      "initiatorType": "img",
+      "transferSize": 64477,
+      "encodedBodySize": 64177,
+      "decodedBodySize": 64177,
+      "duration": 39.200000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/buffer_bulk_back.png",
+      "initiatorType": "img",
+      "transferSize": 216244,
+      "encodedBodySize": 215944,
+      "decodedBodySize": 215944,
+      "duration": 40.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/buffer_bulk_front.png",
+      "initiatorType": "img",
+      "transferSize": 65133,
+      "encodedBodySize": 64833,
+      "decodedBodySize": 64833,
+      "duration": 39.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/buffer_cups_back.png",
+      "initiatorType": "img",
+      "transferSize": 159008,
+      "encodedBodySize": 158708,
+      "decodedBodySize": 158708,
+      "duration": 43.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/buffer_cups_front.png",
+      "initiatorType": "img",
+      "transferSize": 47007,
+      "encodedBodySize": 46707,
+      "decodedBodySize": 46707,
+      "duration": 45.09999990463257
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_down_right.png",
+      "initiatorType": "img",
+      "transferSize": 180383,
+      "encodedBodySize": 180083,
+      "decodedBodySize": 180083,
+      "duration": 46.200000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_front_right.png",
+      "initiatorType": "img",
+      "transferSize": 48477,
+      "encodedBodySize": 48177,
+      "decodedBodySize": 48177,
+      "duration": 45.800000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_front_left.png",
+      "initiatorType": "img",
+      "transferSize": 45128,
+      "encodedBodySize": 44828,
+      "decodedBodySize": 44828,
+      "duration": 47.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_down_left.png",
+      "initiatorType": "img",
+      "transferSize": 172476,
+      "encodedBodySize": 172176,
+      "decodedBodySize": 172176,
+      "duration": 48.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_outfeed_back.png",
+      "initiatorType": "img",
+      "transferSize": 154742,
+      "encodedBodySize": 154442,
+      "decodedBodySize": 154442,
+      "duration": 52.200000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_outfeed_front.png",
+      "initiatorType": "img",
+      "transferSize": 33367,
+      "encodedBodySize": 33067,
+      "decodedBodySize": 33067,
+      "duration": 51.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_transfer_back.png",
+      "initiatorType": "img",
+      "transferSize": 144411,
+      "encodedBodySize": 144111,
+      "decodedBodySize": 144111,
+      "duration": 52.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/conveyor_transfer_front.png",
+      "initiatorType": "img",
+      "transferSize": 26106,
+      "encodedBodySize": 25806,
+      "decodedBodySize": 25806,
+      "duration": 54.199999928474426
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/products/product_kernel_a.png",
+      "initiatorType": "img",
+      "transferSize": 9207,
+      "encodedBodySize": 8907,
+      "decodedBodySize": 8907,
+      "duration": 55.799999952316284
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/products/product_kernel_b.png",
+      "initiatorType": "img",
+      "transferSize": 9624,
+      "encodedBodySize": 9324,
+      "decodedBodySize": 9324,
+      "duration": 56.300000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/products/product_cup_empty.png",
+      "initiatorType": "img",
+      "transferSize": 26314,
+      "encodedBodySize": 26014,
+      "decodedBodySize": 26014,
+      "duration": 57.300000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/products/product_cup_fill.png",
+      "initiatorType": "img",
+      "transferSize": 27666,
+      "encodedBodySize": 27366,
+      "decodedBodySize": 27366,
+      "duration": 58.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/factory_room.png",
+      "initiatorType": "img",
+      "transferSize": 440832,
+      "encodedBodySize": 440532,
+      "decodedBodySize": 440532,
+      "duration": 60.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/scene/factory_window.png",
+      "initiatorType": "img",
+      "transferSize": 74341,
+      "encodedBodySize": 74041,
+      "decodedBodySize": 74041,
+      "duration": 59.5
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/fx/fx_sparkle.png",
+      "initiatorType": "img",
+      "transferSize": 11978,
+      "encodedBodySize": 11678,
+      "decodedBodySize": 11678,
+      "duration": 60.40000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_hud_coin.png",
+      "initiatorType": "img",
+      "transferSize": 53610,
+      "encodedBodySize": 53310,
+      "decodedBodySize": 53310,
+      "duration": 61.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_hud_rate.png",
+      "initiatorType": "img",
+      "transferSize": 46965,
+      "encodedBodySize": 46665,
+      "decodedBodySize": 46665,
+      "duration": 61.799999952316284
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_panel.png",
+      "initiatorType": "img",
+      "transferSize": 53785,
+      "encodedBodySize": 53485,
+      "decodedBodySize": 53485,
+      "duration": 64.5
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_button_primary.png",
+      "initiatorType": "img",
+      "transferSize": 58920,
+      "encodedBodySize": 58620,
+      "decodedBodySize": 58620,
+      "duration": 64.59999990463257
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_button_secondary.png",
+      "initiatorType": "img",
+      "transferSize": 52832,
+      "encodedBodySize": 52532,
+      "decodedBodySize": 52532,
+      "duration": 64.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_button_disabled.png",
+      "initiatorType": "img",
+      "transferSize": 49891,
+      "encodedBodySize": 49591,
+      "decodedBodySize": 49591,
+      "duration": 67.40000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_card.png",
+      "initiatorType": "img",
+      "transferSize": 40140,
+      "encodedBodySize": 39840,
+      "decodedBodySize": 39840,
+      "duration": 67.70000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_compact_bar.png",
+      "initiatorType": "img",
+      "transferSize": 31356,
+      "encodedBodySize": 31056,
+      "decodedBodySize": 31056,
+      "duration": 68.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_icon_coin.png",
+      "initiatorType": "img",
+      "transferSize": 16586,
+      "encodedBodySize": 16286,
+      "decodedBodySize": 16286,
+      "duration": 70.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_icon_cup.png",
+      "initiatorType": "img",
+      "transferSize": 15317,
+      "encodedBodySize": 15017,
+      "decodedBodySize": 15017,
+      "duration": 70.69999992847443
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_icon_pop.png",
+      "initiatorType": "img",
+      "transferSize": 18653,
+      "encodedBodySize": 18353,
+      "decodedBodySize": 18353,
+      "duration": 70.69999992847443
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_icon_settings.png",
+      "initiatorType": "img",
+      "transferSize": 12781,
+      "encodedBodySize": 12481,
+      "decodedBodySize": 12481,
+      "duration": 72.70000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4192/assets/art/ui/ui_icon_ship.png",
+      "initiatorType": "img",
+      "transferSize": 17255,
+      "encodedBodySize": 16955,
+      "decodedBodySize": 16955,
+      "duration": 72.90000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4192/favicon.ico",
+      "initiatorType": "other",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "decodedBodySize": 0,
+      "duration": 3.6999999284744263
+    },
+    {
+      "name": "http://127.0.0.1:4192/__acceptance/capture/fresh-shortage-320x524-browser-home-still-1788965795540.png",
+      "initiatorType": "fetch",
+      "transferSize": 477,
+      "encodedBodySize": 177,
+      "decodedBodySize": 177,
+      "duration": 9.299999952316284
+    },
+    {
+      "name": "http://127.0.0.1:4192/__acceptance/capture/fresh-shortage-320x524-browser-home-still-1788965795540.json",
+      "initiatorType": "fetch",
+      "transferSize": 477,
+      "encodedBodySize": 177,
+      "decodedBodySize": 177,
+      "duration": 6.200000047683716
+    }
+  ]
+}

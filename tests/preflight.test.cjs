@@ -3,6 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const api = import('../tools/preflight.mjs');
+const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest');
 
 function fixture(overrides = {}) {
   // Test-only synthetic strings are never written to project config or game packages.
@@ -15,7 +16,12 @@ function fixture(overrides = {}) {
     'project.config.json': JSON.stringify({ appid: config.appId, compileType: 'game', setting: { urlCheck: true } }),
     'config.js': `globalThis.POPCORN_CONFIG = ${JSON.stringify(config)};\n`,
     'game.bundle.js': '/* test-only bundle */'.repeat(10),
-    ...Object.fromEntries(['upgrade', 'machine', 'click', 'error'].map(name => [`audio/${name}.wav`, wav]))
+    ...Object.fromEntries(['upgrade', 'machine', 'click', 'error'].map(name => [`audio/${name}.wav`, wav])),
+    ...Object.fromEntries(ART_RUNTIME_IDS.map(id => {
+      const asset = ART_ASSETS[id], png = Buffer.alloc(24);
+      Buffer.from('89504e470d0a1a0a', 'hex').copy(png); png.writeUInt32BE(asset.width, 16); png.writeUInt32BE(asset.height, 20);
+      return [asset.path, png];
+    }))
   }).map(([name, value]) => [name, Buffer.isBuffer(value) ? value : Buffer.from(value)]));
   return { files, entries: [...files].map(([name, bytes]) => ({ name, size: bytes.length })), localConfigText: JSON.stringify(config) };
 }

@@ -3,10 +3,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateAudio } from './audio.mjs';
 import { bundleCommonJS } from './bundle.mjs';
+import { generateRuntimeArt, copyRuntimeArt } from './art-build.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 if (args.some(arg => arg !== '--development')) throw new Error('用法：node tools/build.mjs [--development]');
 const development = args.includes('--development');
+const runtimeArt = await generateRuntimeArt(root);
 const { code, moduleIds } = await bundleCommonJS({ root, entries: ['src/main.js'] });
 // Set the build-controlled switch before platform initialization on both hosts.
 // A local config or the Web entry cannot accidentally enable it in a release build.
@@ -26,4 +28,6 @@ config.developerHoldTap=false;
 await writeFile(path.join(root, 'build/douyin/config.js'), '(typeof globalThis !== "undefined" ? globalThis : GameGlobal).POPCORN_CONFIG = '+JSON.stringify(config,null,2)+';\n');
 await writeFile(path.join(root, 'build/douyin/project.config.json'), JSON.stringify({ description: '小小爆米花厂', setting: { es6: true, minified: false, urlCheck: true }, appid: config.appId, projectname: 'tiny-popcorn-factory', compileType: 'game' }, null, 2));
 await generateAudio(path.join(root,'build/douyin/audio'));
+const artReport = await copyRuntimeArt(root, ['web', 'build/douyin'], runtimeArt);
+console.log(`First-generation runtime art: ${artReport.count} PNGs; ${(artReport.compressedBytes / 1048576).toFixed(2)} MiB files; ${(artReport.decodedBytes / 1048576).toFixed(2)} MiB decoded. Both packages verified byte-for-byte.`);
 console.log(`Built pipeline v2.0.0 ${development ? 'development' : 'release'} (自动生产；连点与广告奖励均已停用): ${moduleIds.length} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: web/ · Douyin: build/douyin/`);

@@ -1,14 +1,15 @@
 'use strict';
 
 const { ProductionScene } = require('./production-scene');
+const { FirstGenerationScene } = require('./first-generation-scene');
 const { GameInterface } = require('./interface');
 const FONT = '"Microsoft YaHei", "PingFang SC", system-ui, sans-serif';
 
 // Presentation owns pixels and hit regions only. All stock, movement progress and
 // money displayed below come from the single production simulation snapshot.
 class Renderer {
-  constructor(ctx) {
-    this.c=ctx;this.zones=[];this.scene=new ProductionScene(ctx);this.interface=new GameInterface(this);
+  constructor(ctx, art) {
+    this.c=ctx;this.art=art;this.zones=[];this.scene=new FirstGenerationScene(ctx,art);this.interface=new GameInterface(this);
   }
   box(x,y,w,h,r=14,fill='#fffdf7',stroke) {
     if(w<=0||h<=0)return;

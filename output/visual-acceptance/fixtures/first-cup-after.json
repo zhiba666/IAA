@@ -1,0 +1,822 @@
+{
+  "id": "first-cup-after",
+  "kind": "natural-production",
+  "description": "Actual purchased first cup upgrade: old batch amount and 60-tick duration remain unchanged; new batches use 20 ticks.",
+  "save": {
+    "version": 2,
+    "savedAt": 1800000000000,
+    "introSeen": false,
+    "coins": 9,
+    "machine": 0,
+    "upgrades": {
+      "pop": 0,
+      "cup": 1,
+      "ship": 0
+    },
+    "settings": {
+      "sound": true,
+      "haptics": true
+    },
+    "playedSeconds": 20.1,
+    "totalProduced": 53,
+    "totalSold": 39,
+    "totalEarned": 39,
+    "totalSpent": 30,
+    "buffers": {
+      "pop": 12,
+      "cup": 0
+    },
+    "stations": {
+      "pop": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 30,
+            "remainingTicks": 0
+          }
+        ],
+        "processed": 52,
+        "history": [
+          {
+            "tick": 1230,
+            "amount": 1
+          },
+          {
+            "tick": 1290,
+            "amount": 1
+          },
+          {
+            "tick": 1350,
+            "amount": 1
+          },
+          {
+            "tick": 1410,
+            "amount": 1
+          },
+          {
+            "tick": 1470,
+            "amount": 1
+          },
+          {
+            "tick": 1530,
+            "amount": 1
+          },
+          {
+            "tick": 1590,
+            "amount": 1
+          },
+          {
+            "tick": 1650,
+            "amount": 1
+          },
+          {
+            "tick": 1710,
+            "amount": 1
+          },
+          {
+            "tick": 1770,
+            "amount": 1
+          },
+          {
+            "tick": 1830,
+            "amount": 1
+          },
+          {
+            "tick": 1890,
+            "amount": 1
+          },
+          {
+            "tick": 1950,
+            "amount": 1
+          },
+          {
+            "tick": 2010,
+            "amount": 1
+          },
+          {
+            "tick": 2070,
+            "amount": 1
+          },
+          {
+            "tick": 2130,
+            "amount": 1
+          },
+          {
+            "tick": 2190,
+            "amount": 1
+          },
+          {
+            "tick": 2250,
+            "amount": 1
+          },
+          {
+            "tick": 2310,
+            "amount": 1
+          },
+          {
+            "tick": 2370,
+            "amount": 1
+          }
+        ]
+      },
+      "cup": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 18
+          }
+        ],
+        "processed": 39,
+        "history": [
+          {
+            "tick": 1230,
+            "amount": 1
+          },
+          {
+            "tick": 1290,
+            "amount": 1
+          },
+          {
+            "tick": 1350,
+            "amount": 1
+          },
+          {
+            "tick": 1410,
+            "amount": 1
+          },
+          {
+            "tick": 1470,
+            "amount": 1
+          },
+          {
+            "tick": 1530,
+            "amount": 1
+          },
+          {
+            "tick": 1590,
+            "amount": 1
+          },
+          {
+            "tick": 1650,
+            "amount": 1
+          },
+          {
+            "tick": 1710,
+            "amount": 1
+          },
+          {
+            "tick": 1770,
+            "amount": 1
+          },
+          {
+            "tick": 1830,
+            "amount": 1
+          },
+          {
+            "tick": 1890,
+            "amount": 1
+          },
+          {
+            "tick": 1950,
+            "amount": 1
+          },
+          {
+            "tick": 2010,
+            "amount": 1
+          },
+          {
+            "tick": 2070,
+            "amount": 1
+          },
+          {
+            "tick": 2130,
+            "amount": 1
+          },
+          {
+            "tick": 2190,
+            "amount": 1
+          },
+          {
+            "tick": 2250,
+            "amount": 1
+          },
+          {
+            "tick": 2310,
+            "amount": 1
+          },
+          {
+            "tick": 2370,
+            "amount": 1
+          }
+        ]
+      },
+      "ship": {
+        "jobs": [
+          null
+        ],
+        "processed": 39,
+        "history": [
+          {
+            "tick": 1250,
+            "amount": 1
+          },
+          {
+            "tick": 1310,
+            "amount": 1
+          },
+          {
+            "tick": 1370,
+            "amount": 1
+          },
+          {
+            "tick": 1430,
+            "amount": 1
+          },
+          {
+            "tick": 1490,
+            "amount": 1
+          },
+          {
+            "tick": 1550,
+            "amount": 1
+          },
+          {
+            "tick": 1610,
+            "amount": 1
+          },
+          {
+            "tick": 1670,
+            "amount": 1
+          },
+          {
+            "tick": 1730,
+            "amount": 1
+          },
+          {
+            "tick": 1790,
+            "amount": 1
+          },
+          {
+            "tick": 1850,
+            "amount": 1
+          },
+          {
+            "tick": 1910,
+            "amount": 1
+          },
+          {
+            "tick": 1970,
+            "amount": 1
+          },
+          {
+            "tick": 2030,
+            "amount": 1
+          },
+          {
+            "tick": 2090,
+            "amount": 1
+          },
+          {
+            "tick": 2150,
+            "amount": 1
+          },
+          {
+            "tick": 2210,
+            "amount": 1
+          },
+          {
+            "tick": 2270,
+            "amount": 1
+          },
+          {
+            "tick": 2330,
+            "amount": 1
+          },
+          {
+            "tick": 2390,
+            "amount": 1
+          }
+        ]
+      }
+    },
+    "simulation": {
+      "ticks": 2412,
+      "carry": 0
+    },
+    "milestones": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "firstUpgradeAt": 2412
+  },
+  "snapshot": {
+    "state": {
+      "version": 2,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 9,
+      "machine": 0,
+      "upgrades": {
+        "pop": 0,
+        "cup": 1,
+        "ship": 0
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 20.1,
+      "totalProduced": 53,
+      "totalSold": 39,
+      "totalEarned": 39,
+      "totalSpent": 30,
+      "buffers": {
+        "pop": 12,
+        "cup": 0
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 30,
+              "remainingTicks": 0
+            }
+          ],
+          "processed": 52,
+          "history": [
+            {
+              "tick": 1230,
+              "amount": 1
+            },
+            {
+              "tick": 1290,
+              "amount": 1
+            },
+            {
+              "tick": 1350,
+              "amount": 1
+            },
+            {
+              "tick": 1410,
+              "amount": 1
+            },
+            {
+              "tick": 1470,
+              "amount": 1
+            },
+            {
+              "tick": 1530,
+              "amount": 1
+            },
+            {
+              "tick": 1590,
+              "amount": 1
+            },
+            {
+              "tick": 1650,
+              "amount": 1
+            },
+            {
+              "tick": 1710,
+              "amount": 1
+            },
+            {
+              "tick": 1770,
+              "amount": 1
+            },
+            {
+              "tick": 1830,
+              "amount": 1
+            },
+            {
+              "tick": 1890,
+              "amount": 1
+            },
+            {
+              "tick": 1950,
+              "amount": 1
+            },
+            {
+              "tick": 2010,
+              "amount": 1
+            },
+            {
+              "tick": 2070,
+              "amount": 1
+            },
+            {
+              "tick": 2130,
+              "amount": 1
+            },
+            {
+              "tick": 2190,
+              "amount": 1
+            },
+            {
+              "tick": 2250,
+              "amount": 1
+            },
+            {
+              "tick": 2310,
+              "amount": 1
+            },
+            {
+              "tick": 2370,
+              "amount": 1
+            }
+          ]
+        },
+        "cup": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 60,
+              "remainingTicks": 18
+            }
+          ],
+          "processed": 39,
+          "history": [
+            {
+              "tick": 1230,
+              "amount": 1
+            },
+            {
+              "tick": 1290,
+              "amount": 1
+            },
+            {
+              "tick": 1350,
+              "amount": 1
+            },
+            {
+              "tick": 1410,
+              "amount": 1
+            },
+            {
+              "tick": 1470,
+              "amount": 1
+            },
+            {
+              "tick": 1530,
+              "amount": 1
+            },
+            {
+              "tick": 1590,
+              "amount": 1
+            },
+            {
+              "tick": 1650,
+              "amount": 1
+            },
+            {
+              "tick": 1710,
+              "amount": 1
+            },
+            {
+              "tick": 1770,
+              "amount": 1
+            },
+            {
+              "tick": 1830,
+              "amount": 1
+            },
+            {
+              "tick": 1890,
+              "amount": 1
+            },
+            {
+              "tick": 1950,
+              "amount": 1
+            },
+            {
+              "tick": 2010,
+              "amount": 1
+            },
+            {
+              "tick": 2070,
+              "amount": 1
+            },
+            {
+              "tick": 2130,
+              "amount": 1
+            },
+            {
+              "tick": 2190,
+              "amount": 1
+            },
+            {
+              "tick": 2250,
+              "amount": 1
+            },
+            {
+              "tick": 2310,
+              "amount": 1
+            },
+            {
+              "tick": 2370,
+              "amount": 1
+            }
+          ]
+        },
+        "ship": {
+          "jobs": [
+            null
+          ],
+          "processed": 39,
+          "history": [
+            {
+              "tick": 1250,
+              "amount": 1
+            },
+            {
+              "tick": 1310,
+              "amount": 1
+            },
+            {
+              "tick": 1370,
+              "amount": 1
+            },
+            {
+              "tick": 1430,
+              "amount": 1
+            },
+            {
+              "tick": 1490,
+              "amount": 1
+            },
+            {
+              "tick": 1550,
+              "amount": 1
+            },
+            {
+              "tick": 1610,
+              "amount": 1
+            },
+            {
+              "tick": 1670,
+              "amount": 1
+            },
+            {
+              "tick": 1730,
+              "amount": 1
+            },
+            {
+              "tick": 1790,
+              "amount": 1
+            },
+            {
+              "tick": 1850,
+              "amount": 1
+            },
+            {
+              "tick": 1910,
+              "amount": 1
+            },
+            {
+              "tick": 1970,
+              "amount": 1
+            },
+            {
+              "tick": 2030,
+              "amount": 1
+            },
+            {
+              "tick": 2090,
+              "amount": 1
+            },
+            {
+              "tick": 2150,
+              "amount": 1
+            },
+            {
+              "tick": 2210,
+              "amount": 1
+            },
+            {
+              "tick": 2270,
+              "amount": 1
+            },
+            {
+              "tick": 2330,
+              "amount": 1
+            },
+            {
+              "tick": 2390,
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "simulation": {
+        "ticks": 2412,
+        "carry": 0
+      },
+      "milestones": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": 2412
+    },
+    "machine": {
+      "id": 0,
+      "name": "手摇锅",
+      "description": "自动开工，先疏通装杯积压",
+      "color": "#f3b35b",
+      "cost": 0,
+      "requiredSold": 0,
+      "targetRate": 0,
+      "buffers": {
+        "pop": 12,
+        "cup": 12
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 4,
+        "actualRate": 2,
+        "status": "blocked",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 1,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 52,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "upgrade": {
+          "name": "均匀加热",
+          "cost": 100,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 6,
+        "actualRate": 2,
+        "status": "running",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0.7,
+        "inFlight": 1,
+        "level": 1,
+        "processed": 39,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "双头装杯",
+          "cost": 200,
+          "requiredMachine": 1,
+          "lanes": 2,
+          "batchSize": 1,
+          "cycleTicks": 24,
+          "capacity": 10,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 6,
+        "actualRate": 2,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 0,
+        "processed": 39,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "快速出货带",
+          "cost": 120,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 8,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 12,
+        "capacity": 12
+      },
+      {
+        "id": "cup",
+        "amount": 0,
+        "capacity": 12
+      }
+    ],
+    "throughput": 2,
+    "price": 1,
+    "expansion": {
+      "name": "电热锅",
+      "description": "扩建双锅工位，开放双头装杯与成组包装",
+      "cost": 180,
+      "requiredSold": 100,
+      "targetRate": 3,
+      "sold": 39,
+      "total": 100,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "onboarding": {
+      "phase": "improved",
+      "stationId": "cup",
+      "hint": "已加快，留意积压"
+    },
+    "loadWarning": null
+  },
+  "events": [
+    {
+      "type": "upgrade",
+      "stationId": "cup",
+      "name": "快速装杯头",
+      "level": 1,
+      "cost": 30
+    }
+  ],
+  "expected": {
+    "machine": 0,
+    "buffers": {
+      "pop": 12,
+      "cup": 0
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "status": "blocked",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ]
+      },
+      {
+        "id": "cup",
+        "status": "running",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0.7,
+            "complete": false
+          }
+        ]
+      },
+      {
+        "id": "ship",
+        "status": "waiting",
+        "jobs": [
+          null
+        ]
+      }
+    ],
+    "coins": 9,
+    "totalSold": 39
+  },
+  "expectedOldCupJob": {
+    "amount": 1,
+    "durationTicks": 60,
+    "remainingTicks": 18
+  },
+  "expectedPurchaseFeedback": "快速装杯头",
+  "expectedCollapsed": true
+}

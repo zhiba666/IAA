@@ -103,7 +103,7 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
     let source = fs.readFileSync(filename, 'utf8');
     if(filename===path.join(PACKAGE,'game.bundle.js')) {
       // Capture only the real renderer instance; drawing and hit testing stay unchanged.
-      const marker='let renderer = new Renderer(ctx);';
+      const marker='let renderer = new Renderer(ctx, art);';
       assert.equal(source.split(marker).length,2);
       source=source.replace(marker,marker+'\n__captureRenderer(renderer);');
     }
@@ -216,7 +216,7 @@ test('generated Douyin entry automatically runs the real pipeline without DOM or
     const h = boot(mode);
     assert.equal(h.canvasCount(), 1);
     assert.equal(h.context.GameGlobal.__POPCORN__.version, '2.0.0');
-    assert.deepEqual(Object.keys(h.context.GameGlobal.__POPCORN__).sort(), ['analytics','snapshot','version']);
+    assert.deepEqual(Object.keys(h.context.GameGlobal.__POPCORN__).sort(), ['analytics','presentation','snapshot','version']);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.developerHoldTap, false);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.allowSimulatedAds, false);
     h.verifyLayout();

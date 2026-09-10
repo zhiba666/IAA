@@ -139,12 +139,60 @@ test('upgrade comparison separates equipment and stable-line impact, and keeps p
       if (stationId === 'cup') {
         assert.ok(canvas.texts.some(item => item.text.includes('能力 2→6')));
         assert.ok(canvas.texts.some(item => item.text.includes('≈ 2→4 份/秒')));
+      } else if (renderer.interface.nativeCompact) {
+        const { canvas: details } = renderFrozen(view, { ...state, stationDetails: true });
+        assert.ok(details.texts.some(item => item.text === '暂不提高稳定出货，为后续改造预留能力'),
+          'the shortest native viewport keeps auxiliary impact explanation available in details');
       } else assert.ok(canvas.texts.some(item => item.text === '暂不提高稳定出货，为后续改造预留能力'));
+      if (renderer.interface.nativeCompact) {
+        const equipment=canvas.texts.find(item=>item.text.includes(' · 能力 '));
+        const forecast=canvas.texts.find(item=>item.text.startsWith('预计稳定出货 ≈ '));
+        assert.ok(equipment && forecast && equipment.y < forecast.y, 'compact overview retains two separate equipment and line-rate rows');
+        assert.ok(forecast.y + 6 <= buy.y, 'forecast units remain above the fixed purchase control');
+        assert.ok(renderer.interface.layout.scene.h >= 232, 'native compact controls reserve space for the assembled production line');
+      }
       assert.ok(canvas.texts.some(item => item.text === station.upgrade.cost + ' 金币'));
     }
     assert.deepEqual(controls[1],controls[0], 'switching station keeps the purchase button fixed');
     assert.deepEqual(controls[2],controls[0]);
   }
+});
+
+test('first-generation HUD surfaces asset failures without hiding the settings control', () => {
+  const view=deepFreeze(new ProductionInsights().enrich(new Game().getView()));
+  for(const [width,height,native] of [[390,844,false],[320,524,false],[320,484,true]]){
+    const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx);
+    renderer.art={get:()=>null,report:()=>({failed:3,pending:0,loaded:0})};
+    const state=ui(view,width,height,null,native,{toast:'其他生产提示'});
+    renderer.draw(view,state,0);
+    assert.ok(canvas.texts.some(item=>item.text==='美术加载失败 3 项'), 'the actual failed asset count takes precedence over transient production copy');
+    assert.ok(renderer.zones.some(zone=>zone.action==='settings'));
+    verifyZones(renderer,state.viewport);verifyTextBounds(canvas,state.viewport);
+  }
+});
+
+test('first-generation HUD announces pending art until every requested resource settles', () => {
+  const view=deepFreeze(new ProductionInsights().enrich(new Game().getView()));
+  const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx),state=ui(view,320,524);
+  let report={requested:39,failed:0,pending:1,loaded:38};
+  renderer.art={get:()=>null,report:()=>report};
+  renderer.draw(view,state,0);
+  assert.ok(canvas.texts.some(item=>item.text==='正在装配首代美术…'));
+  report={requested:39,failed:0,pending:0,loaded:39};
+  canvas.clear();renderer.draw(view,state,0);
+  assert.ok(!canvas.texts.some(item=>item.text==='正在装配首代美术…'));
+  assert.ok(canvas.texts.some(item=>item.text===view.insights.bottleneck.label));
+});
+
+test('browser safe-area insets use the same compact controls as an equally sized native content area', () => {
+  const game=new Game();game.tick(100);
+  const view=deepFreeze(new ProductionInsights().enrich(game.getView()));
+  const native=ui(view,320,484,{type:'station',stationId:'cup'},true);
+  const browser={...native,isDouyin:false};
+  const nativeResult=renderFrozen(view,native),browserResult=renderFrozen(view,browser);
+  assert.ok(browserResult.renderer.interface.nativeCompact);
+  assert.deepEqual(browserResult.renderer.interface.layout,nativeResult.renderer.interface.layout);
+  assert.deepEqual(browserResult.renderer.zones,nativeResult.renderer.zones);
 });
 
 test('unavailable purchases explain funds, expansion and full level rather than relying on disabled color', () => {

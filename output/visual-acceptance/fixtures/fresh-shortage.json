@@ -1,0 +1,305 @@
+{
+  "id": "fresh-shortage",
+  "kind": "natural-production",
+  "description": "Fresh first-generation factory: no invented stock; cup and ship wait for real input.",
+  "save": {
+    "version": 2,
+    "savedAt": 1800000000000,
+    "introSeen": false,
+    "coins": 0,
+    "machine": 0,
+    "upgrades": {
+      "pop": 0,
+      "cup": 0,
+      "ship": 0
+    },
+    "settings": {
+      "sound": true,
+      "haptics": true
+    },
+    "playedSeconds": 0,
+    "totalProduced": 1,
+    "totalSold": 0,
+    "totalEarned": 0,
+    "totalSpent": 0,
+    "buffers": {
+      "pop": 0,
+      "cup": 0
+    },
+    "stations": {
+      "pop": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 30,
+            "remainingTicks": 30
+          }
+        ],
+        "processed": 0,
+        "history": []
+      },
+      "cup": {
+        "jobs": [
+          null
+        ],
+        "processed": 0,
+        "history": []
+      },
+      "ship": {
+        "jobs": [
+          null
+        ],
+        "processed": 0,
+        "history": []
+      }
+    },
+    "simulation": {
+      "ticks": 0,
+      "carry": 0
+    },
+    "milestones": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "firstUpgradeAt": null
+  },
+  "snapshot": {
+    "state": {
+      "version": 2,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 0,
+      "machine": 0,
+      "upgrades": {
+        "pop": 0,
+        "cup": 0,
+        "ship": 0
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 0,
+      "totalProduced": 1,
+      "totalSold": 0,
+      "totalEarned": 0,
+      "totalSpent": 0,
+      "buffers": {
+        "pop": 0,
+        "cup": 0
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 30,
+              "remainingTicks": 30
+            }
+          ],
+          "processed": 0,
+          "history": []
+        },
+        "cup": {
+          "jobs": [
+            null
+          ],
+          "processed": 0,
+          "history": []
+        },
+        "ship": {
+          "jobs": [
+            null
+          ],
+          "processed": 0,
+          "history": []
+        }
+      },
+      "simulation": {
+        "ticks": 0,
+        "carry": 0
+      },
+      "milestones": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": null
+    },
+    "machine": {
+      "id": 0,
+      "name": "手摇锅",
+      "description": "自动开工，先疏通装杯积压",
+      "color": "#f3b35b",
+      "cost": 0,
+      "requiredSold": 0,
+      "targetRate": 0,
+      "buffers": {
+        "pop": 12,
+        "cup": 12
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 4,
+        "actualRate": 0,
+        "status": "running",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "均匀加热",
+          "cost": 100,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 2,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "快速装杯头",
+          "cost": 30,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 6,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "快速出货带",
+          "cost": 120,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 8,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 0,
+        "capacity": 12
+      },
+      {
+        "id": "cup",
+        "amount": 0,
+        "capacity": 12
+      }
+    ],
+    "throughput": 0,
+    "price": 1,
+    "expansion": {
+      "name": "电热锅",
+      "description": "扩建双锅工位，开放双头装杯与成组包装",
+      "cost": 180,
+      "requiredSold": 100,
+      "targetRate": 3,
+      "sold": 0,
+      "total": 100,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "onboarding": {
+      "phase": "observe",
+      "stationId": "cup",
+      "hint": "这里太慢，留意积压"
+    },
+    "loadWarning": null
+  },
+  "events": [],
+  "expected": {
+    "machine": 0,
+    "buffers": {
+      "pop": 0,
+      "cup": 0
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "status": "running",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ]
+      },
+      {
+        "id": "cup",
+        "status": "waiting",
+        "jobs": [
+          null
+        ]
+      },
+      {
+        "id": "ship",
+        "status": "waiting",
+        "jobs": [
+          null
+        ]
+      }
+    ],
+    "coins": 0,
+    "totalSold": 0
+  }
+}

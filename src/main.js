@@ -4,6 +4,7 @@ const { createPlatform } = require('./platform');
 const { AudioEngine } = require('./audio');
 const { Renderer } = require('./renderer');
 const { ProductionInsights } = require('./production-insights');
+const { createArtAssets } = require('./art-assets');
 
 // The application owns input and lifecycle. Only Game advances stock or money.
 const platform = createPlatform();
@@ -11,7 +12,9 @@ const canvas = platform.canvas, ctx = canvas.getContext('2d');
 const sound = new AudioEngine();
 const initialSave = platform.load();
 let game = new Game({ save: initialSave });
-let renderer = new Renderer(ctx);
+const art = createArtAssets();
+art.loadAll();
+let renderer = new Renderer(ctx, art);
 let insights = new ProductionInsights();
 const ui = { modal: null, toast: '', toastSeconds: 0, isDouyin: platform.isDouyin,
   newFactory: !game.state.introSeen,
@@ -76,10 +79,11 @@ function resize(info) {
   width = info.width; height = info.height; ratio = Math.min(2, info.pixelRatio || 1);
   canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
   const safe = info.safeArea || {};
-  const safeTop = platform.isDouyin ? Math.max(0, Number.isFinite(safe.top) ? safe.top : info.statusBarHeight || 0) : 0;
-  const bottom = platform.isDouyin ? Math.max(0, height - (safe.bottom || height)) + 6 : 0;
+  const safeTop = Math.max(0, Number.isFinite(safe.top) ? safe.top : info.statusBarHeight || 0);
+  const bottom = Math.max(0, height - (safe.bottom || height)) + (platform.isDouyin ? 6 : 0);
   const menuBottom = platform.isDouyin ? (info.menuButton ? info.menuButton.bottom : safeTop + 40) : 0;
-  const contentWidth = Math.min(width, 480); ox = (width - contentWidth) / 2;
+  const left = Math.max(0, safe.left || 0), right = Math.max(0, width - (safe.right || width));
+  const contentWidth = Math.min(width-left-right, 480); ox = left + (width-left-right-contentWidth) / 2;
   ui.viewport = { width: contentWidth, height: height - bottom, safeTop, menuBottom };
 }
 function reviewUpgrade(stationId) {
@@ -152,7 +156,7 @@ function act(action) {
     const fresh = new Game();
     // Replace this version's key only, and retain the active factory if writing fails.
     if (!platform.save(fresh.exportSave())) { toast('重新开始失败，当前工厂已保留'); return; }
-    game = fresh; renderer = new Renderer(ctx); insights = new ProductionInsights(); ui.modal = null; ui.newFactory = true;
+    game = fresh; renderer = new Renderer(ctx, art); insights = new ProductionInsights(); ui.modal = null; ui.newFactory = true;
     ui.quote = null; ui.purchaseFeedback = null; ui.stationCollapsed = false; ui.stationDetails = false;
     ui.rateUpdatingUntil = 0; ui.shipment = null; pendingShipment = { amount: 0, coins: 0 }; lastShipmentTick = -Infinity;
     ui.toast = ''; ui.toastSeconds = 0; pointer = null; lastTime = null; saveTimer = 0; saveFailed = false;
@@ -194,7 +198,8 @@ if (!platform.isDouyin && typeof document !== 'undefined') {
   });
 }
 const runtimeGlobal = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
-runtimeGlobal.__POPCORN__ = Object.freeze({ snapshot: () => game.getView(), analytics: () => platform.getAnalytics(), version: '2.0.0' });
+runtimeGlobal.__POPCORN__ = Object.freeze({ snapshot: () => game.getView(), analytics: () => platform.getAnalytics(), version: '2.0.0',
+  presentation: () => JSON.parse(JSON.stringify({layout:renderer.interface.layout,zones:renderer.zones,art:art.report(),scene:renderer.scene.diagnostics})) });
 configure(); resize(platform.getSystemInfo());
 if (game.loadWarning) toast(game.loadWarning);
 else if (platform.lastStorageError) toast('存档读取失败，已开始新工厂');

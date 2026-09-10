@@ -1,0 +1,339 @@
+{
+  "id": "both-full-boundary",
+  "kind": "conserved-visual-boundary",
+  "description": "Explicit visual boundary fixture accepted by Game: both bins 12/12, pop and cup each retain a completed job. Normal first-generation rates cannot naturally fill the cup bin; this is not claimed as naturally reached play.",
+  "save": {
+    "version": 2,
+    "savedAt": 1800000000000,
+    "introSeen": false,
+    "coins": 0,
+    "machine": 0,
+    "upgrades": {
+      "pop": 0,
+      "cup": 0,
+      "ship": 0
+    },
+    "settings": {
+      "sound": true,
+      "haptics": true
+    },
+    "playedSeconds": 0,
+    "totalProduced": 27,
+    "totalSold": 0,
+    "totalEarned": 0,
+    "totalSpent": 0,
+    "buffers": {
+      "pop": 12,
+      "cup": 12
+    },
+    "stations": {
+      "pop": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 30,
+            "remainingTicks": 0
+          }
+        ],
+        "processed": 26,
+        "history": []
+      },
+      "cup": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 60,
+            "remainingTicks": 0
+          }
+        ],
+        "processed": 13,
+        "history": []
+      },
+      "ship": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 20,
+            "remainingTicks": 20
+          }
+        ],
+        "processed": 0,
+        "history": []
+      }
+    },
+    "simulation": {
+      "ticks": 0,
+      "carry": 0
+    },
+    "milestones": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "firstUpgradeAt": null
+  },
+  "snapshot": {
+    "state": {
+      "version": 2,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 0,
+      "machine": 0,
+      "upgrades": {
+        "pop": 0,
+        "cup": 0,
+        "ship": 0
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 0,
+      "totalProduced": 27,
+      "totalSold": 0,
+      "totalEarned": 0,
+      "totalSpent": 0,
+      "buffers": {
+        "pop": 12,
+        "cup": 12
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 30,
+              "remainingTicks": 0
+            }
+          ],
+          "processed": 26,
+          "history": []
+        },
+        "cup": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 60,
+              "remainingTicks": 0
+            }
+          ],
+          "processed": 13,
+          "history": []
+        },
+        "ship": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 20,
+              "remainingTicks": 20
+            }
+          ],
+          "processed": 0,
+          "history": []
+        }
+      },
+      "simulation": {
+        "ticks": 0,
+        "carry": 0
+      },
+      "milestones": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": null
+    },
+    "machine": {
+      "id": 0,
+      "name": "手摇锅",
+      "description": "自动开工，先疏通装杯积压",
+      "color": "#f3b35b",
+      "cost": 0,
+      "requiredSold": 0,
+      "targetRate": 0,
+      "buffers": {
+        "pop": 12,
+        "cup": 12
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 4,
+        "actualRate": 0,
+        "status": "blocked",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 1,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 26,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "upgrade": {
+          "name": "均匀加热",
+          "cost": 100,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 2,
+        "actualRate": 0,
+        "status": "blocked",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 1,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 13,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ],
+        "upgrade": {
+          "name": "快速装杯头",
+          "cost": 30,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 20,
+          "capacity": 6,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 6,
+        "actualRate": 0,
+        "status": "running",
+        "lanes": 1,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 1,
+        "level": 0,
+        "processed": 0,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "快速出货带",
+          "cost": 120,
+          "requiredMachine": 0,
+          "lanes": 1,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 8,
+          "available": false,
+          "reason": "not-enough-coins"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 12,
+        "capacity": 12
+      },
+      {
+        "id": "cup",
+        "amount": 12,
+        "capacity": 12
+      }
+    ],
+    "throughput": 0,
+    "price": 1,
+    "expansion": {
+      "name": "电热锅",
+      "description": "扩建双锅工位，开放双头装杯与成组包装",
+      "cost": 180,
+      "requiredSold": 100,
+      "targetRate": 3,
+      "sold": 0,
+      "total": 100,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "onboarding": {
+      "phase": "upgrade",
+      "stationId": "cup",
+      "hint": "点此改造 · 30金币"
+    },
+    "loadWarning": null
+  },
+  "events": [],
+  "expected": {
+    "machine": 0,
+    "buffers": {
+      "pop": 12,
+      "cup": 12
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "status": "blocked",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ]
+      },
+      {
+        "id": "cup",
+        "status": "blocked",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 1,
+            "complete": true
+          }
+        ]
+      },
+      {
+        "id": "ship",
+        "status": "running",
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ]
+      }
+    ],
+    "coins": 0,
+    "totalSold": 0
+  },
+  "boundaryOnly": true,
+  "changesOnNextShipment": true
+}

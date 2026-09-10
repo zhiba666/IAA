@@ -20,8 +20,13 @@ test('both build modes disable legacy hold tapping and simulated ads on every ho
   });
   await mkdir(path.join(root, 'tools'));
   await mkdir(path.join(root, 'src'));
-  for (const filename of ['build.mjs', 'bundle.mjs', 'audio.mjs']) {
+  for (const filename of ['build.mjs', 'bundle.mjs', 'audio.mjs', 'art-build.mjs']) {
     await copyFile(path.resolve(__dirname, '../tools', filename), path.join(root, 'tools', filename));
+  }
+  const { ART_SOURCE_REFS, ART_RUNTIME_IDS, ART_ASSETS } = require('../src/art-manifest');
+  for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path), 'web/index.html']) {
+    await mkdir(path.dirname(path.join(root, filename)), { recursive: true });
+    await copyFile(path.resolve(__dirname, '..', filename), path.join(root, filename));
   }
   await writeFile(path.join(root, 'src/main.js'),
     '(function(root){root.startedWithHold=root.POPCORN_CONFIG.developerHoldTap;})(typeof globalThis !== "undefined" ? globalThis : GameGlobal);');

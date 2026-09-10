@@ -4,13 +4,14 @@
 
 ## 接续开发入口
 
-- **本任务范围**：[当前开发重心](docs/DEVELOPMENT_FOCUS.md)。本轮只清理误导性资料和废弃工具，不新增玩法或美术。
+- **本任务范围**：[当前开发重心](docs/DEVELOPMENT_FOCUS.md)。本轮将现有首代新美术接入正式游戏入口，并进行整屏画面验收；不重写生产核心、不新增玩法、不批量制作六代美术。
 - **当前实现**：以 `src/`、`tests/`、`tools/build.mjs` 和实际执行结果为准；本文件概述生产与平台边界。
 - **已选美术基准**：[工厂与 UI 资源](output/imagegen/popcorn-ui-20260909/)、[美术路线及清理记录](docs/ART_DIRECTION_AND_CLEANUP_2026-09-09.md)。旧截图仅作历史运行证据。
-- **制作方案**：[美术资源计划](docs/ART_ASSET_ADDITION_PLAN_2026-09-09.md)。计划、整图及示例金额不等于已实现功能或经济配置。素材制作进展见 `art-source/` 与 `assets/art/`；是否接入游戏以当前源码和实际构建为准。
-- **历史资料**：`archive/` 不提供当前开发指令。旧图标、运行证据及原 `docs/copyright/`、`deliverables/` 材料已移入 [本次归档](archive/retired-2026-09-09/)。`.rgignore` 将历史资料排除出默认 `rg` 检索；追溯时显式使用 `rg --no-ignore <关键词> archive`。
+- **本次验收证据**：[首代画面验收记录](docs/GEN1_VISUAL_ACCEPTANCE_2026-09-09.md)汇总当前构建、测试、Chrome 实际运行截图与短录屏、加载检查和美术缺口；[运行资源报告](output/gen1-art-runtime/resource-report.md)记录资源体积及双端复制结果。
+- **制作方案**：[美术资源计划](docs/ART_ASSET_ADDITION_PLAN_2026-09-09.md)。计划、整图及示例金额不等于已实现功能或经济配置。`art-source/`、`assets/art/` 与旧批次文档保留原制作状态，本次正式接入结果不改写历史 `static-only` 边界。
+- **历史资料**：[清理任务开发重心原文快照](docs/history/DEVELOPMENT_FOCUS_CLEANUP_2026-09-09.md)保留上一任务的完整范围。旧路径只描述当时状态，本轮不恢复已删除的 `archive/` 内容。
 
-工作区可能包含并行任务的美术接入修改；清理不删除这些修改，也不以旧报告的测试数量宣称它们已完成或已验收。
+本次只验收首代新视觉。第 2～6 代继续使用已有显示路径，六代成长仍可进行，不表示六代已全部换肤。画面是否通过以本次验收记录为准，不以测试数量或资源加载成功替代视觉判断。
 
 ## 运行与检查
 
@@ -25,7 +26,15 @@ npm run preflight
 
 [浏览器正式入口](http://127.0.0.1:4173)仅监听本机。`npm test` 先构建当前源码；`preflight:strict` 可作更严格静态检查，不能替代真机或账号权限验证。`build:dev` 仍禁用连点和模拟广告。
 
-`tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，不要手改生成包。素材目录中存在 PNG 不代表已进入双端包；以构建实现及产物核查为准。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
+`tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，并调用 `tools/art-build.mjs` 从现有装配源数据生成运行清单、复制当前引用的 41 个 PNG。两端资源按尺寸与逐文件 SHA-256 核对；整屏参考图、源图和未引用资源不随包发布。不要手改生成包或 `src/art-manifest.js`。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
+
+## 首代正式视觉接入
+
+正式入口通过 `src/first-generation-scene.js` 绘制新美术三工位、两仓和输送路径；`src/interface.js` 绘制主 HUD、工位改造和购买折叠条。`src/art-assets.js` 统一浏览器与抖音图片加载；`src/art-layout.js` 让原图、装配、裁切、端口、工作头与命中区共用坐标变换。UI 使用可伸缩底板，所有文案、数值与状态标记运行时绘制。
+
+生产表现读取真实批次、库存与已发生事件；缺料停止加工，堵塞保留完成品，升级不改变旧批次 `amount`，出货动画不产生库存或金币。此次接入未修改 `src/core.js` 或 `src/factory-rules.js`。
+
+画面验收覆盖 390×844、320×524、安全区、展开/折叠、首次装杯升级、缺料和满仓。极短可用空间保留两行设备/整线比较及 44×44 操作区，辅助说明通过“详情”查看。验收工具使用隔离的本地环境运行同一正式入口与游戏包，已有用户存档保留。
 
 ## 当前生产规则
 
@@ -52,10 +61,13 @@ npm run preflight
 | --- | --- |
 | `src/factory-rules.js`、`src/core.js` | 数值配置、真实生产、成长、守恒与存档 |
 | `src/production-insights.js` | 只读预测、瓶颈观察与改造说明 |
-| `src/production-scene.js`、`src/interface.js`、`src/renderer.js` | 场景、界面与命中映射 |
-| `art-source/`、`assets/art/` | 并行任务的美术源文件与导出素材；保留，制作状态由该任务维护 |
+| `src/first-generation-scene.js` | 首代新美术分层装配、真实状态表现与生产路径 |
+| `src/production-scene.js`、`src/interface.js`、`src/renderer.js` | 高代已有显示路径、界面与命中映射 |
+| `src/art-assets.js`、`src/art-layout.js`、`src/art-manifest.js` | 双端图片加载、统一变换与生成的运行资源清单 |
+| `art-source/`、`assets/art/` | 已有美术装配源数据与导出素材，保留各批次原始制作边界 |
 | `src/main.js`、`src/platform.js`、`src/audio.js` | 正式入口、输入/报价、生命周期、平台与声音 |
-| `tools/build.mjs`、`tools/bundle.mjs`、`tools/serve.mjs`、`tools/preflight.mjs` | 构建、打包、本地服务与预检 |
+| `tools/build.mjs`、`tools/art-build.mjs`、`tools/bundle.mjs`、`tools/serve.mjs`、`tools/preflight.mjs` | 构建、资源清单与双端复制、打包、本地服务与预检 |
+| `tools/serve-acceptance.mjs`、`tools/acceptance-runtime.js`、`tools/visual-acceptance.mjs` | 隔离验收环境、正式入口运行截图/录屏支持与真实状态样例 |
 | `tests/` | 当前源码的技术回归 |
 
-旧界面截图、旧测试数量和旧包体记录已退出当前完成状态说明；追溯时见 [清理前入口快照](archive/pipeline-v2/README_BEFORE_DOC_CLEANUP_2026-09-09.md)。当前代码是否通过，以本次运行结果为准。
+旧界面截图、旧测试数量和旧包体记录不属于本次完成状态。当前构建、测试、媒体证据与未覆盖范围统一见 [首代画面验收记录](docs/GEN1_VISUAL_ACCEPTANCE_2026-09-09.md)。

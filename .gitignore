@@ -1,5 +1,6 @@
 node_modules/
 web/game.bundle.js
+web/assets/art/
 build/
 artifacts/
 *.log
