@@ -9,12 +9,49 @@ const { Game } = require('../src/core');
 const START = 1800000000000;
 const KEY = 'little_popcorn_factory_pipeline_v2';
 
+test('v15 default browser package exposes both real transfer paths, purchases and unattended dispatch', () => {
+  for (const size of [{ width: 320, height: 524 }, { width: 390, height: 844 }]) {
+    const h = browserBoot({ ...size, mode: 'v15' });
+    assert.equal(h.snapshot().mode, 'v15'); h.verifyControls();
+    for (let i = 0; i < 3; i++) h.frame(1000);
+    h.clickAction('transfer-source-pop', 'touch'); h.clickAction('transfer-target-cup', 'touch');
+    for (let i = 0; i < 3; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 0);
+    const from = h.point('transfer-source-cup'), to = h.point('transfer-target-ship');
+    h.event('pointerdown', from.x, from.y, 'touch'); h.event('pointermove', to.x, to.y, 'touch');
+    h.frame(16); h.event('pointerup', to.x, to.y, 'touch'); h.frame(0);
+    for (let i = 0; i < 2; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 4);
+    h.clickAction('station:cup'); h.verifyControls(); h.clickAction('collapseStation'); h.clickAction('close');
+    h.clickAction('openLogistics'); h.verifyControls(); h.clickAction('close');
+    assert.equal(h.storage.has(KEY), false);
+  }
+  const g = new Game({ mode: 'v15', now: START });
+  for (let i = 0; i < 50; i++) {
+    g.tick(8);
+    for (const source of ['pop', 'cup']) { const r = g.reserveTransfer(source); if (r.ok) g.commitTransfer(r.token); }
+  }
+  assert.equal(g.buyUpgrade('cup').ok, true);
+  const h = browserBoot({ mode: 'v15', save: g.exportSave(START) });
+  const before = h.snapshot().state.totalSpent;
+  h.clickAction('openLogistics'); h.clickAction('automate-pop'); h.clickAction('automate-cup');
+  assert.ok(h.snapshot().transfers.every(t => t.automated));
+  assert.equal(h.snapshot().state.totalSpent - before, 460);
+  h.clickAction('upgrade-logistics');
+  assert.equal(h.snapshot().state.logisticsLevel, 1);
+  h.clickAction('close');
+  const sold = h.snapshot().state.totalSold;
+  for (let i = 0; i < 60; i++) h.frame(1000);
+  assert.ok(h.snapshot().state.totalSold > sold);
+  assert.ok(h.snapshot().automaticTrial.complete);
+});
+
 // Real built main + platform + renderer + core. Only browser DOM primitives,
 // its animation clock and Canvas drawing calls are supplied by this fixture.
-function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top = 0, save = null } = {}) {
+function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top = 0, save = null, experiment = null, mode = 'baseline' } = {}) {
   const drawing = canvasHarness(), pointerEvents = {}, documentEvents = {}, windowEvents = {}, storage = new Map();
   let renderer = null, now = START, nextFrame = null;
-  if (save) storage.set(KEY, JSON.stringify(save));
+  if (save) storage.set(save.version === 4 ? 'little_popcorn_factory_automation_v4' : KEY, JSON.stringify(save));
   const rect = { left, top, width, height, right: left + width, bottom: top + height };
   const canvas = {
     style: {}, setAttribute() {}, getContext(type) { assert.equal(type,'2d'); return drawing.ctx; },
@@ -27,6 +64,7 @@ function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top 
     addEventListener(name, fn) { documentEvents[name] = fn; }
   };
   const window = {
+    location: { search: experiment ? '?experiment=' + experiment : mode === 'baseline' ? '?mode=baseline' : '' },
     innerWidth: width, innerHeight: height, devicePixelRatio: pixelRatio,
     addEventListener(name, fn) { windowEvents[name] = fn; },
     localStorage: { getItem: key => storage.get(key), setItem: (key,value) => storage.set(key,value) }
@@ -144,5 +182,33 @@ test('repeated real pointer taps at the former purchase position never arm or bu
     h.clickAction('reviewUpgrade');
     h.clickAction('upgrade:cup:2');
     assert.equal(h.snapshot().state.upgrades.cup, 2, 'explicitly reviewing the next quote still permits purchase');
+  }
+});
+
+test('P0 browser bundle uses actual transfer hit regions for drag and two-tap on mobile and desktop', () => {
+  for (const options of [{ width: 320, height: 524 }, { width: 390, height: 844, pixelRatio: 3, left: 12, top: 20 }, { width: 960, height: 900 }]) {
+    const h = browserBoot({ ...options, experiment: 'manual-transfer-p0' });
+    for (let i = 0; i < 4; i++) h.frame(1000);
+    h.verifyControls();
+    assert.equal(h.snapshot().state.totalSold, 0);
+    h.clickAction('transfer:source', 'touch', true);
+    assert.equal(h.snapshot().transfer.reservedAmount, 4);
+    h.clickAction('transfer:target', 'touch', true);
+    assert.equal(h.snapshot().transfer.reservedAmount, 0);
+    assert.equal(h.snapshot().state.transfer.transferredAmount, 4);
+    for (let i = 0; i < 4; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 4);
+    const from = h.point('transfer:source'), to = h.point('transfer:target');
+    h.event('pointerdown', from.x, from.y, 'mouse');
+    h.event('pointermove', to.x, to.y, 'mouse'); h.frame(16);
+    h.event('pointerup', to.x, to.y, 'mouse'); h.frame(0);
+    assert.equal(h.snapshot().state.transfer.transferredAmount, 16);
+    assert.equal(h.snapshot().state.totalSpent, 0);
+    for (let i = 0; i < 8; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 16);
+    assert.equal(h.storage.has(KEY), false, 'formal key was never created by the prototype');
+    const saved = JSON.parse(h.storage.get('little_popcorn_factory_manual_transfer_p0_v3'));
+    assert.equal(saved.experiment, 'manual-transfer-p0');
+    assert.equal(saved.version, 3);
   }
 });

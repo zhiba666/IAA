@@ -18,14 +18,14 @@
       "otherRuntimeFiles": [
         {
           "path": "index.html",
-          "bytes": 2022
+          "bytes": 2044
         },
         {
           "path": "game.bundle.js",
-          "bytes": 137671
+          "bytes": 203419
         }
       ],
-      "totalRuntimeBytes": 3914701
+      "totalRuntimeBytes": 3980471
     },
     {
       "directory": "build/douyin",
@@ -51,7 +51,7 @@
         },
         {
           "path": "game.bundle.js",
-          "bytes": 137671
+          "bytes": 203419
         },
         {
           "path": "audio/upgrade.wav",
@@ -70,7 +70,7 @@
           "bytes": 6220
         }
       ],
-      "totalRuntimeBytes": 4007408
+      "totalRuntimeBytes": 4073156
     }
   ],
   "excluded": [

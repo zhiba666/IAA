@@ -2,7 +2,7 @@
 
 const { ProductionScene } = require('./production-scene');
 const { ART_RIGS, ART_ASSETS } = require('./art-manifest');
-const { createArtTransform, drawArtLayer, clipArtPolygon, minimumHitRect } = require('./art-layout');
+const { createArtTransform, drawArtLayer, clipArtPolygon, minimumHitRect, transferRailLayout } = require('./art-layout');
 const clamp = n => Math.max(0, Math.min(1, Number.isFinite(n) ? n : 0));
 
 // Only generation one uses these assemblies. The simulation never enters this module.
@@ -50,11 +50,13 @@ class FirstGenerationScene extends ProductionScene {
     return { nodes, compact };
   }
   draw(x, y, w, h, view) {
+    this.transferFrames=[];
     if (view.state.machine !== 0) { this.artGeneration = null; return super.draw(x,y,w,h,view); }
     this.artGeneration = 0;
     if (![x,y,w,h].every(Number.isFinite) || w<=0 || h<=0) return;
     this.frame={x,y,w,h}; this.stationFrames=[]; this.bufferFrames=[];
-    const {nodes,compact}=this.placements(w,h), c=this.c, identity=createArtTransform();
+    const manual=!!view.transfer?.enabled, v15=view.mode==='v15', transferH=v15?132:manual?80:0;
+    const {nodes,compact}=this.placements(w,h-transferH), c=this.c, identity=createArtTransform();
     const byId=Object.fromEntries(nodes.map(node=>[node.id,node]));
     this.diagnostics={layout:compact?'compact-return-loop':'tall-zigzag',machines:[],buffers:[],connections:[],frame:{x,y,w,h}};
     c.save(); this.box(x,y,w,h,16,'#f0e1c4'); c.clip();
@@ -74,12 +76,100 @@ class FirstGenerationScene extends ProductionScene {
     // Labels are a final live text layer, never part of a machine PNG.
     for(const id of ['pop','cup','ship'])this.machineLabel(byId[id],view.stations.find(s=>s.id===id),view,compact);
     for(const id of ['bulk','cups'])this.stockLabel(byId[id],view.buffers[id==='bulk'?0:1],compact);
+    if(v15)this.logisticsControls(byId,view);
+    else if(manual)this.transferControls(byId,view);
     if(this.delivery) {
       const node=byId.outfeed,p=1-this.delivery.remaining/this.delivery.duration,rect=node.rect;
       this.label('+'+this.delivery.coins+' 金',Math.min(x+w-28,rect[0]+rect[2]*.6),Math.min(y+h-10,rect[1]+rect[3]+4),12,'#176968','center');
     }
     c.restore();
     return {frame:this.frame,stationFrames:this.stationFrames,bufferFrames:this.bufferFrames};
+  }
+  logisticsControls(nodes,view) {
+    const {x,y,w,h}=this.frame,held=view.presentation?.transfer;
+    this.diagnostics.transfers=[];
+    for(const row of transferRailLayout(this.frame)) {
+      const transfer=view.transfers.find(item=>item.source===row.source);
+      if(!transfer)continue;
+      const buffer=view.buffers.find(item=>item.id===row.source),source=row.tray,target=row.input;
+      const amount=held?.source===row.source?held.amount:0,free=Math.max(0,transfer.inputCapacity-transfer.inputAmount);
+      const legal=amount>0&&free>0,ready=legal&&held?.overTarget;
+      this.transferFrames.push(source,target);
+      this.box(source.x,source.y,source.w,source.h,10,amount?'#fff0bc':'#fff7df',amount?'#267d7e':'#bd9b59');
+      this.box(target.x,target.y,target.w,target.h,10,ready?'#c9e8bd':legal?'#e4f1d8':'#f2f4e7',legal?'#267d7e':'#98a48a');
+      const sx=source.x+source.w/2,tx=target.x+target.w/2,yy=source.y;
+      this.label((row.source==='pop'?'待装仓 ':'待发仓 ')+buffer.amount+'/'+buffer.capacity,sx,yy+11,11,'#4d623d','center');
+      this.label(amount?'已拿 '+amount+' 份':transfer.automated?'自动补料中':buffer.amount?'搬一批 · 最多'+transfer.batchSize:'等待上游出料',sx,yy+29,11,transfer.automated?'#236853':'#765022','center');
+      this.label(amount?'再点右侧入口':transfer.automated?'已接通 · 无需手动':'拖动 / 点选',sx,yy+45,10,transfer.automated?'#38654d':'#80532a','center');
+      this.label((row.target==='cup'?'装杯入口 ':'出货入口 ')+transfer.inputAmount+'/'+transfer.inputCapacity,tx,yy+11,11,'#285f54','center');
+      this.label(ready?'松手放入':free===0?'入口已满':amount?'放到这里':transfer.automated?'自动送入':'点选后放入',tx,yy+29,11,free===0?'#946337':'#236853','center');
+      this.label(transfer.automated?'已接通 · 自动补料':'未接通 · 手动送入',tx,yy+45,10,transfer.automated?'#38654d':'#80532a','center');
+      this.label('→',x+w/2,yy+28,17,transfer.automated?'#267d7e':'#ad8842','center');
+      const bin=nodes[row.source==='pop'?'bulk':'cups'],portNode=nodes[row.target];
+      if(bin){const br=bin.rect;this.box(br[0]-2,br[1]-2,br[2]+4,br[3]+4,8,'rgba(255,236,168,.12)',amount?'#268078':transfer.automated?'#83a383':'#be913b');}
+      const port=portNode?.transform.point(portNode.rig.input);
+      if(port){this.circle(port[0],port[1],5,legal?'#267d7e':transfer.automated?'#83a383':'#bd9b59');}
+      let physicalInput=null;
+      if(port&&amount>0&&held?.dragging){
+        // A drag may land on the real machine inlet as well as the large rail.
+        // Activate only the carried route, only for the gesture: ordinary taps
+        // still select every machine, including on the smallest safe-area view.
+        const rect=minimumHitRect([port[0]-28,port[1]-28,56,56],56,[x,y,w,h-132]);
+        physicalInput={x:rect[0],y:rect[1],w:rect[2],h:rect[3],source:row.source,target:row.target,kind:'port',action:target.action};
+        this.transferFrames.push(physicalInput);
+        this.box(rect[0],rect[1],rect[2],rect[3],10,legal?'rgba(221,242,207,.16)':'rgba(245,220,186,.16)',legal?'#267d7e':'#ad8842');
+        this.circle(port[0],port[1],8,legal?'#267d7e':'#ad8842');
+        this.label('↓',port[0],port[1]-1,12,'#fffaf0','center');
+      }
+      this.diagnostics.transfers.push({source,target,amount,inputAmount:transfer.inputAmount,inputCapacity:transfer.inputCapacity,automated:transfer.automated,legal,overTarget:!!ready,inputPoint:port,physicalInput});
+    }
+  }
+  transferControls(nodes,view) {
+    const {x,y,w,h}=this.frame,transfer=view.transfer,held=view.presentation?.transfer;
+    const amount=held?.amount||transfer.reservedAmount||0,free=Math.max(0,transfer.inputCapacity-transfer.inputAmount);
+    const legal=amount>0&&free>0,ready=legal&&held?.overTarget,buffer=view.buffers[0];
+    const railY=y+h-66,cardW=(w-40)/2;
+    const source={x:x+8,y:railY,w:cardW,h:60,action:'transfer:source',kind:'tray'};
+    const target={x:x+w-8-cardW,y:railY,w:cardW,h:60,action:'transfer:target',kind:'input'};
+    // The bin itself and its enlarged tray are two views of the same inventory.
+    // Neither takes stock: the input controller owns the reservation transaction.
+    const bounds=[x,y,w,h-80],port=nodes.cup.transform.point(nodes.cup.rig.input);
+    // Keep the real input point inside a generous target extending towards the
+    // incoming material. The machine's centre remains available for upgrades.
+    const inputRect=minimumHitRect([port[0]-50,port[1]-50,56,56],56,bounds);
+    const input={x:inputRect[0],y:inputRect[1],w:inputRect[2],h:inputRect[3],action:'transfer:target',kind:'port'};
+    const bin=minimumHitRect(nodes.bulk.rect,56,bounds);
+    const overlapsInput=rect=>rect[0]<input.x+input.w&&rect[0]+rect[2]>input.x&&rect[1]<input.y+input.h&&rect[1]+rect[3]>input.y;
+    if(overlapsInput(bin)){
+      const centre=[nodes.bulk.rect[0]+nodes.bulk.rect[2]/2,nodes.bulk.rect[1]+nodes.bulk.rect[3]/2];
+      const candidates=[[bin[0],input.y+input.h+4,bin[2],bin[3]],
+        [input.x-bin[2]-4,bin[1],bin[2],bin[3]],[bin[0],input.y-bin[3]-4,bin[2],bin[3]]];
+      const fit=candidates.find(rect=>rect[0]>=x&&rect[1]>=y&&rect[0]+rect[2]<=x+w&&rect[1]+rect[3]<=y+h-80
+        &&centre[0]>=rect[0]&&centre[0]<=rect[0]+rect[2]&&centre[1]>=rect[1]&&centre[1]<=rect[1]+rect[3]&&!overlapsInput(rect));
+      if(fit){bin[0]=fit[0];bin[1]=fit[1];}
+    }
+    this.transferFrames.push({x:bin[0],y:bin[1],w:bin[2],h:bin[3],action:'transfer:source',kind:'bin'},source,input,target);
+    const br=nodes.bulk.rect;
+    this.box(br[0]-2,br[1]-2,br[2]+4,br[3]+4,9,'rgba(255,236,168,.14)',amount?'#268078':'#be913b');
+    this.box(input.x,input.y,input.w,input.h,10,ready?'rgba(201,232,189,.94)':legal?'rgba(228,241,216,.88)':'rgba(255,250,232,.78)',legal?'#267d7e':'#8b9c81');
+    this.label(ready?'松手放入':'装杯入口',input.x+input.w/2,input.y+16,11,'#285f54','center');
+    this.label(free===0?'已满':transfer.inputAmount+'/'+transfer.inputCapacity,input.x+input.w/2,input.y+34,11,free===0?'#946337':'#285f54','center');
+    this.circle(port[0],port[1],8,legal?'#267d7e':'#8b9c81');
+    this.label('↓',port[0],port[1]-1,12,'#fffaf0','center');
+    this.box(x+4,railY-18,w-8,80,12,'rgba(255,250,232,.95)');
+    this.label('A 段未接通 · 手动送入装杯',x+12,railY-8,11,'#80532a');
+    this.label('B 段正常',x+w-12,railY-8,10,'#38654d','right');
+    this.box(source.x,source.y,source.w,source.h,10,amount?'#fff0bc':'#fff6db',amount?'#267d7e':'#bd9b59');
+    this.box(target.x,target.y,target.w,target.h,10,ready?'#c9e8bd':legal?'#e4f1d8':'#e6eadb',legal?'#267d7e':'#98a48a');
+    const sx=source.x+source.w/2,tx=target.x+target.w/2;
+    this.label('待装仓 '+buffer.amount+'/'+buffer.capacity,sx,railY+12,11,'#4d623d','center');
+    this.label(amount?'手持 '+amount+' 份':buffer.amount?'拿一批 · 最多'+transfer.batchSize+'份':'等待爆锅出料',sx,railY+31,12,'#765022','center');
+    this.label(amount?'再点右侧入口':'拖动 / 点选',sx,railY+48,10,'#80532a','center');
+    this.label('装杯进料 '+transfer.inputAmount+'/'+transfer.inputCapacity,tx,railY+12,11,'#285f54','center');
+    this.label(free===0?'进料位已满':ready?'松手放入':amount?'放到这里':'等待送入',tx,railY+31,12,free===0?'#946337':'#236853','center');
+    this.label(free===0?'等加工腾出空位':'送入后自动加工',tx,railY+48,10,'#577260','center');
+    this.label('→',x+w/2,railY+30,18,'#779064','center');
+    this.diagnostics.transfer={source,sourceBin:this.transferFrames[0],target,inputPort:input,inputPoint:port,amount,inputAmount:transfer.inputAmount,inputCapacity:transfer.inputCapacity,legal,overTarget:!!held?.overTarget};
   }
   label(text,x,y,size=12,color='#195b60',align='left') {
     const c=this.c;c.font=`700 ${size}px "Microsoft YaHei", "PingFang SC", sans-serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;c.fillText(text,x,y);
@@ -108,14 +198,21 @@ class FirstGenerationScene extends ProductionScene {
   }
   machineLabel(node,station,view,compact) {
     const r=node.rect,selected=view.presentation?.selectedStationId===station.id;
+    const compactLabel=compact||(view.transfer?.enabled&&station.id==='cup');
     let x,y,align='left';
-    if(compact){x=r[0]+r[2]/2;y=station.id==='ship'?r[1]+r[3]+7:r[1]-7;align='center';}
+    if(compactLabel){x=r[0]+r[2]/2;y=station.id==='ship'?r[1]+r[3]+7:r[1]-7;align='center';}
     else if(station.id==='cup'){x=r[0]-6;y=r[1]+r[3]*.55;align='right';}
     else{x=r[0]+r[2]+10;y=r[1]+r[3]*(station.id==='ship'?.72:.38);}
     x=Math.min(this.frame.x+this.frame.w-70,Math.max(this.frame.x+35,x));
+    if(view.transfer?.enabled&&view.mode!=='v15'&&station.id==='cup'){
+      const port=node.transform.point(node.rig.input),bounds=[this.frame.x,this.frame.y,this.frame.w,this.frame.h-80];
+      const input=minimumHitRect([port[0]-50,port[1]-50,56,56],56,bounds);
+      if(x-48<input[0]+input[2]&&x+48>input[0]&&y+9>input[1]&&y-9<input[1]+input[3])
+        x=Math.min(this.frame.x+this.frame.w-52,input[0]+input[2]+52);
+    }
     const name=(selected?'▸ ':'')+station.name;
     const state={running:'加工中',waiting:'等供料',blocked:'等空位'}[station.status];
-    if(compact){
+    if(compactLabel){
       this.box(x-48,y-9,96,18,5,'rgba(255,250,232,.94)');
       this.label(name+' · '+state,x,y,11,station.status==='running'?'#176c68':'#80532a',align);
     }else {this.label(name,x,y,17,'#164f54',align);this.label(state,x,y+22,12,station.status==='running'?'#176c68':'#8a5b2f',align);}
@@ -149,6 +246,13 @@ class FirstGenerationScene extends ProductionScene {
   }
   belt(node,view) {
     const {rig,transform:t}=node;
+    const connection=node.id==='belt_bulk_cup'?'pop':node.id==='belt_stock_ship'?'cup':null;
+    const disconnected=view.mode==='v15'?connection&&!view.transfers.find(item=>item.source===connection)?.automated:view.transfer?.enabled&&node.id==='belt_bulk_cup';
+    if(disconnected){
+      const a=t.point(rig.input),b=t.point(rig.output),c=this.c;
+      c.save();if(c.setLineDash)c.setLineDash([4,5]);this.line(a[0],a[1],b[0],b[1],'#b79963',3);c.restore();
+      return;
+    }
     for(const layer of rig.layers.filter(l=>l.layer<30))this.part(layer,t);
     const points=(rig.path||[rig.input,rig.output]).map(point=>t.point(point));
     const segments=points.slice(1).map((point,i)=>({a:points[i],b:point,length:Math.hypot(point[0]-points[i][0],point[1]-points[i][1])}));

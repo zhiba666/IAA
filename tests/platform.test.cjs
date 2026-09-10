@@ -32,7 +32,8 @@ function harness(options = {}) {
     onTouchEnd(fn) { pointerEvents.touchend = fn; },
     onTouchCancel(fn) { pointerEvents.touchcancel = fn; },
     getStorageSync(key) { if (options.storageFailure) throw new Error('storage denied'); return storage.get(key); },
-    setStorageSync(key, value) { if (options.storageFailure) throw new Error('storage full'); storage.set(key, value); },
+    setStorageSync(key, value) { if (options.storageFailure || key === options.writeFailureKey) throw new Error('storage full'); storage.set(key, key === options.corruptWriteKey ? 'incomplete' : value); },
+    removeStorageSync(key) { storage.delete(key); },
     createRewardedVideoAd(config) { rewards.push(config); return {}; },
     createInterstitialAd(config) { interstitials.push(config); return {}; }
   };
@@ -43,19 +44,22 @@ function harness(options = {}) {
     addEventListener(name, fn) { browserEvents[name] = fn; }
   };
   const window = {
+    location: { search: options.search || '' },
     innerWidth: 480, innerHeight: 920, devicePixelRatio: 2,
     addEventListener(name, fn) { browserEvents[name] = fn; },
     localStorage: {
       getItem(key) { if (options.storageFailure) throw new Error('storage denied'); return storage.get(key); },
-      setItem(key, value) { if (options.storageFailure) throw new Error('storage full'); storage.set(key, value); }
+      setItem(key, value) { if (options.storageFailure || key === options.writeFailureKey) throw new Error('storage full'); storage.set(key, key === options.corruptWriteKey ? 'incomplete' : value); },
+      removeItem(key) { storage.delete(key); }
     }
   };
   const context = vm.createContext({
+    require: name => require(path.resolve(__dirname, '../src', name)),
     module: { exports: {} },
     Date: class extends Date { static now() { return now; } },
     setTimeout(fn, delay) { const id = nextTimer++; timers.set(id, { fn, at: now + delay }); return id; },
     clearTimeout(id) { timers.delete(id); },
-    POPCORN_CONFIG: Object.assign({ appId: 'tt-live-app', rewardAdUnitId: 'live-reward-unit', interstitialAdUnitId: 'live-interstitial-unit' }, options.config),
+    POPCORN_CONFIG: Object.assign({ mode: 'baseline', appId: 'tt-live-app', rewardAdUnitId: 'live-reward-unit', interstitialAdUnitId: 'live-interstitial-unit' }, options.config),
     ...(options.browser ? { document, window } : { tt: sdk })
   });
   vm.runInContext(source, context, { filename: 'src/platform.js' });
@@ -243,4 +247,88 @@ test('pipeline storage uses only the v2 key and leaves the original save untouch
     assert.equal(h.platform.load().coins, 12);
     assert.equal(h.storage.get(oldKey), oldSave);
   }
+});
+
+test('P0 opt-in isolates all reads and writes from both old save keys on browser and native', () => {
+  const { CONFIG } = require('../src/factory-rules');
+  for (const browser of [false, true]) {
+    const h = harness({ browser, config: { experiment: CONFIG.transferExperiment.id } });
+    const old = '{"version":2,"coins":789}';
+    h.storage.set('little_popcorn_factory_pipeline_v2', old);
+    h.storage.set('little_popcorn_factory_v1', 'old factory');
+    assert.equal(h.platform.saveKey, CONFIG.transferExperiment.saveKey);
+    assert.equal(h.platform.load(), null);
+    const data = { version: 3, experiment: CONFIG.transferExperiment.id, coins: 12 };
+    assert.equal(h.platform.save(data), true);
+    assert.equal(h.platform.load().coins, 12);
+    assert.equal(h.storage.get('little_popcorn_factory_pipeline_v2'), old);
+    assert.equal(h.storage.get('little_popcorn_factory_v1'), 'old factory');
+  }
+});
+
+test('only the exact P0 browser switch enables experimental storage', () => {
+  for (const search of ['?experiment=manual-transfer-p0', '?x=1&experiment=manual-transfer-p0&y=2']) {
+    const h = harness({ browser: true, search });
+    assert.equal(h.platform.config.experiment, 'manual-transfer-p0');
+    assert.equal(h.platform.saveKey, 'little_popcorn_factory_manual_transfer_p0_v3');
+  }
+  for (const search of ['', '?experiment=manual-transfer', '?experiment=manual-transfer-p0-other', '?otherexperiment=manual-transfer-p0']) {
+    const h = harness({ browser: true, search, config: { experiment: true } });
+    assert.equal(h.platform.config.experiment, null);
+    assert.equal(h.platform.saveKey, 'little_popcorn_factory_pipeline_v2');
+  }
+});
+
+test('browser blur cancels tap-selected input even after the pointer has been released', () => {
+  const h = harness({ browser: true });
+  let cancelled = 0;
+  h.platform.onInputCancel(() => cancelled++);
+  browserPointer(h, 'pointerdown', 1); browserPointer(h, 'pointerup', 1);
+  h.browserEvents.blur();
+  assert.equal(cancelled, 1);
+});
+
+test('v15 default storage migrates by preserving raw v2 before writing and verifying v4', () => {
+  for (const browser of [true, false]) {
+    const h = harness({ browser, config: { mode: undefined } });
+    const key = 'little_popcorn_factory_automation_v4';
+    const original = '{ "version": 2, "coins": 42 }';
+    h.storage.set('little_popcorn_factory_pipeline_v2', original);
+    h.storage.set('little_popcorn_factory_v1', 'untouched v1');
+    assert.equal(h.platform.config.mode, 'v15');
+    assert.equal(h.platform.saveKey, key);
+    assert.equal(h.platform.load().version, 2);
+    assert.equal(h.platform.save({ version: 4, mode: 'v15', coins: 42 }), true);
+    assert.equal(h.storage.get(key + '_backup_v2'), original);
+    assert.equal(h.storage.get('little_popcorn_factory_pipeline_v2'), original);
+    assert.equal(h.storage.get('little_popcorn_factory_v1'), 'untouched v1');
+    assert.equal(h.platform.load().version, 4);
+    assert.equal(h.platform.save({ version: 2 }), false, 'a fallback legacy run cannot overwrite the v4 key');
+  }
+});
+test('v15 backup and new save failures preserve original v2 and are explicitly reported', () => {
+  const key = 'little_popcorn_factory_automation_v4';
+  for (const browser of [true, false]) for (const failure of [
+    { writeFailureKey: key + '_backup_v2' }, { writeFailureKey: key },
+    { corruptWriteKey: key + '_backup_v2' }, { corruptWriteKey: key }
+  ]) {
+    const h = harness({ browser, config: { mode: 'v15' }, ...failure });
+    const original = '{"version":2,"coins":321}';
+    h.storage.set('little_popcorn_factory_pipeline_v2', original);
+    assert.equal(h.platform.load().version, 2);
+    assert.equal(h.platform.save({ version: 4, mode: 'v15', coins: 321 }), false);
+    assert.ok(h.platform.lastStorageError);
+    assert.equal(h.storage.get('little_popcorn_factory_pipeline_v2'), original);
+    assert.equal(h.storage.has(key), false, 'a failed new document is not activated on the next launch');
+    if (failure.writeFailureKey?.endsWith('_backup_v2') || failure.corruptWriteKey?.endsWith('_backup_v2')) assert.equal(h.storage.has(key), false);
+  }
+});
+test('baseline query and P0 override complete mode while default startup never loads P0', () => {
+  const baseline = harness({ browser: true, search: '?mode=baseline', config: { mode: 'v15' } });
+  assert.equal(baseline.platform.saveKey, 'little_popcorn_factory_pipeline_v2');
+  const p0 = harness({ browser: true, search: '?experiment=manual-transfer-p0', config: { mode: 'v15' } });
+  assert.equal(p0.platform.saveKey, 'little_popcorn_factory_manual_transfer_p0_v3');
+  const current = harness({ browser: true, config: { mode: undefined } });
+  current.storage.set('little_popcorn_factory_manual_transfer_p0_v3', '{"version":3}');
+  assert.equal(current.platform.load(), null);
 });

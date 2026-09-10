@@ -9,6 +9,12 @@ const spec = (name, cost, requiredMachine, lanes, batchSize, cycleTicks) => ({
 });
 const CONFIG = {
   version: 2,
+  // Opt-in P0 uses its own schema and storage key; the v2 economy stays intact.
+  transferExperiment: {
+    id: 'manual-transfer-p0', version: 3,
+    saveKey: 'little_popcorn_factory_manual_transfer_p0_v3',
+    transferBatch: 12, inputCapacity: 12, tutorialBatch: 4
+  },
   title: '小小爆米花厂',
   ticksPerSecond: TICKS_PER_SECOND,
   rateWindowSeconds: 10,
@@ -53,6 +59,37 @@ const CONFIG = {
     { id: 4, name: '自动流水线', description: '开放双份加工与四道整箱出货', color: '#9c86cf', cost: 12500, requiredSold: 8500, targetRate: 22, buffers: { pop: 192, cup: 192 } },
     { id: 5, name: '巨型爆米花塔', description: '扩建六头加工阵列，接通高速整箱出货', color: '#e5ad4d', cost: 38000, requiredSold: 26000, targetRate: 48, buffers: { pop: 384, cup: 384 } }
   ]
+};
+// The product's v1.5 rollout advances the save schema; v2 and the P0 experiment
+// remain separate replayable profiles. Existing level numbers never change.
+CONFIG.automation = {
+  id: 'v15', version: 4, saveKey: 'little_popcorn_factory_automation_v4',
+  tutorialBatch: 4, transportCycleTicks: 120, trialSeconds: 45,
+  routes: {
+    pop: { source: 'pop', target: 'cup', name: '自动补料', cost: 130, requiredMachine: 0 },
+    cup: { source: 'cup', target: 'ship', name: '自动送货', cost: 330, requiredMachine: 0 }
+  },
+  logisticsLevels: [
+    { name: '整盘搬运', cost: 0, requiredMachine: 0, transferBatch: 24, inputCapacity: 24, bufferCapacity: 24 },
+    { name: '加大托盘与料仓', cost: 60, requiredMachine: 0, transferBatch: 36, inputCapacity: 36, bufferCapacity: 36 },
+    { name: '扩容物流仓', cost: 180, requiredMachine: 1, transferBatch: 48, inputCapacity: 48, bufferCapacity: 48 },
+    { name: '大批量物流仓', cost: 650, requiredMachine: 2, transferBatch: 96, inputCapacity: 96, bufferCapacity: 96 }
+  ],
+  stations: {
+    pop: CONFIG.stations.pop,
+    cup: { name: CONFIG.stations.cup.name, levels: [
+      spec('单头装杯', 0, 0, 1, 1, 60),
+      spec('顺畅装杯头', 30, 0, 1, 1, 40),
+      spec('连续装杯头', 90, 0, 1, 1, 30),
+      spec('快速装杯头', 180, 0, 1, 1, 20),
+      ...CONFIG.stations.cup.levels.slice(2)
+    ] },
+    ship: CONFIG.stations.ship
+  },
+  machines: CONFIG.machines.map((machine, index) => index === 1
+    ? { ...machine, cost: 650, requiredSold: 1200, targetRate: 3,
+      description: '自动试运行达标，扩建双锅与双头装杯' }
+    : machine)
 };
 function freezeTree(value) {
   for (const child of Object.values(value)) if (child && typeof child === 'object') freezeTree(child);

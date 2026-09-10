@@ -5,12 +5,13 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest.js');
+const { CONFIG } = require('../src/factory-rules.js');
 
 const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const AUDIO_FILES = ['upgrade', 'machine', 'click', 'error'].map(name => `audio/${name}.wav`);
 export const ART_FILES = ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path);
 export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES, ...ART_FILES];
-const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false };
+const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, experiment: null, mode: 'v15' };
 const ID_LABELS = { appId: '小游戏 AppID' };
 const MAX_PACKAGE_BYTES = 20 * 1024 * 1024;
 
@@ -76,8 +77,19 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     for (const key of ['allowSimulatedAds', 'analyticsEnabled', 'debug', 'developerHoldTap']) {
       if (config[key] !== undefined && typeof config[key] !== 'boolean') add(`${label}-${key}-type`, 'error', `${label}配置 ${key} 必须是 true 或 false。`);
     }
+    if (config.experiment !== undefined && config.experiment !== null && config.experiment !== CONFIG.transferExperiment.id) {
+      add(`${label}-experiment-value`, 'error', `${label}配置 experiment 只能为 null 或 "${CONFIG.transferExperiment.id}"。`);
+    }
+    if (config.mode !== undefined && !['v15', 'baseline'].includes(config.mode)) {
+      add(`${label}-mode-value`, 'error', `${label}配置 mode 只能为 "v15" 或 "baseline"。`);
+    }
   }
   if (built) {
+    if (built.experiment === CONFIG.transferExperiment.id) {
+      add('experiment-mode', 'manual', '当前构建仅为 v1.5 P0 手动转运试玩，验证首代 A 段；使用隔离存档，尚未完成完整 1.5 玩法或真机验收。');
+    } else if (built.experiment === undefined || built.experiment === null) {
+      add('experiment-mode', 'pass', built.mode === 'baseline' ? '当前构建使用 v2 自动生产对照模式。' : '当前构建使用正式默认玩法：v1.5 两段搬运与自动化、schema 4 存档。');
+    }
     add('simulated-ads-disabled', built.allowSimulatedAds === false ? 'pass' : 'error', built.allowSimulatedAds === false ? '抖音包已禁用模拟广告奖励。' : '抖音包未明确禁用模拟广告，禁止继续联调。');
     add('debug-disabled', built.debug !== true ? 'pass' : 'error', built.debug !== true ? '抖音包未开启调试修改配置。' : '抖音包 debug 已开启，恢复 false 并重新构建。');
     add('developer-hold-disabled', built.developerHoldTap === false ? 'pass' : 'error', built.developerHoldTap === false ? '流水线版本已明确停用开发长按连点。' : '当前包未关闭废弃连点功能；运行 npm run build 重新构建。');

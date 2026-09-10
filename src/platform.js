@@ -8,6 +8,7 @@
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/javascript-api/ads/interstitial-ad/interstitial-ad-notice
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduction-for-tech
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
+const { CONFIG } = require('./factory-rules');
 
 function createPlatform() {
   const root = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
@@ -19,13 +20,27 @@ function createPlatform() {
   config.developerHoldTap = false;
   const doc = typeof document !== 'undefined' ? document : null;
   const win = typeof window !== 'undefined' ? window : root;
+  // Opt in before any storage access. The experiment never reads the live v2 key.
+  const experiment = CONFIG.transferExperiment;
+  const requested = !isDouyin && win.location && /(?:^\?|&)experiment=manual-transfer-p0(?:&|$)/.test(win.location.search || '');
+  config.experiment = requested || config.experiment === experiment.id ? experiment.id : null;
+  const baseline = !isDouyin && win.location && /(?:^\?|&)mode=baseline(?:&|$)/.test(win.location.search || '');
+  config.mode = config.experiment ? null : baseline || config.mode === 'baseline' ? 'baseline' : 'v15';
+  const automationKey = CONFIG.automation.saveKey;
+  const backupKey = automationKey + '_backup_v2';
+  const saveKey = config.experiment ? experiment.saveKey : config.mode === 'v15' ? automationKey : SAVE_KEY;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
-  const callbacks = { hide: [], show: [], pointer: [], resize: [] };
+  const callbacks = { hide: [], show: [], pointer: [], resize: [], inputCancel: [] };
   const analytics = [];
 
   let adBusy = false;
   let lastStorageError = '';
   let hidden = false;
+  let migrationSource = null;
+  const readStorage = key => isDouyin ? sdk.getStorageSync(key) : win.localStorage.getItem(key);
+  const writeStorage = (key, value) => isDouyin ? sdk.setStorageSync(key, value) : win.localStorage.setItem(key, value);
+  const removeStorage = key => isDouyin && typeof sdk.removeStorageSync === 'function' ? sdk.removeStorageSync(key)
+    : !isDouyin && typeof win.localStorage.removeItem === 'function' ? win.localStorage.removeItem(key) : writeStorage(key, '');
 
   function subscribe(name, callback) {
     if (typeof callback !== 'function') return function () {};
@@ -137,7 +152,10 @@ function createPlatform() {
       cancelPointer(event.pointerId == null ? 0 : event.pointerId);
     });
     // Focus loss ends held input without starting an offline/foreground cycle.
-    win.addEventListener('blur', function () { activePointers.forEach(function (_, id) { cancelPointer(id); }); });
+    win.addEventListener('blur', function () {
+      activePointers.forEach(function (_, id) { cancelPointer(id); });
+      emit('inputCancel');
+    });
     doc.addEventListener('visibilitychange', function () { if (doc.hidden) notifyHidden(); else notifyShown(); });
     win.addEventListener('pagehide', notifyHidden);
     win.addEventListener('pageshow', notifyShown);
@@ -164,7 +182,11 @@ function createPlatform() {
   function load() {
     lastStorageError = '';
     try {
-      const value = isDouyin ? sdk.getStorageSync(SAVE_KEY) : win.localStorage.getItem(SAVE_KEY);
+      let value = readStorage(saveKey);
+      if ((value == null || value === '') && config.mode === 'v15') {
+        value = readStorage(SAVE_KEY);
+        if (value != null && value !== '') migrationSource = typeof value === 'string' ? value : JSON.stringify(value);
+      }
       if (value == null || value === '') return null;
       const parsed = typeof value === 'string' ? JSON.parse(value) : value;
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('invalid-save');
@@ -177,14 +199,32 @@ function createPlatform() {
 
   function save(data) {
     lastStorageError = '';
+    let previous, attempted = false;
     try {
       const encoded = JSON.stringify(data);
       if (typeof encoded !== 'string') throw new Error('invalid-save');
-      if (isDouyin) sdk.setStorageSync(SAVE_KEY, encoded);
-      else win.localStorage.setItem(SAVE_KEY, encoded);
+      if (config.mode === 'v15') {
+        if (!data || data.version !== CONFIG.automation.version || data.mode !== CONFIG.automation.id) throw new Error('invalid-automation-save');
+        if (migrationSource !== null) {
+          // Preserve the exact original document before touching the new key.
+          const backup = readStorage(backupKey);
+          if (backup !== migrationSource) writeStorage(backupKey, migrationSource);
+          if (readStorage(backupKey) !== migrationSource) throw new Error('backup-verification-failed');
+        }
+        previous = readStorage(saveKey);
+      }
+      attempted = true;
+      writeStorage(saveKey, encoded);
+      if (config.mode === 'v15' && readStorage(saveKey) !== encoded) throw new Error('save-verification-failed');
+      migrationSource = null;
       return true;
     } catch (error) {
       lastStorageError = String(error && error.message || error);
+      if (attempted && config.mode === 'v15') {
+        // A failed readback must not become the next launch's active document.
+        try { if (previous == null || previous === '') removeStorage(saveKey); else writeStorage(saveKey, previous); }
+        catch (_) { /* The untouched v2 key still provides the rollback source. */ }
+      }
       return false;
     }
   }
@@ -201,10 +241,11 @@ function createPlatform() {
   }
 
   return {
-    canvas: canvas, isDouyin: isDouyin, config: config, load: load, save: save,
+    canvas: canvas, isDouyin: isDouyin, config: config, load: load, save: save, saveKey: saveKey,
     onHide: function (callback) { return subscribe('hide', callback); },
     onShow: function (callback) { return subscribe('show', callback); },
     onPointer: function (callback) { return subscribe('pointer', callback); },
+    onInputCancel: function (callback) { return subscribe('inputCancel', callback); },
     onResize: function (callback) { return subscribe('resize', callback); },
     reward: reward, interstitial: interstitial, track: track, getSystemInfo: getSystemInfo, vibrate: vibrate,
     getAnalytics: function () { return analytics.map(function (entry) { return Object.assign({}, entry, { data: Object.assign({}, entry.data) }); }); },

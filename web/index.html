@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
   <meta name="theme-color" content="#f5eedc">
-  <meta name="description" content="观察爆锅、装杯、出货的生产瓶颈，改造真实工位，减少积压、加快出货，从一口小锅扩建到爆米花塔。">
+  <meta name="description" content="从整盘搬运开始，逐段购买自动补料，改造真实生产工位，建立无人搬运的爆米花工厂。">
   <title>小小爆米花厂</title>
   <style>
     :root{--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px)}
@@ -18,7 +18,7 @@
 </head>
 <body>
   <div class="loading" id="loading"><strong>小小爆米花厂</strong><span>正在给第一锅玉米加热…</span></div>
-  <p class="sr-only">工厂自动运转。点击爆锅、装杯或出货比较设备能力和预计整线稳定出货；顶部实际出货为最近10秒均速。购买后保留选中，查看下一档需要主动点击左侧按钮。快捷键：1、2、3直接切换工位，Enter购买当前已查看报价，M扩建，S设置，Escape关闭面板。扩建开放改造，设备提速需另行购买。所有库存以份计量，仅出货结算金币。</p>
+  <p class="sr-only" id="instructions">从待装仓搬一批到装杯入口，再把待发仓的成品送到出货入口；可拖整盘，也可先点货仓再点入口。分别购买两段自动转运后，无需手动搬运仍会出货。物流改造增加批量和仓位，点击机器提高加工能力。只有真实出货结算金币，自动试运行达标后可扩建。快捷键：1、2、3选择工位，Enter购买当前报价，M扩建，S设置，Escape取消搬运或关闭面板。</p>
   <script>globalThis.POPCORN_CONFIG={allowSimulatedAds:false,appId:'',rewardAdUnitId:'',interstitialAdUnitId:''};</script>
   <script src="game.bundle.js"></script>
 </body>

@@ -9,7 +9,7 @@ const copy = value => value === undefined ? undefined : JSON.parse(JSON.stringif
 // Execute the real entry and real simulation; replace only host APIs and paint.
 function harness(options = {}) {
   let now = START, frameTime = 0, nextFrame = null, drawnUI = null, drawnView = null;
-  let pointerHandler, hideHandler, showHandler, resizeHandler, hitAction = null;
+  let pointerHandler, hideHandler, showHandler, resizeHandler, cancelHandler, hitAction = null;
   let saveFailure = !!options.saveFailure;
   const events = {}, saves = [], analytics = [], sounds = [], rendererEvents = [];
   let legacyCalls = 0;
@@ -18,11 +18,12 @@ function harness(options = {}) {
   const info = { width: 480, height: 920, windowWidth: 480, windowHeight: 920, pixelRatio: 1,
     safeArea: { left: 0, top: 0, right: 480, bottom: 920, width: 480, height: 920 }, ...options.info };
   const platform = {
-    canvas, isDouyin: false, config: { allowSimulatedAds: false, developerHoldTap: false, ...options.config },
+    canvas, isDouyin: false, config: { mode: 'baseline', allowSimulatedAds: false, developerHoldTap: false, ...options.config },
     lastStorageError: '',
     load() { this.lastStorageError = options.loadError || ''; return options.save == null ? null : copy(options.save); },
     save(value) { this.lastStorageError = saveFailure ? 'storage full' : ''; if (!saveFailure) saves.push(copy(value)); return !saveFailure; },
     onPointer(fn) { pointerHandler = fn; }, onHide(fn) { hideHandler = fn; },
+    onInputCancel(fn) { cancelHandler = fn; },
     onShow(fn) { showHandler = fn; }, onResize(fn) { resizeHandler = fn; },
     getSystemInfo: () => info, track(event, data) { analytics.push({ event, data: copy(data || {}) }); },
     getAnalytics: () => copy(analytics), vibrate() {},
@@ -67,6 +68,7 @@ function harness(options = {}) {
     run(seconds, step = 100) { let left = seconds * 1000; while (left > 0) { const ms = Math.min(left, step); h.frame(ms); left -= ms; } },
     advance(ms) { now += ms; frameTime += ms; },
     hide() { hideHandler(); }, show() { showHandler({}); }, resize() { resizeHandler(info); },
+    blur() { if (cancelHandler) cancelHandler(); },
     pointer(type, action = null, id = 1, x = 100, y = 100) { hitAction = action; pointerHandler({ type, id, x, y }); },
     click(action) { hitAction = action; pointerHandler({ type: 'down', id: 1, x: 100, y: 100 }); pointerHandler({ type: 'up', id: 1, x: 100, y: 100 }); hitAction = null; },
     key(code, repeat = false) { if (events.keydown) events.keydown({ code, repeat, preventDefault() {} }); },

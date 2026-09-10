@@ -5,5 +5,7 @@
   "allowSimulatedAds": false,
   "analyticsEnabled": false,
   "debug": false,
-  "developerHoldTap": false
+  "developerHoldTap": false,
+  "experiment": null,
+  "mode": "v15"
 }

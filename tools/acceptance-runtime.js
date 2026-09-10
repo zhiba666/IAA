@@ -7,6 +7,10 @@
   const input = globalThis.__IAA_ACCEPTANCE_INPUT__;
   if (!input || !input.fixture || input.scope !== 'first-generation-visual-acceptance') throw new Error('Missing acceptance fixture');
   if (location.hostname !== '127.0.0.1' || location.port !== String(input.port)) throw new Error('Acceptance runtime requires its isolated local origin.');
+  if (!['baseline', 'v15'].includes(input.fixture.mode) || input.mode !== input.fixture.mode
+    || !input.fixture.storageKey || input.storageKey !== input.fixture.storageKey)
+    throw new Error('Acceptance fixture must declare its own matching mode and storage key.');
+  globalThis.POPCORN_CONFIG = { ...globalThis.POPCORN_CONFIG, mode: input.fixture.mode, experiment: null };
   const errors = [], initialSave = JSON.stringify(input.fixture.save);
   // This port has its own storage origin. No production-origin storage is read,
   // removed or migrated, and no native mini-game storage API is involved.
@@ -31,6 +35,7 @@
   function diagnostics() {
     return { capturedAt: new Date().toISOString(), scope: input.scope, fixture: input.fixture.id,
       fixtureKind: input.fixture.kind, fixtureDescription: input.fixture.description,
+      mode: input.fixture.mode, storageKey: input.fixture.storageKey, saveVersion: input.fixture.save.version,
       paused, qaClockMs: clock, safeArea,
       viewport: { width: innerWidth, height: innerHeight, devicePixelRatio },
       canvas: (() => { const c = document.querySelector('canvas'); return c ? { width: c.width, height: c.height } : null; })(),

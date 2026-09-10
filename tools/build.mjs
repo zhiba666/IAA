@@ -30,4 +30,4 @@ await writeFile(path.join(root, 'build/douyin/project.config.json'), JSON.string
 await generateAudio(path.join(root,'build/douyin/audio'));
 const artReport = await copyRuntimeArt(root, ['web', 'build/douyin'], runtimeArt);
 console.log(`First-generation runtime art: ${artReport.count} PNGs; ${(artReport.compressedBytes / 1048576).toFixed(2)} MiB files; ${(artReport.decodedBytes / 1048576).toFixed(2)} MiB decoded. Both packages verified byte-for-byte.`);
-console.log(`Built pipeline v2.0.0 ${development ? 'development' : 'release'} (自动生产；连点与广告奖励均已停用): ${moduleIds.length} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: web/ · Douyin: build/douyin/`);
+console.log(`Built pipeline v2.0.0 ${development ? 'development' : 'release'} (v1.5 分段自动化；连点与广告奖励均已停用): ${moduleIds.length} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: web/ · Douyin: build/douyin/`);

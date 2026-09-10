@@ -81,6 +81,21 @@ function minimumHitRect(rect, minimum, bounds) {
   return result;
 }
 
+// Both transfer methods use these same two inventory rows. Reserving space in
+// the scene keeps the 56 px inputs clear of expanded equipment purchase panels.
+function transferRailLayout(frame) {
+  const rowH = 56, gap = 8, margin = 8, middle = 20;
+  const cardW = (frame.w - margin * 2 - middle) / 2;
+  const top = frame.y + frame.h - (rowH * 2 + gap + margin);
+  return ['pop', 'cup'].map((source, index) => {
+    const target = source === 'pop' ? 'cup' : 'ship', y = top + index * (rowH + gap);
+    return { source, target,
+      tray: { x: frame.x + margin, y, w: cardW, h: rowH, kind: 'tray', source, target, action: 'transfer-source-' + source },
+      input: { x: frame.x + frame.w - margin - cardW, y, w: cardW, h: rowH, kind: 'input', source, target, action: 'transfer-target-' + target }
+    };
+  });
+}
+
 function drawNineSlice(ctx, images, id, rect, options) {
   options = options || {};
   const asset = ART_ASSETS[id], img = images && (typeof images.get === 'function' ? images.get(id) : images[id]);
@@ -99,4 +114,4 @@ function drawNineSlice(ctx, images, id, rect, options) {
 }
 
 module.exports = { createArtTransform, fitArtRect, artSpriteTransform, sourceToSpritePoint, artSourcePoint,
-  drawArtLayer, clipArtPolygon, minimumHitRect, drawNineSlice };
+  drawArtLayer, clipArtPolygon, minimumHitRect, transferRailLayout, drawNineSlice };

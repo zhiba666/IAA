@@ -5,6 +5,15 @@ const assert = require('node:assert/strict');
 const api = import('../tools/preflight.mjs');
 const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest');
 
+test('preflight accepts complete and baseline modes and rejects invalid or mismatched modes', async () => {
+  const { inspectPackage } = await api;
+  for (const mode of ['v15', 'baseline']) assert.equal(inspectPackage(fixture({ mode })).codeReady, true);
+  for (const mode of [true, null, 'v1.5']) assert.equal(inspectPackage(fixture({ mode })).codeReady, false);
+  const input = fixture({ mode: 'v15' });
+  input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), mode: 'baseline' });
+  assert.equal(inspectPackage(input).codeReady, false);
+});
+
 function fixture(overrides = {}) {
   // Test-only synthetic strings are never written to project config or game packages.
   const config = { appId: 'tt93af724b168dc950e2', rewardAdUnitId: 'r8c93af724b168dc95', interstitialAdUnitId: 'i5b81ed690ac734f2', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, ...overrides };
@@ -111,6 +120,53 @@ test('preflight accepts a release build overriding a local developer hold reques
   const report = inspectPackage(input);
   assert.equal(report.codeReady, true);
   assert.equal(report.checks.find(check => check.code === 'config-synchronized').status, 'pass');
+});
+
+test('preflight accepts omitted or null experiment as the unchanged default mode', async () => {
+  const { inspectPackage } = await api;
+  for (const experiment of [undefined, null]) {
+    const report = inspectPackage(fixture({ experiment }));
+    assert.equal(report.codeReady, true);
+    assert.equal(report.checks.find(check => check.code === 'experiment-mode').status, 'pass');
+    assert.equal(report.checks.find(check => check.code === 'config-synchronized').status, 'pass');
+  }
+});
+
+test('preflight recognizes the isolated manual-transfer experiment and labels it only a P0 playtest', async () => {
+  const { inspectPackage, exitCode, formatReport } = await api;
+  const report = inspectPackage(fixture({ experiment: 'manual-transfer-p0' }));
+  assert.equal(report.codeReady, true);
+  assert.equal(report.accountConfigReady, true);
+  assert.equal(exitCode(report, true), 0);
+  assert.equal(report.platformVerified, false);
+  assert.equal(report.checks.find(check => check.code === 'experiment-mode').status, 'manual');
+  assert.equal(report.checks.find(check => check.code === 'config-synchronized').status, 'pass');
+  assert.ok(!report.checks.some(check => check.code.endsWith('-unknown-config')));
+  assert.match(formatReport(report), /仅为 v1\.5 P0 手动转运试玩/);
+  assert.match(formatReport(report), /尚未完成完整 1\.5 玩法或真机验收/);
+});
+
+test('preflight rejects every unsupported experiment value without echoing it', async () => {
+  const { inspectPackage, formatReport } = await api;
+  for (const experiment of ['', true, false, 1, [], {}, 'private-unsupported-experiment']) {
+    const report = inspectPackage(fixture({ experiment }));
+    assert.equal(report.codeReady, false);
+    for (const label of ['本地', '构建']) assert.equal(report.checks.find(check => check.code === `${label}-experiment-value`).status, 'error');
+    assert.equal(formatReport(report).includes('private-unsupported-experiment'), false);
+  }
+});
+
+test('preflight catches stale experiment configuration in either direction', async () => {
+  const { inspectPackage } = await api;
+  for (const [built, local] of [[null, 'manual-transfer-p0'], ['manual-transfer-p0', null]]) {
+    const input = fixture({ experiment: built });
+    input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), experiment: local });
+    const report = inspectPackage(input);
+    assert.equal(report.codeReady, false);
+    const check = report.checks.find(check => check.code === 'config-synchronized');
+    assert.equal(check.status, 'error');
+    assert.match(check.message, /experiment/);
+  }
 });
 
 test('preflight identifies stale configuration without exposing IDs', async () => {

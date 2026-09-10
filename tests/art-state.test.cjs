@@ -40,9 +40,10 @@ function paint(scene, snapshot, width = 390) {
 
 test('visual fixtures validate through the real save contract and distinguish natural stock from the double-full boundary', async () => {
   const data = await fixtureData;
-  assert.equal(data.cases.length, 6);
+  assert.equal(data.cases.filter(item => item.mode === 'baseline').length, 6);
+  assert.equal(data.cases.filter(item => item.mode === 'v15').length, 3);
   for (const item of data.cases) {
-    const original = JSON.stringify(item.save), game = new Game({ save: item.save, now: item.save.savedAt });
+    const original = JSON.stringify(item.save), game = new Game({ save: item.save, now: item.save.savedAt, mode: item.mode === 'v15' ? 'v15' : null });
     assert.equal(game.loadWarning, null, item.id);
     assert.deepEqual(game.getView(), item.snapshot);
     assert.equal(JSON.stringify(item.save), original, 'fixture restore cannot mutate its input');

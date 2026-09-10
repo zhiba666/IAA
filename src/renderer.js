@@ -39,6 +39,24 @@ class Renderer {
     if(stroke){c.strokeStyle=stroke;c.stroke();}
   }
   hit(x,y,w,h,action){if(w>0&&h>0)this.zones.push({x,y,w,h,action});}
+  drawTransfer(view,ui){
+    this.transferGhost=null;
+    const held=ui.transfer;
+    if(!(view.transfer?.enabled||view.mode==='v15')||!held?.dragging||!(held.amount>0)||!Number.isFinite(held.x)||!Number.isFinite(held.y)||ui.modal&&ui.modal.type!=='station')return;
+    const w=76,h=44,x=Math.max(8,Math.min(ui.viewport.width-w-8,held.x+22));
+    const y=Math.max(this.interface.top,Math.min(ui.viewport.height-h-8,held.y-h-24));
+    const transfer=view.mode==='v15'?view.transfers.find(item=>item.source===held.source):view.transfer;
+    if(!transfer)return;
+    const full=transfer.inputAmount>=transfer.inputCapacity,ready=held.overTarget&&!full;
+    this.transferGhost={x,y,w,h,amount:held.amount,source:held.source||'pop',target:held.target||'cup'};
+    this.c.save();this.c.globalAlpha=.94;
+    this.box(x,y,w,h,10,'#fff3c9',ready?'#277860':'#ad8842');
+    if(held.source==='cup')this.scene.cup(x+15,y+16,1,.4);
+    else this.scene.popcorn(x+15,y+15,6);
+    this.text(held.amount+' 份',x+w/2+8,y+15,14,'#66502a',700,'center');
+    this.text(full?'入口已满':ready?'松手放入':held.target==='ship'?'拖向出货入口':'拖向装杯入口',x+w/2,y+33,10,'#527052',600,'center');
+    this.c.restore();
+  }
   emit(event){this.scene.emit(event);}
   draw(view,ui,dt=0){this.interface.draw(view,ui,dt);}
   actionAt(x,y) {

@@ -10,9 +10,31 @@ const vm = require('node:vm');
 const PACKAGE = path.resolve(__dirname, '../build/douyin');
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 
+test('v15 native package routes both trays inside safe areas and pauses without offline income', () => {
+  for (const size of [{ width: 320, height: 524, safeTop: 28 }, { width: 390, height: 844, safeTop: 59 }]) {
+    const h = boot({ ...size, mode: 'v15' });
+    assert.equal(h.snapshot().mode, 'v15'); h.verifyLayout(); h.verifyControls();
+    for (let i = 0; i < 3; i++) h.frame(1000);
+    h.clickAction('transfer-source-pop'); h.frame(0); h.clickAction('transfer-target-cup'); h.frame(0);
+    for (let i = 0; i < 3; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 0);
+    h.clickAction('transfer-source-cup'); h.frame(0); h.clickAction('transfer-target-ship'); h.frame(0);
+    for (let i = 0; i < 2; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 4);
+    for (const action of ['station:cup', 'openLogistics', 'settings']) {
+      h.clickAction(action); h.frame(0); h.verifyControls();
+      if (action.startsWith('station:')) { h.clickAction('collapseStation'); h.frame(0); }
+      h.clickAction('close'); h.frame(0);
+    }
+    h.events.onHide(); const before = h.saved(); h.frame(3600000); h.events.onShow({}); h.frame(0);
+    assert.equal(h.snapshot().state.totalSold, before.totalSold);
+    assert.equal(h.saved().version, 4);
+  }
+});
+
 // Exercise the generated entry and every real bundled module. This bounded SDK
 // contract smoke test is not an IDE, an audio decoder, or a device test.
-function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTop = 47, menuApi = true, width = 390, height = 844 } = {}) {
+function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTop = 47, menuApi = true, width = 390, height = 844, mode = 'baseline' } = {}) {
   let now = 1800000000000, frameTime = 1, pendingFrame = null, canvasCount = 0;
   let depth = 0, operations = 0, layout = null, drawnViewport = null, renderer = null;
   let transform = [1, 0, 0, 1, 0, 0], currentPath = [];
@@ -118,13 +140,14 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
       const config = context.GameGlobal.POPCORN_CONFIG;
       assert.equal(config.allowSimulatedAds, false);
       config.appId = ''; config.rewardAdUnitId = ''; config.interstitialAdUnitId = '';
+      config.mode = mode;
     }
     return module.exports;
   }
   load(path.join(PACKAGE, 'game.js'));
   const h = {
     context, events, info, menu, canvas, sounds, texts, storage,
-    saved() { return JSON.parse(storage.get(SAVE_KEY)); },
+    saved() { return JSON.parse(storage.get(mode === 'baseline' ? SAVE_KEY : 'little_popcorn_factory_automation_v4')); },
     frame(ms = 16) {
       now += ms; frameTime += ms; texts.length = 0; textPositions.length=0; fills.length=0;
       const fn = pendingFrame; pendingFrame = null;
