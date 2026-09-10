@@ -33,6 +33,8 @@ node tools/automation-balance.cjs
 
 `tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，调用美术构建脚本生成清单并复制冻结清单中的 84 个 PNG；两端检查尺寸和逐文件 SHA-256。源图、整屏参考图及未引用素材不随包发布。不要手改生成包或 `src/art-manifest.js`。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
 
+复用的首代装配数据位于 [活动装配目录](art-source/six-gen/integration/legacy/README.md)。当前构建无需 `archive/` 或 `IAA-six-gen-integration` 临时工作树；历史归档可单独存放。
+
 ## 正式玩法
 
 三个工位和两段运输组成完整链路：

@@ -10,7 +10,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const run = promisify(execFile);
 
-test('both build modes disable legacy hold tapping and simulated ads on every host', async t => {
+test('both build modes work without archives and disable legacy hold tapping and simulated ads on every host', async t => {
   const root = await mkdtemp(path.join(tmpdir(), 'popcorn-build-config-'));
   t.after(async () => {
     const resolved = await realpath(root);
@@ -25,12 +25,16 @@ test('both build modes disable legacy hold tapping and simulated ads on every ho
   }
   const { ART_SOURCE_REFS, ART_RUNTIME_IDS, ART_ASSETS } = require('../src/art-manifest');
   for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].sourcePath), 'web/index.html', 'package.json', 'src/version.js']) {
+    // A clean build must not need optional historical snapshots, even if a
+    // future source manifest accidentally starts referencing them again.
+    if (filename.startsWith('archive/')) continue;
     await mkdir(path.dirname(path.join(root, filename)), { recursive: true });
     await copyFile(path.resolve(__dirname, '..', filename), path.join(root, filename));
   }
   await writeFile(path.join(root, 'src/main.js'),
     '(function(root){root.startedWithHold=root.POPCORN_CONFIG.developerHoldTap;})(typeof globalThis !== "undefined" ? globalThis : GameGlobal);');
   const { inspectProject } = await import('../tools/preflight.mjs');
+  await assert.rejects(readFile(path.join(root, 'archive/pre-v0.1/manifest.json')), { code: 'ENOENT' });
 
   // Use the same output directory so the release case also catches stale dev artifacts.
   for (const enabled of [true, false]) {

@@ -18,8 +18,8 @@ export const FIRST_GENERATION_IDS = [
   'ui_button_disabled', 'ui_card', 'ui_compact_bar',
   ...['coin', 'pop', 'cup', 'ship', 'settings'].map(id => 'ui_icon_' + id)
 ];
-export const ART_SOURCE_FILES = ['assets/art/manifest.json', 'archive/pre-v0.1/art-source/batch-0/assembly.json',
-  'archive/pre-v0.1/art-source/batch-1/machinery/assembly.json', 'art-source/six-gen/integration/manifest.json',
+export const ART_SOURCE_FILES = ['assets/art/manifest.json', 'art-source/six-gen/integration/legacy/batch-0-assembly.json',
+  'art-source/six-gen/integration/legacy/batch-1-machinery-assembly.json', 'art-source/six-gen/integration/manifest.json',
   'art-source/six-gen/integration/assembly.json'];
 export const ART_BUDGETS = { firstGenerationCompressedBytes: 1048576,
   compressedBytes: 4 * 1048576, decodedBytes: 32 * 1048576 };

@@ -3,8 +3,8 @@
   "scope": "six-generation-runtime-art",
   "sourceFiles": [
     "assets/art/manifest.json",
-    "archive/pre-v0.1/art-source/batch-0/assembly.json",
-    "archive/pre-v0.1/art-source/batch-1/machinery/assembly.json",
+    "art-source/six-gen/integration/legacy/batch-0-assembly.json",
+    "art-source/six-gen/integration/legacy/batch-1-machinery-assembly.json",
     "art-source/six-gen/integration/manifest.json",
     "art-source/six-gen/integration/assembly.json"
   ],
@@ -110,10 +110,10 @@
         },
         {
           "path": "game.bundle.js",
-          "bytes": 341764
+          "bytes": 341784
         }
       ],
-      "totalRuntimeBytes": 2190055
+      "totalRuntimeBytes": 2190075
     },
     {
       "directory": "build/douyin",
@@ -139,7 +139,7 @@
         },
         {
           "path": "game.bundle.js",
-          "bytes": 341764
+          "bytes": 341784
         },
         {
           "path": "audio/upgrade.wav",
@@ -158,7 +158,7 @@
           "bytes": 6220
         }
       ],
-      "totalRuntimeBytes": 2282740
+      "totalRuntimeBytes": 2282760
     }
   ],
   "excluded": [

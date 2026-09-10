@@ -1,2 +1,4 @@
 # Archived snapshots retain the exact bytes recorded in their SHA-256 manifest.
 archive/** -text -whitespace
+# Active reused assembly data preserves the reviewed source bytes as well.
+art-source/six-gen/integration/legacy/*.json -text whitespace=cr-at-eol

@@ -16,3 +16,6 @@ docs/copyright/qa/program/*.jpg
 
 # Local evidence and duplicate delivery packages are preserved without publishing.
 /archive/pre-v0.1/local-only/
+
+# Keep the four original integration logs after retiring the temporary worktree.
+!/archive/six-gen-integration-2026-09-10/*.log

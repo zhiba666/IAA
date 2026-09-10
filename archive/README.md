@@ -5,7 +5,8 @@
 - [逐文件清单](pre-v0.1/manifest.json)：原路径、归档路径、字节数、SHA-256 和是否仅本地保留。移动前后逐文件校验一致。
 - [历史文档](pre-v0.1/docs/)：P0 原型、首代美术路线与批次交付、旧开发重心及首代验收。
 - [历史运行证据](pre-v0.1/output/)：已被六代运行验收替代的首代截图、录屏、报告与生成 fixture。
-- [美术制作历史](pre-v0.1/art-source/)：batch-0/batch-1 完整制作记录、六代原始计划及旧交付包核验记录。构建仍读取归档中的两份装配 JSON；当前六代最终 PNG 保留在活动目录。
+- [美术制作历史](pre-v0.1/art-source/)：batch-0/batch-1 完整制作记录、六代原始计划及旧交付包核验记录。构建所需的两份装配 JSON 已另存到 [活动装配目录](../art-source/six-gen/integration/legacy/README.md)，构建不再依赖本归档。
+- [临时工作树的独有日志](six-gen-integration-2026-09-10/README.md)：清理六代接入工作树前保存的 4 份旧执行日志及 SHA-256 清单。
 - [后续体验设计快照](pre-v0.1/docs/V151_EXPERIENCE_DESIGN.md)：按用户确认归档，设计内容尚未实施。
 - `pre-v0.1/local-only/`：旧本地测试产物、临时媒体依赖和重复的 84.35 MiB 美术交付 ZIP；目录被 Git 忽略，不随 GitHub 上传。
 

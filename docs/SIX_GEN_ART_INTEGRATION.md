@@ -1,6 +1,6 @@
 # 六代美术代码接入
 
-当前软件版本为 [v0.1 正式版](releases/v0.1.md)。当前构建从 `archive/pre-v0.1/art-source/batch-0/assembly.json` 与 `archive/pre-v0.1/art-source/batch-1/machinery/assembly.json` 读取复用装配；六代最终清单和 84 张 PNG 保留活动路径。下文保留原接入阶段的技术说明和验证边界，v0.1 新构建的检查结果见发布说明。
+当前软件版本为 [v0.1 正式版](releases/v0.1.md)。当前构建从 `art-source/six-gen/integration/legacy/batch-0-assembly.json` 与 `art-source/six-gen/integration/legacy/batch-1-machinery-assembly.json` 读取复用装配，独立于历史归档和临时工作树；六代最终清单和 84 张 PNG 保留活动路径。装配来源与维护说明见 [活动装配目录](../art-source/six-gen/integration/legacy/README.md)。下文保留原接入阶段的技术说明和验证边界，v0.1 发布时的检查结果见发布说明。
 
 本轮由“只生成美术”进入用户明确授权的代码接入阶段。基线为 `14310d34e882969208bb7583c5e0c8442bfc3aee`；实现和验收先在隔离工作树进行，再同步回 IAA 工作区。候选原图、最终 PNG 及阶段 A 验收历史不改写。
 

@@ -9,5 +9,5 @@ const ART_SIX_GEN_ASSEMBLY = {"contractVersion":"six-gen-art-1.0","scope":"synth
 const ART_GENERATION_RIGS = ART_SIX_GEN_ASSEMBLY.generationStationRigs;
 const ART_SIX_GEN = { logistics: ART_SIX_GEN_ASSEMBLY.logistics, scene: ART_SIX_GEN_ASSEMBLY.scene, ui: ART_SIX_GEN_ASSEMBLY.ui, packaging: ART_SIX_GEN_ASSEMBLY.packaging };
 const SIX_GEN_RIGS = ART_GENERATION_RIGS, SIX_GEN_LOGISTICS = ART_SIX_GEN.logistics, SIX_GEN_SCENE = ART_SIX_GEN.scene, SIX_GEN_PACKAGING = ART_SIX_GEN.packaging;
-const ART_SOURCE_REFS = ["assets/art/manifest.json","archive/pre-v0.1/art-source/batch-0/assembly.json","archive/pre-v0.1/art-source/batch-1/machinery/assembly.json","art-source/six-gen/integration/manifest.json","art-source/six-gen/integration/assembly.json"];
+const ART_SOURCE_REFS = ["assets/art/manifest.json","art-source/six-gen/integration/legacy/batch-0-assembly.json","art-source/six-gen/integration/legacy/batch-1-machinery-assembly.json","art-source/six-gen/integration/manifest.json","art-source/six-gen/integration/assembly.json"];
 module.exports = { ART_ASSETS, ART_RIGS, ART_RUNTIME_IDS, ART_FIRST_GENERATION_IDS, ART_SOURCE_REFS, ART_GENERATION_RIGS, ART_SIX_GEN, ART_SIX_GEN_ASSEMBLY, SIX_GEN_RIGS, SIX_GEN_LOGISTICS, SIX_GEN_SCENE, SIX_GEN_PACKAGING };
