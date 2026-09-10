@@ -1,0 +1,1177 @@
+{
+  "scope": "Static reachability review, no game execution/save modification",
+  "ruleEvidence": [
+    "src/core.js:267-278 completion",
+    "src/core.js:300-308 start",
+    "src/core.js:612-615 view"
+  ],
+  "count": 54,
+  "reachable": 42,
+  "excluded": 12,
+  "fixtures": [
+    {
+      "generation": 1,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 1,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 1,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 1,
+      "batchSize": 1,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 2,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 2,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 2,
+      "jobs": [
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 1,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 2,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 1,
+      "batchSize": 2,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 3,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 3,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 2,
+      "jobs": [
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 3,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 2,
+      "batchSize": 2,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 4,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 4,
+      "batchSize": 1,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 4,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 3,
+      "batchSize": 1,
+      "jobs": [
+        null,
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 3,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 3,
+      "batchSize": 1,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 4,
+      "jobs": [
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 2,
+      "batchSize": 4,
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 4,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 2,
+      "batchSize": 4,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 5,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "state": "waiting",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "pop has no purchased raw-material input and starts empty lanes immediately in settle; no fake waiting-for-material state",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "state": "blocked",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 6,
+      "batchSize": 2,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "ship",
+      "state": "waiting",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "ship",
+      "state": "running",
+      "reachability": "REACHABLE_STATIC_RULE_REVIEW",
+      "fixtureKind": "synthetic-art-only",
+      "reason": "legal state in current core rule flow; art fixture only",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        },
+        {
+          "amount": 4,
+          "progress": 0.5,
+          "complete": false
+        }
+      ],
+      "artReview": "VERIFIED_STATIC_ART"
+    },
+    {
+      "generation": 6,
+      "station": "ship",
+      "state": "blocked",
+      "reachability": "N/A_NORMAL_SETTLED_OPERATION",
+      "fixtureKind": "excluded-impossible-steady-state",
+      "reason": "ship completion settles directly to coins; no output warehouse",
+      "installedLanes": 4,
+      "batchSize": 4,
+      "jobs": null,
+      "artReview": "N/A_NOT_A_PASS"
+    }
+  ],
+  "finalReviewAt": "2026-09-10T07:38:37.366Z",
+  "reviewContact": "previews/machine-54-state-contact.png"
+}

@@ -238,7 +238,7 @@ test('generated Douyin entry automatically runs the real pipeline without DOM or
   ]) await t.test(mode.name, () => {
     const h = boot(mode);
     assert.equal(h.canvasCount(), 1);
-    assert.equal(h.context.GameGlobal.__POPCORN__.version, '2.0.0');
+    assert.equal(h.context.GameGlobal.__POPCORN__.version, '0.1.0');
     assert.deepEqual(Object.keys(h.context.GameGlobal.__POPCORN__).sort(), ['analytics','presentation','snapshot','version']);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.developerHoldTap, false);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.allowSimulatedAds, false);

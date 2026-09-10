@@ -177,10 +177,10 @@ test('first-generation HUD announces pending art until every requested resource 
   let report={requested:39,failed:0,pending:1,loaded:38};
   renderer.art={get:()=>null,report:()=>report};
   renderer.draw(view,state,0);
-  assert.ok(canvas.texts.some(item=>item.text==='正在装配首代美术…'));
+  assert.ok(canvas.texts.some(item=>item.text==='正在装配工厂美术…'));
   report={requested:39,failed:0,pending:0,loaded:39};
   canvas.clear();renderer.draw(view,state,0);
-  assert.ok(!canvas.texts.some(item=>item.text==='正在装配首代美术…'));
+  assert.ok(!canvas.texts.some(item=>item.text==='正在装配工厂美术…'));
   assert.ok(canvas.texts.some(item=>item.text===view.insights.bottleneck.label));
 });
 

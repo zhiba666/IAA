@@ -1,0 +1,14 @@
+{
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "scope": "STANDALONE_ART_ONLY",
+  "camera": {"projection": "orthographic-isometric", "floorAxes": [[1,0.55],[-1,0.55]], "light": "upper-left"},
+  "palette": {"machine":"#219da5","steel":"#555f69","cup":"#ed4435","product":"#f4c64e","panel":"#f5efe0"},
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "forbiddenBakedContent": ["text","numbers","currency","UI","products in machine shells","installed working heads in new shells","people"],
+  "export": {"format":"PNG","transparency":"real alpha except room", "scaling":"uniform only", "paddingMinPx":2, "machineMaxEdge":640, "smallPartMaxEdge":192, "uiMaxEdge":96},
+  "budgetBytes": {"firstGeneration":2097152,"allUniquePng":4194304,"rgbaBase":33554432},
+  "sourcePolicy": "Keep original generated files and exact prompts. No API fallback without explicit user request.",
+  "preview": {"viewports":[[390,844],[320,524]],"safeAreas":[8,24],"label":"美术预览，非真机验收","configurations":["entry","upgraded"]},
+  "scopeExclusions": ["runtime source edits","official asset manifests","build outputs","save data","publishing"]
+}

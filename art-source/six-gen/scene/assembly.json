@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "scope": "synthetic-art-only",
+  "assets": {
+    "factory_platform_extension": {
+      "file": "art-source/six-gen/scene/exports/factory_platform_extension.png",
+      "size": [
+        512,
+        318
+      ],
+      "generationUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "factory_tower_back": {
+      "file": "art-source/six-gen/scene/exports/factory_tower_back.png",
+      "size": [
+        317,
+        640
+      ],
+      "generationUse": [
+        6
+      ],
+      "layer": 1
+    },
+    "factory_tower_front": {
+      "file": "art-source/six-gen/scene/exports/factory_tower_front.png",
+      "size": [
+        384,
+        209
+      ],
+      "generationUse": [
+        6
+      ],
+      "layer": 50
+    }
+  },
+  "tower": {
+    "size": [
+      512,
+      760
+    ],
+    "layers": [
+      {
+        "id": "factory_tower_back",
+        "rect": [
+          150,
+          0,
+          317,
+          640
+        ],
+        "layer": 1
+      },
+      {
+        "id": "factory_tower_front",
+        "rect": [
+          60,
+          510,
+          384,
+          209
+        ],
+        "layer": 50
+      }
+    ],
+    "safeInterior": [
+      [
+        166,
+        168
+      ],
+      [
+        360,
+        260
+      ],
+      [
+        360,
+        488
+      ],
+      [
+        166,
+        402
+      ]
+    ],
+    "note": "Backdrop landmark only. Foreground stays below machine/port hit regions. Whole images use uniform scales."
+  },
+  "reuseDecisions": [
+    {
+      "candidate": "factory_room_extension",
+      "replacement": "factory_room",
+      "method": "existing low-contrast 512x768 background covers the art viewport at <=1x; separate new tower carries height identity, no enlarged old room masquerading as tower"
+    }
+  ],
+  "previewSource": "art-source/six-gen/qa/scene-configurations.json"
+}

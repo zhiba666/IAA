@@ -1,0 +1,30 @@
+{
+  "id": "factory_platform_extension",
+  "owner": "scene",
+  "sourceFile": "art-source/six-gen/scene/sources/factory_platform_extension.png",
+  "file": "art-source/six-gen/scene/exports/factory_platform_extension.png",
+  "sourceSize": [
+    1536,
+    1024
+  ],
+  "sourceRect": [
+    87,
+    126,
+    1363,
+    839
+  ],
+  "width": 512,
+  "height": 318,
+  "anchor": [
+    256,
+    314
+  ],
+  "sourceSha256": "05f9e8da9564b604b14ae3325739ea8dbd279f75a00481a4bd53b801626427d1",
+  "sha256": "20b9a0ee7154f6a359cb913e97d21355a4837e317ee8c351f5a00a5e699bed0b",
+  "bytes": 38547,
+  "rgbaBytes": 651264,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

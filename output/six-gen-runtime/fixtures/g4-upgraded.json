@@ -1,0 +1,2456 @@
+{
+  "id": "g4-upgraded",
+  "mode": "v15",
+  "storageKey": "little_popcorn_factory_automation_v4",
+  "kind": "natural-production",
+  "description": "Every station upgrade currently unlocked in generation 4 was purchased using actual sale income.",
+  "save": {
+    "version": 4,
+    "savedAt": 1800000000000,
+    "introSeen": false,
+    "coins": 4,
+    "machine": 3,
+    "upgrades": {
+      "pop": 4,
+      "cup": 6,
+      "ship": 4
+    },
+    "settings": {
+      "sound": true,
+      "haptics": true
+    },
+    "playedSeconds": 1375,
+    "totalProduced": 13288,
+    "totalSold": 13254,
+    "totalEarned": 13254,
+    "totalSpent": 13250,
+    "buffers": {
+      "pop": 13,
+      "cup": 16
+    },
+    "stations": {
+      "pop": {
+        "jobs": [
+          {
+            "amount": 1,
+            "durationTicks": 15,
+            "remainingTicks": 5
+          },
+          {
+            "amount": 1,
+            "durationTicks": 15,
+            "remainingTicks": 15
+          },
+          {
+            "amount": 1,
+            "durationTicks": 15,
+            "remainingTicks": 15
+          },
+          {
+            "amount": 1,
+            "durationTicks": 15,
+            "remainingTicks": 15
+          }
+        ],
+        "processed": 13284,
+        "history": [
+          {
+            "tick": 163805,
+            "amount": 1
+          },
+          {
+            "tick": 163815,
+            "amount": 1
+          },
+          {
+            "tick": 163820,
+            "amount": 1
+          },
+          {
+            "tick": 163830,
+            "amount": 1
+          },
+          {
+            "tick": 163835,
+            "amount": 1
+          },
+          {
+            "tick": 163845,
+            "amount": 1
+          },
+          {
+            "tick": 163850,
+            "amount": 1
+          },
+          {
+            "tick": 163860,
+            "amount": 1
+          },
+          {
+            "tick": 163865,
+            "amount": 1
+          },
+          {
+            "tick": 163875,
+            "amount": 1
+          },
+          {
+            "tick": 163880,
+            "amount": 1
+          },
+          {
+            "tick": 163890,
+            "amount": 1
+          },
+          {
+            "tick": 163895,
+            "amount": 1
+          },
+          {
+            "tick": 163905,
+            "amount": 1
+          },
+          {
+            "tick": 163910,
+            "amount": 1
+          },
+          {
+            "tick": 163920,
+            "amount": 1
+          },
+          {
+            "tick": 163925,
+            "amount": 1
+          },
+          {
+            "tick": 163935,
+            "amount": 1
+          },
+          {
+            "tick": 163940,
+            "amount": 1
+          },
+          {
+            "tick": 163950,
+            "amount": 1
+          },
+          {
+            "tick": 163955,
+            "amount": 1
+          },
+          {
+            "tick": 163965,
+            "amount": 1
+          },
+          {
+            "tick": 163970,
+            "amount": 1
+          },
+          {
+            "tick": 163980,
+            "amount": 1
+          },
+          {
+            "tick": 163985,
+            "amount": 1
+          },
+          {
+            "tick": 163995,
+            "amount": 1
+          },
+          {
+            "tick": 164000,
+            "amount": 1
+          },
+          {
+            "tick": 164010,
+            "amount": 1
+          },
+          {
+            "tick": 164015,
+            "amount": 1
+          },
+          {
+            "tick": 164025,
+            "amount": 1
+          },
+          {
+            "tick": 164030,
+            "amount": 1
+          },
+          {
+            "tick": 164040,
+            "amount": 1
+          },
+          {
+            "tick": 164045,
+            "amount": 1
+          },
+          {
+            "tick": 164055,
+            "amount": 1
+          },
+          {
+            "tick": 164060,
+            "amount": 1
+          },
+          {
+            "tick": 164070,
+            "amount": 1
+          },
+          {
+            "tick": 164075,
+            "amount": 1
+          },
+          {
+            "tick": 164085,
+            "amount": 1
+          },
+          {
+            "tick": 164090,
+            "amount": 1
+          },
+          {
+            "tick": 164100,
+            "amount": 1
+          },
+          {
+            "tick": 164105,
+            "amount": 1
+          },
+          {
+            "tick": 164115,
+            "amount": 1
+          },
+          {
+            "tick": 164120,
+            "amount": 1
+          },
+          {
+            "tick": 164130,
+            "amount": 1
+          },
+          {
+            "tick": 164135,
+            "amount": 1
+          },
+          {
+            "tick": 164145,
+            "amount": 1
+          },
+          {
+            "tick": 164150,
+            "amount": 1
+          },
+          {
+            "tick": 164160,
+            "amount": 1
+          },
+          {
+            "tick": 164165,
+            "amount": 1
+          },
+          {
+            "tick": 164175,
+            "amount": 1
+          },
+          {
+            "tick": 164180,
+            "amount": 1
+          },
+          {
+            "tick": 164190,
+            "amount": 1
+          },
+          {
+            "tick": 164195,
+            "amount": 1
+          },
+          {
+            "tick": 164205,
+            "amount": 1
+          },
+          {
+            "tick": 164210,
+            "amount": 1
+          },
+          {
+            "tick": 164220,
+            "amount": 1
+          },
+          {
+            "tick": 164225,
+            "amount": 1
+          },
+          {
+            "tick": 164235,
+            "amount": 1
+          },
+          {
+            "tick": 164240,
+            "amount": 1
+          },
+          {
+            "tick": 164250,
+            "amount": 1
+          },
+          {
+            "tick": 164255,
+            "amount": 1
+          },
+          {
+            "tick": 164265,
+            "amount": 1
+          },
+          {
+            "tick": 164270,
+            "amount": 1
+          },
+          {
+            "tick": 164280,
+            "amount": 1
+          },
+          {
+            "tick": 164285,
+            "amount": 1
+          },
+          {
+            "tick": 164295,
+            "amount": 1
+          },
+          {
+            "tick": 164300,
+            "amount": 1
+          },
+          {
+            "tick": 164310,
+            "amount": 1
+          },
+          {
+            "tick": 164315,
+            "amount": 1
+          },
+          {
+            "tick": 164325,
+            "amount": 1
+          },
+          {
+            "tick": 164330,
+            "amount": 1
+          },
+          {
+            "tick": 164340,
+            "amount": 1
+          },
+          {
+            "tick": 164345,
+            "amount": 1
+          },
+          {
+            "tick": 164355,
+            "amount": 1
+          },
+          {
+            "tick": 164360,
+            "amount": 1
+          },
+          {
+            "tick": 164370,
+            "amount": 1
+          },
+          {
+            "tick": 164375,
+            "amount": 1
+          },
+          {
+            "tick": 164385,
+            "amount": 1
+          },
+          {
+            "tick": 164390,
+            "amount": 1
+          },
+          {
+            "tick": 164400,
+            "amount": 1
+          },
+          {
+            "tick": 164405,
+            "amount": 1
+          },
+          {
+            "tick": 164415,
+            "amount": 1
+          },
+          {
+            "tick": 164420,
+            "amount": 1
+          },
+          {
+            "tick": 164430,
+            "amount": 1
+          },
+          {
+            "tick": 164435,
+            "amount": 1
+          },
+          {
+            "tick": 164445,
+            "amount": 1
+          },
+          {
+            "tick": 164450,
+            "amount": 1
+          },
+          {
+            "tick": 164460,
+            "amount": 1
+          },
+          {
+            "tick": 164465,
+            "amount": 1
+          },
+          {
+            "tick": 164475,
+            "amount": 1
+          },
+          {
+            "tick": 164480,
+            "amount": 1
+          },
+          {
+            "tick": 164490,
+            "amount": 1
+          },
+          {
+            "tick": 164495,
+            "amount": 1
+          },
+          {
+            "tick": 164505,
+            "amount": 1
+          },
+          {
+            "tick": 164510,
+            "amount": 1
+          },
+          {
+            "tick": 164520,
+            "amount": 1
+          },
+          {
+            "tick": 164525,
+            "amount": 1
+          },
+          {
+            "tick": 164535,
+            "amount": 1
+          },
+          {
+            "tick": 164540,
+            "amount": 1
+          },
+          {
+            "tick": 164550,
+            "amount": 1
+          },
+          {
+            "tick": 164555,
+            "amount": 1
+          },
+          {
+            "tick": 164565,
+            "amount": 1
+          },
+          {
+            "tick": 164570,
+            "amount": 1
+          },
+          {
+            "tick": 164580,
+            "amount": 1
+          },
+          {
+            "tick": 164585,
+            "amount": 1
+          },
+          {
+            "tick": 164595,
+            "amount": 1
+          },
+          {
+            "tick": 164600,
+            "amount": 1
+          },
+          {
+            "tick": 164610,
+            "amount": 1
+          },
+          {
+            "tick": 164615,
+            "amount": 1
+          },
+          {
+            "tick": 164625,
+            "amount": 1
+          },
+          {
+            "tick": 164630,
+            "amount": 1
+          },
+          {
+            "tick": 164640,
+            "amount": 1
+          },
+          {
+            "tick": 164645,
+            "amount": 1
+          },
+          {
+            "tick": 164655,
+            "amount": 1
+          },
+          {
+            "tick": 164660,
+            "amount": 1
+          },
+          {
+            "tick": 164670,
+            "amount": 1
+          },
+          {
+            "tick": 164675,
+            "amount": 1
+          },
+          {
+            "tick": 164685,
+            "amount": 1
+          },
+          {
+            "tick": 164690,
+            "amount": 1
+          },
+          {
+            "tick": 164700,
+            "amount": 1
+          },
+          {
+            "tick": 164705,
+            "amount": 1
+          },
+          {
+            "tick": 164715,
+            "amount": 1
+          },
+          {
+            "tick": 164720,
+            "amount": 1
+          },
+          {
+            "tick": 164730,
+            "amount": 1
+          },
+          {
+            "tick": 164735,
+            "amount": 1
+          },
+          {
+            "tick": 164745,
+            "amount": 1
+          },
+          {
+            "tick": 164750,
+            "amount": 1
+          },
+          {
+            "tick": 164760,
+            "amount": 1
+          },
+          {
+            "tick": 164765,
+            "amount": 1
+          },
+          {
+            "tick": 164775,
+            "amount": 1
+          },
+          {
+            "tick": 164780,
+            "amount": 1
+          },
+          {
+            "tick": 164790,
+            "amount": 1
+          },
+          {
+            "tick": 164795,
+            "amount": 1
+          },
+          {
+            "tick": 164805,
+            "amount": 1
+          },
+          {
+            "tick": 164810,
+            "amount": 1
+          },
+          {
+            "tick": 164820,
+            "amount": 1
+          },
+          {
+            "tick": 164825,
+            "amount": 1
+          },
+          {
+            "tick": 164835,
+            "amount": 1
+          },
+          {
+            "tick": 164840,
+            "amount": 1
+          },
+          {
+            "tick": 164850,
+            "amount": 1
+          },
+          {
+            "tick": 164855,
+            "amount": 1
+          },
+          {
+            "tick": 164865,
+            "amount": 1
+          },
+          {
+            "tick": 164870,
+            "amount": 1
+          },
+          {
+            "tick": 164880,
+            "amount": 1
+          },
+          {
+            "tick": 164885,
+            "amount": 1
+          },
+          {
+            "tick": 164895,
+            "amount": 1
+          },
+          {
+            "tick": 164900,
+            "amount": 1
+          },
+          {
+            "tick": 164910,
+            "amount": 1
+          },
+          {
+            "tick": 164915,
+            "amount": 1
+          },
+          {
+            "tick": 164925,
+            "amount": 1
+          },
+          {
+            "tick": 164930,
+            "amount": 1
+          },
+          {
+            "tick": 164940,
+            "amount": 1
+          },
+          {
+            "tick": 164945,
+            "amount": 1
+          },
+          {
+            "tick": 164955,
+            "amount": 1
+          },
+          {
+            "tick": 164960,
+            "amount": 1
+          },
+          {
+            "tick": 164970,
+            "amount": 1
+          },
+          {
+            "tick": 164975,
+            "amount": 1
+          },
+          {
+            "tick": 164985,
+            "amount": 1
+          },
+          {
+            "tick": 164990,
+            "amount": 1
+          },
+          {
+            "tick": 165000,
+            "amount": 1
+          }
+        ]
+      },
+      "cup": {
+        "jobs": [
+          null,
+          null,
+          null
+        ],
+        "processed": 13271,
+        "history": [
+          {
+            "tick": 163835,
+            "amount": 3
+          },
+          {
+            "tick": 163850,
+            "amount": 3
+          },
+          {
+            "tick": 163865,
+            "amount": 3
+          },
+          {
+            "tick": 163880,
+            "amount": 3
+          },
+          {
+            "tick": 163895,
+            "amount": 3
+          },
+          {
+            "tick": 163910,
+            "amount": 1
+          },
+          {
+            "tick": 163955,
+            "amount": 3
+          },
+          {
+            "tick": 163970,
+            "amount": 3
+          },
+          {
+            "tick": 163985,
+            "amount": 3
+          },
+          {
+            "tick": 164000,
+            "amount": 3
+          },
+          {
+            "tick": 164015,
+            "amount": 3
+          },
+          {
+            "tick": 164030,
+            "amount": 1
+          },
+          {
+            "tick": 164075,
+            "amount": 3
+          },
+          {
+            "tick": 164090,
+            "amount": 3
+          },
+          {
+            "tick": 164105,
+            "amount": 3
+          },
+          {
+            "tick": 164120,
+            "amount": 3
+          },
+          {
+            "tick": 164135,
+            "amount": 3
+          },
+          {
+            "tick": 164150,
+            "amount": 1
+          },
+          {
+            "tick": 164195,
+            "amount": 3
+          },
+          {
+            "tick": 164210,
+            "amount": 3
+          },
+          {
+            "tick": 164225,
+            "amount": 3
+          },
+          {
+            "tick": 164240,
+            "amount": 3
+          },
+          {
+            "tick": 164255,
+            "amount": 3
+          },
+          {
+            "tick": 164270,
+            "amount": 1
+          },
+          {
+            "tick": 164315,
+            "amount": 3
+          },
+          {
+            "tick": 164330,
+            "amount": 3
+          },
+          {
+            "tick": 164345,
+            "amount": 3
+          },
+          {
+            "tick": 164360,
+            "amount": 3
+          },
+          {
+            "tick": 164375,
+            "amount": 3
+          },
+          {
+            "tick": 164390,
+            "amount": 1
+          },
+          {
+            "tick": 164435,
+            "amount": 3
+          },
+          {
+            "tick": 164450,
+            "amount": 3
+          },
+          {
+            "tick": 164465,
+            "amount": 3
+          },
+          {
+            "tick": 164480,
+            "amount": 3
+          },
+          {
+            "tick": 164495,
+            "amount": 3
+          },
+          {
+            "tick": 164510,
+            "amount": 1
+          },
+          {
+            "tick": 164555,
+            "amount": 3
+          },
+          {
+            "tick": 164570,
+            "amount": 3
+          },
+          {
+            "tick": 164585,
+            "amount": 3
+          },
+          {
+            "tick": 164600,
+            "amount": 3
+          },
+          {
+            "tick": 164615,
+            "amount": 3
+          },
+          {
+            "tick": 164630,
+            "amount": 1
+          },
+          {
+            "tick": 164675,
+            "amount": 3
+          },
+          {
+            "tick": 164690,
+            "amount": 3
+          },
+          {
+            "tick": 164705,
+            "amount": 3
+          },
+          {
+            "tick": 164720,
+            "amount": 3
+          },
+          {
+            "tick": 164735,
+            "amount": 3
+          },
+          {
+            "tick": 164750,
+            "amount": 1
+          },
+          {
+            "tick": 164795,
+            "amount": 3
+          },
+          {
+            "tick": 164810,
+            "amount": 3
+          },
+          {
+            "tick": 164825,
+            "amount": 3
+          },
+          {
+            "tick": 164840,
+            "amount": 3
+          },
+          {
+            "tick": 164855,
+            "amount": 3
+          },
+          {
+            "tick": 164870,
+            "amount": 1
+          },
+          {
+            "tick": 164915,
+            "amount": 3
+          },
+          {
+            "tick": 164930,
+            "amount": 3
+          },
+          {
+            "tick": 164945,
+            "amount": 3
+          },
+          {
+            "tick": 164960,
+            "amount": 3
+          },
+          {
+            "tick": 164975,
+            "amount": 3
+          },
+          {
+            "tick": 164990,
+            "amount": 1
+          }
+        ]
+      },
+      "ship": {
+        "jobs": [
+          null,
+          null
+        ],
+        "processed": 13254,
+        "history": [
+          {
+            "tick": 163850,
+            "amount": 8
+          },
+          {
+            "tick": 163880,
+            "amount": 8
+          },
+          {
+            "tick": 163970,
+            "amount": 8
+          },
+          {
+            "tick": 164000,
+            "amount": 8
+          },
+          {
+            "tick": 164090,
+            "amount": 8
+          },
+          {
+            "tick": 164120,
+            "amount": 8
+          },
+          {
+            "tick": 164210,
+            "amount": 8
+          },
+          {
+            "tick": 164240,
+            "amount": 8
+          },
+          {
+            "tick": 164330,
+            "amount": 8
+          },
+          {
+            "tick": 164360,
+            "amount": 8
+          },
+          {
+            "tick": 164450,
+            "amount": 8
+          },
+          {
+            "tick": 164480,
+            "amount": 8
+          },
+          {
+            "tick": 164570,
+            "amount": 8
+          },
+          {
+            "tick": 164600,
+            "amount": 8
+          },
+          {
+            "tick": 164690,
+            "amount": 8
+          },
+          {
+            "tick": 164720,
+            "amount": 8
+          },
+          {
+            "tick": 164810,
+            "amount": 8
+          },
+          {
+            "tick": 164840,
+            "amount": 8
+          },
+          {
+            "tick": 164930,
+            "amount": 8
+          },
+          {
+            "tick": 164960,
+            "amount": 8
+          }
+        ]
+      }
+    },
+    "simulation": {
+      "ticks": 165000,
+      "carry": 0
+    },
+    "milestones": [
+      true,
+      true,
+      true,
+      false,
+      false
+    ],
+    "firstUpgradeAt": 3600,
+    "mode": "v15",
+    "economyProfile": "fresh",
+    "inputs": {
+      "cup": 0,
+      "ship": 1
+    },
+    "logisticsLevel": 0,
+    "connections": {
+      "pop": {
+        "automated": true,
+        "automatedAtTick": 9000,
+        "remainingTicks": 20,
+        "completedTransfers": 1315,
+        "transferredAmount": 13271,
+        "manualTransfers": 15,
+        "lastManualTransferTick": 9000
+      },
+      "cup": {
+        "automated": true,
+        "automatedAtTick": 22200,
+        "remainingTicks": 20,
+        "completedTransfers": 1226,
+        "transferredAmount": 13255,
+        "manualTransfers": 36,
+        "lastManualTransferTick": 22200
+      }
+    },
+    "automaticTrial": {
+      "elapsedTicks": 5400,
+      "complete": true,
+      "completedAtTick": 28799
+    }
+  },
+  "snapshot": {
+    "state": {
+      "version": 4,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 4,
+      "machine": 3,
+      "upgrades": {
+        "pop": 4,
+        "cup": 6,
+        "ship": 4
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 1375,
+      "totalProduced": 13288,
+      "totalSold": 13254,
+      "totalEarned": 13254,
+      "totalSpent": 13250,
+      "buffers": {
+        "pop": 13,
+        "cup": 16
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 15,
+              "remainingTicks": 5
+            },
+            {
+              "amount": 1,
+              "durationTicks": 15,
+              "remainingTicks": 15
+            },
+            {
+              "amount": 1,
+              "durationTicks": 15,
+              "remainingTicks": 15
+            },
+            {
+              "amount": 1,
+              "durationTicks": 15,
+              "remainingTicks": 15
+            }
+          ],
+          "processed": 13284,
+          "history": [
+            {
+              "tick": 163805,
+              "amount": 1
+            },
+            {
+              "tick": 163815,
+              "amount": 1
+            },
+            {
+              "tick": 163820,
+              "amount": 1
+            },
+            {
+              "tick": 163830,
+              "amount": 1
+            },
+            {
+              "tick": 163835,
+              "amount": 1
+            },
+            {
+              "tick": 163845,
+              "amount": 1
+            },
+            {
+              "tick": 163850,
+              "amount": 1
+            },
+            {
+              "tick": 163860,
+              "amount": 1
+            },
+            {
+              "tick": 163865,
+              "amount": 1
+            },
+            {
+              "tick": 163875,
+              "amount": 1
+            },
+            {
+              "tick": 163880,
+              "amount": 1
+            },
+            {
+              "tick": 163890,
+              "amount": 1
+            },
+            {
+              "tick": 163895,
+              "amount": 1
+            },
+            {
+              "tick": 163905,
+              "amount": 1
+            },
+            {
+              "tick": 163910,
+              "amount": 1
+            },
+            {
+              "tick": 163920,
+              "amount": 1
+            },
+            {
+              "tick": 163925,
+              "amount": 1
+            },
+            {
+              "tick": 163935,
+              "amount": 1
+            },
+            {
+              "tick": 163940,
+              "amount": 1
+            },
+            {
+              "tick": 163950,
+              "amount": 1
+            },
+            {
+              "tick": 163955,
+              "amount": 1
+            },
+            {
+              "tick": 163965,
+              "amount": 1
+            },
+            {
+              "tick": 163970,
+              "amount": 1
+            },
+            {
+              "tick": 163980,
+              "amount": 1
+            },
+            {
+              "tick": 163985,
+              "amount": 1
+            },
+            {
+              "tick": 163995,
+              "amount": 1
+            },
+            {
+              "tick": 164000,
+              "amount": 1
+            },
+            {
+              "tick": 164010,
+              "amount": 1
+            },
+            {
+              "tick": 164015,
+              "amount": 1
+            },
+            {
+              "tick": 164025,
+              "amount": 1
+            },
+            {
+              "tick": 164030,
+              "amount": 1
+            },
+            {
+              "tick": 164040,
+              "amount": 1
+            },
+            {
+              "tick": 164045,
+              "amount": 1
+            },
+            {
+              "tick": 164055,
+              "amount": 1
+            },
+            {
+              "tick": 164060,
+              "amount": 1
+            },
+            {
+              "tick": 164070,
+              "amount": 1
+            },
+            {
+              "tick": 164075,
+              "amount": 1
+            },
+            {
+              "tick": 164085,
+              "amount": 1
+            },
+            {
+              "tick": 164090,
+              "amount": 1
+            },
+            {
+              "tick": 164100,
+              "amount": 1
+            },
+            {
+              "tick": 164105,
+              "amount": 1
+            },
+            {
+              "tick": 164115,
+              "amount": 1
+            },
+            {
+              "tick": 164120,
+              "amount": 1
+            },
+            {
+              "tick": 164130,
+              "amount": 1
+            },
+            {
+              "tick": 164135,
+              "amount": 1
+            },
+            {
+              "tick": 164145,
+              "amount": 1
+            },
+            {
+              "tick": 164150,
+              "amount": 1
+            },
+            {
+              "tick": 164160,
+              "amount": 1
+            },
+            {
+              "tick": 164165,
+              "amount": 1
+            },
+            {
+              "tick": 164175,
+              "amount": 1
+            },
+            {
+              "tick": 164180,
+              "amount": 1
+            },
+            {
+              "tick": 164190,
+              "amount": 1
+            },
+            {
+              "tick": 164195,
+              "amount": 1
+            },
+            {
+              "tick": 164205,
+              "amount": 1
+            },
+            {
+              "tick": 164210,
+              "amount": 1
+            },
+            {
+              "tick": 164220,
+              "amount": 1
+            },
+            {
+              "tick": 164225,
+              "amount": 1
+            },
+            {
+              "tick": 164235,
+              "amount": 1
+            },
+            {
+              "tick": 164240,
+              "amount": 1
+            },
+            {
+              "tick": 164250,
+              "amount": 1
+            },
+            {
+              "tick": 164255,
+              "amount": 1
+            },
+            {
+              "tick": 164265,
+              "amount": 1
+            },
+            {
+              "tick": 164270,
+              "amount": 1
+            },
+            {
+              "tick": 164280,
+              "amount": 1
+            },
+            {
+              "tick": 164285,
+              "amount": 1
+            },
+            {
+              "tick": 164295,
+              "amount": 1
+            },
+            {
+              "tick": 164300,
+              "amount": 1
+            },
+            {
+              "tick": 164310,
+              "amount": 1
+            },
+            {
+              "tick": 164315,
+              "amount": 1
+            },
+            {
+              "tick": 164325,
+              "amount": 1
+            },
+            {
+              "tick": 164330,
+              "amount": 1
+            },
+            {
+              "tick": 164340,
+              "amount": 1
+            },
+            {
+              "tick": 164345,
+              "amount": 1
+            },
+            {
+              "tick": 164355,
+              "amount": 1
+            },
+            {
+              "tick": 164360,
+              "amount": 1
+            },
+            {
+              "tick": 164370,
+              "amount": 1
+            },
+            {
+              "tick": 164375,
+              "amount": 1
+            },
+            {
+              "tick": 164385,
+              "amount": 1
+            },
+            {
+              "tick": 164390,
+              "amount": 1
+            },
+            {
+              "tick": 164400,
+              "amount": 1
+            },
+            {
+              "tick": 164405,
+              "amount": 1
+            },
+            {
+              "tick": 164415,
+              "amount": 1
+            },
+            {
+              "tick": 164420,
+              "amount": 1
+            },
+            {
+              "tick": 164430,
+              "amount": 1
+            },
+            {
+              "tick": 164435,
+              "amount": 1
+            },
+            {
+              "tick": 164445,
+              "amount": 1
+            },
+            {
+              "tick": 164450,
+              "amount": 1
+            },
+            {
+              "tick": 164460,
+              "amount": 1
+            },
+            {
+              "tick": 164465,
+              "amount": 1
+            },
+            {
+              "tick": 164475,
+              "amount": 1
+            },
+            {
+              "tick": 164480,
+              "amount": 1
+            },
+            {
+              "tick": 164490,
+              "amount": 1
+            },
+            {
+              "tick": 164495,
+              "amount": 1
+            },
+            {
+              "tick": 164505,
+              "amount": 1
+            },
+            {
+              "tick": 164510,
+              "amount": 1
+            },
+            {
+              "tick": 164520,
+              "amount": 1
+            },
+            {
+              "tick": 164525,
+              "amount": 1
+            },
+            {
+              "tick": 164535,
+              "amount": 1
+            },
+            {
+              "tick": 164540,
+              "amount": 1
+            },
+            {
+              "tick": 164550,
+              "amount": 1
+            },
+            {
+              "tick": 164555,
+              "amount": 1
+            },
+            {
+              "tick": 164565,
+              "amount": 1
+            },
+            {
+              "tick": 164570,
+              "amount": 1
+            },
+            {
+              "tick": 164580,
+              "amount": 1
+            },
+            {
+              "tick": 164585,
+              "amount": 1
+            },
+            {
+              "tick": 164595,
+              "amount": 1
+            },
+            {
+              "tick": 164600,
+              "amount": 1
+            },
+            {
+              "tick": 164610,
+              "amount": 1
+            },
+            {
+              "tick": 164615,
+              "amount": 1
+            },
+            {
+              "tick": 164625,
+              "amount": 1
+            },
+            {
+              "tick": 164630,
+              "amount": 1
+            },
+            {
+              "tick": 164640,
+              "amount": 1
+            },
+            {
+              "tick": 164645,
+              "amount": 1
+            },
+            {
+              "tick": 164655,
+              "amount": 1
+            },
+            {
+              "tick": 164660,
+              "amount": 1
+            },
+            {
+              "tick": 164670,
+              "amount": 1
+            },
+            {
+              "tick": 164675,
+              "amount": 1
+            },
+            {
+              "tick": 164685,
+              "amount": 1
+            },
+            {
+              "tick": 164690,
+              "amount": 1
+            },
+            {
+              "tick": 164700,
+              "amount": 1
+            },
+            {
+              "tick": 164705,
+              "amount": 1
+            },
+            {
+              "tick": 164715,
+              "amount": 1
+            },
+            {
+              "tick": 164720,
+              "amount": 1
+            },
+            {
+              "tick": 164730,
+              "amount": 1
+            },
+            {
+              "tick": 164735,
+              "amount": 1
+            },
+            {
+              "tick": 164745,
+              "amount": 1
+            },
+            {
+              "tick": 164750,
+              "amount": 1
+            },
+            {
+              "tick": 164760,
+              "amount": 1
+            },
+            {
+              "tick": 164765,
+              "amount": 1
+            },
+            {
+              "tick": 164775,
+              "amount": 1
+            },
+            {
+              "tick": 164780,
+              "amount": 1
+            },
+            {
+              "tick": 164790,
+              "amount": 1
+            },
+            {
+              "tick": 164795,
+              "amount": 1
+            },
+            {
+              "tick": 164805,
+              "amount": 1
+            },
+            {
+              "tick": 164810,
+              "amount": 1
+            },
+            {
+              "tick": 164820,
+              "amount": 1
+            },
+            {
+              "tick": 164825,
+              "amount": 1
+            },
+            {
+              "tick": 164835,
+              "amount": 1
+            },
+            {
+              "tick": 164840,
+              "amount": 1
+            },
+            {
+              "tick": 164850,
+              "amount": 1
+            },
+            {
+              "tick": 164855,
+              "amount": 1
+            },
+            {
+              "tick": 164865,
+              "amount": 1
+            },
+            {
+              "tick": 164870,
+              "amount": 1
+            },
+            {
+              "tick": 164880,
+              "amount": 1
+            },
+            {
+              "tick": 164885,
+              "amount": 1
+            },
+            {
+              "tick": 164895,
+              "amount": 1
+            },
+            {
+              "tick": 164900,
+              "amount": 1
+            },
+            {
+              "tick": 164910,
+              "amount": 1
+            },
+            {
+              "tick": 164915,
+              "amount": 1
+            },
+            {
+              "tick": 164925,
+              "amount": 1
+            },
+            {
+              "tick": 164930,
+              "amount": 1
+            },
+            {
+              "tick": 164940,
+              "amount": 1
+            },
+            {
+              "tick": 164945,
+              "amount": 1
+            },
+            {
+              "tick": 164955,
+              "amount": 1
+            },
+            {
+              "tick": 164960,
+              "amount": 1
+            },
+            {
+              "tick": 164970,
+              "amount": 1
+            },
+            {
+              "tick": 164975,
+              "amount": 1
+            },
+            {
+              "tick": 164985,
+              "amount": 1
+            },
+            {
+              "tick": 164990,
+              "amount": 1
+            },
+            {
+              "tick": 165000,
+              "amount": 1
+            }
+          ]
+        },
+        "cup": {
+          "jobs": [
+            null,
+            null,
+            null
+          ],
+          "processed": 13271,
+          "history": [
+            {
+              "tick": 163835,
+              "amount": 3
+            },
+            {
+              "tick": 163850,
+              "amount": 3
+            },
+            {
+              "tick": 163865,
+              "amount": 3
+            },
+            {
+              "tick": 163880,
+              "amount": 3
+            },
+            {
+              "tick": 163895,
+              "amount": 3
+            },
+            {
+              "tick": 163910,
+              "amount": 1
+            },
+            {
+              "tick": 163955,
+              "amount": 3
+            },
+            {
+              "tick": 163970,
+              "amount": 3
+            },
+            {
+              "tick": 163985,
+              "amount": 3
+            },
+            {
+              "tick": 164000,
+              "amount": 3
+            },
+            {
+              "tick": 164015,
+              "amount": 3
+            },
+            {
+              "tick": 164030,
+              "amount": 1
+            },
+            {
+              "tick": 164075,
+              "amount": 3
+            },
+            {
+              "tick": 164090,
+              "amount": 3
+            },
+            {
+              "tick": 164105,
+              "amount": 3
+            },
+            {
+              "tick": 164120,
+              "amount": 3
+            },
+            {
+              "tick": 164135,
+              "amount": 3
+            },
+            {
+              "tick": 164150,
+              "amount": 1
+            },
+            {
+              "tick": 164195,
+              "amount": 3
+            },
+            {
+              "tick": 164210,
+              "amount": 3
+            },
+            {
+              "tick": 164225,
+              "amount": 3
+            },
+            {
+              "tick": 164240,
+              "amount": 3
+            },
+            {
+              "tick": 164255,
+              "amount": 3
+            },
+            {
+              "tick": 164270,
+              "amount": 1
+            },
+            {
+              "tick": 164315,
+              "amount": 3
+            },
+            {
+              "tick": 164330,
+              "amount": 3
+            },
+            {
+              "tick": 164345,
+              "amount": 3
+            },
+            {
+              "tick": 164360,
+              "amount": 3
+            },
+            {
+              "tick": 164375,
+              "amount": 3
+            },
+            {
+              "tick": 164390,
+              "amount": 1
+            },
+            {
+              "tick": 164435,
+              "amount": 3
+            },
+            {
+              "tick": 164450,
+              "amount": 3
+            },
+            {
+              "tick": 164465,
+              "amount": 3
+            },
+            {
+              "tick": 164480,
+              "amount": 3
+            },
+            {
+              "tick": 164495,
+              "amount": 3
+            },
+            {
+              "tick": 164510,
+              "amount": 1
+            },
+            {
+              "tick": 164555,
+              "amount": 3
+            },
+            {
+              "tick": 164570,
+              "amount": 3
+            },
+            {
+              "tick": 164585,
+              "amount": 3
+            },
+            {
+              "tick": 164600,
+              "amount": 3
+            },
+            {
+              "tick": 164615,
+              "amount": 3
+            },
+            {
+              "tick": 164630,
+              "amount": 1
+            },
+            {
+              "tick": 164675,
+              "amount": 3
+            },
+            {
+              "tick": 164690,
+              "amount": 3
+            },
+            {
+              "tick": 164705,
+              "amount": 3
+            },
+            {
+              "tick": 164720,
+              "amount": 3
+            },
+            {
+              "tick": 164735,
+              "amount": 3
+            },
+            {
+              "tick": 164750,
+              "amount": 1
+            },
+            {
+              "tick": 164795,
+              "amount": 3
+            },
+            {
+              "tick": 164810,
+              "amount": 3
+            },
+            {
+              "tick": 164825,
+              "amount": 3
+            },
+            {
+              "tick": 164840,
+              "amount": 3
+            },
+            {
+              "tick": 164855,
+              "amount": 3
+            },
+            {
+              "tick": 164870,
+              "amount": 1
+            },
+            {
+              "tick": 164915,
+              "amount": 3
+            },
+            {
+              "tick": 164930,
+              "amount": 3
+            },
+            {
+              "tick": 164945,
+              "amount": 3
+            },
+            {
+              "tick": 164960,
+              "amount": 3
+            },
+            {
+              "tick": 164975,
+              "amount": 3
+            },
+            {
+              "tick": 164990,
+              "amount": 1
+            }
+          ]
+        },
+        "ship": {
+          "jobs": [
+            null,
+            null
+          ],
+          "processed": 13254,
+          "history": [
+            {
+              "tick": 163850,
+              "amount": 8
+            },
+            {
+              "tick": 163880,
+              "amount": 8
+            },
+            {
+              "tick": 163970,
+              "amount": 8
+            },
+            {
+              "tick": 164000,
+              "amount": 8
+            },
+            {
+              "tick": 164090,
+              "amount": 8
+            },
+            {
+              "tick": 164120,
+              "amount": 8
+            },
+            {
+              "tick": 164210,
+              "amount": 8
+            },
+            {
+              "tick": 164240,
+              "amount": 8
+            },
+            {
+              "tick": 164330,
+              "amount": 8
+            },
+            {
+              "tick": 164360,
+              "amount": 8
+            },
+            {
+              "tick": 164450,
+              "amount": 8
+            },
+            {
+              "tick": 164480,
+              "amount": 8
+            },
+            {
+              "tick": 164570,
+              "amount": 8
+            },
+            {
+              "tick": 164600,
+              "amount": 8
+            },
+            {
+              "tick": 164690,
+              "amount": 8
+            },
+            {
+              "tick": 164720,
+              "amount": 8
+            },
+            {
+              "tick": 164810,
+              "amount": 8
+            },
+            {
+              "tick": 164840,
+              "amount": 8
+            },
+            {
+              "tick": 164930,
+              "amount": 8
+            },
+            {
+              "tick": 164960,
+              "amount": 8
+            }
+          ]
+        }
+      },
+      "simulation": {
+        "ticks": 165000,
+        "carry": 0
+      },
+      "milestones": [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "firstUpgradeAt": 3600,
+      "mode": "v15",
+      "economyProfile": "fresh",
+      "inputs": {
+        "cup": 0,
+        "ship": 1
+      },
+      "logisticsLevel": 0,
+      "connections": {
+        "pop": {
+          "automated": true,
+          "automatedAtTick": 9000,
+          "remainingTicks": 20,
+          "completedTransfers": 1315,
+          "transferredAmount": 13271,
+          "manualTransfers": 15,
+          "lastManualTransferTick": 9000
+        },
+        "cup": {
+          "automated": true,
+          "automatedAtTick": 22200,
+          "remainingTicks": 20,
+          "completedTransfers": 1226,
+          "transferredAmount": 13255,
+          "manualTransfers": 36,
+          "lastManualTransferTick": 22200
+        }
+      },
+      "automaticTrial": {
+        "elapsedTicks": 5400,
+        "complete": true,
+        "completedAtTick": 28799
+      }
+    },
+    "mode": "v15",
+    "machine": {
+      "id": 3,
+      "name": "多头机",
+      "description": "开放四锅并行、三头装杯与四份成箱",
+      "color": "#6baacb",
+      "cost": 4200,
+      "requiredSold": 2600,
+      "targetRate": 12,
+      "buffers": {
+        "pop": 96,
+        "cup": 96
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 32,
+        "actualRate": 16,
+        "status": "running",
+        "lanes": 4,
+        "batchSize": 1,
+        "progress": 0.16666666666666669,
+        "inFlight": 4,
+        "level": 4,
+        "processed": 13284,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0.6666666666666667,
+            "complete": false
+          },
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          },
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          },
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "双份连续爆锅",
+          "cost": 4800,
+          "requiredMachine": 4,
+          "lanes": 4,
+          "batchSize": 2,
+          "cycleTicks": 15,
+          "capacity": 64,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 24,
+        "actualRate": 16,
+        "status": "waiting",
+        "lanes": 3,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 6,
+        "processed": 13271,
+        "jobs": [
+          null,
+          null,
+          null
+        ],
+        "upgrade": {
+          "name": "四头双份装杯",
+          "cost": 4200,
+          "requiredMachine": 4,
+          "lanes": 4,
+          "batchSize": 2,
+          "cycleTicks": 15,
+          "capacity": 64,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 32,
+        "actualRate": 16,
+        "status": "waiting",
+        "lanes": 2,
+        "batchSize": 4,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 4,
+        "processed": 13254,
+        "jobs": [
+          null,
+          null
+        ],
+        "upgrade": {
+          "name": "四道整箱出货",
+          "cost": 3800,
+          "requiredMachine": 4,
+          "lanes": 4,
+          "batchSize": 4,
+          "cycleTicks": 24,
+          "capacity": 80,
+          "available": false,
+          "reason": "machine-required"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 13,
+        "capacity": 96
+      },
+      {
+        "id": "cup",
+        "amount": 16,
+        "capacity": 96
+      }
+    ],
+    "throughput": 16,
+    "price": 1,
+    "expansion": {
+      "name": "自动流水线",
+      "description": "开放双份加工与四道整箱出货",
+      "cost": 12500,
+      "requiredSold": 8500,
+      "targetRate": 22,
+      "sold": 13254,
+      "total": 8500,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "transfers": [
+      {
+        "id": "A",
+        "enabled": true,
+        "source": "pop",
+        "target": "cup",
+        "batchSize": 96,
+        "inputAmount": 0,
+        "inputCapacity": 96,
+        "reservedAmount": 0,
+        "availableAmount": 13,
+        "receivableAmount": 13,
+        "canReserve": true,
+        "reason": "",
+        "automated": true,
+        "automatedAtTick": 9000,
+        "remainingTicks": 20,
+        "completedTransfers": 1315,
+        "transferredAmount": 13271,
+        "manualTransfers": 15,
+        "lastManualTransferTick": 9000,
+        "automation": {
+          "source": "pop",
+          "target": "cup",
+          "name": "自动补料",
+          "cost": 130,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 96,
+        "transportCycleTicks": 120,
+        "transportCapacity": 96
+      },
+      {
+        "id": "B",
+        "enabled": true,
+        "source": "cup",
+        "target": "ship",
+        "batchSize": 96,
+        "inputAmount": 1,
+        "inputCapacity": 96,
+        "reservedAmount": 0,
+        "availableAmount": 16,
+        "receivableAmount": 16,
+        "canReserve": true,
+        "reason": "",
+        "automated": true,
+        "automatedAtTick": 22200,
+        "remainingTicks": 20,
+        "completedTransfers": 1226,
+        "transferredAmount": 13255,
+        "manualTransfers": 36,
+        "lastManualTransferTick": 22200,
+        "automation": {
+          "source": "cup",
+          "target": "ship",
+          "name": "自动送货",
+          "cost": 330,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 96,
+        "transportCycleTicks": 120,
+        "transportCapacity": 96
+      }
+    ],
+    "logisticsUpgrade": {
+      "name": "加大托盘与料仓",
+      "cost": 60,
+      "requiredMachine": 0,
+      "transferBatch": 96,
+      "inputCapacity": 96,
+      "bufferCapacity": 96,
+      "available": false,
+      "reason": "not-enough-coins",
+      "before": {
+        "name": "整盘搬运",
+        "cost": 0,
+        "requiredMachine": 0,
+        "transferBatch": 96,
+        "inputCapacity": 96,
+        "bufferCapacity": 96
+      },
+      "after": {
+        "name": "加大托盘与料仓",
+        "cost": 60,
+        "requiredMachine": 0,
+        "transferBatch": 96,
+        "inputCapacity": 96,
+        "bufferCapacity": 96
+      },
+      "batchBefore": 96,
+      "batchAfter": 96,
+      "inputBefore": 96,
+      "inputAfter": 96,
+      "capacityBefore": 96,
+      "capacityAfter": 96
+    },
+    "automaticTrial": {
+      "elapsedSeconds": 45,
+      "requiredSeconds": 45,
+      "complete": true,
+      "targetRate": 3,
+      "unattended": true
+    },
+    "transfer": {
+      "id": "A",
+      "enabled": true,
+      "source": "pop",
+      "target": "cup",
+      "batchSize": 96,
+      "inputAmount": 0,
+      "inputCapacity": 96,
+      "reservedAmount": 0,
+      "availableAmount": 13,
+      "receivableAmount": 13,
+      "canReserve": true,
+      "reason": "",
+      "automated": true,
+      "automatedAtTick": 9000,
+      "remainingTicks": 20,
+      "completedTransfers": 1315,
+      "transferredAmount": 13271,
+      "manualTransfers": 15,
+      "lastManualTransferTick": 9000,
+      "automation": {
+        "source": "pop",
+        "target": "cup",
+        "name": "自动补料",
+        "cost": 130,
+        "requiredMachine": 0,
+        "available": false,
+        "reason": "already-automated"
+      },
+      "automaticBatchSize": 96,
+      "transportCycleTicks": 120,
+      "transportCapacity": 96
+    },
+    "onboarding": {
+      "phase": "complete",
+      "stationId": null,
+      "hint": ""
+    },
+    "loadWarning": null
+  },
+  "configuration": "upgraded"
+}

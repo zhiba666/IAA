@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "status": "EXPORTED_PENDING_ASSEMBLY_QA",
+  "realAlpha": true,
+  "sourceBoundaryPixels": [
+    {
+      "id": "factory_platform_extension",
+      "count": 0
+    },
+    {
+      "id": "factory_tower_back",
+      "count": 0
+    },
+    {
+      "id": "factory_tower_front",
+      "count": 0
+    }
+  ],
+  "exports": 3,
+  "runtime": "NOT_RUN"
+}

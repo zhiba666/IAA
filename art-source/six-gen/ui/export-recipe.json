@@ -1,0 +1,115 @@
+﻿{
+    "schemaVersion":  1,
+    "contractVersion":  "six-gen-art-1.0",
+    "mode":  "mechanical crop and uniform resize only",
+    "assets":  [
+                   {
+                       "id":  "ui_badge_complete",
+                       "sourceFile":  "sources/ui_badge_complete.png",
+                       "file":  "exports/ui_badge_complete.png",
+                       "sourceSha256":  "ff0a123b9a31109b42b4d6a6ad4a0292116444b35b22b338589e2afc73393380",
+                       "exportSha256":  "3bc3282dfe54a0a081ff8a48a055e355f5bc97060c552b86e1fef3b5a9f91a46",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1254,
+                                                         1254
+                                                     ],
+                                      "sourceRect":  [
+                                                         54,
+                                                         98,
+                                                         1153,
+                                                         1137
+                                                     ],
+                                      "exportSize":  [
+                                                         96,
+                                                         95
+                                                     ],
+                                      "uniformScale":  0.0797918473547268,
+                                      "contentOffset":  [
+                                                            2,
+                                                            2
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  255,
+                                      "alphaZero":  1031571,
+                                      "alphaSemi":  540277,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; UI adds two-pixel transparent gutter"
+                                  }
+                   },
+                   {
+                       "id":  "ui_badge_generation",
+                       "sourceFile":  "sources/ui_badge_generation.png",
+                       "file":  "exports/ui_badge_generation.png",
+                       "sourceSha256":  "0c1d70e81ba1263fef1459bee36ac163ccc3fa4f92128daff47e930b2edbcefd",
+                       "exportSha256":  "8286d6b816dce3aec412f0f370e63dad7b53e8f3878e0087162174851692711b",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1290,
+                                                         1219
+                                                     ],
+                                      "sourceRect":  [
+                                                         83,
+                                                         90,
+                                                         1049,
+                                                         1022
+                                                     ],
+                                      "exportSize":  [
+                                                         96,
+                                                         94
+                                                     ],
+                                      "uniformScale":  0.0877025738798856,
+                                      "contentOffset":  [
+                                                            2,
+                                                            2
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  255,
+                                      "alphaZero":  829262,
+                                      "alphaSemi":  741427,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; UI adds two-pixel transparent gutter"
+                                  }
+                   },
+                   {
+                       "id":  "ui_icon_automation",
+                       "sourceFile":  "sources/ui_icon_automation.png",
+                       "file":  "exports/ui_icon_automation.png",
+                       "sourceSha256":  "7422e59bb8911fb095f0a9ffb0ad018a8c38ffca8ad5c1c57953ee94ef6c7a01",
+                       "exportSha256":  "5f9bb4eb9ed413555a06f9bc0aba9ac6de5aa397e9f1f55dc68eb4d8062e1b89",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1254,
+                                                         1254
+                                                     ],
+                                      "sourceRect":  [
+                                                         44,
+                                                         16,
+                                                         1163,
+                                                         1217
+                                                     ],
+                                      "exportSize":  [
+                                                         92,
+                                                         96
+                                                     ],
+                                      "uniformScale":  0.075595727198027943,
+                                      "contentOffset":  [
+                                                            2,
+                                                            2
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  255,
+                                      "alphaZero":  1123352,
+                                      "alphaSemi":  447651,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; UI adds two-pixel transparent gutter"
+                                  }
+                   }
+               ]
+}

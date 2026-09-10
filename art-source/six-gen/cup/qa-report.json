@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "owner": "A2",
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "status": "READY_FOR_INDEPENDENT_ART_QA",
+  "generationStatus": "10 completed calls: 4 accepted RGBA sources, 6 rejected RGB sources",
+  "exportStatus": "4 exported empty hull PNGs",
+  "assemblyStatus": "5 distinct rigs provide six-generation use, with 1/2/3/4/6 independently placed heads",
+  "counts": {
+    "generatedSourceFiles": 10,
+    "successfulSourceFiles": 4,
+    "rejectedSourceFiles": 6,
+    "exportedNewSprites": 4,
+    "exportBytes": 1647872.0,
+    "reusedPngReferences": 7,
+    "cancelledByReuse": 6
+  },
+  "checks": [
+    {
+      "name": "Generated source files, PNG signatures, dimensions, modes and SHA",
+      "status": "PASS",
+      "evidence": "image-audit.json; all original/copy hashes match"
+    },
+    {
+      "name": "Four export PNG alpha and padding",
+      "status": "PASS",
+      "evidence": "export-audit.json; RGBA, corner alpha 0, perimeter nontransparent count 0"
+    },
+    {
+      "name": "Uniform transforms and rig rectangles",
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "name": "Empty hull shape and prohibited content",
+      "status": "PASS_VISUAL",
+      "evidence": "Four final hulls have 2/3/4/6 empty bays, no installed heads/cups/products/text"
+    },
+    {
+      "name": "Shallow/deep/checker backgrounds",
+      "status": "PASS_VISUAL",
+      "evidence": "previews/*-three-backgrounds.png; final composites have no baked checkerboard or visible white halo"
+    },
+    {
+      "name": "Independent heads, cup mouths and front guards",
+      "status": "PASS_VISUAL",
+      "evidence": "previews/*-assembly.png"
+    },
+    {
+      "name": "Four/six-slot double portions and mixed old/new batch",
+      "status": "PASS_STATIC_VISUAL",
+      "evidence": "previews/quad-two-portion-assembly.png and hex-two-portion-assembly.png"
+    },
+    {
+      "name": "Low-alpha source edge colors",
+      "status": "FINAL_COMPOSITE_REVIEWED",
+      "evidence": "Source alpha edges include hidden/very low-alpha cyan/blue RGB residues; originals preserved, final light/dark composites checked; no global color removal"
+    },
+    {
+      "name": "Independent full-screen Gate 3 review",
+      "status": "PENDING_A0_A7",
+      "evidence": "QA renderer consumes assembly.json"
+    },
+    {
+      "name": "Runtime integration/build/device",
+      "status": "NOT_RUN",
+      "reason": "User requested artwork only"
+    }
+  ],
+  "unresolvedGeometryErrors": [],
+  "nextDependency": "A0/A7 independent merged scene QA",
+  "writeBoundary": "Only art-source/six-gen/cup written by A2. Official assets, code and build directories unchanged by this agent."
+}

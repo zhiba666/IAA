@@ -1,0 +1,58 @@
+{
+  "status": "VERIFIED_RUNTIME",
+  "deviceStatus": "NOT_RUN",
+  "date": "2026-09-10T08:42:32.106Z",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "bundleSha256": "dedfe8de8ff8d50e1cf4f8a0363a17813693469a9244ec1ce874dbdfb19a6292",
+  "tests": {
+    "passed": 221,
+    "failed": 0
+  },
+  "baselineTests": {
+    "passed": 210,
+    "failed": 0
+  },
+  "art": {
+    "count": 84,
+    "pngBytes": 1846247,
+    "rgbaEstimateBytes": 26848144
+  },
+  "browser": {
+    "mainScreenshots": 24,
+    "allAssetsLoaded": 84,
+    "mainScreenshotErrors": 0,
+    "failedThenRecovered": [
+      "g6-upgraded-320x524-safe24-1789029196116.json",
+      "g6-upgraded-320x524-safe24-1789029235074.json"
+    ],
+    "reservedThenCancelled": [
+      "g1-first-tray-320x524-safe24-1789029568884.json",
+      "g1-first-tray-320x524-safe24-1789029609920.json"
+    ],
+    "fullInput": "g1-boundary-input-full-320x524-safe24-1789029383048.json",
+    "allUpgradesComplete": "g6-complete-320x524-safe24-1789029373408.json"
+  },
+  "preservedSourceSha256_LF": {
+    "src/core.js": "684f683daa24de596719c42a3ebe751843b7df63aad16d66c84cb282bce032f6",
+    "src/factory-rules.js": "484b3459be0560b3f89ca3e4a22fe6d7704d72ee4dc8eb3bbfa5667647cc582f",
+    "src/platform.js": "1fa20e42536c4b9c2c26dae7c0612d374b20cab806527d23d5b99356a4821f94",
+    "src/audio.js": "f586563d51eed4ea6eb6c3f59d6702960eea4d4de5a2f9a014355eeb057bb703",
+    "src/production-insights.js": "79c71d19f488bb76a86f9ddd679010a743b234da77453e9ac1e07de353484675"
+  },
+  "preflight": {
+    "code": "PASS",
+    "appId": "CONFIGURED_UNVERIFIED",
+    "device": "NOT_RUN"
+  },
+  "balance": {
+    "finalRate": 96
+  },
+  "performance": {
+    "status": "NOT_VERIFIED",
+    "reason": "Background Chrome throttling (about one-second frame gaps); recording is event/state evidence, not a foreground performance benchmark."
+  },
+  "published": false,
+  "configurationPolicy": "Original config.local.json preserved and copied only into isolated build; bundle SHA unchanged.",
+  "syncedTo": "C:\\Users\\chenweilun\\Documents\\GitHub\\IAA",
+  "syncedAt": "2026-09-10T08:46:16.742Z"
+}

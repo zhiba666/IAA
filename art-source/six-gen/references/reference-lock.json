@@ -1,0 +1,73 @@
+{
+  "inspectedImages": [
+    "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+    "output/imagegen/popcorn-ui-20260909/ui-components.png",
+    "output/imagegen/popcorn-ui-20260909/ui-upgrade-and-production.png",
+    "output/imagegen/popcorn-ui-20260909/ui-tasks-and-shipping.png"
+  ],
+  "files": [
+    {
+      "exists": true,
+      "path": "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+      "sha256": "28d325cdb53841889554fc6a2301040e443fa2c7bcde30f88c19eeed2abcc672"
+    },
+    {
+      "exists": true,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-components.png",
+      "sha256": "ece92e9eb1ec2f45e28fee4bda1683810be2781bdbb55ad2a8f63916e9c9726a"
+    },
+    {
+      "exists": true,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-upgrade-and-production.png",
+      "sha256": "5144fe50adeb3a315fd20828b959936dbc47f7eb86c8295ae7eb8de1f4c246ca"
+    },
+    {
+      "exists": true,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-tasks-and-shipping.png",
+      "sha256": "c101ec2b7169dffc55fd442c0e3decf7f3404fd1b129e5f15fb428df014f4541"
+    },
+    {
+      "exists": true,
+      "path": "assets/art/products/product_cup_empty.png",
+      "sha256": "6c8b333578fb63162c59f73bb15998d41d93d44c8aaa288ca5a4f05038b63e7f"
+    },
+    {
+      "exists": true,
+      "path": "assets/art/machines/machine_pop_head.png",
+      "sha256": "4ffb38e65caeb4c89341d6c2995ff678c26cba3456be1168e965958d0019702f"
+    },
+    {
+      "exists": true,
+      "path": "assets/art/machines/machine_cup_head.png",
+      "sha256": "b64456e37b17fe196f35f22089a2ef8730a1d91dff2b72f2ae56990002b5abc2"
+    },
+    {
+      "exists": true,
+      "path": "assets/art/machines/machine_ship_head.png",
+      "sha256": "bfd33db0bf0f275cc2aa2669d90798dfb5a5c061926dbe3d11f77f1481042029"
+    },
+    {
+      "exists": true,
+      "path": "assets/art/ui/ui_panel.png",
+      "sha256": "68b734f241cb81738b1840c42e5102013ba6f976c13a256cecdc7f1a909f8e83"
+    },
+    {
+      "exists": true,
+      "path": "art-source/batch-0/assembly.json",
+      "sha256": "78f73ce497ae77265f39822435dabdbbd7f2f908c26ba83db35f7f2814eb9660"
+    },
+    {
+      "exists": true,
+      "path": "art-source/batch-1/machinery/assembly.json",
+      "sha256": "b5f68ece99e813a2b8a733967961cd50e7c6b6f0639c8439ca59c0ee186b5928"
+    },
+    {
+      "exists": true,
+      "path": "art-source/batch-1/core/assembly.json",
+      "sha256": "e5daae488c5914d37caa9755cfd8a97994e6b28d3984e7d96bc6b4fab2aa4b1a"
+    }
+  ],
+  "contractVersion": "six-gen-art-1.0",
+  "scope": "Art only; no runtime integration",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee"
+}

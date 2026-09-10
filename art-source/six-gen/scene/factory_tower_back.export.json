@@ -1,0 +1,30 @@
+{
+  "id": "factory_tower_back",
+  "owner": "scene",
+  "sourceFile": "art-source/six-gen/scene/sources/factory_tower_back.png",
+  "file": "art-source/six-gen/scene/exports/factory_tower_back.png",
+  "sourceSize": [
+    1145,
+    1374
+  ],
+  "sourceRect": [
+    280,
+    82,
+    594,
+    1216
+  ],
+  "width": 317,
+  "height": 640,
+  "anchor": [
+    158.5,
+    636
+  ],
+  "sourceSha256": "aed89ec13b33273e1372cf1d8d82e3cd02651f4eaf5afe9e710f9c51f247a12a",
+  "sha256": "2d9e6f78c2a5940ee33564b8ee0c2219fb5e30873eada3b44d76d961186cc983",
+  "bytes": 51279,
+  "rgbaBytes": 811520,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

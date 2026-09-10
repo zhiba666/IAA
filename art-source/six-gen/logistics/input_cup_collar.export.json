@@ -1,0 +1,30 @@
+{
+  "id": "input_cup_collar",
+  "owner": "logistics",
+  "sourceFile": "art-source/six-gen/logistics/sources/input_cup_collar.png",
+  "file": "art-source/six-gen/logistics/exports/input_cup_collar.png",
+  "sourceSize": [
+    1518,
+    1036
+  ],
+  "sourceRect": [
+    20,
+    17,
+    1481,
+    1003
+  ],
+  "width": 192,
+  "height": 133,
+  "anchor": [
+    96,
+    129
+  ],
+  "sourceSha256": "911f46b00d0fe8f117f375aefabbc2efb1fad12b18e727f4759b1b87c54c0a75",
+  "sha256": "94eb0fc905daaa8de0f80af61366366fd916d8ba59c68c1ee8e6253d5eadd807",
+  "bytes": 7276,
+  "rgbaBytes": 102144,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

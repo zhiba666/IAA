@@ -125,9 +125,9 @@ test('every migrated later generation can paint both cargo ghosts and accurately
       assert.ok(view.transfers.every(item=>item.automated));
       for(const source of ['pop','cup']){
         const {renderer}=render(view,viewports[0],{transfer:{source,target:source==='pop'?'cup':'ship',amount:4,x:210,y:380,dragging:true}});
-        assert.equal(renderer.scene.artGeneration,null,'later generations use ProductionScene artwork');
+        assert.equal(renderer.scene.artGeneration,view.state.machine,'later generations use their reviewed PNG assembly');
         assert.equal(renderer.transferGhost.source,source,'both inherited cargo painters remain callable');
-        assert.equal(renderer.scene.transferFrames.length,0,'automatic later stages need no manual collection targets');
+        assert.ok(renderer.scene.transferFrames.some(frame=>frame.action==='transfer-target-'+(source==='pop'?'cup':'ship')),'automatic routes retain their real optional input targets');
       }
       const settings=render(view,viewports[2],{modal:{type:'settings'}}).canvas.texts.map(item=>item.text).join('');
       assert.ok(settings.includes('旧版工厂兼容迁移'));

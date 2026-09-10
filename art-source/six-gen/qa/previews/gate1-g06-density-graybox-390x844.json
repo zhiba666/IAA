@@ -1,0 +1,151 @@
+{
+  "commit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "contractVersion": "six-gen-art-1.0",
+  "viewSize": [
+    390,
+    844
+  ],
+  "safeArea": 24,
+  "generation": 6,
+  "configuration": "upgraded",
+  "fixtureKind": "geometry-graybox-not-deliverable",
+  "syntheticArtOnly": true,
+  "executionTime": "2026-09-10T06:58:35.321Z",
+  "checkerVersion": "static-preview-1.0",
+  "pngSha256": "69df80af79c5174865cebb50820257b84b7e1bc214eda86e7d987f49501d6f5b",
+  "assetSHAs": [
+    {
+      "id": "machine_pop_head",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/machine_pop_head.png",
+      "sha256": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b"
+    },
+    {
+      "id": "machine_cup_head",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/machine_cup_head.png",
+      "sha256": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df"
+    },
+    {
+      "id": "product_cup_empty",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/product_cup_empty.png",
+      "sha256": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c"
+    },
+    {
+      "id": "product_cup_fill",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/product_cup_fill.png",
+      "sha256": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e"
+    },
+    {
+      "id": "machine_ship_head",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/machine_ship_head.png",
+      "sha256": "5a46ea13f14e30d353a65d6cb7549b832e9c43bad29f983c24903c6df492f689"
+    },
+    {
+      "id": "product_kernel_b",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/product_kernel_b.png",
+      "sha256": "8075bc3cf10c090e1174409fec2dba3141973e69f6259cbb31fa6f187b6f8bc3"
+    },
+    {
+      "id": "ui_hud_coin",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/ui_hud_coin.png",
+      "sha256": "5a2a6bfcda297c8a3fa0c295c88f66c5739efa3024c9af02efd669786fc5fdb1"
+    },
+    {
+      "id": "ui_hud_rate",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/ui_hud_rate.png",
+      "sha256": "b6610fdd6277fbf117bb78e88ed12aa67550849d540cdfe132b49fca5875e27b"
+    },
+    {
+      "id": "ui_icon_pop",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_pop.png",
+      "sha256": "61fa4ef628a20576702f3f46bc08beef8e277e658083179b124bd0ffdc33c534"
+    },
+    {
+      "id": "ui_icon_cup",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_cup.png",
+      "sha256": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588"
+    },
+    {
+      "id": "ui_icon_ship",
+      "path": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_ship.png",
+      "sha256": "249c9c1bc108fb0a0c563ec42164cb5b711c1facc05bc9d6be48401f8ea12ad4"
+    }
+  ],
+  "conclusion": "GEOMETRY_DRAFT_REQUIRES_REVIEW",
+  "hitRegions": [
+    {
+      "id": "pop",
+      "bounds": [
+        20.71875,
+        125,
+        160.875,
+        131.04
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "bulk",
+      "bounds": [
+        277.875,
+        235.88,
+        81.65625,
+        85.67999999999999
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "cup",
+      "bounds": [
+        37.78125,
+        323.24,
+        168.1875,
+        139.44
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "cups",
+      "bounds": [
+        280.3125,
+        434.12,
+        79.21875,
+        84
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "ship",
+      "bounds": [
+        46.3125,
+        519.8,
+        169.40625,
+        119.28
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "cup_input",
+      "bounds": [
+        201.96875,
+        396.05920000000003,
+        44,
+        44
+      ],
+      "minimumTargetMet": true
+    },
+    {
+      "id": "ship_input",
+      "bounds": [
+        211.71875,
+        578.9104,
+        44,
+        44
+      ],
+      "minimumTargetMet": true
+    }
+  ],
+  "notes": [
+    "Gray polygons are temporary density geometry, not generated machine art.",
+    "Real common cup, three working-head families, UI skin and 44px input targets used for size reference.",
+    "No claim that six-generation art or final assembly is complete."
+  ]
+}

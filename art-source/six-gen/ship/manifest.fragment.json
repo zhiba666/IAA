@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A3",
+  "assets": [
+    {
+      "id": "machine_ship_dual_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        3,
+        4
+      ],
+      "file": "art-source/six-gen/ship/exports/machine_ship_dual_body.png",
+      "width": 640,
+      "height": 451,
+      "anchor": [
+        320.0,
+        449
+      ],
+      "sourceFile": "art-source/six-gen/ship/sources/machine_ship_dual_body.png",
+      "sha256": "239437244edd892b5c437cece31ec633d7b0810467ae34c1d319cbf22f3761bb",
+      "provenanceRef": "art-source/six-gen/ship/provenance.json#machine_ship_dual_body",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_ship_lane_cover",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/ship/exports/machine_ship_lane_cover.png",
+      "width": 192,
+      "height": 106,
+      "anchor": [
+        96.0,
+        104
+      ],
+      "sourceFile": "art-source/six-gen/ship/sources/machine_ship_lane_cover.png",
+      "sha256": "fec43feb7aedaefb195b3f6bb77f806a973b96f7ef1008008070c05741223557",
+      "provenanceRef": "art-source/six-gen/ship/provenance.json#machine_ship_lane_cover",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_ship_quad_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/ship/exports/machine_ship_quad_body.png",
+      "width": 640,
+      "height": 403,
+      "anchor": [
+        320.0,
+        401
+      ],
+      "sourceFile": "art-source/six-gen/ship/sources/machine_ship_quad_body.png",
+      "sha256": "45c1bf6a6369efca5be43d567730dd036fa993a421a020c0cfb13aa8c0c8e2b2",
+      "provenanceRef": "art-source/six-gen/ship/provenance.json#machine_ship_quad_body",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    }
+  ]
+}

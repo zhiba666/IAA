@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "operations": [
+    {
+      "id": "buffer_bulk_large_back",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_back.png",
+      "file": "art-source/six-gen/logistics/exports/buffer_bulk_large_back.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        41,
+        68,
+        1329,
+        1042
+      ],
+      "width": 512,
+      "height": 403,
+      "anchor": [
+        256,
+        399
+      ],
+      "sourceSha256": "24630b328591c85fb95f4a0e7fa81e31ec320b4cd31def61c01eb96a2ede7067",
+      "sha256": "a7d36fb31336c5d9b783ad2531f96b07b85e5fffbe3b22f2abedf8ea64d8cff8",
+      "bytes": 52927,
+      "rgbaBytes": 825344,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "buffer_bulk_large_front",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_front.png",
+      "file": "art-source/six-gen/logistics/exports/buffer_bulk_large_front.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        46,
+        172,
+        1309,
+        862
+      ],
+      "width": 384,
+      "height": 256,
+      "anchor": [
+        192,
+        252
+      ],
+      "sourceSha256": "33d0ddfdd4271327bce666401a15669f33196123a449a1a7f60856bff6eb3a3a",
+      "sha256": "57dec617f3cb96a04007fad2758ec3f19b510518d0649e020d19d35cea3d7a44",
+      "bytes": 17706,
+      "rgbaBytes": 393216,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "buffer_cups_rack_back",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_back.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        148,
+        66,
+        1195,
+        998
+      ],
+      "width": 512,
+      "height": 429,
+      "anchor": [
+        256,
+        425
+      ],
+      "sourceSha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+      "sha256": "96fdbfd3cedd4acf378936b44591b72014f4447dea78b8e649b67aef70d7de2d",
+      "bytes": 55353,
+      "rgbaBytes": 878592,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "buffer_cups_rack_front",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_front.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        148,
+        66,
+        1195,
+        998
+      ],
+      "width": 512,
+      "height": 429,
+      "anchor": [
+        256,
+        425
+      ],
+      "sourceSha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+      "sha256": "6e3a14e04003e6675e0a19b00244d730d1b789349ce28dc751ba4ccb21d555a6",
+      "bytes": 15168,
+      "rgbaBytes": 878592,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "Use rack_back export transform, then extract exact shelf-edge/post polygons with alpha dest-in. No pixels painted.",
+      "status": "EXPORTED",
+      "clipPolygons": [
+        [
+          [
+            10,
+            134
+          ],
+          [
+            355,
+            289
+          ],
+          [
+            468,
+            233
+          ],
+          [
+            469,
+            249
+          ],
+          [
+            355,
+            305
+          ],
+          [
+            10,
+            151
+          ]
+        ],
+        [
+          [
+            24,
+            220
+          ],
+          [
+            345,
+            378
+          ],
+          [
+            463,
+            312
+          ],
+          [
+            465,
+            329
+          ],
+          [
+            346,
+            393
+          ],
+          [
+            22,
+            240
+          ]
+        ],
+        [
+          [
+            4,
+            134
+          ],
+          [
+            34,
+            143
+          ],
+          [
+            35,
+            267
+          ],
+          [
+            4,
+            270
+          ]
+        ],
+        [
+          [
+            314,
+            380
+          ],
+          [
+            374,
+            397
+          ],
+          [
+            374,
+            427
+          ],
+          [
+            314,
+            423
+          ]
+        ]
+      ],
+      "kind": "mechanical-layer-extraction"
+    },
+    {
+      "id": "input_cup_collar",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/input_cup_collar.png",
+      "file": "art-source/six-gen/logistics/exports/input_cup_collar.png",
+      "sourceSize": [
+        1518,
+        1036
+      ],
+      "sourceRect": [
+        20,
+        17,
+        1481,
+        1003
+      ],
+      "width": 192,
+      "height": 133,
+      "anchor": [
+        96,
+        129
+      ],
+      "sourceSha256": "911f46b00d0fe8f117f375aefabbc2efb1fad12b18e727f4759b1b87c54c0a75",
+      "sha256": "94eb0fc905daaa8de0f80af61366366fd916d8ba59c68c1ee8e6253d5eadd807",
+      "bytes": 7276,
+      "rgbaBytes": 102144,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "transfer_tray_empty",
+      "owner": "logistics",
+      "sourceFile": "art-source/six-gen/logistics/sources/transfer_tray_empty.png",
+      "file": "art-source/six-gen/logistics/exports/transfer_tray_empty.png",
+      "sourceSize": [
+        1518,
+        1036
+      ],
+      "sourceRect": [
+        22,
+        20,
+        1478,
+        1004
+      ],
+      "width": 192,
+      "height": 133,
+      "anchor": [
+        96,
+        129
+      ],
+      "sourceSha256": "417e3bfeed974b01c5ab414bb7635b399006dd223a3b161e453244504e1e7eea",
+      "sha256": "00b4fec8ee794665b60f15730453abcb92e597c5f9ec9fd86f9a893d8542502a",
+      "bytes": 9394,
+      "rgbaBytes": 102144,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    }
+  ]
+}

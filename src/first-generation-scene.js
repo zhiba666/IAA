@@ -280,11 +280,12 @@ class FirstGenerationScene extends ProductionScene {
       const point=along(.18+progress*.65),xx=point.x,yy=point.y;
       // Transit markers represent that existing batch; they are never additional stock.
       const identity=createArtTransform();
-      if(cargo==='cup')this.cupAt([xx-6,yy-15,12,15],identity);
+      if(cargo==='cup')this.transitCup([xx-6,yy-15,12,15],identity,node,job);
       else this.sprite('product_kernel_a',[xx-3,yy-6,7,7],identity);
     }
     for(const layer of rig.layers.filter(l=>l.layer>=30))this.part(layer,t);
   }
+  transitCup(rect,transform) { this.cupAt(rect,transform); }
 }
 
 module.exports={FirstGenerationScene};

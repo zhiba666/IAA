@@ -1,13 +1,13 @@
-# 小小爆米花厂 · 2.0.0
+# 小小爆米花厂 · v0.1 正式版
 
-原生 Canvas + JavaScript 轻经营流水线游戏，同一正式入口构建浏览器与抖音小游戏包。正式玩法已落实 **1.5 优化方案**：亲手送入一盘货物 → 真实加工与出货 → 分别购买两段自动转运 → 调整产能、完成自动试运行 → 扩建。软件版本继续使用 `2.0.0`，正式新存档升级为 schema 4。
+原生 Canvas + JavaScript 轻经营流水线游戏，同一正式入口构建浏览器与抖音小游戏包。**v0.1 正式版**（包版本 `0.1.0`）包含六代工厂美术与分段自动化：亲手送入一盘货物 → 真实加工与出货 → 分别购买两段自动转运 → 调整产能、完成自动试运行 → 扩建。正式存档使用 schema 4；旧文档中的“1.5”是玩法方案名称。版本记录和本次检查结果见 [v0.1 发布说明](docs/releases/v0.1.md)。
 
 ## 接续开发入口
 
 - [1.5 自动化实现与验证说明](docs/AUTOMATION_V15.md)：两段搬运、自动化、首代数值、迁移边界及可复跑经济模拟。
-- [当前开发重心](docs/DEVELOPMENT_FOCUS.md)：本轮范围、最终验证结果填写位置及尚未完成的真人/真机验收。
-- [P0 原型说明](docs/MANUAL_TRANSFER_P0.md)：首段搬运的历史实验，仍可独立运行，不能用其旧范围描述当前正式玩法。
-- [首代美术验收历史记录](docs/GEN1_VISUAL_ACCEPTANCE_2026-09-09.md)、[美术路线](docs/ART_DIRECTION_AND_CLEANUP_2026-09-09.md)、[资源计划](docs/ART_ASSET_ADDITION_PLAN_2026-09-09.md)：保留原始证据与制作边界。本轮复用首代资产，第 2～6 代沿用已有显示路径。
+- [当前开发重心](docs/DEVELOPMENT_FOCUS.md)：当前版本范围与后续验证重点。
+- [六代美术代码接入](docs/SIX_GEN_ART_INTEGRATION.md)：六代装配、资源预算及验收方法。
+- [历史归档索引](archive/README.md)：旧方案、P0 原型、首代验收及制作记录，含原路径与 SHA-256 清单。
 
 以当前 `src/`、`tests/` 和实际执行结果为准。旧截图、旧测试数量及历史美术验收不计为本轮新增结果。
 
@@ -31,7 +31,7 @@ node tools/automation-balance.cjs
 
 本地服务器只监听本机。`npm test` 先构建源码；`preflight:strict` 提供更严格静态检查，不能替代真机验证。`build:dev` 仍禁用连点产量和模拟广告。
 
-`tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，调用美术构建脚本生成清单并复制当前引用的 41 个 PNG；两端检查尺寸和逐文件 SHA-256。源图、整屏参考图及未引用素材不随包发布。不要手改生成包或 `src/art-manifest.js`。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
+`tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，调用美术构建脚本生成清单并复制冻结清单中的 84 个 PNG；两端检查尺寸和逐文件 SHA-256。源图、整屏参考图及未引用素材不随包发布。不要手改生成包或 `src/art-manifest.js`。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
 
 ## 正式玩法
 
@@ -72,7 +72,7 @@ node tools/automation-balance.cjs
 
 后台暂停，返回继续，不按离开时长补产发钱。重开只写当前模式的存档键，写入失败保留当前工厂。浏览器用 WebAudio；抖音保留触摸、安全区、生命周期、存储与包内音效降级。广告接口不可用，不创建广告实例。
 
-不恢复点击产量、火候惩罚、合同、分账、能量、广告、离线奖励、侧边栏或其他已退役系统；不批量制作六代美术。真人新手观察和抖音真机验收尚未完成，发布及原有暂停事项不因本次代码改动自动完成。
+点击产量、火候惩罚、合同、分账、能量、广告、离线奖励、侧边栏等已退役系统保持停用。真人新手观察和抖音真机验收尚未完成；本次正式版本记录与 GitHub 发布不代表抖音平台上线。
 
 ## 文件职责
 
@@ -80,7 +80,7 @@ node tools/automation-balance.cjs
 | --- | --- |
 | `src/factory-rules.js`、`src/core.js` | 数值配置、两段转运、生产、成长、守恒与 schema 校验 |
 | `src/production-insights.js` | 只读自动运行预测、运输/加工瓶颈及购买说明 |
-| `src/first-generation-scene.js`、`src/art-layout.js` | 首代装配、托盘/入口/接通状态、统一坐标与命中区域 |
+| `src/six-generation-scene.js`、`src/first-generation-scene.js`、`src/art-layout.js` | 六代装配、托盘/入口/接通状态、统一坐标与命中区域 |
 | `src/interface.js`、`src/renderer.js`、`src/production-scene.js` | HUD、工位与物流面板、命中映射及高代已有显示路径 |
 | `src/main.js`、`src/platform.js`、`src/audio.js` | 正式入口、手势/报价、迁移写盘、生命周期与声音 |
 | `src/art-assets.js`、`src/art-manifest.js`、`art-source/`、`assets/art/` | 双端图片加载、运行清单及美术源数据 |
@@ -88,4 +88,4 @@ node tools/automation-balance.cjs
 | `tools/build.mjs`、`tools/art-build.mjs`、`tools/serve.mjs`、`tools/preflight.mjs` | 构建、资源复制、本地服务与静态预检 |
 | `tests/` | 当前源码的核心、预测、输入、布局和平台回归 |
 
-本轮全套测试、构建与 Chrome 证据统一在 [1.5 最终执行结果](docs/AUTOMATION_V15.md#最终执行结果)记录，由最终执行结果确定完成边界。
+当前版本的构建、测试及 Chrome 检查见 [v0.1 发布说明](docs/releases/v0.1.md)。[1.5 执行结果](docs/AUTOMATION_V15.md#最终执行结果)与已有六代截图保留为对应阶段的历史证据。

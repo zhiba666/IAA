@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A6",
+  "assets": [
+    {
+      "id": "factory_platform_extension",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/scene/exports/factory_platform_extension.png",
+      "width": 512,
+      "height": 318,
+      "anchor": [
+        256,
+        314
+      ],
+      "sourceFile": "art-source/six-gen/scene/sources/factory_platform_extension.png",
+      "sha256": "20b9a0ee7154f6a359cb913e97d21355a4837e317ee8c351f5a00a5e699bed0b",
+      "provenanceRef": "art-source/six-gen/scene/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "factory_tower_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        6
+      ],
+      "file": "art-source/six-gen/scene/exports/factory_tower_back.png",
+      "width": 317,
+      "height": 640,
+      "anchor": [
+        158.5,
+        636
+      ],
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_back.png",
+      "sha256": "2d9e6f78c2a5940ee33564b8ee0c2219fb5e30873eada3b44d76d961186cc983",
+      "provenanceRef": "art-source/six-gen/scene/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "factory_tower_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        6
+      ],
+      "file": "art-source/six-gen/scene/exports/factory_tower_front.png",
+      "width": 384,
+      "height": 209,
+      "anchor": [
+        192,
+        205
+      ],
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_front.png",
+      "sha256": "7b76b020f86150b17fb7fe0058293f894e5fac17a15c0417c41c2cef6583c492",
+      "provenanceRef": "art-source/six-gen/scene/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    }
+  ]
+}

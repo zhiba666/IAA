@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A1",
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "referenceLockSha256": "88307397735b31ed0cef27d61032a2c4d0ca904ccd76e8c26f8976f940960b6a",
+  "assets": [
+    {
+      "id": "machine_pop_double_carrier",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-1e593111-b9b2-4508-8436-e2397cab1b06",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_pop_double_carrier.png",
+      "sourceSha256": "f8f360698ac78569278f15a0a5dbb25f13338243309ec23ada782e64851236bf",
+      "exportFile": "exports/machine_pop_double_carrier.png",
+      "exportSha256": "52ffe39212286cdda8c59245b1f177d6256f45d57a0f26710cb42afe04ca9a11",
+      "sourceFileTimestampUtc": "2026-09-10T06:44:58.0142721Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+          "sha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-d0603f3d-29e8-4f44-8aaa-38c1b12f3500",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_pop_hex_body.png",
+      "sourceSha256": "4782231729de1307426c95a5bb823e0a8a05314fc185da5b600c37298c363e97",
+      "exportFile": "exports/machine_pop_hex_body.png",
+      "exportSha256": "61b349d85ba30c731d6878793dc47cf15090cb485f00d1d7c2a386e1ac5b3aa5",
+      "sourceFileTimestampUtc": "2026-09-10T06:43:28.2317657Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+          "sha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_pop_pair_body",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-8237d2e1-8600-4fa9-86f6-113a54e645fe",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_pop_pair_body.png",
+      "sourceSha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+      "exportFile": "exports/machine_pop_pair_body.png",
+      "exportSha256": "ae3fa7a5d729dc36781702600a371af2ff7632dfa0806d1aa9e53c27bb1fe91d",
+      "sourceFileTimestampUtc": "2026-09-10T06:33:23.4327416Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+          "sha256": "28d325cdb53841889554fc6a2301040e443fa2c7bcde30f88c19eeed2abcc672",
+          "role": "actually viewed reference image"
+        },
+        {
+          "file": "assets/art/machines/machine_pop_body.png",
+          "sha256": "030dc2952900743a5aafd3994028715081b528a4df6a6dbc01293b5a0bf083ed",
+          "role": "actually viewed reference image"
+        },
+        {
+          "file": "assets/art/machines/machine_pop_head.png",
+          "sha256": "4ffb38e65caeb4c89341d6c2995ff678c26cba3456be1168e965958d0019702f",
+          "role": "actually viewed reference image"
+        },
+        {
+          "file": "assets/art/machines/machine_pop_front.png",
+          "sha256": "7289c5f1d669bcfd0e32d63efd08ddf569c241d9f40eb5c0f2f064555e5c3ad3",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-dc4002b6-52af-4858-9387-a5cc788d207a",
+      "acceptedAttempt": 3,
+      "sourceFile": "sources/machine_pop_quad_body.png",
+      "sourceSha256": "0f1f3b042323a1a006cbc70dec7530189d74f2cc89369c667f4e136c8b6cb4db",
+      "exportFile": "exports/machine_pop_quad_body.png",
+      "exportSha256": "fdcc63dd76c5e3e75fac1469626aa1d5135f820ccd2a0cc050447c74b17f1116",
+      "sourceFileTimestampUtc": "2026-09-10T06:46:53.1448138Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+          "sha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_pop_socket_cover",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-e514bb29-446b-4041-abc2-af7cc0354e9e",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_pop_socket_cover.png",
+      "sourceSha256": "f90b10b03c7eed44823c7f2d65a94638997bb12733906131fffeeb410ac6da3e",
+      "exportFile": "exports/machine_pop_socket_cover.png",
+      "exportSha256": "fbf415ce2677b28e844dac0e9f036c88da89453a688702686d2f5c74f758eef0",
+      "sourceFileTimestampUtc": "2026-09-10T06:42:14.4228573Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+          "sha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+          "role": "actually viewed reference image"
+        }
+      ]
+    }
+  ],
+  "rejectedAttempts": [
+    {
+      "assetId": "machine_pop_quad_body",
+      "attempt": 1,
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "prompt": "Use case: stylized-concept. Asset type: machine_pop_quad_body, ONE isolated independent transparent game machine chassis.\nInput images: image 1 is the APPROVED TWO-SOCKET chassis appearance and camera reference; image 2 is the original moving kettle head solely for socket size, never draw the head; image 3 is approved overall game style.\nCreate the FOUR-SOCKET family version of reference 1: one coherent broad teal low chassis, exactly FOUR EMPTY equal-sized circular stainless kettle receiving bowls arranged as TWO BY TWO in an isometric grid. The two visible ground axes are about (1,0.55) and (-1,0.55); all four socket centers follow that grid; both back sockets must remain clearly visible, not hidden. Make the chassis longer in depth only as needed to accommodate the second row. Preserve the bowl size, steel lips, teal thick side bars, modest gold pivot pins, clean broad beveled surfaces and upper-left soft light of the approved pair body. Each round bowl remains completely empty; a separate old lid/stirrer is installed later.\nCentered complete four-socket body, orthographic camera, generous transparent margin with all feet visible. Low near-side lips, no overhead parts. Exactly four empty bowl openings, NOT six, not an exploded or tiled asset sheet. Truly TRANSPARENT background and real alpha; transparent pixels around the complete silhouette; do not paint a background, floor, checkerboard or external glow.\nNO work heads, lids, agitators, motors above the bowls, cups, popcorn, boxes, kernels, products, text, digits, UI, icons, logos, people, decorative clutter. One chassis sprite only.",
+      "references": [
+        "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+        "assets/art/machines/machine_pop_head.png",
+        "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png"
+      ],
+      "resultFile": "sources/rejected/machine_pop_quad_body_attempt1.png",
+      "resultId": "exec-2ff7ee6e-18ee-4ec3-81b6-969be3e8218d",
+      "model": "unavailable",
+      "seed": "unavailable"
+    },
+    {
+      "assetId": "machine_pop_quad_body",
+      "attempt": 2,
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "prompt": "Use case: background-extraction. EDIT TARGET image 1: the FOUR-SOCKET teal empty machine body just generated. Supporting reference image 2 is a correctly transparent two-socket sprite.\nChange ONLY the background of image 1. REMOVE EVERY gray-and-white checkerboard square and turn the entire area outside the four-socket machine silhouette into genuinely transparent alpha pixels. Output a PNG with a real RGBA alpha channel. A checkerboard is NOT transparency and MUST NOT remain as visible pixels. Do NOT make another opaque RGB illustration, do NOT replace with white, black or colored background, and do not add a shadow or halo.\nPreserve the complete original machine pixel appearance: all four empty bowls, teal chassis, feet, steel rims, perspective, lighting and scale exactly. Keep interior metal bowl floors opaque. Keep all four sockets empty. No new content, no text, no detached parts. One isolated clean transparent sprite.",
+      "references": [
+        "art-source/six-gen/pop/sources/rejected/machine_pop_quad_body_attempt1.png",
+        "art-source/six-gen/pop/sources/machine_pop_pair_body.png"
+      ],
+      "resultFile": "sources/rejected/machine_pop_quad_body_attempt2.png",
+      "resultId": "exec-a0bb565d-ff6d-4151-aba8-f793cadddc7c",
+      "model": "unavailable",
+      "seed": "unavailable"
+    }
+  ],
+  "generationModelDisclosure": "Model identifier and seed were not supplied in tool metadata; do not invent them.",
+  "reuseDependencies": [
+    {
+      "file": "assets/art/machines/machine_pop_body.png",
+      "sha256": "030dc2952900743a5aafd3994028715081b528a4df6a6dbc01293b5a0bf083ed"
+    },
+    {
+      "file": "assets/art/machines/machine_pop_head.png",
+      "sha256": "4ffb38e65caeb4c89341d6c2995ff678c26cba3456be1168e965958d0019702f"
+    },
+    {
+      "file": "assets/art/machines/machine_pop_front.png",
+      "sha256": "7289c5f1d669bcfd0e32d63efd08ddf569c241d9f40eb5c0f2f064555e5c3ad3"
+    },
+    {
+      "file": "assets/art/products/product_cup_fill.png",
+      "sha256": "75820426a90ef19688fa0e514696b5ff594b4c1447f22ae35c5b15998872a721"
+    },
+    {
+      "file": "art-source/batch-1/machinery/assembly.json",
+      "sha256": "b5f68ece99e813a2b8a733967961cd50e7c6b6f0639c8439ca59c0ee186b5928"
+    }
+  ]
+}

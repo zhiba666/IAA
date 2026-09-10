@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "operations": [
+    {
+      "id": "factory_platform_extension",
+      "owner": "scene",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_platform_extension.png",
+      "file": "art-source/six-gen/scene/exports/factory_platform_extension.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceRect": [
+        87,
+        126,
+        1363,
+        839
+      ],
+      "width": 512,
+      "height": 318,
+      "anchor": [
+        256,
+        314
+      ],
+      "sourceSha256": "05f9e8da9564b604b14ae3325739ea8dbd279f75a00481a4bd53b801626427d1",
+      "sha256": "20b9a0ee7154f6a359cb913e97d21355a4837e317ee8c351f5a00a5e699bed0b",
+      "bytes": 38547,
+      "rgbaBytes": 651264,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "factory_tower_back",
+      "owner": "scene",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_back.png",
+      "file": "art-source/six-gen/scene/exports/factory_tower_back.png",
+      "sourceSize": [
+        1145,
+        1374
+      ],
+      "sourceRect": [
+        280,
+        82,
+        594,
+        1216
+      ],
+      "width": 317,
+      "height": 640,
+      "anchor": [
+        158.5,
+        636
+      ],
+      "sourceSha256": "aed89ec13b33273e1372cf1d8d82e3cd02651f4eaf5afe9e710f9c51f247a12a",
+      "sha256": "2d9e6f78c2a5940ee33564b8ee0c2219fb5e30873eada3b44d76d961186cc983",
+      "bytes": 51279,
+      "rgbaBytes": 811520,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    },
+    {
+      "id": "factory_tower_front",
+      "owner": "scene",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_front.png",
+      "file": "art-source/six-gen/scene/exports/factory_tower_front.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceRect": [
+        151,
+        352,
+        1210,
+        646
+      ],
+      "width": 384,
+      "height": 209,
+      "anchor": [
+        192,
+        205
+      ],
+      "sourceSha256": "fcfd7c4ae8206781f58aecfd7a83afb0bfc7a68e1750edc7e484ce5d1fac2a42",
+      "sha256": "7b76b020f86150b17fb7fe0058293f894e5fac17a15c0417c41c2cef6583c492",
+      "bytes": 14234,
+      "rgbaBytes": 321024,
+      "originalAlpha": true,
+      "originalBoundaryPixels": 0,
+      "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+      "status": "EXPORTED"
+    }
+  ]
+}

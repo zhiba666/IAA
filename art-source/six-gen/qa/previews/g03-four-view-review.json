@@ -1,0 +1,39 @@
+{
+  "scope": "Static art overview; no runtime or device claims",
+  "createdAt": "2026-09-10T07:32:38.197Z",
+  "checkerVersion": "overview-1.0",
+  "pngSha256": "51373223c648566ad59605fdffa8c78a278831d7062d2a3aaa0729f275ed27ce",
+  "finalManifestSha256": "05422d772e30c1272d3a785b8fc05ecd84007f9a09d67bdd8d6b854f4ae2e06f",
+  "viewSize": [
+    1426,
+    898
+  ],
+  "generation": 3,
+  "screenshots": [
+    {
+      "file": "art-source/six-gen/qa/previews/g03-entry-390x844.png",
+      "sha256": "8f0fe0a1fd0b316d1ce63dba26833aaf20c8acf9d468eab8e34e3ec14fa8a6bb"
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-390x844.png",
+      "sha256": "fe39f97857f395a481dfc97046beabdcc1d4e4dfb3b4ac2e54965f1491676096"
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-entry-320x524.png",
+      "sha256": "f814ef4f5ce043bf7ef6cadbea6573c24c1d27ef909c0674a6abb316b699bae3"
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-320x524.png",
+      "sha256": "66b098e719ab5f6ed23c71df72787ae4365bfdcb4882ab98cfedb9905cd43aba"
+    }
+  ],
+  "fixtureKind": "synthetic-art-only",
+  "conclusion": "VERIFIED_STATIC_ART",
+  "visualReview": {
+    "reviewedAt": "2026-09-10T07:38:37.366Z",
+    "reviewRecord": "art-source/six-gen/qa/final-independent-review.json",
+    "reviewedVia": "g03-four-view-review.png",
+    "pngSha256": "51373223c648566ad59605fdffa8c78a278831d7062d2a3aaa0729f275ed27ce",
+    "scope": "Static art image only"
+  }
+}

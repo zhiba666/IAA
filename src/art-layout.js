@@ -100,7 +100,7 @@ function drawNineSlice(ctx, images, id, rect, options) {
   options = options || {};
   const asset = ART_ASSETS[id], img = images && (typeof images.get === 'function' ? images.get(id) : images[id]);
   if (!asset || !img || typeof ctx.drawImage !== 'function') return false;
-  const border = options.sourceBorder || 32;
+  const border = options.sourceBorder || asset.sourceBorder || 32;
   const edge = Math.min(options.border == null ? 10 : options.border, rect[2] / 2, rect[3] / 2);
   const sx = [0, border, asset.width - border, asset.width], sy = [0, border, asset.height - border, asset.height];
   const dx = [rect[0], rect[0] + edge, rect[0] + rect[2] - edge, rect[0] + rect[2]],

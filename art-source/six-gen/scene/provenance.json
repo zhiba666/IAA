@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "tool": "image_gen",
+  "model": "unavailable",
+  "seed": "unavailable",
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "prompts": [
+    "prompts.jsonl"
+  ],
+  "sources": [
+    {
+      "id": "factory_platform_extension",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_platform_extension.png",
+      "sha256": "05f9e8da9564b604b14ae3325739ea8dbd279f75a00481a4bd53b801626427d1",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceRect": [
+        87,
+        126,
+        1363,
+        839
+      ]
+    },
+    {
+      "id": "factory_tower_back",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_back.png",
+      "sha256": "aed89ec13b33273e1372cf1d8d82e3cd02651f4eaf5afe9e710f9c51f247a12a",
+      "sourceSize": [
+        1145,
+        1374
+      ],
+      "sourceRect": [
+        280,
+        82,
+        594,
+        1216
+      ]
+    },
+    {
+      "id": "factory_tower_front",
+      "sourceFile": "art-source/six-gen/scene/sources/factory_tower_front.png",
+      "sha256": "fcfd7c4ae8206781f58aecfd7a83afb0bfc7a68e1750edc7e484ce5d1fac2a42",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceRect": [
+        151,
+        352,
+        1210,
+        646
+      ]
+    }
+  ]
+}

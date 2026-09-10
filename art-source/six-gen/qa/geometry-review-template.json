@@ -1,0 +1,81 @@
+{
+  "status": "QA_TEMPLATE_NOT_RUNTIME",
+  "scope": "Static art geometry only; no runtime binding or gameplay validation is implied.",
+  "coordinateSpaces": {
+    "source": "Original generated image pixels; unchanged source resolution and SHA.",
+    "crop": "Source crop rectangle [x,y,width,height], including documented transparent gutter.",
+    "sprite": "Exported PNG pixels; anchor belongs to this coordinate system.",
+    "rig": "Independent assembly canvas pixels. Old rig sizes remain 448x640, 640x770, etc.",
+    "scene": "Logical preview pixels at 390x844 or 320x524. Uniform transform of rig.",
+    "hit": "Logical preview pixels, distinct from visible image bounds."
+  },
+  "cropAndExportChecks": [
+    "Source crop remains inside generated source.",
+    "Source and exported SHA-256 are computed from actual files.",
+    "PNG decodes; dimensions match manifest; actual transparent alpha exists except room.",
+    "Minimum 2px transparent gutter surrounds new sprites. Existing approved reusable boundary conditions are recorded individually.",
+    "No alpha>=128 pixel touches a transparent sprite outer border.",
+    "Object silhouette is complete. Padding alone is not evidence that clipped source pixels were restored.",
+    "Resize is uniform, with <=1 pixel rounding tolerance."
+  ],
+  "rigChecks": [
+    "Rig canvas size, anchor, input, output, hitPolygon and contentClip have finite measured values.",
+    "Every layer asset ID resolves to one exported or reuse asset; no per-generation duplicate PNG.",
+    "Every layer rect [x,y,w,h] uses rig pixels and positive dimensions; width/height preserves sprite aspect ratio within rounding tolerance.",
+    "No new machine body is horizontally stretched to add lanes.",
+    "Working-head slot centers match visible physical apertures, and installed head count matches the preview configuration.",
+    "Inactive apertures use cover sprites and do not display finished products or active heads.",
+    "Layer order specifies body/back, each head/content sublayer and front occluder.",
+    "Products are clipped to each intended belt/bin/machine slot; front rails occlude products only where physically expected.",
+    "Input/output centerlines join across adjacent machine/belt/buffer modules without mirrored light direction or accidental geometric gaps."
+  ],
+  "previewMatrix": {
+    "generations": [1,2,3,4,5,6],
+    "configurations": ["entry","upgraded"],
+    "viewports": [[390,844],[320,524]],
+    "safeInsets": [8,24],
+    "requiredVisualCases": ["empty","working","blocked","single old-batch job plus larger new-batch job","warehouse low stock","warehouse full","station panel expanded"],
+    "requiredLabels": ["美术预览，非真机验收"],
+    "inspection": [
+      "Three stations, two buffers and both input controls are recognizable.",
+      "Machine/buffer/input visible bounds do not substitute for hit regions.",
+      "Primary hit region bounding boxes are at least 44x44 logical pixels; first-generation inputs prefer 56x56 where layout permits.",
+      "Expanded station panel and safe areas do not cover required controls.",
+      "Tower layers never obscure product flow or interactive station silhouettes.",
+      "State semantics are not conveyed by color alone."
+    ]
+  },
+  "budgetChecks": {
+    "allUniquePngBytesMax": 4194304,
+    "generationOnePngBytesMax": 2097152,
+    "rgbaBytesMax": 33554432,
+    "generationUnion": "sum bytes/dimensions for unique SHA-backed IDs in common + actual generation dependency set",
+    "transitionUnion": "common + old generation + next generation, counting shared sprites only once",
+    "notMeasuredHere": ["GPU memory","process memory","real device frame time","load/release correctness"]
+  },
+  "compactReuseTransform": {
+    "note": "If QA compact256 is adopted, update sprite metadata and sprite anchor only; retain baseline rig coordinate canvas and logical layer rects.",
+    "anchorX": "oldAnchorX * exportedWidth / oldSpriteWidth",
+    "anchorY": "oldAnchorY * exportedHeight / oldSpriteHeight",
+    "sourceRect": "unchanged when optimizing an already-exported baseline PNG; provenance explicitly identifies that baseline PNG as input",
+    "sourceProvenance": "Keep original generated source reference as upstream provenance; do not pretend this derivative was directly generated."
+  },
+  "perRigReviewRecord": {
+    "rigId": null,
+    "generation": null,
+    "configuration": null,
+    "measuredCanvas": null,
+    "assetIds": [],
+    "slotCountVisible": null,
+    "slotCountInstalled": null,
+    "inactiveCoverCount": null,
+    "sourceAndSpriteGeometryPass": null,
+    "uniformScalingPass": null,
+    "inputOutputContinuityPass": null,
+    "occlusionPass": null,
+    "hitRegionsPass": null,
+    "safeAreaPass": null,
+    "screenshotPaths": [],
+    "reviewerNotes": []
+  }
+}

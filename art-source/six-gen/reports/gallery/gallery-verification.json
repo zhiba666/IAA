@@ -1,0 +1,138 @@
+{
+  "checkedAt": "2026-09-10T07:22:50.614Z",
+  "javascriptSyntax": "PASS",
+  "inlineScriptCount": 1,
+  "relativeReferenceCount": 52,
+  "missingRelativeReferences": [],
+  "allPreviewEvidencePresent": true,
+  "previewEvidence": [
+    {
+      "name": "g01-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g01-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g01-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g01-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g02-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g02-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g02-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g02-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g03-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g03-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g03-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g03-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g04-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g04-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g04-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g04-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g05-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g05-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g05-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g05-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g06-entry-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g06-entry-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g06-upgraded-320x524.png",
+      "imageExists": true,
+      "evidenceExists": true
+    },
+    {
+      "name": "g06-upgraded-390x844.png",
+      "imageExists": true,
+      "evidenceExists": true
+    }
+  ],
+  "browserInteraction": "NOT_RUN_URL_SECURITY_POLICY",
+  "browserBlock": "Chrome Browser Use rejected file:// URL navigation. No indirect, localhost, alternative-browser or headless workaround attempted.",
+  "contactSheetVisualReview": "PASS: all 24 final palette PNGs visually inspected; silhouettes, style and transparency remain readable at gallery display scale.",
+  "limitations": [
+    "Browser rendering, clicks, modal and responsive UI were not executed because file:// navigation was blocked.",
+    "Static JavaScript parsing and file-link existence are not browser interaction tests."
+  ],
+  "indexSha256": "3761101b4fbf6bf08adfc8e1533df080e55af760b38f5cc7e7e5b96f987c102f"
+}

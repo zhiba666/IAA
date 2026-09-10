@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "scope": "synthetic-art-only",
+  "rigs": [
+    {
+      "id": "bulk_large",
+      "kind": "buffer",
+      "stationId": "bulk",
+      "generationUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "size": [
+        512,
+        416
+      ],
+      "input": [
+        275,
+        155
+      ],
+      "output": [
+        170,
+        296
+      ],
+      "anchor": [
+        256,
+        396
+      ],
+      "hitPolygon": [
+        [
+          20,
+          160
+        ],
+        [
+          430,
+          200
+        ],
+        [
+          420,
+          395
+        ],
+        [
+          25,
+          330
+        ]
+      ],
+      "layers": [
+        {
+          "id": "buffer_bulk_large_back",
+          "rect": [
+            0,
+            0,
+            512,
+            403
+          ],
+          "layer": 10
+        },
+        {
+          "id": "buffer_bulk_large_front",
+          "rect": [
+            14,
+            171,
+            358,
+            238.666667
+          ],
+          "layer": 40
+        }
+      ],
+      "content": {
+        "kind": "kernels",
+        "layer": 30,
+        "slots": [
+          [
+            142,
+            131,
+            50,
+            49
+          ],
+          [
+            215,
+            157,
+            50,
+            49
+          ],
+          [
+            288,
+            190,
+            50,
+            49
+          ],
+          [
+            99,
+            159,
+            50,
+            49
+          ],
+          [
+            172,
+            190,
+            50,
+            49
+          ],
+          [
+            245,
+            221,
+            50,
+            49
+          ]
+        ]
+      },
+      "contentClip": [
+        [
+          40,
+          179
+        ],
+        [
+          166,
+          105
+        ],
+        [
+          440,
+          224
+        ],
+        [
+          350,
+          340
+        ],
+        [
+          40,
+          212
+        ]
+      ]
+    },
+    {
+      "id": "cups_rack",
+      "kind": "buffer",
+      "stationId": "cups",
+      "generationUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "size": [
+        512,
+        429
+      ],
+      "input": [
+        335,
+        204
+      ],
+      "output": [
+        166,
+        305
+      ],
+      "anchor": [
+        256,
+        414
+      ],
+      "hitPolygon": [
+        [
+          20,
+          120
+        ],
+        [
+          475,
+          200
+        ],
+        [
+          480,
+          420
+        ],
+        [
+          22,
+          300
+        ]
+      ],
+      "layers": [
+        {
+          "id": "buffer_cups_rack_back",
+          "rect": [
+            0,
+            0,
+            512,
+            429
+          ],
+          "layer": 10
+        },
+        {
+          "id": "buffer_cups_rack_front",
+          "rect": [
+            0,
+            0,
+            512,
+            429
+          ],
+          "layer": 40
+        }
+      ],
+      "content": {
+        "kind": "cups",
+        "layer": 30,
+        "slots": [
+          [
+            95,
+            104,
+            38,
+            46.769231
+          ],
+          [
+            175,
+            141,
+            38,
+            46.769231
+          ],
+          [
+            250,
+            173,
+            38,
+            46.769231
+          ],
+          [
+            80,
+            205,
+            38,
+            46.769231
+          ],
+          [
+            190,
+            255,
+            38,
+            46.769231
+          ],
+          [
+            285,
+            298,
+            38,
+            46.769231
+          ]
+        ]
+      },
+      "contentClip": [
+        [
+          38,
+          72
+        ],
+        [
+          210,
+          143
+        ],
+        [
+          390,
+          220
+        ],
+        [
+          390,
+          398
+        ],
+        [
+          42,
+          264
+        ]
+      ]
+    },
+    {
+      "id": "transfer_tray",
+      "kind": "transfer",
+      "generationUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "size": [
+        192,
+        133
+      ],
+      "input": [
+        58,
+        60
+      ],
+      "output": [
+        132,
+        85
+      ],
+      "anchor": [
+        96,
+        129
+      ],
+      "layers": [
+        {
+          "id": "transfer_tray_empty",
+          "rect": [
+            0,
+            0,
+            192,
+            133
+          ],
+          "layer": 10
+        }
+      ],
+      "contentClip": [
+        [
+          19,
+          63
+        ],
+        [
+          96,
+          22
+        ],
+        [
+          173,
+          64
+        ],
+        [
+          96,
+          105
+        ]
+      ],
+      "maxRepresentativeProducts": 6
+    },
+    {
+      "id": "input_cup",
+      "kind": "input",
+      "generationUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "size": [
+        192,
+        133
+      ],
+      "input": [
+        60,
+        60
+      ],
+      "output": [
+        132,
+        85
+      ],
+      "anchor": [
+        96,
+        129
+      ],
+      "layers": [
+        {
+          "id": "input_cup_collar",
+          "rect": [
+            0,
+            0,
+            192,
+            133
+          ],
+          "layer": 10
+        }
+      ],
+      "hitMinimum": [
+        56,
+        56
+      ]
+    },
+    {
+      "id": "input_ship",
+      "inherits": "input_cup",
+      "kind": "input",
+      "generationUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "size": [
+        192,
+        133
+      ],
+      "input": [
+        60,
+        60
+      ],
+      "output": [
+        132,
+        85
+      ],
+      "anchor": [
+        96,
+        129
+      ],
+      "layers": [
+        {
+          "id": "input_cup_collar",
+          "rect": [
+            0,
+            0,
+            192,
+            133
+          ],
+          "layer": 10
+        }
+      ],
+      "hitMinimum": [
+        56,
+        56
+      ]
+    }
+  ],
+  "reuseDecisions": [
+    {
+      "candidate": "conveyor_bridge_back",
+      "replacement": "conveyor_down_left/conveyor_down_right",
+      "method": "repeat existing endpoint modules; no stretching"
+    },
+    {
+      "candidate": "conveyor_bridge_front",
+      "replacement": "conveyor_front_left/conveyor_front_right",
+      "method": "same reviewed conveyor rigs"
+    },
+    {
+      "candidate": "input_ship_collar",
+      "replacement": "input_cup_collar",
+      "method": "shared universal socket rim; semantics provided separately"
+    }
+  ],
+  "extractionDecisions": [
+    {
+      "candidate": "buffer_cups_rack_front",
+      "source": "buffer_cups_rack_back",
+      "method": "exact alpha polygon split of generated rear sprite; independent PNG with identical coordinate space",
+      "reason": "old rail angles failed QA; precise source edges prevent offset/over-occlusion"
+    }
+  ]
+}

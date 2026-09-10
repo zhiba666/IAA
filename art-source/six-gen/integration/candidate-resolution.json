@@ -1,0 +1,363 @@
+{
+  "baseCandidates": 39,
+  "conditionalCandidates": 1,
+  "newIndependentPng": 24,
+  "reuseResolved": 15,
+  "conditionalNotNeeded": 1,
+  "decisions": [
+    {
+      "id": "machine_pop_pair_body",
+      "owner": "A1",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_pop_pair_front",
+      "owner": "A1",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_pop_front"
+      ],
+      "evidence": "art-source/six-gen/pop/assembly.json"
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "owner": "A1",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_pop_quad_front",
+      "owner": "A1",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_pop_front"
+      ],
+      "evidence": "art-source/six-gen/pop/assembly.json"
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "owner": "A1",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_pop_hex_front",
+      "owner": "A1",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_pop_front"
+      ],
+      "evidence": "art-source/six-gen/pop/assembly.json"
+    },
+    {
+      "id": "machine_pop_double_carrier",
+      "owner": "A1",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_pop_socket_cover",
+      "owner": "A1",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_cup_pair_body",
+      "owner": "A2",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_cup_pair_front",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_cup_front"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_cup_triple_body",
+      "owner": "A2",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_cup_triple_front",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_cup_front"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_cup_quad_body",
+      "owner": "A2",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_cup_quad_front",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_cup_front"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_cup_hex_body",
+      "owner": "A2",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_cup_hex_front",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_cup_front"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_cup_double_carrier",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "product_double_tray"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_cup_socket_cover",
+      "owner": "A2",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_pop_socket_cover"
+      ],
+      "evidence": "art-source/six-gen/cup/assembly.json"
+    },
+    {
+      "id": "machine_ship_dual_body",
+      "owner": "A3",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_ship_dual_front",
+      "owner": "A3",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_ship_front"
+      ],
+      "evidence": "art-source/six-gen/ship/assembly.json"
+    },
+    {
+      "id": "machine_ship_quad_body",
+      "owner": "A3",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_ship_quad_front",
+      "owner": "A3",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "machine_ship_front"
+      ],
+      "evidence": "art-source/six-gen/ship/assembly.json"
+    },
+    {
+      "id": "machine_ship_lane_cover",
+      "owner": "A3",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "machine_ship_wide_head",
+      "owner": "A3",
+      "conditional": true,
+      "status": "NOT_NEEDED_AFTER_REUSE_REVIEW",
+      "replacements": [
+        "machine_ship_head"
+      ],
+      "evidence": "art-source/six-gen/ship/assembly.json"
+    },
+    {
+      "id": "buffer_bulk_large_back",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "buffer_bulk_large_front",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "buffer_cups_rack_back",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "buffer_cups_rack_front",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "conveyor_bridge_back",
+      "owner": "A4",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "conveyor_down_left",
+        "conveyor_down_right"
+      ],
+      "evidence": "art-source/six-gen/logistics/assembly.json"
+    },
+    {
+      "id": "conveyor_bridge_front",
+      "owner": "A4",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "conveyor_front_left",
+        "conveyor_front_right"
+      ],
+      "evidence": "art-source/six-gen/logistics/assembly.json"
+    },
+    {
+      "id": "transfer_tray_empty",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "input_cup_collar",
+      "owner": "A4",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "input_ship_collar",
+      "owner": "A4",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "input_cup_collar"
+      ],
+      "evidence": "art-source/six-gen/logistics/assembly.json"
+    },
+    {
+      "id": "ui_icon_automation",
+      "owner": "A5",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "ui_badge_generation",
+      "owner": "A5",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "ui_badge_complete",
+      "owner": "A5",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "factory_room_extension",
+      "owner": "A6",
+      "conditional": false,
+      "status": "REPLACED_BY_REUSE",
+      "replacements": [
+        "factory_room"
+      ],
+      "evidence": "art-source/six-gen/scene/assembly.json"
+    },
+    {
+      "id": "factory_platform_extension",
+      "owner": "A6",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "factory_tower_back",
+      "owner": "A6",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    },
+    {
+      "id": "factory_tower_front",
+      "owner": "A6",
+      "conditional": false,
+      "status": "EXPORTED",
+      "replacements": [],
+      "evidence": "art-source/six-gen/integration/manifest.json"
+    }
+  ]
+}

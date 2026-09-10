@@ -1,15 +1,15 @@
 'use strict';
 
-const { ProductionScene } = require('./production-scene');
-const { FirstGenerationScene } = require('./first-generation-scene');
+const { SixGenerationScene } = require('./six-generation-scene');
 const { GameInterface } = require('./interface');
+const { createArtTransform } = require('./art-layout');
 const FONT = '"Microsoft YaHei", "PingFang SC", system-ui, sans-serif';
 
 // Presentation owns pixels and hit regions only. All stock, movement progress and
 // money displayed below come from the single production simulation snapshot.
 class Renderer {
   constructor(ctx, art) {
-    this.c=ctx;this.art=art;this.zones=[];this.scene=new FirstGenerationScene(ctx,art);this.interface=new GameInterface(this);
+    this.c=ctx;this.art=art;this.zones=[];this.scene=new SixGenerationScene(ctx,art);this.interface=new GameInterface(this);
   }
   box(x,y,w,h,r=14,fill='#fffdf7',stroke) {
     if(w<=0||h<=0)return;
@@ -51,7 +51,8 @@ class Renderer {
     this.transferGhost={x,y,w,h,amount:held.amount,source:held.source||'pop',target:held.target||'cup'};
     this.c.save();this.c.globalAlpha=.94;
     this.box(x,y,w,h,10,'#fff3c9',ready?'#277860':'#ad8842');
-    if(held.source==='cup')this.scene.cup(x+15,y+16,1,.4);
+    if(typeof this.scene.trayAt==='function')this.scene.trayAt([x+1,y+1,31,29],createArtTransform(),held.amount,held.source==='cup'?'cup':'kernel');
+    else if(held.source==='cup')this.scene.cup(x+15,y+16,1,.4);
     else this.scene.popcorn(x+15,y+15,6);
     this.text(held.amount+' 份',x+w/2+8,y+15,14,'#66502a',700,'center');
     this.text(full?'入口已满':ready?'松手放入':held.target==='ship'?'拖向出货入口':'拖向装杯入口',x+w/2,y+33,10,'#527052',600,'center');

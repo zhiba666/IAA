@@ -1,0 +1,854 @@
+{
+  "status": "PLAN_ONLY",
+  "requiredCandidates": 39,
+  "conditionalCandidates": 1,
+  "assets": [
+    {
+      "id": "machine_pop_pair_body",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_pair_front",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        4,
+        5
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_quad_front",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        4,
+        5
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_hex_front",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_double_carrier",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_pop_socket_cover",
+      "owner": "A1",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_pair_body",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_pair_front",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_triple_body",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        4
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_triple_front",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        4
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_quad_body",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        5
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_quad_front",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        5
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_hex_body",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_hex_front",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_double_carrier",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_cup_socket_cover",
+      "owner": "A2",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_dual_body",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        3,
+        4
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_dual_front",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        3,
+        4
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_quad_body",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_quad_front",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_lane_cover",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "machine_ship_wide_head",
+      "owner": "A3",
+      "category": "machine",
+      "stageUse": [
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": true,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "buffer_bulk_large_back",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "buffer_bulk_large_front",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "buffer_cups_rack_back",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "buffer_cups_rack_front",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "conveyor_bridge_back",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "conveyor_bridge_front",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "transfer_tray_empty",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "input_cup_collar",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "input_ship_collar",
+      "owner": "A4",
+      "category": "logistics",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "ui_icon_automation",
+      "owner": "A5",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "ui_badge_generation",
+      "owner": "A5",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "ui_badge_complete",
+      "owner": "A5",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "factory_room_extension",
+      "owner": "A6",
+      "category": "scene",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "factory_platform_extension",
+      "owner": "A6",
+      "category": "scene",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "factory_tower_back",
+      "owner": "A6",
+      "category": "scene",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    },
+    {
+      "id": "factory_tower_front",
+      "owner": "A6",
+      "category": "scene",
+      "stageUse": [
+        6
+      ],
+      "status": "PLANNED",
+      "conditional": false,
+      "file": null,
+      "sha256": null,
+      "decision": "reuse-first; generate only after Gate 1",
+      "evidenceRequired": [
+        "reference lock",
+        "export recipe",
+        "assembly preview",
+        "alpha/dimensions audit"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "owner": "A2",
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "referenceLock": {
+    "path": "art-source/six-gen/references/reference-lock.json",
+    "sha256": "88307397735b31ed0cef27d61032a2c4d0ca904ccd76e8c26f8976f940960b6a"
+  },
+  "styleContract": {
+    "path": "art-source/six-gen/contracts/style-contract.json",
+    "sha256": "c0f890cf63550f6b249f164f03c47a57104f675b91c126079f0691ba771fd452"
+  },
+  "records": [
+    {
+      "id": "cup_pair_body_v1",
+      "assetId": "machine_cup_pair_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:32:28.6933322Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-4ca5e008-de8b-4b75-9b6e-f76dca479b12.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_pair_body_v1.png",
+      "sourceSha256": "6a13d17c5afef6e3ce33e595eea766101b22141c81829927ee2f4dc4220ca13f",
+      "promptRef": "prompts.jsonl#cup_pair_body_v1",
+      "references": [
+        {
+          "path": "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+          "sha256": "28d325cdb53841889554fc6a2301040e443fa2c7bcde30f88c19eeed2abcc672",
+          "role": "visually inspected style or geometry reference"
+        },
+        {
+          "path": "assets/art/machines/machine_cup_body.png",
+          "sha256": "3043833042a55f261bcbf63a6d740571cf047d99c363ebf0a5e7fb7696df6532",
+          "role": "visually inspected style or geometry reference"
+        },
+        {
+          "path": "assets/art/machines/machine_cup_head.png",
+          "sha256": "b64456e37b17fe196f35f22089a2ef8730a1d91dff2b72f2ae56990002b5abc2",
+          "role": "visually inspected style or geometry reference"
+        },
+        {
+          "path": "assets/art/machines/machine_cup_front.png",
+          "sha256": "2102d73c9001ffa1d1481c73b90b74c64d9fe1cdb2b9048085828dc6b1ae6a3e",
+          "role": "visually inspected style or geometry reference"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_pair_body_v2",
+      "assetId": "machine_cup_pair_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:34:06.7833574Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-93c66d7e-3e6e-4da5-a7db-810b30778037.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_pair_body_v2.png",
+      "sourceSha256": "092fbb5575e5eca4480e57c6294550c4aaeb57574f15ab5b59d4ae63e0e66226",
+      "promptRef": "prompts.jsonl#cup_pair_body_v2",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/sources/machine_cup_pair_body_v1.png",
+          "sha256": "6a13d17c5afef6e3ce33e595eea766101b22141c81829927ee2f4dc4220ca13f",
+          "role": "visually inspected edit target"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_pair_body_v3",
+      "assetId": "machine_cup_pair_body",
+      "status": "EXPORTED",
+      "requestedAt": "2026-09-10T06:38:42.1772326Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-dfb53958-bbed-487c-ac39-205e5bcf5439.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_pair_body_v3.png",
+      "sourceSha256": "37e92462cb3f4b4ab4ae24fec4b11ab9816ad6dcd6e156768833cae3d6a78506",
+      "promptRef": "prompts.jsonl#cup_pair_body_v3",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/sources/machine_cup_pair_body_v2.png",
+          "sha256": "092fbb5575e5eca4480e57c6294550c4aaeb57574f15ab5b59d4ae63e0e66226",
+          "role": "visually inspected edit target"
+        }
+      ],
+      "changeRequest": "CR_ALPHA_01"
+    },
+    {
+      "id": "cup_triple_body_v1",
+      "assetId": "machine_cup_triple_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:44:53.9023519Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-5005c513-bd30-49e1-8937-164801e4baa1.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_triple_body_v1.png",
+      "sourceSha256": "d5f80b8206e71d66eb3ff414e7a84ece8337f159f0299c4a2fcbc5b01e6a89e6",
+      "promptRef": "prompts.jsonl#cup_triple_body_v1",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/exports/machine_cup_pair_body.png",
+          "sha256": "b81c70e9140b1870e9e12e3df22f1f7153f0af7ed96451be77f8731d71edbb19",
+          "role": "visually inspected style or geometry reference"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_triple_body_v2",
+      "assetId": "machine_cup_triple_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:51:45.6607258Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-d603fad9-b768-4ba1-9142-88793dc43182.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_triple_body_v2.png",
+      "sourceSha256": "84977f451e9c5472a520ed891f7a68e5ba68f5ce50bcf26a3a449a8a39e23d2f",
+      "promptRef": "prompts.jsonl#cup_triple_body_v2",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/sources/machine_cup_triple_body_v1.png",
+          "sha256": "d5f80b8206e71d66eb3ff414e7a84ece8337f159f0299c4a2fcbc5b01e6a89e6",
+          "role": "visually inspected edit target"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_quad_body_v1",
+      "assetId": "machine_cup_quad_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:56:04.2862618Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-5da54bc5-4d1a-41ed-b634-6190d21408b9.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_quad_body_v1.png",
+      "sourceSha256": "2e120d1e9065176a4d58ceb57171b8bc05e9d9324a917c76f843227721723d0f",
+      "promptRef": "prompts.jsonl#cup_quad_body_v1",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/exports/machine_cup_pair_body.png",
+          "sha256": "b81c70e9140b1870e9e12e3df22f1f7153f0af7ed96451be77f8731d71edbb19",
+          "role": "visually inspected style or geometry reference"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_quad_body_v2",
+      "assetId": "machine_cup_quad_body",
+      "status": "EXPORTED",
+      "requestedAt": "2026-09-10T06:57:37.098684Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-49d1582e-69cb-4c0d-b93d-354a3fd8ab51.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_quad_body_v2.png",
+      "sourceSha256": "74c42d9210c882853c20961117552623e34f730c3c2d33c8fd29914965201287",
+      "promptRef": "prompts.jsonl#cup_quad_body_v2",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/sources/machine_cup_quad_body_v1.png",
+          "sha256": "2e120d1e9065176a4d58ceb57171b8bc05e9d9324a917c76f843227721723d0f",
+          "role": "visually inspected edit target"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_hex_body_v1",
+      "assetId": "machine_cup_hex_body",
+      "status": "REJECTED_ALPHA",
+      "requestedAt": "2026-09-10T06:59:08.5804394Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-fc666bd3-54be-4d19-aa97-1ab4ea37234f.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_hex_body_v1.png",
+      "sourceSha256": "a354baa9baddbf51b9513ebd93f76000f52f4ece923b188f76fa683ee96aa70c",
+      "promptRef": "prompts.jsonl#cup_hex_body_v1",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/exports/machine_cup_pair_body.png",
+          "sha256": "b81c70e9140b1870e9e12e3df22f1f7153f0af7ed96451be77f8731d71edbb19",
+          "role": "visually inspected style or geometry reference"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_hex_body_v2",
+      "assetId": "machine_cup_hex_body",
+      "status": "EXPORTED",
+      "requestedAt": "2026-09-10T07:01:12.5771584Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-3b8f5747-1ae0-4499-88ca-5f275666d287.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_hex_body_v2.png",
+      "sourceSha256": "9a108683eebd2edbe8461ef935d7ad916c510182503bbec1012e9d29580718b3",
+      "promptRef": "prompts.jsonl#cup_hex_body_v2",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/sources/machine_cup_hex_body_v1.png",
+          "sha256": "a354baa9baddbf51b9513ebd93f76000f52f4ece923b188f76fa683ee96aa70c",
+          "role": "visually inspected edit target"
+        }
+      ],
+      "changeRequest": null
+    },
+    {
+      "id": "cup_triple_body_v3",
+      "assetId": "machine_cup_triple_body",
+      "status": "EXPORTED",
+      "requestedAt": "2026-09-10T07:04:08.5264778Z",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "returnedImageId": "unavailable",
+      "toolOutputFile": "C:/Users/chenweilun/.codex/generated_images/01a08a03-5a57-7a41-bb30-a07ef12a784f/exec-1686a9d2-a64d-4f3b-b016-8bc535641400.png",
+      "originalAndCopyShaMatch": true,
+      "source": "art-source/six-gen/cup/sources/machine_cup_triple_body_v3.png",
+      "sourceSha256": "b00692dfb8b18cb279410de43eef76cb188535b94c06ddbefdc58054f3b7d572",
+      "promptRef": "prompts.jsonl#cup_triple_body_v3",
+      "references": [
+        {
+          "path": "art-source/six-gen/cup/exports/machine_cup_pair_body.png",
+          "sha256": "b81c70e9140b1870e9e12e3df22f1f7153f0af7ed96451be77f8731d71edbb19",
+          "role": "visually inspected style or geometry reference"
+        }
+      ],
+      "changeRequest": "CR_ALPHA_02"
+    }
+  ],
+  "reuseReferences": [
+    {
+      "path": "assets/art/machines/machine_cup_body.png",
+      "sha256": "3043833042a55f261bcbf63a6d740571cf047d99c363ebf0a5e7fb7696df6532",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "assets/art/machines/machine_cup_head.png",
+      "sha256": "b64456e37b17fe196f35f22089a2ef8730a1d91dff2b72f2ae56990002b5abc2",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "assets/art/machines/machine_cup_front.png",
+      "sha256": "2102d73c9001ffa1d1481c73b90b74c64d9fe1cdb2b9048085828dc6b1ae6a3e",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "assets/art/products/product_cup_empty.png",
+      "sha256": "6c8b333578fb63162c59f73bb15998d41d93d44c8aaa288ca5a4f05038b63e7f",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "assets/art/products/product_cup_fill.png",
+      "sha256": "75820426a90ef19688fa0e514696b5ff594b4c1447f22ae35c5b15998872a721",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "assets/art/products/product_double_tray.png",
+      "sha256": "bce998b454ab28825d91dee229d9dfaf904c0bda5a9afaf37fc93376a02e612d",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "art-source/six-gen/pop/exports/machine_pop_socket_cover.png",
+      "sha256": "fbf415ce2677b28e844dac0e9f036c88da89453a688702686d2f5c74f758eef0",
+      "decision": "reference directly; no copied or renamed asset",
+      "visuallyInspected": true
+    }
+  ],
+  "assemblySources": [
+    {
+      "path": "art-source/batch-0/assembly.json",
+      "sha256": "78f73ce497ae77265f39822435dabdbbd7f2f908c26ba83db35f7f2814eb9660"
+    },
+    {
+      "path": "art-source/batch-1/core/assembly.json",
+      "sha256": "e5daae488c5914d37caa9755cfd8a97994e6b28d3984e7d96bc6b4fab2aa4b1a"
+    }
+  ],
+  "notes": [
+    "Ten original generated PNGs preserved: four successful RGBA sources and six rejected RGB sources.",
+    "CR_ALPHA_01 authorized pair third repair from new successful transparent-output evidence. CR_ALPHA_02 authorized triple third attempt from approved RGBA reference.",
+    "No API/CLI fallback used. No model/seed or unseen reference claims invented."
+  ]
+}

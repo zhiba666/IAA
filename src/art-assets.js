@@ -52,7 +52,12 @@ function createArtAssets(options) {
   }
   const api = { get: id => records[id] && records[id].status === 'loaded' ? records[id].image : null,
     load, report, ready: Promise.resolve(report()),
-    loadAll() { api.ready = Promise.all(ids.map(load)).then(report); return api.ready; } };
+    loadAll() { api.ready = Promise.all(ids.map(load)).then(report); return api.ready; },
+    retryFailed() {
+      const failed = Object.keys(records).filter(id => records[id].status === 'failed');
+      for (const id of failed) { delete pending[id]; records[id].status = 'pending'; records[id].error = ''; }
+      return api.loadAll();
+    } };
   return api;
 }
 

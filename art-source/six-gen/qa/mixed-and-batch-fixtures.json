@@ -1,0 +1,398 @@
+{
+  "scope": "Static legal mixed-lane and old/new batch illustrations; no game saves",
+  "mixedLaneFixtures": [
+    {
+      "generation": 2,
+      "station": "pop",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 2,
+      "station": "cup",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 3,
+      "station": "pop",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 3,
+      "station": "cup",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 3,
+      "station": "ship",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.48,
+          "complete": false
+        },
+        null
+      ],
+      "semantics": "running plus idle lanes, never blocked",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 4,
+      "station": "pop",
+      "installedLanes": 4,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 1,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 0.24,
+          "complete": false
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 4,
+      "station": "cup",
+      "installedLanes": 3,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 1,
+          "progress": 1,
+          "complete": true
+        },
+        null
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 4,
+      "station": "ship",
+      "installedLanes": 2,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.48,
+          "complete": false
+        },
+        null
+      ],
+      "semantics": "running plus idle lanes, never blocked",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "installedLanes": 4,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "installedLanes": 4,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        null,
+        null
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 5,
+      "station": "ship",
+      "installedLanes": 4,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.48,
+          "complete": false
+        },
+        null,
+        null,
+        null
+      ],
+      "semantics": "running plus idle lanes, never blocked",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "installedLanes": 6,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "installedLanes": 6,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.48,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        null,
+        null,
+        null,
+        null
+      ],
+      "semantics": "running plus completed output-blocked lane; POP trailing lanes remain running, CUP trailing lanes may wait for input",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 6,
+      "station": "ship",
+      "installedLanes": 4,
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 4,
+          "progress": 0.48,
+          "complete": false
+        },
+        null,
+        null,
+        null
+      ],
+      "semantics": "running plus idle lanes, never blocked",
+      "runtimeExecuted": false
+    }
+  ],
+  "oldAndNewBatchFixtures": [
+    {
+      "generation": 5,
+      "station": "pop",
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.8,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.25,
+          "complete": false
+        }
+      ],
+      "note": "Independent pre-upgrade one-portion job remains one; newly started job has two. Never duplicate the old job or silently change its amount.",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.8,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.25,
+          "complete": false
+        }
+      ],
+      "note": "Independent pre-upgrade one-portion job remains one; newly started job has two. Never duplicate the old job or silently change its amount.",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.8,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.25,
+          "complete": false
+        }
+      ],
+      "note": "Independent pre-upgrade one-portion job remains one; newly started job has two. Never duplicate the old job or silently change its amount.",
+      "runtimeExecuted": false
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "fixtureKind": "synthetic-art-only",
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.8,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.25,
+          "complete": false
+        }
+      ],
+      "note": "Independent pre-upgrade one-portion job remains one; newly started job has two. Never duplicate the old job or silently change its amount.",
+      "runtimeExecuted": false
+    }
+  ]
+}

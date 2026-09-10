@@ -1,0 +1,2 @@
+# Archived snapshots retain the exact bytes recorded in their SHA-256 manifest.
+archive/** -text -whitespace

@@ -1,0 +1,115 @@
+﻿{
+    "schemaVersion":  1,
+    "contractVersion":  "six-gen-art-1.0",
+    "mode":  "mechanical crop and uniform resize only",
+    "assets":  [
+                   {
+                       "id":  "machine_ship_dual_body",
+                       "sourceFile":  "sources/machine_ship_dual_body.png",
+                       "file":  "exports/machine_ship_dual_body.png",
+                       "sourceSha256":  "b02892a67ea82b2940d68f68657ec41119ae79f98e32df92123aaa52d0d638c5",
+                       "exportSha256":  "239437244edd892b5c437cece31ec633d7b0810467ae34c1d319cbf22f3761bb",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         87,
+                                                         18,
+                                                         1428,
+                                                         1006
+                                                     ],
+                                      "exportSize":  [
+                                                         640,
+                                                         451
+                                                     ],
+                                      "uniformScale":  0.44817927170868349,
+                                      "contentOffset":  [
+                                                            0,
+                                                            0
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  798045,
+                                      "alphaSemi":  774819,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; lane cover adds two-pixel transparent gutter"
+                                  }
+                   },
+                   {
+                       "id":  "machine_ship_lane_cover",
+                       "sourceFile":  "sources/machine_ship_lane_cover.png",
+                       "file":  "exports/machine_ship_lane_cover.png",
+                       "sourceSha256":  "554178a7ed242e2c24929e0a22149182c50960a4d9a3567636ea9bb2e1205458",
+                       "exportSha256":  "fec43feb7aedaefb195b3f6bb77f806a973b96f7ef1008008070c05741223557",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         52,
+                                                         164,
+                                                         1281,
+                                                         697
+                                                     ],
+                                      "exportSize":  [
+                                                         192,
+                                                         106
+                                                     ],
+                                      "uniformScale":  0.14676034348165495,
+                                      "contentOffset":  [
+                                                            2,
+                                                            2
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  1201533,
+                                      "alphaSemi":  371331,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; lane cover adds two-pixel transparent gutter"
+                                  }
+                   },
+                   {
+                       "id":  "machine_ship_quad_body",
+                       "sourceFile":  "sources/machine_ship_quad_body.png",
+                       "file":  "exports/machine_ship_quad_body.png",
+                       "sourceSha256":  "4342053523ccad69a28a92cd7c260330f4fcae177c1b24f2f51f78ddd366a95f",
+                       "exportSha256":  "45c1bf6a6369efca5be43d567730dd036fa993a421a020c0cfb13aa8c0c8e2b2",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         0,
+                                                         16,
+                                                         1527,
+                                                         962
+                                                     ],
+                                      "exportSize":  [
+                                                         640,
+                                                         403
+                                                     ],
+                                      "uniformScale":  0.41912246234446626,
+                                      "contentOffset":  [
+                                                            0,
+                                                            0
+                                                        ],
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  909803,
+                                      "alphaSemi":  663061,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions; lane cover adds two-pixel transparent gutter"
+                                  }
+                   }
+               ]
+}

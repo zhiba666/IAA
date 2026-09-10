@@ -1,0 +1,515 @@
+{
+  "scope": "Independent static data/file checks. No game execution, save writes, runtime input tests or device tests.",
+  "createdAt": "2026-09-10T07:38:52.876Z",
+  "requiredSceneCount": 24,
+  "requiredGenerationStationMappings": 18,
+  "scenes": [
+    {
+      "generation": 1,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g01-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 28
+    },
+    {
+      "generation": 1,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g01-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 28
+    },
+    {
+      "generation": 1,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g01-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 28
+    },
+    {
+      "generation": 1,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g01-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 28
+    },
+    {
+      "generation": 2,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g02-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 2,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g02-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 2,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g02-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 2,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g02-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 3,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g03-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 3,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g03-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 3,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 3,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 30
+    },
+    {
+      "generation": 4,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g04-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 4,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g04-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 4,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g04-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 4,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g04-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 31
+    },
+    {
+      "generation": 5,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g05-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 33
+    },
+    {
+      "generation": 5,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g05-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 33
+    },
+    {
+      "generation": 5,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g05-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 33
+    },
+    {
+      "generation": 5,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g05-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 33
+    },
+    {
+      "generation": 6,
+      "configuration": "entry",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g06-entry-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 35
+    },
+    {
+      "generation": 6,
+      "configuration": "entry",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g06-entry-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 35
+    },
+    {
+      "generation": 6,
+      "configuration": "upgraded",
+      "viewSize": [
+        390,
+        844
+      ],
+      "file": "art-source/six-gen/qa/previews/g06-upgraded-390x844.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 34
+    },
+    {
+      "generation": 6,
+      "configuration": "upgraded",
+      "viewSize": [
+        320,
+        524
+      ],
+      "file": "art-source/six-gen/qa/previews/g06-upgraded-320x524.png",
+      "exists": true,
+      "issues": [],
+      "visualConclusion": "VERIFIED_STATIC_ART",
+      "assetCount": 34
+    }
+  ],
+  "rigs": [
+    {
+      "generation": 1,
+      "station": "pop",
+      "rigId": "popMachine",
+      "available": true,
+      "issues": [],
+      "slots": 1,
+      "requiredMaximum": 1
+    },
+    {
+      "generation": 1,
+      "station": "cup",
+      "rigId": "cupMachine",
+      "available": true,
+      "issues": [],
+      "slots": 1,
+      "requiredMaximum": 1
+    },
+    {
+      "generation": 1,
+      "station": "ship",
+      "rigId": "shipMachine",
+      "available": true,
+      "issues": [],
+      "slots": 1,
+      "requiredMaximum": 1
+    },
+    {
+      "generation": 2,
+      "station": "pop",
+      "rigId": "pop_pair",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 2,
+      "station": "cup",
+      "rigId": "cup_pair",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 2,
+      "station": "ship",
+      "rigId": "ship_single",
+      "available": true,
+      "issues": [],
+      "slots": 1,
+      "requiredMaximum": 1
+    },
+    {
+      "generation": 3,
+      "station": "pop",
+      "rigId": "pop_pair",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 3,
+      "station": "cup",
+      "rigId": "cup_pair",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 3,
+      "station": "ship",
+      "rigId": "ship_dual",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 4,
+      "station": "pop",
+      "rigId": "pop_quad",
+      "available": true,
+      "issues": [],
+      "slots": 4,
+      "requiredMaximum": 4
+    },
+    {
+      "generation": 4,
+      "station": "cup",
+      "rigId": "cup_triple",
+      "available": true,
+      "issues": [],
+      "slots": 3,
+      "requiredMaximum": 3
+    },
+    {
+      "generation": 4,
+      "station": "ship",
+      "rigId": "ship_dual",
+      "available": true,
+      "issues": [],
+      "slots": 2,
+      "requiredMaximum": 2
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "rigId": "pop_quad",
+      "available": true,
+      "issues": [],
+      "slots": 4,
+      "requiredMaximum": 4
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "rigId": "cup_quad",
+      "available": true,
+      "issues": [],
+      "slots": 4,
+      "requiredMaximum": 4
+    },
+    {
+      "generation": 5,
+      "station": "ship",
+      "rigId": "ship_quad",
+      "available": true,
+      "issues": [],
+      "slots": 4,
+      "requiredMaximum": 4
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "rigId": "pop_hex",
+      "available": true,
+      "issues": [],
+      "slots": 6,
+      "requiredMaximum": 6
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "rigId": "cup_hex",
+      "available": true,
+      "issues": [],
+      "slots": 6,
+      "requiredMaximum": 6
+    },
+    {
+      "generation": 6,
+      "station": "ship",
+      "rigId": "ship_quad",
+      "available": true,
+      "issues": [],
+      "slots": 4,
+      "requiredMaximum": 4
+    }
+  ],
+  "findings": [],
+  "fixtureMatrices": {
+    "machine-state-fixtures": {
+      "actual": 54,
+      "expected": 54,
+      "countPass": true,
+      "missingDisclosures": 0
+    },
+    "warehouse-fixtures": {
+      "actual": 48,
+      "expected": 48,
+      "countPass": true,
+      "missingDisclosures": 0
+    },
+    "machineReachability": {
+      "N/A_NORMAL_SETTLED_OPERATION": 12,
+      "REACHABLE_STATIC_RULE_REVIEW": 42
+    }
+  },
+  "availableRigMappings": 18,
+  "renderedSceneCount": 24,
+  "allTechnicalChecksPass": true,
+  "status": "TECHNICAL_CHECKS_PASSED_VISUAL_REVIEW_SEPARATE",
+  "notClaimed": [
+    "All final visual checks",
+    "runtime behavior",
+    "GPU/process memory",
+    "real device performance",
+    "input event behavior",
+    "release or integration"
+  ]
+}

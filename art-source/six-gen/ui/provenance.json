@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A5",
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "referenceLockSha256": "88307397735b31ed0cef27d61032a2c4d0ca904ccd76e8c26f8976f940960b6a",
+  "assets": [
+    {
+      "id": "ui_badge_complete",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-4f1d0fb4-78c4-42da-92a6-66374e2ade47",
+      "attempt": 1,
+      "sourceFile": "sources/ui_badge_complete.png",
+      "sourceSha256": "ff0a123b9a31109b42b4d6a6ad4a0292116444b35b22b338589e2afc73393380",
+      "exportFile": "exports/ui_badge_complete.png",
+      "exportSha256": "3bc3282dfe54a0a081ff8a48a055e355f5bc97060c552b86e1fef3b5a9f91a46",
+      "references": [
+        {
+          "file": "assets/art/ui/ui_icon_check.png",
+          "sha256": "60fd25e89b2e69839196bb908077a6f106c96faeace610efdc2f9fd1501b0564",
+          "role": "actually viewed reference"
+        }
+      ],
+      "promptFile": "prompts.jsonl",
+      "sourceFileTimestampUtc": "2026-09-10T07:09:18.1592104Z"
+    },
+    {
+      "id": "ui_badge_generation",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-faee753f-983b-4a8c-9ad0-335e797dc01d",
+      "attempt": 1,
+      "sourceFile": "sources/ui_badge_generation.png",
+      "sourceSha256": "0c1d70e81ba1263fef1459bee36ac163ccc3fa4f92128daff47e930b2edbcefd",
+      "exportFile": "exports/ui_badge_generation.png",
+      "exportSha256": "8286d6b816dce3aec412f0f370e63dad7b53e8f3878e0087162174851692711b",
+      "references": [
+        {
+          "file": "assets/art/ui/ui_card.png",
+          "sha256": "c17c24332247fd0940f5af9de9d8e21708d77aba1ada4cae66ddc3696996d478",
+          "role": "actually viewed reference"
+        }
+      ],
+      "promptFile": "prompts.jsonl",
+      "sourceFileTimestampUtc": "2026-09-10T07:07:29.6374268Z"
+    },
+    {
+      "id": "ui_icon_automation",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-7d5d8a90-a110-40ba-ad0b-f234c61f70bc",
+      "attempt": 1,
+      "sourceFile": "sources/ui_icon_automation.png",
+      "sourceSha256": "7422e59bb8911fb095f0a9ffb0ad018a8c38ffca8ad5c1c57953ee94ef6c7a01",
+      "exportFile": "exports/ui_icon_automation.png",
+      "exportSha256": "5f9bb4eb9ed413555a06f9bc0aba9ac6de5aa397e9f1f55dc68eb4d8062e1b89",
+      "references": [
+        {
+          "file": "assets/art/ui/ui_icon_settings.png",
+          "sha256": "d9eb858fa3c6e7e2f2cb22714dae52f7e54b727132deb14bd91e0df82635f5ea",
+          "role": "actually viewed reference"
+        }
+      ],
+      "promptFile": "prompts.jsonl",
+      "sourceFileTimestampUtc": "2026-09-10T07:05:37.1772427Z"
+    }
+  ],
+  "rejectedAttempts": []
+}

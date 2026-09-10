@@ -32,7 +32,7 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
   const add = (code, status, message) => checks.push({ code, status, message });
   const source = name => files.has(name) ? files.get(name).toString('utf8') : null;
   const missingFiles = REQUIRED_FILES.filter(name => !files.has(name));
-  add('package-files', missingFiles.length ? 'error' : 'pass', missingFiles.length ? `构建缺少必需文件：${missingFiles.join('、')}。先运行 npm run build。` : `入口、配置、游戏代码、${AUDIO_FILES.length} 个音效及 ${ART_FILES.length} 个首代独立美术文件齐全。`);
+  add('package-files', missingFiles.length ? 'error' : 'pass', missingFiles.length ? `构建缺少必需文件：${missingFiles.join('、')}。先运行 npm run build。` : `入口、配置、游戏代码、${AUDIO_FILES.length} 个音效及 ${ART_FILES.length} 个六代独立美术文件齐全。`);
   if (readErrors.length) add('package-readable', 'error', '部分项目文件无法读取，或发现符号链接；请使用本项目构建器重新生成构建目录。');
   const unknownFiles = entries.filter(entry => !REQUIRED_FILES.includes(entry.name));
   add('package-contents', unknownFiles.length ? 'error' : 'pass', unknownFiles.length ? `包内有 ${unknownFiles.length} 个非预期文件；请检查 build/douyin，仅保留本项目构建器产物。` : '包内未发现多余文件。');
@@ -55,7 +55,7 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     return bytes && (bytes.length < 24 || bytes.toString('hex', 0, 8) !== '89504e470d0a1a0a' ||
       bytes.readUInt32BE(16) !== asset.width || bytes.readUInt32BE(20) !== asset.height);
   });
-  add('art-format', brokenArt.length ? 'error' : 'pass', brokenArt.length ? `首代 PNG 文件头或尺寸不一致：${brokenArt.join('、')}。` : '首代独立美术 PNG 文件头与装配清单尺寸一致；实际解码/画面以正式入口运行验收为准。');
+  add('art-format', brokenArt.length ? 'error' : 'pass', brokenArt.length ? `六代 PNG 文件头或尺寸不一致：${brokenArt.join('、')}。` : '六代独立美术 PNG 文件头与装配清单尺寸一致；实际解码/画面以正式入口运行验收为准。');
 
   const game = parseJSON(source('game.json'));
   const project = parseJSON(source('project.config.json'));

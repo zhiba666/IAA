@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A4",
+  "assets": [
+    {
+      "id": "buffer_bulk_large_back",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/buffer_bulk_large_back.png",
+      "width": 512,
+      "height": 403,
+      "anchor": [
+        256,
+        399
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_back.png",
+      "sha256": "a7d36fb31336c5d9b783ad2531f96b07b85e5fffbe3b22f2abedf8ea64d8cff8",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_bulk_large_front",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/buffer_bulk_large_front.png",
+      "width": 384,
+      "height": 256,
+      "anchor": [
+        192,
+        252
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_front.png",
+      "sha256": "57dec617f3cb96a04007fad2758ec3f19b510518d0649e020d19d35cea3d7a44",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_cups_rack_back",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_back.png",
+      "width": 512,
+      "height": 429,
+      "anchor": [
+        256,
+        425
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "sha256": "96fdbfd3cedd4acf378936b44591b72014f4447dea78b8e649b67aef70d7de2d",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_cups_rack_front",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_front.png",
+      "width": 512,
+      "height": 429,
+      "anchor": [
+        256,
+        425
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "sha256": "6e3a14e04003e6675e0a19b00244d730d1b789349ce28dc751ba4ccb21d555a6",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "input_cup_collar",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/input_cup_collar.png",
+      "width": 192,
+      "height": 133,
+      "anchor": [
+        96,
+        129
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/input_cup_collar.png",
+      "sha256": "94eb0fc905daaa8de0f80af61366366fd916d8ba59c68c1ee8e6253d5eadd807",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "transfer_tray_empty",
+      "status": "EXPORTED",
+      "category": "logistics",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/logistics/exports/transfer_tray_empty.png",
+      "width": 192,
+      "height": 133,
+      "anchor": [
+        96,
+        129
+      ],
+      "sourceFile": "art-source/six-gen/logistics/sources/transfer_tray_empty.png",
+      "sha256": "00b4fec8ee794665b60f15730453abcb92e597c5f9ec9fd86f9a893d8542502a",
+      "provenanceRef": "art-source/six-gen/logistics/provenance.json",
+      "reuseSource": null,
+      "alphaMode": "RGBA"
+    }
+  ]
+}

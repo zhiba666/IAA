@@ -1,0 +1,510 @@
+{
+  "reviewedAt": "2026-09-10T07:38:37.366Z",
+  "reviewer": "Independent baseline_qa agent",
+  "scope": "Static art review only; no runtime, interaction, device or GPU assertions.",
+  "finalManifest": {
+    "path": "art-source/six-gen/integration/manifest.json",
+    "sha256": "05422d772e30c1272d3a785b8fc05ecd84007f9a09d67bdd8d6b854f4ae2e06f"
+  },
+  "status": "STATIC_ART_REVIEW_PASSED",
+  "reviewedArtifacts": [
+    {
+      "file": "art-source/six-gen/qa/previews/g01-entry-390x844.png",
+      "pngSha256": "6743bd7c6815504dc37d4ce273d63d6cd6490c57ed68e36e4162f131876865f1",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g01-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-entry-320x524.png",
+      "pngSha256": "c6c496bd02be48b1ec500534dccaeb2afe2f01fb3a840cde2fc2a73d9dcba614",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g01-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-upgraded-390x844.png",
+      "pngSha256": "037c756c6e3b5384976fd9fa41f317a43b0463b3c33b7ab2b1c96e8614db4406",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g01-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-upgraded-320x524.png",
+      "pngSha256": "69eed8d406df8a665ac4d946ae86e44bb43e45aa1c4a9281aeafa93d2d0812f1",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g01-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g02-entry-390x844.png",
+      "pngSha256": "1a6a3687cf2fc720120b8605ae132b18aad8d0e652fb43d5c82e7a4de30f27ea",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g02-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g02-entry-320x524.png",
+      "pngSha256": "e46c0c2a715f2e973db8e0a15c2b6c080d1024bc08f51119e999b85a001a1823",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g02-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g02-upgraded-390x844.png",
+      "pngSha256": "8cce01d52dac36a1b22cecdf1f2dbf613bd359467bdee812d9bfd5d6d725d65b",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g02-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g02-upgraded-320x524.png",
+      "pngSha256": "cdd6214fe6c5792256ba1b012278eee7d057f7f047fb6dd2fdd2e69d60acb5cc",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g02-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-entry-390x844.png",
+      "pngSha256": "8f0fe0a1fd0b316d1ce63dba26833aaf20c8acf9d468eab8e34e3ec14fa8a6bb",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g03-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-entry-320x524.png",
+      "pngSha256": "f814ef4f5ce043bf7ef6cadbea6573c24c1d27ef909c0674a6abb316b699bae3",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g03-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-390x844.png",
+      "pngSha256": "fe39f97857f395a481dfc97046beabdcc1d4e4dfb3b4ac2e54965f1491676096",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g03-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-upgraded-320x524.png",
+      "pngSha256": "66b098e719ab5f6ed23c71df72787ae4365bfdcb4882ab98cfedb9905cd43aba",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g03-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g04-entry-390x844.png",
+      "pngSha256": "24b72c344db7603fed331219977dd284e73605068c0628092463f4e34718e1ea",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g04-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g04-entry-320x524.png",
+      "pngSha256": "6894dfdf42d3b2027aa85644886fd35bb6d27a579cdccbca0d86d5df6a341552",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g04-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g04-upgraded-390x844.png",
+      "pngSha256": "007b1dceb77e454fa723b0359291f706714ca1202623a90b7f8c450fcd64a5e2",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g04-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g04-upgraded-320x524.png",
+      "pngSha256": "763ec2156072b06762bbd1ed4d935dd1d36b213eb49a253b18f889d07c05e36f",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g04-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-entry-390x844.png",
+      "pngSha256": "08af5d8a90ab635131fb03a7e3f32448f2bec4cc70df1b47c26a5140464f3113",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g05-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-entry-320x524.png",
+      "pngSha256": "2f7088732fea7e840f637953cb8becddc47d9aa37ddb363c2a20eef0da992f0d",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g05-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-upgraded-390x844.png",
+      "pngSha256": "5be093565e1b6bad353afdc8e1fc22cea645c0a721fc0f1f8ad1aa6cb3987110",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g05-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-upgraded-320x524.png",
+      "pngSha256": "ad10edcfbf01adbdc4201b92077fd36c0d8b398ad1aeec76902380f67d4645db",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g05-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-entry-390x844.png",
+      "pngSha256": "f64289f972b496874653d18bb07c09368e0f897f3e517339bb67aa671228199b",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g06-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-entry-320x524.png",
+      "pngSha256": "0ccf93f3235b78a9653560a807cddf944e6797ac881852f72e23465a6030ca38",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g06-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-upgraded-390x844.png",
+      "pngSha256": "7be932f9da449c96b795d191679f29f1fddc33a951f13c8450c5d791c1aa9826",
+      "viewSize": [
+        390,
+        844
+      ],
+      "reviewedVia": "g06-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-upgraded-320x524.png",
+      "pngSha256": "ff664c94c8142f5b0c2182be870730170c7d4671b90dbea919b80c3bec89623b",
+      "viewSize": [
+        320,
+        524
+      ],
+      "reviewedVia": "g06-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-four-view-review.png",
+      "pngSha256": "5e38aa2fb47dfe0753a7d7807abacaa0bd630dcbd9d912fd7d145a6ca7146404",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g01-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g02-four-view-review.png",
+      "pngSha256": "ec201362894016968ed96826a91927ecd87dcf1c8414cf2473b116dc6fd96fcd",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g02-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g03-four-view-review.png",
+      "pngSha256": "51373223c648566ad59605fdffa8c78a278831d7062d2a3aaa0729f275ed27ce",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g03-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g04-four-view-review.png",
+      "pngSha256": "d1ef5deb885f7dfb03c87c8a3912d1815e9131a315d00ffe5d9d02bb865e63fc",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g04-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-four-view-review.png",
+      "pngSha256": "dd290cba05fcb4193e544e9bd717670e80ee705e82d689e311997a3fc36fac4c",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g05-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-four-view-review.png",
+      "pngSha256": "58776dbd81dbd7d886dfe630a750cc5d0214ef753ae377eddbd7b987475c4aa7",
+      "viewSize": [
+        1426,
+        898
+      ],
+      "reviewedVia": "g06-four-view-review.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/asset-overview-light.png",
+      "pngSha256": "7e5be15910ef3067ed59b3ee0b0e60a5680041a3af6be85c276ac2ac421b3865",
+      "viewSize": [
+        1600,
+        2196
+      ],
+      "reviewedVia": "asset-overview-light.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/asset-overview-dark.png",
+      "pngSha256": "c5098e31f9563c7aca245ee67ac60e852e47b1e0bee3015805860a891a7b510d",
+      "viewSize": [
+        1600,
+        2196
+      ],
+      "reviewedVia": "asset-overview-dark.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/six-generations-overview.png",
+      "pngSha256": "8a570630dc7c826d0fcc6608a65cb46abf6bf2ddde10395c786bf68f3aefe38a",
+      "viewSize": [
+        750,
+        1096
+      ],
+      "reviewedVia": "six-generations-overview.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/machine-54-state-contact.png",
+      "pngSha256": "2129ebc29eacda60a236538a2e9810d52449bcec4d8274fc967389e022b4e449",
+      "viewSize": [
+        1980,
+        1260
+      ],
+      "reviewedVia": "machine-54-state-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/warehouse-48-fixture-contact.png",
+      "pngSha256": "37f88e09560d58ee17cd63b29a448ec7c61705bbd63b5dd00e9094e04b7a68d9",
+      "viewSize": [
+        1920,
+        1200
+      ],
+      "reviewedVia": "warehouse-48-fixture-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-four-connections-contact.png",
+      "pngSha256": "79c34958614106ba7c0ce749a5c59575e5705d692c5078afa5efdc48dcfd3158",
+      "viewSize": [
+        1320,
+        628
+      ],
+      "reviewedVia": "g01-four-connections-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-trial-before-after-contact.png",
+      "pngSha256": "4aa3d127772a1a66337677788bd8ecd39f37bb398a572058dab75da014a4994e",
+      "viewSize": [
+        700,
+        636
+      ],
+      "reviewedVia": "g01-trial-before-after-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g01-transfer-4-24-36-contact.png",
+      "pngSha256": "49490b8e08ed8b005163be69fc10e08dbd18b66d364bdc85a50c904ba9c0676b",
+      "viewSize": [
+        930,
+        296
+      ],
+      "reviewedVia": "g01-transfer-4-24-36-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g05-g06-mixed-and-old-new-batches-contact.png",
+      "pngSha256": "c05c7ccc7d8a2ef2eb880fec72e1da27fcbcb77dff04777e37b222bc14b7e62f",
+      "viewSize": [
+        1280,
+        1100
+      ],
+      "reviewedVia": "g05-g06-mixed-and-old-new-batches-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    },
+    {
+      "file": "art-source/six-gen/qa/previews/g06-entry-versus-installed-contact.png",
+      "pngSha256": "135a25e936bafb979eb10bfa56b31813331b58497cba4316516af00aa814a4e8",
+      "viewSize": [
+        820,
+        922
+      ],
+      "reviewedVia": "g06-entry-versus-installed-contact.png",
+      "conclusion": "VERIFIED_STATIC_ART",
+      "technicalIssues": []
+    }
+  ],
+  "closedFindings": [
+    {
+      "id": "rack-front-P1",
+      "resolution": "Owner replaced misaligned reused rails with a front mask matching the new rack back; lower-row cups and all four occupancy levels were re-reviewed in the 48-cell contact."
+    },
+    {
+      "id": "single-cup-packaging-envelope",
+      "resolution": "Single-cup products use the dedicated singleCupRect; double trays and four-cup boxes use the documented packaging envelope at uniform aspect ratio."
+    },
+    {
+      "id": "G06-detached-tower-front",
+      "resolution": "Detached lower-margin front frame removed from both viewport scenes; exported sprite remains visible in both independent asset overviews."
+    },
+    {
+      "id": "final-alpha-candidate-exceptions",
+      "resolution": "Root retained original candidate PNGs for product_kernel_b and ui_button_disabled after final palette alpha audit. All final previews regenerated against the locked unified manifest."
+    }
+  ],
+  "knownScopeLimits": [
+    "The current frame of running and blocked machines can share the occupied-product artwork. Contact captions and fixture jobs identify the state; this does not assert a tested animation or interaction.",
+    "Quantities use a bounded representative sprite count. Text identifies the explicit synthetic quantity; the number of painted kernels or cups is not the live inventory.",
+    "Entry fixtures preserve the previous generation maximum installation/batch configuration as an explicit static example, not a reconstructed player save.",
+    "Small viewport scenes were inspected as image artifacts. Actual touch behavior, physical screen readability and performance have not been tested."
+  ],
+  "baselineCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "protectedTrackedPathsUnchanged": true,
+  "finalAssetTotals": {
+    "count": 84,
+    "bytes": 1846247,
+    "decodedRgbaBytes": 26848144
+  },
+  "coverage": {
+    "generationStationMappings": 18,
+    "scenePreviews": 24,
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        320,
+        524
+      ]
+    ],
+    "configurations": [
+      "entry",
+      "upgraded"
+    ],
+    "machineFixtureCells": 54,
+    "reachableMachineFixtures": 42,
+    "notApplicableMachineFixtures": 12,
+    "warehouseFixtureCells": 48,
+    "extraContactBoards": 5,
+    "assetOverviewItems": 84,
+    "reviewedPngArtifacts": 40
+  },
+  "interactionNotRunRecord": "art-source/six-gen/qa/interaction-scope-not-run.json",
+  "technicalIssues": []
+}

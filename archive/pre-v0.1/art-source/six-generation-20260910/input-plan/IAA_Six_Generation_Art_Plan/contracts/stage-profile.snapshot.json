@@ -1,0 +1,134 @@
+{
+  "status": "audited_snapshot_not_runtime_config",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "profile": "v15/fresh",
+  "actualCapacity": "max(active logistics capacity, active stage capacity), use Game view",
+  "stages": [
+    {
+      "generation": 1,
+      "stateMachineIndex": 0,
+      "name": "手摇锅",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 24,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 1,
+          "maxUnlockedBatchSize": 1
+        },
+        "cup": {
+          "maxUnlockedLanes": 1,
+          "maxUnlockedBatchSize": 1
+        },
+        "ship": {
+          "maxUnlockedLanes": 1,
+          "maxUnlockedBatchSize": 1
+        }
+      }
+    },
+    {
+      "generation": 2,
+      "stateMachineIndex": 1,
+      "name": "电热锅",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 24,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 1
+        },
+        "cup": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 1
+        },
+        "ship": {
+          "maxUnlockedLanes": 1,
+          "maxUnlockedBatchSize": 2
+        }
+      }
+    },
+    {
+      "generation": 3,
+      "stateMachineIndex": 2,
+      "name": "双缸机",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 48,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 1
+        },
+        "cup": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 1
+        },
+        "ship": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 2
+        }
+      }
+    },
+    {
+      "generation": 4,
+      "stateMachineIndex": 3,
+      "name": "多头机",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 96,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 4,
+          "maxUnlockedBatchSize": 1
+        },
+        "cup": {
+          "maxUnlockedLanes": 3,
+          "maxUnlockedBatchSize": 1
+        },
+        "ship": {
+          "maxUnlockedLanes": 2,
+          "maxUnlockedBatchSize": 4
+        }
+      }
+    },
+    {
+      "generation": 5,
+      "stateMachineIndex": 4,
+      "name": "自动流水线",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 192,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 4,
+          "maxUnlockedBatchSize": 2
+        },
+        "cup": {
+          "maxUnlockedLanes": 4,
+          "maxUnlockedBatchSize": 2
+        },
+        "ship": {
+          "maxUnlockedLanes": 4,
+          "maxUnlockedBatchSize": 4
+        }
+      }
+    },
+    {
+      "generation": 6,
+      "stateMachineIndex": 5,
+      "name": "巨型爆米花塔",
+      "meaning": "highest unlockable configuration, not granted on expansion",
+      "freshStageCapacityFloor": 384,
+      "stations": {
+        "pop": {
+          "maxUnlockedLanes": 6,
+          "maxUnlockedBatchSize": 2
+        },
+        "cup": {
+          "maxUnlockedLanes": 6,
+          "maxUnlockedBatchSize": 2
+        },
+        "ship": {
+          "maxUnlockedLanes": 4,
+          "maxUnlockedBatchSize": 4
+        }
+      }
+    }
+  ]
+}

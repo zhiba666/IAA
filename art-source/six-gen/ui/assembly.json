@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "owner": "A5",
+  "status": "ASSEMBLED_ART_ONLY",
+  "rigs": [],
+  "scope": "Three independent raster symbols; no runtime UI changes.",
+  "iconDisplay": {"small":32,"normal":48,"maxExportEdge":96,"minimumLogicalHitArea":[44,44]},
+  "symbols": [
+    {"id":"ui_icon_automation","size":[92,96],"anchor":[46,48],"layer":10,"stageUse":[1,2,3,4,5,6],"meaning":"Automatic operation / automatic trial","stateRendering":"Same PNG; state label and status indicator are separate UI layers."},
+    {"id":"ui_badge_generation","size":[96,94],"anchor":[48,47],"layer":10,"stageUse":[1,2,3,4,5,6],"numberAnchor":[48,47],"numberSafeRect":[24,22,48,50],"numberLayer":20,"numberRange":[1,6],"textBakedIntoPng":false},
+    {"id":"ui_badge_complete","size":[96,95],"anchor":[48,47.5],"layer":10,"stageUse":[1,2,3,4,5,6],"meaning":"Goal complete","stateRendering":"Completion meaning must also be written in a separate text label; do not use color alone."}
+  ],
+  "reuse": ["assets/art/ui/ui_card.png","assets/art/ui/ui_icon_settings.png","assets/art/ui/ui_icon_check.png"],
+  "notes": ["Existing panels, controls, other icons and effects remain shared.","No six theme palettes and no numbered badge duplicates.","Screen layouts and complete UI-state acceptance belong to the A0/A7 combined preview package."]
+}

@@ -1,0 +1,347 @@
+{
+  "status": "STATIC_ART_REVIEW_COMPLETE",
+  "counts": {
+    "states": 14,
+    "pngPages": 29
+  },
+  "finalAssetSHAsMatch": true,
+  "checks": [
+    {
+      "file": "duplicate_processing-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "4fcff55bf62583989a48d1a01a2bd33cdf64d298cfa77862c9a05ed103b53ced"
+    },
+    {
+      "file": "duplicate_processing-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "3c43caa2d7ba3a7f75b7d79c5905150f597acded85f55a3de837f2f7dd2bc716"
+    },
+    {
+      "file": "equipment_complete-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "ee299935f164b6253b5a6b10efb2e2addf5b7f45867222f1416890b2717228db"
+    },
+    {
+      "file": "equipment_complete-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "4a759d2fe8ab4bf9d39a11a0934c0d705ea5257eab8f468760cbac882d01e552"
+    },
+    {
+      "file": "generation_six_built-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 10,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "5e578c349dcd19aa1df946f98a933231a0c782024bc60ed2667453fc594d6be4"
+    },
+    {
+      "file": "generation_six_built-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 10,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "6f96765d53fbafb222736284db8773092fc0232f47dfce6a5a610178e9aa7b75"
+    },
+    {
+      "file": "insufficient_coins-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "2dbc28139e63899dd63b2d189bcf6662762db006d58b78272419c867fafb459b"
+    },
+    {
+      "file": "insufficient_coins-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "4af360666a56611279e8e851e322d9ee65445f608ae341176bfa07ddbc3cf6cc"
+    },
+    {
+      "file": "locked-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "ab2558e6990c888e0aab3a2fe0047baec91d070777c29d4d222a219602d6be51"
+    },
+    {
+      "file": "locked-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "78c45d26e62e6f323482f502989e0e7ee8aac6b5243c0b1503a8f9c42f403695"
+    },
+    {
+      "file": "max_level-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "7c40d55aa439cb07678a7c429e017942ace3b8b1202e4ad4399c0d97cc788c37"
+    },
+    {
+      "file": "max_level-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "2eb4745c03507f82bf56a76ff61ef9327e9474c90ce1f54488eb6685b2e41890"
+    },
+    {
+      "file": "observing-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "8249b3a3abb2d418e34d8b95cdbd4e62e5ae019237ad5fc12f4216eecc9de83e"
+    },
+    {
+      "file": "observing-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "97e3f053e1c73f849fcf189f3d4205d05b0a9279b014f0c90336b59537fb03cd"
+    },
+    {
+      "file": "shared_bottleneck-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "8cca6fe3853ec38d38d64ad2f161f9ef485361433fb2dc20ea54e1984f74a0f8"
+    },
+    {
+      "file": "shared_bottleneck-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "87a6497136a58b4d1163949846615516cd4ea45d26bbd2a60232b8a5180ca22a"
+    },
+    {
+      "file": "single_bottleneck-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "f21d919f9cb739e49ff92147ff10fefca73307a740eadd8f629b4ee54e0ac3f2"
+    },
+    {
+      "file": "single_bottleneck-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "4c76d1df358c97ae22a08c0e73f479670b55fb7bf40f0521b746c5a3b7842e66"
+    },
+    {
+      "file": "stale_quote-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "ac0f9a77fc02ddfb8fcf5c649cf3630b7016d31c02ce41b63270b46965b6b182"
+    },
+    {
+      "file": "stale_quote-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "4abbebfb8143b742b08a3edc0e6ffa8ec67ca84dff3e1697e164390c9ccf6549"
+    },
+    {
+      "file": "trial_accumulating-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "ea2063cfae8a20942c9f1d04baed59277ae7b0df85b9cba6786e4c198cf1019d"
+    },
+    {
+      "file": "trial_accumulating-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "dc6a85e507df62c5335cbd9833149dea9a90d1476b1a64633e446d56bb1a0840"
+    },
+    {
+      "file": "trial_before-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "b6207b3ad0e0d9fd53c1817b7a5618d196cc3c0153eead6a74f0bc399555f2de"
+    },
+    {
+      "file": "trial_before-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "e9db9d95f3d758724f1b970f1fd15f5dda0d93a50173c22baeac8c0463d7afcd"
+    },
+    {
+      "file": "trial_complete-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "31321069caa9b76e8f6e3559c8afb365bd1e4a0342bee38d0e09020c887934b7"
+    },
+    {
+      "file": "trial_complete-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "c262484677b8003f40c9e75ee80d0f8e0d4cbf06bf0fbd7926898d5f3acdef33"
+    },
+    {
+      "file": "trial_interrupted-320x524.png",
+      "size": [
+        320,
+        524
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "f31bf45d54705799cb4080427699698a50a6237827d39dfc1ac047a8960363a9"
+    },
+    {
+      "file": "trial_interrupted-390x844.png",
+      "size": [
+        390,
+        844
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 9,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "796fc2ab4d45d4e8545433fe2bf561f109a4685479b86bcfee9f335b55c8600f"
+    },
+    {
+      "file": "ui-state-contact.png",
+      "size": [
+        1400,
+        1530
+      ],
+      "pngSignature": "89504e470d0a1a0a",
+      "textElements": 75,
+      "estimatedTextWithinCanvas": true,
+      "pngSha256": "e9613f8ad7fc987a6825556fd19fab3bbfa257444067167d9aa89f8e96279bcb"
+    }
+  ],
+  "errors": [],
+  "visualReview": {
+    "contact": "ui-state-contact.png: all 14 text/icon/button expressions read and compared",
+    "representativePages": [
+      "trial_accumulating-320x524.png",
+      "generation_six_built-390x844.png",
+      "equipment_complete-320x524.png"
+    ],
+    "fixes": [
+      "Changed header text from white to dark teal for contrast on the mint bar.",
+      "Reloaded final integration texture set after disabled-button alpha restoration."
+    ],
+    "limitations": "Automatic text fit uses conservative em-width estimates; it is not browser hit-testing or device QA."
+  },
+  "runtime": "NOT_RUN",
+  "transactions": "NOT_RUN",
+  "saveData": "NOT_RUN",
+  "sourceTexturesModified": false
+}

@@ -1,0 +1,406 @@
+{
+  "version": 1,
+  "batch": 1,
+  "status": "static_art_only_not_integrated",
+  "coordinates": "Local asset pixels; all part rectangles and reusable cup groups use uniform scaling. Original PNGs remain unchanged.",
+  "camera": {
+    "light": "upper left",
+    "floorAxes": [
+      [
+        1,
+        0.55
+      ],
+      [
+        -1,
+        0.55
+      ]
+    ]
+  },
+  "cupProduct": {
+    "size": [
+      104,
+      128
+    ],
+    "anchor": [
+      52,
+      121
+    ],
+    "mouth": [
+      52,
+      22
+    ],
+    "parts": [
+      {
+        "id": "product_cup_empty",
+        "rect": [
+          0,
+          0,
+          104,
+          128
+        ],
+        "layer": 10
+      },
+      {
+        "id": "product_cup_fill",
+        "rect": [
+          3.12,
+          -38.12,
+          97.76,
+          71.7925
+        ],
+        "layer": 20,
+        "clip": "fillClip"
+      }
+    ],
+    "fillClip": [
+      [
+        3,
+        -78
+      ],
+      [
+        101,
+        -78
+      ],
+      [
+        101,
+        14
+      ],
+      [
+        88,
+        29
+      ],
+      [
+        52,
+        35
+      ],
+      [
+        16,
+        29
+      ],
+      [
+        3,
+        14
+      ]
+    ]
+  },
+  "doubleTray": {
+    "size": [
+      160,
+      154
+    ],
+    "anchor": [
+      80,
+      145
+    ],
+    "input": [
+      56,
+      90
+    ],
+    "output": [
+      110,
+      118
+    ],
+    "parts": [
+      {
+        "id": "product_double_tray",
+        "rect": [
+          16,
+          68,
+          128,
+          80
+        ],
+        "layer": 10
+      },
+      {
+        "id": "product_double_tray",
+        "rect": [
+          16,
+          68,
+          128,
+          80
+        ],
+        "layer": 40,
+        "clip": "frontOcclusionClip"
+      }
+    ],
+    "slots": [
+      {
+        "id": "back_left",
+        "anchor": [
+          56,
+          109
+        ],
+        "width": 40,
+        "layer": 20,
+        "rect": [
+          36.0,
+          62.461538,
+          40,
+          49.230769
+        ]
+      },
+      {
+        "id": "front_right",
+        "anchor": [
+          104,
+          124
+        ],
+        "width": 40,
+        "layer": 30,
+        "rect": [
+          84.0,
+          77.461538,
+          40,
+          49.230769
+        ]
+      }
+    ],
+    "frontOcclusionClip": [
+      [
+        20,
+        99
+      ],
+      [
+        35,
+        104
+      ],
+      [
+        58,
+        113
+      ],
+      [
+        80,
+        120
+      ],
+      [
+        100,
+        126
+      ],
+      [
+        120,
+        133
+      ],
+      [
+        144,
+        110
+      ],
+      [
+        144,
+        153
+      ],
+      [
+        16,
+        153
+      ],
+      [
+        16,
+        102
+      ]
+    ],
+    "contentClip": null
+  },
+  "fourCupBox": {
+    "size": [
+      160,
+      194
+    ],
+    "anchor": [
+      80,
+      176
+    ],
+    "input": [
+      54,
+      98
+    ],
+    "output": [
+      106,
+      144
+    ],
+    "parts": [
+      {
+        "id": "product_box_open",
+        "rect": [
+          16,
+          50,
+          127,
+          128
+        ],
+        "layer": 10
+      },
+      {
+        "id": "product_box_front",
+        "rect": [
+          15.5,
+          98,
+          128,
+          78
+        ],
+        "layer": 50
+      },
+      {
+        "id": "product_box_lid",
+        "rect": [
+          15.5,
+          49,
+          128,
+          91
+        ],
+        "layer": 60,
+        "state": "closed"
+      }
+    ],
+    "slots": [
+      {
+        "id": "back",
+        "anchor": [
+          80,
+          119
+        ],
+        "width": 35,
+        "layer": 20,
+        "rect": [
+          62.5,
+          78.278846,
+          35,
+          43.076923
+        ]
+      },
+      {
+        "id": "left",
+        "anchor": [
+          54,
+          136
+        ],
+        "width": 35,
+        "layer": 30,
+        "rect": [
+          36.5,
+          95.278846,
+          35,
+          43.076923
+        ]
+      },
+      {
+        "id": "right",
+        "anchor": [
+          106,
+          136
+        ],
+        "width": 35,
+        "layer": 31,
+        "rect": [
+          88.5,
+          95.278846,
+          35,
+          43.076923
+        ]
+      },
+      {
+        "id": "front",
+        "anchor": [
+          80,
+          152
+        ],
+        "width": 35,
+        "layer": 40,
+        "rect": [
+          62.5,
+          111.278846,
+          35,
+          43.076923
+        ]
+      }
+    ],
+    "contentClip": [
+      [
+        23,
+        56
+      ],
+      [
+        137,
+        56
+      ],
+      [
+        139,
+        153
+      ],
+      [
+        80,
+        177
+      ],
+      [
+        21,
+        153
+      ]
+    ],
+    "openingClip": [
+      [
+        21,
+        91
+      ],
+      [
+        80,
+        55
+      ],
+      [
+        139,
+        91
+      ],
+      [
+        80,
+        132
+      ]
+    ],
+    "lidAnchor": [
+      80,
+      91
+    ],
+    "frontWallAnchor": [
+      79.5,
+      174
+    ],
+    "note": "Near walls are lower than rear walls; the uncut back shell and floor remain intact."
+  },
+  "states": [
+    {
+      "id": "tray_empty",
+      "rig": "doubleTray",
+      "filledSlots": []
+    },
+    {
+      "id": "tray_two_cups",
+      "rig": "doubleTray",
+      "filledSlots": [
+        "back_left",
+        "front_right"
+      ]
+    },
+    {
+      "id": "box_empty",
+      "rig": "fourCupBox",
+      "filledSlots": []
+    },
+    {
+      "id": "box_four_cups",
+      "rig": "fourCupBox",
+      "filledSlots": [
+        "back",
+        "left",
+        "right",
+        "front"
+      ]
+    },
+    {
+      "id": "box_closed",
+      "rig": "fourCupBox",
+      "filledSlots": [],
+      "closed": true
+    }
+  ],
+  "notes": [
+    "Cups reuse batch-0 empty and fill layers plus the existing fill-mouth clip.",
+    "Tray front occlusion reuses a clipped duplicate of the same tray image; the complete original tray below it is uncut.",
+    "Box content clip applies only to cups. Container back shell, external walls and lid are never clipped.",
+    "This sheet checks independent product art only. It does not contain runtime layout, event bindings or gameplay logic."
+  ]
+}

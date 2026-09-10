@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "owner": "A1",
+  "scope": "standalone art only",
+  "generation": "GENERATED",
+  "export": "EXPORTED",
+  "assembly": "ASSEMBLED_ART_ONLY",
+  "assets": [
+    {
+      "id": "machine_pop_double_carrier",
+      "sourcePngColorType": 6,
+      "sourceHasTrueAlpha": true,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "alphaZero": 1073005,
+      "exportSize": [
+        192,
+        137
+      ],
+      "bytes": 26439,
+      "signature": "PASS",
+      "sourceRect": "PASS",
+      "uniformResize": "PASS",
+      "noBakedTextOrProduct": "VISUAL_PASS",
+      "checkerboard": "VISUAL_PASS",
+      "fullSilhouette": "VISUAL_PASS",
+      "sourceSha": "PASS",
+      "exportSha": "PASS",
+      "finalExportEdgeAlphaMaximum": 0,
+      "finalManifestDimensionsMatch": true,
+      "finalManifestShaMatches": true
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "sourcePngColorType": 6,
+      "sourceHasTrueAlpha": true,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "alphaZero": 829941,
+      "exportSize": [
+        640,
+        436
+      ],
+      "bytes": 358156,
+      "signature": "PASS",
+      "sourceRect": "PASS",
+      "uniformResize": "PASS",
+      "noBakedTextOrProduct": "VISUAL_PASS",
+      "checkerboard": "VISUAL_PASS",
+      "fullSilhouette": "VISUAL_PASS",
+      "sourceSha": "PASS",
+      "exportSha": "PASS",
+      "finalExportEdgeAlphaMaximum": 0,
+      "finalManifestDimensionsMatch": true,
+      "finalManifestShaMatches": true
+    },
+    {
+      "id": "machine_pop_pair_body",
+      "sourcePngColorType": 6,
+      "sourceHasTrueAlpha": true,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "alphaZero": 848624,
+      "exportSize": [
+        640,
+        422
+      ],
+      "bytes": 301402,
+      "signature": "PASS",
+      "sourceRect": "PASS",
+      "uniformResize": "PASS",
+      "noBakedTextOrProduct": "VISUAL_PASS",
+      "checkerboard": "VISUAL_PASS",
+      "fullSilhouette": "VISUAL_PASS",
+      "sourceSha": "PASS",
+      "exportSha": "PASS",
+      "finalExportEdgeAlphaMaximum": 0,
+      "finalManifestDimensionsMatch": true,
+      "finalManifestShaMatches": true
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "sourcePngColorType": 6,
+      "sourceHasTrueAlpha": true,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "alphaZero": 754098,
+      "exportSize": [
+        640,
+        433
+      ],
+      "bytes": 375811,
+      "signature": "PASS",
+      "sourceRect": "PASS",
+      "uniformResize": "PASS",
+      "noBakedTextOrProduct": "VISUAL_PASS",
+      "checkerboard": "VISUAL_PASS",
+      "fullSilhouette": "VISUAL_PASS",
+      "sourceSha": "PASS",
+      "exportSha": "PASS",
+      "finalExportEdgeAlphaMaximum": 0,
+      "finalManifestDimensionsMatch": true,
+      "finalManifestShaMatches": true
+    },
+    {
+      "id": "machine_pop_socket_cover",
+      "sourcePngColorType": 6,
+      "sourceHasTrueAlpha": true,
+      "alphaMin": 0,
+      "alphaMax": 254,
+      "alphaZero": 963015,
+      "exportSize": [
+        192,
+        180
+      ],
+      "bytes": 43597,
+      "signature": "PASS",
+      "sourceRect": "PASS",
+      "uniformResize": "PASS",
+      "noBakedTextOrProduct": "VISUAL_PASS",
+      "checkerboard": "VISUAL_PASS",
+      "fullSilhouette": "VISUAL_PASS",
+      "sourceSha": "PASS",
+      "exportSha": "PASS",
+      "finalExportEdgeAlphaMaximum": 0,
+      "finalManifestDimensionsMatch": true,
+      "finalManifestShaMatches": true
+    }
+  ],
+  "assemblySha256": "c5a2de91e4e9a8344d5af620da1dda5c4f6304f934740f25dd58ac3b3a4d0886",
+  "executed": [
+    "PNG IHDR colorType and alpha inspection",
+    "complete alpha bounding box crop",
+    "uniform mechanical downsize",
+    "old working head / old foreground reuse visual previews",
+    "inactive slot cover visual previews",
+    "source and export SHA256",
+    "old package five-state reconstruction for SHIP"
+  ],
+  "notRun": [
+    "runtime integration",
+    "official game build",
+    "device tests",
+    "full six-generation screen acceptance owned by A7"
+  ],
+  "forbiddenPathsWritten": [],
+  "status": "LOCAL_ART_CHECKS_PASS_PENDING_A7",
+  "notes": [
+    "All generated sources contain real transparency; alphaMax 254 is near-opaque model output, not a painted checkerboard.",
+    "Invisible low-alpha source edge pixels are retained. Alpha bounding rectangles include these pixels to avoid deleting artwork."
+  ]
+}

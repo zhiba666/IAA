@@ -1,0 +1,2221 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "owner": "A1",
+  "status": "ASSEMBLED_ART_ONLY",
+  "rigs": [
+    {
+      "id": "pop_single",
+      "stationId": "pop",
+      "generationUse": [
+        1
+      ],
+      "coordinateSpace": "unchanged batch-1 640x770",
+      "size": [
+        640,
+        770
+      ],
+      "anchor": [
+        320,
+        750
+      ],
+      "input": [
+        335,
+        413
+      ],
+      "output": [
+        555,
+        562
+      ],
+      "hitPolygon": [
+        [
+          20,
+          140
+        ],
+        [
+          590,
+          210
+        ],
+        [
+          635,
+          675
+        ],
+        [
+          313,
+          765
+        ],
+        [
+          15,
+          602
+        ]
+      ],
+      "clip": [
+        [
+          155,
+          422
+        ],
+        [
+          162,
+          360
+        ],
+        [
+          230,
+          315
+        ],
+        [
+          365,
+          301
+        ],
+        [
+          490,
+          341
+        ],
+        [
+          550,
+          414
+        ],
+        [
+          521,
+          543
+        ],
+        [
+          380,
+          590
+        ],
+        [
+          212,
+          545
+        ]
+      ],
+      "contentClip": [
+        [
+          155,
+          422
+        ],
+        [
+          162,
+          360
+        ],
+        [
+          230,
+          315
+        ],
+        [
+          365,
+          301
+        ],
+        [
+          490,
+          341
+        ],
+        [
+          550,
+          414
+        ],
+        [
+          521,
+          543
+        ],
+        [
+          380,
+          590
+        ],
+        [
+          212,
+          545
+        ]
+      ],
+      "body": {
+        "id": "machine_pop_body",
+        "rect": [
+          0,
+          150,
+          640,
+          612
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_pop_body",
+          "rect": [
+            0,
+            150,
+            640,
+            612
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            152,
+            436,
+            402,
+            214.6
+          ],
+          "layer": 50
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            152,
+            436,
+            402,
+            214.6
+          ],
+          "layer": 50
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              140,
+              0,
+              432,
+              418.5
+            ],
+            "layer": 20,
+            "pivot": [
+              356,
+              155
+            ],
+            "travel": [
+              0,
+              70
+            ]
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              210,
+              420,
+              270,
+              198.28
+            ],
+            "layer": 30
+          },
+          "clip": [
+            [
+              155,
+              422
+            ],
+            [
+              162,
+              360
+            ],
+            [
+              230,
+              315
+            ],
+            [
+              365,
+              301
+            ],
+            [
+              490,
+              341
+            ],
+            [
+              550,
+              414
+            ],
+            [
+              521,
+              543
+            ],
+            [
+              380,
+              590
+            ],
+            [
+              212,
+              545
+            ]
+          ],
+          "headRect": [
+            140,
+            0,
+            432,
+            418.5
+          ],
+          "productPoint": [
+            350,
+            500
+          ],
+          "coverRect": null
+        }
+      ],
+      "notes": "Original one-head rig retained without coordinate reinterpretation."
+    },
+    {
+      "id": "pop_pair",
+      "stationId": "pop",
+      "generationUse": [
+        2,
+        3
+      ],
+      "coordinateSpace": "local assembly pixels, independent per family",
+      "size": [
+        640,
+        542
+      ],
+      "anchor": [
+        320,
+        534
+      ],
+      "input": [
+        15.432,
+        339.478
+      ],
+      "output": [
+        594.133,
+        450.931
+      ],
+      "hitPolygon": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          512
+        ],
+        [
+          470,
+          542
+        ],
+        [
+          0,
+          362
+        ]
+      ],
+      "clip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          512
+        ],
+        [
+          470,
+          542
+        ],
+        [
+          0,
+          362
+        ]
+      ],
+      "contentClip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          512
+        ],
+        [
+          470,
+          542
+        ],
+        [
+          0,
+          362
+        ]
+      ],
+      "body": {
+        "id": "machine_pop_pair_body",
+        "rect": [
+          0,
+          120,
+          640,
+          422
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_pop_pair_body",
+          "rect": [
+            0,
+            120,
+            640,
+            422
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            95.078,
+            276.549,
+            205.074,
+            109.48
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            327.416,
+            360.139,
+            205.074,
+            109.48
+          ],
+          "layer": 34
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "socketCenter": [
+            197.616,
+            260.946
+          ],
+          "headRect": [
+            86.162,
+            73.704,
+            222.907,
+            215.941
+          ],
+          "productPoint": [
+            197.616,
+            307.756
+          ],
+          "coverRect": [
+            81.704,
+            160.638,
+            231.823,
+            217.334
+          ],
+          "clip": [
+            [
+              99.537,
+              236.426
+            ],
+            [
+              139.66,
+              214.135
+            ],
+            [
+              253.342,
+              214.135
+            ],
+            [
+              295.695,
+              240.884
+            ],
+            [
+              291.236,
+              332.276
+            ],
+            [
+              197.616,
+              372.399
+            ],
+            [
+              108.453,
+              330.047
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              86.162,
+              73.704,
+              222.907,
+              215.941
+            ],
+            "layer": 20
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              81.704,
+              160.638,
+              231.823,
+              217.334
+            ],
+            "layer": 23
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              124.056,
+              245.342,
+              147.119,
+              108.041
+            ],
+            "layer": 21
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              108.453,
+              265.404,
+              178.326,
+              127.243
+            ],
+            "layer": 22
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              95.078,
+              276.549,
+              205.074,
+              109.48
+            ],
+            "layer": 24
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_2",
+          "socketCenter": [
+            429.953,
+            344.536
+          ],
+          "headRect": [
+            318.5,
+            157.294,
+            222.907,
+            215.941
+          ],
+          "productPoint": [
+            429.953,
+            391.346
+          ],
+          "coverRect": [
+            314.042,
+            244.228,
+            231.823,
+            217.334
+          ],
+          "clip": [
+            [
+              331.874,
+              320.016
+            ],
+            [
+              371.997,
+              297.725
+            ],
+            [
+              485.68,
+              297.725
+            ],
+            [
+              528.032,
+              324.474
+            ],
+            [
+              523.574,
+              415.866
+            ],
+            [
+              429.953,
+              455.989
+            ],
+            [
+              340.79,
+              413.637
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              318.5,
+              157.294,
+              222.907,
+              215.941
+            ],
+            "layer": 30
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              314.042,
+              244.228,
+              231.823,
+              217.334
+            ],
+            "layer": 33
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              356.394,
+              328.932,
+              147.119,
+              108.041
+            ],
+            "layer": 31
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              340.79,
+              348.994,
+              178.326,
+              127.243
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              327.416,
+              360.139,
+              205.074,
+              109.48
+            ],
+            "layer": 34
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            95.078,
+            276.549,
+            205.074,
+            109.48
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            327.416,
+            360.139,
+            205.074,
+            109.48
+          ],
+          "layer": 34
+        }
+      ],
+      "notes": "Empty generated shell, shared old heads and per-slot guards. Inactive slots use flat covers. No runtime integration.",
+      "layering": "Sort all bodies/heads/contents/covers/fronts globally by layer; each back slot front is below nearer slot heads. clip applies only to slot content."
+    },
+    {
+      "id": "pop_quad",
+      "stationId": "pop",
+      "generationUse": [
+        4,
+        5
+      ],
+      "coordinateSpace": "local assembly pixels, independent per family",
+      "size": [
+        640,
+        563
+      ],
+      "anchor": [
+        320,
+        555
+      ],
+      "input": [
+        30.291,
+        348.959
+      ],
+      "output": [
+        614.469,
+        461.467
+      ],
+      "hitPolygon": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          533
+        ],
+        [
+          470,
+          563
+        ],
+        [
+          0,
+          383
+        ]
+      ],
+      "clip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          533
+        ],
+        [
+          470,
+          563
+        ],
+        [
+          0,
+          383
+        ]
+      ],
+      "contentClip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          533
+        ],
+        [
+          470,
+          563
+        ],
+        [
+          0,
+          383
+        ]
+      ],
+      "body": {
+        "id": "machine_pop_quad_body",
+        "rect": [
+          0,
+          130,
+          640,
+          433
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_pop_quad_body",
+          "rect": [
+            0,
+            130,
+            640,
+            433
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            189.533,
+            240.128,
+            179.148,
+            95.639
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            377.769,
+            309.797,
+            179.148,
+            95.639
+          ],
+          "layer": 34
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            91.824,
+            335.674,
+            171.186,
+            91.388
+          ],
+          "layer": 44
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            294.599,
+            409.194,
+            167.205,
+            89.263
+          ],
+          "layer": 54
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "socketCenter": [
+            279.108,
+            226.498
+          ],
+          "headRect": [
+            181.744,
+            62.928,
+            194.726,
+            188.641
+          ],
+          "productPoint": [
+            279.108,
+            267.39
+          ],
+          "coverRect": [
+            177.85,
+            138.871,
+            202.515,
+            189.858
+          ],
+          "clip": [
+            [
+              193.428,
+              205.078
+            ],
+            [
+              228.479,
+              185.605
+            ],
+            [
+              327.789,
+              185.605
+            ],
+            [
+              364.787,
+              208.972
+            ],
+            [
+              360.892,
+              288.81
+            ],
+            [
+              279.108,
+              323.861
+            ],
+            [
+              201.217,
+              286.863
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              181.744,
+              62.928,
+              194.726,
+              188.641
+            ],
+            "layer": 20
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              177.85,
+              138.871,
+              202.515,
+              189.858
+            ],
+            "layer": 23
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              214.848,
+              212.867,
+              128.519,
+              94.381
+            ],
+            "layer": 21
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              201.217,
+              230.392,
+              155.781,
+              111.156
+            ],
+            "layer": 22
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              189.533,
+              240.128,
+              179.148,
+              95.639
+            ],
+            "layer": 24
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_2",
+          "socketCenter": [
+            467.343,
+            296.166
+          ],
+          "headRect": [
+            369.98,
+            132.596,
+            194.726,
+            188.641
+          ],
+          "productPoint": [
+            467.343,
+            337.059
+          ],
+          "coverRect": [
+            366.085,
+            208.54,
+            202.515,
+            189.858
+          ],
+          "clip": [
+            [
+              381.663,
+              274.746
+            ],
+            [
+              416.714,
+              255.274
+            ],
+            [
+              516.024,
+              255.274
+            ],
+            [
+              553.022,
+              278.641
+            ],
+            [
+              549.128,
+              358.479
+            ],
+            [
+              467.343,
+              393.529
+            ],
+            [
+              389.452,
+              356.531
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              369.98,
+              132.596,
+              194.726,
+              188.641
+            ],
+            "layer": 30
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              366.085,
+              208.54,
+              202.515,
+              189.858
+            ],
+            "layer": 33
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              403.083,
+              282.535,
+              128.519,
+              94.381
+            ],
+            "layer": 31
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              389.452,
+              300.061,
+              155.781,
+              111.156
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              377.769,
+              309.797,
+              179.148,
+              95.639
+            ],
+            "layer": 34
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_3",
+          "socketCenter": [
+            177.417,
+            322.649
+          ],
+          "headRect": [
+            84.381,
+            166.349,
+            186.072,
+            180.257
+          ],
+          "productPoint": [
+            177.417,
+            361.724
+          ],
+          "coverRect": [
+            80.66,
+            238.917,
+            193.515,
+            181.42
+          ],
+          "clip": [
+            [
+              95.546,
+              302.181
+            ],
+            [
+              129.039,
+              283.574
+            ],
+            [
+              223.935,
+              283.574
+            ],
+            [
+              259.289,
+              305.903
+            ],
+            [
+              255.567,
+              382.192
+            ],
+            [
+              177.417,
+              415.685
+            ],
+            [
+              102.989,
+              380.331
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              84.381,
+              166.349,
+              186.072,
+              180.257
+            ],
+            "layer": 40
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              80.66,
+              238.917,
+              193.515,
+              181.42
+            ],
+            "layer": 43
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              116.014,
+              309.624,
+              122.807,
+              90.186
+            ],
+            "layer": 41
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              102.989,
+              326.371,
+              148.857,
+              106.216
+            ],
+            "layer": 42
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              91.824,
+              335.674,
+              171.186,
+              91.388
+            ],
+            "layer": 44
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_4",
+          "socketCenter": [
+            378.201,
+            396.472
+          ],
+          "headRect": [
+            287.329,
+            243.807,
+            181.744,
+            176.065
+          ],
+          "productPoint": [
+            378.201,
+            434.638
+          ],
+          "coverRect": [
+            283.694,
+            314.687,
+            189.014,
+            177.201
+          ],
+          "clip": [
+            [
+              298.234,
+              376.48
+            ],
+            [
+              330.948,
+              358.306
+            ],
+            [
+              423.638,
+              358.306
+            ],
+            [
+              458.169,
+              380.115
+            ],
+            [
+              454.534,
+              454.63
+            ],
+            [
+              378.201,
+              487.344
+            ],
+            [
+              305.504,
+              452.813
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              287.329,
+              243.807,
+              181.744,
+              176.065
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              283.694,
+              314.687,
+              189.014,
+              177.201
+            ],
+            "layer": 53
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              318.226,
+              383.75,
+              119.951,
+              88.089
+            ],
+            "layer": 51
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              305.504,
+              400.107,
+              145.396,
+              103.746
+            ],
+            "layer": 52
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              294.599,
+              409.194,
+              167.205,
+              89.263
+            ],
+            "layer": 54
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            189.533,
+            240.128,
+            179.148,
+            95.639
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            377.769,
+            309.797,
+            179.148,
+            95.639
+          ],
+          "layer": 34
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            91.824,
+            335.674,
+            171.186,
+            91.388
+          ],
+          "layer": 44
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            294.599,
+            409.194,
+            167.205,
+            89.263
+          ],
+          "layer": 54
+        }
+      ],
+      "notes": "Empty generated shell, shared old heads and per-slot guards. Inactive slots use flat covers. No runtime integration.",
+      "layering": "Sort all bodies/heads/contents/covers/fronts globally by layer; each back slot front is below nearer slot heads. clip applies only to slot content."
+    },
+    {
+      "id": "pop_hex",
+      "stationId": "pop",
+      "generationUse": [
+        6
+      ],
+      "coordinateSpace": "local assembly pixels, independent per family",
+      "size": [
+        640,
+        556
+      ],
+      "anchor": [
+        320,
+        548
+      ],
+      "input": [
+        13.369,
+        343.396
+      ],
+      "output": [
+        595.58,
+        455.526
+      ],
+      "hitPolygon": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          526
+        ],
+        [
+          470,
+          556
+        ],
+        [
+          0,
+          376
+        ]
+      ],
+      "clip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          526
+        ],
+        [
+          470,
+          556
+        ],
+        [
+          0,
+          376
+        ]
+      ],
+      "contentClip": [
+        [
+          0,
+          100
+        ],
+        [
+          300,
+          20
+        ],
+        [
+          640,
+          200
+        ],
+        [
+          638,
+          526
+        ],
+        [
+          470,
+          556
+        ],
+        [
+          0,
+          376
+        ]
+      ],
+      "body": {
+        "id": "machine_pop_hex_body",
+        "rect": [
+          0,
+          120,
+          640,
+          436
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_pop_hex_body",
+          "rect": [
+            0,
+            120,
+            640,
+            436
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            158.404,
+            237.067,
+            136.884,
+            73.076
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            302.879,
+            291.838,
+            136.884,
+            73.076
+          ],
+          "layer": 34
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            447.353,
+            346.609,
+            136.884,
+            73.076
+          ],
+          "layer": 54
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            66.113,
+            311.245,
+            136.884,
+            73.076
+          ],
+          "layer": 44
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            212.313,
+            368.604,
+            136.884,
+            73.076
+          ],
+          "layer": 64
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            355.925,
+            425.962,
+            136.884,
+            73.076
+          ],
+          "layer": 74
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "socketCenter": [
+            226.846,
+            226.652
+          ],
+          "headRect": [
+            152.453,
+            101.671,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            226.846,
+            257.898
+          ],
+          "coverRect": [
+            149.477,
+            159.698,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              161.38,
+              210.286
+            ],
+            [
+              188.162,
+              195.407
+            ],
+            [
+              264.043,
+              195.407
+            ],
+            [
+              292.313,
+              213.261
+            ],
+            [
+              289.337,
+              274.264
+            ],
+            [
+              226.846,
+              301.046
+            ],
+            [
+              167.332,
+              272.776
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              152.453,
+              101.671,
+              148.787,
+              144.137
+            ],
+            "layer": 20
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              149.477,
+              159.698,
+              154.739,
+              145.067
+            ],
+            "layer": 23
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              177.747,
+              216.237,
+              98.199,
+              72.115
+            ],
+            "layer": 21
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              167.332,
+              229.628,
+              119.03,
+              84.933
+            ],
+            "layer": 22
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              158.404,
+              237.067,
+              136.884,
+              73.076
+            ],
+            "layer": 24
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_2",
+          "socketCenter": [
+            371.321,
+            281.423
+          ],
+          "headRect": [
+            296.927,
+            156.442,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            371.321,
+            312.668
+          ],
+          "coverRect": [
+            293.951,
+            214.469,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              305.854,
+              265.057
+            ],
+            [
+              332.636,
+              250.178
+            ],
+            [
+              408.518,
+              250.178
+            ],
+            [
+              436.787,
+              268.032
+            ],
+            [
+              433.811,
+              329.035
+            ],
+            [
+              371.321,
+              355.817
+            ],
+            [
+              311.806,
+              327.547
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              296.927,
+              156.442,
+              148.787,
+              144.137
+            ],
+            "layer": 30
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              293.951,
+              214.469,
+              154.739,
+              145.067
+            ],
+            "layer": 33
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              322.221,
+              271.008,
+              98.199,
+              72.115
+            ],
+            "layer": 31
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              311.806,
+              284.399,
+              119.03,
+              84.933
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              302.879,
+              291.838,
+              136.884,
+              73.076
+            ],
+            "layer": 34
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_3",
+          "socketCenter": [
+            515.795,
+            336.194
+          ],
+          "headRect": [
+            441.402,
+            211.213,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            515.795,
+            367.439
+          ],
+          "coverRect": [
+            438.426,
+            269.24,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              450.329,
+              319.827
+            ],
+            [
+              477.111,
+              304.949
+            ],
+            [
+              552.992,
+              304.949
+            ],
+            [
+              581.261,
+              322.803
+            ],
+            [
+              578.286,
+              383.806
+            ],
+            [
+              515.795,
+              410.588
+            ],
+            [
+              456.28,
+              382.318
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              441.402,
+              211.213,
+              148.787,
+              144.137
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              438.426,
+              269.24,
+              154.739,
+              145.067
+            ],
+            "layer": 53
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              466.695,
+              325.779,
+              98.199,
+              72.115
+            ],
+            "layer": 51
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              456.28,
+              339.17,
+              119.03,
+              84.933
+            ],
+            "layer": 52
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              447.353,
+              346.609,
+              136.884,
+              73.076
+            ],
+            "layer": 54
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_4",
+          "socketCenter": [
+            134.555,
+            300.83
+          ],
+          "headRect": [
+            60.162,
+            175.849,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            134.555,
+            332.075
+          ],
+          "coverRect": [
+            57.186,
+            233.876,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              69.089,
+              284.464
+            ],
+            [
+              95.871,
+              269.585
+            ],
+            [
+              171.752,
+              269.585
+            ],
+            [
+              200.022,
+              287.439
+            ],
+            [
+              197.046,
+              348.442
+            ],
+            [
+              134.555,
+              375.224
+            ],
+            [
+              75.04,
+              346.954
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              60.162,
+              175.849,
+              148.787,
+              144.137
+            ],
+            "layer": 40
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              57.186,
+              233.876,
+              154.739,
+              145.067
+            ],
+            "layer": 43
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              85.456,
+              290.415,
+              98.199,
+              72.115
+            ],
+            "layer": 41
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              75.04,
+              303.806,
+              119.03,
+              84.933
+            ],
+            "layer": 42
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              66.113,
+              311.245,
+              136.884,
+              73.076
+            ],
+            "layer": 44
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_5",
+          "socketCenter": [
+            280.755,
+            358.189
+          ],
+          "headRect": [
+            206.361,
+            233.208,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            280.755,
+            389.434
+          ],
+          "coverRect": [
+            203.385,
+            291.235,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              215.288,
+              341.822
+            ],
+            [
+              242.07,
+              326.943
+            ],
+            [
+              317.951,
+              326.943
+            ],
+            [
+              346.221,
+              344.798
+            ],
+            [
+              343.245,
+              405.801
+            ],
+            [
+              280.755,
+              432.582
+            ],
+            [
+              221.24,
+              404.313
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              206.361,
+              233.208,
+              148.787,
+              144.137
+            ],
+            "layer": 60
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              203.385,
+              291.235,
+              154.739,
+              145.067
+            ],
+            "layer": 63
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              231.655,
+              347.774,
+              98.199,
+              72.115
+            ],
+            "layer": 61
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              221.24,
+              361.164,
+              119.03,
+              84.933
+            ],
+            "layer": 62
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              212.313,
+              368.604,
+              136.884,
+              73.076
+            ],
+            "layer": 64
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        },
+        {
+          "id": "slot_6",
+          "socketCenter": [
+            424.367,
+            415.547
+          ],
+          "headRect": [
+            349.973,
+            290.566,
+            148.787,
+            144.137
+          ],
+          "productPoint": [
+            424.367,
+            446.792
+          ],
+          "coverRect": [
+            346.997,
+            348.593,
+            154.739,
+            145.067
+          ],
+          "clip": [
+            [
+              358.9,
+              399.181
+            ],
+            [
+              385.682,
+              384.302
+            ],
+            [
+              461.563,
+              384.302
+            ],
+            [
+              489.833,
+              402.156
+            ],
+            [
+              486.857,
+              463.159
+            ],
+            [
+              424.367,
+              489.941
+            ],
+            [
+              364.852,
+              461.671
+            ]
+          ],
+          "clipAppliesTo": "content and carrier product only",
+          "head": {
+            "id": "machine_pop_head",
+            "rect": [
+              349.973,
+              290.566,
+              148.787,
+              144.137
+            ],
+            "layer": 70
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              346.997,
+              348.593,
+              154.739,
+              145.067
+            ],
+            "layer": 73
+          },
+          "content": {
+            "id": "product_cup_fill",
+            "rect": [
+              375.267,
+              405.132,
+              98.199,
+              72.115
+            ],
+            "layer": 71
+          },
+          "carrier": {
+            "id": "machine_pop_double_carrier",
+            "rect": [
+              364.852,
+              418.523,
+              119.03,
+              84.933
+            ],
+            "layer": 72
+          },
+          "front": {
+            "id": "machine_pop_front",
+            "rect": [
+              355.925,
+              425.962,
+              136.884,
+              73.076
+            ],
+            "layer": 74
+          },
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "contentVisible": "station.jobs[i] exists; retain completed blocked job",
+            "amount": "station.jobs[i].amount",
+            "doubleCarrierVisible": "station.jobs[i].amount === 2"
+          }
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            158.404,
+            237.067,
+            136.884,
+            73.076
+          ],
+          "layer": 24
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            302.879,
+            291.838,
+            136.884,
+            73.076
+          ],
+          "layer": 34
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            447.353,
+            346.609,
+            136.884,
+            73.076
+          ],
+          "layer": 54
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            66.113,
+            311.245,
+            136.884,
+            73.076
+          ],
+          "layer": 44
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            212.313,
+            368.604,
+            136.884,
+            73.076
+          ],
+          "layer": 64
+        },
+        {
+          "id": "machine_pop_front",
+          "rect": [
+            355.925,
+            425.962,
+            136.884,
+            73.076
+          ],
+          "layer": 74
+        }
+      ],
+      "notes": "Empty generated shell, shared old heads and per-slot guards. Inactive slots use flat covers. No runtime integration.",
+      "layering": "Sort all bodies/heads/contents/covers/fronts globally by layer; each back slot front is below nearer slot heads. clip applies only to slot content."
+    }
+  ]
+}

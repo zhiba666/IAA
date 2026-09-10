@@ -1,0 +1,2085 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "owner": "A2",
+  "status": "ASSEMBLED_STATIC_ART_NOT_RUNTIME",
+  "rigs": [
+    {
+      "id": "cup_single",
+      "stationId": "cup",
+      "generationUse": [
+        1
+      ],
+      "status": "REUSE_EXISTING_STATIC_RIG",
+      "coordinateSpace": "original 448x640 local pixels",
+      "size": [
+        448,
+        640
+      ],
+      "anchor": [
+        224,
+        618
+      ],
+      "input": [
+        100,
+        385
+      ],
+      "output": [
+        318,
+        516
+      ],
+      "hitPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          448,
+          0
+        ],
+        [
+          448,
+          640
+        ],
+        [
+          0,
+          640
+        ]
+      ],
+      "contentClip": [
+        [
+          99,
+          309
+        ],
+        [
+          177,
+          258
+        ],
+        [
+          284,
+          318
+        ],
+        [
+          287,
+          537
+        ],
+        [
+          102,
+          431
+        ]
+      ],
+      "maximumSlots": 1,
+      "maximumBatchSize": 1,
+      "layers": [
+        {
+          "id": "machine_cup_body",
+          "rect": [
+            0,
+            0,
+            448,
+            640
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            71,
+            369,
+            286,
+            226.416667
+          ],
+          "layer": 50
+        }
+      ],
+      "slots": [
+        {
+          "id": "lane_0",
+          "jobIndex": 0,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              175,
+              222,
+              91,
+              155.306667
+            ],
+            "layer": 20,
+            "pivot": [
+              220.5,
+              222
+            ],
+            "travel": [
+              0,
+              14
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              180,
+              417,
+              92,
+              113.230769
+            ],
+            "layer": 30
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              71,
+              369,
+              286,
+              226.416667
+            ],
+            "layer": 50
+          },
+          "cover": null,
+          "clip": [
+            [
+              99,
+              309
+            ],
+            [
+              177,
+              258
+            ],
+            [
+              284,
+              318
+            ],
+            [
+              287,
+              537
+            ],
+            [
+              102,
+              431
+            ]
+          ],
+          "packagingRect": null
+        }
+      ],
+      "sourceAssembly": "art-source/batch-0/assembly.json",
+      "sourceAssemblySha256": "78f73ce497ae77265f39822435dabdbbd7f2f908c26ba83db35f7f2814eb9660",
+      "notes": "Original coordinate space preserved; no new generation-one raster."
+    },
+    {
+      "id": "cup_pair",
+      "stationId": "cup",
+      "generationUse": [
+        2,
+        3
+      ],
+      "status": "ASSEMBLED_STATIC_ART",
+      "coordinateSpace": "export-local pixels",
+      "size": [
+        601,
+        640
+      ],
+      "anchor": [
+        298.28262548262546,
+        616.4787644787644
+      ],
+      "input": [
+        79.64478764478764,
+        348.0617760617761
+      ],
+      "output": [
+        448.10810810810807,
+        565.2355212355212
+      ],
+      "hitPolygon": [
+        [
+          4,
+          4
+        ],
+        [
+          597,
+          4
+        ],
+        [
+          597,
+          636
+        ],
+        [
+          4,
+          636
+        ]
+      ],
+      "hitPolygonStatus": "artwork envelope, runtime touch-area validation NOT_RUN",
+      "contentClip": null,
+      "maximumSlots": 2,
+      "maximumBatchSize": 1,
+      "slots": [
+        {
+          "id": "lane_0",
+          "jobIndex": 0,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              155.28957528957528,
+              196.28416988416987,
+              56.61158301158301,
+              96.61710167310167
+            ],
+            "layer": 20,
+            "pivot": [
+              183.5953667953668,
+              196.28416988416987
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              156.75366795366796,
+              331.46872586872587,
+              53.68339768339768,
+              66.07187407187406
+            ],
+            "layer": 30
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              72.81235521235521,
+              328.0525096525096,
+              180.57142857142856,
+              142.95238095238096
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              135.28030888030887,
+              374.415444015444,
+              96.63011583011583,
+              90.59073359073359
+            ],
+            "layer": 31,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              146.99305019305018,
+              294.8664092664093
+            ],
+            [
+              220.1976833976834,
+              294.8664092664093
+            ],
+            [
+              220.1976833976834,
+              404.86106326106324
+            ],
+            [
+              146.99305019305018,
+              404.86106326106324
+            ]
+          ],
+          "contentClip": [
+            [
+              146.99305019305018,
+              294.8664092664093
+            ],
+            [
+              220.1976833976834,
+              294.8664092664093
+            ],
+            [
+              220.1976833976834,
+              404.86106326106324
+            ],
+            [
+              146.99305019305018,
+              404.86106326106324
+            ]
+          ],
+          "packagingRect": null,
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_1",
+          "jobIndex": 1,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              363.67876447876444,
+              292.4262548262548,
+              56.61158301158301,
+              96.61710167310167
+            ],
+            "layer": 21,
+            "pivot": [
+              391.984555984556,
+              292.4262548262548
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              365.1428571428571,
+              427.6108108108108,
+              53.68339768339768,
+              66.07187407187406
+            ],
+            "layer": 31
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              281.20154440154437,
+              424.1945945945946,
+              180.57142857142856,
+              142.95238095238096
+            ],
+            "layer": 51
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              343.66949806949805,
+              470.5575289575289,
+              96.63011583011583,
+              90.59073359073359
+            ],
+            "layer": 32,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              355.3822393822394,
+              391.0084942084942
+            ],
+            [
+              428.5868725868726,
+              391.0084942084942
+            ],
+            [
+              428.5868725868726,
+              501.00314820314816
+            ],
+            [
+              355.3822393822394,
+              501.00314820314816
+            ]
+          ],
+          "contentClip": [
+            [
+              355.3822393822394,
+              391.0084942084942
+            ],
+            [
+              428.5868725868726,
+              391.0084942084942
+            ],
+            [
+              428.5868725868726,
+              501.00314820314816
+            ],
+            [
+              355.3822393822394,
+              501.00314820314816
+            ]
+          ],
+          "packagingRect": null,
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        }
+      ],
+      "layers": [
+        {
+          "id": "machine_cup_pair_body",
+          "rect": [
+            0,
+            0,
+            601,
+            640
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            72.81235521235521,
+            328.0525096525096,
+            180.57142857142856,
+            142.95238095238096
+          ],
+          "layer": 50
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            281.20154440154437,
+            424.1945945945946,
+            180.57142857142856,
+            142.95238095238096
+          ],
+          "layer": 51
+        }
+      ],
+      "stateBindings": {
+        "activeSlotCount": "station.lanes",
+        "jobAmount": "station.jobs[i].amount",
+        "progress": "station.jobs[i].progress",
+        "complete": "station.jobs[i].complete",
+        "inactive": "show cover and hide head/content",
+        "waiting": "head still, no invented product",
+        "running": "per-job progress only",
+        "blocked": "completed job retains its existing product"
+      },
+      "sourceTransform": {
+        "scale": 0.488030888030888,
+        "translate": [
+          4,
+          4
+        ]
+      },
+      "notes": "Each slot uses independent parts and content clip. Front guards are reusable instances. No products or heads are baked into hull."
+    },
+    {
+      "id": "cup_triple",
+      "stationId": "cup",
+      "generationUse": [
+        4
+      ],
+      "status": "ASSEMBLED_STATIC_ART",
+      "coordinateSpace": "export-local pixels",
+      "size": [
+        640,
+        586
+      ],
+      "anchor": [
+        307.4756097560975,
+        562.780487804878
+      ],
+      "input": [
+        73.84756097560975,
+        306.9939024390244
+      ],
+      "output": [
+        524.2439024390244,
+        529.060975609756
+      ],
+      "hitPolygon": [
+        [
+          4,
+          4
+        ],
+        [
+          636,
+          4
+        ],
+        [
+          636,
+          582
+        ],
+        [
+          4,
+          582
+        ]
+      ],
+      "hitPolygonStatus": "artwork envelope, runtime touch-area validation NOT_RUN",
+      "contentClip": null,
+      "maximumSlots": 3,
+      "maximumBatchSize": 1,
+      "slots": [
+        {
+          "id": "lane_0",
+          "jobIndex": 0,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              138.8780487804878,
+              165.3719512195122,
+              46.24390243902439,
+              78.92292682926829
+            ],
+            "layer": 20,
+            "pivot": [
+              162.0,
+              165.3719512195122
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              139.35975609756096,
+              275.2012195121951,
+              45.28048780487805,
+              55.72983114446529
+            ],
+            "layer": 30
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              62.286585365853654,
+              282.4268292682927,
+              144.5121951219512,
+              114.40548780487805
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              121.24756097560976,
+              311.4256097560976,
+              81.5048780487805,
+              76.41082317073172
+            ],
+            "layer": 31,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              129.72560975609755,
+              239.0731707317073
+            ],
+            [
+              194.27439024390245,
+              239.0731707317073
+            ],
+            [
+              194.27439024390245,
+              338.15666041275796
+            ],
+            [
+              129.72560975609755,
+              338.15666041275796
+            ]
+          ],
+          "contentClip": [
+            [
+              129.72560975609755,
+              239.0731707317073
+            ],
+            [
+              194.27439024390245,
+              239.0731707317073
+            ],
+            [
+              194.27439024390245,
+              338.15666041275796
+            ],
+            [
+              129.72560975609755,
+              338.15666041275796
+            ]
+          ],
+          "packagingRect": null,
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_1",
+          "jobIndex": 1,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              301.6951219512195,
+              238.59146341463415,
+              46.24390243902439,
+              78.92292682926829
+            ],
+            "layer": 21,
+            "pivot": [
+              324.8170731707317,
+              238.59146341463415
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              302.1768292682927,
+              348.4207317073171,
+              45.28048780487805,
+              55.72983114446529
+            ],
+            "layer": 31
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              225.10365853658536,
+              355.6463414634146,
+              144.5121951219512,
+              114.40548780487805
+            ],
+            "layer": 51
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              284.06463414634146,
+              384.6451219512195,
+              81.5048780487805,
+              76.41082317073172
+            ],
+            "layer": 32,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              292.5426829268293,
+              312.29268292682923
+            ],
+            [
+              357.0914634146341,
+              312.29268292682923
+            ],
+            [
+              357.0914634146341,
+              411.37617260787994
+            ],
+            [
+              292.5426829268293,
+              411.37617260787994
+            ]
+          ],
+          "contentClip": [
+            [
+              292.5426829268293,
+              312.29268292682923
+            ],
+            [
+              357.0914634146341,
+              312.29268292682923
+            ],
+            [
+              357.0914634146341,
+              411.37617260787994
+            ],
+            [
+              292.5426829268293,
+              411.37617260787994
+            ]
+          ],
+          "packagingRect": null,
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_2",
+          "jobIndex": 2,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              464.5121951219512,
+              311.8109756097561,
+              46.24390243902439,
+              78.92292682926829
+            ],
+            "layer": 22,
+            "pivot": [
+              487.6341463414634,
+              311.8109756097561
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              464.9939024390244,
+              421.640243902439,
+              45.28048780487805,
+              55.72983114446529
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              387.9207317073171,
+              428.8658536585366,
+              144.5121951219512,
+              114.40548780487805
+            ],
+            "layer": 52
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              446.88170731707316,
+              457.8646341463415,
+              81.5048780487805,
+              76.41082317073172
+            ],
+            "layer": 33,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              455.35975609756093,
+              385.5121951219512
+            ],
+            [
+              519.9085365853658,
+              385.5121951219512
+            ],
+            [
+              519.9085365853658,
+              484.59568480300186
+            ],
+            [
+              455.35975609756093,
+              484.59568480300186
+            ]
+          ],
+          "contentClip": [
+            [
+              455.35975609756093,
+              385.5121951219512
+            ],
+            [
+              519.9085365853658,
+              385.5121951219512
+            ],
+            [
+              519.9085365853658,
+              484.59568480300186
+            ],
+            [
+              455.35975609756093,
+              484.59568480300186
+            ]
+          ],
+          "packagingRect": null,
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        }
+      ],
+      "layers": [
+        {
+          "id": "machine_cup_triple_body",
+          "rect": [
+            0,
+            0,
+            640,
+            586
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            62.286585365853654,
+            282.4268292682927,
+            144.5121951219512,
+            114.40548780487805
+          ],
+          "layer": 50
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            225.10365853658536,
+            355.6463414634146,
+            144.5121951219512,
+            114.40548780487805
+          ],
+          "layer": 51
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            387.9207317073171,
+            428.8658536585366,
+            144.5121951219512,
+            114.40548780487805
+          ],
+          "layer": 52
+        }
+      ],
+      "stateBindings": {
+        "activeSlotCount": "station.lanes",
+        "jobAmount": "station.jobs[i].amount",
+        "progress": "station.jobs[i].progress",
+        "complete": "station.jobs[i].complete",
+        "inactive": "show cover and hide head/content",
+        "waiting": "head still, no invented product",
+        "running": "per-job progress only",
+        "blocked": "completed job retains its existing product"
+      },
+      "sourceTransform": {
+        "scale": 0.4817073170731707,
+        "translate": [
+          4,
+          4
+        ]
+      },
+      "notes": "Each slot uses independent parts and content clip. Front guards are reusable instances. No products or heads are baked into hull."
+    },
+    {
+      "id": "cup_quad",
+      "stationId": "cup",
+      "generationUse": [
+        5
+      ],
+      "status": "ASSEMBLED_STATIC_ART",
+      "coordinateSpace": "export-local pixels",
+      "size": [
+        601,
+        640
+      ],
+      "anchor": [
+        321.2200772200772,
+        618.9189189189188
+      ],
+      "input": [
+        208.97297297297297,
+        232.8864864864865
+      ],
+      "output": [
+        405.64942084942084,
+        591.1011583011583
+      ],
+      "hitPolygon": [
+        [
+          4,
+          4
+        ],
+        [
+          597,
+          4
+        ],
+        [
+          597,
+          636
+        ],
+        [
+          4,
+          636
+        ]
+      ],
+      "hitPolygonStatus": "artwork envelope, runtime touch-area validation NOT_RUN",
+      "contentClip": null,
+      "maximumSlots": 4,
+      "maximumBatchSize": 2,
+      "slots": [
+        {
+          "id": "lane_0",
+          "jobIndex": 0,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              271.44092664092665,
+              125.03166023166023,
+              40.994594594594595,
+              69.9641081081081
+            ],
+            "layer": 20,
+            "pivot": [
+              291.9382239382239,
+              125.03166023166023
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              279.24942084942086,
+              209.94903474903475,
+              25.377606177606175,
+              31.233976833976833
+            ],
+            "layer": 30
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              202.14054054054054,
+              221.17374517374517,
+              129.81621621621622,
+              102.77117117117118
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              269.0983783783784,
+              230.2511196911197,
+              45.67969111969112,
+              42.824710424710425
+            ],
+            "layer": 31,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              232.04707335907332,
+              166.41667982949804
+            ],
+            [
+              333.557498069498,
+              166.41667982949804
+            ],
+            [
+              333.557498069498,
+              272.9050195978378
+            ],
+            [
+              232.04707335907332,
+              272.9050195978378
+            ]
+          ],
+          "contentClip": [
+            [
+              232.04707335907332,
+              166.41667982949804
+            ],
+            [
+              333.557498069498,
+              166.41667982949804
+            ],
+            [
+              333.557498069498,
+              272.9050195978378
+            ],
+            [
+              232.04707335907332,
+              272.9050195978378
+            ]
+          ],
+          "packagingRect": [
+            232.04707335907332,
+            170.32092693374514,
+            101.5104247104247,
+            97.70378378378379
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_1",
+          "jobIndex": 1,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              422.73050193050193,
+              193.84401544401544,
+              40.994594594594595,
+              69.9641081081081
+            ],
+            "layer": 21,
+            "pivot": [
+              443.2277992277992,
+              193.84401544401544
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              430.53899613899614,
+              278.76138996138997,
+              25.377606177606175,
+              31.233976833976833
+            ],
+            "layer": 31
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              353.4301158301158,
+              289.98610038610036,
+              129.81621621621622,
+              102.77117117117118
+            ],
+            "layer": 51
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              420.3879536679537,
+              299.0634749034749,
+              45.67969111969112,
+              42.824710424710425
+            ],
+            "layer": 32,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              383.33664864864863,
+              235.22903504185325
+            ],
+            [
+              484.8470733590733,
+              235.22903504185325
+            ],
+            [
+              484.8470733590733,
+              341.717374810193
+            ],
+            [
+              383.33664864864863,
+              341.717374810193
+            ]
+          ],
+          "contentClip": [
+            [
+              383.33664864864863,
+              235.22903504185325
+            ],
+            [
+              484.8470733590733,
+              235.22903504185325
+            ],
+            [
+              484.8470733590733,
+              341.717374810193
+            ],
+            [
+              383.33664864864863,
+              341.717374810193
+            ]
+          ],
+          "packagingRect": [
+            383.33664864864863,
+            239.13328214610036,
+            101.5104247104247,
+            97.70378378378379
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_2",
+          "jobIndex": 2,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              170.4185328185328,
+              368.55907335907335,
+              40.994594594594595,
+              69.9641081081081
+            ],
+            "layer": 22,
+            "pivot": [
+              190.91583011583012,
+              368.55907335907335
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              178.22702702702702,
+              455.4285714285714,
+              25.377606177606175,
+              31.233976833976833
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              103.07027027027027,
+              463.2370656370656,
+              129.81621621621622,
+              102.77117117117118
+            ],
+            "layer": 52
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              168.07598455598455,
+              475.73065637065633,
+              45.67969111969112,
+              42.824710424710425
+            ],
+            "layer": 33,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              131.0246795366795,
+              411.89621650903473
+            ],
+            [
+              232.53510424710421,
+              411.89621650903473
+            ],
+            [
+              232.53510424710421,
+              518.3845562773745
+            ],
+            [
+              131.0246795366795,
+              518.3845562773745
+            ]
+          ],
+          "contentClip": [
+            [
+              131.0246795366795,
+              411.89621650903473
+            ],
+            [
+              232.53510424710421,
+              411.89621650903473
+            ],
+            [
+              232.53510424710421,
+              518.3845562773745
+            ],
+            [
+              131.0246795366795,
+              518.3845562773745
+            ]
+          ],
+          "packagingRect": [
+            131.0246795366795,
+            415.8004636132818,
+            101.5104247104247,
+            97.70378378378379
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_3",
+          "jobIndex": 3,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              322.196138996139,
+              437.37142857142857,
+              40.994594594594595,
+              69.9641081081081
+            ],
+            "layer": 23,
+            "pivot": [
+              342.69343629343626,
+              437.37142857142857
+            ],
+            "travel": [
+              0,
+              3.904247104247104
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              330.0046332046332,
+              524.2409266409267,
+              25.377606177606175,
+              31.233976833976833
+            ],
+            "layer": 33
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              254.35984555984555,
+              532.0494208494208,
+              129.81621621621622,
+              102.77117117117118
+            ],
+            "layer": 53
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              319.85359073359075,
+              544.5430115830115,
+              45.67969111969112,
+              42.824710424710425
+            ],
+            "layer": 34,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              282.8022857142857,
+              480.70857172138994
+            ],
+            [
+              384.3127104247104,
+              480.70857172138994
+            ],
+            [
+              384.3127104247104,
+              587.1969114897297
+            ],
+            [
+              282.8022857142857,
+              587.1969114897297
+            ]
+          ],
+          "contentClip": [
+            [
+              282.8022857142857,
+              480.70857172138994
+            ],
+            [
+              384.3127104247104,
+              480.70857172138994
+            ],
+            [
+              384.3127104247104,
+              587.1969114897297
+            ],
+            [
+              282.8022857142857,
+              587.1969114897297
+            ]
+          ],
+          "packagingRect": [
+            282.8022857142857,
+            484.612818825637,
+            101.5104247104247,
+            97.70378378378379
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        }
+      ],
+      "layers": [
+        {
+          "id": "machine_cup_quad_body",
+          "rect": [
+            0,
+            0,
+            601,
+            640
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            202.14054054054054,
+            221.17374517374517,
+            129.81621621621622,
+            102.77117117117118
+          ],
+          "layer": 50
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            353.4301158301158,
+            289.98610038610036,
+            129.81621621621622,
+            102.77117117117118
+          ],
+          "layer": 51
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            103.07027027027027,
+            463.2370656370656,
+            129.81621621621622,
+            102.77117117117118
+          ],
+          "layer": 52
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            254.35984555984555,
+            532.0494208494208,
+            129.81621621621622,
+            102.77117117117118
+          ],
+          "layer": 53
+        }
+      ],
+      "stateBindings": {
+        "activeSlotCount": "station.lanes",
+        "jobAmount": "station.jobs[i].amount",
+        "progress": "station.jobs[i].progress",
+        "complete": "station.jobs[i].complete",
+        "inactive": "show cover and hide head/content",
+        "waiting": "head still, no invented product",
+        "running": "per-job progress only",
+        "blocked": "completed job retains its existing product"
+      },
+      "sourceTransform": {
+        "scale": 0.488030888030888,
+        "translate": [
+          4,
+          4
+        ]
+      },
+      "notes": "Each slot uses independent parts and content clip. Front guards are reusable instances. No products or heads are baked into hull."
+    },
+    {
+      "id": "cup_hex",
+      "stationId": "cup",
+      "generationUse": [
+        6
+      ],
+      "status": "ASSEMBLED_STATIC_ART",
+      "coordinateSpace": "export-local pixels",
+      "size": [
+        640,
+        586
+      ],
+      "anchor": [
+        379.73170731707313,
+        563.7439024390244
+      ],
+      "input": [
+        182.71341463414635,
+        223.17682926829266
+      ],
+      "output": [
+        438.98170731707313,
+        531.951219512195
+      ],
+      "hitPolygon": [
+        [
+          4,
+          4
+        ],
+        [
+          636,
+          4
+        ],
+        [
+          636,
+          582
+        ],
+        [
+          4,
+          582
+        ]
+      ],
+      "hitPolygonStatus": "artwork envelope, runtime touch-area validation NOT_RUN",
+      "contentClip": null,
+      "maximumSlots": 6,
+      "maximumBatchSize": 2,
+      "slots": [
+        {
+          "id": "lane_0",
+          "jobIndex": 0,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              244.3719512195122,
+              125.8719512195122,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 20,
+            "pivot": [
+              260.0274390243902,
+              125.8719512195122
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              250.3932926829268,
+              203.42682926829266,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 30
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              182.71341463414635,
+              207.7621951219512,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 50
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              242.6859756097561,
+              218.84146341463415,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 31,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              214.55426829268293,
+              169.4849908414634
+            ],
+            [
+              291.62743902439024,
+              169.4849908414634
+            ],
+            [
+              291.62743902439024,
+              252.33864937804876
+            ],
+            [
+              214.55426829268293,
+              252.33864937804876
+            ]
+          ],
+          "contentClip": [
+            [
+              214.55426829268293,
+              169.4849908414634
+            ],
+            [
+              291.62743902439024,
+              169.4849908414634
+            ],
+            [
+              291.62743902439024,
+              252.33864937804876
+            ],
+            [
+              214.55426829268293,
+              252.33864937804876
+            ]
+          ],
+          "packagingRect": [
+            214.55426829268293,
+            173.33864937804876,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_1",
+          "jobIndex": 1,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              366.7256097560975,
+              179.8231707317073,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 21,
+            "pivot": [
+              382.3810975609756,
+              179.8231707317073
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              372.7469512195122,
+              257.3780487804878,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 31
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              305.0670731707317,
+              261.7134146341463,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 51
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              365.0396341463414,
+              272.7926829268293,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 32,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              336.9079268292683,
+              223.43621035365854
+            ],
+            [
+              413.9810975609756,
+              223.43621035365854
+            ],
+            [
+              413.9810975609756,
+              306.2898688902439
+            ],
+            [
+              336.9079268292683,
+              306.2898688902439
+            ]
+          ],
+          "contentClip": [
+            [
+              336.9079268292683,
+              223.43621035365854
+            ],
+            [
+              413.9810975609756,
+              223.43621035365854
+            ],
+            [
+              413.9810975609756,
+              306.2898688902439
+            ],
+            [
+              336.9079268292683,
+              306.2898688902439
+            ]
+          ],
+          "packagingRect": [
+            336.9079268292683,
+            227.2898688902439,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_2",
+          "jobIndex": 2,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              489.0792682926829,
+              233.77439024390245,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 22,
+            "pivot": [
+              504.73475609756093,
+              233.77439024390245
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              495.1006097560975,
+              311.3292682926829,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 32
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              427.42073170731703,
+              315.6646341463414,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 52
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              487.3932926829268,
+              326.7439024390244,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 33,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              459.26158536585365,
+              277.3874298658536
+            ],
+            [
+              536.334756097561,
+              277.3874298658536
+            ],
+            [
+              536.334756097561,
+              360.241088402439
+            ],
+            [
+              459.26158536585365,
+              360.241088402439
+            ]
+          ],
+          "contentClip": [
+            [
+              459.26158536585365,
+              277.3874298658536
+            ],
+            [
+              536.334756097561,
+              277.3874298658536
+            ],
+            [
+              536.334756097561,
+              360.241088402439
+            ],
+            [
+              459.26158536585365,
+              360.241088402439
+            ]
+          ],
+          "packagingRect": [
+            459.26158536585365,
+            281.241088402439,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_3",
+          "jobIndex": 3,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              137.91463414634146,
+              326.7439024390244,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 23,
+            "pivot": [
+              153.5701219512195,
+              326.7439024390244
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              143.9359756097561,
+              393.2195121951219,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 33
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              78.66463414634146,
+              397.0731707317073,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 53
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              136.22865853658536,
+              408.6341463414634,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 34,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              108.0969512195122,
+              359.27767376829263
+            ],
+            [
+              185.17012195121953,
+              359.27767376829263
+            ],
+            [
+              185.17012195121953,
+              442.131332304878
+            ],
+            [
+              108.0969512195122,
+              442.131332304878
+            ]
+          ],
+          "contentClip": [
+            [
+              108.0969512195122,
+              359.27767376829263
+            ],
+            [
+              185.17012195121953,
+              359.27767376829263
+            ],
+            [
+              185.17012195121953,
+              442.131332304878
+            ],
+            [
+              108.0969512195122,
+              442.131332304878
+            ]
+          ],
+          "packagingRect": [
+            108.0969512195122,
+            363.131332304878,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_4",
+          "jobIndex": 4,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              259.7865853658536,
+              380.6951219512195,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 24,
+            "pivot": [
+              275.4420731707317,
+              380.6951219512195
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              265.8079268292683,
+              447.17073170731703,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 34
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              200.53658536585365,
+              451.0243902439024,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 54
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              258.1006097560976,
+              462.5853658536585,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 35,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              229.9689024390244,
+              413.22889328048774
+            ],
+            [
+              307.04207317073167,
+              413.22889328048774
+            ],
+            [
+              307.04207317073167,
+              496.0825518170731
+            ],
+            [
+              229.9689024390244,
+              496.0825518170731
+            ]
+          ],
+          "contentClip": [
+            [
+              229.9689024390244,
+              413.22889328048774
+            ],
+            [
+              307.04207317073167,
+              413.22889328048774
+            ],
+            [
+              307.04207317073167,
+              496.0825518170731
+            ],
+            [
+              229.9689024390244,
+              496.0825518170731
+            ]
+          ],
+          "packagingRect": [
+            229.9689024390244,
+            417.0825518170731,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        },
+        {
+          "id": "lane_5",
+          "jobIndex": 5,
+          "head": {
+            "id": "machine_cup_head",
+            "rect": [
+              381.6585365853658,
+              434.6463414634146,
+              31.310975609756095,
+              53.43739837398374
+            ],
+            "layer": 25,
+            "pivot": [
+              397.3140243902439,
+              434.6463414634146
+            ],
+            "travel": [
+              0,
+              3.8536585365853657
+            ]
+          },
+          "cup": {
+            "id": "product_cup_empty",
+            "rect": [
+              387.6798780487805,
+              501.1219512195122,
+              19.268292682926827,
+              23.714821763602252
+            ],
+            "layer": 35
+          },
+          "front": {
+            "id": "machine_cup_front",
+            "rect": [
+              322.4085365853658,
+              504.9756097560975,
+              94.41463414634146,
+              74.74491869918698
+            ],
+            "layer": 55
+          },
+          "cover": {
+            "id": "machine_pop_socket_cover",
+            "rect": [
+              379.9725609756097,
+              516.5365853658536,
+              34.68292682926829,
+              32.515243902439025
+            ],
+            "layer": 36,
+            "placement": "inactive bay floor service socket"
+          },
+          "clip": [
+            [
+              351.84085365853656,
+              467.1801127926829
+            ],
+            [
+              428.91402439024387,
+              467.1801127926829
+            ],
+            [
+              428.91402439024387,
+              550.0337713292683
+            ],
+            [
+              351.84085365853656,
+              550.0337713292683
+            ]
+          ],
+          "contentClip": [
+            [
+              351.84085365853656,
+              467.1801127926829
+            ],
+            [
+              428.91402439024387,
+              467.1801127926829
+            ],
+            [
+              428.91402439024387,
+              550.0337713292683
+            ],
+            [
+              351.84085365853656,
+              550.0337713292683
+            ]
+          ],
+          "packagingRect": [
+            351.84085365853656,
+            471.0337713292683,
+            77.07317073170731,
+            74.1829268292683
+          ],
+          "packagingRig": "art-source/batch-1/core/assembly.json#doubleTray",
+          "frontOcclusion": "near guard overlays products; tray uses its own inherited frontOcclusionClip"
+        }
+      ],
+      "layers": [
+        {
+          "id": "machine_cup_hex_body",
+          "rect": [
+            0,
+            0,
+            640,
+            586
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            182.71341463414635,
+            207.7621951219512,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 50
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            305.0670731707317,
+            261.7134146341463,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 51
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            427.42073170731703,
+            315.6646341463414,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 52
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            78.66463414634146,
+            397.0731707317073,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 53
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            200.53658536585365,
+            451.0243902439024,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 54
+        },
+        {
+          "id": "machine_cup_front",
+          "rect": [
+            322.4085365853658,
+            504.9756097560975,
+            94.41463414634146,
+            74.74491869918698
+          ],
+          "layer": 55
+        }
+      ],
+      "stateBindings": {
+        "activeSlotCount": "station.lanes",
+        "jobAmount": "station.jobs[i].amount",
+        "progress": "station.jobs[i].progress",
+        "complete": "station.jobs[i].complete",
+        "inactive": "show cover and hide head/content",
+        "waiting": "head still, no invented product",
+        "running": "per-job progress only",
+        "blocked": "completed job retains its existing product"
+      },
+      "sourceTransform": {
+        "scale": 0.4817073170731707,
+        "translate": [
+          4,
+          4
+        ]
+      },
+      "notes": "Each slot uses independent parts and content clip. Front guards are reusable instances. No products or heads are baked into hull."
+    }
+  ],
+  "reuse": {
+    "head": "assets/art/machines/machine_cup_head.png",
+    "front": "assets/art/machines/machine_cup_front.png",
+    "single": "art-source/batch-0/assembly.json#cupMachine",
+    "doubleCarrier": "art-source/batch-1/core/assembly.json#doubleTray",
+    "socketCover": "art-source/six-gen/pop/exports/machine_pop_socket_cover.png"
+  },
+  "cancelledCandidateIds": [
+    "machine_cup_pair_front",
+    "machine_cup_triple_front",
+    "machine_cup_quad_front",
+    "machine_cup_hex_front",
+    "machine_cup_double_carrier",
+    "machine_cup_socket_cover"
+  ],
+  "notes": [
+    "All references are staging/legacy art only. No runtime files changed.",
+    "Slots determine active head count; generation maximum never creates owned machinery.",
+    "Single cup and double tray are selected by each real job amount; old batches must not be duplicated."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "status": "PLANNED",
+  "jobId": "A1_POP_PAIR_BODY_SAMPLE",
+  "assetIds": [
+    "machine_pop_pair_body"
+  ],
+  "owner": "A1",
+  "generationTool": null,
+  "references": [],
+  "contractVersion": "TBD_GATE_0",
+  "prompt": null,
+  "outputDirectory": "art-source/six-gen/pop/raw/",
+  "attemptLimit": 2,
+  "onUnavailable": "BLOCKED_GENERATION",
+  "note": "References must contain actually readable file paths + hashes before READY. This is a queue template, not an API request payload."
+}

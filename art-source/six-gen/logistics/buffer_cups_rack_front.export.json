@@ -1,0 +1,121 @@
+{
+  "id": "buffer_cups_rack_front",
+  "owner": "logistics",
+  "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+  "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_front.png",
+  "sourceSize": [
+    1402,
+    1122
+  ],
+  "sourceRect": [
+    148,
+    66,
+    1195,
+    998
+  ],
+  "width": 512,
+  "height": 429,
+  "anchor": [
+    256,
+    425
+  ],
+  "sourceSha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+  "sha256": "6e3a14e04003e6675e0a19b00244d730d1b789349ce28dc751ba4ccb21d555a6",
+  "bytes": 15168,
+  "rgbaBytes": 878592,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "Use rack_back export transform, then extract exact shelf-edge/post polygons with alpha dest-in. No pixels painted.",
+  "status": "EXPORTED",
+  "clipPolygons": [
+    [
+      [
+        10,
+        134
+      ],
+      [
+        355,
+        289
+      ],
+      [
+        468,
+        233
+      ],
+      [
+        469,
+        249
+      ],
+      [
+        355,
+        305
+      ],
+      [
+        10,
+        151
+      ]
+    ],
+    [
+      [
+        24,
+        220
+      ],
+      [
+        345,
+        378
+      ],
+      [
+        463,
+        312
+      ],
+      [
+        465,
+        329
+      ],
+      [
+        346,
+        393
+      ],
+      [
+        22,
+        240
+      ]
+    ],
+    [
+      [
+        4,
+        134
+      ],
+      [
+        34,
+        143
+      ],
+      [
+        35,
+        267
+      ],
+      [
+        4,
+        270
+      ]
+    ],
+    [
+      [
+        314,
+        380
+      ],
+      [
+        374,
+        397
+      ],
+      [
+        374,
+        427
+      ],
+      [
+        314,
+        423
+      ]
+    ]
+  ],
+  "kind": "mechanical-layer-extraction"
+}

@@ -1,0 +1,554 @@
+{
+  "evidence": "R1/R2/R3/R4; structural reconstruction, not fresh file decoding",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "counts": {
+    "allExported": 60,
+    "runtimeSelected": 41,
+    "notSelected": 19
+  },
+  "aliasesNotCounted": {
+    "product_pile_small": "product_cup_fill"
+  },
+  "assets": [
+    {
+      "id": "machine_pop_body",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_pop_head",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_pop_front",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_cup_body",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_cup_head",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_cup_front",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_ship_body",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_ship_head",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "machine_ship_front",
+      "category": "machine",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A1/A2/A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "factory_room",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "factory_window",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "factory_door",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "buffer_bulk_back",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "buffer_bulk_front",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "buffer_cups_back",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "buffer_cups_front",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_down_right",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_front_right",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_down_left",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_front_left",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_transfer_back",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_transfer_front",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_infeed_back",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_infeed_front",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_outfeed_back",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "conveyor_outfeed_front",
+      "category": "scene_logistics",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A4/A6",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_kernel_a",
+      "category": "product",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_kernel_b",
+      "category": "product",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_cup_empty",
+      "category": "product",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_cup_fill",
+      "category": "product",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_double_tray",
+      "category": "product",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_box_open",
+      "category": "product",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_box_front",
+      "category": "product",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "product_box_lid",
+      "category": "product",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A3",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_hud_coin",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_hud_rate",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_panel",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_button_primary",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_button_secondary",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_button_disabled",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_card",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_compact_bar",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_coin",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_ship_speed",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_pop",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_cup",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_ship",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_settings",
+      "category": "ui",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_sound",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_vibration",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_close",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_arrow",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_upgrade",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_expand",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_check",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_lock",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_warning",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "ui_icon_wait",
+      "category": "ui",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "fx_steam",
+      "category": "fx",
+      "selectedByCurrentBuild": false,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    },
+    {
+      "id": "fx_sparkle",
+      "category": "fx",
+      "selectedByCurrentBuild": true,
+      "ownerForAudit": "A5",
+      "strategy": "reuse_or_adapt_after_Gate_0",
+      "sha256": null,
+      "imageRecheckedThisTurn": false
+    }
+  ]
+}

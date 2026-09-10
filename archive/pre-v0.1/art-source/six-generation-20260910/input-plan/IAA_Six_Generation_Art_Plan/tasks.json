@@ -1,0 +1,465 @@
+{
+  "schemaVersion": 1,
+  "status": "PLANNED",
+  "repository": "zhiba666/IAA",
+  "auditedCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "defaultPhase": "A_artwork_only",
+  "currentScope": "planning delivery only; no jobs executed",
+  "globalForbiddenWritesInPhaseA": [
+    "src/**",
+    "assets/art/**",
+    "web/**",
+    "build/**",
+    "tools/**",
+    "config.local.json",
+    "AGENTS.md",
+    "art-source/batch-0/**",
+    "art-source/batch-1/**"
+  ],
+  "concurrencyProposal": {
+    "activeProductionWorkers": 6,
+    "imageGenerationCalls": 2,
+    "note": "starting recommendation, capability/limits must be checked"
+  },
+  "owners": {
+    "A0": {
+      "name": "总控与技术美术",
+      "dirs": [
+        "contracts",
+        "references",
+        "integration",
+        "reports"
+      ],
+      "scope": "冻结基线/参考/契约、样板评审、资产目录合并、预算变更裁决与交付",
+      "writePaths": [
+        "art-source/six-gen/contracts/**",
+        "art-source/six-gen/references/**",
+        "art-source/six-gen/integration/**",
+        "art-source/six-gen/reports/**"
+      ]
+    },
+    "A1": {
+      "name": "爆锅资产",
+      "dirs": [
+        "pop"
+      ],
+      "scope": "双/四/六头空机壳和前挡、双份托具、插槽盖及三代机壳家族rig",
+      "writePaths": [
+        "art-source/six-gen/pop/**"
+      ]
+    },
+    "A2": {
+      "name": "装杯资产",
+      "dirs": [
+        "cup"
+      ],
+      "scope": "双/三/四/六头空机壳和前挡、双份杯位托具、插槽盖及独立工作头rig",
+      "writePaths": [
+        "art-source/six-gen/cup/**"
+      ]
+    },
+    "A3": {
+      "name": "出货与包装装配",
+      "dirs": [
+        "ship"
+      ],
+      "scope": "双/四道空机壳与前挡、通道盖；复用双杯/箱体/箱盖，必要时宽压头",
+      "writePaths": [
+        "art-source/six-gen/ship/**"
+      ]
+    },
+    "A4": {
+      "name": "物流与仓位",
+      "dirs": [
+        "logistics"
+      ],
+      "scope": "大仓扩展、桥接、空托盘、两个入口圈；共享产品填充和容量状态",
+      "writePaths": [
+        "art-source/six-gen/logistics/**"
+      ]
+    },
+    "A5": {
+      "name": "UI与FX",
+      "dirs": [
+        "ui"
+      ],
+      "scope": "复用底板/16图标/2FX；3新增图标/徽章；两视口完整UI状态",
+      "writePaths": [
+        "art-source/six-gen/ui/**"
+      ]
+    },
+    "A6": {
+      "name": "场景与六代装配",
+      "dirs": [
+        "scene"
+      ],
+      "scope": "4环境扩展件；六代entry/upgraded布局，依赖其他agent部件，不重画机器",
+      "writePaths": [
+        "art-source/six-gen/scene/**"
+      ]
+    },
+    "A7": {
+      "name": "独立质量审计",
+      "dirs": [
+        "qa"
+      ],
+      "scope": "基线/JSON/PNG/预算/两视口/状态覆盖检查，缺陷回派原作者，不直接改图",
+      "writePaths": [
+        "art-source/six-gen/qa/**"
+      ]
+    }
+  },
+  "gates": {
+    "G0": "baseline and capabilities frozen",
+    "G1": "cross-family samples and budget approved",
+    "G2": "individual bundles verified",
+    "G3": "all six stages and UI verified",
+    "G4": "runtime phase separately authorized and tested"
+  },
+  "tasks": [
+    {
+      "id": "T00_BASELINE",
+      "owner": "A0",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [],
+      "requiresGate": null,
+      "goal": "对当前HEAD做非破坏审计，确认参考与图像能力",
+      "writePaths": [
+        "art-source/six-gen/contracts/**",
+        "art-source/six-gen/references/**",
+        "art-source/six-gen/integration/**",
+        "art-source/six-gen/reports/**"
+      ],
+      "deliverables": [
+        "baseline-audit.json",
+        "capabilities.json",
+        "reference-lock.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T01_QA_FRAMEWORK",
+      "owner": "A7",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [],
+      "requiresGate": null,
+      "goal": "审计框架与目录越权检测；只读取既有资源",
+      "writePaths": [
+        "art-source/six-gen/qa/**"
+      ],
+      "deliverables": [
+        "audit-spec.md",
+        "qa-checker",
+        "baseline-findings.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T02_CONTRACT",
+      "owner": "A0",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T00_BASELINE",
+        "T01_QA_FRAMEWORK"
+      ],
+      "requiresGate": "G0",
+      "goal": "冻结参考、风格、坐标、ID与预算契约",
+      "writePaths": [
+        "art-source/six-gen/contracts/**",
+        "art-source/six-gen/references/**",
+        "art-source/six-gen/integration/**",
+        "art-source/six-gen/reports/**"
+      ],
+      "deliverables": [
+        "style-contract.json",
+        "asset-contract.json",
+        "budget.json",
+        "contract-lock.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T03_SAMPLE_REVIEW",
+      "owner": "A0",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T02_CONTRACT"
+      ],
+      "requiresGate": "G0",
+      "goal": "委派A1–A6在各自目录产出样板，统一跨组拼装评审",
+      "writePaths": [
+        "art-source/six-gen/contracts/**",
+        "art-source/six-gen/references/**",
+        "art-source/six-gen/integration/**",
+        "art-source/six-gen/reports/**"
+      ],
+      "deliverables": [
+        "sample-review.json",
+        "G1-result.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T04_POP",
+      "owner": "A1",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "完成爆锅家族8个候选与复用判断",
+      "writePaths": [
+        "art-source/six-gen/pop/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T05_CUP",
+      "owner": "A2",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "完成装杯家族10个候选与复用判断",
+      "writePaths": [
+        "art-source/six-gen/cup/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T06_SHIP",
+      "owner": "A3",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "完成5–6个出货候选与既有包装装配",
+      "writePaths": [
+        "art-source/six-gen/ship/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T07_LOGISTICS",
+      "owner": "A4",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "完成9个物流候选与两仓两入口状态",
+      "writePaths": [
+        "art-source/six-gen/logistics/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T08_UI_ASSETS",
+      "owner": "A5",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "复用公共UI，完成3个候选及通用状态组件",
+      "writePaths": [
+        "art-source/six-gen/ui/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T09_SCENE_ASSETS",
+      "owner": "A6",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T03_SAMPLE_REVIEW"
+      ],
+      "requiresGate": "G1",
+      "goal": "完成4个环境候选及六代布局模板",
+      "writePaths": [
+        "art-source/six-gen/scene/**"
+      ],
+      "deliverables": [
+        "manifest.fragment.json",
+        "assembly.json",
+        "HANDOFF.md",
+        "qa-report.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T10_BUNDLE_QA",
+      "owner": "A7",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T04_POP",
+        "T05_CUP",
+        "T06_SHIP",
+        "T07_LOGISTICS",
+        "T08_UI_ASSETS",
+        "T09_SCENE_ASSETS"
+      ],
+      "requiresGate": "G1",
+      "goal": "对锁定版本逐包审计并关闭P0/P1",
+      "writePaths": [
+        "art-source/six-gen/qa/**"
+      ],
+      "deliverables": [
+        "bundle-qa.json",
+        "budget-audit.json",
+        "G2-result.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T11_SIX_STAGE_ASSEMBLY",
+      "owner": "A6",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T10_BUNDLE_QA"
+      ],
+      "requiresGate": "G2",
+      "goal": "用已验收资产完成12套装配/24张基础预览",
+      "writePaths": [
+        "art-source/six-gen/scene/**"
+      ],
+      "deliverables": [
+        "generation-assemblies.json",
+        "24 preview PNGs",
+        "preview-evidence.json",
+        "HANDOFF.md"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T12_UI_STATE_ASSEMBLY",
+      "owner": "A5",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T10_BUNDLE_QA"
+      ],
+      "requiresGate": "G2",
+      "goal": "完成两视口UI状态预览与真实规则映射",
+      "writePaths": [
+        "art-source/six-gen/ui/**"
+      ],
+      "deliverables": [
+        "ui-states.json",
+        "motion-spec.json",
+        "ui-previews",
+        "HANDOFF.md"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T13_FULL_QA",
+      "owner": "A7",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T11_SIX_STAGE_ASSEMBLY",
+        "T12_UI_STATE_ASSEMBLY"
+      ],
+      "requiresGate": "G2",
+      "goal": "验收状态/布局/预算/语义，不能以静态截图冒充运行",
+      "writePaths": [
+        "art-source/six-gen/qa/**"
+      ],
+      "deliverables": [
+        "acceptance-matrix.json",
+        "defects.json",
+        "G3-result.json"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T14_ART_DELIVERY",
+      "owner": "A0",
+      "status": "PLANNED",
+      "phase": "A",
+      "dependsOn": [
+        "T13_FULL_QA"
+      ],
+      "requiresGate": "G3",
+      "goal": "合并只读资源交付与接入说明，保留未完成项",
+      "writePaths": [
+        "art-source/six-gen/contracts/**",
+        "art-source/six-gen/references/**",
+        "art-source/six-gen/integration/**",
+        "art-source/six-gen/reports/**"
+      ],
+      "deliverables": [
+        "merged-candidate-manifest.json",
+        "ART_DELIVERY.md",
+        "INTEGRATION_HANDOFF.md"
+      ],
+      "requiresExplicitRuntimeAuthorization": false
+    },
+    {
+      "id": "T15_RUNTIME_INTEGRATION",
+      "owner": "A0",
+      "status": "PLANNED",
+      "phase": "B",
+      "dependsOn": [
+        "T14_ART_DELIVERY"
+      ],
+      "requiresGate": "G3",
+      "goal": "另行授权后接入运行、构建与测试；本计划默认不执行",
+      "writePaths": [
+        "Only explicitly authorized integration paths; re-evaluate before phase B"
+      ],
+      "deliverables": [
+        "runtime integration changes",
+        "runtime-test-log",
+        "package-resource-report",
+        "device-status"
+      ],
+      "requiresExplicitRuntimeAuthorization": true
+    }
+  ]
+}

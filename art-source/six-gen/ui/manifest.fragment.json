@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A5",
+  "assets": [
+    {
+      "id": "ui_badge_complete",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/ui/exports/ui_badge_complete.png",
+      "width": 96,
+      "height": 95,
+      "anchor": [
+        48,
+        47.5
+      ],
+      "sourceFile": "art-source/six-gen/ui/sources/ui_badge_complete.png",
+      "sha256": "3bc3282dfe54a0a081ff8a48a055e355f5bc97060c552b86e1fef3b5a9f91a46",
+      "provenanceRef": "art-source/six-gen/ui/provenance.json#ui_badge_complete",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Single shared bitmap for all generations; no baked letters, numerals or amounts."
+    },
+    {
+      "id": "ui_badge_generation",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/ui/exports/ui_badge_generation.png",
+      "width": 96,
+      "height": 94,
+      "anchor": [
+        48,
+        47
+      ],
+      "sourceFile": "art-source/six-gen/ui/sources/ui_badge_generation.png",
+      "sha256": "8286d6b816dce3aec412f0f370e63dad7b53e8f3878e0087162174851692711b",
+      "provenanceRef": "art-source/six-gen/ui/provenance.json#ui_badge_generation",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Single shared bitmap for all generations; no baked letters, numerals or amounts."
+    },
+    {
+      "id": "ui_icon_automation",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/ui/exports/ui_icon_automation.png",
+      "width": 92,
+      "height": 96,
+      "anchor": [
+        46,
+        48
+      ],
+      "sourceFile": "art-source/six-gen/ui/sources/ui_icon_automation.png",
+      "sha256": "5f9bb4eb9ed413555a06f9bc0aba9ac6de5aa397e9f1f55dc68eb4d8062e1b89",
+      "provenanceRef": "art-source/six-gen/ui/provenance.json#ui_icon_automation",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Single shared bitmap for all generations; no baked letters, numerals or amounts."
+    }
+  ]
+}

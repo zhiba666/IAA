@@ -1,0 +1,30 @@
+{
+  "scope": "Art-only task; behavior checks intentionally not executed",
+  "checks": [
+    {
+      "id": "cancel-transfer-reservation",
+      "status": "NOT_RUN",
+      "reason": "Requires runtime transfer/session state; visual cancel state supplied separately by UI fixtures."
+    },
+    {
+      "id": "second-click-purchase",
+      "status": "NOT_RUN",
+      "reason": "Requires live purchase handler/idempotence; art cannot verify it."
+    },
+    {
+      "id": "stale-price-quote",
+      "status": "NOT_RUN",
+      "reason": "Requires live quote validation; illustrative label is not interaction evidence."
+    },
+    {
+      "id": "drag-release-does-not-purchase",
+      "status": "NOT_RUN",
+      "reason": "No input integration in authorized scope."
+    },
+    {
+      "id": "trial-time-completion",
+      "status": "NOT_RUN",
+      "reason": "Only before/after artwork state examples were rendered."
+    }
+  ]
+}

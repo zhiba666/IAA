@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A3",
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "referenceLockSha256": "88307397735b31ed0cef27d61032a2c4d0ca904ccd76e8c26f8976f940960b6a",
+  "assets": [
+    {
+      "id": "machine_ship_dual_body",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-c5335507-8c05-4dba-8191-8aa5b6c73bf6",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_ship_dual_body.png",
+      "sourceSha256": "b02892a67ea82b2940d68f68657ec41119ae79f98e32df92123aaa52d0d638c5",
+      "exportFile": "exports/machine_ship_dual_body.png",
+      "exportSha256": "239437244edd892b5c437cece31ec633d7b0810467ae34c1d319cbf22f3761bb",
+      "sourceFileTimestampUtc": "2026-09-10T06:49:07.682609Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "assets/art/machines/machine_ship_body.png",
+          "sha256": "1acd80c6c0912fe60bb1b3a2ee7b9cc3b089198201c4674a8be950fdc7e09390",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_ship_lane_cover",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-2156a7a6-f4c1-4edc-820b-87c5ed3ec9f6",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_ship_lane_cover.png",
+      "sourceSha256": "554178a7ed242e2c24929e0a22149182c50960a4d9a3567636ea9bb2e1205458",
+      "exportFile": "exports/machine_ship_lane_cover.png",
+      "exportSha256": "fec43feb7aedaefb195b3f6bb77f806a973b96f7ef1008008070c05741223557",
+      "sourceFileTimestampUtc": "2026-09-10T06:53:20.186164Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/ship/sources/machine_ship_dual_body.png",
+          "sha256": "b02892a67ea82b2940d68f68657ec41119ae79f98e32df92123aaa52d0d638c5",
+          "role": "actually viewed reference image"
+        }
+      ]
+    },
+    {
+      "id": "machine_ship_quad_body",
+      "tool": "image_gen.imagegen",
+      "mode": "builtin",
+      "model": "unavailable",
+      "seed": "unavailable",
+      "resultId": "exec-5633d123-903e-4b12-9048-1dcbbb4bdcf8",
+      "acceptedAttempt": 1,
+      "sourceFile": "sources/machine_ship_quad_body.png",
+      "sourceSha256": "4342053523ccad69a28a92cd7c260330f4fcae177c1b24f2f51f78ddd366a95f",
+      "exportFile": "exports/machine_ship_quad_body.png",
+      "exportSha256": "45c1bf6a6369efca5be43d567730dd036fa993a421a020c0cfb13aa8c0c8e2b2",
+      "sourceFileTimestampUtc": "2026-09-10T06:50:48.7944683Z",
+      "promptFile": "prompts.jsonl",
+      "references": [
+        {
+          "file": "art-source/six-gen/ship/sources/machine_ship_dual_body.png",
+          "sha256": "b02892a67ea82b2940d68f68657ec41119ae79f98e32df92123aaa52d0d638c5",
+          "role": "actually viewed reference image"
+        }
+      ]
+    }
+  ],
+  "rejectedAttempts": [],
+  "generationModelDisclosure": "Model identifier and seed were not supplied in tool metadata; do not invent them.",
+  "reuseDependencies": [
+    {
+      "file": "assets/art/machines/machine_ship_body.png",
+      "sha256": "1acd80c6c0912fe60bb1b3a2ee7b9cc3b089198201c4674a8be950fdc7e09390"
+    },
+    {
+      "file": "assets/art/machines/machine_ship_head.png",
+      "sha256": "bfd33db0bf0f275cc2aa2669d90798dfb5a5c061926dbe3d11f77f1481042029"
+    },
+    {
+      "file": "assets/art/machines/machine_ship_front.png",
+      "sha256": "e39ce1929d13022ac13ae815a068f4084a95e672a509806966ef6719198a9a01"
+    },
+    {
+      "file": "assets/art/products/product_double_tray.png",
+      "sha256": "bce998b454ab28825d91dee229d9dfaf904c0bda5a9afaf37fc93376a02e612d"
+    },
+    {
+      "file": "assets/art/products/product_box_open.png",
+      "sha256": "3c4296d97b69920882b2350e73e1cc68d4d6856fb487027c136847e6358eec46"
+    },
+    {
+      "file": "assets/art/products/product_box_front.png",
+      "sha256": "b657096af2dd22036d4182e6b0aa227263924c91383e7c6dab43dc1c3149234c"
+    },
+    {
+      "file": "assets/art/products/product_box_lid.png",
+      "sha256": "9d26b787a4f8e49ba889715041b6299190f2f7c191e55539588b4c2fb44073f7"
+    },
+    {
+      "file": "assets/art/products/product_cup_empty.png",
+      "sha256": "6c8b333578fb63162c59f73bb15998d41d93d44c8aaa288ca5a4f05038b63e7f"
+    },
+    {
+      "file": "assets/art/products/product_cup_fill.png",
+      "sha256": "75820426a90ef19688fa0e514696b5ff594b4c1447f22ae35c5b15998872a721"
+    },
+    {
+      "file": "art-source/batch-1/core/assembly.json",
+      "sha256": "e5daae488c5914d37caa9755cfd8a97994e6b28d3984e7d96bc6b4fab2aa4b1a"
+    }
+  ]
+}

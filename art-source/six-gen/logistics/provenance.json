@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "tool": "image_gen",
+  "model": "unavailable",
+  "seed": "unavailable",
+  "referenceLock": "art-source/six-gen/references/reference-lock.json",
+  "prompts": [
+    "prompts.jsonl",
+    "generated-prompts.jsonl"
+  ],
+  "sources": [
+    {
+      "id": "buffer_bulk_large_back",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_back.png",
+      "sha256": "24630b328591c85fb95f4a0e7fa81e31ec320b4cd31def61c01eb96a2ede7067",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        41,
+        68,
+        1329,
+        1042
+      ]
+    },
+    {
+      "id": "buffer_bulk_large_front",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_front.png",
+      "sha256": "33d0ddfdd4271327bce666401a15669f33196123a449a1a7f60856bff6eb3a3a",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        46,
+        172,
+        1309,
+        862
+      ]
+    },
+    {
+      "id": "buffer_cups_rack_back",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "sha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        148,
+        66,
+        1195,
+        998
+      ]
+    },
+    {
+      "id": "buffer_cups_rack_front",
+      "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "sha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "sourceRect": [
+        148,
+        66,
+        1195,
+        998
+      ]
+    },
+    {
+      "id": "input_cup_collar",
+      "sourceFile": "art-source/six-gen/logistics/sources/input_cup_collar.png",
+      "sha256": "911f46b00d0fe8f117f375aefabbc2efb1fad12b18e727f4759b1b87c54c0a75",
+      "sourceSize": [
+        1518,
+        1036
+      ],
+      "sourceRect": [
+        20,
+        17,
+        1481,
+        1003
+      ]
+    },
+    {
+      "id": "transfer_tray_empty",
+      "sourceFile": "art-source/six-gen/logistics/sources/transfer_tray_empty.png",
+      "sha256": "417e3bfeed974b01c5ab414bb7635b399006dd223a3b161e453244504e1e7eea",
+      "sourceSize": [
+        1518,
+        1036
+      ],
+      "sourceRect": [
+        22,
+        20,
+        1478,
+        1004
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1508 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A0",
+  "operations": [
+    {
+      "id": "fx_sparkle",
+      "originalFile": "assets/art/fx/fx_sparkle.png",
+      "originalSha256": "b5309f7b8c0fed6408021cde5676b1b5d0992c96cd13e3028e3115802dd1d1d2",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/fx_sparkle.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/fx_sparkle.png",
+      "originalSize": [
+        104,
+        128
+      ],
+      "sourceRect": [
+        0,
+        0,
+        104,
+        128
+      ],
+      "outputSize": [
+        78,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3490,
+      "rgbaBytes": 29952
+    },
+    {
+      "id": "fx_steam",
+      "originalFile": "assets/art/fx/fx_steam.png",
+      "originalSha256": "f7657073c33705d4a28f9505c3af90d9021b763558a3a0ae8f3d77ad5eb3bd2a",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/fx_steam.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/fx_steam.png",
+      "originalSize": [
+        63,
+        128
+      ],
+      "sourceRect": [
+        0,
+        0,
+        63,
+        128
+      ],
+      "outputSize": [
+        47,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3486,
+      "rgbaBytes": 18048
+    },
+    {
+      "id": "machine_cup_body",
+      "originalFile": "assets/art/machines/machine_cup_body.png",
+      "originalSha256": "3043833042a55f261bcbf63a6d740571cf047d99c363ebf0a5e7fb7696df6532",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_cup_body.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_cup_body.png",
+      "originalSize": [
+        448,
+        640
+      ],
+      "sourceRect": [
+        0,
+        0,
+        448,
+        640
+      ],
+      "outputSize": [
+        336,
+        480
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 49857,
+      "rgbaBytes": 645120
+    },
+    {
+      "id": "machine_cup_front",
+      "originalFile": "assets/art/machines/machine_cup_front.png",
+      "originalSha256": "2102d73c9001ffa1d1481c73b90b74c64d9fe1cdb2b9048085828dc6b1ae6a3e",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_cup_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_cup_front.png",
+      "originalSize": [
+        384,
+        304
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        304
+      ],
+      "outputSize": [
+        288,
+        228
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 18095,
+      "rgbaBytes": 262656
+    },
+    {
+      "id": "machine_cup_head",
+      "originalFile": "assets/art/machines/machine_cup_head.png",
+      "originalSha256": "b64456e37b17fe196f35f22089a2ef8730a1d91dff2b72f2ae56990002b5abc2",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_cup_head.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_cup_head.png",
+      "originalSize": [
+        150,
+        256
+      ],
+      "sourceRect": [
+        0,
+        0,
+        150,
+        256
+      ],
+      "outputSize": [
+        113,
+        192
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9181,
+      "rgbaBytes": 86784
+    },
+    {
+      "id": "machine_pop_body",
+      "originalFile": "assets/art/machines/machine_pop_body.png",
+      "originalSha256": "030dc2952900743a5aafd3994028715081b528a4df6a6dbc01293b5a0bf083ed",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_pop_body.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_pop_body.png",
+      "originalSize": [
+        512,
+        489
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        489
+      ],
+      "outputSize": [
+        384,
+        367
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 49154,
+      "rgbaBytes": 563712
+    },
+    {
+      "id": "machine_pop_front",
+      "originalFile": "assets/art/machines/machine_pop_front.png",
+      "originalSha256": "7289c5f1d669bcfd0e32d63efd08ddf569c241d9f40eb5c0f2f064555e5c3ad3",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_pop_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_pop_front.png",
+      "originalSize": [
+        384,
+        205
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        205
+      ],
+      "outputSize": [
+        288,
+        154
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 17312,
+      "rgbaBytes": 177408
+    },
+    {
+      "id": "machine_pop_head",
+      "originalFile": "assets/art/machines/machine_pop_head.png",
+      "originalSha256": "4ffb38e65caeb4c89341d6c2995ff678c26cba3456be1168e965958d0019702f",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_pop_head.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_pop_head.png",
+      "originalSize": [
+        256,
+        248
+      ],
+      "sourceRect": [
+        0,
+        0,
+        256,
+        248
+      ],
+      "outputSize": [
+        192,
+        186
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 15134,
+      "rgbaBytes": 142848
+    },
+    {
+      "id": "machine_ship_body",
+      "originalFile": "assets/art/machines/machine_ship_body.png",
+      "originalSha256": "1acd80c6c0912fe60bb1b3a2ee7b9cc3b089198201c4674a8be950fdc7e09390",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_ship_body.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_ship_body.png",
+      "originalSize": [
+        499,
+        512
+      ],
+      "sourceRect": [
+        0,
+        0,
+        499,
+        512
+      ],
+      "outputSize": [
+        374,
+        384
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 44781,
+      "rgbaBytes": 574464
+    },
+    {
+      "id": "machine_ship_front",
+      "originalFile": "assets/art/machines/machine_ship_front.png",
+      "originalSha256": "e39ce1929d13022ac13ae815a068f4084a95e672a509806966ef6719198a9a01",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_ship_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_ship_front.png",
+      "originalSize": [
+        384,
+        222
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        222
+      ],
+      "outputSize": [
+        288,
+        167
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 11078,
+      "rgbaBytes": 192384
+    },
+    {
+      "id": "machine_ship_head",
+      "originalFile": "assets/art/machines/machine_ship_head.png",
+      "originalSha256": "bfd33db0bf0f275cc2aa2669d90798dfb5a5c061926dbe3d11f77f1481042029",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/machine_ship_head.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/machine_ship_head.png",
+      "originalSize": [
+        159,
+        256
+      ],
+      "sourceRect": [
+        0,
+        0,
+        159,
+        256
+      ],
+      "outputSize": [
+        119,
+        192
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9936,
+      "rgbaBytes": 91392
+    },
+    {
+      "id": "product_box_front",
+      "originalFile": "assets/art/products/product_box_front.png",
+      "originalSha256": "b657096af2dd22036d4182e6b0aa227263924c91383e7c6dab43dc1c3149234c",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_box_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_box_front.png",
+      "originalSize": [
+        128,
+        78
+      ],
+      "sourceRect": [
+        0,
+        0,
+        128,
+        78
+      ],
+      "outputSize": [
+        128,
+        78
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3701,
+      "rgbaBytes": 39936
+    },
+    {
+      "id": "product_box_lid",
+      "originalFile": "assets/art/products/product_box_lid.png",
+      "originalSha256": "9d26b787a4f8e49ba889715041b6299190f2f7c191e55539588b4c2fb44073f7",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_box_lid.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_box_lid.png",
+      "originalSize": [
+        128,
+        91
+      ],
+      "sourceRect": [
+        0,
+        0,
+        128,
+        91
+      ],
+      "outputSize": [
+        128,
+        91
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4991,
+      "rgbaBytes": 46592
+    },
+    {
+      "id": "product_box_open",
+      "originalFile": "assets/art/products/product_box_open.png",
+      "originalSha256": "3c4296d97b69920882b2350e73e1cc68d4d6856fb487027c136847e6358eec46",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_box_open.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_box_open.png",
+      "originalSize": [
+        127,
+        128
+      ],
+      "sourceRect": [
+        0,
+        0,
+        127,
+        128
+      ],
+      "outputSize": [
+        127,
+        128
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 7275,
+      "rgbaBytes": 65024
+    },
+    {
+      "id": "product_cup_empty",
+      "originalFile": "assets/art/products/product_cup_empty.png",
+      "originalSha256": "6c8b333578fb63162c59f73bb15998d41d93d44c8aaa288ca5a4f05038b63e7f",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_cup_empty.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_cup_empty.png",
+      "originalSize": [
+        104,
+        128
+      ],
+      "sourceRect": [
+        0,
+        0,
+        104,
+        128
+      ],
+      "outputSize": [
+        104,
+        128
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 7141,
+      "rgbaBytes": 53248
+    },
+    {
+      "id": "product_cup_fill",
+      "originalFile": "assets/art/products/product_cup_fill.png",
+      "originalSha256": "75820426a90ef19688fa0e514696b5ff594b4c1447f22ae35c5b15998872a721",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_cup_fill.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_cup_fill.png",
+      "originalSize": [
+        128,
+        94
+      ],
+      "sourceRect": [
+        0,
+        0,
+        128,
+        94
+      ],
+      "outputSize": [
+        128,
+        94
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9604,
+      "rgbaBytes": 48128
+    },
+    {
+      "id": "product_double_tray",
+      "originalFile": "assets/art/products/product_double_tray.png",
+      "originalSha256": "bce998b454ab28825d91dee229d9dfaf904c0bda5a9afaf37fc93376a02e612d",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_double_tray.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_double_tray.png",
+      "originalSize": [
+        128,
+        80
+      ],
+      "sourceRect": [
+        0,
+        0,
+        128,
+        80
+      ],
+      "outputSize": [
+        128,
+        80
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 5889,
+      "rgbaBytes": 40960
+    },
+    {
+      "id": "product_kernel_a",
+      "originalFile": "assets/art/products/product_kernel_a.png",
+      "originalSha256": "1a709505c2b6b4fe9655d3d030bb0b567dc1339c4b8f62f861920c7cb42af591",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/product_kernel_a.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_kernel_a.png",
+      "originalSize": [
+        64,
+        61
+      ],
+      "sourceRect": [
+        0,
+        0,
+        64,
+        61
+      ],
+      "outputSize": [
+        68,
+        65
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 2,
+      "bytes": 3284,
+      "rgbaBytes": 17680
+    },
+    {
+      "id": "product_kernel_b",
+      "originalFile": "assets/art/products/product_kernel_b.png",
+      "originalSha256": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba",
+      "inputCandidate": "assets/art/products/product_kernel_b.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/product_kernel_b.png",
+      "originalSize": [
+        64,
+        62
+      ],
+      "sourceRect": [
+        0,
+        0,
+        64,
+        62
+      ],
+      "outputSize": [
+        64,
+        62
+      ],
+      "method": "preserve original PNG byte-for-byte: palette candidate failed exact alpha edge test",
+      "extraPadding": 0,
+      "bytes": 9324,
+      "rgbaBytes": 15872
+    },
+    {
+      "id": "buffer_bulk_back",
+      "originalFile": "assets/art/scene/buffer_bulk_back.png",
+      "originalSha256": "276afc13ff8fde9a0eac496d1413a49177293ee87a2530d02b955c2272a70ccb",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/buffer_bulk_back.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/buffer_bulk_back.png",
+      "originalSize": [
+        512,
+        366
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        366
+      ],
+      "outputSize": [
+        384,
+        275
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 32309,
+      "rgbaBytes": 422400
+    },
+    {
+      "id": "buffer_bulk_front",
+      "originalFile": "assets/art/scene/buffer_bulk_front.png",
+      "originalSha256": "4287d8d1c8d6b584df35171eb77a754e87524344b11686918c53be072c2cf03d",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/buffer_bulk_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/buffer_bulk_front.png",
+      "originalSize": [
+        384,
+        243
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        243
+      ],
+      "outputSize": [
+        288,
+        182
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 12652,
+      "rgbaBytes": 209664
+    },
+    {
+      "id": "buffer_cups_back",
+      "originalFile": "assets/art/scene/buffer_cups_back.png",
+      "originalSha256": "cbe4c344691ecd012f86dc7402278d21dc35c190302ecd9a8ee3a467bca9da35",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/buffer_cups_back.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/buffer_cups_back.png",
+      "originalSize": [
+        512,
+        349
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        349
+      ],
+      "outputSize": [
+        384,
+        262
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 27720,
+      "rgbaBytes": 402432
+    },
+    {
+      "id": "buffer_cups_front",
+      "originalFile": "assets/art/scene/buffer_cups_front.png",
+      "originalSha256": "3f9b13196b05101178d475b34f30cc5e7472959d35dc79974a5c609df1beba75",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/buffer_cups_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/buffer_cups_front.png",
+      "originalSize": [
+        384,
+        256
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        256
+      ],
+      "outputSize": [
+        288,
+        192
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 10212,
+      "rgbaBytes": 221184
+    },
+    {
+      "id": "conveyor_down_left",
+      "originalFile": "assets/art/scene/conveyor_down_left.png",
+      "originalSha256": "94c6d28fe935c41108c14776cefebaa1c8dbd978e48df2d20243b0dd2e525ea8",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_down_left.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_down_left.png",
+      "originalSize": [
+        512,
+        358
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        358
+      ],
+      "outputSize": [
+        384,
+        269
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 32515,
+      "rgbaBytes": 413184
+    },
+    {
+      "id": "conveyor_down_right",
+      "originalFile": "assets/art/scene/conveyor_down_right.png",
+      "originalSha256": "d36bbd13dcd3fd5ed471ebb033803a6b436f39b25df506e045bba4dd55e57a68",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_down_right.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_down_right.png",
+      "originalSize": [
+        512,
+        360
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        360
+      ],
+      "outputSize": [
+        384,
+        270
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 35535,
+      "rgbaBytes": 414720
+    },
+    {
+      "id": "conveyor_front_left",
+      "originalFile": "assets/art/scene/conveyor_front_left.png",
+      "originalSha256": "e10306dacb00ec7fff19703ab474287c59e3db2354634896b603e881b9656f3b",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_front_left.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_front_left.png",
+      "originalSize": [
+        384,
+        245
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        245
+      ],
+      "outputSize": [
+        288,
+        184
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9213,
+      "rgbaBytes": 211968
+    },
+    {
+      "id": "conveyor_front_right",
+      "originalFile": "assets/art/scene/conveyor_front_right.png",
+      "originalSha256": "db21df8fe0126ff9a39f47d2fac56a0d74e396462af4d84aa1129b5577ea2507",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_front_right.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_front_right.png",
+      "originalSize": [
+        384,
+        248
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        248
+      ],
+      "outputSize": [
+        288,
+        186
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9720,
+      "rgbaBytes": 214272
+    },
+    {
+      "id": "conveyor_infeed_back",
+      "originalFile": "assets/art/scene/conveyor_infeed_back.png",
+      "originalSha256": "e7f8c29900fc5c24e29b988f7662cd8f2e54f70b0db971066195f6ff35ae6029",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_infeed_back.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_infeed_back.png",
+      "originalSize": [
+        512,
+        383
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        383
+      ],
+      "outputSize": [
+        384,
+        287
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 28220,
+      "rgbaBytes": 440832
+    },
+    {
+      "id": "conveyor_infeed_front",
+      "originalFile": "assets/art/scene/conveyor_infeed_front.png",
+      "originalSha256": "9b8aafb2d884ad41fa41ce97f896836f263bca6841791547860cc1986386379c",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_infeed_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_infeed_front.png",
+      "originalSize": [
+        384,
+        218
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        218
+      ],
+      "outputSize": [
+        288,
+        164
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 7955,
+      "rgbaBytes": 188928
+    },
+    {
+      "id": "conveyor_outfeed_back",
+      "originalFile": "assets/art/scene/conveyor_outfeed_back.png",
+      "originalSha256": "9971eccf6be8294f7ffb7fe5ae3a48a6a0cda44822572fdc746794977912cc1f",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_outfeed_back.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_outfeed_back.png",
+      "originalSize": [
+        512,
+        332
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        332
+      ],
+      "outputSize": [
+        384,
+        249
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 27534,
+      "rgbaBytes": 382464
+    },
+    {
+      "id": "conveyor_outfeed_front",
+      "originalFile": "assets/art/scene/conveyor_outfeed_front.png",
+      "originalSha256": "53b840d1908eb87cba747fb7ce36b6dad480a3e20759577c9ab05b38dfb81bdc",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_outfeed_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_outfeed_front.png",
+      "originalSize": [
+        384,
+        211
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        211
+      ],
+      "outputSize": [
+        288,
+        158
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 7464,
+      "rgbaBytes": 182016
+    },
+    {
+      "id": "conveyor_transfer_back",
+      "originalFile": "assets/art/scene/conveyor_transfer_back.png",
+      "originalSha256": "679a10f3b2c0df8ef66683e26d8093e27ecb0e11961c8f96ce79a192a211cdb3",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_transfer_back.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_transfer_back.png",
+      "originalSize": [
+        512,
+        227
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        227
+      ],
+      "outputSize": [
+        384,
+        170
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 28591,
+      "rgbaBytes": 261120
+    },
+    {
+      "id": "conveyor_transfer_front",
+      "originalFile": "assets/art/scene/conveyor_transfer_front.png",
+      "originalSha256": "a4a2bf3bfd951688ca6bb4a2c4f5f5f8e5859e27e13ede249339fa22a286b86f",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/conveyor_transfer_front.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/conveyor_transfer_front.png",
+      "originalSize": [
+        384,
+        121
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        121
+      ],
+      "outputSize": [
+        288,
+        91
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 6241,
+      "rgbaBytes": 104832
+    },
+    {
+      "id": "factory_door",
+      "originalFile": "assets/art/scene/factory_door.png",
+      "originalSha256": "f3f517c9ba8ce8bd55299b43a4ac307e09af416cb6258ed2adde856270905ded",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/factory_door.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/factory_door.png",
+      "originalSize": [
+        197,
+        256
+      ],
+      "sourceRect": [
+        0,
+        0,
+        197,
+        256
+      ],
+      "outputSize": [
+        148,
+        192
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 9158,
+      "rgbaBytes": 113664
+    },
+    {
+      "id": "factory_room",
+      "originalFile": "assets/art/scene/factory_room.png",
+      "originalSha256": "c78a9bd138f49387bd996fb83e3b6ed027910c9e723c220f0c70555d716fc819",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/factory_room.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/factory_room.png",
+      "originalSize": [
+        512,
+        768
+      ],
+      "sourceRect": [
+        0,
+        0,
+        512,
+        768
+      ],
+      "outputSize": [
+        384,
+        576
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 72468,
+      "rgbaBytes": 884736
+    },
+    {
+      "id": "factory_window",
+      "originalFile": "assets/art/scene/factory_window.png",
+      "originalSha256": "0c31c22dea548a4eb69f32fcb3d0620c7c50b8dd4846bde5f47c919d788beab8",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/factory_window.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/factory_window.png",
+      "originalSize": [
+        256,
+        233
+      ],
+      "sourceRect": [
+        0,
+        0,
+        256,
+        233
+      ],
+      "outputSize": [
+        192,
+        175
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 12181,
+      "rgbaBytes": 134400
+    },
+    {
+      "id": "ui_button_disabled",
+      "originalFile": "assets/art/ui/ui_button_disabled.png",
+      "originalSha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445",
+      "inputCandidate": "assets/art/ui/ui_button_disabled.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_button_disabled.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        384,
+        138
+      ],
+      "method": "preserve original PNG byte-for-byte: palette candidate failed exact alpha edge test",
+      "extraPadding": 0,
+      "bytes": 49591,
+      "rgbaBytes": 211968
+    },
+    {
+      "id": "ui_button_primary",
+      "originalFile": "assets/art/ui/ui_button_primary.png",
+      "originalSha256": "21dc8a9d9916d4b961103f560e6278886f62e05607c596c6df8a41150d596fd2",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_button_primary.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_button_primary.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        288,
+        104
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 8359,
+      "rgbaBytes": 119808
+    },
+    {
+      "id": "ui_button_secondary",
+      "originalFile": "assets/art/ui/ui_button_secondary.png",
+      "originalSha256": "c6325bdbb522557b8e6c68e85fd8f0b3f8e62cf625cda35c7351dcc678cd1652",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_button_secondary.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_button_secondary.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        288,
+        104
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 7259,
+      "rgbaBytes": 119808
+    },
+    {
+      "id": "ui_card",
+      "originalFile": "assets/art/ui/ui_card.png",
+      "originalSha256": "c17c24332247fd0940f5af9de9d8e21708d77aba1ada4cae66ddc3696996d478",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_card.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_card.png",
+      "originalSize": [
+        384,
+        115
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        115
+      ],
+      "outputSize": [
+        288,
+        86
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 5135,
+      "rgbaBytes": 99072
+    },
+    {
+      "id": "ui_compact_bar",
+      "originalFile": "assets/art/ui/ui_compact_bar.png",
+      "originalSha256": "bbbb01ed7434a713b8668e5d795e0a76559d2f72a0a3707772840fc83b5098c8",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_compact_bar.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_compact_bar.png",
+      "originalSize": [
+        384,
+        78
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        78
+      ],
+      "outputSize": [
+        288,
+        59
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4464,
+      "rgbaBytes": 67968
+    },
+    {
+      "id": "ui_hud_coin",
+      "originalFile": "assets/art/ui/ui_hud_coin.png",
+      "originalSha256": "333495cfedfef0a2761793aaa026d12cd84bd2f306bea88d1f0e13932411be89",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_hud_coin.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_hud_coin.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        288,
+        104
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 6615,
+      "rgbaBytes": 119808
+    },
+    {
+      "id": "ui_hud_rate",
+      "originalFile": "assets/art/ui/ui_hud_rate.png",
+      "originalSha256": "58432ea78bebe44509a72f8d056fd59b2d1b191c4956d432eb0f7650c701ed82",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_hud_rate.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_hud_rate.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        288,
+        104
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 8613,
+      "rgbaBytes": 119808
+    },
+    {
+      "id": "ui_icon_arrow",
+      "originalFile": "assets/art/ui/ui_icon_arrow.png",
+      "originalSha256": "52d006cd13729f1e48748a55ccda47e662e913385947e050b5e861a14f610092",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_arrow.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_arrow.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 2283,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_check",
+      "originalFile": "assets/art/ui/ui_icon_check.png",
+      "originalSha256": "60fd25e89b2e69839196bb908077a6f106c96faeace610efdc2f9fd1501b0564",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_check.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_check.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 2474,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_close",
+      "originalFile": "assets/art/ui/ui_icon_close.png",
+      "originalSha256": "6fa40b4331c47d258c88a530673e350c701075a17889e86516c2d6df55b4f31a",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_close.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_close.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4003,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_coin",
+      "originalFile": "assets/art/ui/ui_icon_coin.png",
+      "originalSha256": "19b996933f81a9cce47d2e418a41cdd8c49a50bf106b75b945d58d695cee6043",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_coin.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_coin.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 5870,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_cup",
+      "originalFile": "assets/art/ui/ui_icon_cup.png",
+      "originalSha256": "762282fdc18cb07ee1f3a705150d818523e87e90f51f9a6acc34c2841f41490a",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_cup.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_cup.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4619,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_expand",
+      "originalFile": "assets/art/ui/ui_icon_expand.png",
+      "originalSha256": "d952aa7f9dee45c5c27f9e519e4112873608848858f18b5a81c52000ba0701ab",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_expand.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_expand.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3013,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_lock",
+      "originalFile": "assets/art/ui/ui_icon_lock.png",
+      "originalSha256": "8ed29217e7908a368ac18eb2f62479a6b3d4d6c0d5d205fa2c9fa3163e12c270",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_lock.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_lock.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4092,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_pop",
+      "originalFile": "assets/art/ui/ui_icon_pop.png",
+      "originalSha256": "702db8948f3aeac57c37ad268c57f1cb85566930fadb679648bba4d791b7dc89",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_pop.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_pop.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 5757,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_settings",
+      "originalFile": "assets/art/ui/ui_icon_settings.png",
+      "originalSha256": "d9eb858fa3c6e7e2f2cb22714dae52f7e54b727132deb14bd91e0df82635f5ea",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_settings.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_settings.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4609,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_ship",
+      "originalFile": "assets/art/ui/ui_icon_ship.png",
+      "originalSha256": "bce2bd7458feee104b81961bc2e20b7c5eb037b3deef021a77118f287d2688fd",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_ship.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_ship.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4628,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_ship_speed",
+      "originalFile": "assets/art/ui/ui_icon_ship_speed.png",
+      "originalSha256": "7bacf45fec9e0429347d6ff795b7fbee9a3457ea918973dabe5eb3923600c5fa",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_ship_speed.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_ship_speed.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3484,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_sound",
+      "originalFile": "assets/art/ui/ui_icon_sound.png",
+      "originalSha256": "38d4f3d46aecc1a46794604d2e6e25e0413903cf3cce52369d3131d311de51d2",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_sound.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_sound.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3576,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_upgrade",
+      "originalFile": "assets/art/ui/ui_icon_upgrade.png",
+      "originalSha256": "0b3ddb0a80d1a70b526a37e3b221ee423aef6a574c0abac2b6ace0c173e71038",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_upgrade.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_upgrade.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3853,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_vibration",
+      "originalFile": "assets/art/ui/ui_icon_vibration.png",
+      "originalSha256": "36fc746ec3b7c8d7339db71b31cb47ce2cfdf2e3d0b5248a160287fac866da19",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_vibration.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_vibration.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 3346,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_wait",
+      "originalFile": "assets/art/ui/ui_icon_wait.png",
+      "originalSha256": "54258f55118c699d136e1eaf4aad0d1d9e1d6d821bc0e2581cdf09a4358e5009",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_wait.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_wait.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4529,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_icon_warning",
+      "originalFile": "assets/art/ui/ui_icon_warning.png",
+      "originalSha256": "16091d181a811aa4af219e6ca20bf819ed2685db4668907b3b4f92dce3fc3b18",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_icon_warning.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_icon_warning.png",
+      "originalSize": [
+        96,
+        96
+      ],
+      "sourceRect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "outputSize": [
+        96,
+        96
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 4124,
+      "rgbaBytes": 36864
+    },
+    {
+      "id": "ui_panel",
+      "originalFile": "assets/art/ui/ui_panel.png",
+      "originalSha256": "68b734f241cb81738b1840c42e5102013ba6f976c13a256cecdc7f1a909f8e83",
+      "inputCandidate": "art-source/six-gen/qa/compression-experiment/compact256/ui_panel.png",
+      "outputFile": "art-source/six-gen/integration/common/exports/ui_panel.png",
+      "originalSize": [
+        384,
+        138
+      ],
+      "sourceRect": [
+        0,
+        0,
+        384,
+        138
+      ],
+      "outputSize": [
+        288,
+        104
+      ],
+      "method": "compact256: products/icons native, other sprites uniform 0.75; palette256; alpha retained",
+      "extraPadding": 0,
+      "bytes": 8219,
+      "rgbaBytes": 119808
+    }
+  ]
+}

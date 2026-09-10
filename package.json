@@ -1,6 +1,6 @@
 {
   "name": "tiny-popcorn-factory",
-  "version": "2.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "小小爆米花厂 — 原生 Canvas 轻经营流水线游戏",
   "scripts": {

@@ -1,0 +1,316 @@
+{
+  "commit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "contractVersion": "six-gen-art-1.0",
+  "viewSize": [
+    1280,
+    1100
+  ],
+  "safeArea": 24,
+  "generation": [
+    5,
+    6
+  ],
+  "configuration": "mixed-jobs",
+  "fixtureKind": "synthetic-art-only",
+  "syntheticArtOnly": true,
+  "executionTime": "2026-09-10T07:32:00.013Z",
+  "checkerVersion": "static-preview-1.0",
+  "pngSha256": "c05c7ccc7d8a2ef2eb880fec72e1da27fcbcb77dff04777e37b222bc14b7e62f",
+  "assetSHAs": [
+    {
+      "id": "product_cup_fill",
+      "path": "art-source/six-gen/integration/exports/product_cup_fill.png",
+      "sha256": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e"
+    },
+    {
+      "id": "machine_pop_double_carrier",
+      "path": "art-source/six-gen/integration/exports/machine_pop_double_carrier.png",
+      "sha256": "a5edfd68e69249d4911cf982279ececc9fe96593bc794d2c50eceaa06ea0853c"
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "path": "art-source/six-gen/integration/exports/machine_pop_quad_body.png",
+      "sha256": "04a393c99633a1931b1d4fa47933a5aea65a1229385b1faacc28f62fe8a702f8"
+    },
+    {
+      "id": "machine_pop_head",
+      "path": "art-source/six-gen/integration/exports/machine_pop_head.png",
+      "sha256": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b"
+    },
+    {
+      "id": "machine_pop_front",
+      "path": "art-source/six-gen/integration/exports/machine_pop_front.png",
+      "sha256": "e9e9fbfb97cb11294f0352a1cf35773abf63d40f76ffd5cbb89450dc1c3e4261"
+    },
+    {
+      "id": "product_cup_empty",
+      "path": "art-source/six-gen/integration/exports/product_cup_empty.png",
+      "sha256": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c"
+    },
+    {
+      "id": "product_double_tray",
+      "path": "art-source/six-gen/integration/exports/product_double_tray.png",
+      "sha256": "3cb7a8f68140280ab2002e4175c167e6d9e3c0b1fa3d183585e73b87ff6fd043"
+    },
+    {
+      "id": "machine_cup_quad_body",
+      "path": "art-source/six-gen/integration/exports/machine_cup_quad_body.png",
+      "sha256": "5286e0fcb70aecffb687e7cf2514aadf46f6785f9fa7eb22cf56929f3ca594e2"
+    },
+    {
+      "id": "machine_cup_head",
+      "path": "art-source/six-gen/integration/exports/machine_cup_head.png",
+      "sha256": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df"
+    },
+    {
+      "id": "machine_cup_front",
+      "path": "art-source/six-gen/integration/exports/machine_cup_front.png",
+      "sha256": "7986b14367096ebb2d0efea6cf1f6a434cfa0e1fd3d595449d89072697d1fdbd"
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "path": "art-source/six-gen/integration/exports/machine_pop_hex_body.png",
+      "sha256": "597f22b51d4470deff46339fd5475edacee3f95ae0b68064d9e34c79b9b1693a"
+    },
+    {
+      "id": "machine_cup_hex_body",
+      "path": "art-source/six-gen/integration/exports/machine_cup_hex_body.png",
+      "sha256": "a42dc093e36615d2b30ad57e36d39154992a86b02126c7af6e9d6f98b03baf80"
+    }
+  ],
+  "conclusion": "VERIFIED_STATIC_ART",
+  "fixtures": [
+    {
+      "generation": 5,
+      "station": "pop",
+      "mode": "old-new-batch",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 4,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.35,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ]
+    },
+    {
+      "generation": 5,
+      "station": "pop",
+      "mode": "mixed-running-blocked",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 4,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ]
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "mode": "old-new-batch",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 4,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.35,
+          "complete": false
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "generation": 5,
+      "station": "cup",
+      "mode": "mixed-running-blocked",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 4,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "mode": "old-new-batch",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 6,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.35,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ]
+    },
+    {
+      "generation": 6,
+      "station": "pop",
+      "mode": "mixed-running-blocked",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 6,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.24,
+          "complete": false
+        }
+      ]
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "mode": "old-new-batch",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 6,
+      "jobs": [
+        {
+          "amount": 1,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 0.35,
+          "complete": false
+        },
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "generation": 6,
+      "station": "cup",
+      "mode": "mixed-running-blocked",
+      "fixtureKind": "synthetic-art-only",
+      "installedLanes": 6,
+      "jobs": [
+        {
+          "amount": 2,
+          "progress": 0.72,
+          "complete": false
+        },
+        {
+          "amount": 2,
+          "progress": 1,
+          "complete": true
+        },
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "visualReview": {
+    "reviewedAt": "2026-09-10T07:38:37.366Z",
+    "reviewRecord": "art-source/six-gen/qa/final-independent-review.json",
+    "reviewedVia": "g05-g06-mixed-and-old-new-batches-contact.png",
+    "pngSha256": "c05c7ccc7d8a2ef2eb880fec72e1da27fcbcb77dff04777e37b222bc14b7e62f",
+    "scope": "Static art image only"
+  },
+  "finalManifestSha256": "05422d772e30c1272d3a785b8fc05ecd84007f9a09d67bdd8d6b854f4ae2e06f"
+}

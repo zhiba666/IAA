@@ -1,0 +1,17 @@
+{
+  "source": "sources/machine_cup_pair_body_v3.png",
+  "sourceRect": [
+    0,
+    0,
+    1215,
+    1295
+  ],
+  "scale": 0.488030888030888,
+  "transparentPadding": 4,
+  "exportSize": [
+    601,
+    640
+  ],
+  "sourceShapePreserved": true,
+  "alphaPreserved": true
+}

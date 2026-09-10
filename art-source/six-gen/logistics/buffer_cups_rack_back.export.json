@@ -1,0 +1,30 @@
+{
+  "id": "buffer_cups_rack_back",
+  "owner": "logistics",
+  "sourceFile": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+  "file": "art-source/six-gen/logistics/exports/buffer_cups_rack_back.png",
+  "sourceSize": [
+    1402,
+    1122
+  ],
+  "sourceRect": [
+    148,
+    66,
+    1195,
+    998
+  ],
+  "width": 512,
+  "height": 429,
+  "anchor": [
+    256,
+    425
+  ],
+  "sourceSha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64",
+  "sha256": "96fdbfd3cedd4acf378936b44591b72014f4447dea78b8e649b67aef70d7de2d",
+  "bytes": 55353,
+  "rgbaBytes": 878592,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

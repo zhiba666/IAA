@@ -1,0 +1,101 @@
+{
+  "contractVersion": "six-gen-art-1.0",
+  "commit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "viewSize": [
+    390,
+    844
+  ],
+  "safeArea": {
+    "top": 8,
+    "bottom": 24,
+    "left": 16,
+    "right": 16
+  },
+  "fixtureKind": "synthetic-art-only",
+  "runtimeVerified": false,
+  "generation": null,
+  "stateId": "trial_complete",
+  "dynamicText": true,
+  "progressIllustrationOnly": true,
+  "assetSHAs": [
+    {
+      "id": "ui_panel",
+      "file": "art-source/six-gen/integration/exports/ui_panel.png",
+      "sha256": "6f93bc6fb3ee2c6d98aba0116ef0078f491aa1e700fa2803847c5b1ef5af2c4f"
+    },
+    {
+      "id": "ui_card",
+      "file": "art-source/six-gen/integration/exports/ui_card.png",
+      "sha256": "08836ca71f95d9fb8f16e973d0873855857660b2f49829b9791fcca91fb503d2"
+    },
+    {
+      "id": "ui_compact_bar",
+      "file": "art-source/six-gen/integration/exports/ui_compact_bar.png",
+      "sha256": "e41b791a4226ba7fabb0c942226ed29fbd76c5be309932a7ebfcb09ff25d5a3f"
+    },
+    {
+      "id": "ui_button_primary",
+      "file": "art-source/six-gen/integration/exports/ui_button_primary.png",
+      "sha256": "7b7c45ead60cab2272bbaf0de246b72d010737d57f2712dcab1bc26c542dafa7"
+    },
+    {
+      "id": "ui_button_secondary",
+      "file": "art-source/six-gen/integration/exports/ui_button_secondary.png",
+      "sha256": "230706e334ad1fcf6500b0894f1592734dd6366302efe7d44b9256ce25c4fd59"
+    },
+    {
+      "id": "ui_button_disabled",
+      "file": "art-source/six-gen/integration/exports/ui_button_disabled.png",
+      "sha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445"
+    },
+    {
+      "id": "ui_icon_coin",
+      "file": "art-source/six-gen/integration/exports/ui_icon_coin.png",
+      "sha256": "895e94920c8635024ef4d475211b043645181409ace9c26de1e155f48625cf2e"
+    },
+    {
+      "id": "ui_icon_lock",
+      "file": "art-source/six-gen/integration/exports/ui_icon_lock.png",
+      "sha256": "37debc223f1f340f1cbcac149ca47834d16723475280ab3e2c7e7eb62450f26a"
+    },
+    {
+      "id": "ui_icon_check",
+      "file": "art-source/six-gen/integration/exports/ui_icon_check.png",
+      "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29"
+    },
+    {
+      "id": "ui_icon_warning",
+      "file": "art-source/six-gen/integration/exports/ui_icon_warning.png",
+      "sha256": "6231b87afb47f50c48dc4f68ca4301f890a36e0b0588d0f80bee27cb21b29424"
+    },
+    {
+      "id": "ui_icon_wait",
+      "file": "art-source/six-gen/integration/exports/ui_icon_wait.png",
+      "sha256": "5f20c451b46d0fe5685947be358b907c3dca6968ad9989b5d73ed915a5ec9541"
+    },
+    {
+      "id": "ui_icon_automation",
+      "file": "art-source/six-gen/integration/exports/ui_icon_automation.png",
+      "sha256": "6c2b93248ec6f63388d87639d8d8b997714d3b818f81fe8440078953d7be15d8"
+    },
+    {
+      "id": "ui_badge_complete",
+      "file": "art-source/six-gen/integration/exports/ui_badge_complete.png",
+      "sha256": "9ba2108b09b9e6bc60eafe86798babc790b52abfbd63fd9d8eb4d5e71fc60b33"
+    },
+    {
+      "id": "ui_icon_cup",
+      "file": "art-source/six-gen/integration/exports/ui_icon_cup.png",
+      "sha256": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588"
+    },
+    {
+      "id": "ui_badge_generation",
+      "file": "art-source/six-gen/integration/exports/ui_badge_generation.png",
+      "sha256": "d8b9fc59f2956715e8002dbc642df32d3d49dcf8e2f0f310bb834b671a2f456e"
+    }
+  ],
+  "pngSha256": "c262484677b8003f40c9e75ee80d0f8e0d4cbf06bf0fbd7926898d5f3acdef33",
+  "createdAt": "2026-09-10T07:27:30.404Z",
+  "conclusion": "PASS_FILE_AND_ESTIMATED_LAYOUT",
+  "visualReview": "Shared layout reviewed on contact sheet and representative pages; this is not runtime validation."
+}

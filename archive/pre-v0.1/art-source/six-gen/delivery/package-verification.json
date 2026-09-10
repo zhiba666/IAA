@@ -1,0 +1,2834 @@
+{
+  "files": [
+    {
+      "bytes": 3187,
+      "path": "art-source/batch-0/assembly.json",
+      "sha256": "78f73ce497ae77265f39822435dabdbbd7f2f908c26ba83db35f7f2814eb9660"
+    },
+    {
+      "bytes": 2739,
+      "path": "art-source/batch-0/STYLE_SPEC.md",
+      "sha256": "b9455e852d644d65137e6a1d3ae98b39146a672640a8ce54476fd2d53c2078a0"
+    },
+    {
+      "bytes": 6546,
+      "path": "art-source/batch-1/core/assembly.json",
+      "sha256": "e5daae488c5914d37caa9755cfd8a97994e6b28d3984e7d96bc6b4fab2aa4b1a"
+    },
+    {
+      "bytes": 11756,
+      "path": "art-source/batch-1/machinery/assembly.json",
+      "sha256": "b5f68ece99e813a2b8a733967961cd50e7c6b6f0639c8439ca59c0ee186b5928"
+    },
+    {
+      "bytes": 4458,
+      "path": "art-source/six-gen/contracts/asset-fragment.schema.json",
+      "sha256": "8cfb0f52ec6f47c5b82c980c547073dd38bd6742946c20f86fbe5c49161701c1"
+    },
+    {
+      "bytes": 3435,
+      "path": "art-source/six-gen/contracts/stage-profile.snapshot.json",
+      "sha256": "154f71437d85e4e33807f2a984b561218fcef2189d62a005431f360752c78627"
+    },
+    {
+      "bytes": 1215,
+      "path": "art-source/six-gen/contracts/style-contract.json",
+      "sha256": "c0f890cf63550f6b249f164f03c47a57104f675b91c126079f0691ba771fd452"
+    },
+    {
+      "bytes": 54802,
+      "path": "art-source/six-gen/cup/assembly.json",
+      "sha256": "89586539d7a8eac60a2e2475bb136abcb47579275e2ced431471c6d54e418a8e"
+    },
+    {
+      "bytes": 1471,
+      "path": "art-source/six-gen/cup/export-audit.json",
+      "sha256": "0d802728ec33bc7d15b5ecdbbe6db21478f5c8d72b828ae946e37d761f898893"
+    },
+    {
+      "bytes": 3485,
+      "path": "art-source/six-gen/cup/export-recipe.json",
+      "sha256": "89ed6d04a6ea6f701fd2d956f6d64360ec5b13cc4e99e3b3c29ce3a03b5bec4b"
+    },
+    {
+      "bytes": 450554,
+      "path": "art-source/six-gen/cup/exports/machine_cup_hex_body.png",
+      "sha256": "37304f9435b9e10740523b33bba81772631d826f0095126b660c94e12b08959f"
+    },
+    {
+      "bytes": 409776,
+      "path": "art-source/six-gen/cup/exports/machine_cup_pair_body.png",
+      "sha256": "b81c70e9140b1870e9e12e3df22f1f7153f0af7ed96451be77f8731d71edbb19"
+    },
+    {
+      "bytes": 415936,
+      "path": "art-source/six-gen/cup/exports/machine_cup_quad_body.png",
+      "sha256": "6ee96822162ea729ea4c8fe0836f1d490d81e4a8cb4fa619df48259e56ebd6f3"
+    },
+    {
+      "bytes": 371606,
+      "path": "art-source/six-gen/cup/exports/machine_cup_triple_body.png",
+      "sha256": "4f987fb1d2db1fe46b0d93cc3a66156f7ce01ef30fdbce871986a8f121acf16c"
+    },
+    {
+      "bytes": 15454,
+      "path": "art-source/six-gen/cup/finalize-cup.ps1",
+      "sha256": "864971de3de1cad0a974be17a7461cedaf0ed889d24ac6e235806aa0233eb8e3"
+    },
+    {
+      "bytes": 8596,
+      "path": "art-source/six-gen/cup/finalize-reports.ps1",
+      "sha256": "01efe1298c61b3dd56e51d3e6b0e45158fb38d1b64d63559f993611f03882b7c"
+    },
+    {
+      "bytes": 3116,
+      "path": "art-source/six-gen/cup/HANDOFF.md",
+      "sha256": "df55cf2312459bf0b3c3d214ff09342eb686596ba8f612a14e29ae3ce212ae6f"
+    },
+    {
+      "bytes": 4251,
+      "path": "art-source/six-gen/cup/image-audit.json",
+      "sha256": "218c1ac1400c1dfd196038720cd7422a41d41008a1f87132ddee427bff199815"
+    },
+    {
+      "bytes": 3401,
+      "path": "art-source/six-gen/cup/manifest.fragment.json",
+      "sha256": "9baf0fbf26e903d1812055ef2640374f6685d790566a8e68ff6907c8bfb018f5"
+    },
+    {
+      "bytes": 283,
+      "path": "art-source/six-gen/cup/pair-export-measurements.json",
+      "sha256": "83a696a5556032c509db4f8299dabf92aea20de5a4f1f8bc979477a357139383"
+    },
+    {
+      "bytes": 548971,
+      "path": "art-source/six-gen/cup/previews/hex-assembly.png",
+      "sha256": "9ad75ffb5b551e7772167c1adc036bcd67b124dd8cdd62ccdfdd1e747229b8fd"
+    },
+    {
+      "bytes": 819289,
+      "path": "art-source/six-gen/cup/previews/hex-three-backgrounds.png",
+      "sha256": "67eccc8caeb936339e142a6803daf01f7f1ff912e50921312a18ff26b2b32a47"
+    },
+    {
+      "bytes": 544998,
+      "path": "art-source/six-gen/cup/previews/hex-two-portion-assembly.png",
+      "sha256": "e8663cb7b2f443cb52dea098ebf54e03d6ebdcafa1aa2a7a9df2029761a2ce07"
+    },
+    {
+      "bytes": 434572,
+      "path": "art-source/six-gen/cup/previews/pair-assembly-sample.png",
+      "sha256": "00104f1bfad5a8e68533e0a218e84171808d43583da7ab9f1ec87b21a0d948e8"
+    },
+    {
+      "bytes": 561316,
+      "path": "art-source/six-gen/cup/previews/pair-assembly.png",
+      "sha256": "6f55fd41525c58c825bf5a8edd1835ccc4e1ba0a8abbd4e8c3934dc9812b2161"
+    },
+    {
+      "bytes": 831234,
+      "path": "art-source/six-gen/cup/previews/pair-three-backgrounds.png",
+      "sha256": "05cc3f85b1748682d9a6d3db3c6bd0a3629c6433a2f84cf3a74cc6281e08e24b"
+    },
+    {
+      "bytes": 568785,
+      "path": "art-source/six-gen/cup/previews/quad-assembly.png",
+      "sha256": "d14c7927b58fab80c9f98ae1bb8ad3965946efb56a54556881f0bf9bac8a21b8"
+    },
+    {
+      "bytes": 847573,
+      "path": "art-source/six-gen/cup/previews/quad-three-backgrounds.png",
+      "sha256": "19fecda61fec3a7aab224e30fd61cbdb2f9b384c31c4e87715586a0c83c027fe"
+    },
+    {
+      "bytes": 572817,
+      "path": "art-source/six-gen/cup/previews/quad-two-portion-assembly.png",
+      "sha256": "b2d577a78c8c398fccf39bac4dbdfc743ce1599ea888e1c94e3f4738c688b3a2"
+    },
+    {
+      "bytes": 478036,
+      "path": "art-source/six-gen/cup/previews/triple-assembly.png",
+      "sha256": "146573529a0c5a6d560883ab2f83ea3dc485d80c7fcb3430bc9a6155612897af"
+    },
+    {
+      "bytes": 680885,
+      "path": "art-source/six-gen/cup/previews/triple-three-backgrounds.png",
+      "sha256": "b6f34ceb6e2cd3ec9a35e92f67dba968f581ad3e75be940153608faabcf2f1d8"
+    },
+    {
+      "bytes": 10123,
+      "path": "art-source/six-gen/cup/prompts.jsonl",
+      "sha256": "ac20fc1f006ee7f3f71691ea3349b190495301c8e785cf8a0d78930309f67326"
+    },
+    {
+      "bytes": 14661,
+      "path": "art-source/six-gen/cup/provenance.json",
+      "sha256": "6d65d9df198efeab712579430705fdc91b067ed4092765d7b7cbdd713a0f9802"
+    },
+    {
+      "bytes": 2816,
+      "path": "art-source/six-gen/cup/qa-report.json",
+      "sha256": "c56506e2665a6d8999a0fd82085c7372958d2db1a42eb9d981d3d4ba9c453ad5"
+    },
+    {
+      "bytes": 1584619,
+      "path": "art-source/six-gen/cup/sources/machine_cup_hex_body_v1.png",
+      "sha256": "a354baa9baddbf51b9513ebd93f76000f52f4ece923b188f76fa683ee96aa70c"
+    },
+    {
+      "bytes": 1264794,
+      "path": "art-source/six-gen/cup/sources/machine_cup_hex_body_v2.png",
+      "sha256": "9a108683eebd2edbe8461ef935d7ad916c510182503bbec1012e9d29580718b3"
+    },
+    {
+      "bytes": 1626707,
+      "path": "art-source/six-gen/cup/sources/machine_cup_pair_body_v1.png",
+      "sha256": "6a13d17c5afef6e3ce33e595eea766101b22141c81829927ee2f4dc4220ca13f"
+    },
+    {
+      "bytes": 1613093,
+      "path": "art-source/six-gen/cup/sources/machine_cup_pair_body_v2.png",
+      "sha256": "092fbb5575e5eca4480e57c6294550c4aaeb57574f15ab5b59d4ae63e0e66226"
+    },
+    {
+      "bytes": 1143053,
+      "path": "art-source/six-gen/cup/sources/machine_cup_pair_body_v3.png",
+      "sha256": "37e92462cb3f4b4ab4ae24fec4b11ab9816ad6dcd6e156768833cae3d6a78506"
+    },
+    {
+      "bytes": 1707838,
+      "path": "art-source/six-gen/cup/sources/machine_cup_quad_body_v1.png",
+      "sha256": "2e120d1e9065176a4d58ceb57171b8bc05e9d9324a917c76f843227721723d0f"
+    },
+    {
+      "bytes": 1150064,
+      "path": "art-source/six-gen/cup/sources/machine_cup_quad_body_v2.png",
+      "sha256": "74c42d9210c882853c20961117552623e34f730c3c2d33c8fd29914965201287"
+    },
+    {
+      "bytes": 1655509,
+      "path": "art-source/six-gen/cup/sources/machine_cup_triple_body_v1.png",
+      "sha256": "d5f80b8206e71d66eb3ff414e7a84ece8337f159f0299c4a2fcbc5b01e6a89e6"
+    },
+    {
+      "bytes": 1862600,
+      "path": "art-source/six-gen/cup/sources/machine_cup_triple_body_v2.png",
+      "sha256": "84977f451e9c5472a520ed891f7a68e5ba68f5ce50bcf26a3a449a8a39e23d2f"
+    },
+    {
+      "bytes": 1115516,
+      "path": "art-source/six-gen/cup/sources/machine_cup_triple_body_v3.png",
+      "sha256": "b00692dfb8b18cb279410de43eef76cb188535b94c06ddbefdc58054f3b7d572"
+    },
+    {
+      "bytes": 207889,
+      "path": "art-source/six-gen/integration/assembly.json",
+      "sha256": "d1fb01fb318e1574ee43a6d25f0e0e9837145fcbec7e96a6f885cdbeabfd190e"
+    },
+    {
+      "bytes": 33612,
+      "path": "art-source/six-gen/integration/asset-metrics.json",
+      "sha256": "a3bdce6636fcfed62fd9609db3beb2b44b992b0ab19f54af8c12f0019f875d41"
+    },
+    {
+      "bytes": 14351,
+      "path": "art-source/six-gen/integration/budget-report.json",
+      "sha256": "5346c03de19490b1ced8bbc589bf47d5423a02c9cd1a933f8121a619413d2b2e"
+    },
+    {
+      "bytes": 9573,
+      "path": "art-source/six-gen/integration/candidate-resolution.json",
+      "sha256": "3c686bfe4dfceb336d94af382940457c0987cae2dd7a647e12f4c14468978d3d"
+    },
+    {
+      "bytes": 45808,
+      "path": "art-source/six-gen/integration/common/export-recipe.json",
+      "sha256": "d661da53db17f4035b5f661db4d017c9386c4ae2617cdddd7eab499d442c0f03"
+    },
+    {
+      "bytes": 32309,
+      "path": "art-source/six-gen/integration/common/exports/buffer_bulk_back.png",
+      "sha256": "57d83da8c560ba86500548127e8c0aeb6e05b1e0a53eb25b186aeedea0733544"
+    },
+    {
+      "bytes": 12652,
+      "path": "art-source/six-gen/integration/common/exports/buffer_bulk_front.png",
+      "sha256": "d9f5e700aeec5d26f5d22024bfce0e324192cc7de5389d32c037dfb52d771842"
+    },
+    {
+      "bytes": 27720,
+      "path": "art-source/six-gen/integration/common/exports/buffer_cups_back.png",
+      "sha256": "84e579f3086e9d995b90361567340d32520ba49026c35d1fff2a27c9c9d8673b"
+    },
+    {
+      "bytes": 10212,
+      "path": "art-source/six-gen/integration/common/exports/buffer_cups_front.png",
+      "sha256": "ea3b37989d131948ec4db9d41e4dd11c11aae1f0851fa6538c00b841578ca2eb"
+    },
+    {
+      "bytes": 32515,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_down_left.png",
+      "sha256": "a38cd1f88712b8174c39a3d28dacdc67ebf70166be4fe6be4d58bed31c4854e0"
+    },
+    {
+      "bytes": 35535,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_down_right.png",
+      "sha256": "8c39749556a18b055658c240a9034e5eb30be3ede14f59f27403a9683c6ec52b"
+    },
+    {
+      "bytes": 9213,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_front_left.png",
+      "sha256": "cc8cc657d1e1443becd58da605a9161334501be1e432838c335fa9b911e7351a"
+    },
+    {
+      "bytes": 9720,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_front_right.png",
+      "sha256": "6b55f87597cb239cea94a42938d5b946b49f3930ad57146f7aa8eb8562c06a2b"
+    },
+    {
+      "bytes": 28220,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_infeed_back.png",
+      "sha256": "7ff8942480df3a99c8844f2d239403328fd858a4dfca04ab9b7c5c778337c125"
+    },
+    {
+      "bytes": 7955,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_infeed_front.png",
+      "sha256": "60aa2d7a5100a90ef5e68abfa900595853ddce8351a0d08f0be585303b237be5"
+    },
+    {
+      "bytes": 27534,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_outfeed_back.png",
+      "sha256": "9f18bf962bbfb0e1c8cbddb7af7e3bd88c69e2b56fe8f3c6414e9c7fe44c68da"
+    },
+    {
+      "bytes": 7464,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_outfeed_front.png",
+      "sha256": "0fdfdd32e59614db800f0f7ae457fdc7665a8464e13a996b2f1a7d1b076352f1"
+    },
+    {
+      "bytes": 28591,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_transfer_back.png",
+      "sha256": "62deba97b51c85fc31cbdcc6471fae8862fe723cd255c82a8ae2d008041a5fc3"
+    },
+    {
+      "bytes": 6241,
+      "path": "art-source/six-gen/integration/common/exports/conveyor_transfer_front.png",
+      "sha256": "5fb4878b5cc408d2482cf4ed4dd487eefcf537fa9194190e4f65db82d2d2c911"
+    },
+    {
+      "bytes": 9158,
+      "path": "art-source/six-gen/integration/common/exports/factory_door.png",
+      "sha256": "48a8603e8249be0473725b1b8428e9a5718634e03113a83e40ebc9d68a0d2b47"
+    },
+    {
+      "bytes": 72468,
+      "path": "art-source/six-gen/integration/common/exports/factory_room.png",
+      "sha256": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b"
+    },
+    {
+      "bytes": 12181,
+      "path": "art-source/six-gen/integration/common/exports/factory_window.png",
+      "sha256": "47125077d3a1493aefd0241ab0b0e8f63fc3c37b63db48beef78eb38b1c7f6ec"
+    },
+    {
+      "bytes": 3490,
+      "path": "art-source/six-gen/integration/common/exports/fx_sparkle.png",
+      "sha256": "ca31d4ca018c7b95f76fdbd05db3e3099140fb815d1ac354d194f91d61285c51"
+    },
+    {
+      "bytes": 3486,
+      "path": "art-source/six-gen/integration/common/exports/fx_steam.png",
+      "sha256": "5abd34480b2abc0452a1b6d7121ec7c5522f4dcd1ddaaadecc22f31891eec586"
+    },
+    {
+      "bytes": 49857,
+      "path": "art-source/six-gen/integration/common/exports/machine_cup_body.png",
+      "sha256": "3a02528efe200167aff5f9bb496975437e6b0c30c72c8f643e65b72ec18556e1"
+    },
+    {
+      "bytes": 18095,
+      "path": "art-source/six-gen/integration/common/exports/machine_cup_front.png",
+      "sha256": "7986b14367096ebb2d0efea6cf1f6a434cfa0e1fd3d595449d89072697d1fdbd"
+    },
+    {
+      "bytes": 9181,
+      "path": "art-source/six-gen/integration/common/exports/machine_cup_head.png",
+      "sha256": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df"
+    },
+    {
+      "bytes": 49154,
+      "path": "art-source/six-gen/integration/common/exports/machine_pop_body.png",
+      "sha256": "46d614925b13859a2cf6ecaa2f1904d52564f57eea75f4c6b236ad46da955ec9"
+    },
+    {
+      "bytes": 17312,
+      "path": "art-source/six-gen/integration/common/exports/machine_pop_front.png",
+      "sha256": "e9e9fbfb97cb11294f0352a1cf35773abf63d40f76ffd5cbb89450dc1c3e4261"
+    },
+    {
+      "bytes": 15134,
+      "path": "art-source/six-gen/integration/common/exports/machine_pop_head.png",
+      "sha256": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b"
+    },
+    {
+      "bytes": 44781,
+      "path": "art-source/six-gen/integration/common/exports/machine_ship_body.png",
+      "sha256": "75e59f3054ac75acb79a49e43a6e85ea19385e5dc20a65396b4fe76afb4c0eed"
+    },
+    {
+      "bytes": 11078,
+      "path": "art-source/six-gen/integration/common/exports/machine_ship_front.png",
+      "sha256": "7a44040ad62905721baa3f076f26d16abf2600b167336f02183b1b039bf7af9f"
+    },
+    {
+      "bytes": 9936,
+      "path": "art-source/six-gen/integration/common/exports/machine_ship_head.png",
+      "sha256": "5a46ea13f14e30d353a65d6cb7549b832e9c43bad29f983c24903c6df492f689"
+    },
+    {
+      "bytes": 3701,
+      "path": "art-source/six-gen/integration/common/exports/product_box_front.png",
+      "sha256": "284ff1bbb4792f07b0da7efb19547d4fe879f3fbc1ba0b5e7f21e85166664cd9"
+    },
+    {
+      "bytes": 4991,
+      "path": "art-source/six-gen/integration/common/exports/product_box_lid.png",
+      "sha256": "b7803e8551c2d9e304ae62002262e2f813b99050044d145e04f8f214733311b8"
+    },
+    {
+      "bytes": 7275,
+      "path": "art-source/six-gen/integration/common/exports/product_box_open.png",
+      "sha256": "5bf145d0d22c608406707d0a081e21db8b62953f5e47f44c857fc3fcf747b4a3"
+    },
+    {
+      "bytes": 7141,
+      "path": "art-source/six-gen/integration/common/exports/product_cup_empty.png",
+      "sha256": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c"
+    },
+    {
+      "bytes": 9604,
+      "path": "art-source/six-gen/integration/common/exports/product_cup_fill.png",
+      "sha256": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e"
+    },
+    {
+      "bytes": 5889,
+      "path": "art-source/six-gen/integration/common/exports/product_double_tray.png",
+      "sha256": "3cb7a8f68140280ab2002e4175c167e6d9e3c0b1fa3d183585e73b87ff6fd043"
+    },
+    {
+      "bytes": 3284,
+      "path": "art-source/six-gen/integration/common/exports/product_kernel_a.png",
+      "sha256": "3222bfbee6806c2a1548055e708b3cbf16160291286110445a98c0b6dcfa033f"
+    },
+    {
+      "bytes": 9324,
+      "path": "art-source/six-gen/integration/common/exports/product_kernel_b.png",
+      "sha256": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba"
+    },
+    {
+      "bytes": 49591,
+      "path": "art-source/six-gen/integration/common/exports/ui_button_disabled.png",
+      "sha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445"
+    },
+    {
+      "bytes": 8359,
+      "path": "art-source/six-gen/integration/common/exports/ui_button_primary.png",
+      "sha256": "7b7c45ead60cab2272bbaf0de246b72d010737d57f2712dcab1bc26c542dafa7"
+    },
+    {
+      "bytes": 7259,
+      "path": "art-source/six-gen/integration/common/exports/ui_button_secondary.png",
+      "sha256": "230706e334ad1fcf6500b0894f1592734dd6366302efe7d44b9256ce25c4fd59"
+    },
+    {
+      "bytes": 5135,
+      "path": "art-source/six-gen/integration/common/exports/ui_card.png",
+      "sha256": "08836ca71f95d9fb8f16e973d0873855857660b2f49829b9791fcca91fb503d2"
+    },
+    {
+      "bytes": 4464,
+      "path": "art-source/six-gen/integration/common/exports/ui_compact_bar.png",
+      "sha256": "e41b791a4226ba7fabb0c942226ed29fbd76c5be309932a7ebfcb09ff25d5a3f"
+    },
+    {
+      "bytes": 6615,
+      "path": "art-source/six-gen/integration/common/exports/ui_hud_coin.png",
+      "sha256": "5a2a6bfcda297c8a3fa0c295c88f66c5739efa3024c9af02efd669786fc5fdb1"
+    },
+    {
+      "bytes": 8613,
+      "path": "art-source/six-gen/integration/common/exports/ui_hud_rate.png",
+      "sha256": "b6610fdd6277fbf117bb78e88ed12aa67550849d540cdfe132b49fca5875e27b"
+    },
+    {
+      "bytes": 2283,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_arrow.png",
+      "sha256": "e64c6254ad4b1fd62083a5b88c052c1b652456bde01c339a97e693fe429ffe01"
+    },
+    {
+      "bytes": 2474,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_check.png",
+      "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29"
+    },
+    {
+      "bytes": 4003,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_close.png",
+      "sha256": "240f77bbef95050934b2c4e8f16a01a42109e37d206fa99fe869d9b9d51dc02e"
+    },
+    {
+      "bytes": 5870,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_coin.png",
+      "sha256": "895e94920c8635024ef4d475211b043645181409ace9c26de1e155f48625cf2e"
+    },
+    {
+      "bytes": 4619,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_cup.png",
+      "sha256": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588"
+    },
+    {
+      "bytes": 3013,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_expand.png",
+      "sha256": "78394bb247d54abe938fe1ec6c50587ac3f5fe9a7d701faefbeacd42ee84134f"
+    },
+    {
+      "bytes": 4092,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_lock.png",
+      "sha256": "37debc223f1f340f1cbcac149ca47834d16723475280ab3e2c7e7eb62450f26a"
+    },
+    {
+      "bytes": 5757,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_pop.png",
+      "sha256": "61fa4ef628a20576702f3f46bc08beef8e277e658083179b124bd0ffdc33c534"
+    },
+    {
+      "bytes": 4609,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_settings.png",
+      "sha256": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91"
+    },
+    {
+      "bytes": 3484,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_ship_speed.png",
+      "sha256": "eff884ce4f47763eb42f3f16525dcb54b757acb171df97ab7675d59732f2c5aa"
+    },
+    {
+      "bytes": 4628,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_ship.png",
+      "sha256": "249c9c1bc108fb0a0c563ec42164cb5b711c1facc05bc9d6be48401f8ea12ad4"
+    },
+    {
+      "bytes": 3576,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_sound.png",
+      "sha256": "b66c6bdc97a2d7b9dc5554d576e3c8ebd36509a820f2e5f2af73357570d67937"
+    },
+    {
+      "bytes": 3853,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_upgrade.png",
+      "sha256": "5eef57d2ea6169d76e999e0abf324d56e8ed4bdee419ab0a1ac5bff549c1a121"
+    },
+    {
+      "bytes": 3346,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_vibration.png",
+      "sha256": "9534b06d54e345f2346383800c8e581c118bbceefa07b135faf7ef434d948953"
+    },
+    {
+      "bytes": 4529,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_wait.png",
+      "sha256": "5f20c451b46d0fe5685947be358b907c3dca6968ad9989b5d73ed915a5ec9541"
+    },
+    {
+      "bytes": 4124,
+      "path": "art-source/six-gen/integration/common/exports/ui_icon_warning.png",
+      "sha256": "6231b87afb47f50c48dc4f68ca4301f890a36e0b0588d0f80bee27cb21b29424"
+    },
+    {
+      "bytes": 8219,
+      "path": "art-source/six-gen/integration/common/exports/ui_panel.png",
+      "sha256": "6f93bc6fb3ee2c6d98aba0116ef0078f491aa1e700fa2803847c5b1ef5af2c4f"
+    },
+    {
+      "bytes": 40882,
+      "path": "art-source/six-gen/integration/common/manifest.fragment.json",
+      "sha256": "2aaee45ce7a7b8d8345bd3e817ded16872aee2000c2bbc9fa6783cf99ddf967c"
+    },
+    {
+      "bytes": 45943,
+      "path": "art-source/six-gen/integration/common/provenance.json",
+      "sha256": "305244e8a72dd0510298d437503e9845520852e7274866f019a1ea574637e659"
+    },
+    {
+      "bytes": 57470,
+      "path": "art-source/six-gen/integration/export-recipe.json",
+      "sha256": "4c020ee4046b87fa2a0c6c953ff05d0d339bb63a27bc5e556fce06470843734b"
+    },
+    {
+      "bytes": 32309,
+      "path": "art-source/six-gen/integration/exports/buffer_bulk_back.png",
+      "sha256": "57d83da8c560ba86500548127e8c0aeb6e05b1e0a53eb25b186aeedea0733544"
+    },
+    {
+      "bytes": 12652,
+      "path": "art-source/six-gen/integration/exports/buffer_bulk_front.png",
+      "sha256": "d9f5e700aeec5d26f5d22024bfce0e324192cc7de5389d32c037dfb52d771842"
+    },
+    {
+      "bytes": 41505,
+      "path": "art-source/six-gen/integration/exports/buffer_bulk_large_back.png",
+      "sha256": "9de01ebd4d76b11aa07234f1a05619c4bbde46a3854b6528fb61b177737257d9"
+    },
+    {
+      "bytes": 13348,
+      "path": "art-source/six-gen/integration/exports/buffer_bulk_large_front.png",
+      "sha256": "593fb45ff1f6e1dcfeb2ff9b73fb1aff9ddfa5ccae86853e027ab57c18ec8ef2"
+    },
+    {
+      "bytes": 27720,
+      "path": "art-source/six-gen/integration/exports/buffer_cups_back.png",
+      "sha256": "84e579f3086e9d995b90361567340d32520ba49026c35d1fff2a27c9c9d8673b"
+    },
+    {
+      "bytes": 10212,
+      "path": "art-source/six-gen/integration/exports/buffer_cups_front.png",
+      "sha256": "ea3b37989d131948ec4db9d41e4dd11c11aae1f0851fa6538c00b841578ca2eb"
+    },
+    {
+      "bytes": 44300,
+      "path": "art-source/six-gen/integration/exports/buffer_cups_rack_back.png",
+      "sha256": "4606664af47b10445beae89c55a61247425ae10d4296bbbd4471898049348783"
+    },
+    {
+      "bytes": 13838,
+      "path": "art-source/six-gen/integration/exports/buffer_cups_rack_front.png",
+      "sha256": "1b04d1440b0bea073cd5069e511cbbd361cbc970f5f7b5cebcf934aec4151d0e"
+    },
+    {
+      "bytes": 32515,
+      "path": "art-source/six-gen/integration/exports/conveyor_down_left.png",
+      "sha256": "a38cd1f88712b8174c39a3d28dacdc67ebf70166be4fe6be4d58bed31c4854e0"
+    },
+    {
+      "bytes": 35535,
+      "path": "art-source/six-gen/integration/exports/conveyor_down_right.png",
+      "sha256": "8c39749556a18b055658c240a9034e5eb30be3ede14f59f27403a9683c6ec52b"
+    },
+    {
+      "bytes": 9213,
+      "path": "art-source/six-gen/integration/exports/conveyor_front_left.png",
+      "sha256": "cc8cc657d1e1443becd58da605a9161334501be1e432838c335fa9b911e7351a"
+    },
+    {
+      "bytes": 9720,
+      "path": "art-source/six-gen/integration/exports/conveyor_front_right.png",
+      "sha256": "6b55f87597cb239cea94a42938d5b946b49f3930ad57146f7aa8eb8562c06a2b"
+    },
+    {
+      "bytes": 28220,
+      "path": "art-source/six-gen/integration/exports/conveyor_infeed_back.png",
+      "sha256": "7ff8942480df3a99c8844f2d239403328fd858a4dfca04ab9b7c5c778337c125"
+    },
+    {
+      "bytes": 7955,
+      "path": "art-source/six-gen/integration/exports/conveyor_infeed_front.png",
+      "sha256": "60aa2d7a5100a90ef5e68abfa900595853ddce8351a0d08f0be585303b237be5"
+    },
+    {
+      "bytes": 27534,
+      "path": "art-source/six-gen/integration/exports/conveyor_outfeed_back.png",
+      "sha256": "9f18bf962bbfb0e1c8cbddb7af7e3bd88c69e2b56fe8f3c6414e9c7fe44c68da"
+    },
+    {
+      "bytes": 7464,
+      "path": "art-source/six-gen/integration/exports/conveyor_outfeed_front.png",
+      "sha256": "0fdfdd32e59614db800f0f7ae457fdc7665a8464e13a996b2f1a7d1b076352f1"
+    },
+    {
+      "bytes": 28591,
+      "path": "art-source/six-gen/integration/exports/conveyor_transfer_back.png",
+      "sha256": "62deba97b51c85fc31cbdcc6471fae8862fe723cd255c82a8ae2d008041a5fc3"
+    },
+    {
+      "bytes": 6241,
+      "path": "art-source/six-gen/integration/exports/conveyor_transfer_front.png",
+      "sha256": "5fb4878b5cc408d2482cf4ed4dd487eefcf537fa9194190e4f65db82d2d2c911"
+    },
+    {
+      "bytes": 9158,
+      "path": "art-source/six-gen/integration/exports/factory_door.png",
+      "sha256": "48a8603e8249be0473725b1b8428e9a5718634e03113a83e40ebc9d68a0d2b47"
+    },
+    {
+      "bytes": 30530,
+      "path": "art-source/six-gen/integration/exports/factory_platform_extension.png",
+      "sha256": "b92971f107535979c54c8177f34509aca56a44307d62d53c9711eeaa4e05ccb2"
+    },
+    {
+      "bytes": 72468,
+      "path": "art-source/six-gen/integration/exports/factory_room.png",
+      "sha256": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b"
+    },
+    {
+      "bytes": 47759,
+      "path": "art-source/six-gen/integration/exports/factory_tower_back.png",
+      "sha256": "8167962ee14895107616d1c601545a8615c17aa94543da68cd2ca4d95bf15acd"
+    },
+    {
+      "bytes": 12615,
+      "path": "art-source/six-gen/integration/exports/factory_tower_front.png",
+      "sha256": "4a6d317433bf7aa5240bb18e1bfd7868c52f20e95fb997e174773e612717a136"
+    },
+    {
+      "bytes": 12181,
+      "path": "art-source/six-gen/integration/exports/factory_window.png",
+      "sha256": "47125077d3a1493aefd0241ab0b0e8f63fc3c37b63db48beef78eb38b1c7f6ec"
+    },
+    {
+      "bytes": 3490,
+      "path": "art-source/six-gen/integration/exports/fx_sparkle.png",
+      "sha256": "ca31d4ca018c7b95f76fdbd05db3e3099140fb815d1ac354d194f91d61285c51"
+    },
+    {
+      "bytes": 3486,
+      "path": "art-source/six-gen/integration/exports/fx_steam.png",
+      "sha256": "5abd34480b2abc0452a1b6d7121ec7c5522f4dcd1ddaaadecc22f31891eec586"
+    },
+    {
+      "bytes": 6445,
+      "path": "art-source/six-gen/integration/exports/input_cup_collar.png",
+      "sha256": "fc4fb2ebfca965e1acae54b6dd962d62b069f58cbb50622888fcebe30f4de05a"
+    },
+    {
+      "bytes": 49857,
+      "path": "art-source/six-gen/integration/exports/machine_cup_body.png",
+      "sha256": "3a02528efe200167aff5f9bb496975437e6b0c30c72c8f643e65b72ec18556e1"
+    },
+    {
+      "bytes": 18095,
+      "path": "art-source/six-gen/integration/exports/machine_cup_front.png",
+      "sha256": "7986b14367096ebb2d0efea6cf1f6a434cfa0e1fd3d595449d89072697d1fdbd"
+    },
+    {
+      "bytes": 9181,
+      "path": "art-source/six-gen/integration/exports/machine_cup_head.png",
+      "sha256": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df"
+    },
+    {
+      "bytes": 119518,
+      "path": "art-source/six-gen/integration/exports/machine_cup_hex_body.png",
+      "sha256": "a42dc093e36615d2b30ad57e36d39154992a86b02126c7af6e9d6f98b03baf80"
+    },
+    {
+      "bytes": 98111,
+      "path": "art-source/six-gen/integration/exports/machine_cup_pair_body.png",
+      "sha256": "e0fc91022aabcd67a8602beb1644502b48d1bdcd5e1528c6187f5943f557fab9"
+    },
+    {
+      "bytes": 105449,
+      "path": "art-source/six-gen/integration/exports/machine_cup_quad_body.png",
+      "sha256": "5286e0fcb70aecffb687e7cf2514aadf46f6785f9fa7eb22cf56929f3ca594e2"
+    },
+    {
+      "bytes": 94946,
+      "path": "art-source/six-gen/integration/exports/machine_cup_triple_body.png",
+      "sha256": "d9d91932a750a2acdc68c7ca487e3c3f61be6694b33c43b27119605024fd2fc4"
+    },
+    {
+      "bytes": 49154,
+      "path": "art-source/six-gen/integration/exports/machine_pop_body.png",
+      "sha256": "46d614925b13859a2cf6ecaa2f1904d52564f57eea75f4c6b236ad46da955ec9"
+    },
+    {
+      "bytes": 8144,
+      "path": "art-source/six-gen/integration/exports/machine_pop_double_carrier.png",
+      "sha256": "a5edfd68e69249d4911cf982279ececc9fe96593bc794d2c50eceaa06ea0853c"
+    },
+    {
+      "bytes": 17312,
+      "path": "art-source/six-gen/integration/exports/machine_pop_front.png",
+      "sha256": "e9e9fbfb97cb11294f0352a1cf35773abf63d40f76ffd5cbb89450dc1c3e4261"
+    },
+    {
+      "bytes": 15134,
+      "path": "art-source/six-gen/integration/exports/machine_pop_head.png",
+      "sha256": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b"
+    },
+    {
+      "bytes": 76793,
+      "path": "art-source/six-gen/integration/exports/machine_pop_hex_body.png",
+      "sha256": "597f22b51d4470deff46339fd5475edacee3f95ae0b68064d9e34c79b9b1693a"
+    },
+    {
+      "bytes": 65393,
+      "path": "art-source/six-gen/integration/exports/machine_pop_pair_body.png",
+      "sha256": "06a7a6eac723b764e983b78e53c145e5f576f556921d78b1724dd2d09f088256"
+    },
+    {
+      "bytes": 81647,
+      "path": "art-source/six-gen/integration/exports/machine_pop_quad_body.png",
+      "sha256": "04a393c99633a1931b1d4fa47933a5aea65a1229385b1faacc28f62fe8a702f8"
+    },
+    {
+      "bytes": 14023,
+      "path": "art-source/six-gen/integration/exports/machine_pop_socket_cover.png",
+      "sha256": "7e58f4645e11ad1b470848308a7801d5d3668d096cdf5e36d47f64b489693139"
+    },
+    {
+      "bytes": 44781,
+      "path": "art-source/six-gen/integration/exports/machine_ship_body.png",
+      "sha256": "75e59f3054ac75acb79a49e43a6e85ea19385e5dc20a65396b4fe76afb4c0eed"
+    },
+    {
+      "bytes": 69348,
+      "path": "art-source/six-gen/integration/exports/machine_ship_dual_body.png",
+      "sha256": "c3f19c1520f6b1b8c144960e8c08557dd98947031fd48ac90352441cce6637d7"
+    },
+    {
+      "bytes": 11078,
+      "path": "art-source/six-gen/integration/exports/machine_ship_front.png",
+      "sha256": "7a44040ad62905721baa3f076f26d16abf2600b167336f02183b1b039bf7af9f"
+    },
+    {
+      "bytes": 9936,
+      "path": "art-source/six-gen/integration/exports/machine_ship_head.png",
+      "sha256": "5a46ea13f14e30d353a65d6cb7549b832e9c43bad29f983c24903c6df492f689"
+    },
+    {
+      "bytes": 6926,
+      "path": "art-source/six-gen/integration/exports/machine_ship_lane_cover.png",
+      "sha256": "e4dc00057eb4d03c26ff311dd5c2e785f5fdd207bfb2023df836abc8dce15c42"
+    },
+    {
+      "bytes": 59923,
+      "path": "art-source/six-gen/integration/exports/machine_ship_quad_body.png",
+      "sha256": "6ff32f81c9b5aa8ea042658ac74b487bddafabea3a0fdc64ea5be3a74fde5f1b"
+    },
+    {
+      "bytes": 3701,
+      "path": "art-source/six-gen/integration/exports/product_box_front.png",
+      "sha256": "284ff1bbb4792f07b0da7efb19547d4fe879f3fbc1ba0b5e7f21e85166664cd9"
+    },
+    {
+      "bytes": 4991,
+      "path": "art-source/six-gen/integration/exports/product_box_lid.png",
+      "sha256": "b7803e8551c2d9e304ae62002262e2f813b99050044d145e04f8f214733311b8"
+    },
+    {
+      "bytes": 7275,
+      "path": "art-source/six-gen/integration/exports/product_box_open.png",
+      "sha256": "5bf145d0d22c608406707d0a081e21db8b62953f5e47f44c857fc3fcf747b4a3"
+    },
+    {
+      "bytes": 7141,
+      "path": "art-source/six-gen/integration/exports/product_cup_empty.png",
+      "sha256": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c"
+    },
+    {
+      "bytes": 9604,
+      "path": "art-source/six-gen/integration/exports/product_cup_fill.png",
+      "sha256": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e"
+    },
+    {
+      "bytes": 5889,
+      "path": "art-source/six-gen/integration/exports/product_double_tray.png",
+      "sha256": "3cb7a8f68140280ab2002e4175c167e6d9e3c0b1fa3d183585e73b87ff6fd043"
+    },
+    {
+      "bytes": 3284,
+      "path": "art-source/six-gen/integration/exports/product_kernel_a.png",
+      "sha256": "3222bfbee6806c2a1548055e708b3cbf16160291286110445a98c0b6dcfa033f"
+    },
+    {
+      "bytes": 9324,
+      "path": "art-source/six-gen/integration/exports/product_kernel_b.png",
+      "sha256": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba"
+    },
+    {
+      "bytes": 7583,
+      "path": "art-source/six-gen/integration/exports/transfer_tray_empty.png",
+      "sha256": "084e641091c403623582df4d02a25e0785534e3ac9583a70d564b8204c1c8ff4"
+    },
+    {
+      "bytes": 4113,
+      "path": "art-source/six-gen/integration/exports/ui_badge_complete.png",
+      "sha256": "9ba2108b09b9e6bc60eafe86798babc790b52abfbd63fd9d8eb4d5e71fc60b33"
+    },
+    {
+      "bytes": 5115,
+      "path": "art-source/six-gen/integration/exports/ui_badge_generation.png",
+      "sha256": "d8b9fc59f2956715e8002dbc642df32d3d49dcf8e2f0f310bb834b671a2f456e"
+    },
+    {
+      "bytes": 49591,
+      "path": "art-source/six-gen/integration/exports/ui_button_disabled.png",
+      "sha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445"
+    },
+    {
+      "bytes": 8359,
+      "path": "art-source/six-gen/integration/exports/ui_button_primary.png",
+      "sha256": "7b7c45ead60cab2272bbaf0de246b72d010737d57f2712dcab1bc26c542dafa7"
+    },
+    {
+      "bytes": 7259,
+      "path": "art-source/six-gen/integration/exports/ui_button_secondary.png",
+      "sha256": "230706e334ad1fcf6500b0894f1592734dd6366302efe7d44b9256ce25c4fd59"
+    },
+    {
+      "bytes": 5135,
+      "path": "art-source/six-gen/integration/exports/ui_card.png",
+      "sha256": "08836ca71f95d9fb8f16e973d0873855857660b2f49829b9791fcca91fb503d2"
+    },
+    {
+      "bytes": 4464,
+      "path": "art-source/six-gen/integration/exports/ui_compact_bar.png",
+      "sha256": "e41b791a4226ba7fabb0c942226ed29fbd76c5be309932a7ebfcb09ff25d5a3f"
+    },
+    {
+      "bytes": 6615,
+      "path": "art-source/six-gen/integration/exports/ui_hud_coin.png",
+      "sha256": "5a2a6bfcda297c8a3fa0c295c88f66c5739efa3024c9af02efd669786fc5fdb1"
+    },
+    {
+      "bytes": 8613,
+      "path": "art-source/six-gen/integration/exports/ui_hud_rate.png",
+      "sha256": "b6610fdd6277fbf117bb78e88ed12aa67550849d540cdfe132b49fca5875e27b"
+    },
+    {
+      "bytes": 2283,
+      "path": "art-source/six-gen/integration/exports/ui_icon_arrow.png",
+      "sha256": "e64c6254ad4b1fd62083a5b88c052c1b652456bde01c339a97e693fe429ffe01"
+    },
+    {
+      "bytes": 3959,
+      "path": "art-source/six-gen/integration/exports/ui_icon_automation.png",
+      "sha256": "6c2b93248ec6f63388d87639d8d8b997714d3b818f81fe8440078953d7be15d8"
+    },
+    {
+      "bytes": 2474,
+      "path": "art-source/six-gen/integration/exports/ui_icon_check.png",
+      "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29"
+    },
+    {
+      "bytes": 4003,
+      "path": "art-source/six-gen/integration/exports/ui_icon_close.png",
+      "sha256": "240f77bbef95050934b2c4e8f16a01a42109e37d206fa99fe869d9b9d51dc02e"
+    },
+    {
+      "bytes": 5870,
+      "path": "art-source/six-gen/integration/exports/ui_icon_coin.png",
+      "sha256": "895e94920c8635024ef4d475211b043645181409ace9c26de1e155f48625cf2e"
+    },
+    {
+      "bytes": 4619,
+      "path": "art-source/six-gen/integration/exports/ui_icon_cup.png",
+      "sha256": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588"
+    },
+    {
+      "bytes": 3013,
+      "path": "art-source/six-gen/integration/exports/ui_icon_expand.png",
+      "sha256": "78394bb247d54abe938fe1ec6c50587ac3f5fe9a7d701faefbeacd42ee84134f"
+    },
+    {
+      "bytes": 4092,
+      "path": "art-source/six-gen/integration/exports/ui_icon_lock.png",
+      "sha256": "37debc223f1f340f1cbcac149ca47834d16723475280ab3e2c7e7eb62450f26a"
+    },
+    {
+      "bytes": 5757,
+      "path": "art-source/six-gen/integration/exports/ui_icon_pop.png",
+      "sha256": "61fa4ef628a20576702f3f46bc08beef8e277e658083179b124bd0ffdc33c534"
+    },
+    {
+      "bytes": 4609,
+      "path": "art-source/six-gen/integration/exports/ui_icon_settings.png",
+      "sha256": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91"
+    },
+    {
+      "bytes": 3484,
+      "path": "art-source/six-gen/integration/exports/ui_icon_ship_speed.png",
+      "sha256": "eff884ce4f47763eb42f3f16525dcb54b757acb171df97ab7675d59732f2c5aa"
+    },
+    {
+      "bytes": 4628,
+      "path": "art-source/six-gen/integration/exports/ui_icon_ship.png",
+      "sha256": "249c9c1bc108fb0a0c563ec42164cb5b711c1facc05bc9d6be48401f8ea12ad4"
+    },
+    {
+      "bytes": 3576,
+      "path": "art-source/six-gen/integration/exports/ui_icon_sound.png",
+      "sha256": "b66c6bdc97a2d7b9dc5554d576e3c8ebd36509a820f2e5f2af73357570d67937"
+    },
+    {
+      "bytes": 3853,
+      "path": "art-source/six-gen/integration/exports/ui_icon_upgrade.png",
+      "sha256": "5eef57d2ea6169d76e999e0abf324d56e8ed4bdee419ab0a1ac5bff549c1a121"
+    },
+    {
+      "bytes": 3346,
+      "path": "art-source/six-gen/integration/exports/ui_icon_vibration.png",
+      "sha256": "9534b06d54e345f2346383800c8e581c118bbceefa07b135faf7ef434d948953"
+    },
+    {
+      "bytes": 4529,
+      "path": "art-source/six-gen/integration/exports/ui_icon_wait.png",
+      "sha256": "5f20c451b46d0fe5685947be358b907c3dca6968ad9989b5d73ed915a5ec9541"
+    },
+    {
+      "bytes": 4124,
+      "path": "art-source/six-gen/integration/exports/ui_icon_warning.png",
+      "sha256": "6231b87afb47f50c48dc4f68ca4301f890a36e0b0588d0f80bee27cb21b29424"
+    },
+    {
+      "bytes": 8219,
+      "path": "art-source/six-gen/integration/exports/ui_panel.png",
+      "sha256": "6f93bc6fb3ee2c6d98aba0116ef0078f491aa1e700fa2803847c5b1ef5af2c4f"
+    },
+    {
+      "bytes": 13908,
+      "path": "art-source/six-gen/integration/generation-configurations.json",
+      "sha256": "aca2530eddc44845464fc8969b4e12975ee23ca2f26184f97287a0488979ff4d"
+    },
+    {
+      "bytes": 58804,
+      "path": "art-source/six-gen/integration/manifest.json",
+      "sha256": "05422d772e30c1272d3a785b8fc05ecd84007f9a09d67bdd8d6b854f4ae2e06f"
+    },
+    {
+      "bytes": 57510,
+      "path": "art-source/six-gen/integration/provenance.json",
+      "sha256": "36024c919ea93254feb26b43277b0017c063f2a23012cf466e6b7d15f70f6e8c"
+    },
+    {
+      "bytes": 7028,
+      "path": "art-source/six-gen/logistics/assembly.json",
+      "sha256": "fd3e85b3cd6943bcf528766f033a4bdc427128f08c2734336342357f8870327f"
+    },
+    {
+      "bytes": 799,
+      "path": "art-source/six-gen/logistics/buffer_bulk_large_back.export.json",
+      "sha256": "45fb8f7e3276b2849f0aab53fb475f11335331a70882a0c7086da158e844fd72"
+    },
+    {
+      "bytes": 179537,
+      "path": "art-source/six-gen/logistics/buffer_bulk_large_back.three-backgrounds.png",
+      "sha256": "c6e2f94bcc257ba2a5106db53014021a96d6af3256ab9f4b970c826b0a2bcc42"
+    },
+    {
+      "bytes": 802,
+      "path": "art-source/six-gen/logistics/buffer_bulk_large_front.export.json",
+      "sha256": "6883207527e46a8d61e54e0420bf7b9b6d89a1eddd4e40f5f1f48a865031f665"
+    },
+    {
+      "bytes": 92016,
+      "path": "art-source/six-gen/logistics/buffer_bulk_large_front.three-backgrounds.png",
+      "sha256": "9db2121372add5bb94f2235a92e48b1427d1301b91ffd5628b31540ef04850bd"
+    },
+    {
+      "bytes": 796,
+      "path": "art-source/six-gen/logistics/buffer_cups_rack_back.export.json",
+      "sha256": "e2e190f1632df9e615491ff648d8243895e68468791010c361fc64961bf24ac1"
+    },
+    {
+      "bytes": 177777,
+      "path": "art-source/six-gen/logistics/buffer_cups_rack_back.three-backgrounds.png",
+      "sha256": "defea89a14fd237ba859b1fb057e93e352f9048405bf11d4ba34e7d344dfa261"
+    },
+    {
+      "bytes": 1751,
+      "path": "art-source/six-gen/logistics/buffer_cups_rack_front.export.json",
+      "sha256": "6dc3fa32acdd61912114eae2eaa21f76b7757b2a11c3a31f3ff15fab14dbb1ff"
+    },
+    {
+      "bytes": 6957,
+      "path": "art-source/six-gen/logistics/export-recipe.json",
+      "sha256": "88c5f58dde02a6031067daf7a50a4a18fe025a8785217c57c910d5851856016a"
+    },
+    {
+      "bytes": 52927,
+      "path": "art-source/six-gen/logistics/exports/buffer_bulk_large_back.png",
+      "sha256": "a7d36fb31336c5d9b783ad2531f96b07b85e5fffbe3b22f2abedf8ea64d8cff8"
+    },
+    {
+      "bytes": 17706,
+      "path": "art-source/six-gen/logistics/exports/buffer_bulk_large_front.png",
+      "sha256": "57dec617f3cb96a04007fad2758ec3f19b510518d0649e020d19d35cea3d7a44"
+    },
+    {
+      "bytes": 55353,
+      "path": "art-source/six-gen/logistics/exports/buffer_cups_rack_back.png",
+      "sha256": "96fdbfd3cedd4acf378936b44591b72014f4447dea78b8e649b67aef70d7de2d"
+    },
+    {
+      "bytes": 15168,
+      "path": "art-source/six-gen/logistics/exports/buffer_cups_rack_front.png",
+      "sha256": "6e3a14e04003e6675e0a19b00244d730d1b789349ce28dc751ba4ccb21d555a6"
+    },
+    {
+      "bytes": 7276,
+      "path": "art-source/six-gen/logistics/exports/input_cup_collar.png",
+      "sha256": "94eb0fc905daaa8de0f80af61366366fd916d8ba59c68c1ee8e6253d5eadd807"
+    },
+    {
+      "bytes": 9394,
+      "path": "art-source/six-gen/logistics/exports/transfer_tray_empty.png",
+      "sha256": "00b4fec8ee794665b60f15730453abcb92e597c5f9ec9fd86f9a893d8542502a"
+    },
+    {
+      "bytes": 5215,
+      "path": "art-source/six-gen/logistics/generated-prompts.jsonl",
+      "sha256": "e082ffdf608a92c8a1839f544e6a31f8d3aed912ec80cc72b1dafef08ebe198b"
+    },
+    {
+      "bytes": 340,
+      "path": "art-source/six-gen/logistics/HANDOFF.md",
+      "sha256": "857f169b86241ddb73e384d28a92991e428cccb6a0753636283b5fcc569b979d"
+    },
+    {
+      "bytes": 779,
+      "path": "art-source/six-gen/logistics/input_cup_collar.export.json",
+      "sha256": "784f92a2a5b5466d4316e8f6f5bc2e45e92c7002ad1c770c5c10f0a4715d7285"
+    },
+    {
+      "bytes": 136006,
+      "path": "art-source/six-gen/logistics/input_cup_collar.three-backgrounds.png",
+      "sha256": "e8f7e2f8b9d2ef9bfe935088630a04a3854cc2d157485e78bff21a593666341e"
+    },
+    {
+      "bytes": 4079,
+      "path": "art-source/six-gen/logistics/manifest.fragment.json",
+      "sha256": "0f0452de5333a9bb58ac481d31461d6f33b9f165957788b5486161b5b7062ff5"
+    },
+    {
+      "bytes": 2020,
+      "path": "art-source/six-gen/logistics/prompts.jsonl",
+      "sha256": "efbcd35543f7afd77794f5a7857517ce8046807e70d11ecb7acbd72115f0d0a3"
+    },
+    {
+      "bytes": 2507,
+      "path": "art-source/six-gen/logistics/provenance.json",
+      "sha256": "6833cb08b84814890f8e28704f97c722d98f88037b4c1ef5a29870d4df0a1899"
+    },
+    {
+      "bytes": 660,
+      "path": "art-source/six-gen/logistics/qa-report.json",
+      "sha256": "a359ea5302ac11ffd81ca54ba7dc9bb873f1a70ac5b82cf4fc89779f35c46d19"
+    },
+    {
+      "bytes": 1127232,
+      "path": "art-source/six-gen/logistics/sources/buffer_bulk_large_back.png",
+      "sha256": "24630b328591c85fb95f4a0e7fa81e31ec320b4cd31def61c01eb96a2ede7067"
+    },
+    {
+      "bytes": 599412,
+      "path": "art-source/six-gen/logistics/sources/buffer_bulk_large_front.png",
+      "sha256": "33d0ddfdd4271327bce666401a15669f33196123a449a1a7f60856bff6eb3a3a"
+    },
+    {
+      "bytes": 977201,
+      "path": "art-source/six-gen/logistics/sources/buffer_cups_rack_back.png",
+      "sha256": "592b5cd07dc4819ccfb5a6525e6e4586283dfae3b9a0b6ab50c3a146a07dfa64"
+    },
+    {
+      "bytes": 756102,
+      "path": "art-source/six-gen/logistics/sources/input_cup_collar.png",
+      "sha256": "911f46b00d0fe8f117f375aefabbc2efb1fad12b18e727f4759b1b87c54c0a75"
+    },
+    {
+      "bytes": 1721642,
+      "path": "art-source/six-gen/logistics/sources/transfer_tray_empty_v1_rejected.png",
+      "sha256": "5701b5227ebf63f0eb85b8c63cb3d01e8c8e4e7343eee504127061a06dcfbd2e"
+    },
+    {
+      "bytes": 1074893,
+      "path": "art-source/six-gen/logistics/sources/transfer_tray_empty.png",
+      "sha256": "417e3bfeed974b01c5ab414bb7635b399006dd223a3b161e453244504e1e7eea"
+    },
+    {
+      "bytes": 788,
+      "path": "art-source/six-gen/logistics/transfer_tray_empty.export.json",
+      "sha256": "940a717b04099fb9364c34bf2904464296806bf7ca946daf41e4f651714df74a"
+    },
+    {
+      "bytes": 150986,
+      "path": "art-source/six-gen/logistics/transfer_tray_empty.three-backgrounds.png",
+      "sha256": "29887bb8dd19c5b5b270b43f052c57262921f318412d108511710c78d81a6c5e"
+    },
+    {
+      "bytes": 1448,
+      "path": "art-source/six-gen/pop/alpha-contact.ps1",
+      "sha256": "492eb06c9fa49ae9fe57da87cb4be512aa24c19e6834f416c40db774c7761c98"
+    },
+    {
+      "bytes": 995817,
+      "path": "art-source/six-gen/pop/alpha-three-backgrounds.png",
+      "sha256": "28ce666bff6b94c14c61c690c2f26e6e24236761c6e01bf643f8b1eba5a223b8"
+    },
+    {
+      "bytes": 45510,
+      "path": "art-source/six-gen/pop/assembly.json",
+      "sha256": "c5a2de91e4e9a8344d5af620da1dda5c4f6304f934740f25dd58ac3b3a4d0886"
+    },
+    {
+      "bytes": 5253,
+      "path": "art-source/six-gen/pop/build-metadata.ps1",
+      "sha256": "f3e3f0063b1db7e51f5997f0c52317bbf57c757258006d0b1a42ca513dd88f15"
+    },
+    {
+      "bytes": 3718,
+      "path": "art-source/six-gen/pop/export-assets.ps1",
+      "sha256": "701c8e4a84856884d4448ceadc14d953cdc45b580b73793766e70594915c8805"
+    },
+    {
+      "bytes": 10468,
+      "path": "art-source/six-gen/pop/export-recipe.json",
+      "sha256": "6734f0002e22d6b020db2971f00dff13d187bc1d4ac8730dfdba9199e79614e9"
+    },
+    {
+      "bytes": 26439,
+      "path": "art-source/six-gen/pop/exports/machine_pop_double_carrier.png",
+      "sha256": "52ffe39212286cdda8c59245b1f177d6256f45d57a0f26710cb42afe04ca9a11"
+    },
+    {
+      "bytes": 358156,
+      "path": "art-source/six-gen/pop/exports/machine_pop_hex_body.png",
+      "sha256": "61b349d85ba30c731d6878793dc47cf15090cb485f00d1d7c2a386e1ac5b3aa5"
+    },
+    {
+      "bytes": 301402,
+      "path": "art-source/six-gen/pop/exports/machine_pop_pair_body.png",
+      "sha256": "ae3fa7a5d729dc36781702600a371af2ff7632dfa0806d1aa9e53c27bb1fe91d"
+    },
+    {
+      "bytes": 375811,
+      "path": "art-source/six-gen/pop/exports/machine_pop_quad_body.png",
+      "sha256": "fdcc63dd76c5e3e75fac1469626aa1d5135f820ccd2a0cc050447c74b17f1116"
+    },
+    {
+      "bytes": 43597,
+      "path": "art-source/six-gen/pop/exports/machine_pop_socket_cover.png",
+      "sha256": "fbf415ce2677b28e844dac0e9f036c88da89453a688702686d2f5c74f758eef0"
+    },
+    {
+      "bytes": 2597,
+      "path": "art-source/six-gen/pop/HANDOFF.md",
+      "sha256": "b260c658f2d0044eb91c7996b8434942b216e32902d9807221ad9e90f92ae83f"
+    },
+    {
+      "bytes": 4093,
+      "path": "art-source/six-gen/pop/manifest.fragment.json",
+      "sha256": "5ff21b662389f71b4bc53d9e25d28d69f11c1bb36972011557a001abd4163687"
+    },
+    {
+      "bytes": 548884,
+      "path": "art-source/six-gen/pop/pair-head-reuse-preview.png",
+      "sha256": "2cf2916f0e5196d9e4116c76001f46822a2381d495e36683ef49ffb12d1104d2"
+    },
+    {
+      "bytes": 398793,
+      "path": "art-source/six-gen/pop/pair-three-backgrounds.png",
+      "sha256": "e6f47841d112beab94159882ad4edac7455496b75cd81d18f8c24bdc4ac3fa3d"
+    },
+    {
+      "bytes": 642415,
+      "path": "art-source/six-gen/pop/pop_hex-rig-preview.png",
+      "sha256": "9bfd38ee594801628afac002625f1eaeb897926c7816b1a57e56a7ed4c159006"
+    },
+    {
+      "bytes": 487582,
+      "path": "art-source/six-gen/pop/pop_pair-rig-preview.png",
+      "sha256": "42e432f8c244714021d668c0b8ff6e89d1772735128a7c00abe3cd227894f473"
+    },
+    {
+      "bytes": 662587,
+      "path": "art-source/six-gen/pop/pop_quad-rig-preview.png",
+      "sha256": "eb3a95295fbf77ffb83b864076facf25eb00cb5eb62d0078b31f5a9182add41d"
+    },
+    {
+      "bytes": 11365,
+      "path": "art-source/six-gen/pop/prompts.jsonl",
+      "sha256": "b867258773c1a14533a280195cb8205dc527a99b3907aed61239d2172bfe25a7"
+    },
+    {
+      "bytes": 10456,
+      "path": "art-source/six-gen/pop/provenance.json",
+      "sha256": "a2d07645dc85535f17d9e8a6dfb4899f95d71c11427f5ba1e465d25734d36fbc"
+    },
+    {
+      "bytes": 4549,
+      "path": "art-source/six-gen/pop/qa-report.json",
+      "sha256": "de71c8b73fc6b5aefa3f9cde4c7a3fdc5e88a1759ef0288018ae65255e823255"
+    },
+    {
+      "bytes": 1935,
+      "path": "art-source/six-gen/pop/rig-preview.ps1",
+      "sha256": "61968f2093a519f8c52cefc8b9b76ae59453583ee7b210ceb35744e59c583122"
+    },
+    {
+      "bytes": 1430,
+      "path": "art-source/six-gen/pop/sample-preview.ps1",
+      "sha256": "87696d648e160fa199cb0c086d3a2166c20f5b580561cdbc049effb4c718e880"
+    },
+    {
+      "bytes": 1397921,
+      "path": "art-source/six-gen/pop/sources/machine_pop_double_carrier.png",
+      "sha256": "f8f360698ac78569278f15a0a5dbb25f13338243309ec23ada782e64851236bf"
+    },
+    {
+      "bytes": 1757301,
+      "path": "art-source/six-gen/pop/sources/machine_pop_hex_body.png",
+      "sha256": "4782231729de1307426c95a5bb823e0a8a05314fc185da5b600c37298c363e97"
+    },
+    {
+      "bytes": 1629046,
+      "path": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+      "sha256": "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73"
+    },
+    {
+      "bytes": 1753574,
+      "path": "art-source/six-gen/pop/sources/machine_pop_quad_body.png",
+      "sha256": "0f1f3b042323a1a006cbc70dec7530189d74f2cc89369c667f4e136c8b6cb4db"
+    },
+    {
+      "bytes": 1467175,
+      "path": "art-source/six-gen/pop/sources/machine_pop_socket_cover.png",
+      "sha256": "f90b10b03c7eed44823c7f2d65a94638997bb12733906131fffeeb410ac6da3e"
+    },
+    {
+      "bytes": 1879270,
+      "path": "art-source/six-gen/pop/sources/rejected/machine_pop_quad_body_attempt1.png",
+      "sha256": "926a9e844326e1890e8d82b89d3bef5be547e73f322eadcfe2f02d674473ea6d"
+    },
+    {
+      "bytes": 1928642,
+      "path": "art-source/six-gen/pop/sources/rejected/machine_pop_quad_body_attempt2.png",
+      "sha256": "0e7b0ced85ab8167c6f6c361f1ea91fb0a06aef821c10ec80db83d97a1ad1a33"
+    },
+    {
+      "bytes": 13710,
+      "path": "art-source/six-gen/qa/audit-baseline.cjs",
+      "sha256": "fd3209985655b9fb0ea54399da43fbf7932bd26af446ee6c42a504391cbab17a"
+    },
+    {
+      "bytes": 82549,
+      "path": "art-source/six-gen/qa/baseline-report.json",
+      "sha256": "86cd0bb2b21e7a4283a22c3a0661a12d411b2abb362bb9a6574e1a0daf20e60a"
+    },
+    {
+      "bytes": 8783,
+      "path": "art-source/six-gen/qa/baseline-report.md",
+      "sha256": "eb0736a69081536e898041336237ca8cc5d6cd9ffa6348beaa46125df083997e"
+    },
+    {
+      "bytes": 4443,
+      "path": "art-source/six-gen/qa/build-final-overviews.cjs",
+      "sha256": "26318ebb625a9188a0c1373e3207a150c048c71ed0d950a6a5c1aad35478e9b1"
+    },
+    {
+      "bytes": 5760,
+      "path": "art-source/six-gen/qa/compression-experiment.cjs",
+      "sha256": "d424e0ff87219b9aceb4c838db02306ce50b211fb8c4e243acd173b30481470a"
+    },
+    {
+      "bytes": 64764,
+      "path": "art-source/six-gen/qa/compression-report.json",
+      "sha256": "ea9d93e3f5e15559c2ccc6c6d4d6d5824c6a6b873614ef999efccaa8ea41812a"
+    },
+    {
+      "bytes": 1127,
+      "path": "art-source/six-gen/qa/compression-report.md",
+      "sha256": "735fe52f7bfc1572a7c7165a2c29f263617fa963de0eac19cec5b54d3aa2b390"
+    },
+    {
+      "bytes": 2314,
+      "path": "art-source/six-gen/qa/FINAL_INDEPENDENT_REVIEW.md",
+      "sha256": "44d5c905f84f4353bf22f5d3984ff69288441bb1bfb51fb09b15888a91ff0c0b"
+    },
+    {
+      "bytes": 16926,
+      "path": "art-source/six-gen/qa/final-independent-review.json",
+      "sha256": "e893f50d1562817e23f5892e8dbc8c67c9570da26f5b037a42ab91ac800f9772"
+    },
+    {
+      "bytes": 2830,
+      "path": "art-source/six-gen/qa/GATE1_PREVIEW_REVIEW.md",
+      "sha256": "6fede80994d4318adbca5771d14bbbbdc8cfb278f964973efb73f4d8015c7a32"
+    },
+    {
+      "bytes": 1611,
+      "path": "art-source/six-gen/qa/GEOMETRY_REVIEW.md",
+      "sha256": "a4a39da2419d2efa859da88619922760b00e2b93a6452595c44bd0ab46eedfb6"
+    },
+    {
+      "bytes": 4817,
+      "path": "art-source/six-gen/qa/geometry-review-template.json",
+      "sha256": "d9ea23708836909f32b95378daa87037a79d7f4b4898f7aedc8edc2bc5afcb3a"
+    },
+    {
+      "bytes": 920,
+      "path": "art-source/six-gen/qa/interaction-scope-not-run.json",
+      "sha256": "1d05a07404b3220bc617478328a6cefac2be3da5fc164d9a7bccf786249de87a"
+    },
+    {
+      "bytes": 30034,
+      "path": "art-source/six-gen/qa/machine-state-fixtures.json",
+      "sha256": "8c3a97540fc37222de2263c8ca8a5e0211b7afbc9e75a2f10a00d6eb27ab6a90"
+    },
+    {
+      "bytes": 9801,
+      "path": "art-source/six-gen/qa/mixed-and-batch-fixtures.json",
+      "sha256": "e097b37bdb2b4f23295db44ffc3cfb67f8188b54a198b2bf01d8c1a27e4b153c"
+    },
+    {
+      "bytes": 21567,
+      "path": "art-source/six-gen/qa/previews/asset-overview-dark.json",
+      "sha256": "c307f9dc9451f3a39952274db18211d5fc5ba7ff0136612a4df16ecfc17837de"
+    },
+    {
+      "bytes": 1750315,
+      "path": "art-source/six-gen/qa/previews/asset-overview-dark.png",
+      "sha256": "c5098e31f9563c7aca245ee67ac60e852e47b1e0bee3015805860a891a7b510d"
+    },
+    {
+      "bytes": 21569,
+      "path": "art-source/six-gen/qa/previews/asset-overview-light.json",
+      "sha256": "34882d4ea89592ff80b42e4158d92f9555d9a200cb3301e12482c4f2ebc7883c"
+    },
+    {
+      "bytes": 1770873,
+      "path": "art-source/six-gen/qa/previews/asset-overview-light.png",
+      "sha256": "7e5be15910ef3067ed59b3ee0b0e60a5680041a3af6be85c276ac2ac421b3865"
+    },
+    {
+      "bytes": 10450,
+      "path": "art-source/six-gen/qa/previews/g01-entry-320x524.json",
+      "sha256": "07658f435c4d1237e28f622938354fa33f410e1c43beb3012b19ba14159b913d"
+    },
+    {
+      "bytes": 103329,
+      "path": "art-source/six-gen/qa/previews/g01-entry-320x524.png",
+      "sha256": "c6c496bd02be48b1ec500534dccaeb2afe2f01fb3a840cde2fc2a73d9dcba614"
+    },
+    {
+      "bytes": 10437,
+      "path": "art-source/six-gen/qa/previews/g01-entry-390x844.json",
+      "sha256": "00d446cef4f2c896e31fe1af0f47f8c6cbf76b3ed32ca95e5c36868c88dcd2e0"
+    },
+    {
+      "bytes": 231518,
+      "path": "art-source/six-gen/qa/previews/g01-entry-390x844.png",
+      "sha256": "6743bd7c6815504dc37d4ce273d63d6cd6490c57ed68e36e4162f131876865f1"
+    },
+    {
+      "bytes": 8592,
+      "path": "art-source/six-gen/qa/previews/g01-four-connections-contact.json",
+      "sha256": "9e408406684d7e88cd64634ba9a6eb2f9684399061c044ead5c01171bf9a5515"
+    },
+    {
+      "bytes": 154172,
+      "path": "art-source/six-gen/qa/previews/g01-four-connections-contact.png",
+      "sha256": "79c34958614106ba7c0ce749a5c59575e5705d692c5078afa5efdc48dcfd3158"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g01-four-view-review.json",
+      "sha256": "354ba30a60553a073cb2187f279a5d442319f983523f3b6b4a841c642c349e5c"
+    },
+    {
+      "bytes": 391100,
+      "path": "art-source/six-gen/qa/previews/g01-four-view-review.png",
+      "sha256": "5e38aa2fb47dfe0753a7d7807abacaa0bd630dcbd9d912fd7d145a6ca7146404"
+    },
+    {
+      "bytes": 1962,
+      "path": "art-source/six-gen/qa/previews/g01-transfer-4-24-36-contact.json",
+      "sha256": "9444d676ccbcb5ab85dcde85626ba252f7c17fee1917e83cb7bbbf020aa1362c"
+    },
+    {
+      "bytes": 68423,
+      "path": "art-source/six-gen/qa/previews/g01-transfer-4-24-36-contact.png",
+      "sha256": "49490b8e08ed8b005163be69fc10e08dbd18b66d364bdc85a50c904ba9c0676b"
+    },
+    {
+      "bytes": 7653,
+      "path": "art-source/six-gen/qa/previews/g01-trial-before-after-contact.json",
+      "sha256": "aec43ebabd03179de6d23b5880a958629cb7903ba863cef0d6d72b77171ebb4a"
+    },
+    {
+      "bytes": 130097,
+      "path": "art-source/six-gen/qa/previews/g01-trial-before-after-contact.png",
+      "sha256": "4aa3d127772a1a66337677788bd8ecd39f37bb398a572058dab75da014a4994e"
+    },
+    {
+      "bytes": 10406,
+      "path": "art-source/six-gen/qa/previews/g01-upgraded-320x524.json",
+      "sha256": "8e3ffac169d5779a02e8842f6d6333441ed78c70647875597b1d0d0bb6ba4a34"
+    },
+    {
+      "bytes": 103450,
+      "path": "art-source/six-gen/qa/previews/g01-upgraded-320x524.png",
+      "sha256": "69eed8d406df8a665ac4d946ae86e44bb43e45aa1c4a9281aeafa93d2d0812f1"
+    },
+    {
+      "bytes": 10393,
+      "path": "art-source/six-gen/qa/previews/g01-upgraded-390x844.json",
+      "sha256": "c4534074580b783354cd90649b1e617e6b903c6ec123c8ab937cfa32aa155374"
+    },
+    {
+      "bytes": 231638,
+      "path": "art-source/six-gen/qa/previews/g01-upgraded-390x844.png",
+      "sha256": "037c756c6e3b5384976fd9fa41f317a43b0463b3c33b7ab2b1c96e8614db4406"
+    },
+    {
+      "bytes": 11592,
+      "path": "art-source/six-gen/qa/previews/g02-entry-320x524.json",
+      "sha256": "4a7305dd6f2124dc74eb02ea2781135910cb2dab025dcc3230f49babd7ab49e9"
+    },
+    {
+      "bytes": 100801,
+      "path": "art-source/six-gen/qa/previews/g02-entry-320x524.png",
+      "sha256": "e46c0c2a715f2e973db8e0a15c2b6c080d1024bc08f51119e999b85a001a1823"
+    },
+    {
+      "bytes": 11585,
+      "path": "art-source/six-gen/qa/previews/g02-entry-390x844.json",
+      "sha256": "979077967b89a9fb5d9a787cb81fdb23d4f9b1a02b5534ef58a32c32ce55a080"
+    },
+    {
+      "bytes": 176786,
+      "path": "art-source/six-gen/qa/previews/g02-entry-390x844.png",
+      "sha256": "1a6a3687cf2fc720120b8605ae132b18aad8d0e652fb43d5c82e7a4de30f27ea"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g02-four-view-review.json",
+      "sha256": "9b796aa1000f610b8a6f9a29a1d1e248eae4babe821c15932e93719a4d39c025"
+    },
+    {
+      "bytes": 346154,
+      "path": "art-source/six-gen/qa/previews/g02-four-view-review.png",
+      "sha256": "ec201362894016968ed96826a91927ecd87dcf1c8414cf2473b116dc6fd96fcd"
+    },
+    {
+      "bytes": 11538,
+      "path": "art-source/six-gen/qa/previews/g02-upgraded-320x524.json",
+      "sha256": "0a93c06548ee86ca738eb8d5e6b79bec7e2dfd27464c9f5023ae4ab1ee891596"
+    },
+    {
+      "bytes": 102829,
+      "path": "art-source/six-gen/qa/previews/g02-upgraded-320x524.png",
+      "sha256": "cdd6214fe6c5792256ba1b012278eee7d057f7f047fb6dd2fdd2e69d60acb5cc"
+    },
+    {
+      "bytes": 11531,
+      "path": "art-source/six-gen/qa/previews/g02-upgraded-390x844.json",
+      "sha256": "6024fc19a51b955304f1553adb5a1e5054b156baf0ed42c4abf756d0eba2da34"
+    },
+    {
+      "bytes": 180303,
+      "path": "art-source/six-gen/qa/previews/g02-upgraded-390x844.png",
+      "sha256": "8cce01d52dac36a1b22cecdf1f2dbf613bd359467bdee812d9bfd5d6d725d65b"
+    },
+    {
+      "bytes": 12000,
+      "path": "art-source/six-gen/qa/previews/g03-entry-320x524.json",
+      "sha256": "573a6c6c6b09d5e8629b9b1383804bcc293fddbbc20a3078bdd22df200641d96"
+    },
+    {
+      "bytes": 97092,
+      "path": "art-source/six-gen/qa/previews/g03-entry-320x524.png",
+      "sha256": "f814ef4f5ce043bf7ef6cadbea6573c24c1d27ef909c0674a6abb316b699bae3"
+    },
+    {
+      "bytes": 12009,
+      "path": "art-source/six-gen/qa/previews/g03-entry-390x844.json",
+      "sha256": "9d65a66a26e69543eae458f13aac58bb269f34d3cac22731c27198c158280da2"
+    },
+    {
+      "bytes": 228899,
+      "path": "art-source/six-gen/qa/previews/g03-entry-390x844.png",
+      "sha256": "8f0fe0a1fd0b316d1ce63dba26833aaf20c8acf9d468eab8e34e3ec14fa8a6bb"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g03-four-view-review.json",
+      "sha256": "c8f4d205939ec7efb280b189fba6dff1f440dcfa8ab509b21319b473e5fd9cea"
+    },
+    {
+      "bytes": 385841,
+      "path": "art-source/six-gen/qa/previews/g03-four-view-review.png",
+      "sha256": "51373223c648566ad59605fdffa8c78a278831d7062d2a3aaa0729f275ed27ce"
+    },
+    {
+      "bytes": 11737,
+      "path": "art-source/six-gen/qa/previews/g03-upgraded-320x524.json",
+      "sha256": "175ad006d6823eeca9973dbefd3dc796c86ad9bdf281a7e4021db3885d4dc880"
+    },
+    {
+      "bytes": 97456,
+      "path": "art-source/six-gen/qa/previews/g03-upgraded-320x524.png",
+      "sha256": "66b098e719ab5f6ed23c71df72787ae4365bfdcb4882ab98cfedb9905cd43aba"
+    },
+    {
+      "bytes": 11746,
+      "path": "art-source/six-gen/qa/previews/g03-upgraded-390x844.json",
+      "sha256": "e7f9d72044e5e637e077e02b2f7f451a6aa29d148961dcdc3cf6935864f7654d"
+    },
+    {
+      "bytes": 229947,
+      "path": "art-source/six-gen/qa/previews/g03-upgraded-390x844.png",
+      "sha256": "fe39f97857f395a481dfc97046beabdcc1d4e4dfb3b4ac2e54965f1491676096"
+    },
+    {
+      "bytes": 12011,
+      "path": "art-source/six-gen/qa/previews/g04-entry-320x524.json",
+      "sha256": "a65a8e42bf3d0cf2f28bf6b39698e925a40ef167062b9695eaf2ab2162ac2fb7"
+    },
+    {
+      "bytes": 98026,
+      "path": "art-source/six-gen/qa/previews/g04-entry-320x524.png",
+      "sha256": "6894dfdf42d3b2027aa85644886fd35bb6d27a579cdccbca0d86d5df6a341552"
+    },
+    {
+      "bytes": 11984,
+      "path": "art-source/six-gen/qa/previews/g04-entry-390x844.json",
+      "sha256": "34a6f72a5a03539f71480cf09384ffa7b0b4cc9745b4f98b810791ad56b8ce9e"
+    },
+    {
+      "bytes": 210125,
+      "path": "art-source/six-gen/qa/previews/g04-entry-390x844.png",
+      "sha256": "24b72c344db7603fed331219977dd284e73605068c0628092463f4e34718e1ea"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g04-four-view-review.json",
+      "sha256": "9d22c4528eeaa5ecb491e6e2c39610403ddffec29c0b28e84a33cf3d51c58690"
+    },
+    {
+      "bytes": 390684,
+      "path": "art-source/six-gen/qa/previews/g04-four-view-review.png",
+      "sha256": "d1ef5deb885f7dfb03c87c8a3912d1815e9131a315d00ffe5d9d02bb865e63fc"
+    },
+    {
+      "bytes": 11947,
+      "path": "art-source/six-gen/qa/previews/g04-upgraded-320x524.json",
+      "sha256": "89d1d3805347202d51006fa0a5103ee65c000d256bcaf75047a77db08922c59c"
+    },
+    {
+      "bytes": 98924,
+      "path": "art-source/six-gen/qa/previews/g04-upgraded-320x524.png",
+      "sha256": "763ec2156072b06762bbd1ed4d935dd1d36b213eb49a253b18f889d07c05e36f"
+    },
+    {
+      "bytes": 11920,
+      "path": "art-source/six-gen/qa/previews/g04-upgraded-390x844.json",
+      "sha256": "7fde133c39b427b124ea22d01c7e02540098f406e5c58669abcc097ba4c8d666"
+    },
+    {
+      "bytes": 212541,
+      "path": "art-source/six-gen/qa/previews/g04-upgraded-390x844.png",
+      "sha256": "007b1dceb77e454fa723b0359291f706714ca1202623a90b7f8c450fcd64a5e2"
+    },
+    {
+      "bytes": 12424,
+      "path": "art-source/six-gen/qa/previews/g05-entry-320x524.json",
+      "sha256": "ef707d5e6c29eebb672b6a337a0fa00819f0b551eaff737f56a9c8ded8956bbd"
+    },
+    {
+      "bytes": 94744,
+      "path": "art-source/six-gen/qa/previews/g05-entry-320x524.png",
+      "sha256": "2f7088732fea7e840f637953cb8becddc47d9aa37ddb363c2a20eef0da992f0d"
+    },
+    {
+      "bytes": 12431,
+      "path": "art-source/six-gen/qa/previews/g05-entry-390x844.json",
+      "sha256": "3661b41d0a2e132ba47c1f8f51ddf30fc228992de9b07d454d8588732fcb05af"
+    },
+    {
+      "bytes": 227559,
+      "path": "art-source/six-gen/qa/previews/g05-entry-390x844.png",
+      "sha256": "08af5d8a90ab635131fb03a7e3f32448f2bec4cc70df1b47c26a5140464f3113"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g05-four-view-review.json",
+      "sha256": "5acf1196f7e1e2e448c36e98b14ead972831acab3410e1a3e72fd49696b990a6"
+    },
+    {
+      "bytes": 395966,
+      "path": "art-source/six-gen/qa/previews/g05-four-view-review.png",
+      "sha256": "dd290cba05fcb4193e544e9bd717670e80ee705e82d689e311997a3fc36fac4c"
+    },
+    {
+      "bytes": 7958,
+      "path": "art-source/six-gen/qa/previews/g05-g06-mixed-and-old-new-batches-contact.json",
+      "sha256": "174c303556ccb07a1e644f81319f52914aef79d02184489ba810a81138bb9021"
+    },
+    {
+      "bytes": 503413,
+      "path": "art-source/six-gen/qa/previews/g05-g06-mixed-and-old-new-batches-contact.png",
+      "sha256": "c05c7ccc7d8a2ef2eb880fec72e1da27fcbcb77dff04777e37b222bc14b7e62f"
+    },
+    {
+      "bytes": 12376,
+      "path": "art-source/six-gen/qa/previews/g05-upgraded-320x524.json",
+      "sha256": "1ee9aa30f7e804961e3228b90f65bc892c6e595bed89c6597c09c74914fa1607"
+    },
+    {
+      "bytes": 94998,
+      "path": "art-source/six-gen/qa/previews/g05-upgraded-320x524.png",
+      "sha256": "ad10edcfbf01adbdc4201b92077fd36c0d8b398ad1aeec76902380f67d4645db"
+    },
+    {
+      "bytes": 12383,
+      "path": "art-source/six-gen/qa/previews/g05-upgraded-390x844.json",
+      "sha256": "4965ae5d2639164afd87f94189add06d0418be3a88fda5af6d37311cf6ec63aa"
+    },
+    {
+      "bytes": 228543,
+      "path": "art-source/six-gen/qa/previews/g05-upgraded-390x844.png",
+      "sha256": "5be093565e1b6bad353afdc8e1fc22cea645c0a721fc0f1f8ad1aa6cb3987110"
+    },
+    {
+      "bytes": 13285,
+      "path": "art-source/six-gen/qa/previews/g06-entry-320x524.json",
+      "sha256": "c82c8ace0b38788af7e78ddc233b61029dc36c95f8858e588a663252445459c2"
+    },
+    {
+      "bytes": 115576,
+      "path": "art-source/six-gen/qa/previews/g06-entry-320x524.png",
+      "sha256": "0ccf93f3235b78a9653560a807cddf944e6797ac881852f72e23465a6030ca38"
+    },
+    {
+      "bytes": 13294,
+      "path": "art-source/six-gen/qa/previews/g06-entry-390x844.json",
+      "sha256": "3b5ddaae77fc0f75829e3fc572f21789bcaae82d87aac332e94ab8862f90805f"
+    },
+    {
+      "bytes": 274848,
+      "path": "art-source/six-gen/qa/previews/g06-entry-390x844.png",
+      "sha256": "f64289f972b496874653d18bb07c09368e0f897f3e517339bb67aa671228199b"
+    },
+    {
+      "bytes": 8801,
+      "path": "art-source/six-gen/qa/previews/g06-entry-versus-installed-contact.json",
+      "sha256": "666592c61ddb43d74ae09b1c59c13a8bcfd1f89e1fe810c6d26152ce53a9e460"
+    },
+    {
+      "bytes": 324448,
+      "path": "art-source/six-gen/qa/previews/g06-entry-versus-installed-contact.png",
+      "sha256": "135a25e936bafb979eb10bfa56b31813331b58497cba4316516af00aa814a4e8"
+    },
+    {
+      "bytes": 1465,
+      "path": "art-source/six-gen/qa/previews/g06-four-view-review.json",
+      "sha256": "0b1302f57583668a26998a2518e4ed8a60d624df2d1a6f62a56eb23127260dd0"
+    },
+    {
+      "bytes": 469180,
+      "path": "art-source/six-gen/qa/previews/g06-four-view-review.png",
+      "sha256": "58776dbd81dbd7d886dfe630a750cc5d0214ef753ae377eddbd7b987475c4aa7"
+    },
+    {
+      "bytes": 13020,
+      "path": "art-source/six-gen/qa/previews/g06-upgraded-320x524.json",
+      "sha256": "38547d2ab8bc88952859a7685a5aab582f905b11b8518a57b21aca619dcbae10"
+    },
+    {
+      "bytes": 115974,
+      "path": "art-source/six-gen/qa/previews/g06-upgraded-320x524.png",
+      "sha256": "ff664c94c8142f5b0c2182be870730170c7d4671b90dbea919b80c3bec89623b"
+    },
+    {
+      "bytes": 13029,
+      "path": "art-source/six-gen/qa/previews/g06-upgraded-390x844.json",
+      "sha256": "1b90c8d4be843886100c1568f830f85591f6a2418126bb8ca1296e255f6270b6"
+    },
+    {
+      "bytes": 276077,
+      "path": "art-source/six-gen/qa/previews/g06-upgraded-390x844.png",
+      "sha256": "7be932f9da449c96b795d191679f29f1fddc33a951f13c8450c5d791c1aa9826"
+    },
+    {
+      "bytes": 15889,
+      "path": "art-source/six-gen/qa/previews/machine-54-state-contact.json",
+      "sha256": "6e197d0008439d1cc409a7d431f7fa44928488187d124a6cf7c1573d10a18868"
+    },
+    {
+      "bytes": 921542,
+      "path": "art-source/six-gen/qa/previews/machine-54-state-contact.png",
+      "sha256": "2129ebc29eacda60a236538a2e9810d52449bcec4d8274fc967389e022b4e449"
+    },
+    {
+      "bytes": 1932,
+      "path": "art-source/six-gen/qa/previews/six-generations-overview.json",
+      "sha256": "507c818e536b28898e7b0440efa72a30483b3fd90d8df18c1787ac352c37272e"
+    },
+    {
+      "bytes": 557283,
+      "path": "art-source/six-gen/qa/previews/six-generations-overview.png",
+      "sha256": "8a570630dc7c826d0fcc6608a65cb46abf6bf2ddde10395c786bf68f3aefe38a"
+    },
+    {
+      "bytes": 3424,
+      "path": "art-source/six-gen/qa/previews/warehouse-48-fixture-contact.json",
+      "sha256": "2bb971a8f10e09fb702689af623370bd5ee46ce76ac61b79d4f2405208e2911a"
+    },
+    {
+      "bytes": 561581,
+      "path": "art-source/six-gen/qa/previews/warehouse-48-fixture-contact.png",
+      "sha256": "37f88e09560d58ee17cd63b29a448ec7c61705bbd63b5dd00e9094e04b7a68d9"
+    },
+    {
+      "bytes": 38098,
+      "path": "art-source/six-gen/qa/render-static-previews.cjs",
+      "sha256": "9d2c0e57cd8056e92a214be7f494e5167c08d2d8f4013d94cd7093944175a776"
+    },
+    {
+      "bytes": 13909,
+      "path": "art-source/six-gen/qa/scene-configurations.json",
+      "sha256": "59c3d80ee18ea70b812ba408169504db4566ad5c5a079ab7c9d9e252e1c024e1"
+    },
+    {
+      "bytes": 11671,
+      "path": "art-source/six-gen/qa/static-preview-validation.json",
+      "sha256": "20efee26616b1aa5df699b484862879aa509a645ce24eca3f6237e47d1ba50c4"
+    },
+    {
+      "bytes": 5934,
+      "path": "art-source/six-gen/qa/verify-static-previews.cjs",
+      "sha256": "5355723b423dc6ed2129c6182768e65d2bd0e9d07d29fa06ef5441ddb3ba4029"
+    },
+    {
+      "bytes": 17656,
+      "path": "art-source/six-gen/qa/warehouse-fixtures.json",
+      "sha256": "465470f7a6d4411996d4afad2b44375199833b2435955461d7a0f591108533e6"
+    },
+    {
+      "bytes": 9833,
+      "path": "art-source/six-gen/qa/write-final-review.cjs",
+      "sha256": "b670ecc2b79d6ea75357c9a3896fde620e0195339d19004bc8ae6178ac2110e0"
+    },
+    {
+      "bytes": 2812,
+      "path": "art-source/six-gen/README.md",
+      "sha256": "4801e4529d786cf6eeed8fb319cedefe1c9cf1fb9620ee3a7efd1b292f41580c"
+    },
+    {
+      "bytes": 2720,
+      "path": "art-source/six-gen/references/reference-lock.json",
+      "sha256": "88307397735b31ed0cef27d61032a2c4d0ca904ccd76e8c26f8976f940960b6a"
+    },
+    {
+      "bytes": 25915,
+      "path": "art-source/six-gen/reports/delivery-verification.json",
+      "sha256": "10776ab5edc5572bbd6cb2941d73e4544bcf693d3c34cac5d9d1575c6c749858"
+    },
+    {
+      "bytes": 1162,
+      "path": "art-source/six-gen/reports/execution-scope.md",
+      "sha256": "01bf3e76f8f4b67f1a70da5db895addc2d1e06cf70af34b043fad9e47343067f"
+    },
+    {
+      "bytes": 3041,
+      "path": "art-source/six-gen/reports/export-asset.cjs",
+      "sha256": "a37fc992650d5adb7edaa5beb83c48995bdd39e22a64c833cf9f00374f00db73"
+    },
+    {
+      "bytes": 2304,
+      "path": "art-source/six-gen/reports/FINAL_HANDOFF.md",
+      "sha256": "866eaa2ec181d8a330d905dc7584731edb932f4ac9cfd78121de2d0a5e7a2069"
+    },
+    {
+      "bytes": 6275,
+      "path": "art-source/six-gen/reports/finalize-handoff.cjs",
+      "sha256": "0f05f32b35f4756b088bc5569a2b7c8a4c4991282b75240336e1fcb0e2cea348"
+    },
+    {
+      "bytes": 6875,
+      "path": "art-source/six-gen/reports/finish-owned-packages.cjs",
+      "sha256": "25cbf50e056df57e256a46cc90b7f1c195b6ece025fbca29f2fb386dd4c5cab1"
+    },
+    {
+      "bytes": 47287,
+      "path": "art-source/six-gen/reports/gallery/asset-review.json",
+      "sha256": "dffc58190d8285ee7c0b381c21bef2918aaafc7ae1d0575d01a6479caff94d93"
+    },
+    {
+      "bytes": 25288,
+      "path": "art-source/six-gen/reports/gallery/build-gallery.cjs",
+      "sha256": "4953a7ded2b9024c098180c77efeea71a284ffebe7261b2fcad829339ede39ad"
+    },
+    {
+      "bytes": 1153767,
+      "path": "art-source/six-gen/reports/gallery/contact-sheet.png",
+      "sha256": "667c6d135deb1cd51c9e3a6ba26157596508feb3a648202860ec2147e0018c6c"
+    },
+    {
+      "bytes": 34800,
+      "path": "art-source/six-gen/reports/gallery/gallery-data.json",
+      "sha256": "2a49c3c6c5e6e7f43dd36790f25fde5c48b2d2079994c6c1a5195685db4a9bc1"
+    },
+    {
+      "bytes": 3545,
+      "path": "art-source/six-gen/reports/gallery/gallery-verification.json",
+      "sha256": "7826612245f8ccea1928d299d709e462af55de9e3bf8f0aa7fa59f3ba3f230e6"
+    },
+    {
+      "bytes": 56463,
+      "path": "art-source/six-gen/reports/gallery/index.html",
+      "sha256": "3761101b4fbf6bf08adfc8e1533df080e55af760b38f5cc7e7e5b96f987c102f"
+    },
+    {
+      "bytes": 1452,
+      "path": "art-source/six-gen/reports/gallery/README.md",
+      "sha256": "303e8628da9c79311c901e6c0d9b975d825b8011dacf617c8ceebf68eab4b4b3"
+    },
+    {
+      "bytes": 2505,
+      "path": "art-source/six-gen/reports/gallery/verify-gallery.cjs",
+      "sha256": "0139477e7cf10b742e591ceca1f85b9da475bd4f6fbec8bb20abe70ffb2ba33e"
+    },
+    {
+      "bytes": 3636,
+      "path": "art-source/six-gen/reports/merge-delivery.cjs",
+      "sha256": "5a68cfebed8bc09d83005df992cbcb8759956efea49e2fb181a16e815c5999a3"
+    },
+    {
+      "bytes": 4972,
+      "path": "art-source/six-gen/reports/package-delivery.ps1",
+      "sha256": "5afa718017dd88bd563e683abe14121efca668b3743363a624275d932fd9a4ca"
+    },
+    {
+      "bytes": 3307,
+      "path": "art-source/six-gen/reports/prepare-common.cjs",
+      "sha256": "f1b4c196619ce08cf6e515e425e788416ece758309355adf9dbed63e35a3660b"
+    },
+    {
+      "bytes": 1862,
+      "path": "art-source/six-gen/reports/split-rack-front.cjs",
+      "sha256": "bff4be73571a53e37fa5760ff1d9d018f50c7cf66ecc481d3330dcc2a3b0bc05"
+    },
+    {
+      "bytes": 3742,
+      "path": "art-source/six-gen/reports/ui-states/duplicate_processing-320x524.json",
+      "sha256": "a8b0184b0567677a2201b3c61fc322d61d0dc95d3359fba136c42ee74bdcfe3c"
+    },
+    {
+      "bytes": 76811,
+      "path": "art-source/six-gen/reports/ui-states/duplicate_processing-320x524.png",
+      "sha256": "4fcff55bf62583989a48d1a01a2bd33cdf64d298cfa77862c9a05ed103b53ced"
+    },
+    {
+      "bytes": 3742,
+      "path": "art-source/six-gen/reports/ui-states/duplicate_processing-390x844.json",
+      "sha256": "804e99c1c74f89812f7b899b6e1aa12ab261259172cba35ddb92924e87c7fb4f"
+    },
+    {
+      "bytes": 103775,
+      "path": "art-source/six-gen/reports/ui-states/duplicate_processing-390x844.png",
+      "sha256": "3c43caa2d7ba3a7f75b7d79c5905150f597acded85f55a3de837f2f7dd2bc716"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/equipment_complete-320x524.json",
+      "sha256": "2c64898bfb3859235349152a1736a93a068f8b4f9bf134bafa39e5d03c65fdff"
+    },
+    {
+      "bytes": 72693,
+      "path": "art-source/six-gen/reports/ui-states/equipment_complete-320x524.png",
+      "sha256": "ee299935f164b6253b5a6b10efb2e2addf5b7f45867222f1416890b2717228db"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/equipment_complete-390x844.json",
+      "sha256": "44e00fa4a8eda20364c6b3ddca8b66e9b9f3a81884275f1e897e92163aa01d66"
+    },
+    {
+      "bytes": 98748,
+      "path": "art-source/six-gen/reports/ui-states/equipment_complete-390x844.png",
+      "sha256": "4a759d2fe8ab4bf9d39a11a0934c0d705ea5257eab8f468760cbac882d01e552"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/generation_six_built-320x524.json",
+      "sha256": "ed91ef71b2850937075c42b058a1eb7a54195a46403ff80689b825ea945750f2"
+    },
+    {
+      "bytes": 74765,
+      "path": "art-source/six-gen/reports/ui-states/generation_six_built-320x524.png",
+      "sha256": "5e578c349dcd19aa1df946f98a933231a0c782024bc60ed2667453fc594d6be4"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/generation_six_built-390x844.json",
+      "sha256": "5219710c6a7f289592bd391ff13a719db2c66688e221a05a54dbf26ee233c7a3"
+    },
+    {
+      "bytes": 101064,
+      "path": "art-source/six-gen/reports/ui-states/generation_six_built-390x844.png",
+      "sha256": "6f96765d53fbafb222736284db8773092fc0232f47dfce6a5a610178e9aa7b75"
+    },
+    {
+      "bytes": 1728,
+      "path": "art-source/six-gen/reports/ui-states/HANDOFF.md",
+      "sha256": "7f70cc715c5af29d8aeffc90d91662fec1ae3de5091cfa6e2df9d1e06d68933e"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/insufficient_coins-320x524.json",
+      "sha256": "c7cda2c9df0bdab06ae2c1e7da09e398fe168987e309c3bcd9349867b8bae304"
+    },
+    {
+      "bytes": 78784,
+      "path": "art-source/six-gen/reports/ui-states/insufficient_coins-320x524.png",
+      "sha256": "2dbc28139e63899dd63b2d189bcf6662762db006d58b78272419c867fafb459b"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/insufficient_coins-390x844.json",
+      "sha256": "0955775eb47683470fe71b36954fe71c2a773ce24e9410b482919b4f1e045c55"
+    },
+    {
+      "bytes": 106915,
+      "path": "art-source/six-gen/reports/ui-states/insufficient_coins-390x844.png",
+      "sha256": "4af360666a56611279e8e851e322d9ee65445f608ae341176bfa07ddbc3cf6cc"
+    },
+    {
+      "bytes": 3728,
+      "path": "art-source/six-gen/reports/ui-states/locked-320x524.json",
+      "sha256": "d406b846d26a09deebb6c0df2e2306090a9de67abcd1be9c8f1c5834570641b6"
+    },
+    {
+      "bytes": 76084,
+      "path": "art-source/six-gen/reports/ui-states/locked-320x524.png",
+      "sha256": "ab2558e6990c888e0aab3a2fe0047baec91d070777c29d4d222a219602d6be51"
+    },
+    {
+      "bytes": 3728,
+      "path": "art-source/six-gen/reports/ui-states/locked-390x844.json",
+      "sha256": "aa0b44445356b43a64f62d1e6922045a4372ae68dce6867788b92c8538ad030d"
+    },
+    {
+      "bytes": 102120,
+      "path": "art-source/six-gen/reports/ui-states/locked-390x844.png",
+      "sha256": "78c45d26e62e6f323482f502989e0e7ee8aac6b5243c0b1503a8f9c42f403695"
+    },
+    {
+      "bytes": 3731,
+      "path": "art-source/six-gen/reports/ui-states/max_level-320x524.json",
+      "sha256": "dafe2c81568d05568f34df4d9b1e52c7fc0604f67f7d9cf432f9f9e2bcf3f8d0"
+    },
+    {
+      "bytes": 74310,
+      "path": "art-source/six-gen/reports/ui-states/max_level-320x524.png",
+      "sha256": "7c40d55aa439cb07678a7c429e017942ace3b8b1202e4ad4399c0d97cc788c37"
+    },
+    {
+      "bytes": 3731,
+      "path": "art-source/six-gen/reports/ui-states/max_level-390x844.json",
+      "sha256": "35d04faf2f36439217990a1a5dfb6318c23692d67312d7a6f6bdc20f9a25820a"
+    },
+    {
+      "bytes": 99844,
+      "path": "art-source/six-gen/reports/ui-states/max_level-390x844.png",
+      "sha256": "2eb4745c03507f82bf56a76ff61ef9327e9474c90ce1f54488eb6685b2e41890"
+    },
+    {
+      "bytes": 3731,
+      "path": "art-source/six-gen/reports/ui-states/observing-320x524.json",
+      "sha256": "955fa9579b06f82cee09268af8ba86a4423161ba4adcbde11aeeb150502d8229"
+    },
+    {
+      "bytes": 73604,
+      "path": "art-source/six-gen/reports/ui-states/observing-320x524.png",
+      "sha256": "8249b3a3abb2d418e34d8b95cdbd4e62e5ae019237ad5fc12f4216eecc9de83e"
+    },
+    {
+      "bytes": 3731,
+      "path": "art-source/six-gen/reports/ui-states/observing-390x844.json",
+      "sha256": "58253a76f896736cc13b3f8246a0b19b7df8fdc98a3a5df1cc7c1c28d123e960"
+    },
+    {
+      "bytes": 99823,
+      "path": "art-source/six-gen/reports/ui-states/observing-390x844.png",
+      "sha256": "97e3f053e1c73f849fcf189f3d4205d05b0a9279b014f0c90336b59537fb03cd"
+    },
+    {
+      "bytes": 9618,
+      "path": "art-source/six-gen/reports/ui-states/qa-report.json",
+      "sha256": "47e0c83cf50234775d6ac78815cf22b30e217ef97aee7296e4b00ee1f96cee69"
+    },
+    {
+      "bytes": 12096,
+      "path": "art-source/six-gen/reports/ui-states/render-ui-states.cjs",
+      "sha256": "174230093d1c34f55fcc27b7607f29933f002fccec1f5c7d654e4de9bc65f773"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/shared_bottleneck-320x524.json",
+      "sha256": "feab3f1c7dff69f8f5c2ff59e6b2b904865c3e32d7b16fd59c4cefd5f7e35a1c"
+    },
+    {
+      "bytes": 73417,
+      "path": "art-source/six-gen/reports/ui-states/shared_bottleneck-320x524.png",
+      "sha256": "8cca6fe3853ec38d38d64ad2f161f9ef485361433fb2dc20ea54e1984f74a0f8"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/shared_bottleneck-390x844.json",
+      "sha256": "0b39f391190d31834650e3b80600e147271b834f24a59df1b12f27ecf61de333"
+    },
+    {
+      "bytes": 99206,
+      "path": "art-source/six-gen/reports/ui-states/shared_bottleneck-390x844.png",
+      "sha256": "87a6497136a58b4d1163949846615516cd4ea45d26bbd2a60232b8a5180ca22a"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/single_bottleneck-320x524.json",
+      "sha256": "eb96aa13851b080ac9708dccfb066166c212d2cdaeb71a24e1d765e1e7c07039"
+    },
+    {
+      "bytes": 74627,
+      "path": "art-source/six-gen/reports/ui-states/single_bottleneck-320x524.png",
+      "sha256": "f21d919f9cb739e49ff92147ff10fefca73307a740eadd8f629b4ee54e0ac3f2"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/single_bottleneck-390x844.json",
+      "sha256": "c20fbb51bcb8ba39f3477960589c51cc8097333495a1cd5f4f62edc7bea8fcb4"
+    },
+    {
+      "bytes": 100775,
+      "path": "art-source/six-gen/reports/ui-states/single_bottleneck-390x844.png",
+      "sha256": "4c76d1df358c97ae22a08c0e73f479670b55fb7bf40f0521b746c5a3b7842e66"
+    },
+    {
+      "bytes": 3733,
+      "path": "art-source/six-gen/reports/ui-states/stale_quote-320x524.json",
+      "sha256": "eefb042269f7f1367139b321be14ef136bd697018fae26ad7d074a5e54f58be6"
+    },
+    {
+      "bytes": 72828,
+      "path": "art-source/six-gen/reports/ui-states/stale_quote-320x524.png",
+      "sha256": "ac0f9a77fc02ddfb8fcf5c649cf3630b7016d31c02ce41b63270b46965b6b182"
+    },
+    {
+      "bytes": 3733,
+      "path": "art-source/six-gen/reports/ui-states/stale_quote-390x844.json",
+      "sha256": "934b34f2a2c356e1ed40b4eff9a6321f5766d3eddad2a710152473eb27c08ac4"
+    },
+    {
+      "bytes": 98534,
+      "path": "art-source/six-gen/reports/ui-states/stale_quote-390x844.png",
+      "sha256": "4abbebfb8143b742b08a3edc0e6ffa8ec67ca84dff3e1697e164390c9ccf6549"
+    },
+    {
+      "bytes": 18884,
+      "path": "art-source/six-gen/reports/ui-states/states.json",
+      "sha256": "c643823b22e74e84b60faa74556fe6783c60c911e9aa4ad0cef6e2f211f7d686"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/trial_accumulating-320x524.json",
+      "sha256": "99613c230297c828f2e3d3eff8b6d88c28616a0487e1fc12e119c9b711b4dfd1"
+    },
+    {
+      "bytes": 73176,
+      "path": "art-source/six-gen/reports/ui-states/trial_accumulating-320x524.png",
+      "sha256": "ea2063cfae8a20942c9f1d04baed59277ae7b0df85b9cba6786e4c198cf1019d"
+    },
+    {
+      "bytes": 3740,
+      "path": "art-source/six-gen/reports/ui-states/trial_accumulating-390x844.json",
+      "sha256": "cd405c74cc767e9f4ebe3a830953f1d5f85d4722587a49751c0028cffd48c659"
+    },
+    {
+      "bytes": 99215,
+      "path": "art-source/six-gen/reports/ui-states/trial_accumulating-390x844.png",
+      "sha256": "dc6a85e507df62c5335cbd9833149dea9a90d1476b1a64633e446d56bb1a0840"
+    },
+    {
+      "bytes": 3734,
+      "path": "art-source/six-gen/reports/ui-states/trial_before-320x524.json",
+      "sha256": "1bea36c8a5e6ad040241bd7ceff124446c84c0a8aba11238c62aecdbc4980318"
+    },
+    {
+      "bytes": 73195,
+      "path": "art-source/six-gen/reports/ui-states/trial_before-320x524.png",
+      "sha256": "b6207b3ad0e0d9fd53c1817b7a5618d196cc3c0153eead6a74f0bc399555f2de"
+    },
+    {
+      "bytes": 3734,
+      "path": "art-source/six-gen/reports/ui-states/trial_before-390x844.json",
+      "sha256": "df2faa68e3757da580b8f8e4cdd4a62fcc9270d667a650f18b4a118a25472d5e"
+    },
+    {
+      "bytes": 99081,
+      "path": "art-source/six-gen/reports/ui-states/trial_before-390x844.png",
+      "sha256": "e9db9d95f3d758724f1b970f1fd15f5dda0d93a50173c22baeac8c0463d7afcd"
+    },
+    {
+      "bytes": 3736,
+      "path": "art-source/six-gen/reports/ui-states/trial_complete-320x524.json",
+      "sha256": "232e94abc8c589442d7a0077940fb42f4e032b1072b8fbfb7205983aa6bee432"
+    },
+    {
+      "bytes": 72361,
+      "path": "art-source/six-gen/reports/ui-states/trial_complete-320x524.png",
+      "sha256": "31321069caa9b76e8f6e3559c8afb365bd1e4a0342bee38d0e09020c887934b7"
+    },
+    {
+      "bytes": 3736,
+      "path": "art-source/six-gen/reports/ui-states/trial_complete-390x844.json",
+      "sha256": "44e915551179839fb0f2e0f4cd17c574e7b881b31121141f1885e85b1593e42a"
+    },
+    {
+      "bytes": 98640,
+      "path": "art-source/six-gen/reports/ui-states/trial_complete-390x844.png",
+      "sha256": "c262484677b8003f40c9e75ee80d0f8e0d4cbf06bf0fbd7926898d5f3acdef33"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/trial_interrupted-320x524.json",
+      "sha256": "03911a3b49be61a3aaa631eaf6f5cf51437c513db2711f0f1cd5e02feaf73778"
+    },
+    {
+      "bytes": 72788,
+      "path": "art-source/six-gen/reports/ui-states/trial_interrupted-320x524.png",
+      "sha256": "f31bf45d54705799cb4080427699698a50a6237827d39dfc1ac047a8960363a9"
+    },
+    {
+      "bytes": 3739,
+      "path": "art-source/six-gen/reports/ui-states/trial_interrupted-390x844.json",
+      "sha256": "8871e1369e94aaced16c6dbba4d9a990b111b95637d6aa24cd76652af4e9c094"
+    },
+    {
+      "bytes": 99064,
+      "path": "art-source/six-gen/reports/ui-states/trial_interrupted-390x844.png",
+      "sha256": "796fc2ab4d45d4e8545433fe2bf561f109a4685479b86bcfee9f335b55c8600f"
+    },
+    {
+      "bytes": 3731,
+      "path": "art-source/six-gen/reports/ui-states/ui-state-contact.json",
+      "sha256": "b4c89fe75cbe154938dabcfa6b37c02f481d2317b18b03191a6f6f1edf090d0e"
+    },
+    {
+      "bytes": 522361,
+      "path": "art-source/six-gen/reports/ui-states/ui-state-contact.png",
+      "sha256": "e9613f8ad7fc987a6825556fd19fab3bbfa257444067167d9aa89f8e96279bcb"
+    },
+    {
+      "bytes": 3640,
+      "path": "art-source/six-gen/reports/ui-states/verify-ui-states.cjs",
+      "sha256": "9957918e12ab4cd000b9f5c87e93197990137bc06f64d3c6ae71697e80789112"
+    },
+    {
+      "bytes": 2582,
+      "path": "art-source/six-gen/reports/verify-delivery.cjs",
+      "sha256": "2e024467aa571705542c5c488138d16d12123d74e9a3877926fc9e6d2aa9aa55"
+    },
+    {
+      "bytes": 1964,
+      "path": "art-source/six-gen/scene/assembly.json",
+      "sha256": "9d5ff87c0fc7325df289cf1f07e58052274e473f5e0c07ec8bec06b067199b80"
+    },
+    {
+      "bytes": 2867,
+      "path": "art-source/six-gen/scene/export-recipe.json",
+      "sha256": "b46e4d4179daff99f95ed5f39ce88e92c3ea29198ac4a31c478540d6026f8707"
+    },
+    {
+      "bytes": 38547,
+      "path": "art-source/six-gen/scene/exports/factory_platform_extension.png",
+      "sha256": "20b9a0ee7154f6a359cb913e97d21355a4837e317ee8c351f5a00a5e699bed0b"
+    },
+    {
+      "bytes": 51279,
+      "path": "art-source/six-gen/scene/exports/factory_tower_back.png",
+      "sha256": "2d9e6f78c2a5940ee33564b8ee0c2219fb5e30873eada3b44d76d961186cc983"
+    },
+    {
+      "bytes": 14234,
+      "path": "art-source/six-gen/scene/exports/factory_tower_front.png",
+      "sha256": "7b76b020f86150b17fb7fe0058293f894e5fac17a15c0417c41c2cef6583c492"
+    },
+    {
+      "bytes": 799,
+      "path": "art-source/six-gen/scene/factory_platform_extension.export.json",
+      "sha256": "e935e7be970a9f6af04667360f3e47ceca880a1c5728820aae39c4d968b3cefc"
+    },
+    {
+      "bytes": 119714,
+      "path": "art-source/six-gen/scene/factory_platform_extension.three-backgrounds.png",
+      "sha256": "0e5b39d063fd99c4b8220d448f91e9f64eb836ecff3ff2e1c8176f1babaa34c5"
+    },
+    {
+      "bytes": 777,
+      "path": "art-source/six-gen/scene/factory_tower_back.export.json",
+      "sha256": "1ac9201b6b9255fe4a2f5654af0525df6e6b430fd2dc641ad348596b824892fe"
+    },
+    {
+      "bytes": 115920,
+      "path": "art-source/six-gen/scene/factory_tower_back.three-backgrounds.png",
+      "sha256": "bf23ab825ca8ea9dddcdc4a7a61659c39bf0cbe976525a5262b7076826b8cf05"
+    },
+    {
+      "bytes": 779,
+      "path": "art-source/six-gen/scene/factory_tower_front.export.json",
+      "sha256": "353ff2a1648fc0e7c0a8bbd74c82472041cbee15bff12869da38a82ab5ba823e"
+    },
+    {
+      "bytes": 81445,
+      "path": "art-source/six-gen/scene/factory_tower_front.three-backgrounds.png",
+      "sha256": "c439993eb16e267c53a361acb2e02a3bbf42151f2e52388f47e661392423fc8b"
+    },
+    {
+      "bytes": 336,
+      "path": "art-source/six-gen/scene/HANDOFF.md",
+      "sha256": "c4c3f99af38934b813945b983d5e5038be38c47a3d9f56727f7bf13d30a9e980"
+    },
+    {
+      "bytes": 2002,
+      "path": "art-source/six-gen/scene/manifest.fragment.json",
+      "sha256": "b2ab0b08e85da4c7847ba7eeaf3ac75d134f96ea61ef746418854a02833bd336"
+    },
+    {
+      "bytes": 4007,
+      "path": "art-source/six-gen/scene/prompts.jsonl",
+      "sha256": "c6dffa6495b0efe160b0c6d31a1b94d5b0efa55575d6058c0a6147af7ac4dc05"
+    },
+    {
+      "bytes": 1395,
+      "path": "art-source/six-gen/scene/provenance.json",
+      "sha256": "c0a5dc21173643a174b90223d8f3e100c9f5e08e6174c4877f472787e6e76d36"
+    },
+    {
+      "bytes": 462,
+      "path": "art-source/six-gen/scene/qa-report.json",
+      "sha256": "da487ba9cded28d4d55503d5bd6aee22fadde82e3725f1208b1edab635e61216"
+    },
+    {
+      "bytes": 1400690,
+      "path": "art-source/six-gen/scene/sources/factory_platform_extension.png",
+      "sha256": "05f9e8da9564b604b14ae3325739ea8dbd279f75a00481a4bd53b801626427d1"
+    },
+    {
+      "bytes": 582310,
+      "path": "art-source/six-gen/scene/sources/factory_tower_back.png",
+      "sha256": "aed89ec13b33273e1372cf1d8d82e3cd02651f4eaf5afe9e710f9c51f247a12a"
+    },
+    {
+      "bytes": 1035677,
+      "path": "art-source/six-gen/scene/sources/factory_tower_front.png",
+      "sha256": "fcfd7c4ae8206781f58aecfd7a83afb0bfc7a68e1750edc7e484ce5d1fac2a42"
+    },
+    {
+      "bytes": 510247,
+      "path": "art-source/six-gen/ship/alpha-three-backgrounds.png",
+      "sha256": "a88a0edef7f28d7211cd5135f2fa3ee7524ecffe60331297146b59f5450a2b42"
+    },
+    {
+      "bytes": 25961,
+      "path": "art-source/six-gen/ship/assembly.json",
+      "sha256": "1b3bd4ce19df4a596f638520a34826f825694e68d4e7558544aebb087219d20b"
+    },
+    {
+      "bytes": 7226,
+      "path": "art-source/six-gen/ship/export-recipe.json",
+      "sha256": "ea4cec58384f726c7a92e1d4e3212b9bb1ebb354176a13e5549896978edaa949"
+    },
+    {
+      "bytes": 295107,
+      "path": "art-source/six-gen/ship/exports/machine_ship_dual_body.png",
+      "sha256": "239437244edd892b5c437cece31ec633d7b0810467ae34c1d319cbf22f3761bb"
+    },
+    {
+      "bytes": 18894,
+      "path": "art-source/six-gen/ship/exports/machine_ship_lane_cover.png",
+      "sha256": "fec43feb7aedaefb195b3f6bb77f806a973b96f7ef1008008070c05741223557"
+    },
+    {
+      "bytes": 243857,
+      "path": "art-source/six-gen/ship/exports/machine_ship_quad_body.png",
+      "sha256": "45c1bf6a6369efca5be43d567730dd036fa993a421a020c0cfb13aa8c0c8e2b2"
+    },
+    {
+      "bytes": 2558,
+      "path": "art-source/six-gen/ship/HANDOFF.md",
+      "sha256": "3fb5905e5d447f8790aa38fd687a7acd54f9d3d99677cea831a89afaf6615bcf"
+    },
+    {
+      "bytes": 2541,
+      "path": "art-source/six-gen/ship/manifest.fragment.json",
+      "sha256": "3320ab0cc89b7444ac9dce414a54c2f5c2bd1d66f84d6a99d09efd86d7da25a5"
+    },
+    {
+      "bytes": 3209,
+      "path": "art-source/six-gen/ship/packaging-preview.ps1",
+      "sha256": "5e207a92b40e8b9b8a3275864d2ceb39f9b1da0636ed3f0f077ab1a277d29d67"
+    },
+    {
+      "bytes": 312605,
+      "path": "art-source/six-gen/ship/packaging-reuse-preview.png",
+      "sha256": "de3c87dd689ec981d64ec366908e78ea8209dad2c737ed9efbe59d983d747e8c"
+    },
+    {
+      "bytes": 6462,
+      "path": "art-source/six-gen/ship/packaging-reuse.json",
+      "sha256": "5904e8db48f6ade366a5806abf8fca967b143b5154aeb161ee06bc4554259939"
+    },
+    {
+      "bytes": 4308,
+      "path": "art-source/six-gen/ship/prompts.jsonl",
+      "sha256": "bfe736da8a83506ab98ebbfd0b1bc80083ed89010fd3bc084bb488c431a2a413"
+    },
+    {
+      "bytes": 4932,
+      "path": "art-source/six-gen/ship/provenance.json",
+      "sha256": "e16198497aff195a4bfceb93cc080f5b5e353eac70b5159adb99129a7cb84767"
+    },
+    {
+      "bytes": 3203,
+      "path": "art-source/six-gen/ship/qa-report.json",
+      "sha256": "47816adfe8c11c873feb1dc160a276087a503478fcc7801d4a568089ad74914e"
+    },
+    {
+      "bytes": 349937,
+      "path": "art-source/six-gen/ship/ship_dual-rig-preview.png",
+      "sha256": "95d811fc9a1d86f5e9fe1ee019e607ec3c7e29dfeeb9cb1e8cefa9e1b3014451"
+    },
+    {
+      "bytes": 296584,
+      "path": "art-source/six-gen/ship/ship_quad-rig-preview.png",
+      "sha256": "10c9fd4a9cf405f1811ddedc796d5c57bd2a222619cd45ed06ad9665b5c3538b"
+    },
+    {
+      "bytes": 1512849,
+      "path": "art-source/six-gen/ship/sources/machine_ship_dual_body.png",
+      "sha256": "b02892a67ea82b2940d68f68657ec41119ae79f98e32df92123aaa52d0d638c5"
+    },
+    {
+      "bytes": 1222336,
+      "path": "art-source/six-gen/ship/sources/machine_ship_lane_cover.png",
+      "sha256": "554178a7ed242e2c24929e0a22149182c50960a4d9a3567636ea9bb2e1205458"
+    },
+    {
+      "bytes": 1460698,
+      "path": "art-source/six-gen/ship/sources/machine_ship_quad_body.png",
+      "sha256": "4342053523ccad69a28a92cd7c260330f4fcae177c1b24f2f51f78ddd366a95f"
+    },
+    {
+      "bytes": 388520,
+      "path": "art-source/six-gen/ui/alpha-three-backgrounds.png",
+      "sha256": "136ab0e7e2c35a0aa06ab7847236eb6275979fb9ace72b2c991bb7e9e70fa73d"
+    },
+    {
+      "bytes": 1355,
+      "path": "art-source/six-gen/ui/assembly.json",
+      "sha256": "2a981bf2527c9911b47cd28278b3d83dbfd97f9cf0750c302de11bbdd488a312"
+    },
+    {
+      "bytes": 3651,
+      "path": "art-source/six-gen/ui/build-metadata.ps1",
+      "sha256": "4f6b695fd3473bc7ae4c44b9082e77352175e109847382d86c04e3943a0fafca"
+    },
+    {
+      "bytes": 3577,
+      "path": "art-source/six-gen/ui/export-assets.ps1",
+      "sha256": "b6673765c790ed90a354aa743ad29e36d2ff7a45e80f608a58a246986755db10"
+    },
+    {
+      "bytes": 7159,
+      "path": "art-source/six-gen/ui/export-recipe.json",
+      "sha256": "938550513a9c2c94240bad9a3760a2ace0a2395b1df97df17c39b2a6a2db7c01"
+    },
+    {
+      "bytes": 11422,
+      "path": "art-source/six-gen/ui/exports/ui_badge_complete.png",
+      "sha256": "3bc3282dfe54a0a081ff8a48a055e355f5bc97060c552b86e1fef3b5a9f91a46"
+    },
+    {
+      "bytes": 12145,
+      "path": "art-source/six-gen/ui/exports/ui_badge_generation.png",
+      "sha256": "8286d6b816dce3aec412f0f370e63dad7b53e8f3878e0087162174851692711b"
+    },
+    {
+      "bytes": 9374,
+      "path": "art-source/six-gen/ui/exports/ui_icon_automation.png",
+      "sha256": "5f9bb4eb9ed413555a06f9bc0aba9ac6de5aa397e9f1f55dc68eb4d8062e1b89"
+    },
+    {
+      "bytes": 1679,
+      "path": "art-source/six-gen/ui/HANDOFF.md",
+      "sha256": "914126c796b811cd53ba2631918313f54356df741255f164e7c418a71b709d4d"
+    },
+    {
+      "bytes": 2489,
+      "path": "art-source/six-gen/ui/manifest.fragment.json",
+      "sha256": "8cb3c99ff680708082e71e109d6358a9490c6729ac1e9eedbcd568d30e6a961c"
+    },
+    {
+      "bytes": 3392,
+      "path": "art-source/six-gen/ui/prompts.jsonl",
+      "sha256": "9524f8ac1c76715e23aa2e72c842dc752b5179d49d7133bf0fe783e1647cbea9"
+    },
+    {
+      "bytes": 3053,
+      "path": "art-source/six-gen/ui/provenance.json",
+      "sha256": "898e51d7e6f82c049a3f91d23043c184e16c7597bb703f0e6b52641ab2f4c266"
+    },
+    {
+      "bytes": 2634,
+      "path": "art-source/six-gen/ui/qa-report.json",
+      "sha256": "114604b3cc79fff8ca352e112a92696cc146c432bee771bc4ffe936b124c6acb"
+    },
+    {
+      "bytes": 1136,
+      "path": "art-source/six-gen/ui/size-preview.ps1",
+      "sha256": "14187694f6cda0fccd77b96cc2089f3ca3161c64fb67398bb81d5fc52c16216c"
+    },
+    {
+      "bytes": 716141,
+      "path": "art-source/six-gen/ui/sources/ui_badge_complete.png",
+      "sha256": "ff0a123b9a31109b42b4d6a6ad4a0292116444b35b22b338589e2afc73393380"
+    },
+    {
+      "bytes": 873687,
+      "path": "art-source/six-gen/ui/sources/ui_badge_generation.png",
+      "sha256": "0c1d70e81ba1263fef1459bee36ac163ccc3fa4f92128daff47e930b2edbcefd"
+    },
+    {
+      "bytes": 695100,
+      "path": "art-source/six-gen/ui/sources/ui_icon_automation.png",
+      "sha256": "7422e59bb8911fb095f0a9ffb0ad018a8c38ffca8ad5c1c57953ee94ef6c7a01"
+    },
+    {
+      "bytes": 54051,
+      "path": "art-source/six-gen/ui/ui-size-preview.png",
+      "sha256": "b929a222bb789f1331c10dbd6bd0cecf7d930ec4dca4e3c94be3e6f4d232a8ac"
+    },
+    {
+      "bytes": 11678,
+      "path": "assets/art/fx/fx_sparkle.png",
+      "sha256": "b5309f7b8c0fed6408021cde5676b1b5d0992c96cd13e3028e3115802dd1d1d2"
+    },
+    {
+      "bytes": 12213,
+      "path": "assets/art/fx/fx_steam.png",
+      "sha256": "f7657073c33705d4a28f9505c3af90d9021b763558a3a0ae8f3d77ad5eb3bd2a"
+    },
+    {
+      "bytes": 339298,
+      "path": "assets/art/machines/machine_cup_body.png",
+      "sha256": "3043833042a55f261bcbf63a6d740571cf047d99c363ebf0a5e7fb7696df6532"
+    },
+    {
+      "bytes": 90026,
+      "path": "assets/art/machines/machine_cup_front.png",
+      "sha256": "2102d73c9001ffa1d1481c73b90b74c64d9fe1cdb2b9048085828dc6b1ae6a3e"
+    },
+    {
+      "bytes": 59746,
+      "path": "assets/art/machines/machine_cup_head.png",
+      "sha256": "b64456e37b17fe196f35f22089a2ef8730a1d91dff2b72f2ae56990002b5abc2"
+    },
+    {
+      "bytes": 326872,
+      "path": "assets/art/machines/machine_pop_body.png",
+      "sha256": "030dc2952900743a5aafd3994028715081b528a4df6a6dbc01293b5a0bf083ed"
+    },
+    {
+      "bytes": 95647,
+      "path": "assets/art/machines/machine_pop_front.png",
+      "sha256": "7289c5f1d669bcfd0e32d63efd08ddf569c241d9f40eb5c0f2f064555e5c3ad3"
+    },
+    {
+      "bytes": 92668,
+      "path": "assets/art/machines/machine_pop_head.png",
+      "sha256": "4ffb38e65caeb4c89341d6c2995ff678c26cba3456be1168e965958d0019702f"
+    },
+    {
+      "bytes": 297140,
+      "path": "assets/art/machines/machine_ship_body.png",
+      "sha256": "1acd80c6c0912fe60bb1b3a2ee7b9cc3b089198201c4674a8be950fdc7e09390"
+    },
+    {
+      "bytes": 64177,
+      "path": "assets/art/machines/machine_ship_front.png",
+      "sha256": "e39ce1929d13022ac13ae815a068f4084a95e672a509806966ef6719198a9a01"
+    },
+    {
+      "bytes": 58499,
+      "path": "assets/art/machines/machine_ship_head.png",
+      "sha256": "bfd33db0bf0f275cc2aa2669d90798dfb5a5c061926dbe3d11f77f1481042029"
+    },
+    {
+      "bytes": 11375,
+      "path": "assets/art/products/product_box_front.png",
+      "sha256": "b657096af2dd22036d4182e6b0aa227263924c91383e7c6dab43dc1c3149234c"
+    },
+    {
+      "bytes": 12401,
+      "path": "assets/art/products/product_box_lid.png",
+      "sha256": "9d26b787a4f8e49ba889715041b6299190f2f7c191e55539588b4c2fb44073f7"
+    },
+    {
+      "bytes": 24580,
+      "path": "assets/art/products/product_box_open.png",
+      "sha256": "3c4296d97b69920882b2350e73e1cc68d4d6856fb487027c136847e6358eec46"
+    },
+    {
+      "bytes": 26014,
+      "path": "assets/art/products/product_cup_empty.png",
+      "sha256": "6c8b333578fb63162c59f73bb15998d41d93d44c8aaa288ca5a4f05038b63e7f"
+    },
+    {
+      "bytes": 27366,
+      "path": "assets/art/products/product_cup_fill.png",
+      "sha256": "75820426a90ef19688fa0e514696b5ff594b4c1447f22ae35c5b15998872a721"
+    },
+    {
+      "bytes": 16026,
+      "path": "assets/art/products/product_double_tray.png",
+      "sha256": "bce998b454ab28825d91dee229d9dfaf904c0bda5a9afaf37fc93376a02e612d"
+    },
+    {
+      "bytes": 8907,
+      "path": "assets/art/products/product_kernel_a.png",
+      "sha256": "1a709505c2b6b4fe9655d3d030bb0b567dc1339c4b8f62f861920c7cb42af591"
+    },
+    {
+      "bytes": 9324,
+      "path": "assets/art/products/product_kernel_b.png",
+      "sha256": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba"
+    },
+    {
+      "bytes": 215944,
+      "path": "assets/art/scene/buffer_bulk_back.png",
+      "sha256": "276afc13ff8fde9a0eac496d1413a49177293ee87a2530d02b955c2272a70ccb"
+    },
+    {
+      "bytes": 64833,
+      "path": "assets/art/scene/buffer_bulk_front.png",
+      "sha256": "4287d8d1c8d6b584df35171eb77a754e87524344b11686918c53be072c2cf03d"
+    },
+    {
+      "bytes": 158708,
+      "path": "assets/art/scene/buffer_cups_back.png",
+      "sha256": "cbe4c344691ecd012f86dc7402278d21dc35c190302ecd9a8ee3a467bca9da35"
+    },
+    {
+      "bytes": 46707,
+      "path": "assets/art/scene/buffer_cups_front.png",
+      "sha256": "3f9b13196b05101178d475b34f30cc5e7472959d35dc79974a5c609df1beba75"
+    },
+    {
+      "bytes": 172176,
+      "path": "assets/art/scene/conveyor_down_left.png",
+      "sha256": "94c6d28fe935c41108c14776cefebaa1c8dbd978e48df2d20243b0dd2e525ea8"
+    },
+    {
+      "bytes": 180083,
+      "path": "assets/art/scene/conveyor_down_right.png",
+      "sha256": "d36bbd13dcd3fd5ed471ebb033803a6b436f39b25df506e045bba4dd55e57a68"
+    },
+    {
+      "bytes": 44828,
+      "path": "assets/art/scene/conveyor_front_left.png",
+      "sha256": "e10306dacb00ec7fff19703ab474287c59e3db2354634896b603e881b9656f3b"
+    },
+    {
+      "bytes": 48177,
+      "path": "assets/art/scene/conveyor_front_right.png",
+      "sha256": "db21df8fe0126ff9a39f47d2fac56a0d74e396462af4d84aa1129b5577ea2507"
+    },
+    {
+      "bytes": 155686,
+      "path": "assets/art/scene/conveyor_infeed_back.png",
+      "sha256": "e7f8c29900fc5c24e29b988f7662cd8f2e54f70b0db971066195f6ff35ae6029"
+    },
+    {
+      "bytes": 34051,
+      "path": "assets/art/scene/conveyor_infeed_front.png",
+      "sha256": "9b8aafb2d884ad41fa41ce97f896836f263bca6841791547860cc1986386379c"
+    },
+    {
+      "bytes": 154442,
+      "path": "assets/art/scene/conveyor_outfeed_back.png",
+      "sha256": "9971eccf6be8294f7ffb7fe5ae3a48a6a0cda44822572fdc746794977912cc1f"
+    },
+    {
+      "bytes": 33067,
+      "path": "assets/art/scene/conveyor_outfeed_front.png",
+      "sha256": "53b840d1908eb87cba747fb7ce36b6dad480a3e20759577c9ab05b38dfb81bdc"
+    },
+    {
+      "bytes": 144111,
+      "path": "assets/art/scene/conveyor_transfer_back.png",
+      "sha256": "679a10f3b2c0df8ef66683e26d8093e27ecb0e11961c8f96ce79a192a211cdb3"
+    },
+    {
+      "bytes": 25806,
+      "path": "assets/art/scene/conveyor_transfer_front.png",
+      "sha256": "a4a2bf3bfd951688ca6bb4a2c4f5f5f8e5859e27e13ede249339fa22a286b86f"
+    },
+    {
+      "bytes": 49263,
+      "path": "assets/art/scene/factory_door.png",
+      "sha256": "f3f517c9ba8ce8bd55299b43a4ac307e09af416cb6258ed2adde856270905ded"
+    },
+    {
+      "bytes": 440532,
+      "path": "assets/art/scene/factory_room.png",
+      "sha256": "c78a9bd138f49387bd996fb83e3b6ed027910c9e723c220f0c70555d716fc819"
+    },
+    {
+      "bytes": 74041,
+      "path": "assets/art/scene/factory_window.png",
+      "sha256": "0c31c22dea548a4eb69f32fcb3d0620c7c50b8dd4846bde5f47c919d788beab8"
+    },
+    {
+      "bytes": 49591,
+      "path": "assets/art/ui/ui_button_disabled.png",
+      "sha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445"
+    },
+    {
+      "bytes": 58620,
+      "path": "assets/art/ui/ui_button_primary.png",
+      "sha256": "21dc8a9d9916d4b961103f560e6278886f62e05607c596c6df8a41150d596fd2"
+    },
+    {
+      "bytes": 52532,
+      "path": "assets/art/ui/ui_button_secondary.png",
+      "sha256": "c6325bdbb522557b8e6c68e85fd8f0b3f8e62cf625cda35c7351dcc678cd1652"
+    },
+    {
+      "bytes": 39840,
+      "path": "assets/art/ui/ui_card.png",
+      "sha256": "c17c24332247fd0940f5af9de9d8e21708d77aba1ada4cae66ddc3696996d478"
+    },
+    {
+      "bytes": 31056,
+      "path": "assets/art/ui/ui_compact_bar.png",
+      "sha256": "bbbb01ed7434a713b8668e5d795e0a76559d2f72a0a3707772840fc83b5098c8"
+    },
+    {
+      "bytes": 53310,
+      "path": "assets/art/ui/ui_hud_coin.png",
+      "sha256": "333495cfedfef0a2761793aaa026d12cd84bd2f306bea88d1f0e13932411be89"
+    },
+    {
+      "bytes": 46665,
+      "path": "assets/art/ui/ui_hud_rate.png",
+      "sha256": "58432ea78bebe44509a72f8d056fd59b2d1b191c4956d432eb0f7650c701ed82"
+    },
+    {
+      "bytes": 7658,
+      "path": "assets/art/ui/ui_icon_arrow.png",
+      "sha256": "52d006cd13729f1e48748a55ccda47e662e913385947e050b5e861a14f610092"
+    },
+    {
+      "bytes": 8034,
+      "path": "assets/art/ui/ui_icon_check.png",
+      "sha256": "60fd25e89b2e69839196bb908077a6f106c96faeace610efdc2f9fd1501b0564"
+    },
+    {
+      "bytes": 13325,
+      "path": "assets/art/ui/ui_icon_close.png",
+      "sha256": "6fa40b4331c47d258c88a530673e350c701075a17889e86516c2d6df55b4f31a"
+    },
+    {
+      "bytes": 16286,
+      "path": "assets/art/ui/ui_icon_coin.png",
+      "sha256": "19b996933f81a9cce47d2e418a41cdd8c49a50bf106b75b945d58d695cee6043"
+    },
+    {
+      "bytes": 15017,
+      "path": "assets/art/ui/ui_icon_cup.png",
+      "sha256": "762282fdc18cb07ee1f3a705150d818523e87e90f51f9a6acc34c2841f41490a"
+    },
+    {
+      "bytes": 9473,
+      "path": "assets/art/ui/ui_icon_expand.png",
+      "sha256": "d952aa7f9dee45c5c27f9e519e4112873608848858f18b5a81c52000ba0701ab"
+    },
+    {
+      "bytes": 12967,
+      "path": "assets/art/ui/ui_icon_lock.png",
+      "sha256": "8ed29217e7908a368ac18eb2f62479a6b3d4d6c0d5d205fa2c9fa3163e12c270"
+    },
+    {
+      "bytes": 18353,
+      "path": "assets/art/ui/ui_icon_pop.png",
+      "sha256": "702db8948f3aeac57c37ad268c57f1cb85566930fadb679648bba4d791b7dc89"
+    },
+    {
+      "bytes": 12481,
+      "path": "assets/art/ui/ui_icon_settings.png",
+      "sha256": "d9eb858fa3c6e7e2f2cb22714dae52f7e54b727132deb14bd91e0df82635f5ea"
+    },
+    {
+      "bytes": 9307,
+      "path": "assets/art/ui/ui_icon_ship_speed.png",
+      "sha256": "7bacf45fec9e0429347d6ff795b7fbee9a3457ea918973dabe5eb3923600c5fa"
+    },
+    {
+      "bytes": 16955,
+      "path": "assets/art/ui/ui_icon_ship.png",
+      "sha256": "bce2bd7458feee104b81961bc2e20b7c5eb037b3deef021a77118f287d2688fd"
+    },
+    {
+      "bytes": 11308,
+      "path": "assets/art/ui/ui_icon_sound.png",
+      "sha256": "38d4f3d46aecc1a46794604d2e6e25e0413903cf3cce52369d3131d311de51d2"
+    },
+    {
+      "bytes": 12174,
+      "path": "assets/art/ui/ui_icon_upgrade.png",
+      "sha256": "0b3ddb0a80d1a70b526a37e3b221ee423aef6a574c0abac2b6ace0c173e71038"
+    },
+    {
+      "bytes": 10889,
+      "path": "assets/art/ui/ui_icon_vibration.png",
+      "sha256": "36fc746ec3b7c8d7339db71b31cb47ce2cfdf2e3d0b5248a160287fac866da19"
+    },
+    {
+      "bytes": 13741,
+      "path": "assets/art/ui/ui_icon_wait.png",
+      "sha256": "54258f55118c699d136e1eaf4aad0d1d9e1d6d821bc0e2581cdf09a4358e5009"
+    },
+    {
+      "bytes": 10646,
+      "path": "assets/art/ui/ui_icon_warning.png",
+      "sha256": "16091d181a811aa4af219e6ca20bf819ed2685db4668907b3b4f92dce3fc3b18"
+    },
+    {
+      "bytes": 53485,
+      "path": "assets/art/ui/ui_panel.png",
+      "sha256": "68b734f241cb81738b1840c42e5102013ba6f976c13a256cecdc7f1a909f8e83"
+    },
+    {
+      "bytes": 1697281,
+      "path": "output/imagegen/popcorn-ui-20260909/popcorn-factory-simplified.png",
+      "sha256": "28d325cdb53841889554fc6a2301040e443fa2c7bcde30f88c19eeed2abcc672"
+    },
+    {
+      "bytes": 1416833,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-components.png",
+      "sha256": "ece92e9eb1ec2f45e28fee4bda1683810be2781bdbb55ad2a8f63916e9c9726a"
+    },
+    {
+      "bytes": 1546065,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-tasks-and-shipping.png",
+      "sha256": "c101ec2b7169dffc55fd442c0e3decf7f3404fd1b129e5f15fb428df014f4541"
+    },
+    {
+      "bytes": 1513954,
+      "path": "output/imagegen/popcorn-ui-20260909/ui-upgrade-and-production.png",
+      "sha256": "5144fe50adeb3a315fd20828b959936dbc47f7eb86c8295ae7eb8de1f4c246ca"
+    }
+  ],
+  "archive": "C:\\Users\\chenweilun\\Documents\\GitHub\\IAA\\art-source\\six-gen\\delivery\\IAA_六代美术_仅资源_20260910.zip",
+  "verificationErrors": [],
+  "fileCount": 566,
+  "archiveBytes": 88448464,
+  "sha256": "9a879952f84fe62223adfb05ab94801dcb1f1eccc27ca6fceb4565e7c6a3a98f"
+}

@@ -1,0 +1,471 @@
+{
+  "id": "g2-boundary-cup-full",
+  "mode": "v15",
+  "storageKey": "little_popcorn_factory_automation_v4",
+  "kind": "validated-boundary",
+  "description": "Explicit conserved boundary accepted by Game; not claimed as naturally reached play.",
+  "save": {
+    "version": 4,
+    "savedAt": 1800000000000,
+    "introSeen": false,
+    "coins": 24,
+    "machine": 1,
+    "upgrades": {
+      "pop": 2,
+      "cup": 4,
+      "ship": 2
+    },
+    "settings": {
+      "sound": true,
+      "haptics": true
+    },
+    "playedSeconds": 520,
+    "totalProduced": 2298,
+    "totalSold": 2274,
+    "totalEarned": 2274,
+    "totalSpent": 2250,
+    "buffers": {
+      "pop": 0,
+      "cup": 24
+    },
+    "stations": {
+      "pop": {
+        "jobs": [
+          null,
+          null
+        ],
+        "processed": 2298,
+        "history": []
+      },
+      "cup": {
+        "jobs": [
+          null,
+          null
+        ],
+        "processed": 2298,
+        "history": []
+      },
+      "ship": {
+        "jobs": [
+          null
+        ],
+        "processed": 2274,
+        "history": []
+      }
+    },
+    "simulation": {
+      "ticks": 62400,
+      "carry": 0
+    },
+    "milestones": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "firstUpgradeAt": 3600,
+    "mode": "v15",
+    "economyProfile": "fresh",
+    "inputs": {
+      "cup": 0,
+      "ship": 0
+    },
+    "logisticsLevel": 0,
+    "connections": {
+      "pop": {
+        "automated": true,
+        "automatedAtTick": 9000,
+        "remainingTicks": 20,
+        "completedTransfers": 460,
+        "transferredAmount": 2298,
+        "manualTransfers": 15,
+        "lastManualTransferTick": 9000
+      },
+      "cup": {
+        "automated": true,
+        "automatedAtTick": 22200,
+        "remainingTicks": 20,
+        "completedTransfers": 371,
+        "transferredAmount": 2274,
+        "manualTransfers": 36,
+        "lastManualTransferTick": 22200
+      }
+    },
+    "automaticTrial": {
+      "elapsedTicks": 5400,
+      "complete": true,
+      "completedAtTick": 28799
+    }
+  },
+  "snapshot": {
+    "state": {
+      "version": 4,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 24,
+      "machine": 1,
+      "upgrades": {
+        "pop": 2,
+        "cup": 4,
+        "ship": 2
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 520,
+      "totalProduced": 2298,
+      "totalSold": 2274,
+      "totalEarned": 2274,
+      "totalSpent": 2250,
+      "buffers": {
+        "pop": 0,
+        "cup": 24
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            null,
+            null
+          ],
+          "processed": 2298,
+          "history": []
+        },
+        "cup": {
+          "jobs": [
+            null,
+            null
+          ],
+          "processed": 2298,
+          "history": []
+        },
+        "ship": {
+          "jobs": [
+            null
+          ],
+          "processed": 2274,
+          "history": []
+        }
+      },
+      "simulation": {
+        "ticks": 62400,
+        "carry": 0
+      },
+      "milestones": [
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": 3600,
+      "mode": "v15",
+      "economyProfile": "fresh",
+      "inputs": {
+        "cup": 0,
+        "ship": 0
+      },
+      "logisticsLevel": 0,
+      "connections": {
+        "pop": {
+          "automated": true,
+          "automatedAtTick": 9000,
+          "remainingTicks": 20,
+          "completedTransfers": 460,
+          "transferredAmount": 2298,
+          "manualTransfers": 15,
+          "lastManualTransferTick": 9000
+        },
+        "cup": {
+          "automated": true,
+          "automatedAtTick": 22200,
+          "remainingTicks": 20,
+          "completedTransfers": 371,
+          "transferredAmount": 2274,
+          "manualTransfers": 36,
+          "lastManualTransferTick": 22200
+        }
+      },
+      "automaticTrial": {
+        "elapsedTicks": 5400,
+        "complete": true,
+        "completedAtTick": 28799
+      }
+    },
+    "mode": "v15",
+    "machine": {
+      "id": 1,
+      "name": "电热锅",
+      "description": "自动试运行达标，扩建双锅与双头装杯",
+      "color": "#ed785d",
+      "cost": 650,
+      "requiredSold": 1200,
+      "targetRate": 3,
+      "buffers": {
+        "pop": 24,
+        "cup": 24
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 8,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 2,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 2,
+        "processed": 2298,
+        "jobs": [
+          null,
+          null
+        ],
+        "upgrade": {
+          "name": "双锅连续加热",
+          "cost": 600,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 16,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 10,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 2,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 4,
+        "processed": 2298,
+        "jobs": [
+          null,
+          null
+        ],
+        "upgrade": {
+          "name": "双头连续装杯",
+          "cost": 550,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 16,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 12,
+        "actualRate": 0,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 2,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 2,
+        "processed": 2274,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "双道成组包装",
+          "cost": 450,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 2,
+          "cycleTicks": 24,
+          "capacity": 20,
+          "available": false,
+          "reason": "machine-required"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 0,
+        "capacity": 24
+      },
+      {
+        "id": "cup",
+        "amount": 24,
+        "capacity": 24
+      }
+    ],
+    "throughput": 0,
+    "price": 1,
+    "expansion": {
+      "name": "双缸机",
+      "description": "让双锅持续运转，增设第二条包装通道",
+      "cost": 1100,
+      "requiredSold": 650,
+      "targetRate": 7,
+      "sold": 2274,
+      "total": 650,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "transfers": [
+      {
+        "id": "A",
+        "enabled": true,
+        "source": "pop",
+        "target": "cup",
+        "batchSize": 24,
+        "inputAmount": 0,
+        "inputCapacity": 24,
+        "reservedAmount": 0,
+        "availableAmount": 0,
+        "receivableAmount": 0,
+        "canReserve": false,
+        "reason": "source-empty",
+        "automated": true,
+        "automatedAtTick": 9000,
+        "remainingTicks": 20,
+        "completedTransfers": 460,
+        "transferredAmount": 2298,
+        "manualTransfers": 15,
+        "lastManualTransferTick": 9000,
+        "automation": {
+          "source": "pop",
+          "target": "cup",
+          "name": "自动补料",
+          "cost": 130,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 24,
+        "transportCycleTicks": 120,
+        "transportCapacity": 24
+      },
+      {
+        "id": "B",
+        "enabled": true,
+        "source": "cup",
+        "target": "ship",
+        "batchSize": 24,
+        "inputAmount": 0,
+        "inputCapacity": 24,
+        "reservedAmount": 0,
+        "availableAmount": 24,
+        "receivableAmount": 24,
+        "canReserve": true,
+        "reason": "",
+        "automated": true,
+        "automatedAtTick": 22200,
+        "remainingTicks": 20,
+        "completedTransfers": 371,
+        "transferredAmount": 2274,
+        "manualTransfers": 36,
+        "lastManualTransferTick": 22200,
+        "automation": {
+          "source": "cup",
+          "target": "ship",
+          "name": "自动送货",
+          "cost": 330,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 24,
+        "transportCycleTicks": 120,
+        "transportCapacity": 24
+      }
+    ],
+    "logisticsUpgrade": {
+      "name": "加大托盘与料仓",
+      "cost": 60,
+      "requiredMachine": 0,
+      "transferBatch": 36,
+      "inputCapacity": 36,
+      "bufferCapacity": 36,
+      "available": false,
+      "reason": "not-enough-coins",
+      "before": {
+        "name": "整盘搬运",
+        "cost": 0,
+        "requiredMachine": 0,
+        "transferBatch": 24,
+        "inputCapacity": 24,
+        "bufferCapacity": 24
+      },
+      "after": {
+        "name": "加大托盘与料仓",
+        "cost": 60,
+        "requiredMachine": 0,
+        "transferBatch": 36,
+        "inputCapacity": 36,
+        "bufferCapacity": 36
+      },
+      "batchBefore": 24,
+      "batchAfter": 36,
+      "inputBefore": 24,
+      "inputAfter": 36,
+      "capacityBefore": 24,
+      "capacityAfter": 36
+    },
+    "automaticTrial": {
+      "elapsedSeconds": 45,
+      "requiredSeconds": 45,
+      "complete": true,
+      "targetRate": 3,
+      "unattended": true
+    },
+    "transfer": {
+      "id": "A",
+      "enabled": true,
+      "source": "pop",
+      "target": "cup",
+      "batchSize": 24,
+      "inputAmount": 0,
+      "inputCapacity": 24,
+      "reservedAmount": 0,
+      "availableAmount": 0,
+      "receivableAmount": 0,
+      "canReserve": false,
+      "reason": "source-empty",
+      "automated": true,
+      "automatedAtTick": 9000,
+      "remainingTicks": 20,
+      "completedTransfers": 460,
+      "transferredAmount": 2298,
+      "manualTransfers": 15,
+      "lastManualTransferTick": 9000,
+      "automation": {
+        "source": "pop",
+        "target": "cup",
+        "name": "自动补料",
+        "cost": 130,
+        "requiredMachine": 0,
+        "available": false,
+        "reason": "already-automated"
+      },
+      "automaticBatchSize": 24,
+      "transportCycleTicks": 120,
+      "transportCapacity": 24
+    },
+    "onboarding": {
+      "phase": "complete",
+      "stationId": null,
+      "hint": ""
+    },
+    "loadWarning": null
+  },
+  "configuration": "warehouse",
+  "boundaryOnly": true
+}

@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createArtAssets } = require('../src/art-assets');
-const { ART_ASSETS, ART_RIGS, ART_RUNTIME_IDS } = require('../src/art-manifest');
+const { ART_ASSETS, ART_RIGS, ART_RUNTIME_IDS, ART_GENERATION_RIGS, ART_SIX_GEN } = require('../src/art-manifest');
 const { createArtTransform, artSpriteTransform, artSourcePoint, drawArtLayer, clipArtPolygon, minimumHitRect, drawNineSlice } = require('../src/art-layout');
 
 test('the same uniform transform maps image crops, sprite points, assembly ports, clips and hit rectangles', () => {
@@ -68,7 +68,7 @@ test('nine-slice preserves fixed corners while stretching only blank panel cente
   const ctx = { drawImage(...args) { calls.push(args); } };
   assert.equal(drawNineSlice(ctx, { ui_panel: image }, 'ui_panel', [4, 8, 300, 200], { border: 11 }), true);
   assert.equal(calls.length, 9);
-  assert.deepEqual(calls[0], [image, 0, 0, 32, 32, 4, 8, 11, 11]);
+  assert.deepEqual(calls[0], [image, 0, 0, ART_ASSETS.ui_panel.sourceBorder, ART_ASSETS.ui_panel.sourceBorder, 4, 8, 11, 11]);
   assert.deepEqual(calls[4].slice(5), [15, 19, 278, 178]);
 });
 
@@ -84,12 +84,19 @@ test('both production build roots contain exactly the referenced independent PNG
     assert.deepEqual(files.sort(), ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path).sort());
     for (const id of ART_RUNTIME_IDS) {
       const file = ART_ASSETS[id].path;
-      assert.deepEqual(fs.readFileSync(path.join(root, target, file)), fs.readFileSync(path.join(root, file)), target + ': ' + id);
+      assert.deepEqual(fs.readFileSync(path.join(root, target, file)), fs.readFileSync(path.join(root, ART_ASSETS[id].sourcePath)), target + ': ' + id);
     }
   }
-  assert.ok(!ART_RUNTIME_IDS.some(id => /box|tray|preview|source/.test(id)));
+  const reviewed = JSON.parse(fs.readFileSync(path.join(root, 'art-source/six-gen/integration/manifest.json')));
+  assert.equal(ART_RUNTIME_IDS.length, 84);
+  assert.deepEqual(ART_RUNTIME_IDS.slice().sort(), reviewed.assets.map(entry => entry.id).sort());
+  assert.ok(!ART_RUNTIME_IDS.some(id => /preview|source/.test(id)));
   assert.equal(ART_RIGS.shipMachine.content.packageRigs, undefined);
-  const report = JSON.parse(fs.readFileSync(path.join(root, 'output/gen1-art-runtime/resource-report.json')));
+  assert.equal(ART_GENERATION_RIGS.length, 18);
+  assert.ok(ART_SIX_GEN.packaging.doubleTray && ART_SIX_GEN.packaging.fourCupBox);
+  assert.ok(ART_SIX_GEN.scene.tower.layers.some(layer => layer.id === 'factory_tower_front'));
+  const report = JSON.parse(fs.readFileSync(path.join(root, 'output/six-gen-art-runtime/resource-report.json')));
   assert.equal(report.count, ART_RUNTIME_IDS.length);
   assert.equal(report.compressedBytes, ART_RUNTIME_IDS.reduce((sum, id) => sum + ART_ASSETS[id].bytes, 0));
+  assert.ok(Object.values(report.budgets).every(budget => budget.passed));
 });

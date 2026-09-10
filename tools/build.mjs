@@ -4,16 +4,19 @@ import { fileURLToPath } from 'node:url';
 import { generateAudio } from './audio.mjs';
 import { bundleCommonJS } from './bundle.mjs';
 import { generateRuntimeArt, copyRuntimeArt } from './art-build.mjs';
+import releaseVersion from '../src/version.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 if (args.some(arg => arg !== '--development')) throw new Error('用法：node tools/build.mjs [--development]');
 const development = args.includes('--development');
+const { version } = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
+if (version !== releaseVersion.APP_VERSION) throw new Error('Application version does not match package.json');
 const runtimeArt = await generateRuntimeArt(root);
 const { code, moduleIds } = await bundleCommonJS({ root, entries: ['src/main.js'] });
 // Set the build-controlled switch before platform initialization on both hosts.
 // A local config or the Web entry cannot accidentally enable it in a release build.
 const buildConfig = `(function(root){root.POPCORN_CONFIG=root.POPCORN_CONFIG||{};root.POPCORN_CONFIG.developerHoldTap=false;root.POPCORN_CONFIG.allowSimulatedAds=false;})(typeof globalThis !== "undefined" ? globalThis : GameGlobal);\n`;
-const bundle = `/* 小小爆米花厂 v2.0.0 | pipeline | ${development ? 'development' : 'release'} */\n` + buildConfig + code;
+const bundle = `/* 小小爆米花厂 v${version} | pipeline | ${development ? 'development' : 'release'} */\n` + buildConfig + code;
 await mkdir(path.join(root, 'build/douyin'), { recursive: true });
 await mkdir(path.join(root, 'web'), { recursive: true });
 await writeFile(path.join(root, 'web/game.bundle.js'), bundle);
@@ -29,5 +32,5 @@ await writeFile(path.join(root, 'build/douyin/config.js'), '(typeof globalThis !
 await writeFile(path.join(root, 'build/douyin/project.config.json'), JSON.stringify({ description: '小小爆米花厂', setting: { es6: true, minified: false, urlCheck: true }, appid: config.appId, projectname: 'tiny-popcorn-factory', compileType: 'game' }, null, 2));
 await generateAudio(path.join(root,'build/douyin/audio'));
 const artReport = await copyRuntimeArt(root, ['web', 'build/douyin'], runtimeArt);
-console.log(`First-generation runtime art: ${artReport.count} PNGs; ${(artReport.compressedBytes / 1048576).toFixed(2)} MiB files; ${(artReport.decodedBytes / 1048576).toFixed(2)} MiB decoded. Both packages verified byte-for-byte.`);
-console.log(`Built pipeline v2.0.0 ${development ? 'development' : 'release'} (v1.5 分段自动化；连点与广告奖励均已停用): ${moduleIds.length} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: web/ · Douyin: build/douyin/`);
+console.log(`Six-generation runtime art: ${artReport.count} PNGs; ${(artReport.compressedBytes / 1048576).toFixed(2)} MiB files; ${(artReport.decodedBytes / 1048576).toFixed(2)} MiB decoded. Both packages verified byte-for-byte; all art budgets passed.`);
+console.log(`Built pipeline v${version} ${development ? 'development' : 'release'} (v1.5 分段自动化；连点与广告奖励均已停用): ${moduleIds.length} modules; ${(Buffer.byteLength(bundle)/1024).toFixed(1)} KiB. Web: web/ · Douyin: build/douyin/`);

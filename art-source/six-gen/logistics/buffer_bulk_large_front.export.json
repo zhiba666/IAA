@@ -1,0 +1,30 @@
+{
+  "id": "buffer_bulk_large_front",
+  "owner": "logistics",
+  "sourceFile": "art-source/six-gen/logistics/sources/buffer_bulk_large_front.png",
+  "file": "art-source/six-gen/logistics/exports/buffer_bulk_large_front.png",
+  "sourceSize": [
+    1402,
+    1122
+  ],
+  "sourceRect": [
+    46,
+    172,
+    1309,
+    862
+  ],
+  "width": 384,
+  "height": 256,
+  "anchor": [
+    192,
+    252
+  ],
+  "sourceSha256": "33d0ddfdd4271327bce666401a15669f33196123a449a1a7f60856bff6eb3a3a",
+  "sha256": "57dec617f3cb96a04007fad2758ec3f19b510518d0649e020d19d35cea3d7a44",
+  "bytes": 17706,
+  "rgbaBytes": 393216,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

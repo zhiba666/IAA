@@ -1,0 +1,2659 @@
+{
+  "scope": "six-generation-runtime-acceptance",
+  "commit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "contractVersion": "six-gen-art-1.0",
+  "checkerVersion": 1,
+  "capturedAt": "2026-09-10T08:23:09.059Z",
+  "fixture": "g2-upgraded",
+  "fixtureKind": "natural-production",
+  "configuration": "upgraded",
+  "generation": 2,
+  "viewSize": {
+    "width": 320,
+    "height": 524
+  },
+  "safeArea": {
+    "top": 0,
+    "bottom": 0
+  },
+  "paused": true,
+  "qaClockMs": 0,
+  "assetShas": {
+    "fx_sparkle": "ca31d4ca018c7b95f76fdbd05db3e3099140fb815d1ac354d194f91d61285c51",
+    "fx_steam": "5abd34480b2abc0452a1b6d7121ec7c5522f4dcd1ddaaadecc22f31891eec586",
+    "machine_cup_body": "3a02528efe200167aff5f9bb496975437e6b0c30c72c8f643e65b72ec18556e1",
+    "machine_cup_front": "7986b14367096ebb2d0efea6cf1f6a434cfa0e1fd3d595449d89072697d1fdbd",
+    "machine_cup_head": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df",
+    "machine_pop_body": "46d614925b13859a2cf6ecaa2f1904d52564f57eea75f4c6b236ad46da955ec9",
+    "machine_pop_front": "e9e9fbfb97cb11294f0352a1cf35773abf63d40f76ffd5cbb89450dc1c3e4261",
+    "machine_pop_head": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b",
+    "machine_ship_body": "75e59f3054ac75acb79a49e43a6e85ea19385e5dc20a65396b4fe76afb4c0eed",
+    "machine_ship_front": "7a44040ad62905721baa3f076f26d16abf2600b167336f02183b1b039bf7af9f",
+    "machine_ship_head": "5a46ea13f14e30d353a65d6cb7549b832e9c43bad29f983c24903c6df492f689",
+    "product_box_front": "284ff1bbb4792f07b0da7efb19547d4fe879f3fbc1ba0b5e7f21e85166664cd9",
+    "product_box_lid": "b7803e8551c2d9e304ae62002262e2f813b99050044d145e04f8f214733311b8",
+    "product_box_open": "5bf145d0d22c608406707d0a081e21db8b62953f5e47f44c857fc3fcf747b4a3",
+    "product_cup_empty": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c",
+    "product_cup_fill": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e",
+    "product_double_tray": "3cb7a8f68140280ab2002e4175c167e6d9e3c0b1fa3d183585e73b87ff6fd043",
+    "product_kernel_a": "3222bfbee6806c2a1548055e708b3cbf16160291286110445a98c0b6dcfa033f",
+    "product_kernel_b": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba",
+    "buffer_bulk_back": "57d83da8c560ba86500548127e8c0aeb6e05b1e0a53eb25b186aeedea0733544",
+    "buffer_bulk_front": "d9f5e700aeec5d26f5d22024bfce0e324192cc7de5389d32c037dfb52d771842",
+    "buffer_cups_back": "84e579f3086e9d995b90361567340d32520ba49026c35d1fff2a27c9c9d8673b",
+    "buffer_cups_front": "ea3b37989d131948ec4db9d41e4dd11c11aae1f0851fa6538c00b841578ca2eb",
+    "conveyor_down_left": "a38cd1f88712b8174c39a3d28dacdc67ebf70166be4fe6be4d58bed31c4854e0",
+    "conveyor_down_right": "8c39749556a18b055658c240a9034e5eb30be3ede14f59f27403a9683c6ec52b",
+    "conveyor_front_left": "cc8cc657d1e1443becd58da605a9161334501be1e432838c335fa9b911e7351a",
+    "conveyor_front_right": "6b55f87597cb239cea94a42938d5b946b49f3930ad57146f7aa8eb8562c06a2b",
+    "conveyor_infeed_back": "7ff8942480df3a99c8844f2d239403328fd858a4dfca04ab9b7c5c778337c125",
+    "conveyor_infeed_front": "60aa2d7a5100a90ef5e68abfa900595853ddce8351a0d08f0be585303b237be5",
+    "conveyor_outfeed_back": "9f18bf962bbfb0e1c8cbddb7af7e3bd88c69e2b56fe8f3c6414e9c7fe44c68da",
+    "conveyor_outfeed_front": "0fdfdd32e59614db800f0f7ae457fdc7665a8464e13a996b2f1a7d1b076352f1",
+    "conveyor_transfer_back": "62deba97b51c85fc31cbdcc6471fae8862fe723cd255c82a8ae2d008041a5fc3",
+    "conveyor_transfer_front": "5fb4878b5cc408d2482cf4ed4dd487eefcf537fa9194190e4f65db82d2d2c911",
+    "factory_door": "48a8603e8249be0473725b1b8428e9a5718634e03113a83e40ebc9d68a0d2b47",
+    "factory_room": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b",
+    "factory_window": "47125077d3a1493aefd0241ab0b0e8f63fc3c37b63db48beef78eb38b1c7f6ec",
+    "ui_button_disabled": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445",
+    "ui_button_primary": "7b7c45ead60cab2272bbaf0de246b72d010737d57f2712dcab1bc26c542dafa7",
+    "ui_button_secondary": "230706e334ad1fcf6500b0894f1592734dd6366302efe7d44b9256ce25c4fd59",
+    "ui_card": "08836ca71f95d9fb8f16e973d0873855857660b2f49829b9791fcca91fb503d2",
+    "ui_compact_bar": "e41b791a4226ba7fabb0c942226ed29fbd76c5be309932a7ebfcb09ff25d5a3f",
+    "ui_hud_coin": "5a2a6bfcda297c8a3fa0c295c88f66c5739efa3024c9af02efd669786fc5fdb1",
+    "ui_hud_rate": "b6610fdd6277fbf117bb78e88ed12aa67550849d540cdfe132b49fca5875e27b",
+    "ui_icon_arrow": "e64c6254ad4b1fd62083a5b88c052c1b652456bde01c339a97e693fe429ffe01",
+    "ui_icon_check": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29",
+    "ui_icon_close": "240f77bbef95050934b2c4e8f16a01a42109e37d206fa99fe869d9b9d51dc02e",
+    "ui_icon_coin": "895e94920c8635024ef4d475211b043645181409ace9c26de1e155f48625cf2e",
+    "ui_icon_cup": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588",
+    "ui_icon_expand": "78394bb247d54abe938fe1ec6c50587ac3f5fe9a7d701faefbeacd42ee84134f",
+    "ui_icon_lock": "37debc223f1f340f1cbcac149ca47834d16723475280ab3e2c7e7eb62450f26a",
+    "ui_icon_pop": "61fa4ef628a20576702f3f46bc08beef8e277e658083179b124bd0ffdc33c534",
+    "ui_icon_settings": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91",
+    "ui_icon_ship": "249c9c1bc108fb0a0c563ec42164cb5b711c1facc05bc9d6be48401f8ea12ad4",
+    "ui_icon_ship_speed": "eff884ce4f47763eb42f3f16525dcb54b757acb171df97ab7675d59732f2c5aa",
+    "ui_icon_sound": "b66c6bdc97a2d7b9dc5554d576e3c8ebd36509a820f2e5f2af73357570d67937",
+    "ui_icon_upgrade": "5eef57d2ea6169d76e999e0abf324d56e8ed4bdee419ab0a1ac5bff549c1a121",
+    "ui_icon_vibration": "9534b06d54e345f2346383800c8e581c118bbceefa07b135faf7ef434d948953",
+    "ui_icon_wait": "5f20c451b46d0fe5685947be358b907c3dca6968ad9989b5d73ed915a5ec9541",
+    "ui_icon_warning": "6231b87afb47f50c48dc4f68ca4301f890a36e0b0588d0f80bee27cb21b29424",
+    "ui_panel": "6f93bc6fb3ee2c6d98aba0116ef0078f491aa1e700fa2803847c5b1ef5af2c4f",
+    "machine_pop_double_carrier": "a5edfd68e69249d4911cf982279ececc9fe96593bc794d2c50eceaa06ea0853c",
+    "machine_pop_hex_body": "597f22b51d4470deff46339fd5475edacee3f95ae0b68064d9e34c79b9b1693a",
+    "machine_pop_pair_body": "06a7a6eac723b764e983b78e53c145e5f576f556921d78b1724dd2d09f088256",
+    "machine_pop_quad_body": "04a393c99633a1931b1d4fa47933a5aea65a1229385b1faacc28f62fe8a702f8",
+    "machine_pop_socket_cover": "7e58f4645e11ad1b470848308a7801d5d3668d096cdf5e36d47f64b489693139",
+    "machine_cup_pair_body": "e0fc91022aabcd67a8602beb1644502b48d1bdcd5e1528c6187f5943f557fab9",
+    "machine_cup_triple_body": "d9d91932a750a2acdc68c7ca487e3c3f61be6694b33c43b27119605024fd2fc4",
+    "machine_cup_quad_body": "5286e0fcb70aecffb687e7cf2514aadf46f6785f9fa7eb22cf56929f3ca594e2",
+    "machine_cup_hex_body": "a42dc093e36615d2b30ad57e36d39154992a86b02126c7af6e9d6f98b03baf80",
+    "machine_ship_dual_body": "c3f19c1520f6b1b8c144960e8c08557dd98947031fd48ac90352441cce6637d7",
+    "machine_ship_lane_cover": "e4dc00057eb4d03c26ff311dd5c2e785f5fdd207bfb2023df836abc8dce15c42",
+    "machine_ship_quad_body": "6ff32f81c9b5aa8ea042658ac74b487bddafabea3a0fdc64ea5be3a74fde5f1b",
+    "buffer_bulk_large_back": "9de01ebd4d76b11aa07234f1a05619c4bbde46a3854b6528fb61b177737257d9",
+    "buffer_bulk_large_front": "593fb45ff1f6e1dcfeb2ff9b73fb1aff9ddfa5ccae86853e027ab57c18ec8ef2",
+    "buffer_cups_rack_back": "4606664af47b10445beae89c55a61247425ae10d4296bbbd4471898049348783",
+    "buffer_cups_rack_front": "1b04d1440b0bea073cd5069e511cbbd361cbc970f5f7b5cebcf934aec4151d0e",
+    "input_cup_collar": "fc4fb2ebfca965e1acae54b6dd962d62b069f58cbb50622888fcebe30f4de05a",
+    "transfer_tray_empty": "084e641091c403623582df4d02a25e0785534e3ac9583a70d564b8204c1c8ff4",
+    "ui_badge_complete": "9ba2108b09b9e6bc60eafe86798babc790b52abfbd63fd9d8eb4d5e71fc60b33",
+    "ui_badge_generation": "d8b9fc59f2956715e8002dbc642df32d3d49dcf8e2f0f310bb834b671a2f456e",
+    "ui_icon_automation": "6c2b93248ec6f63388d87639d8d8b997714d3b818f81fe8440078953d7be15d8",
+    "factory_platform_extension": "b92971f107535979c54c8177f34509aca56a44307d62d53c9711eeaa4e05ccb2",
+    "factory_tower_back": "8167962ee14895107616d1c601545a8615c17aa94543da68cd2ca4d95bf15acd",
+    "factory_tower_front": "4a6d317433bf7aa5240bb18e1bfd7868c52f20e95fb997e174773e612717a136"
+  },
+  "snapshot": {
+    "state": {
+      "version": 4,
+      "savedAt": 1800000000000,
+      "introSeen": false,
+      "coins": 24,
+      "machine": 1,
+      "upgrades": {
+        "pop": 2,
+        "cup": 4,
+        "ship": 2
+      },
+      "settings": {
+        "sound": true,
+        "haptics": true
+      },
+      "playedSeconds": 520,
+      "totalProduced": 2288,
+      "totalSold": 2274,
+      "totalEarned": 2274,
+      "totalSpent": 2250,
+      "buffers": {
+        "pop": 5,
+        "cup": 6
+      },
+      "stations": {
+        "pop": {
+          "jobs": [
+            {
+              "amount": 1,
+              "durationTicks": 20,
+              "remainingTicks": 20
+            },
+            {
+              "amount": 1,
+              "durationTicks": 30,
+              "remainingTicks": 30
+            }
+          ],
+          "processed": 2286,
+          "history": [
+            {
+              "tick": 61220,
+              "amount": 1
+            },
+            {
+              "tick": 61240,
+              "amount": 1
+            },
+            {
+              "tick": 61260,
+              "amount": 1
+            },
+            {
+              "tick": 61280,
+              "amount": 1
+            },
+            {
+              "tick": 61300,
+              "amount": 1
+            },
+            {
+              "tick": 61320,
+              "amount": 1
+            },
+            {
+              "tick": 61340,
+              "amount": 1
+            },
+            {
+              "tick": 61360,
+              "amount": 1
+            },
+            {
+              "tick": 61380,
+              "amount": 1
+            },
+            {
+              "tick": 61400,
+              "amount": 1
+            },
+            {
+              "tick": 61420,
+              "amount": 1
+            },
+            {
+              "tick": 61440,
+              "amount": 1
+            },
+            {
+              "tick": 61460,
+              "amount": 1
+            },
+            {
+              "tick": 61480,
+              "amount": 1
+            },
+            {
+              "tick": 61500,
+              "amount": 1
+            },
+            {
+              "tick": 61520,
+              "amount": 1
+            },
+            {
+              "tick": 61540,
+              "amount": 1
+            },
+            {
+              "tick": 61560,
+              "amount": 1
+            },
+            {
+              "tick": 61580,
+              "amount": 1
+            },
+            {
+              "tick": 61600,
+              "amount": 1
+            },
+            {
+              "tick": 61620,
+              "amount": 1
+            },
+            {
+              "tick": 61640,
+              "amount": 1
+            },
+            {
+              "tick": 61660,
+              "amount": 1
+            },
+            {
+              "tick": 61680,
+              "amount": 1
+            },
+            {
+              "tick": 61700,
+              "amount": 1
+            },
+            {
+              "tick": 61720,
+              "amount": 1
+            },
+            {
+              "tick": 61740,
+              "amount": 1
+            },
+            {
+              "tick": 61760,
+              "amount": 1
+            },
+            {
+              "tick": 61780,
+              "amount": 1
+            },
+            {
+              "tick": 61800,
+              "amount": 1
+            },
+            {
+              "tick": 61820,
+              "amount": 1
+            },
+            {
+              "tick": 61840,
+              "amount": 1
+            },
+            {
+              "tick": 61860,
+              "amount": 1
+            },
+            {
+              "tick": 61880,
+              "amount": 1
+            },
+            {
+              "tick": 61900,
+              "amount": 1
+            },
+            {
+              "tick": 61920,
+              "amount": 1
+            },
+            {
+              "tick": 61940,
+              "amount": 1
+            },
+            {
+              "tick": 61960,
+              "amount": 1
+            },
+            {
+              "tick": 61980,
+              "amount": 1
+            },
+            {
+              "tick": 62000,
+              "amount": 1
+            },
+            {
+              "tick": 62020,
+              "amount": 1
+            },
+            {
+              "tick": 62040,
+              "amount": 1
+            },
+            {
+              "tick": 62060,
+              "amount": 1
+            },
+            {
+              "tick": 62080,
+              "amount": 1
+            },
+            {
+              "tick": 62100,
+              "amount": 1
+            },
+            {
+              "tick": 62120,
+              "amount": 1
+            },
+            {
+              "tick": 62140,
+              "amount": 1
+            },
+            {
+              "tick": 62160,
+              "amount": 1
+            },
+            {
+              "tick": 62180,
+              "amount": 1
+            },
+            {
+              "tick": 62200,
+              "amount": 1
+            },
+            {
+              "tick": 62220,
+              "amount": 1
+            },
+            {
+              "tick": 62240,
+              "amount": 1
+            },
+            {
+              "tick": 62260,
+              "amount": 1
+            },
+            {
+              "tick": 62280,
+              "amount": 1
+            },
+            {
+              "tick": 62300,
+              "amount": 1
+            },
+            {
+              "tick": 62320,
+              "amount": 1
+            },
+            {
+              "tick": 62340,
+              "amount": 1
+            },
+            {
+              "tick": 62360,
+              "amount": 1
+            },
+            {
+              "tick": 62380,
+              "amount": 1
+            },
+            {
+              "tick": 62400,
+              "amount": 1
+            }
+          ]
+        },
+        "cup": {
+          "jobs": [
+            null,
+            null
+          ],
+          "processed": 2281,
+          "history": [
+            {
+              "tick": 61244,
+              "amount": 2
+            },
+            {
+              "tick": 61268,
+              "amount": 2
+            },
+            {
+              "tick": 61292,
+              "amount": 2
+            },
+            {
+              "tick": 61364,
+              "amount": 2
+            },
+            {
+              "tick": 61388,
+              "amount": 2
+            },
+            {
+              "tick": 61412,
+              "amount": 2
+            },
+            {
+              "tick": 61484,
+              "amount": 2
+            },
+            {
+              "tick": 61508,
+              "amount": 2
+            },
+            {
+              "tick": 61532,
+              "amount": 2
+            },
+            {
+              "tick": 61604,
+              "amount": 2
+            },
+            {
+              "tick": 61628,
+              "amount": 2
+            },
+            {
+              "tick": 61652,
+              "amount": 2
+            },
+            {
+              "tick": 61724,
+              "amount": 2
+            },
+            {
+              "tick": 61748,
+              "amount": 2
+            },
+            {
+              "tick": 61772,
+              "amount": 2
+            },
+            {
+              "tick": 61844,
+              "amount": 2
+            },
+            {
+              "tick": 61868,
+              "amount": 2
+            },
+            {
+              "tick": 61892,
+              "amount": 2
+            },
+            {
+              "tick": 61964,
+              "amount": 2
+            },
+            {
+              "tick": 61988,
+              "amount": 2
+            },
+            {
+              "tick": 62012,
+              "amount": 2
+            },
+            {
+              "tick": 62084,
+              "amount": 2
+            },
+            {
+              "tick": 62108,
+              "amount": 2
+            },
+            {
+              "tick": 62132,
+              "amount": 2
+            },
+            {
+              "tick": 62204,
+              "amount": 2
+            },
+            {
+              "tick": 62228,
+              "amount": 2
+            },
+            {
+              "tick": 62252,
+              "amount": 2
+            },
+            {
+              "tick": 62324,
+              "amount": 2
+            },
+            {
+              "tick": 62348,
+              "amount": 2
+            },
+            {
+              "tick": 62372,
+              "amount": 2
+            }
+          ]
+        },
+        "ship": {
+          "jobs": [
+            null
+          ],
+          "processed": 2274,
+          "history": [
+            {
+              "tick": 61240,
+              "amount": 2
+            },
+            {
+              "tick": 61260,
+              "amount": 2
+            },
+            {
+              "tick": 61280,
+              "amount": 2
+            },
+            {
+              "tick": 61360,
+              "amount": 2
+            },
+            {
+              "tick": 61380,
+              "amount": 2
+            },
+            {
+              "tick": 61400,
+              "amount": 2
+            },
+            {
+              "tick": 61480,
+              "amount": 2
+            },
+            {
+              "tick": 61500,
+              "amount": 2
+            },
+            {
+              "tick": 61520,
+              "amount": 2
+            },
+            {
+              "tick": 61600,
+              "amount": 2
+            },
+            {
+              "tick": 61620,
+              "amount": 2
+            },
+            {
+              "tick": 61640,
+              "amount": 2
+            },
+            {
+              "tick": 61720,
+              "amount": 2
+            },
+            {
+              "tick": 61740,
+              "amount": 2
+            },
+            {
+              "tick": 61760,
+              "amount": 2
+            },
+            {
+              "tick": 61840,
+              "amount": 2
+            },
+            {
+              "tick": 61860,
+              "amount": 2
+            },
+            {
+              "tick": 61880,
+              "amount": 2
+            },
+            {
+              "tick": 61960,
+              "amount": 2
+            },
+            {
+              "tick": 61980,
+              "amount": 2
+            },
+            {
+              "tick": 62000,
+              "amount": 2
+            },
+            {
+              "tick": 62080,
+              "amount": 2
+            },
+            {
+              "tick": 62100,
+              "amount": 2
+            },
+            {
+              "tick": 62120,
+              "amount": 2
+            },
+            {
+              "tick": 62200,
+              "amount": 2
+            },
+            {
+              "tick": 62220,
+              "amount": 2
+            },
+            {
+              "tick": 62240,
+              "amount": 2
+            },
+            {
+              "tick": 62320,
+              "amount": 2
+            },
+            {
+              "tick": 62340,
+              "amount": 2
+            },
+            {
+              "tick": 62360,
+              "amount": 2
+            }
+          ]
+        }
+      },
+      "simulation": {
+        "ticks": 62400,
+        "carry": 0
+      },
+      "milestones": [
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "firstUpgradeAt": 3600,
+      "mode": "v15",
+      "economyProfile": "fresh",
+      "inputs": {
+        "cup": 0,
+        "ship": 1
+      },
+      "logisticsLevel": 0,
+      "connections": {
+        "pop": {
+          "automated": true,
+          "automatedAtTick": 9000,
+          "remainingTicks": 20,
+          "completedTransfers": 460,
+          "transferredAmount": 2281,
+          "manualTransfers": 15,
+          "lastManualTransferTick": 9000
+        },
+        "cup": {
+          "automated": true,
+          "automatedAtTick": 22200,
+          "remainingTicks": 20,
+          "completedTransfers": 371,
+          "transferredAmount": 2275,
+          "manualTransfers": 36,
+          "lastManualTransferTick": 22200
+        }
+      },
+      "automaticTrial": {
+        "elapsedTicks": 5400,
+        "complete": true,
+        "completedAtTick": 28799
+      }
+    },
+    "mode": "v15",
+    "machine": {
+      "id": 1,
+      "name": "电热锅",
+      "description": "自动试运行达标，扩建双锅与双头装杯",
+      "color": "#ed785d",
+      "cost": 650,
+      "requiredSold": 1200,
+      "targetRate": 3,
+      "buffers": {
+        "pop": 24,
+        "cup": 24
+      }
+    },
+    "stations": [
+      {
+        "id": "pop",
+        "name": "爆锅",
+        "capacity": 8,
+        "actualRate": 6,
+        "status": "running",
+        "lanes": 2,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 2,
+        "level": 2,
+        "processed": 2286,
+        "jobs": [
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          },
+          {
+            "amount": 1,
+            "progress": 0,
+            "complete": false
+          }
+        ],
+        "upgrade": {
+          "name": "双锅连续加热",
+          "cost": 600,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 16,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "cup",
+        "name": "装杯",
+        "capacity": 10,
+        "actualRate": 6,
+        "status": "waiting",
+        "lanes": 2,
+        "batchSize": 1,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 4,
+        "processed": 2281,
+        "jobs": [
+          null,
+          null
+        ],
+        "upgrade": {
+          "name": "双头连续装杯",
+          "cost": 550,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 1,
+          "cycleTicks": 15,
+          "capacity": 16,
+          "available": false,
+          "reason": "machine-required"
+        }
+      },
+      {
+        "id": "ship",
+        "name": "出货",
+        "capacity": 12,
+        "actualRate": 6,
+        "status": "waiting",
+        "lanes": 1,
+        "batchSize": 2,
+        "progress": 0,
+        "inFlight": 0,
+        "level": 2,
+        "processed": 2274,
+        "jobs": [
+          null
+        ],
+        "upgrade": {
+          "name": "双道成组包装",
+          "cost": 450,
+          "requiredMachine": 2,
+          "lanes": 2,
+          "batchSize": 2,
+          "cycleTicks": 24,
+          "capacity": 20,
+          "available": false,
+          "reason": "machine-required"
+        }
+      }
+    ],
+    "buffers": [
+      {
+        "id": "pop",
+        "amount": 5,
+        "capacity": 24
+      },
+      {
+        "id": "cup",
+        "amount": 6,
+        "capacity": 24
+      }
+    ],
+    "throughput": 6,
+    "price": 1,
+    "expansion": {
+      "name": "双缸机",
+      "description": "让双锅持续运转，增设第二条包装通道",
+      "cost": 1100,
+      "requiredSold": 650,
+      "targetRate": 7,
+      "sold": 2274,
+      "total": 650,
+      "rateReached": false,
+      "canAfford": false,
+      "ready": false,
+      "reason": "throughput-required"
+    },
+    "transfers": [
+      {
+        "id": "A",
+        "enabled": true,
+        "source": "pop",
+        "target": "cup",
+        "batchSize": 24,
+        "inputAmount": 0,
+        "inputCapacity": 24,
+        "reservedAmount": 0,
+        "availableAmount": 5,
+        "receivableAmount": 5,
+        "canReserve": true,
+        "reason": "",
+        "automated": true,
+        "automatedAtTick": 9000,
+        "remainingTicks": 20,
+        "completedTransfers": 460,
+        "transferredAmount": 2281,
+        "manualTransfers": 15,
+        "lastManualTransferTick": 9000,
+        "automation": {
+          "source": "pop",
+          "target": "cup",
+          "name": "自动补料",
+          "cost": 130,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 24,
+        "transportCycleTicks": 120,
+        "transportCapacity": 24
+      },
+      {
+        "id": "B",
+        "enabled": true,
+        "source": "cup",
+        "target": "ship",
+        "batchSize": 24,
+        "inputAmount": 1,
+        "inputCapacity": 24,
+        "reservedAmount": 0,
+        "availableAmount": 6,
+        "receivableAmount": 6,
+        "canReserve": true,
+        "reason": "",
+        "automated": true,
+        "automatedAtTick": 22200,
+        "remainingTicks": 20,
+        "completedTransfers": 371,
+        "transferredAmount": 2275,
+        "manualTransfers": 36,
+        "lastManualTransferTick": 22200,
+        "automation": {
+          "source": "cup",
+          "target": "ship",
+          "name": "自动送货",
+          "cost": 330,
+          "requiredMachine": 0,
+          "available": false,
+          "reason": "already-automated"
+        },
+        "automaticBatchSize": 24,
+        "transportCycleTicks": 120,
+        "transportCapacity": 24
+      }
+    ],
+    "logisticsUpgrade": {
+      "name": "加大托盘与料仓",
+      "cost": 60,
+      "requiredMachine": 0,
+      "transferBatch": 36,
+      "inputCapacity": 36,
+      "bufferCapacity": 36,
+      "available": false,
+      "reason": "not-enough-coins",
+      "before": {
+        "name": "整盘搬运",
+        "cost": 0,
+        "requiredMachine": 0,
+        "transferBatch": 24,
+        "inputCapacity": 24,
+        "bufferCapacity": 24
+      },
+      "after": {
+        "name": "加大托盘与料仓",
+        "cost": 60,
+        "requiredMachine": 0,
+        "transferBatch": 36,
+        "inputCapacity": 36,
+        "bufferCapacity": 36
+      },
+      "batchBefore": 24,
+      "batchAfter": 36,
+      "inputBefore": 24,
+      "inputAfter": 36,
+      "capacityBefore": 24,
+      "capacityAfter": 36
+    },
+    "automaticTrial": {
+      "elapsedSeconds": 45,
+      "requiredSeconds": 45,
+      "complete": true,
+      "targetRate": 3,
+      "unattended": true
+    },
+    "transfer": {
+      "id": "A",
+      "enabled": true,
+      "source": "pop",
+      "target": "cup",
+      "batchSize": 24,
+      "inputAmount": 0,
+      "inputCapacity": 24,
+      "reservedAmount": 0,
+      "availableAmount": 5,
+      "receivableAmount": 5,
+      "canReserve": true,
+      "reason": "",
+      "automated": true,
+      "automatedAtTick": 9000,
+      "remainingTicks": 20,
+      "completedTransfers": 460,
+      "transferredAmount": 2281,
+      "manualTransfers": 15,
+      "lastManualTransferTick": 9000,
+      "automation": {
+        "source": "pop",
+        "target": "cup",
+        "name": "自动补料",
+        "cost": 130,
+        "requiredMachine": 0,
+        "available": false,
+        "reason": "already-automated"
+      },
+      "automaticBatchSize": 24,
+      "transportCycleTicks": 120,
+      "transportCapacity": 24
+    },
+    "onboarding": {
+      "phase": "complete",
+      "stationId": null,
+      "hint": ""
+    },
+    "loadWarning": null
+  },
+  "presentation": {
+    "layout": {
+      "header": {
+        "x": 8,
+        "y": 10,
+        "w": 304,
+        "h": 54
+      },
+      "scene": {
+        "x": 8,
+        "y": 64,
+        "w": 304,
+        "h": 352
+      },
+      "goal": {
+        "x": 8,
+        "y": 420,
+        "w": 304,
+        "h": 100
+      },
+      "dock": {
+        "x": 8,
+        "y": 420,
+        "w": 304,
+        "h": 100
+      }
+    },
+    "zones": [
+      {
+        "x": 268,
+        "y": 10,
+        "w": 44,
+        "h": 44,
+        "action": "settings"
+      },
+      {
+        "x": 16,
+        "y": 115.42828696025347,
+        "w": 100.50906214274539,
+        "h": 81.9777038101767,
+        "action": "station:pop"
+      },
+      {
+        "x": 191.44780183912061,
+        "y": 120.55991512455034,
+        "w": 96.70977127208508,
+        "h": 103.07011036080573,
+        "action": "station:cup"
+      },
+      {
+        "x": 207.7549586754317,
+        "y": 207.8307245372585,
+        "w": 93.35159862651957,
+        "h": 94.7221767466479,
+        "action": "station:ship"
+      },
+      {
+        "x": 220,
+        "y": 472,
+        "w": 84,
+        "h": 44,
+        "action": "openLogistics"
+      },
+      {
+        "x": 14,
+        "y": 356,
+        "w": 69,
+        "h": 56,
+        "action": "transfer-source-pop"
+      },
+      {
+        "x": 87,
+        "y": 356,
+        "w": 69,
+        "h": 56,
+        "action": "transfer-target-cup"
+      },
+      {
+        "x": 160,
+        "y": 356,
+        "w": 69,
+        "h": 56,
+        "action": "transfer-source-cup"
+      },
+      {
+        "x": 233,
+        "y": 356,
+        "w": 69,
+        "h": 56,
+        "action": "transfer-target-ship"
+      }
+    ],
+    "art": {
+      "requested": 84,
+      "loaded": 84,
+      "failed": 0,
+      "pending": 0,
+      "complete": true,
+      "entries": [
+        {
+          "id": "fx_sparkle",
+          "path": "assets/art/six_gen/fx_sparkle.png",
+          "status": "loaded",
+          "error": "",
+          "width": 78,
+          "height": 96
+        },
+        {
+          "id": "fx_steam",
+          "path": "assets/art/six_gen/fx_steam.png",
+          "status": "loaded",
+          "error": "",
+          "width": 47,
+          "height": 96
+        },
+        {
+          "id": "machine_cup_body",
+          "path": "assets/art/six_gen/machine_cup_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 336,
+          "height": 480
+        },
+        {
+          "id": "machine_cup_front",
+          "path": "assets/art/six_gen/machine_cup_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 228
+        },
+        {
+          "id": "machine_cup_head",
+          "path": "assets/art/six_gen/machine_cup_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 113,
+          "height": 192
+        },
+        {
+          "id": "machine_pop_body",
+          "path": "assets/art/six_gen/machine_pop_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 367
+        },
+        {
+          "id": "machine_pop_front",
+          "path": "assets/art/six_gen/machine_pop_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 154
+        },
+        {
+          "id": "machine_pop_head",
+          "path": "assets/art/six_gen/machine_pop_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 186
+        },
+        {
+          "id": "machine_ship_body",
+          "path": "assets/art/six_gen/machine_ship_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 374,
+          "height": 384
+        },
+        {
+          "id": "machine_ship_front",
+          "path": "assets/art/six_gen/machine_ship_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 167
+        },
+        {
+          "id": "machine_ship_head",
+          "path": "assets/art/six_gen/machine_ship_head.png",
+          "status": "loaded",
+          "error": "",
+          "width": 119,
+          "height": 192
+        },
+        {
+          "id": "product_box_front",
+          "path": "assets/art/six_gen/product_box_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 128,
+          "height": 78
+        },
+        {
+          "id": "product_box_lid",
+          "path": "assets/art/six_gen/product_box_lid.png",
+          "status": "loaded",
+          "error": "",
+          "width": 128,
+          "height": 91
+        },
+        {
+          "id": "product_box_open",
+          "path": "assets/art/six_gen/product_box_open.png",
+          "status": "loaded",
+          "error": "",
+          "width": 127,
+          "height": 128
+        },
+        {
+          "id": "product_cup_empty",
+          "path": "assets/art/six_gen/product_cup_empty.png",
+          "status": "loaded",
+          "error": "",
+          "width": 104,
+          "height": 128
+        },
+        {
+          "id": "product_cup_fill",
+          "path": "assets/art/six_gen/product_cup_fill.png",
+          "status": "loaded",
+          "error": "",
+          "width": 128,
+          "height": 94
+        },
+        {
+          "id": "product_double_tray",
+          "path": "assets/art/six_gen/product_double_tray.png",
+          "status": "loaded",
+          "error": "",
+          "width": 128,
+          "height": 80
+        },
+        {
+          "id": "product_kernel_a",
+          "path": "assets/art/six_gen/product_kernel_a.png",
+          "status": "loaded",
+          "error": "",
+          "width": 68,
+          "height": 65
+        },
+        {
+          "id": "product_kernel_b",
+          "path": "assets/art/six_gen/product_kernel_b.png",
+          "status": "loaded",
+          "error": "",
+          "width": 64,
+          "height": 62
+        },
+        {
+          "id": "buffer_bulk_back",
+          "path": "assets/art/six_gen/buffer_bulk_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 275
+        },
+        {
+          "id": "buffer_bulk_front",
+          "path": "assets/art/six_gen/buffer_bulk_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 182
+        },
+        {
+          "id": "buffer_cups_back",
+          "path": "assets/art/six_gen/buffer_cups_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 262
+        },
+        {
+          "id": "buffer_cups_front",
+          "path": "assets/art/six_gen/buffer_cups_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 192
+        },
+        {
+          "id": "conveyor_down_left",
+          "path": "assets/art/six_gen/conveyor_down_left.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 269
+        },
+        {
+          "id": "conveyor_down_right",
+          "path": "assets/art/six_gen/conveyor_down_right.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 270
+        },
+        {
+          "id": "conveyor_front_left",
+          "path": "assets/art/six_gen/conveyor_front_left.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 184
+        },
+        {
+          "id": "conveyor_front_right",
+          "path": "assets/art/six_gen/conveyor_front_right.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 186
+        },
+        {
+          "id": "conveyor_infeed_back",
+          "path": "assets/art/six_gen/conveyor_infeed_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 287
+        },
+        {
+          "id": "conveyor_infeed_front",
+          "path": "assets/art/six_gen/conveyor_infeed_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 164
+        },
+        {
+          "id": "conveyor_outfeed_back",
+          "path": "assets/art/six_gen/conveyor_outfeed_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 249
+        },
+        {
+          "id": "conveyor_outfeed_front",
+          "path": "assets/art/six_gen/conveyor_outfeed_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 158
+        },
+        {
+          "id": "conveyor_transfer_back",
+          "path": "assets/art/six_gen/conveyor_transfer_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 170
+        },
+        {
+          "id": "conveyor_transfer_front",
+          "path": "assets/art/six_gen/conveyor_transfer_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 91
+        },
+        {
+          "id": "factory_door",
+          "path": "assets/art/six_gen/factory_door.png",
+          "status": "loaded",
+          "error": "",
+          "width": 148,
+          "height": 192
+        },
+        {
+          "id": "factory_room",
+          "path": "assets/art/six_gen/factory_room.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 576
+        },
+        {
+          "id": "factory_window",
+          "path": "assets/art/six_gen/factory_window.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 175
+        },
+        {
+          "id": "ui_button_disabled",
+          "path": "assets/art/six_gen/ui_button_disabled.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 138
+        },
+        {
+          "id": "ui_button_primary",
+          "path": "assets/art/six_gen/ui_button_primary.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 104
+        },
+        {
+          "id": "ui_button_secondary",
+          "path": "assets/art/six_gen/ui_button_secondary.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 104
+        },
+        {
+          "id": "ui_card",
+          "path": "assets/art/six_gen/ui_card.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 86
+        },
+        {
+          "id": "ui_compact_bar",
+          "path": "assets/art/six_gen/ui_compact_bar.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 59
+        },
+        {
+          "id": "ui_hud_coin",
+          "path": "assets/art/six_gen/ui_hud_coin.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 104
+        },
+        {
+          "id": "ui_hud_rate",
+          "path": "assets/art/six_gen/ui_hud_rate.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 104
+        },
+        {
+          "id": "ui_icon_arrow",
+          "path": "assets/art/six_gen/ui_icon_arrow.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_check",
+          "path": "assets/art/six_gen/ui_icon_check.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_close",
+          "path": "assets/art/six_gen/ui_icon_close.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_coin",
+          "path": "assets/art/six_gen/ui_icon_coin.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_cup",
+          "path": "assets/art/six_gen/ui_icon_cup.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_expand",
+          "path": "assets/art/six_gen/ui_icon_expand.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_lock",
+          "path": "assets/art/six_gen/ui_icon_lock.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_pop",
+          "path": "assets/art/six_gen/ui_icon_pop.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_settings",
+          "path": "assets/art/six_gen/ui_icon_settings.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_ship",
+          "path": "assets/art/six_gen/ui_icon_ship.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_ship_speed",
+          "path": "assets/art/six_gen/ui_icon_ship_speed.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_sound",
+          "path": "assets/art/six_gen/ui_icon_sound.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_upgrade",
+          "path": "assets/art/six_gen/ui_icon_upgrade.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_vibration",
+          "path": "assets/art/six_gen/ui_icon_vibration.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_wait",
+          "path": "assets/art/six_gen/ui_icon_wait.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_icon_warning",
+          "path": "assets/art/six_gen/ui_icon_warning.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "id": "ui_panel",
+          "path": "assets/art/six_gen/ui_panel.png",
+          "status": "loaded",
+          "error": "",
+          "width": 288,
+          "height": 104
+        },
+        {
+          "id": "machine_pop_double_carrier",
+          "path": "assets/art/six_gen/machine_pop_double_carrier.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 137
+        },
+        {
+          "id": "machine_pop_hex_body",
+          "path": "assets/art/six_gen/machine_pop_hex_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 436
+        },
+        {
+          "id": "machine_pop_pair_body",
+          "path": "assets/art/six_gen/machine_pop_pair_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 422
+        },
+        {
+          "id": "machine_pop_quad_body",
+          "path": "assets/art/six_gen/machine_pop_quad_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 433
+        },
+        {
+          "id": "machine_pop_socket_cover",
+          "path": "assets/art/six_gen/machine_pop_socket_cover.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 180
+        },
+        {
+          "id": "machine_cup_pair_body",
+          "path": "assets/art/six_gen/machine_cup_pair_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 601,
+          "height": 640
+        },
+        {
+          "id": "machine_cup_triple_body",
+          "path": "assets/art/six_gen/machine_cup_triple_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 586
+        },
+        {
+          "id": "machine_cup_quad_body",
+          "path": "assets/art/six_gen/machine_cup_quad_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 601,
+          "height": 640
+        },
+        {
+          "id": "machine_cup_hex_body",
+          "path": "assets/art/six_gen/machine_cup_hex_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 586
+        },
+        {
+          "id": "machine_ship_dual_body",
+          "path": "assets/art/six_gen/machine_ship_dual_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 451
+        },
+        {
+          "id": "machine_ship_lane_cover",
+          "path": "assets/art/six_gen/machine_ship_lane_cover.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 106
+        },
+        {
+          "id": "machine_ship_quad_body",
+          "path": "assets/art/six_gen/machine_ship_quad_body.png",
+          "status": "loaded",
+          "error": "",
+          "width": 640,
+          "height": 403
+        },
+        {
+          "id": "buffer_bulk_large_back",
+          "path": "assets/art/six_gen/buffer_bulk_large_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 403
+        },
+        {
+          "id": "buffer_bulk_large_front",
+          "path": "assets/art/six_gen/buffer_bulk_large_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 256
+        },
+        {
+          "id": "buffer_cups_rack_back",
+          "path": "assets/art/six_gen/buffer_cups_rack_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 429
+        },
+        {
+          "id": "buffer_cups_rack_front",
+          "path": "assets/art/six_gen/buffer_cups_rack_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 429
+        },
+        {
+          "id": "input_cup_collar",
+          "path": "assets/art/six_gen/input_cup_collar.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 133
+        },
+        {
+          "id": "transfer_tray_empty",
+          "path": "assets/art/six_gen/transfer_tray_empty.png",
+          "status": "loaded",
+          "error": "",
+          "width": 192,
+          "height": 133
+        },
+        {
+          "id": "ui_badge_complete",
+          "path": "assets/art/six_gen/ui_badge_complete.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 95
+        },
+        {
+          "id": "ui_badge_generation",
+          "path": "assets/art/six_gen/ui_badge_generation.png",
+          "status": "loaded",
+          "error": "",
+          "width": 96,
+          "height": 94
+        },
+        {
+          "id": "ui_icon_automation",
+          "path": "assets/art/six_gen/ui_icon_automation.png",
+          "status": "loaded",
+          "error": "",
+          "width": 92,
+          "height": 96
+        },
+        {
+          "id": "factory_platform_extension",
+          "path": "assets/art/six_gen/factory_platform_extension.png",
+          "status": "loaded",
+          "error": "",
+          "width": 512,
+          "height": 318
+        },
+        {
+          "id": "factory_tower_back",
+          "path": "assets/art/six_gen/factory_tower_back.png",
+          "status": "loaded",
+          "error": "",
+          "width": 317,
+          "height": 640
+        },
+        {
+          "id": "factory_tower_front",
+          "path": "assets/art/six_gen/factory_tower_front.png",
+          "status": "loaded",
+          "error": "",
+          "width": 384,
+          "height": 209
+        }
+      ]
+    },
+    "scene": {
+      "generation": 2,
+      "layout": "compact-return-loop",
+      "frame": {
+        "x": 8,
+        "y": 64,
+        "w": 304,
+        "h": 352
+      },
+      "machines": [
+        {
+          "stationId": "pop",
+          "rigId": "pop_pair",
+          "status": "running",
+          "rect": [
+            16,
+            112.28737876829268,
+            100.50906214274539,
+            85.1186120021375
+          ],
+          "lanes": 2,
+          "ports": {
+            "input": [
+              18.423524760916948,
+              165.600840327816
+            ],
+            "output": [
+              109.30586034071212,
+              183.1040223637463
+            ]
+          },
+          "jobs": [
+            {
+              "index": 0,
+              "amount": 1,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": "kernels"
+            },
+            {
+              "index": 1,
+              "amount": 1,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": "kernels"
+            }
+          ],
+          "slots": [
+            {
+              "index": 0,
+              "installed": true,
+              "coverVisible": false,
+              "headVisible": true,
+              "amount": 1,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": "kernels"
+            },
+            {
+              "index": 1,
+              "installed": true,
+              "coverVisible": false,
+              "headVisible": true,
+              "amount": 1,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": "kernels"
+            }
+          ]
+        },
+        {
+          "stationId": "cup",
+          "rigId": "cup_pair",
+          "status": "waiting",
+          "rect": [
+            190.7954593684826,
+            119.90757265391234,
+            98.01445621336113,
+            104.37479530208174
+          ],
+          "lanes": 2,
+          "ports": {
+            "input": [
+              203.7843787548927,
+              176.6714423866106
+            ],
+            "output": [
+              263.8754469575246,
+              212.08935675769828
+            ]
+          },
+          "jobs": [],
+          "slots": [
+            {
+              "index": 0,
+              "installed": true,
+              "coverVisible": false,
+              "headVisible": true,
+              "amount": 0,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": null
+            },
+            {
+              "index": 1,
+              "installed": true,
+              "coverVisible": false,
+              "headVisible": true,
+              "amount": 0,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": null
+            }
+          ]
+        },
+        {
+          "stationId": "ship",
+          "rigId": "ship_single",
+          "status": "waiting",
+          "rect": [
+            206.5366670130954,
+            202.19612559895307,
+            97.4633329869046,
+            100.50906214274538
+          ],
+          "lanes": 1,
+          "ports": {
+            "input": [
+              227.24762527281263,
+              262.1969899690162
+            ],
+            "output": [
+              275.0655730195127,
+              282.45108885535734
+            ]
+          },
+          "jobs": [],
+          "slots": [
+            {
+              "index": 0,
+              "installed": true,
+              "coverVisible": false,
+              "headVisible": true,
+              "amount": 0,
+              "progress": 0,
+              "complete": false,
+              "headOffset": 0,
+              "packageKind": null
+            }
+          ]
+        }
+      ],
+      "buffers": [
+        {
+          "id": "pop",
+          "amount": 5,
+          "capacity": 24,
+          "rect": [
+            115.63793125570504,
+            187.9284573465981,
+            51.460639817085635,
+            36.78631674424481
+          ],
+          "full": false
+        },
+        {
+          "id": "cup",
+          "amount": 6,
+          "capacity": 24,
+          "rect": [
+            160.31245561890356,
+            238.01296332420796,
+            51.460639817085635,
+            37.188352992815794
+          ],
+          "full": false
+        }
+      ],
+      "connections": [
+        {
+          "from": "pop",
+          "to": "belt_pop_bulk",
+          "fromPoint": [
+            109.30586034071212,
+            183.1040223637463
+          ],
+          "toPoint": [
+            109.3058603407121,
+            183.1040223637463
+          ],
+          "gap": 1.4210854715202004e-14
+        },
+        {
+          "from": "belt_pop_bulk",
+          "to": "bulk",
+          "fromPoint": [
+            144.2830139663875,
+            202.10023510872517
+          ],
+          "toPoint": [
+            144.28301396638747,
+            202.1002351087252
+          ],
+          "gap": 4.0194366942304644e-14
+        },
+        {
+          "from": "bulk",
+          "to": "belt_bulk_cup",
+          "fromPoint": [
+            133.42803525497098,
+            214.86488600085386
+          ],
+          "toPoint": [
+            133.42803525497098,
+            214.86488600085386
+          ],
+          "gap": 0
+        },
+        {
+          "from": "belt_bulk_cup",
+          "to": "cup",
+          "fromPoint": [
+            203.78437875489274,
+            176.6714423866106
+          ],
+          "toPoint": [
+            203.7843787548927,
+            176.6714423866106
+          ],
+          "gap": 2.842170943040401e-14
+        },
+        {
+          "from": "cup",
+          "to": "belt_cup_stock",
+          "fromPoint": [
+            263.8754469575246,
+            212.08935675769828
+          ],
+          "toPoint": [
+            263.8754469575247,
+            212.0893567576983
+          ],
+          "gap": 6.355287432313019e-14
+        },
+        {
+          "from": "belt_cup_stock",
+          "to": "cups",
+          "fromPoint": [
+            171.87099776531926,
+            262.0346291763241
+          ],
+          "toPoint": [
+            171.8709977653193,
+            262.03462917632413
+          ],
+          "gap": 6.355287432313019e-14
+        },
+        {
+          "from": "cups",
+          "to": "belt_stock_ship",
+          "fromPoint": [
+            200.21455328957347,
+            262.03462917632413
+          ],
+          "toPoint": [
+            200.21455328957347,
+            262.0346291763241
+          ],
+          "gap": 5.684341886080802e-14
+        },
+        {
+          "from": "belt_stock_ship",
+          "to": "ship",
+          "fromPoint": [
+            227.24762527281263,
+            262.1969899690162
+          ],
+          "toPoint": [
+            227.24762527281263,
+            262.1969899690162
+          ],
+          "gap": 0
+        },
+        {
+          "from": "ship",
+          "to": "outfeed",
+          "fromPoint": [
+            275.0655730195127,
+            282.45108885535734
+          ],
+          "toPoint": [
+            275.0655730195127,
+            282.45108885535734
+          ],
+          "gap": 0
+        }
+      ],
+      "decorations": [
+        {
+          "id": "factory_platform_extension",
+          "rect": [
+            13.989818757145088,
+            155.20631875734094,
+            104.52942462845522,
+            64.92257232782961
+          ],
+          "behindMachines": true
+        }
+      ],
+      "transferHeight": 64,
+      "fallbacks": [],
+      "transfers": [
+        {
+          "source": {
+            "x": 14,
+            "y": 356,
+            "w": 69,
+            "h": 56,
+            "kind": "tray",
+            "source": "pop",
+            "target": "cup",
+            "action": "transfer-source-pop"
+          },
+          "target": {
+            "x": 87,
+            "y": 356,
+            "w": 69,
+            "h": 56,
+            "kind": "input",
+            "source": "pop",
+            "target": "cup",
+            "action": "transfer-target-cup"
+          },
+          "amount": 0,
+          "inputAmount": 0,
+          "inputCapacity": 24,
+          "automated": true,
+          "legal": false,
+          "overTarget": false,
+          "inputPoint": [
+            203.7843787548927,
+            176.6714423866106
+          ],
+          "physicalInput": null
+        },
+        {
+          "source": {
+            "x": 160,
+            "y": 356,
+            "w": 69,
+            "h": 56,
+            "kind": "tray",
+            "source": "cup",
+            "target": "ship",
+            "action": "transfer-source-cup"
+          },
+          "target": {
+            "x": 233,
+            "y": 356,
+            "w": 69,
+            "h": 56,
+            "kind": "input",
+            "source": "cup",
+            "target": "ship",
+            "action": "transfer-target-ship"
+          },
+          "amount": 0,
+          "inputAmount": 1,
+          "inputCapacity": 24,
+          "automated": true,
+          "legal": false,
+          "overTarget": false,
+          "inputPoint": [
+            227.24762527281263,
+            262.1969899690162
+          ],
+          "physicalInput": null
+        }
+      ]
+    }
+  },
+  "errors": [],
+  "frameTiming": {
+    "samples": 0,
+    "averageMs": null,
+    "p95Ms": null
+  },
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4197/__six/runtime.js",
+      "transferSize": 5024,
+      "encodedBodySize": 4724,
+      "duration": 3.100000001490116
+    },
+    {
+      "name": "http://127.0.0.1:4197/game.bundle.js",
+      "transferSize": 342526,
+      "encodedBodySize": 342226,
+      "duration": 4.200000002980232
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/fx_sparkle.png",
+      "transferSize": 3790,
+      "encodedBodySize": 3490,
+      "duration": 4.600000001490116
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/fx_steam.png",
+      "transferSize": 3786,
+      "encodedBodySize": 3486,
+      "duration": 5.099999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_body.png",
+      "transferSize": 50157,
+      "encodedBodySize": 49857,
+      "duration": 5.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_front.png",
+      "transferSize": 18395,
+      "encodedBodySize": 18095,
+      "duration": 7
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_head.png",
+      "transferSize": 9481,
+      "encodedBodySize": 9181,
+      "duration": 11
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_body.png",
+      "transferSize": 49454,
+      "encodedBodySize": 49154,
+      "duration": 11.800000000745058
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_front.png",
+      "transferSize": 17612,
+      "encodedBodySize": 17312,
+      "duration": 11.900000002235174
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_head.png",
+      "transferSize": 15434,
+      "encodedBodySize": 15134,
+      "duration": 12
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_body.png",
+      "transferSize": 45081,
+      "encodedBodySize": 44781,
+      "duration": 12
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_front.png",
+      "transferSize": 11378,
+      "encodedBodySize": 11078,
+      "duration": 16
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_box_front.png",
+      "transferSize": 4001,
+      "encodedBodySize": 3701,
+      "duration": 18.300000000745058
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_box_lid.png",
+      "transferSize": 5291,
+      "encodedBodySize": 4991,
+      "duration": 18.899999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_head.png",
+      "transferSize": 10236,
+      "encodedBodySize": 9936,
+      "duration": 19
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_box_open.png",
+      "transferSize": 7575,
+      "encodedBodySize": 7275,
+      "duration": 19.899999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_cup_empty.png",
+      "transferSize": 7441,
+      "encodedBodySize": 7141,
+      "duration": 19.699999999254942
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_cup_fill.png",
+      "transferSize": 9904,
+      "encodedBodySize": 9604,
+      "duration": 28.099999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_double_tray.png",
+      "transferSize": 6189,
+      "encodedBodySize": 5889,
+      "duration": 32.400000002235174
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_kernel_b.png",
+      "transferSize": 9624,
+      "encodedBodySize": 9324,
+      "duration": 33.70000000298023
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/product_kernel_a.png",
+      "transferSize": 3584,
+      "encodedBodySize": 3284,
+      "duration": 33.20000000298023
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_bulk_front.png",
+      "transferSize": 12952,
+      "encodedBodySize": 12652,
+      "duration": 34.099999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_bulk_back.png",
+      "transferSize": 32609,
+      "encodedBodySize": 32309,
+      "duration": 34.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_cups_back.png",
+      "transferSize": 28020,
+      "encodedBodySize": 27720,
+      "duration": 36.400000002235174
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_cups_front.png",
+      "transferSize": 10512,
+      "encodedBodySize": 10212,
+      "duration": 37
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_down_left.png",
+      "transferSize": 32815,
+      "encodedBodySize": 32515,
+      "duration": 39.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_down_right.png",
+      "transferSize": 35835,
+      "encodedBodySize": 35535,
+      "duration": 39.399999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_front_left.png",
+      "transferSize": 9513,
+      "encodedBodySize": 9213,
+      "duration": 39.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_front_right.png",
+      "transferSize": 10020,
+      "encodedBodySize": 9720,
+      "duration": 39.79999999701977
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_infeed_back.png",
+      "transferSize": 28520,
+      "encodedBodySize": 28220,
+      "duration": 42.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_infeed_front.png",
+      "transferSize": 8255,
+      "encodedBodySize": 7955,
+      "duration": 42.400000002235174
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_outfeed_back.png",
+      "transferSize": 27834,
+      "encodedBodySize": 27534,
+      "duration": 44.600000001490116
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_outfeed_front.png",
+      "transferSize": 7764,
+      "encodedBodySize": 7464,
+      "duration": 45.099999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_transfer_back.png",
+      "transferSize": 28891,
+      "encodedBodySize": 28591,
+      "duration": 45.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/conveyor_transfer_front.png",
+      "transferSize": 6541,
+      "encodedBodySize": 6241,
+      "duration": 44.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_door.png",
+      "transferSize": 9458,
+      "encodedBodySize": 9158,
+      "duration": 47
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_room.png",
+      "transferSize": 72768,
+      "encodedBodySize": 72468,
+      "duration": 47.099999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_window.png",
+      "transferSize": 12481,
+      "encodedBodySize": 12181,
+      "duration": 48.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_button_disabled.png",
+      "transferSize": 49891,
+      "encodedBodySize": 49591,
+      "duration": 49.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_button_primary.png",
+      "transferSize": 8659,
+      "encodedBodySize": 8359,
+      "duration": 49.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_button_secondary.png",
+      "transferSize": 7559,
+      "encodedBodySize": 7259,
+      "duration": 50.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_card.png",
+      "transferSize": 5435,
+      "encodedBodySize": 5135,
+      "duration": 52.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_compact_bar.png",
+      "transferSize": 4764,
+      "encodedBodySize": 4464,
+      "duration": 52.399999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_hud_coin.png",
+      "transferSize": 6915,
+      "encodedBodySize": 6615,
+      "duration": 53
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_hud_rate.png",
+      "transferSize": 8913,
+      "encodedBodySize": 8613,
+      "duration": 55.399999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_arrow.png",
+      "transferSize": 2583,
+      "encodedBodySize": 2283,
+      "duration": 55.899999998509884
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_check.png",
+      "transferSize": 2774,
+      "encodedBodySize": 2474,
+      "duration": 55.900000002235174
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_close.png",
+      "transferSize": 4303,
+      "encodedBodySize": 4003,
+      "duration": 58.600000001490116
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_coin.png",
+      "transferSize": 6170,
+      "encodedBodySize": 5870,
+      "duration": 58.30000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_cup.png",
+      "transferSize": 4919,
+      "encodedBodySize": 4619,
+      "duration": 58.599999997764826
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_expand.png",
+      "transferSize": 3313,
+      "encodedBodySize": 3013,
+      "duration": 61.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_lock.png",
+      "transferSize": 4392,
+      "encodedBodySize": 4092,
+      "duration": 62.100000001490116
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_pop.png",
+      "transferSize": 6057,
+      "encodedBodySize": 5757,
+      "duration": 62
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_ship_speed.png",
+      "transferSize": 3784,
+      "encodedBodySize": 3484,
+      "duration": 64.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_settings.png",
+      "transferSize": 4909,
+      "encodedBodySize": 4609,
+      "duration": 65.39999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_ship.png",
+      "transferSize": 4928,
+      "encodedBodySize": 4628,
+      "duration": 64.79999999701977
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_sound.png",
+      "transferSize": 3876,
+      "encodedBodySize": 3576,
+      "duration": 66.90000000223517
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_upgrade.png",
+      "transferSize": 4153,
+      "encodedBodySize": 3853,
+      "duration": 67.30000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_vibration.png",
+      "transferSize": 3646,
+      "encodedBodySize": 3346,
+      "duration": 67.20000000298023
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_wait.png",
+      "transferSize": 4829,
+      "encodedBodySize": 4529,
+      "duration": 70.20000000298023
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_warning.png",
+      "transferSize": 4424,
+      "encodedBodySize": 4124,
+      "duration": 69.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_panel.png",
+      "transferSize": 8519,
+      "encodedBodySize": 8219,
+      "duration": 70.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_double_carrier.png",
+      "transferSize": 8444,
+      "encodedBodySize": 8144,
+      "duration": 72.89999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_hex_body.png",
+      "transferSize": 77093,
+      "encodedBodySize": 76793,
+      "duration": 73.59999999776483
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_pair_body.png",
+      "transferSize": 65693,
+      "encodedBodySize": 65393,
+      "duration": 73.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_quad_body.png",
+      "transferSize": 81947,
+      "encodedBodySize": 81647,
+      "duration": 75.90000000223517
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_pair_body.png",
+      "transferSize": 98411,
+      "encodedBodySize": 98111,
+      "duration": 76.30000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_pop_socket_cover.png",
+      "transferSize": 14323,
+      "encodedBodySize": 14023,
+      "duration": 75
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_triple_body.png",
+      "transferSize": 95246,
+      "encodedBodySize": 94946,
+      "duration": 78.80000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_hex_body.png",
+      "transferSize": 119818,
+      "encodedBodySize": 119518,
+      "duration": 79.69999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_cup_quad_body.png",
+      "transferSize": 105749,
+      "encodedBodySize": 105449,
+      "duration": 79.89999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_dual_body.png",
+      "transferSize": 69648,
+      "encodedBodySize": 69348,
+      "duration": 81.5
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_lane_cover.png",
+      "transferSize": 7226,
+      "encodedBodySize": 6926,
+      "duration": 81.89999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/machine_ship_quad_body.png",
+      "transferSize": 60223,
+      "encodedBodySize": 59923,
+      "duration": 82.30000000074506
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_bulk_large_back.png",
+      "transferSize": 41805,
+      "encodedBodySize": 41505,
+      "duration": 84.89999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_bulk_large_front.png",
+      "transferSize": 13648,
+      "encodedBodySize": 13348,
+      "duration": 85.10000000149012
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_cups_rack_back.png",
+      "transferSize": 44600,
+      "encodedBodySize": 44300,
+      "duration": 85.10000000149012
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/buffer_cups_rack_front.png",
+      "transferSize": 14138,
+      "encodedBodySize": 13838,
+      "duration": 88.89999999850988
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/input_cup_collar.png",
+      "transferSize": 6745,
+      "encodedBodySize": 6445,
+      "duration": 89
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/transfer_tray_empty.png",
+      "transferSize": 7883,
+      "encodedBodySize": 7583,
+      "duration": 88.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_badge_complete.png",
+      "transferSize": 4413,
+      "encodedBodySize": 4113,
+      "duration": 90.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_icon_automation.png",
+      "transferSize": 4259,
+      "encodedBodySize": 3959,
+      "duration": 89.40000000223517
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/ui_badge_generation.png",
+      "transferSize": 5415,
+      "encodedBodySize": 5115,
+      "duration": 89.70000000298023
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_tower_front.png",
+      "transferSize": 12915,
+      "encodedBodySize": 12615,
+      "duration": 92.69999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_platform_extension.png",
+      "transferSize": 30830,
+      "encodedBodySize": 30530,
+      "duration": 93.19999999925494
+    },
+    {
+      "name": "http://127.0.0.1:4197/assets/art/six_gen/factory_tower_back.png",
+      "transferSize": 48059,
+      "encodedBodySize": 47759,
+      "duration": 93.10000000149012
+    }
+  ],
+  "deviceStatus": "NOT_RUN"
+}

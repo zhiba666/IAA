@@ -1,0 +1,562 @@
+﻿[
+    {
+        "id":  "ui_icon_coin",
+        "path":  "assets/art/ui/ui_icon_coin.png",
+        "source":  "ui_icon_coin-source.png",
+        "sourceRect":  [
+                           120,
+                           121,
+                           1015,
+                           996
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            5,
+                            88,
+                            86
+                        ],
+        "bytes":  16286,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  3156,
+                      "opaque":  269,
+                      "partial":  5791
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1189,
+                            "transparent":  776222
+                        },
+        "sha256":  "19b996933f81a9cce47d2e418a41cdd8c49a50bf106b75b945d58d695cee6043"
+    },
+    {
+        "id":  "ui_icon_ship_speed",
+        "path":  "assets/art/ui/ui_icon_ship_speed.png",
+        "source":  "ui_icon_ship_speed-source.png",
+        "sourceRect":  [
+                           49,
+                           288,
+                           1178,
+                           715
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            21,
+                            88,
+                            53
+                        ],
+        "bytes":  9307,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  5857,
+                      "opaque":  298,
+                      "partial":  3061
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  2308,
+                            "transparent":  990232
+                        },
+        "sha256":  "7bacf45fec9e0429347d6ff795b7fbee9a3457ea918973dabe5eb3923600c5fa"
+    },
+    {
+        "id":  "ui_icon_pop",
+        "path":  "assets/art/ui/ui_icon_pop.png",
+        "source":  "ui_icon_pop-source.png",
+        "sourceRect":  [
+                           180,
+                           168,
+                           894,
+                           935
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            6,
+                            4,
+                            84,
+                            88
+                        ],
+        "bytes":  18353,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  3152,
+                      "opaque":  332,
+                      "partial":  5732
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  737,
+                            "transparent":  896813
+                        },
+        "sha256":  "702db8948f3aeac57c37ad268c57f1cb85566930fadb679648bba4d791b7dc89"
+    },
+    {
+        "id":  "ui_icon_cup",
+        "path":  "assets/art/ui/ui_icon_cup.png",
+        "source":  "ui_icon_cup-source.png",
+        "sourceRect":  [
+                           158,
+                           71,
+                           938,
+                           1111
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            11,
+                            4,
+                            74,
+                            88
+                        ],
+        "bytes":  15017,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4348,
+                      "opaque":  503,
+                      "partial":  4365
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  2219,
+                            "transparent":  818214
+                        },
+        "sha256":  "762282fdc18cb07ee1f3a705150d818523e87e90f51f9a6acc34c2841f41490a"
+    },
+    {
+        "id":  "ui_icon_ship",
+        "path":  "assets/art/ui/ui_icon_ship.png",
+        "source":  "ui_icon_ship-source.png",
+        "sourceRect":  [
+                           96,
+                           112,
+                           1062,
+                           1030
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            5,
+                            88,
+                            85
+                        ],
+        "bytes":  16955,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  3203,
+                      "opaque":  468,
+                      "partial":  5545
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  3193,
+                            "transparent":  710273
+                        },
+        "sha256":  "bce2bd7458feee104b81961bc2e20b7c5eb037b3deef021a77118f287d2688fd"
+    },
+    {
+        "id":  "ui_icon_settings",
+        "path":  "assets/art/ui/ui_icon_settings.png",
+        "source":  "ui_icon_settings-source.png",
+        "sourceRect":  [
+                           77,
+                           87,
+                           1099,
+                           1068
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            5,
+                            88,
+                            86
+                        ],
+        "bytes":  12481,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4700,
+                      "opaque":  437,
+                      "partial":  4079
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1801,
+                            "transparent":  895647
+                        },
+        "sha256":  "d9eb858fa3c6e7e2f2cb22714dae52f7e54b727132deb14bd91e0df82635f5ea"
+    },
+    {
+        "id":  "ui_icon_sound",
+        "path":  "assets/art/ui/ui_icon_sound.png",
+        "source":  "ui_icon_sound-source.png",
+        "sourceRect":  [
+                           85,
+                           182,
+                           1111,
+                           927
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            11,
+                            88,
+                            73
+                        ],
+        "bytes":  11308,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  5189,
+                      "opaque":  438,
+                      "partial":  3589
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1825,
+                            "transparent":  955051
+                        },
+        "sha256":  "38d4f3d46aecc1a46794604d2e6e25e0413903cf3cce52369d3131d311de51d2"
+    },
+    {
+        "id":  "ui_icon_vibration",
+        "path":  "assets/art/ui/ui_icon_vibration.png",
+        "source":  "ui_icon_vibration-source.png",
+        "sourceRect":  [
+                           126,
+                           162,
+                           1002,
+                           933
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            7,
+                            88,
+                            82
+                        ],
+        "bytes":  10889,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4040,
+                      "opaque":  399,
+                      "partial":  4777
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  2749,
+                            "transparent":  916511
+                        },
+        "sha256":  "36fc746ec3b7c8d7339db71b31cb47ce2cfdf2e3d0b5248a160287fac866da19"
+    },
+    {
+        "id":  "ui_icon_close",
+        "path":  "assets/art/ui/ui_icon_close.png",
+        "source":  "ui_icon_close-source.png",
+        "sourceRect":  [
+                           171,
+                           186,
+                           909,
+                           888
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            5,
+                            88,
+                            86
+                        ],
+        "bytes":  13325,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  3781,
+                      "opaque":  372,
+                      "partial":  5063
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1030,
+                            "transparent":  1007391
+                        },
+        "sha256":  "6fa40b4331c47d258c88a530673e350c701075a17889e86516c2d6df55b4f31a"
+    },
+    {
+        "id":  "ui_icon_arrow",
+        "path":  "assets/art/ui/ui_icon_arrow.png",
+        "source":  "ui_icon_arrow-source.png",
+        "sourceRect":  [
+                           339,
+                           160,
+                           616,
+                           941
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            19,
+                            4,
+                            58,
+                            88
+                        ],
+        "bytes":  7658,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  6426,
+                      "opaque":  253,
+                      "partial":  2537
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1088,
+                            "transparent":  1264764
+                        },
+        "sha256":  "52d006cd13729f1e48748a55ccda47e662e913385947e050b5e861a14f610092"
+    },
+    {
+        "id":  "ui_icon_upgrade",
+        "path":  "assets/art/ui/ui_icon_upgrade.png",
+        "source":  "ui_icon_upgrade-source.png",
+        "sourceRect":  [
+                           147,
+                           128,
+                           959,
+                           1007
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            6,
+                            4,
+                            84,
+                            88
+                        ],
+        "bytes":  12174,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4918,
+                      "opaque":  275,
+                      "partial":  4023
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1223,
+                            "transparent":  1020512
+                        },
+        "sha256":  "0b3ddb0a80d1a70b526a37e3b221ee423aef6a574c0abac2b6ace0c173e71038"
+    },
+    {
+        "id":  "ui_icon_expand",
+        "path":  "assets/art/ui/ui_icon_expand.png",
+        "source":  "ui_icon_expand-source.png",
+        "sourceRect":  [
+                           126,
+                           164,
+                           1015,
+                           946
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            7,
+                            88,
+                            82
+                        ],
+        "bytes":  9473,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  5861,
+                      "opaque":  324,
+                      "partial":  3031
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1446,
+                            "transparent":  1138631
+                        },
+        "sha256":  "d952aa7f9dee45c5c27f9e519e4112873608848858f18b5a81c52000ba0701ab"
+    },
+    {
+        "id":  "ui_icon_check",
+        "path":  "assets/art/ui/ui_icon_check.png",
+        "source":  "ui_icon_check-source.png",
+        "sourceRect":  [
+                           85,
+                           208,
+                           1105,
+                           888
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            12,
+                            88,
+                            71
+                        ],
+        "bytes":  8034,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  6395,
+                      "opaque":  257,
+                      "partial":  2564
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1110,
+                            "transparent":  1144923
+                        },
+        "sha256":  "60fd25e89b2e69839196bb908077a6f106c96faeace610efdc2f9fd1501b0564"
+    },
+    {
+        "id":  "ui_icon_lock",
+        "path":  "assets/art/ui/ui_icon_lock.png",
+        "source":  "ui_icon_lock-source.png",
+        "sourceRect":  [
+                           195,
+                           100,
+                           864,
+                           1062
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            12,
+                            4,
+                            72,
+                            88
+                        ],
+        "bytes":  12967,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4240,
+                      "opaque":  345,
+                      "partial":  4631
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  1887,
+                            "transparent":  870138
+                        },
+        "sha256":  "8ed29217e7908a368ac18eb2f62479a6b3d4d6c0d5d205fa2c9fa3163e12c270"
+    },
+    {
+        "id":  "ui_icon_warning",
+        "path":  "assets/art/ui/ui_icon_warning.png",
+        "source":  "ui_icon_warning-source.png",
+        "sourceRect":  [
+                           87,
+                           150,
+                           1079,
+                           953
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            4,
+                            9,
+                            88,
+                            78
+                        ],
+        "bytes":  10646,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4706,
+                      "opaque":  242,
+                      "partial":  4268
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  890,
+                            "transparent":  909208
+                        },
+        "sha256":  "16091d181a811aa4af219e6ca20bf819ed2685db4668907b3b4f92dce3fc3b18"
+    },
+    {
+        "id":  "ui_icon_wait",
+        "path":  "assets/art/ui/ui_icon_wait.png",
+        "source":  "ui_icon_wait-source.png",
+        "sourceRect":  [
+                           253,
+                           104,
+                           748,
+                           1067
+                       ],
+        "width":  96,
+        "height":  96,
+        "contentRect":  [
+                            17,
+                            4,
+                            62,
+                            88
+                        ],
+        "bytes":  13741,
+        "decodedBytes":  36864,
+        "alpha":  {
+                      "transparent":  4951,
+                      "opaque":  311,
+                      "partial":  3954
+                  },
+        "sourceSize":  [
+                           1254,
+                           1254
+                       ],
+        "sourceAlpha":  {
+                            "opaque":  2051,
+                            "transparent":  966260
+                        },
+        "sha256":  "54258f55118c699d136e1eaf4aad0d1d9e1d6d821bc0e2581cdf09a4358e5009"
+    }
+]

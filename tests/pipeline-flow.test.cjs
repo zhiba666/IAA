@@ -9,7 +9,7 @@ function economy(view) { const s = view.state; return { coins: s.coins, totalSol
 
 test('actual entry starts automatically and never credits work in progress before final shipment', () => {
   const h = harness();
-  assert.equal(h.context.__POPCORN__.version, '2.0.0');
+  assert.equal(h.context.__POPCORN__.version, '0.1.0');
   assert.deepEqual(Object.keys(h.context.__POPCORN__).sort(), ['analytics','presentation','snapshot','version']);
   assert.equal(h.ui().newFactory, true);
   h.frame(500);

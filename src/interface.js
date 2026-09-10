@@ -9,19 +9,20 @@ const finite=n=>Number.isFinite(n)?n:0;
 const statusText=s=>({running:'● 加工中',blocked:'Ⅱ 等下游空位',waiting:'… 等上游供料'})[s]||'等待';
 
 class GameInterface {
-  constructor(renderer){this.r=renderer;this.layout=null;this.firstGeneration=false;this.nativeCompact=false;}
+  constructor(renderer){this.r=renderer;this.layout=null;this.artTheme=false;this.nativeCompact=false;}
   text(s,x,y,size=14,color=C.ink,weight=500,align='left'){this.r.text(s,x,y,size,color,weight,align);}
   ellipsis(s,width,size=14){s=String(s);this.r.c.font=`500 ${size}px "Microsoft YaHei", "PingFang SC", sans-serif`;if(this.r.c.measureText(s).width<=width)return s;while(s.length&&this.r.c.measureText(s+'…').width>width)s=s.slice(0,-1);return s+'…';}
   label(s,x,y,width,size=14,color=C.ink,weight=500,align='left'){this.text(this.ellipsis(s,width,size),x,y,size,color,weight,align);}
   box(x,y,w,h,fill=C.white,stroke,r=14){this.r.box(x,y,w,h,r,fill,stroke);}
   panel(id,x,y,w,h,fill=C.white,stroke=C.line,radius=14){
-    if(!this.firstGeneration||!drawNineSlice(this.r.c,this.r.art,id,[x,y,w,h],{border:10}))this.box(x,y,w,h,fill,stroke,radius);
+    if(!this.artTheme||!drawNineSlice(this.r.c,this.r.art,id,[x,y,w,h],{border:10}))this.box(x,y,w,h,fill,stroke,radius);
   }
-  icon(id,x,y,size){return this.firstGeneration&&drawArtLayer(this.r.c,this.r.art,{id:'ui_icon_'+id,rect:[x,y,size,size]},createArtTransform());}
+  icon(id,x,y,size){return this.artTheme&&drawArtLayer(this.r.c,this.r.art,{id:'ui_icon_'+id,rect:[x,y,size,size]},createArtTransform());}
+  badge(id,x,y,size){return drawArtLayer(this.r.c,this.r.art,{id:'ui_badge_'+id,rect:[x,y,size,size]},createArtTransform());}
   button(x,y,w,label,action,{fill=C.green,color=C.white,disabled=false,h=44,size=14,icon=null}={}){
     this.panel(disabled?'ui_button_disabled':fill===C.green?'ui_button_primary':'ui_button_secondary',x,y,w,h,disabled?'#e5e4d5':fill,undefined);
-    const hasIcon=icon&&this.firstGeneration&&this.icon(icon,x+8,y+(h-18)/2,18);
-    const textColor=disabled?C.muted:this.firstGeneration&&(fill===C.green||color===C.white)?C.ink:color;
+    const hasIcon=icon&&this.artTheme&&this.icon(icon,x+8,y+(h-18)/2,18);
+    const textColor=disabled?C.muted:this.artTheme&&(fill===C.green||color===C.white)?C.ink:color;
     this.label(label,x+(w+(hasIcon?20:0))/2,y+h/2,w-(hasIcon?32:12),size,textColor,700,'center');
     if(!disabled)this.r.hit(x,y,w,h,action);
   }
@@ -29,9 +30,9 @@ class GameInterface {
   draw(v,ui,dt=0){
     const r=this.r;this.w=ui.viewport.width;this.h=ui.viewport.height;r.zones=[];
     const safe=Math.max(finite(ui.viewport.safeTop),ui.viewport.menuBottom?finite(ui.viewport.menuBottom)+5:0);
-    this.top=Math.max(10,safe+5);this.short=this.h-this.top<530;this.firstGeneration=v.state.machine===0;
+    this.top=Math.max(10,safe+5);this.short=this.h-this.top<530;this.artTheme=true;
     // platform.js has already removed the physical bottom safe area from height.
-    this.nativeCompact=this.firstGeneration&&this.h-this.top<430;
+    this.nativeCompact=this.artTheme&&this.h-this.top<430;
     r.c.clearRect(0,0,this.w,this.h);this.box(0,0,this.w,this.h,C.paper,undefined,0);
     r.scene.update(dt);this.home(v,ui);
     r.drawTransfer(v,ui);
@@ -39,8 +40,8 @@ class GameInterface {
   }
   home(v,ui){
     const r=this.r,w=this.w,h=this.h,top=this.top,selected=ui.modal?.type==='station'?ui.modal.stationId:null;
-    const short=this.short,headerH=this.firstGeneration?(this.nativeCompact?44:short?54:86):(short?54:96);
-    if(this.firstGeneration)this.artHud(v,ui,headerH);
+    const short=this.short,headerH=this.artTheme?(this.nativeCompact?44:short?54:86):(short?54:96);
+    if(this.artTheme)this.artHud(v,ui,headerH);
     else{
     if(!short){
       this.text('小小爆米花厂',16,top+14,21,C.ink,800);
@@ -60,7 +61,7 @@ class GameInterface {
     }
     const bottleneck=v.insights?.bottleneck;
     const collapsed=selected&&ui.stationCollapsed;
-    const dockH=this.firstGeneration?(selected?(collapsed?52:this.nativeCompact?120:short?148:176):(v.mode==='v15'?100:v.transfer?.enabled?(this.nativeCompact?82:96):this.nativeCompact?120:short?142:158)):(selected?(collapsed?52:short?160:202):(v.mode==='v15'?100:short?158:174));
+    const dockH=this.artTheme?(selected?(collapsed?52:this.nativeCompact?120:short?148:176):(v.mode==='v15'?100:v.transfer?.enabled?(this.nativeCompact?82:96):this.nativeCompact?120:short?142:158)):(selected?(collapsed?52:short?160:202):(v.mode==='v15'?100:short?158:174));
     const dockY=h-dockH-4,sceneY=top+headerH,sceneH=dockY-sceneY-4;
     const presented={...v,presentation:{selectedStationId:selected,transfer:ui.transfer}};
     r.scene.draw(8,sceneY,w-16,sceneH,presented);
@@ -99,18 +100,25 @@ class GameInterface {
     this.panel('ui_button_secondary',settingsX,top,44,44,C.mint);
     if(!this.icon('settings',settingsX+11,top+11,22))this.text('⚙',settingsX+22,top+22,22,C.green,700,'center');
     this.r.hit(settingsX,top,44,44,'settings');
-    if(!short)this.label(v.mode==='v15'?'小小爆米花厂 · 从搬运到自动':v.transfer?.enabled?'1.5 首段搬运试玩':'小小爆米花厂 · 第 1 代',16,top+61,w-32,15,C.ink,800);
+    if(!short)this.label(v.mode==='v15'?'第 '+(v.state.machine+1)+' 代 · '+v.machine.name:v.transfer?.enabled?'1.5 首段搬运试玩':'小小爆米花厂 · 第 '+(v.state.machine+1)+' 代',16,top+61,w-32,15,C.ink,800);
     const artReport=typeof this.r.art?.report==='function'?this.r.art.report():this.r.art?.report;
     const failed=Math.max(0,finite(artReport?.failed));
     const pending=Math.max(0,finite(artReport?.pending));
     const transferHint=ui.transfer?.amount?'把这批货送到'+(ui.transfer.target==='ship'?'出货':'装杯')+'入口':v.mode==='v15'?v.onboarding?.hint||(v.transfers?.every(item=>item.automated)?'自动补料已接通 · 可专心调整产能':'点货仓再点入口，或拖动整盘'):'从待装仓拖一批到装杯入口';
-    const hint=failed?'美术加载失败 '+failed+' 项':pending?'正在装配首代美术…':ui.toast||((v.transfer?.enabled||v.mode==='v15')?transferHint:v.insights?.bottleneck?.label||'观察供料与积压，寻找生产限制');
-    this.label(hint,16,top+headerH-(this.nativeCompact?6:8),w-(this.nativeCompact?76:32),this.nativeCompact?11:12,failed?C.orange:ui.toast?C.green:C.orange,650);
+    const hint=failed?'美术加载失败 '+failed+' 项':pending?'正在装配工厂美术…':ui.toast||((v.transfer?.enabled||v.mode==='v15')?transferHint:v.insights?.bottleneck?.label||'观察供料与积压，寻找生产限制');
+    this.label(hint,16,top+headerH-(this.nativeCompact?6:8),w-(failed?92:this.nativeCompact?76:32),this.nativeCompact?11:12,failed?C.orange:ui.toast?C.green:C.orange,650);
+    if(failed){
+      // The failed-load state temporarily uses the coin tile for recovery.
+      // Its 44 px target fits even the compact header; settings stays usable.
+      this.panel('ui_button_secondary',8,top,coinW,32,C.mint);
+      this.text('重试美术',8+coinW/2,top+16,12,C.ink,700,'center');
+      this.r.hit(8,top,coinW,44,'retry-art');
+    }
   }
   goal(v,y,height){
     if(v.mode==='v15'){this.logisticsGoal(v,y,height);return;}
     if(v.transfer?.enabled){this.transferGoal(v,y,height);return;}
-    if(this.firstGeneration){this.artGoal(v,y,height);return;}
+    if(this.artTheme){this.artGoal(v,y,height);return;}
     const x=8,w=this.w-16,next=v.expansion;
     this.box(x,y,w,height,C.white,C.line,16);
     if(!next){this.text('六代生产线已落成',x+12,y+24,17,C.green,800);this.label('继续改造各工位，改善整线配合',x+12,y+53,w-24,13,C.muted);this.label('累计出货 '+num(v.state.totalSold)+' 份',x+12,y+84,w-24,14,C.green);return;}
@@ -134,8 +142,11 @@ class GameInterface {
     const x=8,w=this.w-16,next=v.transfers?.find(item=>!item.automated),trial=v.automaticTrial,expansion=v.expansion;
     this.panel('ui_card',x,y,w,height);
     const name=next?.source==='pop'?'装杯自动补料':'出货自动补料';
-    const title=next?'下一目标 · '+name:trial&&!trial.complete?'全自动试运行 · 无需搬运':expansion?'下一目标 · 扩建'+expansion.name:'全自动工厂已落成';
-    this.label(title,x+12,y+16,w-24,13,C.ink,800);
+    const complete=v.state.machine===5&&v.stations.every(station=>!station.upgrade)&&!v.logisticsUpgrade;
+    const title=next?'下一目标 · '+name:trial&&!trial.complete?'全自动试运行 · 无需搬运':expansion?'下一目标 · 扩建'+expansion.name:complete?'六代设备改造已完成':'六代工厂已建成';
+    if(next)this.icon('automation',x+10,y+6,22);
+    else this.badge(complete?'complete':'generation',x+10,y+6,22);
+    this.label(title,x+38,y+16,w-48,13,C.ink,800);
     const hint=next?'永久少搬'+(next.source==='pop'?'待装':'待发')+'仓这一段 · 加工速度另行改造':trial&&!trial.complete?'连续自动出货 '+Math.floor(finite(trial.elapsedSeconds))+' / '+finite(trial.requiredSeconds)+' 秒':expansion?'销售 '+num(Math.min(v.state.totalSold,expansion.requiredSold))+'/'+num(expansion.requiredSold)+' · '+(!expansion.rateReached?'等待自动能力达标':'自动能力已达标'):'继续改造设备，提高整线出货';
     this.label(hint,x+12,y+35,w-24,11,C.muted);
     const buttonY=y+height-48,detailW=84,mainW=w-detailW-20;
@@ -161,7 +172,14 @@ class GameInterface {
   artGoal(v,y,height){
     const x=8,w=this.w-16,next=v.expansion,compact=this.nativeCompact;
     this.panel('ui_card',x,y,w,height);
-    if(!next)return;
+    if(!next){
+      const complete=v.stations.every(station=>!station.upgrade);
+      this.badge(complete?'complete':'generation',x+12,y+8,26);
+      this.label(complete?'六代设备改造已完成':'六代生产线已落成',x+46,y+22,w-58,16,C.green,800);
+      this.label('累计出货 '+num(v.state.totalSold)+' 份',x+12,y+52,w-24,13,C.green);
+      this.label(complete?'所有工位保持自动生产':'继续改造各工位，改善整线配合',x+12,y+78,w-24,12,C.muted);
+      return;
+    }
     const changes=next.bufferChanges||[],names=(next.unlocks||[]).map(item=>typeof item==='string'?item:item.name).filter(Boolean);
     this.label('扩建目标 · '+next.name,x+12,y+(compact?14:17),w-24,compact?12:14,C.ink,800);
     const stocks=changes.map(b=>(b.id==='pop'?'待装':'待发')+' '+num(b.before)+'→'+num(b.after)).join(' · ');

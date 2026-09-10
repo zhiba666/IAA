@@ -1,0 +1,167 @@
+﻿{
+    "schemaVersion":  1,
+    "contractVersion":  "six-gen-art-1.0",
+    "mode":  "mechanical crop and uniform resize only",
+    "assets":  [
+                   {
+                       "id":  "machine_pop_double_carrier",
+                       "sourceFile":  "sources/machine_pop_double_carrier.png",
+                       "file":  "exports/machine_pop_double_carrier.png",
+                       "sourceSha256":  "f8f360698ac78569278f15a0a5dbb25f13338243309ec23ada782e64851236bf",
+                       "exportSha256":  "52ffe39212286cdda8c59245b1f177d6256f45d57a0f26710cb42afe04ca9a11",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         0,
+                                                         0,
+                                                         1407,
+                                                         1003
+                                                     ],
+                                      "exportSize":  [
+                                                         192,
+                                                         137
+                                                     ],
+                                      "uniformScale":  0.13646055437100213,
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  1073005,
+                                      "alphaSemi":  499859,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions"
+                                  }
+                   },
+                   {
+                       "id":  "machine_pop_hex_body",
+                       "sourceFile":  "sources/machine_pop_hex_body.png",
+                       "file":  "exports/machine_pop_hex_body.png",
+                       "sourceSha256":  "4782231729de1307426c95a5bb823e0a8a05314fc185da5b600c37298c363e97",
+                       "exportSha256":  "61b349d85ba30c731d6878793dc47cf15090cb485f00d1d7c2a386e1ac5b3aa5",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         39,
+                                                         12,
+                                                         1484,
+                                                         1012
+                                                     ],
+                                      "exportSize":  [
+                                                         640,
+                                                         436
+                                                     ],
+                                      "uniformScale":  0.431266846361186,
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  829941,
+                                      "alphaSemi":  742923,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions"
+                                  }
+                   },
+                   {
+                       "id":  "machine_pop_pair_body",
+                       "sourceFile":  "sources/machine_pop_pair_body.png",
+                       "file":  "exports/machine_pop_pair_body.png",
+                       "sourceSha256":  "46604c722f22ec0c5fbe1ba469720a4efde4dcd3fce194b52a4144190a9efd73",
+                       "exportSha256":  "ae3fa7a5d729dc36781702600a371af2ff7632dfa0806d1aa9e53c27bb1fe91d",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         34,
+                                                         18,
+                                                         1493,
+                                                         985
+                                                     ],
+                                      "exportSize":  [
+                                                         640,
+                                                         422
+                                                     ],
+                                      "uniformScale":  0.42866711319490958,
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  848624,
+                                      "alphaSemi":  724240,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions"
+                                  }
+                   },
+                   {
+                       "id":  "machine_pop_quad_body",
+                       "sourceFile":  "sources/machine_pop_quad_body.png",
+                       "file":  "exports/machine_pop_quad_body.png",
+                       "sourceSha256":  "0f1f3b042323a1a006cbc70dec7530189d74f2cc89369c667f4e136c8b6cb4db",
+                       "exportSha256":  "fdcc63dd76c5e3e75fac1469626aa1d5135f820ccd2a0cc050447c74b17f1116",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         0,
+                                                         24,
+                                                         1479,
+                                                         1000
+                                                     ],
+                                      "exportSize":  [
+                                                         640,
+                                                         433
+                                                     ],
+                                      "uniformScale":  0.43272481406355645,
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  754098,
+                                      "alphaSemi":  818766,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions"
+                                  }
+                   },
+                   {
+                       "id":  "machine_pop_socket_cover",
+                       "sourceFile":  "sources/machine_pop_socket_cover.png",
+                       "file":  "exports/machine_pop_socket_cover.png",
+                       "sourceSha256":  "f90b10b03c7eed44823c7f2d65a94638997bb12733906131fffeeb410ac6da3e",
+                       "exportSha256":  "fbf415ce2677b28e844dac0e9f036c88da89453a688702686d2f5c74f758eef0",
+                       "recipe":  {
+                                      "sourceSize":  [
+                                                         1536,
+                                                         1024
+                                                     ],
+                                      "sourceRect":  [
+                                                         236,
+                                                         24,
+                                                         1065,
+                                                         1000
+                                                     ],
+                                      "exportSize":  [
+                                                         192,
+                                                         180
+                                                     ],
+                                      "uniformScale":  0.18028169014084508,
+                                      "alphaMin":  0,
+                                      "alphaMax":  254,
+                                      "alphaZero":  963015,
+                                      "alphaSemi":  609849,
+                                      "hasRealAlpha":  true,
+                                      "format":  "PNG/RGBA",
+                                      "cropPolicy":  "alpha\u003e0 bounding box plus five source pixels; complete source preserved",
+                                      "resize":  "uniform HighQualityBicubic; rounded raster dimensions"
+                                  }
+                   }
+               ]
+}

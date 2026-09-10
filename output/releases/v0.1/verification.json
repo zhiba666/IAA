@@ -1,0 +1,89 @@
+{
+  "release": "v0.1",
+  "packageVersion": "0.1.0",
+  "date": "2026-09-10",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "bundleSha256": "ba2b11950c52f2c30cff63a2de4d6f8e3eb20acae003ca7c42d9ecd0b9b28c33",
+  "tests": {
+    "passed": 221,
+    "failed": 0
+  },
+  "strictPreflight": "PASS",
+  "economicRegression": {
+    "status": "PASS",
+    "finalRate": 96
+  },
+  "art": {
+    "count": 84,
+    "compressedBytes": 1846247,
+    "decodedBytes": 26848144,
+    "targetHashesMatched": true
+  },
+  "archive": {
+    "uploaded": {
+      "files": 303,
+      "bytes": 95895373
+    },
+    "localOnly": {
+      "files": 334,
+      "bytes": 159325985
+    },
+    "hashVerification": "PASS",
+    "originalFilesModified": false
+  },
+  "browser": {
+    "browser": "Chrome",
+    "status": "SMOKE_PASS",
+    "captures": [
+      {
+        "fixture": "g1-entry",
+        "width": 320,
+        "height": 524,
+        "safeArea": {
+          "top": 24,
+          "bottom": 24
+        },
+        "capturedAt": "2026-09-10T08:57:27.160Z",
+        "metadata": "chrome/g1-entry-320x524-safe24-1789030647160.json",
+        "png": "chrome/g1-entry-320x524-safe24-1789030647160.png",
+        "pngSha256": "6adfceecaa04e77f1e7706f2fcd5e69d4c5aaa65c1ce6cef403732a35da5adb3",
+        "assetsLoaded": 84,
+        "runtimeErrors": 0
+      },
+      {
+        "fixture": "g6-complete",
+        "width": 320,
+        "height": 524,
+        "safeArea": {
+          "top": 24,
+          "bottom": 24
+        },
+        "capturedAt": "2026-09-10T08:58:10.416Z",
+        "metadata": "chrome/g6-complete-320x524-safe24-1789030690416.json",
+        "png": "chrome/g6-complete-320x524-safe24-1789030690416.png",
+        "pngSha256": "76ffe9c334a0cba1c62d845919155b6db5f010a8f6fae3191b855472a6399a62",
+        "assetsLoaded": 84,
+        "runtimeErrors": 0
+      },
+      {
+        "fixture": "g6-upgraded",
+        "width": 390,
+        "height": 844,
+        "safeArea": {
+          "top": 24,
+          "bottom": 24
+        },
+        "capturedAt": "2026-09-10T08:57:52.676Z",
+        "metadata": "chrome/g6-upgraded-390x844-safe24-1789030672676.json",
+        "png": "chrome/g6-upgraded-390x844-safe24-1789030672676.png",
+        "pngSha256": "20a4f5a8f9376a311ebf3cd98bd9d561c5f1899f327b0fe699035bb3ab02fdd3",
+        "assetsLoaded": 84,
+        "runtimeErrors": 0
+      }
+    ],
+    "scope": "Three screenshots of the final v0.1 bundle: generation 1 entry, generation 6 upgraded and complete; 320x524 and 390x844; safe top/bottom 24px.",
+    "commitFieldMeaning": "Capture metadata commit identifies the pre-release base commit; the final working build is identified by bundleSha256 in this report."
+  },
+  "deviceVerification": "NOT_RUN",
+  "performanceBenchmark": "NOT_VERIFIED"
+}

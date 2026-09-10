@@ -1,0 +1,6 @@
+
+> tiny-popcorn-factory@2.0.0 build
+> node tools/build.mjs
+
+Six-generation runtime art: 84 PNGs; 1.76 MiB files; 25.60 MiB decoded. Both packages verified byte-for-byte; all art budgets passed.
+Built pipeline v2.0.0 release (v1.5 分段自动化；连点与广告奖励均已停用): 15 modules; 334.8 KiB. Web: web/ · Douyin: build/douyin/

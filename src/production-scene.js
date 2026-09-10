@@ -1,5 +1,7 @@
 'use strict';
 
+const { ART_EFFECTS } = require('./art-effects');
+
 // Reuses the six original Canvas machine silhouettes. Processing and stock live
 // exclusively in core.js: every moving part reads a real job's progress.
 const C={green:'#366348',cream:'#fff9e8'};
@@ -15,8 +17,9 @@ class ProductionScene {
   }
   emit(event){
     if(!event)return;
-    if(event.type==='upgrade'||event.type==='evolve'){
-      this.flash={stationId:event.stationId||null,name:String(event.name||'设备改造'),remaining:2,duration:2};
+    if(['upgrade','evolve','automation','logistics-upgrade'].includes(event.type)){
+      const duration=ART_EFFECTS.installation.duration;
+      this.flash={stationId:event.stationId||null,name:String(event.name||'设备改造'),remaining:duration,duration};
     }else if(event.type==='ship'&&value(event.amount)>0){
       // This is an event receipt, never a second sale. A visual parcel may stand
       // for many shipped portions; the displayed coin sum is the actual event sum.
@@ -29,8 +32,8 @@ class ProductionScene {
     if(this.delivery){this.delivery.remaining=Math.max(0,this.delivery.remaining-elapsed);if(!this.delivery.remaining)this.delivery=null;}
     this.deliveryCooldown=Math.max(0,this.deliveryCooldown-elapsed);
     if(this.pendingDelivery.amount>0&&this.deliveryCooldown===0){
-      this.delivery={...this.pendingDelivery,remaining:.65,duration:.65};
-      this.pendingDelivery={amount:0,coins:0};this.deliveryCooldown=.75;
+      this.delivery={...this.pendingDelivery,remaining:ART_EFFECTS.delivery.duration,duration:ART_EFFECTS.delivery.duration};
+      this.pendingDelivery={amount:0,coins:0};this.deliveryCooldown=ART_EFFECTS.delivery.cooldown;
     }
   }
   box(x,y,w,h,r=8,fill,stroke){
@@ -91,9 +94,9 @@ class ProductionScene {
   drawInstallation(frame,flash){
     const c=this.c,p=1-flash.remaining/flash.duration,x=frame.x+frame.artW*.5,y=frame.y+frame.h*.48;
     c.save();c.globalAlpha*=Math.min(1,flash.remaining*2);
-    const radius=Math.min(frame.artW*.37,frame.h*.44);
+    const radius=Math.min(frame.artW*ART_EFFECTS.installation.radiusRatio,frame.h*.44);
     c.beginPath();c.arc(x,y,radius,-Math.PI*.8+p,Math.PI*.6+p);c.strokeStyle='#e2ae43';c.lineWidth=2;c.stroke();
-    for(let i=0;i<3;i++){
+    for(let i=0;i<ART_EFFECTS.installation.particles;i++){
       const xx=x+Math.cos(i*2.1+p*4)*radius,yy=y+Math.sin(i*2.1+p*4)*radius;
       this.line(xx-3,yy,xx+3,yy,'#b5832c',2);this.line(xx,yy-3,xx,yy+3,'#b5832c',2);
     }

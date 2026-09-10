@@ -1,0 +1,1248 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "owner": "A3",
+  "status": "ASSEMBLED_ART_ONLY",
+  "rigs": [
+    {
+      "id": "ship_single",
+      "stationId": "ship",
+      "generationUse": [
+        1,
+        2
+      ],
+      "coordinateSpace": "unchanged batch-1 640x660",
+      "size": [
+        640,
+        660
+      ],
+      "anchor": [
+        322,
+        637
+      ],
+      "input": [
+        136,
+        394
+      ],
+      "output": [
+        450,
+        527
+      ],
+      "hitPolygon": [
+        [
+          25,
+          103
+        ],
+        [
+          393,
+          37
+        ],
+        [
+          620,
+          189
+        ],
+        [
+          621,
+          634
+        ],
+        [
+          300,
+          659
+        ],
+        [
+          8,
+          503
+        ]
+      ],
+      "clip": [
+        [
+          145,
+          270
+        ],
+        [
+          380,
+          326
+        ],
+        [
+          414,
+          420
+        ],
+        [
+          413,
+          515
+        ],
+        [
+          145,
+          422
+        ]
+      ],
+      "contentClip": [
+        [
+          145,
+          270
+        ],
+        [
+          380,
+          326
+        ],
+        [
+          414,
+          420
+        ],
+        [
+          413,
+          515
+        ],
+        [
+          145,
+          422
+        ]
+      ],
+      "body": {
+        "id": "machine_ship_body",
+        "rect": [
+          8,
+          10,
+          623,
+          640
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_ship_body",
+          "rect": [
+            8,
+            10,
+            623,
+            640
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            135,
+            399,
+            288,
+            166.5
+          ],
+          "layer": 50
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            135,
+            399,
+            288,
+            166.5
+          ],
+          "layer": 50
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              242,
+              197,
+              124.375,
+              200
+            ],
+            "layer": 20,
+            "pivot": [
+              304.1875,
+              197
+            ],
+            "travel": [
+              0,
+              16
+            ]
+          },
+          "headRect": [
+            242,
+            197,
+            124.375,
+            200
+          ],
+          "productPoint": [
+            289,
+            478
+          ],
+          "packagingRect": [
+            180,
+            294,
+            208,
+            252.2
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              180,
+              294,
+              208,
+              252.2
+            ],
+            "layer": 30,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "clip": [
+            [
+              145,
+              270
+            ],
+            [
+              380,
+              326
+            ],
+            [
+              414,
+              420
+            ],
+            [
+              413,
+              515
+            ],
+            [
+              145,
+              422
+            ]
+          ],
+          "coverRect": null,
+          "singleCupRect": [
+            247,
+            375,
+            84,
+            103.3846
+          ]
+        }
+      ],
+      "notes": "Original single-lane shell, generation two only changes package batch amount to 2."
+    },
+    {
+      "id": "ship_dual",
+      "stationId": "ship",
+      "generationUse": [
+        3,
+        4
+      ],
+      "coordinateSpace": "local assembly pixels, independent per family",
+      "size": [
+        640,
+        463
+      ],
+      "anchor": [
+        320,
+        455
+      ],
+      "input": [
+        5.826,
+        219.059
+      ],
+      "output": [
+        588.459,
+        416.258
+      ],
+      "hitPolygon": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          439
+        ],
+        [
+          510,
+          463
+        ],
+        [
+          0,
+          313
+        ]
+      ],
+      "clip": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          439
+        ],
+        [
+          510,
+          463
+        ],
+        [
+          0,
+          313
+        ]
+      ],
+      "contentClip": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          439
+        ],
+        [
+          510,
+          463
+        ],
+        [
+          0,
+          313
+        ]
+      ],
+      "body": {
+        "id": "machine_ship_dual_body",
+        "rect": [
+          0,
+          12,
+          640,
+          451
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_ship_dual_body",
+          "rect": [
+            0,
+            12,
+            640,
+            451
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            81.569,
+            263.429,
+            150.588,
+            87.059
+          ],
+          "layer": 60
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            326.723,
+            347.238,
+            150.588,
+            87.059
+          ],
+          "layer": 61
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "headRect": [
+            140.573,
+            140.627,
+            48.713,
+            78.431
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              140.573,
+              140.627,
+              48.713,
+              78.431
+            ],
+            "layer": 20
+          },
+          "coverRect": [
+            80.224,
+            206.958,
+            161.345,
+            89.076
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              80.224,
+              206.958,
+              161.345,
+              89.076
+            ],
+            "layer": 39
+          },
+          "productPoint": [
+            164.93,
+            249.983
+          ],
+          "packagingRect": [
+            97.703,
+            131.664,
+            134.454,
+            163.025
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              97.703,
+              131.664,
+              134.454,
+              163.025
+            ],
+            "layer": 30,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              81.569,
+              263.429,
+              150.588,
+              87.059
+            ],
+            "layer": 60
+          },
+          "clip": [
+            [
+              93.669,
+              145.109
+            ],
+            [
+              234.846,
+              165.277
+            ],
+            [
+              246.947,
+              279.563
+            ],
+            [
+              164.93,
+              293.008
+            ],
+            [
+              89.636,
+              232.504
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            138.039,
+            186.11,
+            53.782,
+            66.193
+          ]
+        },
+        {
+          "id": "slot_2",
+          "headRect": [
+            385.727,
+            224.437,
+            48.713,
+            78.431
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              385.727,
+              224.437,
+              48.713,
+              78.431
+            ],
+            "layer": 21
+          },
+          "coverRect": [
+            325.378,
+            290.768,
+            161.345,
+            89.076
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              325.378,
+              290.768,
+              161.345,
+              89.076
+            ],
+            "layer": 40
+          },
+          "productPoint": [
+            410.084,
+            333.793
+          ],
+          "packagingRect": [
+            342.857,
+            215.473,
+            134.454,
+            163.025
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              342.857,
+              215.473,
+              134.454,
+              163.025
+            ],
+            "layer": 31,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              326.723,
+              347.238,
+              150.588,
+              87.059
+            ],
+            "layer": 61
+          },
+          "clip": [
+            [
+              338.824,
+              228.919
+            ],
+            [
+              480,
+              249.087
+            ],
+            [
+              492.101,
+              363.373
+            ],
+            [
+              410.084,
+              376.818
+            ],
+            [
+              334.79,
+              316.314
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            383.193,
+            269.919,
+            53.782,
+            66.193
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            81.569,
+            263.429,
+            150.588,
+            87.059
+          ],
+          "layer": 60
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            326.723,
+            347.238,
+            150.588,
+            87.059
+          ],
+          "layer": 61
+        }
+      ],
+      "notes": "Four lanes maximum even in generation six; products and work heads stay independent."
+    },
+    {
+      "id": "ship_quad",
+      "stationId": "ship",
+      "generationUse": [
+        5,
+        6
+      ],
+      "coordinateSpace": "local assembly pixels, independent per family",
+      "size": [
+        640,
+        415
+      ],
+      "anchor": [
+        320,
+        407
+      ],
+      "input": [
+        41.912,
+        206.473
+      ],
+      "output": [
+        586.771,
+        390.887
+      ],
+      "hitPolygon": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          391
+        ],
+        [
+          510,
+          415
+        ],
+        [
+          0,
+          265
+        ]
+      ],
+      "clip": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          391
+        ],
+        [
+          510,
+          415
+        ],
+        [
+          0,
+          265
+        ]
+      ],
+      "contentClip": [
+        [
+          2,
+          80
+        ],
+        [
+          80,
+          0
+        ],
+        [
+          639,
+          190
+        ],
+        [
+          639,
+          391
+        ],
+        [
+          510,
+          415
+        ],
+        [
+          0,
+          265
+        ]
+      ],
+      "body": {
+        "id": "machine_ship_quad_body",
+        "rect": [
+          0,
+          12,
+          640,
+          403
+        ],
+        "layer": 10
+      },
+      "layers": [
+        {
+          "id": "machine_ship_quad_body",
+          "rect": [
+            0,
+            12,
+            640,
+            403
+          ],
+          "layer": 10
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            64.587,
+            216.364,
+            91.536,
+            52.919
+          ],
+          "layer": 60
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            196.61,
+            263.725,
+            91.536,
+            52.919
+          ],
+          "layer": 61
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            330.73,
+            310.667,
+            91.536,
+            52.919
+          ],
+          "layer": 62
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            464.849,
+            358.028,
+            91.536,
+            52.919
+          ],
+          "layer": 63
+        }
+      ],
+      "slots": [
+        {
+          "id": "slot_1",
+          "headRect": [
+            96.386,
+            117.2,
+            37.746,
+            60.773
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              96.386,
+              117.2,
+              37.746,
+              60.773
+            ],
+            "layer": 20
+          },
+          "coverRect": [
+            63.769,
+            182.038,
+            98.075,
+            54.146
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              63.769,
+              182.038,
+              98.075,
+              54.146
+            ],
+            "layer": 39
+          },
+          "productPoint": [
+            115.259,
+            208.191
+          ],
+          "packagingRect": [
+            74.394,
+            136.27,
+            81.729,
+            99.096
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              74.394,
+              136.27,
+              81.729,
+              99.096
+            ],
+            "layer": 30,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              64.587,
+              216.364,
+              91.536,
+              52.919
+            ],
+            "layer": 60
+          },
+          "clip": [
+            [
+              71.942,
+              144.443
+            ],
+            [
+              157.758,
+              156.702
+            ],
+            [
+              165.113,
+              226.172
+            ],
+            [
+              115.259,
+              234.344
+            ],
+            [
+              69.491,
+              197.566
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            98.913,
+            169.365,
+            32.692,
+            40.236
+          ]
+        },
+        {
+          "id": "slot_2",
+          "headRect": [
+            228.409,
+            164.561,
+            37.746,
+            60.773
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              228.409,
+              164.561,
+              37.746,
+              60.773
+            ],
+            "layer": 21
+          },
+          "coverRect": [
+            195.793,
+            229.399,
+            98.075,
+            54.146
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              195.793,
+              229.399,
+              98.075,
+              54.146
+            ],
+            "layer": 40
+          },
+          "productPoint": [
+            247.282,
+            255.552
+          ],
+          "packagingRect": [
+            206.418,
+            183.631,
+            81.729,
+            99.096
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              206.418,
+              183.631,
+              81.729,
+              99.096
+            ],
+            "layer": 31,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              196.61,
+              263.725,
+              91.536,
+              52.919
+            ],
+            "layer": 61
+          },
+          "clip": [
+            [
+              203.966,
+              191.804
+            ],
+            [
+              289.781,
+              204.063
+            ],
+            [
+              297.137,
+              273.532
+            ],
+            [
+              247.282,
+              281.705
+            ],
+            [
+              201.514,
+              244.927
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            230.937,
+            216.726,
+            32.692,
+            40.236
+          ]
+        },
+        {
+          "id": "slot_3",
+          "headRect": [
+            362.529,
+            211.502,
+            37.746,
+            60.773
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              362.529,
+              211.502,
+              37.746,
+              60.773
+            ],
+            "layer": 22
+          },
+          "coverRect": [
+            329.912,
+            276.341,
+            98.075,
+            54.146
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              329.912,
+              276.341,
+              98.075,
+              54.146
+            ],
+            "layer": 41
+          },
+          "productPoint": [
+            381.401,
+            302.494
+          ],
+          "packagingRect": [
+            340.537,
+            230.572,
+            81.729,
+            99.096
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              340.537,
+              230.572,
+              81.729,
+              99.096
+            ],
+            "layer": 32,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              330.73,
+              310.667,
+              91.536,
+              52.919
+            ],
+            "layer": 62
+          },
+          "clip": [
+            [
+              338.085,
+              238.745
+            ],
+            [
+              423.9,
+              251.005
+            ],
+            [
+              431.256,
+              320.474
+            ],
+            [
+              381.401,
+              328.647
+            ],
+            [
+              335.633,
+              291.869
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            365.056,
+            263.667,
+            32.692,
+            40.236
+          ]
+        },
+        {
+          "id": "slot_4",
+          "headRect": [
+            496.648,
+            258.863,
+            37.746,
+            60.773
+          ],
+          "head": {
+            "id": "machine_ship_head",
+            "rect": [
+              496.648,
+              258.863,
+              37.746,
+              60.773
+            ],
+            "layer": 23
+          },
+          "coverRect": [
+            464.031,
+            323.701,
+            98.075,
+            54.146
+          ],
+          "cover": {
+            "id": "machine_ship_lane_cover",
+            "rect": [
+              464.031,
+              323.701,
+              98.075,
+              54.146
+            ],
+            "layer": 42
+          },
+          "productPoint": [
+            515.521,
+            349.855
+          ],
+          "packagingRect": [
+            474.656,
+            277.933,
+            81.729,
+            99.096
+          ],
+          "content": {
+            "id": "product_box_open",
+            "rect": [
+              474.656,
+              277.933,
+              81.729,
+              99.096
+            ],
+            "layer": 33,
+            "assembly": "art-source/six-gen/ship/packaging-reuse.json",
+            "rigByAmount": {
+              "1": "cupProduct",
+              "2": "doubleTray",
+              "4": "fourCupBox"
+            }
+          },
+          "front": {
+            "id": "machine_ship_front",
+            "rect": [
+              464.849,
+              358.028,
+              91.536,
+              52.919
+            ],
+            "layer": 63
+          },
+          "clip": [
+            [
+              472.204,
+              286.106
+            ],
+            [
+              558.02,
+              298.365
+            ],
+            [
+              565.375,
+              367.835
+            ],
+            [
+              515.521,
+              376.008
+            ],
+            [
+              469.752,
+              339.23
+            ]
+          ],
+          "clipAppliesTo": "product only",
+          "stateBindings": {
+            "headVisible": "i < station.lanes",
+            "coverVisible": "i >= station.lanes",
+            "package": "job.amount 1/2/4 selects cupProduct/doubleTray/fourCupBox",
+            "blocked": "N/A: ship sells immediately"
+          },
+          "singleCupRect": [
+            499.175,
+            311.028,
+            32.692,
+            40.236
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            64.587,
+            216.364,
+            91.536,
+            52.919
+          ],
+          "layer": 60
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            196.61,
+            263.725,
+            91.536,
+            52.919
+          ],
+          "layer": 61
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            330.73,
+            310.667,
+            91.536,
+            52.919
+          ],
+          "layer": 62
+        },
+        {
+          "id": "machine_ship_front",
+          "rect": [
+            464.849,
+            358.028,
+            91.536,
+            52.919
+          ],
+          "layer": 63
+        }
+      ],
+      "notes": "Four lanes maximum even in generation six; products and work heads stay independent."
+    }
+  ]
+}

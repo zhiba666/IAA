@@ -5,6 +5,7 @@ const { AudioEngine } = require('./audio');
 const { Renderer } = require('./renderer');
 const { ProductionInsights } = require('./production-insights');
 const { createArtAssets } = require('./art-assets');
+const { APP_VERSION } = require('./version');
 
 // The application owns input and lifecycle. Only Game advances stock or money.
 const platform = createPlatform();
@@ -52,6 +53,7 @@ function cancelTransfer() {
   if (ui.transfer) {
     game.cancelTransfer(ui.transfer.token);
     platform.track('transfer_cancelled', { source: ui.transfer.source || 'pop', playedSeconds: game.state.playedSeconds });
+    toast('已取消搬运，货物保留在源仓');
   }
   ui.transfer = null;
   pointer = null;
@@ -128,6 +130,7 @@ function act(action) {
   if (!action || hidden) return;
   sound.unlock();
   if (ui.transfer && !action.startsWith('transfer:') && !action.startsWith('transfer-')) cancelTransfer();
+  if (action === 'retry-art') { art.retryFailed(); toast('正在重新加载美术资源'); return; }
   if (action === 'close') { ui.modal = null; return; }
   if (action === 'dismissIntro') {
     game.acknowledgeIntro(); ui.newFactory = false; save(); return;
@@ -303,7 +306,7 @@ if (!platform.isDouyin && typeof document !== 'undefined') {
   });
 }
 const runtimeGlobal = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
-runtimeGlobal.__POPCORN__ = Object.freeze({ snapshot: () => game.getView(), analytics: () => platform.getAnalytics(), version: '2.0.0',
+runtimeGlobal.__POPCORN__ = Object.freeze({ snapshot: () => game.getView(), analytics: () => platform.getAnalytics(), version: APP_VERSION,
   presentation: () => JSON.parse(JSON.stringify({layout:renderer.interface.layout,zones:renderer.zones,art:art.report(),scene:renderer.scene.diagnostics})) });
 configure(); resize(platform.getSystemInfo());
 if (game.loadWarning) toast(game.loadWarning);

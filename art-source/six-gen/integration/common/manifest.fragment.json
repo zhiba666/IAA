@@ -1,0 +1,1508 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A0",
+  "assets": [
+    {
+      "id": "fx_sparkle",
+      "status": "EXPORTED",
+      "category": "fx",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/fx_sparkle.png",
+      "width": 78,
+      "height": 96,
+      "anchor": [
+        39,
+        96
+      ],
+      "sourceFile": "assets/art/fx/fx_sparkle.png",
+      "sha256": "ca31d4ca018c7b95f76fdbd05db3e3099140fb815d1ac354d194f91d61285c51",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/fx/fx_sparkle.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "fx_steam",
+      "status": "EXPORTED",
+      "category": "fx",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/fx_steam.png",
+      "width": 47,
+      "height": 96,
+      "anchor": [
+        23.5,
+        96
+      ],
+      "sourceFile": "assets/art/fx/fx_steam.png",
+      "sha256": "5abd34480b2abc0452a1b6d7121ec7c5522f4dcd1ddaaadecc22f31891eec586",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/fx/fx_steam.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_cup_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_cup_body.png",
+      "width": 336,
+      "height": 480,
+      "anchor": [
+        168,
+        463.5
+      ],
+      "sourceFile": "assets/art/machines/machine_cup_body.png",
+      "sha256": "3a02528efe200167aff5f9bb496975437e6b0c30c72c8f643e65b72ec18556e1",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_cup_body.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_cup_front",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_cup_front.png",
+      "width": 288,
+      "height": 228,
+      "anchor": [
+        144,
+        228
+      ],
+      "sourceFile": "assets/art/machines/machine_cup_front.png",
+      "sha256": "7986b14367096ebb2d0efea6cf1f6a434cfa0e1fd3d595449d89072697d1fdbd",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_cup_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_cup_head",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_cup_head.png",
+      "width": 113,
+      "height": 192,
+      "anchor": [
+        56.5,
+        192
+      ],
+      "sourceFile": "assets/art/machines/machine_cup_head.png",
+      "sha256": "7fbac639fe94abdf3a641a0bfe22d8ebff2bafaaa4bf017d1fcf2da42b67c1df",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_cup_head.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_pop_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_pop_body.png",
+      "width": 384,
+      "height": 367,
+      "anchor": [
+        192,
+        367
+      ],
+      "sourceFile": "assets/art/machines/machine_pop_body.png",
+      "sha256": "46d614925b13859a2cf6ecaa2f1904d52564f57eea75f4c6b236ad46da955ec9",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_pop_body.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_pop_front",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_pop_front.png",
+      "width": 288,
+      "height": 154,
+      "anchor": [
+        144,
+        154
+      ],
+      "sourceFile": "assets/art/machines/machine_pop_front.png",
+      "sha256": "e9e9fbfb97cb11294f0352a1cf35773abf63d40f76ffd5cbb89450dc1c3e4261",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_pop_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_pop_head",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_pop_head.png",
+      "width": 192,
+      "height": 186,
+      "anchor": [
+        96,
+        186
+      ],
+      "sourceFile": "assets/art/machines/machine_pop_head.png",
+      "sha256": "924d5a49ca61dea52bfad791dae8c67b9e7a61e2d94447066f3769e29f2da95b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_pop_head.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_ship_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_ship_body.png",
+      "width": 374,
+      "height": 384,
+      "anchor": [
+        187,
+        384
+      ],
+      "sourceFile": "assets/art/machines/machine_ship_body.png",
+      "sha256": "75e59f3054ac75acb79a49e43a6e85ea19385e5dc20a65396b4fe76afb4c0eed",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_ship_body.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_ship_front",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_ship_front.png",
+      "width": 288,
+      "height": 167,
+      "anchor": [
+        144,
+        167
+      ],
+      "sourceFile": "assets/art/machines/machine_ship_front.png",
+      "sha256": "7a44040ad62905721baa3f076f26d16abf2600b167336f02183b1b039bf7af9f",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_ship_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "machine_ship_head",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/machine_ship_head.png",
+      "width": 119,
+      "height": 192,
+      "anchor": [
+        59.5,
+        192
+      ],
+      "sourceFile": "assets/art/machines/machine_ship_head.png",
+      "sha256": "5a46ea13f14e30d353a65d6cb7549b832e9c43bad29f983c24903c6df492f689",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/machines/machine_ship_head.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_box_front",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_box_front.png",
+      "width": 128,
+      "height": 78,
+      "anchor": [
+        64,
+        78
+      ],
+      "sourceFile": "assets/art/products/product_box_front.png",
+      "sha256": "284ff1bbb4792f07b0da7efb19547d4fe879f3fbc1ba0b5e7f21e85166664cd9",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_box_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_box_lid",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_box_lid.png",
+      "width": 128,
+      "height": 91,
+      "anchor": [
+        64,
+        91
+      ],
+      "sourceFile": "assets/art/products/product_box_lid.png",
+      "sha256": "b7803e8551c2d9e304ae62002262e2f813b99050044d145e04f8f214733311b8",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_box_lid.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_box_open",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_box_open.png",
+      "width": 127,
+      "height": 128,
+      "anchor": [
+        63.5,
+        128
+      ],
+      "sourceFile": "assets/art/products/product_box_open.png",
+      "sha256": "5bf145d0d22c608406707d0a081e21db8b62953f5e47f44c857fc3fcf747b4a3",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_box_open.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_cup_empty",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_cup_empty.png",
+      "width": 104,
+      "height": 128,
+      "anchor": [
+        52,
+        121
+      ],
+      "sourceFile": "assets/art/products/product_cup_empty.png",
+      "sha256": "15495a6d824c5b642dc25fbbaf8bc13d7ba93cba8999814badc41f02aecf690c",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_cup_empty.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_cup_fill",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_cup_fill.png",
+      "width": 128,
+      "height": 94,
+      "anchor": [
+        64,
+        94
+      ],
+      "sourceFile": "assets/art/products/product_cup_fill.png",
+      "sha256": "feb626e760ccf5b32b7e92039a1a82e5e560712cd8ff014e3a36754228fb5f4e",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_cup_fill.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_double_tray",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_double_tray.png",
+      "width": 128,
+      "height": 80,
+      "anchor": [
+        64,
+        80
+      ],
+      "sourceFile": "assets/art/products/product_double_tray.png",
+      "sha256": "3cb7a8f68140280ab2002e4175c167e6d9e3c0b1fa3d183585e73b87ff6fd043",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_double_tray.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_kernel_a",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_kernel_a.png",
+      "width": 68,
+      "height": 65,
+      "anchor": [
+        34,
+        63
+      ],
+      "sourceFile": "assets/art/products/product_kernel_a.png",
+      "sha256": "3222bfbee6806c2a1548055e708b3cbf16160291286110445a98c0b6dcfa033f",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_kernel_a.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "product_kernel_b",
+      "status": "EXPORTED",
+      "category": "product",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/product_kernel_b.png",
+      "width": 64,
+      "height": 62,
+      "anchor": [
+        32,
+        62
+      ],
+      "sourceFile": "assets/art/products/product_kernel_b.png",
+      "sha256": "bcca68371c75ac9d9db8506b13acf0576629ab97fc7aee75440b33ab24300dba",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/products/product_kernel_b.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_bulk_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/buffer_bulk_back.png",
+      "width": 384,
+      "height": 275,
+      "anchor": [
+        189.75,
+        235.92896174863387
+      ],
+      "sourceFile": "assets/art/scene/buffer_bulk_back.png",
+      "sha256": "57d83da8c560ba86500548127e8c0aeb6e05b1e0a53eb25b186aeedea0733544",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/buffer_bulk_back.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_bulk_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/buffer_bulk_front.png",
+      "width": 288,
+      "height": 182,
+      "anchor": [
+        144,
+        182
+      ],
+      "sourceFile": "assets/art/scene/buffer_bulk_front.png",
+      "sha256": "d9f5e700aeec5d26f5d22024bfce0e324192cc7de5389d32c037dfb52d771842",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/buffer_bulk_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_cups_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/buffer_cups_back.png",
+      "width": 384,
+      "height": 262,
+      "anchor": [
+        192,
+        262
+      ],
+      "sourceFile": "assets/art/scene/buffer_cups_back.png",
+      "sha256": "84e579f3086e9d995b90361567340d32520ba49026c35d1fff2a27c9c9d8673b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/buffer_cups_back.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "buffer_cups_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/buffer_cups_front.png",
+      "width": 288,
+      "height": 192,
+      "anchor": [
+        144,
+        192
+      ],
+      "sourceFile": "assets/art/scene/buffer_cups_front.png",
+      "sha256": "ea3b37989d131948ec4db9d41e4dd11c11aae1f0851fa6538c00b841578ca2eb",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/buffer_cups_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_down_left",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_down_left.png",
+      "width": 384,
+      "height": 269,
+      "anchor": [
+        194.25,
+        200.62290502793297
+      ],
+      "sourceFile": "assets/art/scene/conveyor_down_left.png",
+      "sha256": "a38cd1f88712b8174c39a3d28dacdc67ebf70166be4fe6be4d58bed31c4854e0",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_down_left.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_down_right",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_down_right.png",
+      "width": 384,
+      "height": 270,
+      "anchor": [
+        193.5,
+        200.25
+      ],
+      "sourceFile": "assets/art/scene/conveyor_down_right.png",
+      "sha256": "8c39749556a18b055658c240a9034e5eb30be3ede14f59f27403a9683c6ec52b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_down_right.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_front_left",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_front_left.png",
+      "width": 288,
+      "height": 184,
+      "anchor": [
+        144,
+        184
+      ],
+      "sourceFile": "assets/art/scene/conveyor_front_left.png",
+      "sha256": "cc8cc657d1e1443becd58da605a9161334501be1e432838c335fa9b911e7351a",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_front_left.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_front_right",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_front_right.png",
+      "width": 288,
+      "height": 186,
+      "anchor": [
+        144,
+        186
+      ],
+      "sourceFile": "assets/art/scene/conveyor_front_right.png",
+      "sha256": "6b55f87597cb239cea94a42938d5b946b49f3930ad57146f7aa8eb8562c06a2b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_front_right.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_infeed_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_infeed_back.png",
+      "width": 384,
+      "height": 287,
+      "anchor": [
+        192,
+        287
+      ],
+      "sourceFile": "assets/art/scene/conveyor_infeed_back.png",
+      "sha256": "7ff8942480df3a99c8844f2d239403328fd858a4dfca04ab9b7c5c778337c125",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_infeed_back.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_infeed_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_infeed_front.png",
+      "width": 288,
+      "height": 164,
+      "anchor": [
+        144,
+        164
+      ],
+      "sourceFile": "assets/art/scene/conveyor_infeed_front.png",
+      "sha256": "60aa2d7a5100a90ef5e68abfa900595853ddce8351a0d08f0be585303b237be5",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_infeed_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_outfeed_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_outfeed_back.png",
+      "width": 384,
+      "height": 249,
+      "anchor": [
+        192,
+        249
+      ],
+      "sourceFile": "assets/art/scene/conveyor_outfeed_back.png",
+      "sha256": "9f18bf962bbfb0e1c8cbddb7af7e3bd88c69e2b56fe8f3c6414e9c7fe44c68da",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_outfeed_back.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_outfeed_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_outfeed_front.png",
+      "width": 288,
+      "height": 158,
+      "anchor": [
+        144,
+        158
+      ],
+      "sourceFile": "assets/art/scene/conveyor_outfeed_front.png",
+      "sha256": "0fdfdd32e59614db800f0f7ae457fdc7665a8464e13a996b2f1a7d1b076352f1",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_outfeed_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_transfer_back",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_transfer_back.png",
+      "width": 384,
+      "height": 170,
+      "anchor": [
+        192,
+        170
+      ],
+      "sourceFile": "assets/art/scene/conveyor_transfer_back.png",
+      "sha256": "62deba97b51c85fc31cbdcc6471fae8862fe723cd255c82a8ae2d008041a5fc3",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_transfer_back.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "conveyor_transfer_front",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/conveyor_transfer_front.png",
+      "width": 288,
+      "height": 91,
+      "anchor": [
+        144,
+        91
+      ],
+      "sourceFile": "assets/art/scene/conveyor_transfer_front.png",
+      "sha256": "5fb4878b5cc408d2482cf4ed4dd487eefcf537fa9194190e4f65db82d2d2c911",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/conveyor_transfer_front.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "factory_door",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/factory_door.png",
+      "width": 148,
+      "height": 192,
+      "anchor": [
+        74,
+        192
+      ],
+      "sourceFile": "assets/art/scene/factory_door.png",
+      "sha256": "48a8603e8249be0473725b1b8428e9a5718634e03113a83e40ebc9d68a0d2b47",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/factory_door.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "factory_room",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/factory_room.png",
+      "width": 384,
+      "height": 576,
+      "anchor": [
+        192,
+        576
+      ],
+      "sourceFile": "assets/art/scene/factory_room.png",
+      "sha256": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/factory_room.png",
+      "alphaMode": "opaque-background"
+    },
+    {
+      "id": "factory_window",
+      "status": "EXPORTED",
+      "category": "scene",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/factory_window.png",
+      "width": 192,
+      "height": 175,
+      "anchor": [
+        96,
+        175
+      ],
+      "sourceFile": "assets/art/scene/factory_window.png",
+      "sha256": "47125077d3a1493aefd0241ab0b0e8f63fc3c37b63db48beef78eb38b1c7f6ec",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/scene/factory_window.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_button_disabled",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_button_disabled.png",
+      "width": 384,
+      "height": 138,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_button_disabled.png",
+      "sha256": "ca46714337694b14e65331a058ff42ade56c8abc27cd72cf71657acd9ded5445",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_button_disabled.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_button_primary",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_button_primary.png",
+      "width": 288,
+      "height": 104,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_button_primary.png",
+      "sha256": "7b7c45ead60cab2272bbaf0de246b72d010737d57f2712dcab1bc26c542dafa7",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_button_primary.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_button_secondary",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_button_secondary.png",
+      "width": 288,
+      "height": 104,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_button_secondary.png",
+      "sha256": "230706e334ad1fcf6500b0894f1592734dd6366302efe7d44b9256ce25c4fd59",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_button_secondary.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_card",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_card.png",
+      "width": 288,
+      "height": 86,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_card.png",
+      "sha256": "08836ca71f95d9fb8f16e973d0873855857660b2f49829b9791fcca91fb503d2",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_card.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_compact_bar",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_compact_bar.png",
+      "width": 288,
+      "height": 59,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_compact_bar.png",
+      "sha256": "e41b791a4226ba7fabb0c942226ed29fbd76c5be309932a7ebfcb09ff25d5a3f",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_compact_bar.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_hud_coin",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_hud_coin.png",
+      "width": 288,
+      "height": 104,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_hud_coin.png",
+      "sha256": "5a2a6bfcda297c8a3fa0c295c88f66c5739efa3024c9af02efd669786fc5fdb1",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_hud_coin.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_hud_rate",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_hud_rate.png",
+      "width": 288,
+      "height": 104,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_hud_rate.png",
+      "sha256": "b6610fdd6277fbf117bb78e88ed12aa67550849d540cdfe132b49fca5875e27b",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_hud_rate.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_arrow",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_arrow.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_arrow.png",
+      "sha256": "e64c6254ad4b1fd62083a5b88c052c1b652456bde01c339a97e693fe429ffe01",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_arrow.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_check",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_check.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_check.png",
+      "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_check.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_close",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_close.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_close.png",
+      "sha256": "240f77bbef95050934b2c4e8f16a01a42109e37d206fa99fe869d9b9d51dc02e",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_close.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_coin",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_coin.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_coin.png",
+      "sha256": "895e94920c8635024ef4d475211b043645181409ace9c26de1e155f48625cf2e",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_coin.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_cup",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_cup.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_cup.png",
+      "sha256": "259dd9bc2b35ea779903a9694150bf5133445beac06d294a22f61d53ff1a1588",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_cup.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_expand",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_expand.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_expand.png",
+      "sha256": "78394bb247d54abe938fe1ec6c50587ac3f5fe9a7d701faefbeacd42ee84134f",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_expand.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_lock",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_lock.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_lock.png",
+      "sha256": "37debc223f1f340f1cbcac149ca47834d16723475280ab3e2c7e7eb62450f26a",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_lock.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_pop",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_pop.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_pop.png",
+      "sha256": "61fa4ef628a20576702f3f46bc08beef8e277e658083179b124bd0ffdc33c534",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_pop.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_settings",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_settings.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_settings.png",
+      "sha256": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_settings.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_ship",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_ship.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_ship.png",
+      "sha256": "249c9c1bc108fb0a0c563ec42164cb5b711c1facc05bc9d6be48401f8ea12ad4",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_ship.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_ship_speed",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_ship_speed.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_ship_speed.png",
+      "sha256": "eff884ce4f47763eb42f3f16525dcb54b757acb171df97ab7675d59732f2c5aa",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_ship_speed.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_sound",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_sound.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_sound.png",
+      "sha256": "b66c6bdc97a2d7b9dc5554d576e3c8ebd36509a820f2e5f2af73357570d67937",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_sound.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_upgrade",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_upgrade.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_upgrade.png",
+      "sha256": "5eef57d2ea6169d76e999e0abf324d56e8ed4bdee419ab0a1ac5bff549c1a121",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_upgrade.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_vibration",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_vibration.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_vibration.png",
+      "sha256": "9534b06d54e345f2346383800c8e581c118bbceefa07b135faf7ef434d948953",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_vibration.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_wait",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_wait.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_wait.png",
+      "sha256": "5f20c451b46d0fe5685947be358b907c3dca6968ad9989b5d73ed915a5ec9541",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_wait.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_icon_warning",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_icon_warning.png",
+      "width": 96,
+      "height": 96,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_icon_warning.png",
+      "sha256": "6231b87afb47f50c48dc4f68ca4301f890a36e0b0588d0f80bee27cb21b29424",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_icon_warning.png",
+      "alphaMode": "RGBA"
+    },
+    {
+      "id": "ui_panel",
+      "status": "EXPORTED",
+      "category": "ui",
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/integration/common/exports/ui_panel.png",
+      "width": 288,
+      "height": 104,
+      "anchor": [
+        0,
+        0
+      ],
+      "sourceFile": "assets/art/ui/ui_panel.png",
+      "sha256": "6f93bc6fb3ee2c6d98aba0116ef0078f491aa1e700fa2803847c5b1ef5af2c4f",
+      "provenanceRef": "art-source/six-gen/integration/common/provenance.json",
+      "reuseSource": "assets/art/ui/ui_panel.png",
+      "alphaMode": "RGBA"
+    }
+  ]
+}

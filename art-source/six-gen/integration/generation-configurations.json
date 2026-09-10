@@ -1,0 +1,618 @@
+{
+  "scope": "12 explicit static art preview configurations; values sourced from audited stage snapshot, not player state",
+  "contractVersion": "six-gen-art-1.0",
+  "configurations": [
+    {
+      "generation": 1,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 1,
+      "installed": {
+        "pop": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 1,
+          "batchSize": 1
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 24
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 24
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 1,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 1,
+          "batchSize": 1
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 1,
+          "maxBatchSize": 1
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 24
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 24
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 2,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 1,
+      "installed": {
+        "pop": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 1,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 1,
+          "batchSize": 1
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 1,
+          "maxBatchSize": 2
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 24
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 24
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 2,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 1,
+          "batchSize": 2
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 1,
+          "maxBatchSize": 2
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 24
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 24
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 3,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 2,
+      "installed": {
+        "pop": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 1,
+          "batchSize": 2
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 2,
+          "maxBatchSize": 2
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 48
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 48
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 3,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 2,
+          "batchSize": 2
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 2,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 2,
+          "maxBatchSize": 2
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 48
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 48
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 4,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 3,
+      "installed": {
+        "pop": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 2,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 2,
+          "batchSize": 2
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 4,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 3,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 2,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 96
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 96
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 4,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 4,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 3,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 2,
+          "batchSize": 4
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 4,
+          "maxBatchSize": 1
+        },
+        "cup": {
+          "maxLanes": 3,
+          "maxBatchSize": 1
+        },
+        "ship": {
+          "maxLanes": 2,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 96
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 96
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 5,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 4,
+      "installed": {
+        "pop": {
+          "lanes": 4,
+          "batchSize": 1
+        },
+        "cup": {
+          "lanes": 3,
+          "batchSize": 1
+        },
+        "ship": {
+          "lanes": 2,
+          "batchSize": 4
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 4,
+          "maxBatchSize": 2
+        },
+        "cup": {
+          "maxLanes": 4,
+          "maxBatchSize": 2
+        },
+        "ship": {
+          "maxLanes": 4,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 192
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 192
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 5,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 4,
+          "batchSize": 2
+        },
+        "cup": {
+          "lanes": 4,
+          "batchSize": 2
+        },
+        "ship": {
+          "lanes": 4,
+          "batchSize": 4
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 4,
+          "maxBatchSize": 2
+        },
+        "cup": {
+          "maxLanes": 4,
+          "maxBatchSize": 2
+        },
+        "ship": {
+          "maxLanes": 4,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 192
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 192
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 6,
+      "configuration": "entry",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: all devices previously upgraded to previous stage maximum, preserved through expansion. Not a claim about every player.",
+      "inheritedFromGeneration": 5,
+      "installed": {
+        "pop": {
+          "lanes": 4,
+          "batchSize": 2
+        },
+        "cup": {
+          "lanes": 4,
+          "batchSize": 2
+        },
+        "ship": {
+          "lanes": 4,
+          "batchSize": 4
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 6,
+          "maxBatchSize": 2
+        },
+        "cup": {
+          "maxLanes": 6,
+          "maxBatchSize": 2
+        },
+        "ship": {
+          "maxLanes": 4,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 384
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 384
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    },
+    {
+      "generation": 6,
+      "configuration": "upgraded",
+      "fixtureKind": "synthetic-art-only",
+      "installedConfigurationRule": "Explicit example: devices manually installed/upgraded to this stage allowed maximum.",
+      "inheritedFromGeneration": null,
+      "installed": {
+        "pop": {
+          "lanes": 6,
+          "batchSize": 2
+        },
+        "cup": {
+          "lanes": 6,
+          "batchSize": 2
+        },
+        "ship": {
+          "lanes": 4,
+          "batchSize": 4
+        }
+      },
+      "unlocked": {
+        "pop": {
+          "maxLanes": 6,
+          "maxBatchSize": 2
+        },
+        "cup": {
+          "maxLanes": 6,
+          "maxBatchSize": 2
+        },
+        "ship": {
+          "maxLanes": 4,
+          "maxBatchSize": 4
+        }
+      },
+      "warehouses": {
+        "pop": {
+          "amount": 1,
+          "capacity": 384
+        },
+        "cup": {
+          "amount": 1,
+          "capacity": 384
+        }
+      },
+      "hud": {
+        "coins": null,
+        "actualRate": null
+      },
+      "runtimeExecuted": false,
+      "saveWritten": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "transfer_tray_empty",
+  "owner": "logistics",
+  "sourceFile": "art-source/six-gen/logistics/sources/transfer_tray_empty.png",
+  "file": "art-source/six-gen/logistics/exports/transfer_tray_empty.png",
+  "sourceSize": [
+    1518,
+    1036
+  ],
+  "sourceRect": [
+    22,
+    20,
+    1478,
+    1004
+  ],
+  "width": 192,
+  "height": 133,
+  "anchor": [
+    96,
+    129
+  ],
+  "sourceSha256": "417e3bfeed974b01c5ab414bb7635b399006dd223a3b161e453244504e1e7eea",
+  "sha256": "00b4fec8ee794665b60f15730453abcb92e597c5f9ec9fd86f9a893d8542502a",
+  "bytes": 9394,
+  "rgbaBytes": 102144,
+  "originalAlpha": true,
+  "originalBoundaryPixels": 0,
+  "transform": "crop alpha>8 bbox +3px, uniform Lanczos3 resize, 4px transparent padding, palette256 quality92 dither0.5",
+  "status": "EXPORTED"
+}

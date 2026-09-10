@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "six-gen-art-1.0",
+  "baseCommit": "14310d34e882969208bb7583c5e0c8442bfc3aee",
+  "owner": "A1",
+  "assets": [
+    {
+      "id": "machine_pop_double_carrier",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/pop/exports/machine_pop_double_carrier.png",
+      "width": 192,
+      "height": 137,
+      "anchor": [
+        96.0,
+        135
+      ],
+      "sourceFile": "art-source/six-gen/pop/sources/machine_pop_double_carrier.png",
+      "sha256": "52ffe39212286cdda8c59245b1f177d6256f45d57a0f26710cb42afe04ca9a11",
+      "provenanceRef": "art-source/six-gen/pop/provenance.json#machine_pop_double_carrier",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_pop_hex_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        6
+      ],
+      "file": "art-source/six-gen/pop/exports/machine_pop_hex_body.png",
+      "width": 640,
+      "height": 436,
+      "anchor": [
+        320.0,
+        434
+      ],
+      "sourceFile": "art-source/six-gen/pop/sources/machine_pop_hex_body.png",
+      "sha256": "61b349d85ba30c731d6878793dc47cf15090cb485f00d1d7c2a386e1ac5b3aa5",
+      "provenanceRef": "art-source/six-gen/pop/provenance.json#machine_pop_hex_body",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_pop_pair_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3
+      ],
+      "file": "art-source/six-gen/pop/exports/machine_pop_pair_body.png",
+      "width": 640,
+      "height": 422,
+      "anchor": [
+        320.0,
+        420
+      ],
+      "sourceFile": "art-source/six-gen/pop/sources/machine_pop_pair_body.png",
+      "sha256": "ae3fa7a5d729dc36781702600a371af2ff7632dfa0806d1aa9e53c27bb1fe91d",
+      "provenanceRef": "art-source/six-gen/pop/provenance.json#machine_pop_pair_body",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_pop_quad_body",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        4,
+        5
+      ],
+      "file": "art-source/six-gen/pop/exports/machine_pop_quad_body.png",
+      "width": 640,
+      "height": 433,
+      "anchor": [
+        320.0,
+        431
+      ],
+      "sourceFile": "art-source/six-gen/pop/sources/machine_pop_quad_body.png",
+      "sha256": "fdcc63dd76c5e3e75fac1469626aa1d5135f820ccd2a0cc050447c74b17f1116",
+      "provenanceRef": "art-source/six-gen/pop/provenance.json#machine_pop_quad_body",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    },
+    {
+      "id": "machine_pop_socket_cover",
+      "status": "EXPORTED",
+      "category": "machine",
+      "stageUse": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "file": "art-source/six-gen/pop/exports/machine_pop_socket_cover.png",
+      "width": 192,
+      "height": 180,
+      "anchor": [
+        96.0,
+        178
+      ],
+      "sourceFile": "art-source/six-gen/pop/sources/machine_pop_socket_cover.png",
+      "sha256": "fbf415ce2677b28e844dac0e9f036c88da89453a688702686d2f5c74f758eef0",
+      "provenanceRef": "art-source/six-gen/pop/provenance.json#machine_pop_socket_cover",
+      "reuseSource": null,
+      "alphaMode": "RGBA",
+      "notes": "Standalone art candidate. Generated source preserved; no official manifest or runtime reference changed."
+    }
+  ]
+}

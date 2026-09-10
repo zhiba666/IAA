@@ -24,7 +24,7 @@ test('both build modes disable legacy hold tapping and simulated ads on every ho
     await copyFile(path.resolve(__dirname, '../tools', filename), path.join(root, 'tools', filename));
   }
   const { ART_SOURCE_REFS, ART_RUNTIME_IDS, ART_ASSETS } = require('../src/art-manifest');
-  for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path), 'web/index.html']) {
+  for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].sourcePath), 'web/index.html', 'package.json', 'src/version.js']) {
     await mkdir(path.dirname(path.join(root, filename)), { recursive: true });
     await copyFile(path.resolve(__dirname, '..', filename), path.join(root, filename));
   }
@@ -40,7 +40,7 @@ test('both build modes disable legacy hold tapping and simulated ads on every ho
     const nativeBundle = await readFile(path.join(root, 'build/douyin/game.bundle.js'), 'utf8');
     const nativeConfig = await readFile(path.join(root, 'build/douyin/config.js'), 'utf8');
     assert.equal(webBundle, nativeBundle);
-    assert.match(webBundle, /v2\.0\.0.*pipeline/);
+    assert.match(webBundle, /v0\.1\.0.*pipeline/);
 
     const web = vm.createContext({ POPCORN_CONFIG: { developerHoldTap: !enabled, allowSimulatedAds: true } });
     vm.runInContext(webBundle, web);
