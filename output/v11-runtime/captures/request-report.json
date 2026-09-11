@@ -1,0 +1,2946 @@
+{
+  "scope": "six-generation-runtime-acceptance",
+  "acceptanceVersion": "v1.1",
+  "requests": [
+    {
+      "at": "2026-09-10T13:20:59.895Z",
+      "path": "/?fixture=g1-first-tray&width=320",
+      "status": 200,
+      "bytes": 8074
+    },
+    {
+      "at": "2026-09-10T13:20:59.931Z",
+      "path": "/game?fixture=g1-first-tray&safe=0&pause=1",
+      "status": 200,
+      "bytes": 17892
+    },
+    {
+      "at": "2026-09-10T13:20:59.953Z",
+      "path": "/__six/runtime.js",
+      "status": 200,
+      "bytes": 5042
+    },
+    {
+      "at": "2026-09-10T13:20:59.954Z",
+      "path": "/game.bundle.js?__acceptance_sha=4e7a01292fb02f72333c3697085ecebecc7fb7d37f83895f7af4a314afbe9ed5",
+      "status": 200,
+      "bytes": 350873
+    },
+    {
+      "at": "2026-09-10T13:20:59.983Z",
+      "path": "/assets/art/six_gen/fx_sparkle.png",
+      "status": 200,
+      "bytes": 3490
+    },
+    {
+      "at": "2026-09-10T13:20:59.984Z",
+      "path": "/assets/art/six_gen/fx_steam.png",
+      "status": 200,
+      "bytes": 3486
+    },
+    {
+      "at": "2026-09-10T13:20:59.985Z",
+      "path": "/assets/art/six_gen/machine_cup_body.png",
+      "status": 200,
+      "bytes": 49857
+    },
+    {
+      "at": "2026-09-10T13:20:59.989Z",
+      "path": "/assets/art/six_gen/machine_cup_front.png",
+      "status": 200,
+      "bytes": 18095
+    },
+    {
+      "at": "2026-09-10T13:20:59.990Z",
+      "path": "/assets/art/six_gen/machine_pop_body.png",
+      "status": 200,
+      "bytes": 49154
+    },
+    {
+      "at": "2026-09-10T13:20:59.991Z",
+      "path": "/assets/art/six_gen/machine_cup_head.png",
+      "status": 200,
+      "bytes": 9181
+    },
+    {
+      "at": "2026-09-10T13:20:59.991Z",
+      "path": "/assets/art/six_gen/machine_pop_front.png",
+      "status": 200,
+      "bytes": 17312
+    },
+    {
+      "at": "2026-09-10T13:20:59.995Z",
+      "path": "/assets/art/six_gen/machine_pop_head.png",
+      "status": 200,
+      "bytes": 15134
+    },
+    {
+      "at": "2026-09-10T13:20:59.996Z",
+      "path": "/assets/art/six_gen/machine_ship_front.png",
+      "status": 200,
+      "bytes": 11078
+    },
+    {
+      "at": "2026-09-10T13:20:59.996Z",
+      "path": "/assets/art/six_gen/machine_ship_body.png",
+      "status": 200,
+      "bytes": 44781
+    },
+    {
+      "at": "2026-09-10T13:20:59.997Z",
+      "path": "/assets/art/six_gen/machine_ship_head.png",
+      "status": 200,
+      "bytes": 9936
+    },
+    {
+      "at": "2026-09-10T13:21:00.000Z",
+      "path": "/assets/art/six_gen/product_box_front.png",
+      "status": 200,
+      "bytes": 3701
+    },
+    {
+      "at": "2026-09-10T13:21:00.002Z",
+      "path": "/assets/art/six_gen/product_box_lid.png",
+      "status": 200,
+      "bytes": 4991
+    },
+    {
+      "at": "2026-09-10T13:21:00.003Z",
+      "path": "/assets/art/six_gen/product_cup_empty.png",
+      "status": 200,
+      "bytes": 7141
+    },
+    {
+      "at": "2026-09-10T13:21:00.003Z",
+      "path": "/assets/art/six_gen/product_box_open.png",
+      "status": 200,
+      "bytes": 7275
+    },
+    {
+      "at": "2026-09-10T13:21:00.004Z",
+      "path": "/assets/art/six_gen/product_cup_fill.png",
+      "status": 200,
+      "bytes": 9604
+    },
+    {
+      "at": "2026-09-10T13:21:00.006Z",
+      "path": "/assets/art/six_gen/product_double_tray.png",
+      "status": 200,
+      "bytes": 5889
+    },
+    {
+      "at": "2026-09-10T13:21:00.008Z",
+      "path": "/assets/art/six_gen/product_kernel_a.png",
+      "status": 200,
+      "bytes": 3284
+    },
+    {
+      "at": "2026-09-10T13:21:00.010Z",
+      "path": "/assets/art/six_gen/product_kernel_b.png",
+      "status": 200,
+      "bytes": 9324
+    },
+    {
+      "at": "2026-09-10T13:21:00.010Z",
+      "path": "/assets/art/six_gen/buffer_bulk_back.png",
+      "status": 200,
+      "bytes": 32309
+    },
+    {
+      "at": "2026-09-10T13:21:00.011Z",
+      "path": "/assets/art/six_gen/buffer_bulk_front.png",
+      "status": 200,
+      "bytes": 12652
+    },
+    {
+      "at": "2026-09-10T13:21:00.011Z",
+      "path": "/assets/art/six_gen/buffer_cups_back.png",
+      "status": 200,
+      "bytes": 27720
+    },
+    {
+      "at": "2026-09-10T13:21:00.011Z",
+      "path": "/assets/art/six_gen/buffer_cups_front.png",
+      "status": 200,
+      "bytes": 10212
+    },
+    {
+      "at": "2026-09-10T13:21:00.016Z",
+      "path": "/assets/art/six_gen/conveyor_down_left.png",
+      "status": 200,
+      "bytes": 32515
+    },
+    {
+      "at": "2026-09-10T13:21:00.017Z",
+      "path": "/assets/art/six_gen/conveyor_front_left.png",
+      "status": 200,
+      "bytes": 9213
+    },
+    {
+      "at": "2026-09-10T13:21:00.018Z",
+      "path": "/assets/art/six_gen/conveyor_down_right.png",
+      "status": 200,
+      "bytes": 35535
+    },
+    {
+      "at": "2026-09-10T13:21:00.019Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_back.png",
+      "status": 200,
+      "bytes": 28220
+    },
+    {
+      "at": "2026-09-10T13:21:00.020Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_front.png",
+      "status": 200,
+      "bytes": 7955
+    },
+    {
+      "at": "2026-09-10T13:21:00.020Z",
+      "path": "/assets/art/six_gen/conveyor_front_right.png",
+      "status": 200,
+      "bytes": 9720
+    },
+    {
+      "at": "2026-09-10T13:21:00.026Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_back.png",
+      "status": 200,
+      "bytes": 28591
+    },
+    {
+      "at": "2026-09-10T13:21:00.027Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_front.png",
+      "status": 200,
+      "bytes": 7464
+    },
+    {
+      "at": "2026-09-10T13:21:00.027Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_back.png",
+      "status": 200,
+      "bytes": 27534
+    },
+    {
+      "at": "2026-09-10T13:21:00.030Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_front.png",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "at": "2026-09-10T13:21:00.032Z",
+      "path": "/assets/art/six_gen/factory_door.png",
+      "status": 200,
+      "bytes": 9158
+    },
+    {
+      "at": "2026-09-10T13:21:00.036Z",
+      "path": "/assets/art/six_gen/factory_room.png",
+      "status": 200,
+      "bytes": 72468
+    },
+    {
+      "at": "2026-09-10T13:21:00.037Z",
+      "path": "/assets/art/six_gen/factory_window.png",
+      "status": 200,
+      "bytes": 12181
+    },
+    {
+      "at": "2026-09-10T13:21:00.041Z",
+      "path": "/assets/art/six_gen/ui_button_disabled.png",
+      "status": 200,
+      "bytes": 49591
+    },
+    {
+      "at": "2026-09-10T13:21:00.042Z",
+      "path": "/assets/art/six_gen/ui_button_primary.png",
+      "status": 200,
+      "bytes": 8359
+    },
+    {
+      "at": "2026-09-10T13:21:00.042Z",
+      "path": "/assets/art/six_gen/ui_card.png",
+      "status": 200,
+      "bytes": 5135
+    },
+    {
+      "at": "2026-09-10T13:21:00.042Z",
+      "path": "/assets/art/six_gen/ui_button_secondary.png",
+      "status": 200,
+      "bytes": 7259
+    },
+    {
+      "at": "2026-09-10T13:21:00.044Z",
+      "path": "/assets/art/six_gen/ui_compact_bar.png",
+      "status": 200,
+      "bytes": 4464
+    },
+    {
+      "at": "2026-09-10T13:21:00.049Z",
+      "path": "/assets/art/six_gen/ui_hud_coin.png",
+      "status": 200,
+      "bytes": 6615
+    },
+    {
+      "at": "2026-09-10T13:21:00.051Z",
+      "path": "/assets/art/six_gen/ui_hud_rate.png",
+      "status": 200,
+      "bytes": 8613
+    },
+    {
+      "at": "2026-09-10T13:21:00.060Z",
+      "path": "/assets/art/six_gen/ui_icon_arrow.png",
+      "status": 200,
+      "bytes": 2283
+    },
+    {
+      "at": "2026-09-10T13:21:00.061Z",
+      "path": "/assets/art/six_gen/ui_icon_check.png",
+      "status": 200,
+      "bytes": 2474
+    },
+    {
+      "at": "2026-09-10T13:21:00.067Z",
+      "path": "/assets/art/six_gen/ui_icon_close.png",
+      "status": 200,
+      "bytes": 4003
+    },
+    {
+      "at": "2026-09-10T13:21:00.072Z",
+      "path": "/assets/art/six_gen/ui_icon_coin.png",
+      "status": 200,
+      "bytes": 5870
+    },
+    {
+      "at": "2026-09-10T13:21:00.073Z",
+      "path": "/assets/art/six_gen/ui_icon_cup.png",
+      "status": 200,
+      "bytes": 4619
+    },
+    {
+      "at": "2026-09-10T13:21:00.078Z",
+      "path": "/assets/art/six_gen/ui_icon_expand.png",
+      "status": 200,
+      "bytes": 3013
+    },
+    {
+      "at": "2026-09-10T13:21:00.078Z",
+      "path": "/assets/art/six_gen/ui_icon_lock.png",
+      "status": 200,
+      "bytes": 4092
+    },
+    {
+      "at": "2026-09-10T13:21:00.078Z",
+      "path": "/assets/art/six_gen/ui_icon_pop.png",
+      "status": 200,
+      "bytes": 5757
+    },
+    {
+      "at": "2026-09-10T13:21:00.078Z",
+      "path": "/assets/art/six_gen/ui_icon_settings.png",
+      "status": 200,
+      "bytes": 4609
+    },
+    {
+      "at": "2026-09-10T13:21:00.082Z",
+      "path": "/assets/art/six_gen/ui_icon_ship.png",
+      "status": 200,
+      "bytes": 4628
+    },
+    {
+      "at": "2026-09-10T13:21:00.084Z",
+      "path": "/assets/art/six_gen/ui_icon_ship_speed.png",
+      "status": 200,
+      "bytes": 3484
+    },
+    {
+      "at": "2026-09-10T13:21:00.084Z",
+      "path": "/assets/art/six_gen/ui_icon_sound.png",
+      "status": 200,
+      "bytes": 3576
+    },
+    {
+      "at": "2026-09-10T13:21:00.086Z",
+      "path": "/assets/art/six_gen/ui_icon_upgrade.png",
+      "status": 200,
+      "bytes": 3853
+    },
+    {
+      "at": "2026-09-10T13:21:00.088Z",
+      "path": "/assets/art/six_gen/ui_icon_vibration.png",
+      "status": 200,
+      "bytes": 3346
+    },
+    {
+      "at": "2026-09-10T13:21:00.088Z",
+      "path": "/assets/art/six_gen/ui_icon_wait.png",
+      "status": 200,
+      "bytes": 4529
+    },
+    {
+      "at": "2026-09-10T13:21:00.093Z",
+      "path": "/assets/art/six_gen/ui_panel.png",
+      "status": 200,
+      "bytes": 8219
+    },
+    {
+      "at": "2026-09-10T13:21:00.093Z",
+      "path": "/assets/art/six_gen/ui_icon_warning.png",
+      "status": 200,
+      "bytes": 4124
+    },
+    {
+      "at": "2026-09-10T13:21:00.094Z",
+      "path": "/assets/art/six_gen/machine_pop_double_carrier.png",
+      "status": 200,
+      "bytes": 8144
+    },
+    {
+      "at": "2026-09-10T13:21:00.098Z",
+      "path": "/assets/art/six_gen/machine_pop_pair_body.png",
+      "status": 200,
+      "bytes": 65393
+    },
+    {
+      "at": "2026-09-10T13:21:00.098Z",
+      "path": "/assets/art/six_gen/machine_pop_hex_body.png",
+      "status": 200,
+      "bytes": 76793
+    },
+    {
+      "at": "2026-09-10T13:21:00.100Z",
+      "path": "/assets/art/six_gen/machine_pop_quad_body.png",
+      "status": 200,
+      "bytes": 81647
+    },
+    {
+      "at": "2026-09-10T13:21:00.100Z",
+      "path": "/assets/art/six_gen/machine_pop_socket_cover.png",
+      "status": 200,
+      "bytes": 14023
+    },
+    {
+      "at": "2026-09-10T13:21:00.101Z",
+      "path": "/assets/art/six_gen/machine_cup_pair_body.png",
+      "status": 200,
+      "bytes": 98111
+    },
+    {
+      "at": "2026-09-10T13:21:00.107Z",
+      "path": "/assets/art/six_gen/machine_cup_triple_body.png",
+      "status": 200,
+      "bytes": 94946
+    },
+    {
+      "at": "2026-09-10T13:21:00.108Z",
+      "path": "/assets/art/six_gen/machine_cup_quad_body.png",
+      "status": 200,
+      "bytes": 105449
+    },
+    {
+      "at": "2026-09-10T13:21:00.112Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 200,
+      "bytes": 119518
+    },
+    {
+      "at": "2026-09-10T13:21:00.113Z",
+      "path": "/assets/art/six_gen/machine_ship_dual_body.png",
+      "status": 200,
+      "bytes": 69348
+    },
+    {
+      "at": "2026-09-10T13:21:00.114Z",
+      "path": "/assets/art/six_gen/machine_ship_lane_cover.png",
+      "status": 200,
+      "bytes": 6926
+    },
+    {
+      "at": "2026-09-10T13:21:00.114Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_back.png",
+      "status": 200,
+      "bytes": 41505
+    },
+    {
+      "at": "2026-09-10T13:21:00.114Z",
+      "path": "/assets/art/six_gen/machine_ship_quad_body.png",
+      "status": 200,
+      "bytes": 59923
+    },
+    {
+      "at": "2026-09-10T13:21:00.120Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_front.png",
+      "status": 200,
+      "bytes": 13348
+    },
+    {
+      "at": "2026-09-10T13:21:00.120Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_back.png",
+      "status": 200,
+      "bytes": 44300
+    },
+    {
+      "at": "2026-09-10T13:21:00.120Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_front.png",
+      "status": 200,
+      "bytes": 13838
+    },
+    {
+      "at": "2026-09-10T13:21:00.120Z",
+      "path": "/assets/art/six_gen/transfer_tray_empty.png",
+      "status": 200,
+      "bytes": 7583
+    },
+    {
+      "at": "2026-09-10T13:21:00.121Z",
+      "path": "/assets/art/six_gen/input_cup_collar.png",
+      "status": 200,
+      "bytes": 6445
+    },
+    {
+      "at": "2026-09-10T13:21:00.121Z",
+      "path": "/assets/art/six_gen/ui_badge_complete.png",
+      "status": 200,
+      "bytes": 4113
+    },
+    {
+      "at": "2026-09-10T13:21:00.126Z",
+      "path": "/assets/art/six_gen/ui_badge_generation.png",
+      "status": 200,
+      "bytes": 5115
+    },
+    {
+      "at": "2026-09-10T13:21:00.127Z",
+      "path": "/assets/art/six_gen/ui_icon_automation.png",
+      "status": 200,
+      "bytes": 3959
+    },
+    {
+      "at": "2026-09-10T13:21:00.128Z",
+      "path": "/assets/art/six_gen/factory_platform_extension.png",
+      "status": 200,
+      "bytes": 30530
+    },
+    {
+      "at": "2026-09-10T13:21:00.129Z",
+      "path": "/assets/art/six_gen/factory_tower_back.png",
+      "status": 200,
+      "bytes": 47759
+    },
+    {
+      "at": "2026-09-10T13:21:00.132Z",
+      "path": "/assets/art/six_gen/factory_tower_front.png",
+      "status": 200,
+      "bytes": 12615
+    },
+    {
+      "at": "2026-09-10T13:21:00.137Z",
+      "path": "/assets/art/v11/ui_gesture_hand.png",
+      "status": 200,
+      "bytes": 6211
+    },
+    {
+      "at": "2026-09-10T13:21:00.140Z",
+      "path": "/assets/art/v11/factory_floor_extension.png",
+      "status": 200,
+      "bytes": 51088
+    },
+    {
+      "at": "2026-09-10T13:21:00.143Z",
+      "path": "/assets/art/v11/factory_wall_corner.png",
+      "status": 200,
+      "bytes": 24913
+    },
+    {
+      "at": "2026-09-10T13:21:00.173Z",
+      "path": "/favicon.ico",
+      "status": 204,
+      "bytes": 0
+    },
+    {
+      "at": "2026-09-10T13:21:50.682Z",
+      "path": "/__six/capture/g1-first-tray-320x524-motion-1789046502656.webm",
+      "status": 201,
+      "bytes": 151
+    },
+    {
+      "at": "2026-09-10T13:21:50.695Z",
+      "path": "/__six/capture/g1-first-tray-320x524-motion-1789046502656.json",
+      "status": 201,
+      "bytes": 152
+    },
+    {
+      "at": "2026-09-10T13:22:32.477Z",
+      "path": "/__six/capture/g1-first-tray-320x524-safe0-1789046549451.png",
+      "status": 201,
+      "bytes": 150
+    },
+    {
+      "at": "2026-09-10T13:22:32.487Z",
+      "path": "/__six/capture/g1-first-tray-320x524-safe0-1789046549451.json",
+      "status": 201,
+      "bytes": 150
+    },
+    {
+      "at": "2026-09-10T13:22:38.522Z",
+      "path": "/__six/capture/g1-first-tray-320x524-motion-1789046550512.webm",
+      "status": 201,
+      "bytes": 151
+    },
+    {
+      "at": "2026-09-10T13:22:38.535Z",
+      "path": "/__six/capture/g1-first-tray-320x524-motion-1789046550512.json",
+      "status": 201,
+      "bytes": 152
+    },
+    {
+      "at": "2026-09-10T13:23:02.125Z",
+      "path": "/__six/capture/g1-first-tray-320x524-safe0-1789046582040.png",
+      "status": 201,
+      "bytes": 150
+    },
+    {
+      "at": "2026-09-10T13:23:02.160Z",
+      "path": "/__six/capture/g1-first-tray-320x524-safe0-1789046582040.json",
+      "status": 201,
+      "bytes": 150
+    },
+    {
+      "at": "2026-09-10T13:23:37.913Z",
+      "path": "/?fixture=g6-upgraded&width=320&safe=24",
+      "status": 200,
+      "bytes": 8073
+    },
+    {
+      "at": "2026-09-10T13:23:37.960Z",
+      "path": "/game?fixture=g6-upgraded&safe=24&pause=1",
+      "status": 200,
+      "bytes": 27086
+    },
+    {
+      "at": "2026-09-10T13:23:37.977Z",
+      "path": "/__six/runtime.js",
+      "status": 200,
+      "bytes": 5042
+    },
+    {
+      "at": "2026-09-10T13:23:37.979Z",
+      "path": "/game.bundle.js?__acceptance_sha=4e7a01292fb02f72333c3697085ecebecc7fb7d37f83895f7af4a314afbe9ed5",
+      "status": 200,
+      "bytes": 350873
+    },
+    {
+      "at": "2026-09-10T13:23:37.994Z",
+      "path": "/assets/art/six_gen/fx_sparkle.png",
+      "status": 200,
+      "bytes": 3490
+    },
+    {
+      "at": "2026-09-10T13:23:37.997Z",
+      "path": "/assets/art/six_gen/machine_cup_body.png",
+      "status": 200,
+      "bytes": 49857
+    },
+    {
+      "at": "2026-09-10T13:23:37.997Z",
+      "path": "/assets/art/six_gen/fx_steam.png",
+      "status": 200,
+      "bytes": 3486
+    },
+    {
+      "at": "2026-09-10T13:23:38.000Z",
+      "path": "/assets/art/six_gen/machine_cup_front.png",
+      "status": 200,
+      "bytes": 18095
+    },
+    {
+      "at": "2026-09-10T13:23:38.000Z",
+      "path": "/assets/art/six_gen/machine_cup_head.png",
+      "status": 200,
+      "bytes": 9181
+    },
+    {
+      "at": "2026-09-10T13:23:38.005Z",
+      "path": "/assets/art/six_gen/machine_pop_front.png",
+      "status": 200,
+      "bytes": 17312
+    },
+    {
+      "at": "2026-09-10T13:23:38.005Z",
+      "path": "/assets/art/six_gen/machine_pop_body.png",
+      "status": 200,
+      "bytes": 49154
+    },
+    {
+      "at": "2026-09-10T13:23:38.005Z",
+      "path": "/assets/art/six_gen/machine_pop_head.png",
+      "status": 200,
+      "bytes": 15134
+    },
+    {
+      "at": "2026-09-10T13:23:38.006Z",
+      "path": "/assets/art/six_gen/machine_ship_body.png",
+      "status": 200,
+      "bytes": 44781
+    },
+    {
+      "at": "2026-09-10T13:23:38.009Z",
+      "path": "/assets/art/six_gen/machine_ship_front.png",
+      "status": 200,
+      "bytes": 11078
+    },
+    {
+      "at": "2026-09-10T13:23:38.010Z",
+      "path": "/assets/art/six_gen/machine_ship_head.png",
+      "status": 200,
+      "bytes": 9936
+    },
+    {
+      "at": "2026-09-10T13:23:38.018Z",
+      "path": "/assets/art/six_gen/product_box_front.png",
+      "status": 200,
+      "bytes": 3701
+    },
+    {
+      "at": "2026-09-10T13:23:38.019Z",
+      "path": "/assets/art/six_gen/product_box_lid.png",
+      "status": 200,
+      "bytes": 4991
+    },
+    {
+      "at": "2026-09-10T13:23:38.019Z",
+      "path": "/assets/art/six_gen/product_box_open.png",
+      "status": 200,
+      "bytes": 7275
+    },
+    {
+      "at": "2026-09-10T13:23:38.019Z",
+      "path": "/assets/art/six_gen/product_cup_empty.png",
+      "status": 200,
+      "bytes": 7141
+    },
+    {
+      "at": "2026-09-10T13:23:38.020Z",
+      "path": "/assets/art/six_gen/product_cup_fill.png",
+      "status": 200,
+      "bytes": 9604
+    },
+    {
+      "at": "2026-09-10T13:23:38.020Z",
+      "path": "/assets/art/six_gen/product_double_tray.png",
+      "status": 200,
+      "bytes": 5889
+    },
+    {
+      "at": "2026-09-10T13:23:38.024Z",
+      "path": "/assets/art/six_gen/product_kernel_a.png",
+      "status": 200,
+      "bytes": 3284
+    },
+    {
+      "at": "2026-09-10T13:23:38.027Z",
+      "path": "/assets/art/six_gen/product_kernel_b.png",
+      "status": 200,
+      "bytes": 9324
+    },
+    {
+      "at": "2026-09-10T13:23:38.027Z",
+      "path": "/assets/art/six_gen/buffer_bulk_back.png",
+      "status": 200,
+      "bytes": 32309
+    },
+    {
+      "at": "2026-09-10T13:23:38.027Z",
+      "path": "/assets/art/six_gen/buffer_bulk_front.png",
+      "status": 200,
+      "bytes": 12652
+    },
+    {
+      "at": "2026-09-10T13:23:38.027Z",
+      "path": "/assets/art/six_gen/buffer_cups_back.png",
+      "status": 200,
+      "bytes": 27720
+    },
+    {
+      "at": "2026-09-10T13:23:38.028Z",
+      "path": "/assets/art/six_gen/buffer_cups_front.png",
+      "status": 200,
+      "bytes": 10212
+    },
+    {
+      "at": "2026-09-10T13:23:38.029Z",
+      "path": "/assets/art/six_gen/conveyor_down_left.png",
+      "status": 200,
+      "bytes": 32515
+    },
+    {
+      "at": "2026-09-10T13:23:38.032Z",
+      "path": "/assets/art/six_gen/conveyor_down_right.png",
+      "status": 200,
+      "bytes": 35535
+    },
+    {
+      "at": "2026-09-10T13:23:38.033Z",
+      "path": "/assets/art/six_gen/conveyor_front_left.png",
+      "status": 200,
+      "bytes": 9213
+    },
+    {
+      "at": "2026-09-10T13:23:38.034Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_back.png",
+      "status": 200,
+      "bytes": 28220
+    },
+    {
+      "at": "2026-09-10T13:23:38.034Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_front.png",
+      "status": 200,
+      "bytes": 7955
+    },
+    {
+      "at": "2026-09-10T13:23:38.034Z",
+      "path": "/assets/art/six_gen/conveyor_front_right.png",
+      "status": 200,
+      "bytes": 9720
+    },
+    {
+      "at": "2026-09-10T13:23:38.035Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_back.png",
+      "status": 200,
+      "bytes": 27534
+    },
+    {
+      "at": "2026-09-10T13:23:38.037Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_front.png",
+      "status": 200,
+      "bytes": 7464
+    },
+    {
+      "at": "2026-09-10T13:23:38.038Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_back.png",
+      "status": 200,
+      "bytes": 28591
+    },
+    {
+      "at": "2026-09-10T13:23:38.040Z",
+      "path": "/assets/art/six_gen/factory_door.png",
+      "status": 200,
+      "bytes": 9158
+    },
+    {
+      "at": "2026-09-10T13:23:38.040Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_front.png",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "at": "2026-09-10T13:23:38.041Z",
+      "path": "/assets/art/six_gen/factory_room.png",
+      "status": 200,
+      "bytes": 72468
+    },
+    {
+      "at": "2026-09-10T13:23:38.042Z",
+      "path": "/assets/art/six_gen/factory_window.png",
+      "status": 200,
+      "bytes": 12181
+    },
+    {
+      "at": "2026-09-10T13:23:38.043Z",
+      "path": "/assets/art/six_gen/ui_button_disabled.png",
+      "status": 200,
+      "bytes": 49591
+    },
+    {
+      "at": "2026-09-10T13:23:38.043Z",
+      "path": "/assets/art/six_gen/ui_button_primary.png",
+      "status": 200,
+      "bytes": 8359
+    },
+    {
+      "at": "2026-09-10T13:23:38.047Z",
+      "path": "/assets/art/six_gen/ui_button_secondary.png",
+      "status": 200,
+      "bytes": 7259
+    },
+    {
+      "at": "2026-09-10T13:23:38.048Z",
+      "path": "/assets/art/six_gen/ui_card.png",
+      "status": 200,
+      "bytes": 5135
+    },
+    {
+      "at": "2026-09-10T13:23:38.048Z",
+      "path": "/assets/art/six_gen/ui_compact_bar.png",
+      "status": 200,
+      "bytes": 4464
+    },
+    {
+      "at": "2026-09-10T13:23:38.050Z",
+      "path": "/assets/art/six_gen/ui_hud_coin.png",
+      "status": 200,
+      "bytes": 6615
+    },
+    {
+      "at": "2026-09-10T13:23:38.050Z",
+      "path": "/assets/art/six_gen/ui_hud_rate.png",
+      "status": 200,
+      "bytes": 8613
+    },
+    {
+      "at": "2026-09-10T13:23:38.052Z",
+      "path": "/assets/art/six_gen/ui_icon_arrow.png",
+      "status": 200,
+      "bytes": 2283
+    },
+    {
+      "at": "2026-09-10T13:23:38.053Z",
+      "path": "/assets/art/six_gen/ui_icon_check.png",
+      "status": 200,
+      "bytes": 2474
+    },
+    {
+      "at": "2026-09-10T13:23:38.053Z",
+      "path": "/assets/art/six_gen/ui_icon_coin.png",
+      "status": 200,
+      "bytes": 5870
+    },
+    {
+      "at": "2026-09-10T13:23:38.053Z",
+      "path": "/assets/art/six_gen/ui_icon_close.png",
+      "status": 200,
+      "bytes": 4003
+    },
+    {
+      "at": "2026-09-10T13:23:38.056Z",
+      "path": "/assets/art/six_gen/ui_icon_expand.png",
+      "status": 200,
+      "bytes": 3013
+    },
+    {
+      "at": "2026-09-10T13:23:38.057Z",
+      "path": "/assets/art/six_gen/ui_icon_cup.png",
+      "status": 200,
+      "bytes": 4619
+    },
+    {
+      "at": "2026-09-10T13:23:38.058Z",
+      "path": "/assets/art/six_gen/ui_icon_lock.png",
+      "status": 200,
+      "bytes": 4092
+    },
+    {
+      "at": "2026-09-10T13:23:38.060Z",
+      "path": "/assets/art/six_gen/ui_icon_pop.png",
+      "status": 200,
+      "bytes": 5757
+    },
+    {
+      "at": "2026-09-10T13:23:38.060Z",
+      "path": "/assets/art/six_gen/ui_icon_settings.png",
+      "status": 200,
+      "bytes": 4609
+    },
+    {
+      "at": "2026-09-10T13:23:38.060Z",
+      "path": "/assets/art/six_gen/ui_icon_ship.png",
+      "status": 200,
+      "bytes": 4628
+    },
+    {
+      "at": "2026-09-10T13:23:38.064Z",
+      "path": "/assets/art/six_gen/ui_icon_upgrade.png",
+      "status": 200,
+      "bytes": 3853
+    },
+    {
+      "at": "2026-09-10T13:23:38.064Z",
+      "path": "/assets/art/six_gen/ui_icon_sound.png",
+      "status": 200,
+      "bytes": 3576
+    },
+    {
+      "at": "2026-09-10T13:23:38.064Z",
+      "path": "/assets/art/six_gen/ui_icon_ship_speed.png",
+      "status": 200,
+      "bytes": 3484
+    },
+    {
+      "at": "2026-09-10T13:23:38.068Z",
+      "path": "/assets/art/six_gen/ui_icon_wait.png",
+      "status": 200,
+      "bytes": 4529
+    },
+    {
+      "at": "2026-09-10T13:23:38.068Z",
+      "path": "/assets/art/six_gen/ui_icon_vibration.png",
+      "status": 200,
+      "bytes": 3346
+    },
+    {
+      "at": "2026-09-10T13:23:38.070Z",
+      "path": "/assets/art/six_gen/ui_icon_warning.png",
+      "status": 200,
+      "bytes": 4124
+    },
+    {
+      "at": "2026-09-10T13:23:38.071Z",
+      "path": "/assets/art/six_gen/ui_panel.png",
+      "status": 200,
+      "bytes": 8219
+    },
+    {
+      "at": "2026-09-10T13:23:38.071Z",
+      "path": "/assets/art/six_gen/machine_pop_double_carrier.png",
+      "status": 200,
+      "bytes": 8144
+    },
+    {
+      "at": "2026-09-10T13:23:38.071Z",
+      "path": "/assets/art/six_gen/machine_pop_hex_body.png",
+      "status": 200,
+      "bytes": 76793
+    },
+    {
+      "at": "2026-09-10T13:23:38.073Z",
+      "path": "/assets/art/six_gen/machine_pop_pair_body.png",
+      "status": 200,
+      "bytes": 65393
+    },
+    {
+      "at": "2026-09-10T13:23:38.074Z",
+      "path": "/assets/art/six_gen/machine_pop_quad_body.png",
+      "status": 200,
+      "bytes": 81647
+    },
+    {
+      "at": "2026-09-10T13:23:38.077Z",
+      "path": "/assets/art/six_gen/machine_pop_socket_cover.png",
+      "status": 200,
+      "bytes": 14023
+    },
+    {
+      "at": "2026-09-10T13:23:38.077Z",
+      "path": "/assets/art/six_gen/machine_cup_pair_body.png",
+      "status": 200,
+      "bytes": 98111
+    },
+    {
+      "at": "2026-09-10T13:23:38.077Z",
+      "path": "/assets/art/six_gen/machine_cup_triple_body.png",
+      "status": 200,
+      "bytes": 94946
+    },
+    {
+      "at": "2026-09-10T13:23:38.078Z",
+      "path": "/assets/art/six_gen/machine_cup_quad_body.png",
+      "status": 200,
+      "bytes": 105449
+    },
+    {
+      "at": "2026-09-10T13:23:38.079Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 200,
+      "bytes": 119518
+    },
+    {
+      "at": "2026-09-10T13:23:38.080Z",
+      "path": "/assets/art/six_gen/machine_ship_dual_body.png",
+      "status": 200,
+      "bytes": 69348
+    },
+    {
+      "at": "2026-09-10T13:23:38.083Z",
+      "path": "/assets/art/six_gen/machine_ship_lane_cover.png",
+      "status": 200,
+      "bytes": 6926
+    },
+    {
+      "at": "2026-09-10T13:23:38.084Z",
+      "path": "/assets/art/six_gen/machine_ship_quad_body.png",
+      "status": 200,
+      "bytes": 59923
+    },
+    {
+      "at": "2026-09-10T13:23:38.084Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_front.png",
+      "status": 200,
+      "bytes": 13348
+    },
+    {
+      "at": "2026-09-10T13:23:38.084Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_back.png",
+      "status": 200,
+      "bytes": 41505
+    },
+    {
+      "at": "2026-09-10T13:23:38.086Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_back.png",
+      "status": 200,
+      "bytes": 44300
+    },
+    {
+      "at": "2026-09-10T13:23:38.086Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_front.png",
+      "status": 200,
+      "bytes": 13838
+    },
+    {
+      "at": "2026-09-10T13:23:38.089Z",
+      "path": "/assets/art/six_gen/input_cup_collar.png",
+      "status": 200,
+      "bytes": 6445
+    },
+    {
+      "at": "2026-09-10T13:23:38.089Z",
+      "path": "/assets/art/six_gen/transfer_tray_empty.png",
+      "status": 200,
+      "bytes": 7583
+    },
+    {
+      "at": "2026-09-10T13:23:38.089Z",
+      "path": "/assets/art/six_gen/ui_badge_complete.png",
+      "status": 200,
+      "bytes": 4113
+    },
+    {
+      "at": "2026-09-10T13:23:38.091Z",
+      "path": "/assets/art/six_gen/ui_badge_generation.png",
+      "status": 200,
+      "bytes": 5115
+    },
+    {
+      "at": "2026-09-10T13:23:38.091Z",
+      "path": "/assets/art/six_gen/ui_icon_automation.png",
+      "status": 200,
+      "bytes": 3959
+    },
+    {
+      "at": "2026-09-10T13:23:38.092Z",
+      "path": "/assets/art/six_gen/factory_platform_extension.png",
+      "status": 200,
+      "bytes": 30530
+    },
+    {
+      "at": "2026-09-10T13:23:38.096Z",
+      "path": "/assets/art/v11/ui_gesture_hand.png",
+      "status": 200,
+      "bytes": 6211
+    },
+    {
+      "at": "2026-09-10T13:23:38.096Z",
+      "path": "/assets/art/six_gen/factory_tower_front.png",
+      "status": 200,
+      "bytes": 12615
+    },
+    {
+      "at": "2026-09-10T13:23:38.096Z",
+      "path": "/assets/art/six_gen/factory_tower_back.png",
+      "status": 200,
+      "bytes": 47759
+    },
+    {
+      "at": "2026-09-10T13:23:38.099Z",
+      "path": "/assets/art/v11/factory_floor_extension.png",
+      "status": 200,
+      "bytes": 51088
+    },
+    {
+      "at": "2026-09-10T13:23:38.099Z",
+      "path": "/assets/art/v11/factory_wall_corner.png",
+      "status": 200,
+      "bytes": 24913
+    },
+    {
+      "at": "2026-09-10T13:23:38.155Z",
+      "path": "/favicon.ico",
+      "status": 204,
+      "bytes": 0
+    },
+    {
+      "at": "2026-09-10T13:24:08.155Z",
+      "path": "/__six/capture/g6-upgraded-320x524-safe24-1789046642930.png",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:24:08.165Z",
+      "path": "/__six/capture/g6-upgraded-320x524-safe24-1789046642930.json",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:24:16.695Z",
+      "path": "/__six/capture/g6-upgraded-320x524-safe24-1789046655487.png",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:24:16.700Z",
+      "path": "/__six/capture/g6-upgraded-320x524-safe24-1789046655487.json",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:25:15.388Z",
+      "path": "/?fixture=g1-connections-10&width=360&safe=24",
+      "status": 200,
+      "bytes": 8079
+    },
+    {
+      "at": "2026-09-10T13:25:15.435Z",
+      "path": "/game?fixture=g1-connections-10&safe=24&pause=1",
+      "status": 200,
+      "bytes": 20339
+    },
+    {
+      "at": "2026-09-10T13:25:15.455Z",
+      "path": "/__six/runtime.js",
+      "status": 200,
+      "bytes": 5042
+    },
+    {
+      "at": "2026-09-10T13:25:15.456Z",
+      "path": "/game.bundle.js?__acceptance_sha=4e7a01292fb02f72333c3697085ecebecc7fb7d37f83895f7af4a314afbe9ed5",
+      "status": 200,
+      "bytes": 350873
+    },
+    {
+      "at": "2026-09-10T13:25:15.481Z",
+      "path": "/assets/art/six_gen/fx_sparkle.png",
+      "status": 200,
+      "bytes": 3490
+    },
+    {
+      "at": "2026-09-10T13:25:15.481Z",
+      "path": "/assets/art/six_gen/fx_steam.png",
+      "status": 200,
+      "bytes": 3486
+    },
+    {
+      "at": "2026-09-10T13:25:15.481Z",
+      "path": "/assets/art/six_gen/machine_cup_body.png",
+      "status": 200,
+      "bytes": 49857
+    },
+    {
+      "at": "2026-09-10T13:25:15.483Z",
+      "path": "/assets/art/six_gen/machine_cup_front.png",
+      "status": 200,
+      "bytes": 18095
+    },
+    {
+      "at": "2026-09-10T13:25:15.483Z",
+      "path": "/assets/art/six_gen/machine_cup_head.png",
+      "status": 200,
+      "bytes": 9181
+    },
+    {
+      "at": "2026-09-10T13:25:15.483Z",
+      "path": "/assets/art/six_gen/machine_pop_body.png",
+      "status": 200,
+      "bytes": 49154
+    },
+    {
+      "at": "2026-09-10T13:25:15.489Z",
+      "path": "/assets/art/six_gen/machine_pop_front.png",
+      "status": 200,
+      "bytes": 17312
+    },
+    {
+      "at": "2026-09-10T13:25:15.489Z",
+      "path": "/assets/art/six_gen/machine_pop_head.png",
+      "status": 200,
+      "bytes": 15134
+    },
+    {
+      "at": "2026-09-10T13:25:15.489Z",
+      "path": "/assets/art/six_gen/machine_ship_body.png",
+      "status": 200,
+      "bytes": 44781
+    },
+    {
+      "at": "2026-09-10T13:25:15.490Z",
+      "path": "/assets/art/six_gen/machine_ship_front.png",
+      "status": 200,
+      "bytes": 11078
+    },
+    {
+      "at": "2026-09-10T13:25:15.491Z",
+      "path": "/assets/art/six_gen/product_box_front.png",
+      "status": 200,
+      "bytes": 3701
+    },
+    {
+      "at": "2026-09-10T13:25:15.491Z",
+      "path": "/assets/art/six_gen/machine_ship_head.png",
+      "status": 200,
+      "bytes": 9936
+    },
+    {
+      "at": "2026-09-10T13:25:15.496Z",
+      "path": "/assets/art/six_gen/product_box_open.png",
+      "status": 200,
+      "bytes": 7275
+    },
+    {
+      "at": "2026-09-10T13:25:15.496Z",
+      "path": "/assets/art/six_gen/product_cup_fill.png",
+      "status": 200,
+      "bytes": 9604
+    },
+    {
+      "at": "2026-09-10T13:25:15.496Z",
+      "path": "/assets/art/six_gen/product_box_lid.png",
+      "status": 200,
+      "bytes": 4991
+    },
+    {
+      "at": "2026-09-10T13:25:15.496Z",
+      "path": "/assets/art/six_gen/product_cup_empty.png",
+      "status": 200,
+      "bytes": 7141
+    },
+    {
+      "at": "2026-09-10T13:25:15.499Z",
+      "path": "/assets/art/six_gen/product_double_tray.png",
+      "status": 200,
+      "bytes": 5889
+    },
+    {
+      "at": "2026-09-10T13:25:15.502Z",
+      "path": "/assets/art/six_gen/product_kernel_a.png",
+      "status": 200,
+      "bytes": 3284
+    },
+    {
+      "at": "2026-09-10T13:25:15.505Z",
+      "path": "/assets/art/six_gen/product_kernel_b.png",
+      "status": 200,
+      "bytes": 9324
+    },
+    {
+      "at": "2026-09-10T13:25:15.505Z",
+      "path": "/assets/art/six_gen/buffer_cups_back.png",
+      "status": 200,
+      "bytes": 27720
+    },
+    {
+      "at": "2026-09-10T13:25:15.505Z",
+      "path": "/assets/art/six_gen/buffer_bulk_back.png",
+      "status": 200,
+      "bytes": 32309
+    },
+    {
+      "at": "2026-09-10T13:25:15.505Z",
+      "path": "/assets/art/six_gen/buffer_bulk_front.png",
+      "status": 200,
+      "bytes": 12652
+    },
+    {
+      "at": "2026-09-10T13:25:15.506Z",
+      "path": "/assets/art/six_gen/buffer_cups_front.png",
+      "status": 200,
+      "bytes": 10212
+    },
+    {
+      "at": "2026-09-10T13:25:15.507Z",
+      "path": "/assets/art/six_gen/conveyor_down_left.png",
+      "status": 200,
+      "bytes": 32515
+    },
+    {
+      "at": "2026-09-10T13:25:15.512Z",
+      "path": "/assets/art/six_gen/conveyor_down_right.png",
+      "status": 200,
+      "bytes": 35535
+    },
+    {
+      "at": "2026-09-10T13:25:15.512Z",
+      "path": "/assets/art/six_gen/conveyor_front_right.png",
+      "status": 200,
+      "bytes": 9720
+    },
+    {
+      "at": "2026-09-10T13:25:15.512Z",
+      "path": "/assets/art/six_gen/conveyor_front_left.png",
+      "status": 200,
+      "bytes": 9213
+    },
+    {
+      "at": "2026-09-10T13:25:15.513Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_back.png",
+      "status": 200,
+      "bytes": 28220
+    },
+    {
+      "at": "2026-09-10T13:25:15.514Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_front.png",
+      "status": 200,
+      "bytes": 7955
+    },
+    {
+      "at": "2026-09-10T13:25:15.514Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_back.png",
+      "status": 200,
+      "bytes": 27534
+    },
+    {
+      "at": "2026-09-10T13:25:15.519Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_front.png",
+      "status": 200,
+      "bytes": 7464
+    },
+    {
+      "at": "2026-09-10T13:25:15.519Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_back.png",
+      "status": 200,
+      "bytes": 28591
+    },
+    {
+      "at": "2026-09-10T13:25:15.522Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_front.png",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "at": "2026-09-10T13:25:15.523Z",
+      "path": "/assets/art/six_gen/factory_door.png",
+      "status": 200,
+      "bytes": 9158
+    },
+    {
+      "at": "2026-09-10T13:25:15.524Z",
+      "path": "/assets/art/six_gen/factory_room.png",
+      "status": 200,
+      "bytes": 72468
+    },
+    {
+      "at": "2026-09-10T13:25:15.526Z",
+      "path": "/assets/art/six_gen/factory_window.png",
+      "status": 200,
+      "bytes": 12181
+    },
+    {
+      "at": "2026-09-10T13:25:15.530Z",
+      "path": "/assets/art/six_gen/ui_button_disabled.png",
+      "status": 200,
+      "bytes": 49591
+    },
+    {
+      "at": "2026-09-10T13:25:15.530Z",
+      "path": "/assets/art/six_gen/ui_button_primary.png",
+      "status": 200,
+      "bytes": 8359
+    },
+    {
+      "at": "2026-09-10T13:25:15.533Z",
+      "path": "/assets/art/six_gen/ui_card.png",
+      "status": 200,
+      "bytes": 5135
+    },
+    {
+      "at": "2026-09-10T13:25:15.533Z",
+      "path": "/assets/art/six_gen/ui_button_secondary.png",
+      "status": 200,
+      "bytes": 7259
+    },
+    {
+      "at": "2026-09-10T13:25:15.536Z",
+      "path": "/assets/art/six_gen/ui_compact_bar.png",
+      "status": 200,
+      "bytes": 4464
+    },
+    {
+      "at": "2026-09-10T13:25:15.537Z",
+      "path": "/assets/art/six_gen/ui_hud_coin.png",
+      "status": 200,
+      "bytes": 6615
+    },
+    {
+      "at": "2026-09-10T13:25:15.539Z",
+      "path": "/assets/art/six_gen/ui_hud_rate.png",
+      "status": 200,
+      "bytes": 8613
+    },
+    {
+      "at": "2026-09-10T13:25:15.541Z",
+      "path": "/assets/art/six_gen/ui_icon_close.png",
+      "status": 200,
+      "bytes": 4003
+    },
+    {
+      "at": "2026-09-10T13:25:15.541Z",
+      "path": "/assets/art/six_gen/ui_icon_arrow.png",
+      "status": 200,
+      "bytes": 2283
+    },
+    {
+      "at": "2026-09-10T13:25:15.541Z",
+      "path": "/assets/art/six_gen/ui_icon_check.png",
+      "status": 200,
+      "bytes": 2474
+    },
+    {
+      "at": "2026-09-10T13:25:15.542Z",
+      "path": "/assets/art/six_gen/ui_icon_coin.png",
+      "status": 200,
+      "bytes": 5870
+    },
+    {
+      "at": "2026-09-10T13:25:15.544Z",
+      "path": "/assets/art/six_gen/ui_icon_cup.png",
+      "status": 200,
+      "bytes": 4619
+    },
+    {
+      "at": "2026-09-10T13:25:15.544Z",
+      "path": "/assets/art/six_gen/ui_icon_expand.png",
+      "status": 200,
+      "bytes": 3013
+    },
+    {
+      "at": "2026-09-10T13:25:15.549Z",
+      "path": "/assets/art/six_gen/ui_icon_lock.png",
+      "status": 200,
+      "bytes": 4092
+    },
+    {
+      "at": "2026-09-10T13:25:15.550Z",
+      "path": "/assets/art/six_gen/ui_icon_pop.png",
+      "status": 200,
+      "bytes": 5757
+    },
+    {
+      "at": "2026-09-10T13:25:15.550Z",
+      "path": "/assets/art/six_gen/ui_icon_settings.png",
+      "status": 200,
+      "bytes": 4609
+    },
+    {
+      "at": "2026-09-10T13:25:15.550Z",
+      "path": "/assets/art/six_gen/ui_icon_ship.png",
+      "status": 200,
+      "bytes": 4628
+    },
+    {
+      "at": "2026-09-10T13:25:15.552Z",
+      "path": "/assets/art/six_gen/ui_icon_sound.png",
+      "status": 200,
+      "bytes": 3576
+    },
+    {
+      "at": "2026-09-10T13:25:15.552Z",
+      "path": "/assets/art/six_gen/ui_icon_ship_speed.png",
+      "status": 200,
+      "bytes": 3484
+    },
+    {
+      "at": "2026-09-10T13:25:15.556Z",
+      "path": "/assets/art/six_gen/ui_icon_upgrade.png",
+      "status": 200,
+      "bytes": 3853
+    },
+    {
+      "at": "2026-09-10T13:25:15.557Z",
+      "path": "/assets/art/six_gen/ui_icon_wait.png",
+      "status": 200,
+      "bytes": 4529
+    },
+    {
+      "at": "2026-09-10T13:25:15.557Z",
+      "path": "/assets/art/six_gen/ui_icon_vibration.png",
+      "status": 200,
+      "bytes": 3346
+    },
+    {
+      "at": "2026-09-10T13:25:15.557Z",
+      "path": "/assets/art/six_gen/ui_icon_warning.png",
+      "status": 200,
+      "bytes": 4124
+    },
+    {
+      "at": "2026-09-10T13:25:15.559Z",
+      "path": "/assets/art/six_gen/ui_panel.png",
+      "status": 200,
+      "bytes": 8219
+    },
+    {
+      "at": "2026-09-10T13:25:15.559Z",
+      "path": "/assets/art/six_gen/machine_pop_double_carrier.png",
+      "status": 200,
+      "bytes": 8144
+    },
+    {
+      "at": "2026-09-10T13:25:15.561Z",
+      "path": "/assets/art/six_gen/machine_pop_hex_body.png",
+      "status": 200,
+      "bytes": 76793
+    },
+    {
+      "at": "2026-09-10T13:25:15.563Z",
+      "path": "/assets/art/six_gen/machine_pop_pair_body.png",
+      "status": 200,
+      "bytes": 65393
+    },
+    {
+      "at": "2026-09-10T13:25:15.563Z",
+      "path": "/assets/art/six_gen/machine_pop_quad_body.png",
+      "status": 200,
+      "bytes": 81647
+    },
+    {
+      "at": "2026-09-10T13:25:15.563Z",
+      "path": "/assets/art/six_gen/machine_pop_socket_cover.png",
+      "status": 200,
+      "bytes": 14023
+    },
+    {
+      "at": "2026-09-10T13:25:15.565Z",
+      "path": "/assets/art/six_gen/machine_cup_pair_body.png",
+      "status": 200,
+      "bytes": 98111
+    },
+    {
+      "at": "2026-09-10T13:25:15.566Z",
+      "path": "/assets/art/six_gen/machine_cup_triple_body.png",
+      "status": 200,
+      "bytes": 94946
+    },
+    {
+      "at": "2026-09-10T13:25:15.568Z",
+      "path": "/assets/art/six_gen/machine_cup_quad_body.png",
+      "status": 200,
+      "bytes": 105449
+    },
+    {
+      "at": "2026-09-10T13:25:15.570Z",
+      "path": "/assets/art/six_gen/machine_ship_lane_cover.png",
+      "status": 200,
+      "bytes": 6926
+    },
+    {
+      "at": "2026-09-10T13:25:15.571Z",
+      "path": "/assets/art/six_gen/machine_ship_dual_body.png",
+      "status": 200,
+      "bytes": 69348
+    },
+    {
+      "at": "2026-09-10T13:25:15.571Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 200,
+      "bytes": 119518
+    },
+    {
+      "at": "2026-09-10T13:25:15.575Z",
+      "path": "/assets/art/six_gen/machine_ship_quad_body.png",
+      "status": 200,
+      "bytes": 59923
+    },
+    {
+      "at": "2026-09-10T13:25:15.576Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_back.png",
+      "status": 200,
+      "bytes": 41505
+    },
+    {
+      "at": "2026-09-10T13:25:15.579Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_front.png",
+      "status": 200,
+      "bytes": 13348
+    },
+    {
+      "at": "2026-09-10T13:25:15.579Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_back.png",
+      "status": 200,
+      "bytes": 44300
+    },
+    {
+      "at": "2026-09-10T13:25:15.583Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_front.png",
+      "status": 200,
+      "bytes": 13838
+    },
+    {
+      "at": "2026-09-10T13:25:15.583Z",
+      "path": "/assets/art/six_gen/input_cup_collar.png",
+      "status": 200,
+      "bytes": 6445
+    },
+    {
+      "at": "2026-09-10T13:25:15.584Z",
+      "path": "/assets/art/six_gen/ui_badge_complete.png",
+      "status": 200,
+      "bytes": 4113
+    },
+    {
+      "at": "2026-09-10T13:25:15.584Z",
+      "path": "/assets/art/six_gen/transfer_tray_empty.png",
+      "status": 200,
+      "bytes": 7583
+    },
+    {
+      "at": "2026-09-10T13:25:15.585Z",
+      "path": "/assets/art/six_gen/ui_badge_generation.png",
+      "status": 200,
+      "bytes": 5115
+    },
+    {
+      "at": "2026-09-10T13:25:15.585Z",
+      "path": "/assets/art/six_gen/ui_icon_automation.png",
+      "status": 200,
+      "bytes": 3959
+    },
+    {
+      "at": "2026-09-10T13:25:15.589Z",
+      "path": "/assets/art/six_gen/factory_tower_back.png",
+      "status": 200,
+      "bytes": 47759
+    },
+    {
+      "at": "2026-09-10T13:25:15.589Z",
+      "path": "/assets/art/six_gen/factory_platform_extension.png",
+      "status": 200,
+      "bytes": 30530
+    },
+    {
+      "at": "2026-09-10T13:25:15.590Z",
+      "path": "/assets/art/six_gen/factory_tower_front.png",
+      "status": 200,
+      "bytes": 12615
+    },
+    {
+      "at": "2026-09-10T13:25:15.590Z",
+      "path": "/assets/art/v11/ui_gesture_hand.png",
+      "status": 200,
+      "bytes": 6211
+    },
+    {
+      "at": "2026-09-10T13:25:15.598Z",
+      "path": "/assets/art/v11/factory_wall_corner.png",
+      "status": 200,
+      "bytes": 24913
+    },
+    {
+      "at": "2026-09-10T13:25:15.598Z",
+      "path": "/assets/art/v11/factory_floor_extension.png",
+      "status": 200,
+      "bytes": 51088
+    },
+    {
+      "at": "2026-09-10T13:25:15.674Z",
+      "path": "/favicon.ico",
+      "status": 204,
+      "bytes": 0
+    },
+    {
+      "at": "2026-09-10T13:25:56.068Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046753854.png",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:25:56.076Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046753854.json",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:27:13.865Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046831667.png",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:27:13.874Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046831667.json",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:28:20.638Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046898450.png",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:28:20.650Z",
+      "path": "/__six/capture/g1-connections-10-360x640-safe24-1789046898450.json",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:28:29.125Z",
+      "path": "/?fixture=g1-connections-11&width=390&safe=24",
+      "status": 200,
+      "bytes": 8079
+    },
+    {
+      "at": "2026-09-10T13:28:29.155Z",
+      "path": "/game?fixture=g1-connections-11&safe=24&pause=1",
+      "status": 200,
+      "bytes": 20364
+    },
+    {
+      "at": "2026-09-10T13:28:29.170Z",
+      "path": "/__six/runtime.js",
+      "status": 200,
+      "bytes": 5042
+    },
+    {
+      "at": "2026-09-10T13:28:29.172Z",
+      "path": "/game.bundle.js?__acceptance_sha=4e7a01292fb02f72333c3697085ecebecc7fb7d37f83895f7af4a314afbe9ed5",
+      "status": 200,
+      "bytes": 350873
+    },
+    {
+      "at": "2026-09-10T13:28:29.204Z",
+      "path": "/assets/art/six_gen/fx_sparkle.png",
+      "status": 200,
+      "bytes": 3490
+    },
+    {
+      "at": "2026-09-10T13:28:29.206Z",
+      "path": "/assets/art/six_gen/fx_steam.png",
+      "status": 200,
+      "bytes": 3486
+    },
+    {
+      "at": "2026-09-10T13:28:29.207Z",
+      "path": "/assets/art/six_gen/machine_cup_body.png",
+      "status": 200,
+      "bytes": 49857
+    },
+    {
+      "at": "2026-09-10T13:28:29.207Z",
+      "path": "/assets/art/six_gen/machine_cup_head.png",
+      "status": 200,
+      "bytes": 9181
+    },
+    {
+      "at": "2026-09-10T13:28:29.207Z",
+      "path": "/assets/art/six_gen/machine_cup_front.png",
+      "status": 200,
+      "bytes": 18095
+    },
+    {
+      "at": "2026-09-10T13:28:29.208Z",
+      "path": "/assets/art/six_gen/machine_pop_body.png",
+      "status": 200,
+      "bytes": 49154
+    },
+    {
+      "at": "2026-09-10T13:28:29.210Z",
+      "path": "/assets/art/six_gen/machine_pop_front.png",
+      "status": 200,
+      "bytes": 17312
+    },
+    {
+      "at": "2026-09-10T13:28:29.211Z",
+      "path": "/assets/art/six_gen/machine_pop_head.png",
+      "status": 200,
+      "bytes": 15134
+    },
+    {
+      "at": "2026-09-10T13:28:29.214Z",
+      "path": "/assets/art/six_gen/machine_ship_body.png",
+      "status": 200,
+      "bytes": 44781
+    },
+    {
+      "at": "2026-09-10T13:28:29.215Z",
+      "path": "/assets/art/six_gen/machine_ship_front.png",
+      "status": 200,
+      "bytes": 11078
+    },
+    {
+      "at": "2026-09-10T13:28:29.218Z",
+      "path": "/assets/art/six_gen/machine_ship_head.png",
+      "status": 200,
+      "bytes": 9936
+    },
+    {
+      "at": "2026-09-10T13:28:29.219Z",
+      "path": "/assets/art/six_gen/product_box_lid.png",
+      "status": 200,
+      "bytes": 4991
+    },
+    {
+      "at": "2026-09-10T13:28:29.219Z",
+      "path": "/assets/art/six_gen/product_box_front.png",
+      "status": 200,
+      "bytes": 3701
+    },
+    {
+      "at": "2026-09-10T13:28:29.219Z",
+      "path": "/assets/art/six_gen/product_box_open.png",
+      "status": 200,
+      "bytes": 7275
+    },
+    {
+      "at": "2026-09-10T13:28:29.220Z",
+      "path": "/assets/art/six_gen/product_cup_empty.png",
+      "status": 200,
+      "bytes": 7141
+    },
+    {
+      "at": "2026-09-10T13:28:29.220Z",
+      "path": "/assets/art/six_gen/product_cup_fill.png",
+      "status": 200,
+      "bytes": 9604
+    },
+    {
+      "at": "2026-09-10T13:28:29.224Z",
+      "path": "/assets/art/six_gen/product_double_tray.png",
+      "status": 200,
+      "bytes": 5889
+    },
+    {
+      "at": "2026-09-10T13:28:29.224Z",
+      "path": "/assets/art/six_gen/product_kernel_a.png",
+      "status": 200,
+      "bytes": 3284
+    },
+    {
+      "at": "2026-09-10T13:28:29.224Z",
+      "path": "/assets/art/six_gen/product_kernel_b.png",
+      "status": 200,
+      "bytes": 9324
+    },
+    {
+      "at": "2026-09-10T13:28:29.225Z",
+      "path": "/assets/art/six_gen/buffer_bulk_back.png",
+      "status": 200,
+      "bytes": 32309
+    },
+    {
+      "at": "2026-09-10T13:28:29.226Z",
+      "path": "/assets/art/six_gen/buffer_bulk_front.png",
+      "status": 200,
+      "bytes": 12652
+    },
+    {
+      "at": "2026-09-10T13:28:29.226Z",
+      "path": "/assets/art/six_gen/buffer_cups_back.png",
+      "status": 200,
+      "bytes": 27720
+    },
+    {
+      "at": "2026-09-10T13:28:29.230Z",
+      "path": "/assets/art/six_gen/buffer_cups_front.png",
+      "status": 200,
+      "bytes": 10212
+    },
+    {
+      "at": "2026-09-10T13:28:29.230Z",
+      "path": "/assets/art/six_gen/conveyor_down_left.png",
+      "status": 200,
+      "bytes": 32515
+    },
+    {
+      "at": "2026-09-10T13:28:29.230Z",
+      "path": "/assets/art/six_gen/conveyor_down_right.png",
+      "status": 200,
+      "bytes": 35535
+    },
+    {
+      "at": "2026-09-10T13:28:29.232Z",
+      "path": "/assets/art/six_gen/conveyor_front_left.png",
+      "status": 200,
+      "bytes": 9213
+    },
+    {
+      "at": "2026-09-10T13:28:29.233Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_back.png",
+      "status": 200,
+      "bytes": 28220
+    },
+    {
+      "at": "2026-09-10T13:28:29.233Z",
+      "path": "/assets/art/six_gen/conveyor_front_right.png",
+      "status": 200,
+      "bytes": 9720
+    },
+    {
+      "at": "2026-09-10T13:28:29.238Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_front.png",
+      "status": 200,
+      "bytes": 7955
+    },
+    {
+      "at": "2026-09-10T13:28:29.238Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_back.png",
+      "status": 200,
+      "bytes": 27534
+    },
+    {
+      "at": "2026-09-10T13:28:29.239Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_front.png",
+      "status": 200,
+      "bytes": 7464
+    },
+    {
+      "at": "2026-09-10T13:28:29.239Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_back.png",
+      "status": 200,
+      "bytes": 28591
+    },
+    {
+      "at": "2026-09-10T13:28:29.239Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_front.png",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "at": "2026-09-10T13:28:29.239Z",
+      "path": "/assets/art/six_gen/factory_door.png",
+      "status": 200,
+      "bytes": 9158
+    },
+    {
+      "at": "2026-09-10T13:28:29.241Z",
+      "path": "/assets/art/six_gen/factory_room.png",
+      "status": 200,
+      "bytes": 72468
+    },
+    {
+      "at": "2026-09-10T13:28:29.244Z",
+      "path": "/assets/art/six_gen/factory_window.png",
+      "status": 200,
+      "bytes": 12181
+    },
+    {
+      "at": "2026-09-10T13:28:29.244Z",
+      "path": "/assets/art/six_gen/ui_button_primary.png",
+      "status": 200,
+      "bytes": 8359
+    },
+    {
+      "at": "2026-09-10T13:28:29.245Z",
+      "path": "/assets/art/six_gen/ui_button_disabled.png",
+      "status": 200,
+      "bytes": 49591
+    },
+    {
+      "at": "2026-09-10T13:28:29.245Z",
+      "path": "/assets/art/six_gen/ui_button_secondary.png",
+      "status": 200,
+      "bytes": 7259
+    },
+    {
+      "at": "2026-09-10T13:28:29.248Z",
+      "path": "/assets/art/six_gen/ui_card.png",
+      "status": 200,
+      "bytes": 5135
+    },
+    {
+      "at": "2026-09-10T13:28:29.248Z",
+      "path": "/assets/art/six_gen/ui_compact_bar.png",
+      "status": 200,
+      "bytes": 4464
+    },
+    {
+      "at": "2026-09-10T13:28:29.250Z",
+      "path": "/assets/art/six_gen/ui_hud_coin.png",
+      "status": 200,
+      "bytes": 6615
+    },
+    {
+      "at": "2026-09-10T13:28:29.250Z",
+      "path": "/assets/art/six_gen/ui_hud_rate.png",
+      "status": 200,
+      "bytes": 8613
+    },
+    {
+      "at": "2026-09-10T13:28:29.251Z",
+      "path": "/assets/art/six_gen/ui_icon_check.png",
+      "status": 200,
+      "bytes": 2474
+    },
+    {
+      "at": "2026-09-10T13:28:29.251Z",
+      "path": "/assets/art/six_gen/ui_icon_arrow.png",
+      "status": 200,
+      "bytes": 2283
+    },
+    {
+      "at": "2026-09-10T13:28:29.254Z",
+      "path": "/assets/art/six_gen/ui_icon_close.png",
+      "status": 200,
+      "bytes": 4003
+    },
+    {
+      "at": "2026-09-10T13:28:29.254Z",
+      "path": "/assets/art/six_gen/ui_icon_coin.png",
+      "status": 200,
+      "bytes": 5870
+    },
+    {
+      "at": "2026-09-10T13:28:29.256Z",
+      "path": "/assets/art/six_gen/ui_icon_cup.png",
+      "status": 200,
+      "bytes": 4619
+    },
+    {
+      "at": "2026-09-10T13:28:29.256Z",
+      "path": "/assets/art/six_gen/ui_icon_expand.png",
+      "status": 200,
+      "bytes": 3013
+    },
+    {
+      "at": "2026-09-10T13:28:29.257Z",
+      "path": "/assets/art/six_gen/ui_icon_lock.png",
+      "status": 200,
+      "bytes": 4092
+    },
+    {
+      "at": "2026-09-10T13:28:29.257Z",
+      "path": "/assets/art/six_gen/ui_icon_pop.png",
+      "status": 200,
+      "bytes": 5757
+    },
+    {
+      "at": "2026-09-10T13:28:29.259Z",
+      "path": "/assets/art/six_gen/ui_icon_ship.png",
+      "status": 200,
+      "bytes": 4628
+    },
+    {
+      "at": "2026-09-10T13:28:29.260Z",
+      "path": "/assets/art/six_gen/ui_icon_settings.png",
+      "status": 200,
+      "bytes": 4609
+    },
+    {
+      "at": "2026-09-10T13:28:29.262Z",
+      "path": "/assets/art/six_gen/ui_icon_ship_speed.png",
+      "status": 200,
+      "bytes": 3484
+    },
+    {
+      "at": "2026-09-10T13:28:29.262Z",
+      "path": "/assets/art/six_gen/ui_icon_sound.png",
+      "status": 200,
+      "bytes": 3576
+    },
+    {
+      "at": "2026-09-10T13:28:29.263Z",
+      "path": "/assets/art/six_gen/ui_icon_upgrade.png",
+      "status": 200,
+      "bytes": 3853
+    },
+    {
+      "at": "2026-09-10T13:28:29.264Z",
+      "path": "/assets/art/six_gen/ui_icon_vibration.png",
+      "status": 200,
+      "bytes": 3346
+    },
+    {
+      "at": "2026-09-10T13:28:29.264Z",
+      "path": "/assets/art/six_gen/ui_icon_wait.png",
+      "status": 200,
+      "bytes": 4529
+    },
+    {
+      "at": "2026-09-10T13:28:29.265Z",
+      "path": "/assets/art/six_gen/ui_icon_warning.png",
+      "status": 200,
+      "bytes": 4124
+    },
+    {
+      "at": "2026-09-10T13:28:29.268Z",
+      "path": "/assets/art/six_gen/ui_panel.png",
+      "status": 200,
+      "bytes": 8219
+    },
+    {
+      "at": "2026-09-10T13:28:29.268Z",
+      "path": "/assets/art/six_gen/machine_pop_double_carrier.png",
+      "status": 200,
+      "bytes": 8144
+    },
+    {
+      "at": "2026-09-10T13:28:29.269Z",
+      "path": "/assets/art/six_gen/machine_pop_hex_body.png",
+      "status": 200,
+      "bytes": 76793
+    },
+    {
+      "at": "2026-09-10T13:28:29.271Z",
+      "path": "/assets/art/six_gen/machine_pop_pair_body.png",
+      "status": 200,
+      "bytes": 65393
+    },
+    {
+      "at": "2026-09-10T13:28:29.271Z",
+      "path": "/assets/art/six_gen/machine_pop_quad_body.png",
+      "status": 200,
+      "bytes": 81647
+    },
+    {
+      "at": "2026-09-10T13:28:29.272Z",
+      "path": "/assets/art/six_gen/machine_pop_socket_cover.png",
+      "status": 200,
+      "bytes": 14023
+    },
+    {
+      "at": "2026-09-10T13:28:29.275Z",
+      "path": "/assets/art/six_gen/machine_cup_pair_body.png",
+      "status": 200,
+      "bytes": 98111
+    },
+    {
+      "at": "2026-09-10T13:28:29.275Z",
+      "path": "/assets/art/six_gen/machine_cup_triple_body.png",
+      "status": 200,
+      "bytes": 94946
+    },
+    {
+      "at": "2026-09-10T13:28:29.277Z",
+      "path": "/assets/art/six_gen/machine_cup_quad_body.png",
+      "status": 200,
+      "bytes": 105449
+    },
+    {
+      "at": "2026-09-10T13:28:29.278Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 200,
+      "bytes": 119518
+    },
+    {
+      "at": "2026-09-10T13:28:29.279Z",
+      "path": "/assets/art/six_gen/machine_ship_dual_body.png",
+      "status": 200,
+      "bytes": 69348
+    },
+    {
+      "at": "2026-09-10T13:28:29.279Z",
+      "path": "/assets/art/six_gen/machine_ship_lane_cover.png",
+      "status": 200,
+      "bytes": 6926
+    },
+    {
+      "at": "2026-09-10T13:28:29.284Z",
+      "path": "/assets/art/six_gen/machine_ship_quad_body.png",
+      "status": 200,
+      "bytes": 59923
+    },
+    {
+      "at": "2026-09-10T13:28:29.285Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_back.png",
+      "status": 200,
+      "bytes": 44300
+    },
+    {
+      "at": "2026-09-10T13:28:29.286Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_back.png",
+      "status": 200,
+      "bytes": 41505
+    },
+    {
+      "at": "2026-09-10T13:28:29.286Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_front.png",
+      "status": 200,
+      "bytes": 13348
+    },
+    {
+      "at": "2026-09-10T13:28:29.286Z",
+      "path": "/assets/art/six_gen/input_cup_collar.png",
+      "status": 200,
+      "bytes": 6445
+    },
+    {
+      "at": "2026-09-10T13:28:29.286Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_front.png",
+      "status": 200,
+      "bytes": 13838
+    },
+    {
+      "at": "2026-09-10T13:28:29.288Z",
+      "path": "/assets/art/six_gen/transfer_tray_empty.png",
+      "status": 200,
+      "bytes": 7583
+    },
+    {
+      "at": "2026-09-10T13:28:29.290Z",
+      "path": "/assets/art/six_gen/ui_badge_complete.png",
+      "status": 200,
+      "bytes": 4113
+    },
+    {
+      "at": "2026-09-10T13:28:29.291Z",
+      "path": "/assets/art/six_gen/ui_icon_automation.png",
+      "status": 200,
+      "bytes": 3959
+    },
+    {
+      "at": "2026-09-10T13:28:29.291Z",
+      "path": "/assets/art/six_gen/ui_badge_generation.png",
+      "status": 200,
+      "bytes": 5115
+    },
+    {
+      "at": "2026-09-10T13:28:29.293Z",
+      "path": "/assets/art/six_gen/factory_platform_extension.png",
+      "status": 200,
+      "bytes": 30530
+    },
+    {
+      "at": "2026-09-10T13:28:29.293Z",
+      "path": "/assets/art/six_gen/factory_tower_back.png",
+      "status": 200,
+      "bytes": 47759
+    },
+    {
+      "at": "2026-09-10T13:28:29.293Z",
+      "path": "/assets/art/six_gen/factory_tower_front.png",
+      "status": 200,
+      "bytes": 12615
+    },
+    {
+      "at": "2026-09-10T13:28:29.294Z",
+      "path": "/assets/art/v11/ui_gesture_hand.png",
+      "status": 200,
+      "bytes": 6211
+    },
+    {
+      "at": "2026-09-10T13:28:29.295Z",
+      "path": "/assets/art/v11/factory_floor_extension.png",
+      "status": 200,
+      "bytes": 51088
+    },
+    {
+      "at": "2026-09-10T13:28:29.295Z",
+      "path": "/assets/art/v11/factory_wall_corner.png",
+      "status": 200,
+      "bytes": 24913
+    },
+    {
+      "at": "2026-09-10T13:28:29.316Z",
+      "path": "/favicon.ico",
+      "status": 204,
+      "bytes": 0
+    },
+    {
+      "at": "2026-09-10T13:29:00.291Z",
+      "path": "/__six/capture/g1-connections-11-390x844-safe24-1789046939065.png",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:29:00.300Z",
+      "path": "/__six/capture/g1-connections-11-390x844-safe24-1789046939065.json",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:29:16.870Z",
+      "path": "/__six/capture/g1-connections-11-390x844-safe24-1789046955653.png",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:29:16.882Z",
+      "path": "/__six/capture/g1-connections-11-390x844-safe24-1789046955653.json",
+      "status": 201,
+      "bytes": 155
+    },
+    {
+      "at": "2026-09-10T13:30:17.947Z",
+      "path": "/?fixture=g6-upgraded&width=430&safe=24&fail=1",
+      "status": 200,
+      "bytes": 8088
+    },
+    {
+      "at": "2026-09-10T13:30:17.979Z",
+      "path": "/game?fixture=g6-upgraded&safe=24&pause=1&fail=1",
+      "status": 200,
+      "bytes": 27086
+    },
+    {
+      "at": "2026-09-10T13:30:17.994Z",
+      "path": "/__six/runtime.js",
+      "status": 200,
+      "bytes": 5042
+    },
+    {
+      "at": "2026-09-10T13:30:17.995Z",
+      "path": "/game.bundle.js?__acceptance_sha=4e7a01292fb02f72333c3697085ecebecc7fb7d37f83895f7af4a314afbe9ed5",
+      "status": 200,
+      "bytes": 350873
+    },
+    {
+      "at": "2026-09-10T13:30:18.010Z",
+      "path": "/assets/art/six_gen/fx_sparkle.png",
+      "status": 200,
+      "bytes": 3490
+    },
+    {
+      "at": "2026-09-10T13:30:18.011Z",
+      "path": "/assets/art/six_gen/fx_steam.png",
+      "status": 200,
+      "bytes": 3486
+    },
+    {
+      "at": "2026-09-10T13:30:18.013Z",
+      "path": "/assets/art/six_gen/machine_cup_body.png",
+      "status": 200,
+      "bytes": 49857
+    },
+    {
+      "at": "2026-09-10T13:30:18.014Z",
+      "path": "/assets/art/six_gen/machine_cup_front.png",
+      "status": 200,
+      "bytes": 18095
+    },
+    {
+      "at": "2026-09-10T13:30:18.015Z",
+      "path": "/assets/art/six_gen/machine_pop_body.png",
+      "status": 200,
+      "bytes": 49154
+    },
+    {
+      "at": "2026-09-10T13:30:18.015Z",
+      "path": "/assets/art/six_gen/machine_cup_head.png",
+      "status": 200,
+      "bytes": 9181
+    },
+    {
+      "at": "2026-09-10T13:30:18.018Z",
+      "path": "/assets/art/six_gen/machine_pop_front.png",
+      "status": 200,
+      "bytes": 17312
+    },
+    {
+      "at": "2026-09-10T13:30:18.020Z",
+      "path": "/assets/art/six_gen/machine_pop_head.png",
+      "status": 200,
+      "bytes": 15134
+    },
+    {
+      "at": "2026-09-10T13:30:18.022Z",
+      "path": "/assets/art/six_gen/machine_ship_body.png",
+      "status": 200,
+      "bytes": 44781
+    },
+    {
+      "at": "2026-09-10T13:30:18.023Z",
+      "path": "/assets/art/six_gen/machine_ship_front.png",
+      "status": 200,
+      "bytes": 11078
+    },
+    {
+      "at": "2026-09-10T13:30:18.025Z",
+      "path": "/assets/art/six_gen/machine_ship_head.png",
+      "status": 200,
+      "bytes": 9936
+    },
+    {
+      "at": "2026-09-10T13:30:18.032Z",
+      "path": "/assets/art/six_gen/product_box_front.png",
+      "status": 200,
+      "bytes": 3701
+    },
+    {
+      "at": "2026-09-10T13:30:18.039Z",
+      "path": "/assets/art/six_gen/product_box_lid.png",
+      "status": 200,
+      "bytes": 4991
+    },
+    {
+      "at": "2026-09-10T13:30:18.044Z",
+      "path": "/assets/art/six_gen/product_box_open.png",
+      "status": 200,
+      "bytes": 7275
+    },
+    {
+      "at": "2026-09-10T13:30:18.049Z",
+      "path": "/assets/art/six_gen/product_cup_empty.png",
+      "status": 200,
+      "bytes": 7141
+    },
+    {
+      "at": "2026-09-10T13:30:18.052Z",
+      "path": "/assets/art/six_gen/product_cup_fill.png",
+      "status": 200,
+      "bytes": 9604
+    },
+    {
+      "at": "2026-09-10T13:30:18.057Z",
+      "path": "/assets/art/six_gen/product_double_tray.png",
+      "status": 200,
+      "bytes": 5889
+    },
+    {
+      "at": "2026-09-10T13:30:18.061Z",
+      "path": "/assets/art/six_gen/product_kernel_a.png",
+      "status": 200,
+      "bytes": 3284
+    },
+    {
+      "at": "2026-09-10T13:30:18.067Z",
+      "path": "/assets/art/six_gen/product_kernel_b.png",
+      "status": 200,
+      "bytes": 9324
+    },
+    {
+      "at": "2026-09-10T13:30:18.073Z",
+      "path": "/assets/art/six_gen/buffer_bulk_front.png",
+      "status": 200,
+      "bytes": 12652
+    },
+    {
+      "at": "2026-09-10T13:30:18.073Z",
+      "path": "/assets/art/six_gen/buffer_bulk_back.png",
+      "status": 200,
+      "bytes": 32309
+    },
+    {
+      "at": "2026-09-10T13:30:18.074Z",
+      "path": "/assets/art/six_gen/buffer_cups_back.png",
+      "status": 200,
+      "bytes": 27720
+    },
+    {
+      "at": "2026-09-10T13:30:18.075Z",
+      "path": "/assets/art/six_gen/buffer_cups_front.png",
+      "status": 200,
+      "bytes": 10212
+    },
+    {
+      "at": "2026-09-10T13:30:18.076Z",
+      "path": "/assets/art/six_gen/conveyor_down_left.png",
+      "status": 200,
+      "bytes": 32515
+    },
+    {
+      "at": "2026-09-10T13:30:18.080Z",
+      "path": "/assets/art/six_gen/conveyor_down_right.png",
+      "status": 200,
+      "bytes": 35535
+    },
+    {
+      "at": "2026-09-10T13:30:18.081Z",
+      "path": "/assets/art/six_gen/conveyor_front_left.png",
+      "status": 200,
+      "bytes": 9213
+    },
+    {
+      "at": "2026-09-10T13:30:18.082Z",
+      "path": "/assets/art/six_gen/conveyor_front_right.png",
+      "status": 200,
+      "bytes": 9720
+    },
+    {
+      "at": "2026-09-10T13:30:18.082Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_back.png",
+      "status": 200,
+      "bytes": 28220
+    },
+    {
+      "at": "2026-09-10T13:30:18.083Z",
+      "path": "/assets/art/six_gen/conveyor_infeed_front.png",
+      "status": 200,
+      "bytes": 7955
+    },
+    {
+      "at": "2026-09-10T13:30:18.083Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_back.png",
+      "status": 200,
+      "bytes": 27534
+    },
+    {
+      "at": "2026-09-10T13:30:18.085Z",
+      "path": "/assets/art/six_gen/conveyor_outfeed_front.png",
+      "status": 200,
+      "bytes": 7464
+    },
+    {
+      "at": "2026-09-10T13:30:18.087Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_back.png",
+      "status": 200,
+      "bytes": 28591
+    },
+    {
+      "at": "2026-09-10T13:30:18.088Z",
+      "path": "/assets/art/six_gen/conveyor_transfer_front.png",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "at": "2026-09-10T13:30:18.088Z",
+      "path": "/assets/art/six_gen/factory_door.png",
+      "status": 200,
+      "bytes": 9158
+    },
+    {
+      "at": "2026-09-10T13:30:18.089Z",
+      "path": "/assets/art/six_gen/factory_room.png",
+      "status": 200,
+      "bytes": 72468
+    },
+    {
+      "at": "2026-09-10T13:30:18.091Z",
+      "path": "/assets/art/six_gen/factory_window.png",
+      "status": 200,
+      "bytes": 12181
+    },
+    {
+      "at": "2026-09-10T13:30:18.091Z",
+      "path": "/assets/art/six_gen/ui_button_disabled.png",
+      "status": 200,
+      "bytes": 49591
+    },
+    {
+      "at": "2026-09-10T13:30:18.094Z",
+      "path": "/assets/art/six_gen/ui_button_primary.png",
+      "status": 200,
+      "bytes": 8359
+    },
+    {
+      "at": "2026-09-10T13:30:18.094Z",
+      "path": "/assets/art/six_gen/ui_button_secondary.png",
+      "status": 200,
+      "bytes": 7259
+    },
+    {
+      "at": "2026-09-10T13:30:18.094Z",
+      "path": "/assets/art/six_gen/ui_card.png",
+      "status": 200,
+      "bytes": 5135
+    },
+    {
+      "at": "2026-09-10T13:30:18.095Z",
+      "path": "/assets/art/six_gen/ui_compact_bar.png",
+      "status": 200,
+      "bytes": 4464
+    },
+    {
+      "at": "2026-09-10T13:30:18.097Z",
+      "path": "/assets/art/six_gen/ui_hud_coin.png",
+      "status": 200,
+      "bytes": 6615
+    },
+    {
+      "at": "2026-09-10T13:30:18.101Z",
+      "path": "/assets/art/six_gen/ui_hud_rate.png",
+      "status": 200,
+      "bytes": 8613
+    },
+    {
+      "at": "2026-09-10T13:30:18.101Z",
+      "path": "/assets/art/six_gen/ui_icon_arrow.png",
+      "status": 200,
+      "bytes": 2283
+    },
+    {
+      "at": "2026-09-10T13:30:18.101Z",
+      "path": "/assets/art/six_gen/ui_icon_close.png",
+      "status": 200,
+      "bytes": 4003
+    },
+    {
+      "at": "2026-09-10T13:30:18.102Z",
+      "path": "/assets/art/six_gen/ui_icon_check.png",
+      "status": 200,
+      "bytes": 2474
+    },
+    {
+      "at": "2026-09-10T13:30:18.105Z",
+      "path": "/assets/art/six_gen/ui_icon_coin.png",
+      "status": 200,
+      "bytes": 5870
+    },
+    {
+      "at": "2026-09-10T13:30:18.106Z",
+      "path": "/assets/art/six_gen/ui_icon_cup.png",
+      "status": 200,
+      "bytes": 4619
+    },
+    {
+      "at": "2026-09-10T13:30:18.107Z",
+      "path": "/assets/art/six_gen/ui_icon_expand.png",
+      "status": 200,
+      "bytes": 3013
+    },
+    {
+      "at": "2026-09-10T13:30:18.108Z",
+      "path": "/assets/art/six_gen/ui_icon_lock.png",
+      "status": 200,
+      "bytes": 4092
+    },
+    {
+      "at": "2026-09-10T13:30:18.109Z",
+      "path": "/assets/art/six_gen/ui_icon_pop.png",
+      "status": 200,
+      "bytes": 5757
+    },
+    {
+      "at": "2026-09-10T13:30:18.112Z",
+      "path": "/assets/art/six_gen/ui_icon_settings.png",
+      "status": 200,
+      "bytes": 4609
+    },
+    {
+      "at": "2026-09-10T13:30:18.113Z",
+      "path": "/assets/art/six_gen/ui_icon_ship.png",
+      "status": 200,
+      "bytes": 4628
+    },
+    {
+      "at": "2026-09-10T13:30:18.114Z",
+      "path": "/assets/art/six_gen/ui_icon_ship_speed.png",
+      "status": 200,
+      "bytes": 3484
+    },
+    {
+      "at": "2026-09-10T13:30:18.117Z",
+      "path": "/assets/art/six_gen/ui_icon_sound.png",
+      "status": 200,
+      "bytes": 3576
+    },
+    {
+      "at": "2026-09-10T13:30:18.127Z",
+      "path": "/assets/art/six_gen/ui_icon_vibration.png",
+      "status": 200,
+      "bytes": 3346
+    },
+    {
+      "at": "2026-09-10T13:30:18.127Z",
+      "path": "/assets/art/six_gen/ui_icon_upgrade.png",
+      "status": 200,
+      "bytes": 3853
+    },
+    {
+      "at": "2026-09-10T13:30:18.127Z",
+      "path": "/assets/art/six_gen/ui_icon_wait.png",
+      "status": 200,
+      "bytes": 4529
+    },
+    {
+      "at": "2026-09-10T13:30:18.131Z",
+      "path": "/assets/art/six_gen/ui_icon_warning.png",
+      "status": 200,
+      "bytes": 4124
+    },
+    {
+      "at": "2026-09-10T13:30:18.135Z",
+      "path": "/assets/art/six_gen/ui_panel.png",
+      "status": 200,
+      "bytes": 8219
+    },
+    {
+      "at": "2026-09-10T13:30:18.136Z",
+      "path": "/assets/art/six_gen/machine_pop_double_carrier.png",
+      "status": 200,
+      "bytes": 8144
+    },
+    {
+      "at": "2026-09-10T13:30:18.139Z",
+      "path": "/assets/art/six_gen/machine_pop_hex_body.png",
+      "status": 200,
+      "bytes": 76793
+    },
+    {
+      "at": "2026-09-10T13:30:18.139Z",
+      "path": "/assets/art/six_gen/machine_pop_pair_body.png",
+      "status": 200,
+      "bytes": 65393
+    },
+    {
+      "at": "2026-09-10T13:30:18.140Z",
+      "path": "/assets/art/six_gen/machine_pop_quad_body.png",
+      "status": 200,
+      "bytes": 81647
+    },
+    {
+      "at": "2026-09-10T13:30:18.142Z",
+      "path": "/assets/art/six_gen/machine_pop_socket_cover.png",
+      "status": 200,
+      "bytes": 14023
+    },
+    {
+      "at": "2026-09-10T13:30:18.143Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 503,
+      "bytes": 34
+    },
+    {
+      "at": "2026-09-10T13:30:18.144Z",
+      "path": "/assets/art/six_gen/machine_cup_pair_body.png",
+      "status": 200,
+      "bytes": 98111
+    },
+    {
+      "at": "2026-09-10T13:30:18.144Z",
+      "path": "/assets/art/six_gen/machine_cup_quad_body.png",
+      "status": 200,
+      "bytes": 105449
+    },
+    {
+      "at": "2026-09-10T13:30:18.145Z",
+      "path": "/assets/art/six_gen/machine_cup_triple_body.png",
+      "status": 200,
+      "bytes": 94946
+    },
+    {
+      "at": "2026-09-10T13:30:18.147Z",
+      "path": "/assets/art/six_gen/machine_ship_dual_body.png",
+      "status": 200,
+      "bytes": 69348
+    },
+    {
+      "at": "2026-09-10T13:30:18.147Z",
+      "path": "/assets/art/six_gen/machine_ship_lane_cover.png",
+      "status": 200,
+      "bytes": 6926
+    },
+    {
+      "at": "2026-09-10T13:30:18.149Z",
+      "path": "/assets/art/six_gen/machine_ship_quad_body.png",
+      "status": 200,
+      "bytes": 59923
+    },
+    {
+      "at": "2026-09-10T13:30:18.151Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_front.png",
+      "status": 200,
+      "bytes": 13348
+    },
+    {
+      "at": "2026-09-10T13:30:18.151Z",
+      "path": "/assets/art/six_gen/buffer_bulk_large_back.png",
+      "status": 200,
+      "bytes": 41505
+    },
+    {
+      "at": "2026-09-10T13:30:18.152Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_back.png",
+      "status": 200,
+      "bytes": 44300
+    },
+    {
+      "at": "2026-09-10T13:30:18.154Z",
+      "path": "/assets/art/six_gen/buffer_cups_rack_front.png",
+      "status": 200,
+      "bytes": 13838
+    },
+    {
+      "at": "2026-09-10T13:30:18.156Z",
+      "path": "/assets/art/six_gen/input_cup_collar.png",
+      "status": 200,
+      "bytes": 6445
+    },
+    {
+      "at": "2026-09-10T13:30:18.156Z",
+      "path": "/assets/art/six_gen/transfer_tray_empty.png",
+      "status": 200,
+      "bytes": 7583
+    },
+    {
+      "at": "2026-09-10T13:30:18.157Z",
+      "path": "/assets/art/six_gen/ui_badge_complete.png",
+      "status": 200,
+      "bytes": 4113
+    },
+    {
+      "at": "2026-09-10T13:30:18.158Z",
+      "path": "/assets/art/six_gen/ui_icon_automation.png",
+      "status": 200,
+      "bytes": 3959
+    },
+    {
+      "at": "2026-09-10T13:30:18.158Z",
+      "path": "/assets/art/six_gen/ui_badge_generation.png",
+      "status": 200,
+      "bytes": 5115
+    },
+    {
+      "at": "2026-09-10T13:30:18.161Z",
+      "path": "/assets/art/six_gen/factory_platform_extension.png",
+      "status": 200,
+      "bytes": 30530
+    },
+    {
+      "at": "2026-09-10T13:30:18.162Z",
+      "path": "/assets/art/six_gen/factory_tower_back.png",
+      "status": 200,
+      "bytes": 47759
+    },
+    {
+      "at": "2026-09-10T13:30:18.163Z",
+      "path": "/assets/art/six_gen/factory_tower_front.png",
+      "status": 200,
+      "bytes": 12615
+    },
+    {
+      "at": "2026-09-10T13:30:18.163Z",
+      "path": "/assets/art/v11/ui_gesture_hand.png",
+      "status": 200,
+      "bytes": 6211
+    },
+    {
+      "at": "2026-09-10T13:30:18.164Z",
+      "path": "/assets/art/v11/factory_floor_extension.png",
+      "status": 200,
+      "bytes": 51088
+    },
+    {
+      "at": "2026-09-10T13:30:18.164Z",
+      "path": "/assets/art/v11/factory_wall_corner.png",
+      "status": 200,
+      "bytes": 24913
+    },
+    {
+      "at": "2026-09-10T13:30:18.180Z",
+      "path": "/favicon.ico",
+      "status": 204,
+      "bytes": 0
+    },
+    {
+      "at": "2026-09-10T13:30:36.211Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047031994.png",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:30:36.222Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047031994.json",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:31:10.515Z",
+      "path": "/assets/art/six_gen/machine_cup_hex_body.png",
+      "status": 200,
+      "bytes": 119518
+    },
+    {
+      "at": "2026-09-10T13:31:19.005Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047072798.png",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:31:19.015Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047072798.json",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:34:11.029Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047244269.png",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:34:11.040Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047244269.json",
+      "status": 201,
+      "bytes": 149
+    },
+    {
+      "at": "2026-09-10T13:35:31.341Z",
+      "path": "/__six/capture/g6-upgraded-430x932-safe24-1789047328149.png",
+      "status": 201,
+      "bytes": 149
+    }
+  ]
+}

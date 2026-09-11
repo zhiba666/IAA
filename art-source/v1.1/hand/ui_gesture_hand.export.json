@@ -1,0 +1,68 @@
+{
+  "id": "ui_gesture_hand",
+  "status": "READY_FOR_INTEGRATION_REVIEW",
+  "source": "sources/ui_gesture_hand.png",
+  "file": "exports/ui_gesture_hand.png",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceRect": [
+    59,
+    120,
+    1141,
+    1110
+  ],
+  "width": 128,
+  "height": 128,
+  "bytes": 6211,
+  "sourceBytes": 626019,
+  "sourceSha256": "7d9287b30096a8757700b169121cb2812020d902f98f59d0abc3abe2f7a08439",
+  "sha256": "53be077c8922eac1a25fcb50972933004b04114945cc61116041c95492c9f668",
+  "originalAlpha": true,
+  "sourceTransparentPixels": 1048705,
+  "sourcePartialAlphaPixels": 522667,
+  "sourceBoundaryNontransparentPixels": 0,
+  "alpha": {
+    "hasAlpha": true,
+    "transparentPixels": 10143,
+    "partialAlphaPixels": 5994,
+    "paddingMinimum": 4,
+    "paddingViolations": 0
+  },
+  "anchor": [
+    17,
+    9
+  ],
+  "anchorNormalized": [
+    0.1328125,
+    0.0703125
+  ],
+  "anchorType": "index-fingertip outer leading edge, northwest",
+  "recommendedLogicalSize": [
+    32,
+    40
+  ],
+  "transform": "Lossless source copy, crop actual alpha>0 bounding box, uniform Lanczos3 fit-inside 120x120, centered in 128x128 true-alpha PNG. No recolor, drawing, or content editing.",
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "model": "unavailable (not provided as a tool result field)",
+    "seed": "unavailable",
+    "result": "tool-result.json",
+    "prompt": "prompts/ui_gesture_hand.txt",
+    "references": [
+      {
+        "path": "../../six-gen/integration/exports/ui_icon_settings.png",
+        "role": "style reference inspected via view_image; described in prompt, not passed as image edit target",
+        "sha256": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91"
+      },
+      {
+        "path": "../../six-gen/integration/exports/ui_icon_check.png",
+        "role": "style reference inspected via view_image; described in prompt, not passed as image edit target",
+        "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29"
+      }
+    ]
+  },
+  "integration": "Not registered in production manifest. Use anchor for tutorial target positioning; animate translation/press/scale in code."
+}

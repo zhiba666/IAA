@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "v11-art-supplement-1",
+  "scope": "Reviewed v1.1 runtime supplement; loaded independently alongside the unchanged six-generation contract",
+  "assets": [
+    {
+      "id": "ui_gesture_hand",
+      "folder": "hand",
+      "size": [
+        128,
+        128
+      ],
+      "alpha": "transparent",
+      "anchor": [
+        17,
+        9
+      ],
+      "use": "Teaching pointer; align fingertip then animate in code.",
+      "file": "art-source/v1.1/hand/exports/ui_gesture_hand.png",
+      "sourceFile": "art-source/v1.1/hand/sources/ui_gesture_hand.png",
+      "provenanceRef": "art-source/v1.1/hand/provenance.json",
+      "width": 128,
+      "height": 128,
+      "bytes": 6211,
+      "decodedBytes": 65536,
+      "sha256": "53be077c8922eac1a25fcb50972933004b04114945cc61116041c95492c9f668",
+      "alphaStats": {
+        "transparent": 10143,
+        "partial": 5994,
+        "opaque": 247
+      },
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "EXPORTED"
+    },
+    {
+      "id": "factory_floor_extension",
+      "folder": "floor",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": "opaque",
+      "anchor": [
+        0,
+        0
+      ],
+      "use": "One proportional cover image, not certified seamless.",
+      "file": "art-source/v1.1/floor/exports/factory_floor_extension.png",
+      "sourceFile": "art-source/v1.1/floor/sources/factory_floor_extension-original.png",
+      "provenanceRef": "art-source/v1.1/floor/export.json",
+      "width": 512,
+      "height": 512,
+      "bytes": 51088,
+      "decodedBytes": 1048576,
+      "sha256": "ce77858b839e9149cb73a203aae8353f425c43cf0a1259bc5ced5ff9d800cd2a",
+      "alphaStats": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 262144
+      },
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "EXPORTED"
+    },
+    {
+      "id": "factory_wall_corner",
+      "folder": "wall",
+      "size": [
+        512,
+        214
+      ],
+      "alpha": "transparent",
+      "anchor": [
+        256,
+        0
+      ],
+      "use": "Align top center; uniform screen-width scaling above the floor.",
+      "file": "art-source/v1.1/wall/exports/factory_wall_corner.png",
+      "sourceFile": "art-source/v1.1/wall/sources/factory_wall_corner_attempt_03.png",
+      "provenanceRef": "art-source/v1.1/wall/provenance.json",
+      "width": 512,
+      "height": 214,
+      "bytes": 24913,
+      "decodedBytes": 438272,
+      "sha256": "595c445b5a3044cfa80751d5fff20e31c1ec55d3803c49305abdae2085711582",
+      "alphaStats": {
+        "transparent": 37680,
+        "partial": 71888,
+        "opaque": 0
+      },
+      "stageUse": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "EXPORTED"
+    }
+  ]
+}

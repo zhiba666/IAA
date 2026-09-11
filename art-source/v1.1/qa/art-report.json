@@ -1,0 +1,291 @@
+{
+  "createdAt": "2026-09-10T12:41:06.750Z",
+  "assetCount": 3,
+  "budgets": {
+    "supplement": {
+      "bytes": 82212,
+      "limit": 153600,
+      "passed": true
+    },
+    "firstGenerationProjected": {
+      "bytes": 924343,
+      "limit": 1048576,
+      "passed": true
+    },
+    "allProjected": {
+      "bytes": 1928459,
+      "limit": 4194304,
+      "passed": true
+    },
+    "decodedProjected": {
+      "bytes": 28400528,
+      "limit": 33554432,
+      "passed": true
+    }
+  },
+  "geometry": [
+    {
+      "name": "g1-home-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-a-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-b-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-ready-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-wrong-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-modal-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-logistics-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-expansion-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-home-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-a-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-b-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-ready-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-wrong-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-modal-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-logistics-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-expansion-360x640",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-home-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-a-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-b-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-ready-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-wrong-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-modal-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-logistics-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-expansion-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-home-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-a-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-drag-b-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-ready-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-wrong-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-modal-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-logistics-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g1-expansion-430x932",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g6-home-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g6-modal-320x524",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g6-home-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    },
+    {
+      "name": "g6-modal-390x844",
+      "inBounds": true,
+      "stableScene": true,
+      "centeredModal": true,
+      "portBufferEnvelopeOverlaps": []
+    }
+  ],
+  "checks": {
+    "pngSizeAndAlpha": "PASS",
+    "projectedBudgets": "PASS",
+    "staticBounds": "PASS",
+    "staticModalStability": "PASS",
+    "visualReview": "Review PNGs separately",
+    "runtimeIntegration": "NOT_RUN",
+    "inputAndEconomy": "NOT_RUN",
+    "realDevice": "NOT_RUN"
+  },
+  "nextStep": "Implement code and resolve input-area conflicts using live viewport/pointer geometry; additional sprite production is not required."
+}

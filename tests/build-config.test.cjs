@@ -44,7 +44,7 @@ test('both build modes work without archives and disable legacy hold tapping and
     const nativeBundle = await readFile(path.join(root, 'build/douyin/game.bundle.js'), 'utf8');
     const nativeConfig = await readFile(path.join(root, 'build/douyin/config.js'), 'utf8');
     assert.equal(webBundle, nativeBundle);
-    assert.match(webBundle, /v0\.1\.0.*pipeline/);
+    assert.match(webBundle, /v1\.1\.0.*pipeline/);
 
     const web = vm.createContext({ POPCORN_CONFIG: { developerHoldTap: !enabled, allowSimulatedAds: true } });
     vm.runInContext(webBundle, web);

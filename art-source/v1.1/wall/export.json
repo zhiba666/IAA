@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "assetId": "factory_wall_corner",
+  "status": "EXPORTED_ART_ONLY",
+  "source": "sources/factory_wall_corner_attempt_03.png",
+  "sourceMetrics": {
+    "width": 1774,
+    "height": 887,
+    "channels": 4,
+    "hasAlpha": true,
+    "bytes": 1171783,
+    "sha256": "1963d133fefad04918f7db18207fa6ef96ec5474747bce211fcc5059f96a9e6a",
+    "alphaPixels": {
+      "transparent": 580776,
+      "opaque": 1024,
+      "partial": 991738,
+      "total": 1573538
+    }
+  },
+  "output": "exports/factory_wall_corner.png",
+  "outputMetrics": {
+    "width": 512,
+    "height": 214,
+    "channels": 4,
+    "hasAlpha": true,
+    "bytes": 24913,
+    "sha256": "595c445b5a3044cfa80751d5fff20e31c1ec55d3803c49305abdae2085711582",
+    "alphaPixels": {
+      "transparent": 37680,
+      "opaque": 0,
+      "partial": 71888,
+      "total": 109568
+    }
+  },
+  "recipe": {
+    "operations": [
+      "rectangular crop to remove upper transparent margin",
+      "uniform proportional resize",
+      "PNG palette compression preserving alpha"
+    ],
+    "crop": {
+      "left": 0,
+      "top": 144,
+      "width": 1774,
+      "height": 743
+    },
+    "width": 512,
+    "kernel": "lanczos3",
+    "compressionLevel": 9,
+    "palette": true,
+    "colours": 256,
+    "quality": 92,
+    "dither": 0,
+    "alphaPolicy": "retain generated alpha through mechanical resize and palette compression; no segmentation, masking, repainting, or background removal"
+  },
+  "geometry": {
+    "canvas": [
+      512,
+      214
+    ],
+    "anchor": [
+      256,
+      0
+    ],
+    "intendedPlacement": "span full viewport width, top edge aligned to visible scene top",
+    "note": "Central baseboard point is higher than both ends; no visible wall top after cropping. Height is 214px; do not stretch to 256px."
+  },
+  "transparencyNote": "Generated cream wall interiors have near-opaque alpha around 252-254, retained through export. Lower empty region has alpha 0.",
+  "checks": {
+    "dimensions": "PASS",
+    "alpha": "PASS",
+    "compressedBudget": "PASS_UNDER_60_KIB",
+    "visualQA": "PASS_SOURCE_EXPORT_AND_THREE_BACKGROUNDS_REVIEWED",
+    "runtimeIntegration": "NOT_RUN"
+  },
+  "preview": "previews/wall-three-backgrounds.png"
+}

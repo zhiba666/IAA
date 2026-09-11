@@ -6,8 +6,7 @@ const { Game } = require('../src/core');
 const config = { mode: 'v15' };
 function setup() { const h = harness({ config }); h.run(3); return h; }
 function transfer(h, source) {
-  h.click(`transfer-source-${source}`);
-  h.click(`transfer-target-${source === 'pop' ? 'cup' : 'ship'}`);
+  h.drag(`transfer-source-${source}`, `transfer-target-${source === 'pop' ? 'cup' : 'ship'}`);
 }
 function conserved(h) {
   const s = h.snapshot().state;
@@ -59,7 +58,8 @@ test('v15 both source paths survive lifecycle, second fingers and settings cance
   ]) {
     const h = setup(); transfer(h, 'pop'); h.run(3);
     const before = h.snapshot().state;
-    h.pointer('down', `transfer-source-${source}`); cancel(h);
+    h.pointer('down', `transfer-source-${source}`);
+    h.pointer('move', null, 1, 120, 120); cancel(h);
     h.pointer('up', `transfer-target-${source === 'pop' ? 'cup' : 'ship'}`);
     assert.equal(h.ui().transfer, null);
     assert.deepEqual(h.snapshot().state, before);

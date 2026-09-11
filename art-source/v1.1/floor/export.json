@@ -1,0 +1,64 @@
+{
+  "assetId": "factory_floor_extension",
+  "generatedAt": "2026-09-10",
+  "generationMode": "built-in image_gen",
+  "prompt": "prompt.txt",
+  "originalGeneratedPath": "C:/Users/chenweilun/.codex/generated_images/01a08b4a-765e-7cd2-936d-25d38a2d9fcf/exec-a95e3bef-37c4-42d1-9f95-8c5985343890.png",
+  "reference": {
+    "path": "C:\\Users\\chenweilun\\Documents\\GitHub\\IAA\\art-source\\six-gen\\integration\\exports\\factory_room.png",
+    "role": "Visual style reference inspected with view_image; descriptive prompt used for a new generation",
+    "sha256": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b"
+  },
+  "source": {
+    "path": "sources/factory_floor_extension-original.png",
+    "width": 1254,
+    "height": 1254,
+    "channels": 3,
+    "opaque": true,
+    "bytes": 1053967,
+    "sha256": "63e282b2bd26e418dde83718a615cf50dfb7e764ab59ecff21c38873442c1c7d"
+  },
+  "export": {
+    "path": "exports/factory_floor_extension.png",
+    "width": 512,
+    "height": 512,
+    "channels": 3,
+    "hasAlpha": false,
+    "opaque": true,
+    "bytes": 51088,
+    "sha256": "ce77858b839e9149cb73a203aae8353f425c43cf0a1259bc5ced5ff9d800cd2a",
+    "processing": "Proportional Lanczos3 downscale; visually inspected 4-colour palette quantization with dithering disabled; PNG compression level 9. No repaint, matte removal, or content replacement."
+  },
+  "qa": {
+    "targetBytes": 71680,
+    "byteBudgetPassed": true,
+    "visuallyInspected": true,
+    "meanRGB": [
+      234.87700653076172,
+      221.87700653076172,
+      195.53563690185547
+    ],
+    "standardDeviationRGB": [
+      0.5800774050875926,
+      0.5800774050875926,
+      1.356179061348668
+    ],
+    "quantizationAgainstLossless512": {
+      "meanAbsoluteChannelError": 0.40217844645182294,
+      "maxChannelError": 3
+    },
+    "edgeMeanAbsoluteDifferenceRGB": {
+      "leftRight": 0.9205729166666666,
+      "topBottom": 0.8040364583333334
+    }
+  },
+  "integration": {
+    "usage": "Cover background under foreground equipment and the room-wall layer; suitable for screen aspect-ratio extension.",
+    "repeatSafe": false,
+    "limitations": [
+      "Not certified seamless; use cover or a single stretched background, not a visibly repeated tile.",
+      "Existing factory_room.png contains diagonal grout lines that this quiet extension intentionally omits; do not directly hard-join the two into a continuous tile grid.",
+      "No perspective marks, walls, skirting, objects, UI, or baked foreground shadows."
+    ]
+  }
+}

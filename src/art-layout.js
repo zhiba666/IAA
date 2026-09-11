@@ -81,19 +81,21 @@ function minimumHitRect(rect, minimum, bounds) {
   return result;
 }
 
-// Both transfer methods use these same two inventory rows. Reserving space in
-// the scene keeps the 56 px inputs clear of expanded equipment purchase panels.
-function transferRailLayout(frame) {
-  const rowH = 56, gap = 8, margin = 8, middle = 20;
-  const cardW = (frame.w - margin * 2 - middle) / 2;
-  const top = frame.y + frame.h - (rowH * 2 + gap + margin);
-  return ['pop', 'cup'].map((source, index) => {
-    const target = source === 'pop' ? 'cup' : 'ship', y = top + index * (rowH + gap);
-    return { source, target,
-      tray: { x: frame.x + margin, y, w: cardW, h: rowH, kind: 'tray', source, target, action: 'transfer-source-' + source },
-      input: { x: frame.x + frame.w - margin - cardW, y, w: cardW, h: rowH, kind: 'input', source, target, action: 'transfer-target-' + target }
-    };
-  });
+function pointInRect(x, y, rect, tolerance) {
+  tolerance = tolerance || 0;
+  return Number.isFinite(x) && Number.isFinite(y) && x >= rect.x - tolerance && y >= rect.y - tolerance
+    && x <= rect.x + rect.w + tolerance && y <= rect.y + rect.h + tolerance;
+}
+
+// This pure hit function is shared by the visual highlight and the controller.
+// Forgiveness never reaches another object's input ownership or a HUD control.
+function transferTargetAt(frames, x, y, source, blockers) {
+  const target = (frames || []).find(frame => frame.kind === 'input' && frame.source === source);
+  if (!target || !target.accepting || !pointInRect(x, y, target, target.tolerance)) return null;
+  if (pointInRect(x, y, target)) return target;
+  const excluded = (blockers || []).concat((frames || []).filter(frame => frame !== target));
+  if (excluded.some(rect => pointInRect(x, y, rect))) return null;
+  return target;
 }
 
 function drawNineSlice(ctx, images, id, rect, options) {
@@ -114,4 +116,4 @@ function drawNineSlice(ctx, images, id, rect, options) {
 }
 
 module.exports = { createArtTransform, fitArtRect, artSpriteTransform, sourceToSpritePoint, artSourcePoint,
-  drawArtLayer, clipArtPolygon, minimumHitRect, transferRailLayout, drawNineSlice };
+  drawArtLayer, clipArtPolygon, minimumHitRect, pointInRect, transferTargetAt, drawNineSlice };

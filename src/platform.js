@@ -30,7 +30,7 @@ function createPlatform() {
   const backupKey = automationKey + '_backup_v2';
   const saveKey = config.experiment ? experiment.saveKey : config.mode === 'v15' ? automationKey : SAVE_KEY;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
-  const callbacks = { hide: [], show: [], pointer: [], resize: [], inputCancel: [] };
+  const callbacks = { hide: [], show: [], pointer: [], scroll: [], resize: [], inputCancel: [] };
   const analytics = [];
 
   let adBusy = false;
@@ -64,10 +64,12 @@ function createPlatform() {
     const height = positive(raw.windowHeight || raw.screenHeight || win.innerHeight, 840);
     const pixelRatio = positive(raw.pixelRatio || win.devicePixelRatio, 1);
     if (!isDouyin && doc && doc.documentElement && typeof win.getComputedStyle === 'function') {
-      const style = win.getComputedStyle(doc.documentElement);
-      const inset = side => Math.max(0, parseFloat(style.getPropertyValue('--safe-' + side)) || 0);
-      const left = inset('left'), top = inset('top'), right = width - inset('right'), bottom = height - inset('bottom');
-      raw.safeArea = { left, top, right, bottom, width: right-left, height: bottom-top };
+      try {
+        const style = win.getComputedStyle(doc.documentElement);
+        const inset = side => Math.max(0, parseFloat(style.getPropertyValue('--safe-' + side)) || 0);
+        const left = inset('left'), top = inset('top'), right = width - inset('right'), bottom = height - inset('bottom');
+        raw.safeArea = { left, top, right, bottom, width: right-left, height: bottom-top };
+      } catch (_) { /* Browser CSS insets are optional during startup. */ }
     }
     let menuButton = null;
     if (isDouyin && typeof sdk.getMenuButtonLayout === 'function') {
@@ -86,7 +88,7 @@ function createPlatform() {
     return Object.assign({}, raw, {
       width: width, height: height, windowWidth: width, windowHeight: height,
       pixelRatio: pixelRatio, menuButton: menuButton,
-      safeArea: raw.safeArea || { left: 0, top: 0, right: width, bottom: height, width: width, height: height }
+      safeArea: normalizeSafeArea(raw.safeArea, width, height)
     });
   }
 
@@ -114,7 +116,11 @@ function createPlatform() {
     touchMethods.forEach(function (pair) {
       if (typeof sdk[pair[0]] !== 'function') return;
       sdk[pair[0]](function (event) {
-        const points = event.changedTouches || event.touches || [];
+        const changed = event && event.changedTouches;
+        // Some runtimes report a cancellation without identifying the touches.
+        // Release the entire interaction instead of retaining a reserved tray.
+        if (pair[1] === 'cancel' && (!changed || !changed.length)) { emit('inputCancel'); return; }
+        const points = changed || event && event.touches || [];
         points.forEach(function (point) {
           emit('pointer', { type: pair[1], x: number(point.screenX, point.clientX),
             y: number(point.screenY, point.clientY), id: point.identifier == null ? 0 : point.identifier });
@@ -133,6 +139,21 @@ function createPlatform() {
       activePointers.delete(id);
       emit('pointer', { type: 'cancel', x: point.x, y: point.y, id: id });
     }
+    function cancelBrowserInput() {
+      activePointers.forEach(function (_, id) { cancelPointer(id); });
+      emit('inputCancel');
+    }
+    function browserPoint(event) {
+      const rect = canvas.getBoundingClientRect() || {};
+      const info = getSystemInfo();
+      const rectWidth = positive(rect.width, info.width), rectHeight = positive(rect.height, info.height);
+      const scaleX = info.width / rectWidth, scaleY = info.height / rectHeight;
+      // DOM events and the CSS rectangle use CSS pixels. The renderer receives
+      // logical canvas coordinates; backing-store/DPR scaling is separate.
+      return { x: (number(event.clientX, 0) - number(rect.left, 0)) * scaleX,
+        y: (number(event.clientY, 0) - number(rect.top, 0)) * scaleY,
+        scaleY: scaleY, rectHeight: rectHeight };
+    }
     [['pointerdown', 'down'], ['pointermove', 'move'], ['pointerup', 'up'], ['pointercancel', 'cancel']].forEach(function (pair) {
       canvas.addEventListener(pair[0], function (event) {
         if (event.pointerType === 'mouse' && pair[1] === 'down' && event.button !== 0) return;
@@ -140,26 +161,40 @@ function createPlatform() {
         if (pair[1] === 'down' && canvas.setPointerCapture) {
           try { canvas.setPointerCapture(event.pointerId); } catch (_) { /* unsupported pointer capture */ }
         }
-        const rect = canvas.getBoundingClientRect();
-        const point = { type: pair[1], x: event.clientX - rect.left,
-          y: event.clientY - rect.top, id: event.pointerId == null ? 0 : event.pointerId };
+        const mapped = browserPoint(event);
+        const point = { type: pair[1], x: mapped.x,
+          y: mapped.y, id: event.pointerId == null ? 0 : event.pointerId };
         if (pair[1] === 'down' || pair[1] === 'move' && activePointers.has(point.id)) activePointers.set(point.id, point);
         else if (pair[1] === 'up' || pair[1] === 'cancel') activePointers.delete(point.id);
         emit('pointer', point);
       }, { passive: false });
     });
+    canvas.addEventListener('wheel', function (event) {
+      if (!Number.isFinite(event.deltaY) || event.deltaY === 0) return;
+      event.preventDefault();
+      const point = browserPoint(event);
+      // DOM_DELTA_LINE uses a stable 16 CSS px line; DOM_DELTA_PAGE is one
+      // visible canvas page. Both become logical distances just like pointers.
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? point.rectHeight : 1;
+      emit('scroll', { x: point.x, y: point.y, deltaY: event.deltaY * unit * point.scaleY });
+    }, { passive: false });
     canvas.addEventListener('lostpointercapture', function (event) {
       cancelPointer(event.pointerId == null ? 0 : event.pointerId);
     });
     // Focus loss ends held input without starting an offline/foreground cycle.
-    win.addEventListener('blur', function () {
-      activePointers.forEach(function (_, id) { cancelPointer(id); });
-      emit('inputCancel');
-    });
+    win.addEventListener('blur', cancelBrowserInput);
     doc.addEventListener('visibilitychange', function () { if (doc.hidden) notifyHidden(); else notifyShown(); });
     win.addEventListener('pagehide', notifyHidden);
     win.addEventListener('pageshow', notifyShown);
-    win.addEventListener('resize', function () { emit('resize', getSystemInfo()); });
+    function browserViewportChanged() {
+      cancelBrowserInput();
+      emit('resize', getSystemInfo());
+    }
+    win.addEventListener('resize', browserViewportChanged);
+    if (win.visualViewport && typeof win.visualViewport.addEventListener === 'function') {
+      win.visualViewport.addEventListener('resize', browserViewportChanged);
+      win.visualViewport.addEventListener('scroll', browserViewportChanged);
+    }
   }
 
   function track(event, data) {
@@ -245,6 +280,7 @@ function createPlatform() {
     onHide: function (callback) { return subscribe('hide', callback); },
     onShow: function (callback) { return subscribe('show', callback); },
     onPointer: function (callback) { return subscribe('pointer', callback); },
+    onScroll: function (callback) { return subscribe('scroll', callback); },
     onInputCancel: function (callback) { return subscribe('inputCancel', callback); },
     onResize: function (callback) { return subscribe('resize', callback); },
     reward: reward, interstitial: interstitial, track: track, getSystemInfo: getSystemInfo, vibrate: vibrate,
@@ -271,5 +307,15 @@ function validId(value) {
 
 function positive(value, fallback) { return Number.isFinite(Number(value)) && Number(value) > 0 ? Number(value) : fallback; }
 function number(value, fallback) { return Number.isFinite(Number(value)) ? Number(value) : Number(fallback) || 0; }
+function normalizeSafeArea(value, width, height) {
+  const area = value && typeof value === 'object' ? value : {};
+  const bound = (coordinate, maximum, fallback) => Number.isFinite(coordinate) ? Math.min(maximum, Math.max(0, coordinate)) : fallback;
+  let left = bound(area.left, width, 0), top = bound(area.top, height, 0);
+  let right = bound(area.right, width, Number.isFinite(area.width) ? bound(left + area.width, width, width) : width);
+  let bottom = bound(area.bottom, height, Number.isFinite(area.height) ? bound(top + area.height, height, height) : height);
+  if (right <= left) { left = 0; right = width; }
+  if (bottom <= top) { top = 0; bottom = height; }
+  return { left: left, top: top, right: right, bottom: bottom, width: right - left, height: bottom - top };
+}
 
 module.exports = { createPlatform: createPlatform, SAVE_KEY: SAVE_KEY };

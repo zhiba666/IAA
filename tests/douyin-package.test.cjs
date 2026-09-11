@@ -15,15 +15,20 @@ test('v15 native package routes both trays inside safe areas and pauses without 
     const h = boot({ ...size, mode: 'v15' });
     assert.equal(h.snapshot().mode, 'v15'); h.verifyLayout(); h.verifyControls();
     for (let i = 0; i < 3; i++) h.frame(1000);
-    h.clickAction('transfer-source-pop'); h.frame(0); h.clickAction('transfer-target-cup'); h.frame(0);
+    const inventory = h.snapshot().state.buffers.pop;
+    h.clickAction('transfer-source-pop'); h.frame(0);
+    assert.equal(h.presentation().transfer, null, 'a tap cannot reserve a tray or arm a two-tap route');
+    assert.equal(h.snapshot().state.buffers.pop, inventory);
+    h.drag('pop', 'cup');
     for (let i = 0; i < 3; i++) h.frame(1000);
     assert.equal(h.snapshot().state.totalSold, 0);
-    h.clickAction('transfer-source-cup'); h.frame(0); h.clickAction('transfer-target-ship'); h.frame(0);
+    h.drag('cup', 'ship');
     for (let i = 0; i < 2; i++) h.frame(1000);
     assert.equal(h.snapshot().state.totalSold, 4);
     for (const action of ['station:cup', 'openLogistics', 'settings']) {
       h.clickAction(action); h.frame(0); h.verifyControls();
-      if (action.startsWith('station:')) { h.clickAction('collapseStation'); h.frame(0); }
+      assert.ok(h.presentation().modal, 'the control opens a centered modal');
+      assert.ok(!h.actions().some(row => row.startsWith('station:')), 'modal input cannot reach underlying machines');
       h.clickAction('close'); h.frame(0);
     }
     h.events.onHide(); const before = h.saved(); h.frame(3600000); h.events.onShow({}); h.frame(0);
@@ -125,7 +130,7 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
     let source = fs.readFileSync(filename, 'utf8');
     if(filename===path.join(PACKAGE,'game.bundle.js')) {
       // Capture only the real renderer instance; drawing and hit testing stay unchanged.
-      const marker='let renderer = new Renderer(ctx, art);';
+      const marker='let renderer = new Renderer(ctx, art), insights = new ProductionInsights();';
       assert.equal(source.split(marker).length,2);
       source=source.replace(marker,marker+'\n__captureRenderer(renderer);');
     }
@@ -185,7 +190,18 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
       const contact={identifier,...point};
       events[type]({touches:type==='onTouchEnd'||type==='onTouchCancel'?[]:[contact],changedTouches:[contact]});
     },
+    drag(source, target) {
+      const start = this.actionPoint('transfer-source-' + source);
+      this.touch('onTouchStart', start);
+      this.touch('onTouchMove', { screenX: start.screenX + 12, screenY: start.screenY - 12 }); this.frame(0);
+      assert.equal(this.presentation().transfer.source, source, 'native movement starts the real reserved transfer');
+      const end = this.actionPoint('transfer-target-' + target);
+      this.touch('onTouchMove', end); this.frame(0);
+      this.touch('onTouchEnd', end); this.frame(0);
+      assert.equal(this.presentation().transfer, null, 'a valid native drop clears the held tray');
+    },
     snapshot() { return JSON.parse(JSON.stringify(context.GameGlobal.__POPCORN__.snapshot())); },
+    presentation() { return JSON.parse(JSON.stringify(context.GameGlobal.__POPCORN__.presentation())); },
     actions() { return Array.from(renderer.zones,zone=>zone.action).filter(Boolean); },
     clickText(label) {
       const point=this.textPoint(label);this.click(point.screenX,point.screenY);
@@ -197,12 +213,16 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
       assert.equal(layout[0],dpr,'responsive controls must retain CSS-pixel sizing');
       assert.equal(layout[3],dpr,'portrait content must not be globally shrunk');
       assert.ok(drawnViewport&&drawnViewport.width>0&&drawnViewport.height>0);
-      assert.ok(layout[4] / dpr >= info.safeArea.left);
+      assert.equal(layout[4],0,'safe insets exclude controls without translating the full factory');
       assert.equal(layout[5],0,'native safe top must not shift the entire scene down');
       assert.equal(drawnViewport.top,0,'the viewport must start at the screen top');
-      assert.equal(drawnViewport.height,info.safeArea.bottom-6,'only the bottom inset reduces the scene viewport');
-      assert.ok((layout[4] + drawnViewport.width * layout[0]) / dpr <= info.safeArea.right + 1e-8);
-      assert.ok((layout[5] + drawnViewport.height * layout[3]) / dpr <= info.safeArea.bottom + 1e-8);
+      assert.equal(drawnViewport.left,0);
+      assert.equal(drawnViewport.width,info.windowWidth,'factory rendering uses the full logical width');
+      assert.equal(drawnViewport.height,info.windowHeight,'factory rendering extends behind the bottom safe area');
+      assert.equal(drawnViewport.right,info.windowWidth);
+      assert.equal(drawnViewport.bottom,info.windowHeight);
+      assert.deepEqual(this.presentation().layout.scene,{x:0,y:0,w:info.windowWidth,h:info.windowHeight});
+      this.verifySceneTop();
     },
     verifyControls() {
       const capsule = menuApi ? menu : {left:info.windowWidth-130,right:info.windowWidth,top:info.safeArea.top,bottom:info.safeArea.top+40};
@@ -214,14 +234,14 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
       for(const zone of renderer.zones.filter(zone=>zone.action && zone.action !== 'noop' && !(zone.x===0 && zone.y===0 && zone.w===info.windowWidth))) {
         assert.ok(zone.w>=44&&zone.h>=44,'native controls retain a 44px minimum touch target: '+zone.action);
         assert.ok(zone.x>=info.safeArea.left&&zone.x+zone.w<=info.safeArea.right,'control stays horizontally visible: '+zone.action);
-        assert.ok(zone.y+zone.h<=info.safeArea.bottom-6,'control clears the bottom safe area: '+zone.action);
+        assert.ok(zone.y+zone.h<=info.safeArea.bottom,'control clears the bottom safe area: '+zone.action);
         assert.ok(zone.y>=info.safeArea.top,'control must clear the status area: '+zone.action);
         assert.ok(!intersects({left:zone.x,right:zone.x+zone.w,top:zone.y,bottom:zone.y+zone.h}),'control must clear the native menu: '+zone.action);
       }
     },
     verifySceneTop() {
-      assert.ok(fills.some(rect=>rect.left>0 && rect.left<30 && rect.right>info.windowWidth-30 && rect.top<=0 && rect.bottom>info.windowHeight/2),
-        'the production scene background must extend behind the top safe area');
+      assert.ok(fills.some(rect=>rect.left<=0 && rect.right>=info.windowWidth && rect.top<=0 && rect.bottom>=info.windowHeight),
+        'the production background must cover the full screen behind both safe areas');
     },
     operations: () => operations,
     canvasCount: () => canvasCount
@@ -238,7 +258,7 @@ test('generated Douyin entry automatically runs the real pipeline without DOM or
   ]) await t.test(mode.name, () => {
     const h = boot(mode);
     assert.equal(h.canvasCount(), 1);
-    assert.equal(h.context.GameGlobal.__POPCORN__.version, '0.1.0');
+    assert.equal(h.context.GameGlobal.__POPCORN__.version, '1.1.0');
     assert.deepEqual(Object.keys(h.context.GameGlobal.__POPCORN__).sort(), ['analytics','presentation','snapshot','version']);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.developerHoldTap, false);
     assert.equal(h.context.GameGlobal.POPCORN_CONFIG.allowSimulatedAds, false);
@@ -247,25 +267,30 @@ test('generated Douyin entry automatically runs the real pipeline without DOM or
     assert.ok(!h.actions().some(action => /^(start|tap|ad|order|quest|brand|guidebook|offline)/.test(action)));
     assert.ok(!h.texts.some(text => /重构|旧存档/.test(text)), 'migration details are absent from the first factory scene');
     h.clickAction('settings'); h.frame(0);
-    assert.ok(h.texts.some(text => /玩法已重构/.test(text)), 'version context remains available in settings');
-    assert.ok(h.texts.some(text => /旧存档保留/.test(text)), 'legacy save policy remains available in settings');
+    assert.ok(h.texts.some(text => /进度自动保存/.test(text)), 'settings explain persistence and background behavior');
+    assert.ok(h.texts.some(text => /旧存档备份仍会保留/.test(text)), 'legacy save policy remains available in settings');
     h.clickAction('close'); h.frame(0);
     for (let i = 0; i < 20; i++) h.frame(1000);
     assert.ok(h.snapshot().state.totalSold > 0, 'production and final dispatch happen without any tap');
     const before = h.snapshot();
     h.clickAction('station:cup'); h.frame(0);
-    assert.ok(h.actions().includes('upgrade:cup:1'));
-    assert.ok(h.actions().includes('station:pop'), 'compact controls keep other stations selectable');
+    const quote = h.presentation().quotes.upgrade;
+    assert.equal(quote.stationId, 'cup'); assert.equal(quote.level, 1); assert.equal(quote.cost, 30);
+    assert.equal(quote.action, 'purchase:' + quote.id);
+    assert.ok(h.actions().includes(quote.action));
+    assert.ok(!h.actions().some(action => action.startsWith('station:')), 'the centered modal blocks every underlying station');
     h.verifyControls();
-    h.clickAction('upgrade:cup:1'); h.frame(0);
+    h.clickAction(quote.action); h.frame(0);
     const after = h.snapshot();
     assert.ok(after.state.coins < before.state.coins, 'real native input pays for the selected station');
     assert.ok(after.stations.find(station => station.id === 'cup').capacity > before.stations.find(station => station.id === 'cup').capacity);
     assert.equal(after.state.totalSpent-before.state.totalSpent,30);
     assert.equal(after.state.coins,before.state.coins-30);
     assert.equal(after.throughput,before.throughput,'the forecast does not replace measured dispatch');
-    assert.ok(h.actions().includes('reviewUpgrade'),'purchase preserves selection in the collapsed controls');
-    assert.ok(!h.actions().some(action=>action.startsWith('upgrade:')),'next quote is not armed automatically');
+    assert.equal(h.presentation().modal,null,'one successful purchase closes the modal');
+    assert.deepEqual(h.presentation().quotes,{},'the consumed quote is cleared together with the modal');
+    assert.ok(!h.actions().some(action=>action.startsWith('purchase:')),'the next quote is not armed automatically');
+    assert.ok(h.actions().includes('station:pop'),'the factory controls return after the purchase');
     h.verifyControls();
     const sound = h.sounds.find(audio => audio.src === 'audio/upgrade.wav');
     assert.ok(sound && sound.plays > 0, 'upgrade reuses the native sound adapter');
@@ -307,7 +332,9 @@ test('native controls avoid device status insets and menu capsule after resize a
     h.verifyLayout(); h.verifyControls();
     for (const action of ['station:pop','station:cup','station:ship','settings']) {
       h.clickAction(action); h.frame(0); h.verifyControls();
-      if(action.startsWith('station:')) { h.clickAction('collapseStation'); h.frame(0); h.verifyControls(); }
+      h.verifyLayout();
+      assert.ok(h.presentation().modal);
+      assert.ok(!h.actions().some(row=>row.startsWith('station:')),'modal hit regions exclude background machines');
       h.clickAction('close'); h.frame(0);
     }
     for (const event of ['onWindowResize', 'onShow']) {
@@ -317,7 +344,6 @@ test('native controls avoid device status insets and menu capsule after resize a
       h.menu.top = h.info.safeArea.top + 8; h.menu.bottom = h.menu.top + h.menu.height;
       h.events[event]({}); h.frame(0); h.verifyLayout(); h.verifyControls();
       h.clickAction('station:cup'); h.frame(0); h.verifyControls();
-      h.clickAction('collapseStation'); h.frame(0); h.verifyControls();
       h.clickAction('close'); h.frame(0);
     }
   });

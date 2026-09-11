@@ -1,0 +1,24 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "model": "unavailable (not provided as a tool result field)",
+  "seed": "unavailable",
+  "result": "tool-result.json",
+  "prompt": "prompts/ui_gesture_hand.txt",
+  "references": [
+    {
+      "path": "../../six-gen/integration/exports/ui_icon_settings.png",
+      "role": "style reference inspected via view_image; described in prompt, not passed as image edit target",
+      "sha256": "9f2b0a6bae7d36594153ffe368da9649db378e77d4a3b79dc0dc4203508a4c91"
+    },
+    {
+      "path": "../../six-gen/integration/exports/ui_icon_check.png",
+      "role": "style reference inspected via view_image; described in prompt, not passed as image edit target",
+      "sha256": "5a8650d61521b53f1ebcf897d586ebffa48a755eae041c81c6d1d5a9a6b6ea29"
+    }
+  ],
+  "generatedImagePath": "C:/Users/chenweilun/.codex/generated_images/01a08b4a-33d9-7fc3-81b6-a80d84f2784d/exec-4fc8c5f1-ff90-493e-b7ce-540551f2cbb4.png",
+  "sourceSha256": "7d9287b30096a8757700b169121cb2812020d902f98f59d0abc3abe2f7a08439",
+  "exportSha256": "53be077c8922eac1a25fcb50972933004b04114945cc61116041c95492c9f668",
+  "exactPrompt": "Use case: stylized-concept\nAsset type: a single production mobile game tutorial gesture sprite, ui_gesture_hand, for the cozy popcorn factory game.\nPrimary request: create one simple cream-white lightly dimensional cartoon glove hand pointing diagonally up-left, with one extended index finger, three fingers folded naturally into the palm, and one relaxed thumb on the side. The index fingertip is the clear gesture target. Use a short warm golden-yellow cuff.\nStyle/medium: polished casual mobile game UI bitmap icon, very clean rounded shapes, restrained bevel-like dimensional shading, thick smooth dark teal outline, tiny soft warm highlights at top left. Match a UI set of turquoise glossy rounded checkmark and gear icons with clean dark teal borders, but the hand itself is cream-white so it reads over the turquoise factory machines.\nColor palette: cream #fff5de, soft warm beige shadows #ddcaa8, deep teal outline #174d55, golden cuff #f2ba3b. No pure black.\nComposition/framing: square image. Exactly one isolated hand centered, filling around 80 percent of the canvas, with generous fully transparent safety space on all four sides. Wrist at lower right, index fingertip in upper left. Compact clear silhouette designed to remain readable at 32 to 40 screen pixels. Rounded friendly proportions with broad index finger.\nScene/backdrop: genuinely transparent background; output PNG with real transparent alpha outside the hand, no colored backdrop and no checkerboard graphic.\nConstraints: one glove hand only. No arrows, no motion lines, no circles, no tap ripples, no cursor pointer triangle, no text, no labels, no numbers, no watermark, no objects, no scenery, no pedestal, no detached ground shadow. Keep shading within the hand silhouette and avoid excessive seams or tiny details.\n"
+}

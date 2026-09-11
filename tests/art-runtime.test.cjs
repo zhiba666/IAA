@@ -88,8 +88,10 @@ test('both production build roots contain exactly the referenced independent PNG
     }
   }
   const reviewed = JSON.parse(fs.readFileSync(path.join(root, 'art-source/six-gen/integration/manifest.json')));
-  assert.equal(ART_RUNTIME_IDS.length, 84);
-  assert.deepEqual(ART_RUNTIME_IDS.slice().sort(), reviewed.assets.map(entry => entry.id).sort());
+  const supplement = JSON.parse(fs.readFileSync(path.join(root, 'art-source/v1.1/manifest.fragment.json')));
+  assert.equal(reviewed.assets.length, 84);
+  assert.equal(ART_RUNTIME_IDS.length, 87);
+  assert.deepEqual(ART_RUNTIME_IDS.slice().sort(), [...reviewed.assets, ...supplement.assets].map(entry => entry.id).sort());
   assert.ok(!ART_RUNTIME_IDS.some(id => /preview|source/.test(id)));
   assert.equal(ART_RIGS.shipMachine.content.packageRigs, undefined);
   assert.equal(ART_GENERATION_RIGS.length, 18);

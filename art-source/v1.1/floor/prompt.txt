@@ -1,0 +1,8 @@
+Use case: stylized-concept.
+Asset type: opaque mobile game floor-extension bitmap, square 1024 x 1024.
+Primary request: Generate ONLY a flat, empty, warm cream beige floor surface filling every pixel edge-to-edge. This is a neutral low-contrast cover texture underneath a cute isometric popcorn-factory game. Match the soft cream floor material of the supplied reference visually, but do not recreate the room, corner, walls, skirting, or perspective grid.
+Style/medium: soft polished 2.5D mobile-game art, smooth matte ceramic or clean resin industrial flooring, extremely restrained diffuse material variation.
+Composition: a full-frame orthographic close-up surface sample; no horizon, no corner, no border, no objects, no UI.
+Lighting/mood: uniform broad soft neutral-warm ambient light. No directional gradients, no vignetting, no shadows or highlights. Balanced tone at all four edges, suitable for extending a cream floor region in different mobile screen ratios.
+Color palette: light warm ivory beige matching the existing room floor, approximate overall mid color #EADDC0, with tiny very low contrast cloudy variations no more than a few RGB levels.
+Constraints: fully opaque with genuine solid pixels throughout. No tile seams or grid lines. No transparency. No perspective marks, grain, speckling, noise, stains, cracks, grout, seams, machines, walls, props, arrows, text, logo, watermark. No decorative elements. Keep image deliberately quiet so foreground equipment remains readable.

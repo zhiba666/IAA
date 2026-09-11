@@ -6,10 +6,19 @@ const { harness, START } = require('./app-harness.cjs');
 const station = (view, id) => view.stations.find(item => item.id === id);
 function progressed() { const game = new Game({ now: START }); game.tick(40); return game.exportSave(START); }
 function economy(view) { const s = view.state; return { coins: s.coins, totalSold: s.totalSold, totalProduced: s.totalProduced, totalEarned: s.totalEarned, totalSpent: s.totalSpent, buffers: s.buffers, stations: s.stations, upgrades: s.upgrades, machine: s.machine }; }
+function openUpgrade(h,id='cup') {
+  if(h.ui().modal)h.click('close');
+  h.click('station:'+id);
+  const ui=h.ui(),quote=ui.quotes.upgrade;
+  assert.equal(ui.modal.type,'station');assert.equal(ui.modal.stationId,id);
+  assert.equal(quote.action,'purchase:'+quote.id);assert.deepEqual(ui.quote,quote);
+  return quote;
+}
+function buyReviewedUpgrade(h,id='cup') { const quote=openUpgrade(h,id);h.click(quote.action);return quote; }
 
 test('actual entry starts automatically and never credits work in progress before final shipment', () => {
   const h = harness();
-  assert.equal(h.context.__POPCORN__.version, '0.1.0');
+  assert.equal(h.context.__POPCORN__.version, '1.1.0');
   assert.deepEqual(Object.keys(h.context.__POPCORN__).sort(), ['analytics','presentation','snapshot','version']);
   assert.equal(h.ui().newFactory, true);
   h.frame(500);
@@ -29,24 +38,25 @@ test('first bottleneck upgrade is scoped to its real station, pays once, and imp
   assert.deepEqual(economy(h.snapshot()), economy(before), 'an invisible or stale upgrade action cannot buy');
   h.click('station:pop'); h.click('upgrade:cup:1');
   assert.deepEqual(economy(h.snapshot()), economy(before), 'a different station sheet cannot buy the cup upgrade');
-  h.click('station:cup');
-  assert.deepEqual(h.ui().modal, { type: 'station', stationId: 'cup' });
+  const quote = openUpgrade(h,'cup');
   const cost = station(before, 'cup').upgrade.cost;
-  const quote = h.ui().quote;
   h.click('upgrade:cup:1');
+  assert.deepEqual(economy(h.snapshot()),economy(before),'the retired action cannot bypass reviewed confirmation');
+  h.click(quote.action);
   const after = h.snapshot();
   assert.equal(after.state.coins, before.state.coins - cost);
   assert.equal(after.state.totalSpent, before.state.totalSpent + cost);
   assert.equal(station(after, 'cup').capacity, 6);
   assert.equal(station(after, 'pop').capacity, station(before, 'pop').capacity);
   assert.equal(station(after, 'ship').capacity, station(before, 'ship').capacity);
-  assert.deepEqual(h.ui().modal, { type: 'station', stationId: 'cup' });
-  assert.equal(h.ui().stationCollapsed, true);
-  assert.deepEqual(h.ui().quote, quote, 'completed purchase keeps its original quote');
+  assert.equal(h.ui().modal, null, 'successful purchase closes its modal');
+  assert.equal(h.ui().stationCollapsed, undefined);
+  assert.equal(h.ui().quote, null, 'the consumed quote is invalidated');
+  assert.deepEqual(h.ui().quotes, {});
   assert.equal(h.ui().purchaseFeedback.name, quote.name);
   assert.equal(h.ui().rateUpdatingUntil, after.state.simulation.ticks + 1200);
   assert.equal(h.snapshot().throughput, before.throughput, 'upgrade never replaces actual speed with its prediction');
-  h.click('upgrade:cup:1');
+  h.click(quote.action);h.click('upgrade:cup:1');
   assert.equal(h.snapshot().state.totalSpent, after.state.totalSpent);
   const stocked = after.state.buffers.pop;
   h.run(10);
@@ -58,9 +68,10 @@ test('first bottleneck upgrade is scoped to its real station, pays once, and imp
 
 test('insufficient coins and unknown legacy inputs cannot alter stock or money', () => {
   const h = harness({ config: { developerHoldTap: true, allowSimulatedAds: true } }), before = h.snapshot();
-  h.click('station:cup'); h.click('upgrade:cup:1');
+  const quote=openUpgrade(h);h.click(quote.action);
   assert.deepEqual(economy(h.snapshot()), economy(before));
-  assert.match(h.ui().toast, /金币/);
+  assert.match(h.ui().modal.error, /金币/);
+  assert.deepEqual(h.ui().quotes.upgrade,quote,'failed purchase keeps its reviewed quote and modal');
   h.click('close');
   for (const action of ['tap','start','claimOrder','releasePressure','ad:turbo','ad:offline','ad:brand','adComplete','simulate:complete','quest:0','energy','claimOffline','upgrade:auto','upgrade:tap','upgrade:value','upgrade:cup','brand','order','modules']) h.click(action);
   assert.deepEqual(economy(h.snapshot()), economy(before));
@@ -73,38 +84,40 @@ test('reviewed quotes resist repeated clicks and Enter even when the following t
   const h = harness({ save });
   h.key('Digit2');
   assert.equal(h.ui().quote.level, 1);
+  const firstQuote=h.ui().quotes.upgrade;
   h.key('Enter', true);
   assert.equal(station(h.snapshot(), 'cup').level, 0, 'key repeat cannot trigger a purchase');
   h.key('Enter');
   const paid = h.snapshot().state.totalSpent;
   assert.equal(station(h.snapshot(), 'cup').level, 1);
+  assert.equal(h.ui().modal,null);
+  assert.deepEqual(h.ui().quotes,{});
   assert.ok(station(h.snapshot(), 'cup').upgrade.available, 'the next tier really is affordable and unlocked');
-  for (let i = 0; i < 4; i++) { h.click('upgrade:cup:1'); h.click('upgrade:cup:2'); h.key('Enter'); }
-  h.click('station:cup'); h.key('Enter');
-  assert.equal(h.snapshot().state.totalSpent, paid, 'same-station taps retain the completed quote');
-  h.click('reviewUpgrade');
-  assert.equal(h.ui().quote.level, 2);
-  assert.equal(h.ui().stationCollapsed, false);
-  h.click('upgrade:cup:1');
-  assert.equal(h.snapshot().state.totalSpent, paid, 'old token remains invalid after quote refresh');
+  for (let i = 0; i < 4; i++) { h.click(firstQuote.action);h.click('upgrade:cup:1'); h.click('upgrade:cup:2'); h.key('Enter'); }
+  assert.equal(h.snapshot().state.totalSpent, paid, 'consumed tokens, legacy actions, and Enter cannot buy while closed');
+  const secondQuote=openUpgrade(h,'cup');
+  assert.equal(secondQuote.level, 2);
+  assert.notEqual(secondQuote.id,firstQuote.id,'reopening creates a new explicit review');
+  h.click(firstQuote.action);h.click('upgrade:cup:1');h.click('upgrade:cup:2');
+  assert.equal(h.snapshot().state.totalSpent, paid, 'old token remains invalid after reopening');
   h.key('Enter');
   assert.equal(station(h.snapshot(), 'cup').level, 2);
   assert.equal(h.snapshot().state.totalSpent, paid + 200);
+  assert.equal(h.ui().modal,null);
 });
 
-test('compact controls and number keys switch stations without pausing real production', () => {
+test('number keys switch isolated station modals without pausing real production or restoring a bottom panel', () => {
   const h = harness({ save: progressed() });
-  h.key('Digit2'); h.click('toggleDetails');
-  assert.equal(h.ui().stationDetails, true);
+  h.key('Digit2');const cupQuote=h.ui().quotes.upgrade;
+  h.click('toggleDetails');h.click('collapseStation');
+  assert.equal(h.ui().stationDetails,undefined);assert.equal(h.ui().stationCollapsed,undefined);
+  assert.equal(h.ui().modal.stationId,'cup');assert.deepEqual(h.ui().quotes.upgrade,cupQuote);
   h.key('Digit1');
-  assert.deepEqual(h.ui().modal, { type: 'station', stationId: 'pop' });
+  assert.equal(h.ui().modal.type,'station');assert.equal(h.ui().modal.stationId,'pop');
   assert.equal(h.ui().quote.stationId, 'pop');
-  assert.equal(h.ui().stationDetails, false);
-  h.click('collapseStation');
-  assert.equal(h.ui().stationCollapsed, true);
   h.key('Digit3');
-  assert.deepEqual(h.ui().modal, { type: 'station', stationId: 'ship' });
-  assert.equal(h.ui().stationCollapsed, false);
+  assert.equal(h.ui().modal.type,'station');assert.equal(h.ui().modal.stationId,'ship');
+  assert.equal(h.ui().quote.stationId,'ship');
   const before = h.snapshot().state.totalSold;
   h.run(3);
   assert.ok(h.snapshot().state.totalSold > before, 'the selected station panel never pauses production');
@@ -114,12 +127,12 @@ test('compact controls and number keys switch stations without pausing real prod
   assert.equal(h.ui().modal, null);
   const spent = h.snapshot().state.totalSpent;
   h.key('Enter');
-  assert.equal(h.snapshot().state.totalSpent, spent, 'hidden panel cannot buy from its retained quote');
+  assert.equal(h.snapshot().state.totalSpent, spent, 'closed modal cannot buy from an invalidated quote');
 });
 
 test('shipment feedback aggregates real events without extra settlement or per-portion sound', () => {
   const h = harness({ save: progressed() });
-  h.click('station:cup'); h.click('upgrade:cup:1');
+  buyReviewedUpgrade(h);
   const before = h.snapshot().state;
   h.run(8, 10);
   const after = h.snapshot().state;
@@ -152,7 +165,7 @@ test('background and wall-clock absence cannot create inventory, offline rewards
 
 test('save reload preserves partial work, purchased capacity, settings and one-time intro dismissal', () => {
   const h = harness({ save: progressed() });
-  h.click('station:cup'); h.click('upgrade:cup:1'); h.frame(123);
+  buyReviewedUpgrade(h);h.frame(123);
   h.click('dismissIntro'); h.click('settings'); h.click('setting:sound'); h.click('setting:haptics'); h.click('close');
   h.hide();
   const reloaded = harness({ save: h.saves.at(-1) });
@@ -165,10 +178,11 @@ test('save reload preserves partial work, purchased capacity, settings and one-t
 
 test('storage failure is surfaced while automatic production remains usable and later saves recover', () => {
   const h = harness({ saveFailure: true });
-  assert.match(h.ui().toast, /未保存|存储/);
+  assert.match(h.ui().saveError, /未保存|存储/);
   h.run(6); assert.ok(h.snapshot().state.totalSold > 0); assert.equal(h.saves.length, 0);
   h.setSaveFailure(false); h.run(5);
   assert.ok(h.saves.at(-1).totalSold > 0);
+  assert.equal(h.ui().saveError,'');
 });
 
 test('restart requires its visible confirmation and retains current factory when writing fails', () => {
@@ -179,6 +193,7 @@ test('restart requires its visible confirmation and retains current factory when
   h.click('settings'); h.click('restart'); h.setSaveFailure(true); h.click('confirmRestart');
   assert.deepEqual(economy(h.snapshot()), before); assert.equal(h.ui().modal.type, 'restart');
   assert.match(h.ui().toast, /失败.*保留/);
+  assert.match(h.ui().modal.error,/失败.*保留/);
   h.setSaveFailure(false); h.click('confirmRestart');
   assert.equal(h.snapshot().state.totalSold, 0); assert.equal(h.snapshot().state.coins, 0);
   assert.equal(h.snapshot().state.machine, 0); assert.equal(h.ui().newFactory, true);
@@ -188,11 +203,11 @@ test('restart requires its visible confirmation and retains current factory when
 });
 
 test('cancelled, dragged and interrupted pointers cannot buy a station upgrade', () => {
-  const h = harness({ save: progressed() }); h.click('station:cup'); const before = economy(h.snapshot());
-  h.pointer('down','upgrade:cup:1'); h.pointer('cancel','upgrade:cup:1');
-  h.pointer('down','upgrade:cup:1'); h.pointer('move','upgrade:cup:1',1,150,100); h.pointer('up','upgrade:cup:1');
-  h.pointer('down','upgrade:cup:1'); h.hide(); h.show(); h.pointer('up','upgrade:cup:1');
-  h.pointer('down','upgrade:cup:1'); h.resize(); h.pointer('up','upgrade:cup:1');
+  const h = harness({ save: progressed() }),quote=openUpgrade(h),before=economy(h.snapshot());
+  h.pointer('down',quote.action);h.pointer('cancel',quote.action);
+  h.pointer('down',quote.action);h.pointer('move',quote.action,1,150,100);h.pointer('up',quote.action);
+  h.pointer('down',quote.action);h.hide();h.show();h.pointer('up',quote.action);
+  h.pointer('down',quote.action);h.resize();h.pointer('up',quote.action);
   assert.deepEqual(economy(h.snapshot()), before);
 });
 

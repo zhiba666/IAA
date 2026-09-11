@@ -86,12 +86,15 @@ test('all six actual entry and upgraded factories render art within small screen
       const scene = renderer.scene, layout = renderer.interface.layout;
       assert.equal(scene.artGeneration, item.save.machine, label + ': no silent old Canvas route');
       assert.equal(scene.stationFrames.length, 3); assert.equal(scene.bufferFrames.length, 2);
-      assert.ok(layout.scene.y >= viewport.safeTop && layout.scene.y + layout.scene.h <= layout.dock.y);
+      assert.deepEqual(layout.scene, { x: 0, y: 0, w: viewport.width, h: viewport.height });
+      assert.ok(scene.contentFrame.y >= viewport.safeTop);
+      assert.equal(layout.dock, undefined);
       for (const frame of scene.stationFrames) {
         assert.equal(frame.art, true, label + '/' + frame.id + ' art');
         assert.ok(frame.w >= 44 && frame.h >= 44, label + '/' + frame.id + ' 44 px touch area');
         inside(frame.artRect, layout.scene, label + '/' + frame.id);
-        assert.equal(renderer.actionAt(frame.x + frame.w / 2, frame.y + frame.h / 2), 'station:' + frame.id, label + ' machine click');
+        if (!stationId) assert.equal(renderer.actionAt(frame.x + frame.w / 2, frame.y + frame.h / 2), 'station:' + frame.id, label + ' machine click');
+        else assert.ok(!renderer.zones.some(zone => zone.action === 'station:' + frame.id), label + ' modal owns input');
       }
       for (const bin of scene.diagnostics.buffers) inside(bin.rect, layout.scene, label + '/' + bin.id);
       for (const station of view.stations) {
@@ -129,7 +132,7 @@ test('multi-head job sprites freeze with real progress, and upgraded old one-por
   }
 });
 
-test('real 4/24/36 transfer capacities, full-input rejection and lifecycle cancellation stay visible and conserve stock', async () => {
+test('real 4/24/36 transfer capacities and full-input rejection stay visible and conserve stock', async () => {
   const data = await fixtures;
   for (const [id, amount] of [['g1-first-tray', 4], ['g1-regular-tray', 24], ['g1-expanded-tray', 36]]) {
     assert.equal(data.cases.find(item => item.id === id).snapshot.transfers[0].batchSize, amount);
@@ -144,21 +147,16 @@ test('real 4/24/36 transfer capacities, full-input rejection and lifecycle cance
     assert.deepEqual(game.state, inventory, 'full input cannot remove or sell source stock');
     const { renderer, canvas } = render(enriched(full), viewports[0], { transfer: { source, target, amount: 4, x: 150, y: 300, dragging: true, overTarget: true } });
     assert.equal(renderer.scene.diagnostics.transfers[source === 'pop' ? 0 : 1].legal, false);
-    assert.ok(canvas.texts.some(item => item.text.includes('入口已满')));
+    assert.ok(canvas.texts.some(item => item.text === '已满'));
   }
-  for (const cancel of [h => h.key('Escape'), h => h.blur(), h => h.resize(), h => { h.hide(); h.show(); }]) {
-    const h = harness({ config: { mode: 'v15' }, save: data.cases.find(item => item.id === 'g1-first-tray').save });
-    const state = copy(h.snapshot().state);
-    h.click('transfer-source-pop'); assert.ok(h.ui().transfer); cancel(h);
-    assert.equal(h.ui().transfer, null); assert.deepEqual(h.snapshot().state, state);
-    assert.match(h.ui().toast, /取消搬运/);
-  }
+  // Continuous-pointer and host-lifecycle cancellation are covered by the v1.1
+  // input suite; art consumes only the resulting released presentation state.
 });
 
 test('failed six-generation art has visible recovery and retains selectable machine ownership', async () => {
   const item = (await fixtures).cases.find(item => item.id === 'g6-upgraded');
   const { renderer, canvas } = render(enriched(item), viewports[0], {}, 'machine_cup_hex_body');
-  assert.ok(canvas.texts.some(item => item.text.includes('美术加载失败')));
+  assert.ok(canvas.texts.some(item => item.text.includes('美术失败')));
   const retry = renderer.zones.find(zone => zone.action === 'retry-art');
   assert.ok(retry && retry.w >= 44 && retry.h >= 44);
   assert.equal(renderer.actionAt(retry.x + retry.w / 2, retry.y + retry.h / 2), 'retry-art');
@@ -201,7 +199,7 @@ test('all warehouse fill boundaries remain bounded, entry covers reflect purchas
   const tower = renderer.scene.diagnostics.decorations.filter(layer => layer.id.startsWith('factory_tower_'));
   assert.equal(tower.length, 2); assert.deepEqual(tower[0].transform, tower[1].transform);
   assert.ok(tower.every(layer => layer.behindMachines));
-  assert.ok(canvas.texts.some(item => item.text.includes('六代设备改造已完成')));
+  assert.ok(canvas.texts.some(item => item.text.includes('六代工厂已建成')));
 });
 
 test('settled multi-portion shipments paint closed box markers without crediting a second sale', async () => {

@@ -16,12 +16,14 @@ function harness(options = {}) {
   const lifecycle = {};
   const browserEvents = {};
   const pointerEvents = {};
+  const viewportEvents = {};
+  const listenerOptions = {};
   const storage = new Map();
   const rewards = [];
   const interstitials = [];
   const canvas = {
-    style: {}, addEventListener(name, fn) { pointerEvents[name] = fn; },
-    getBoundingClientRect() { return { left: 12, top: 20 }; }, setPointerCapture() {}
+    style: {}, addEventListener(name, fn, value) { pointerEvents[name] = fn; listenerOptions[name] = value; },
+    getBoundingClientRect() { return options.canvasRect || { left: 12, top: 20 }; }, setPointerCapture() {}
   };
   const sdk = {
     createCanvas: () => canvas,
@@ -46,6 +48,7 @@ function harness(options = {}) {
   const window = {
     location: { search: options.search || '' },
     innerWidth: 480, innerHeight: 920, devicePixelRatio: 2,
+    ...(options.visualViewport ? { visualViewport: { addEventListener(name, fn) { viewportEvents[name] = fn; } } } : {}),
     addEventListener(name, fn) { browserEvents[name] = fn; },
     localStorage: {
       getItem(key) { if (options.storageFailure) throw new Error('storage denied'); return storage.get(key); },
@@ -65,7 +68,7 @@ function harness(options = {}) {
   vm.runInContext(source, context, { filename: 'src/platform.js' });
   const platform = context.module.exports.createPlatform();
   return {
-    platform, sdk, rewards, interstitials, lifecycle, browserEvents, pointerEvents, document, storage,
+    platform, sdk, rewards, interstitials, lifecycle, browserEvents, pointerEvents, viewportEvents, listenerOptions, canvas, document, window, storage,
     saveKey: context.module.exports.SAVE_KEY,
     at(ms) { now = START + ms; },
     runTimers() {
@@ -79,6 +82,78 @@ function browserPointer(h, type, id, x = 100, y = 200, overrides = {}) {
   h.pointerEvents[type]({ pointerId: id, clientX: x, clientY: y,
     pointerType: 'touch', button: 0, preventDefault() {}, ...overrides });
 }
+
+test('browser pointers map a scaled CSS canvas into logical coordinates independently of device pixels', () => {
+  const h = harness({ browser: true, canvasRect: { left: 10.5, top: 20.25, width: 240, height: 230 } });
+  const points = [];
+  h.window.devicePixelRatio = 4;
+  h.canvas.width = 1920; h.canvas.height = 3680;
+  h.platform.onPointer(point => points.push({ ...point }));
+  browserPointer(h, 'pointerdown', 9, 130.5, 135.25);
+  browserPointer(h, 'pointermove', 9, -1.5, 260.25);
+  assert.deepEqual(points, [
+    { type: 'down', x: 240, y: 460, id: 9 },
+    { type: 'move', x: -24, y: 960, id: 9 }
+  ], 'outside-canvas points stay outside so a release can cancel rather than clamp into a target');
+  h.pointerEvents.lostpointercapture({ pointerId: 9 });
+  assert.deepEqual(points.at(-1), { type: 'cancel', x: -24, y: 960, id: 9 });
+
+  const fallback = harness({ browser: true, canvasRect: { left: 12, top: 20, width: 0, height: NaN } });
+  fallback.platform.onPointer(point => points.push({ ...point }));
+  browserPointer(fallback, 'pointerdown', 2, 100, 200);
+  assert.deepEqual(points.at(-1), { type: 'down', x: 88, y: 180, id: 2 }, 'missing or invalid CSS dimensions retain an unscaled fallback');
+});
+
+test('browser wheel maps position and pixel, line and page deltas to logical canvas distances', () => {
+  const h = harness({ browser: true, canvasRect: { left: 12, top: 20, width: 240, height: 460 } });
+  const scrolls = [], pointers = [];
+  let prevented = 0;
+  h.window.devicePixelRatio = 3;
+  const unsubscribe = h.platform.onScroll(event => scrolls.push({ ...event }));
+  h.platform.onPointer(event => pointers.push(event));
+  const wheel = (deltaY, deltaMode) => h.pointerEvents.wheel({ clientX: 132, clientY: 250, deltaY, deltaMode,
+    preventDefault() { prevented++; } });
+  wheel(30, 0); wheel(-3, 1); wheel(0.5, 2);
+  assert.deepEqual(scrolls, [
+    { x: 240, y: 460, deltaY: 60 },
+    { x: 240, y: 460, deltaY: -96 },
+    { x: 240, y: 460, deltaY: 460 }
+  ]);
+  assert.equal(h.listenerOptions.wheel.passive, false);
+  assert.equal(prevented, 3);
+  assert.equal(pointers.length, 0, 'wheel cannot synthesize a transfer or a purchase pointer');
+  wheel(0, 0); wheel(Infinity, 0); wheel(NaN, 1);
+  assert.equal(scrolls.length, 3); assert.equal(prevented, 3);
+  unsubscribe(); wheel(8, 0);
+  assert.equal(scrolls.length, 3, 'scroll subscriptions can be removed');
+});
+
+test('visual viewport resize and scroll cancel held input and refresh layout without a lifecycle transition', () => {
+  const h = harness({ browser: true, visualViewport: true });
+  const pointers = [], resizes = [];
+  let cancels = 0, hides = 0, shows = 0;
+  h.platform.onPointer(point => pointers.push({ ...point }));
+  h.platform.onInputCancel(() => cancels++);
+  h.platform.onResize(info => resizes.push(info));
+  h.platform.onHide(() => hides++); h.platform.onShow(() => shows++);
+  browserPointer(h, 'pointerdown', 1); browserPointer(h, 'pointermove', 1, 180, 260);
+  h.window.innerHeight = 640;
+  h.viewportEvents.resize();
+  assert.deepEqual(pointers.at(-1), { type: 'cancel', x: 168, y: 240, id: 1 });
+  assert.equal(resizes.at(-1).height, 640);
+  const count = pointers.length;
+  h.viewportEvents.scroll();
+  h.pointerEvents.lostpointercapture({ pointerId: 1 });
+  assert.equal(pointers.length, count, 'viewport cancellation clears the tracked pointer once');
+  assert.equal(cancels, 2); assert.equal(resizes.length, 2);
+  assert.equal(hides, 0); assert.equal(shows, 0);
+
+  browserPointer(h, 'pointerdown', 2);
+  h.browserEvents.resize();
+  assert.equal(pointers.at(-1).type, 'cancel');
+  assert.equal(pointers.at(-1).id, 2);
+  assert.equal(cancels, 3); assert.equal(resizes.length, 3);
+});
 
 test('browser input: lost capture cancels only the matching active pointer at its latest position', () => {
   const h = harness({ browser: true }), events = [];
@@ -134,6 +209,43 @@ test('native input: touch cancellation forwards changed pointers with matching i
     { type: 'down', x: 120, y: 240, id: 7 },
     { type: 'cancel', x: 110, y: 220, id: 0 }
   ]);
+});
+
+test('native touchcancel without changed touches cancels the interaction without inventing pointer identities', () => {
+  const h = harness(), pointers = [];
+  let cancellations = 0;
+  h.platform.onPointer(point => pointers.push({ ...point }));
+  h.platform.onInputCancel(() => cancellations++);
+  h.pointerEvents.touchstart({ changedTouches: [{ identifier: 7, screenX: 90, screenY: 120 }] });
+  h.pointerEvents.touchcancel({ changedTouches: [], touches: [{ identifier: 7, screenX: 90, screenY: 120 }] });
+  h.pointerEvents.touchcancel({ touches: [] });
+  h.pointerEvents.touchcancel();
+  assert.equal(cancellations, 3);
+  assert.deepEqual(pointers, [{ type: 'down', x: 90, y: 120, id: 7 }]);
+});
+
+test('safe area normalization preserves valid bounds and makes malformed native or CSS values usable', () => {
+  const h = harness();
+  const safeArea = { left: 8, top: 36, right: 382, bottom: 820, width: 999, height: -1 };
+  h.sdk.getSystemInfoSync = () => ({ windowWidth: 390, windowHeight: 844, pixelRatio: 3, safeArea });
+  const initial = h.platform.getSystemInfo().safeArea;
+  assert.deepEqual({ ...initial }, { left: 8, top: 36, right: 382, bottom: 820, width: 374, height: 784 });
+  initial.top = 0;
+  assert.equal(safeArea.top, 36, 'normalization does not mutate native return values');
+  for (const value of [null, {}, 'invalid', { left: NaN, top: Infinity, right: null, bottom: '20' },
+    { left: 900, right: -10, top: 900, bottom: -10 }]) {
+    h.sdk.getSystemInfoSync = () => ({ windowWidth: 390, windowHeight: 844, safeArea: value });
+    assert.deepEqual({ ...h.platform.getSystemInfo().safeArea }, { left: 0, top: 0, right: 390, bottom: 844, width: 390, height: 844 });
+  }
+  h.sdk.getSystemInfoSync = () => ({ windowWidth: 390, windowHeight: 844, safeArea: { left: 8, top: 36, width: 374, height: 784 } });
+  assert.deepEqual({ ...h.platform.getSystemInfo().safeArea }, { left: 8, top: 36, right: 382, bottom: 820, width: 374, height: 784 });
+
+  const browser = harness({ browser: true });
+  browser.document.documentElement = {};
+  browser.window.getComputedStyle = () => ({ getPropertyValue(name) { return { '--safe-top': '28px', '--safe-bottom': '20px', '--safe-left': '-7px', '--safe-right': 'NaN' }[name]; } });
+  assert.deepEqual({ ...browser.platform.getSystemInfo().safeArea }, { left: 0, top: 28, right: 480, bottom: 900, width: 480, height: 872 });
+  browser.window.getComputedStyle = () => { throw new Error('styles unavailable'); };
+  assert.deepEqual({ ...browser.platform.getSystemInfo().safeArea }, { left: 0, top: 0, right: 480, bottom: 920, width: 480, height: 920 });
 });
 
 test('system info: native menu geometry stays in screen pixels and refreshes on foreground', () => {

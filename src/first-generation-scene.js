@@ -2,7 +2,8 @@
 
 const { ProductionScene } = require('./production-scene');
 const { ART_RIGS, ART_ASSETS } = require('./art-manifest');
-const { createArtTransform, drawArtLayer, clipArtPolygon, minimumHitRect, transferRailLayout } = require('./art-layout');
+const { createArtTransform, drawArtLayer, clipArtPolygon, minimumHitRect, transferTargetAt } = require('./art-layout');
+const { fullScreenPlacements } = require('./fullscreen-layout');
 const clamp = n => Math.max(0, Math.min(1, Number.isFinite(n) ? n : 0));
 
 // Only generation one uses these assemblies. The simulation never enters this module.
@@ -17,172 +18,143 @@ class FirstGenerationScene extends ProductionScene {
     if (progress > 0) this.clipped(rig.fillClip, t, () => this.part(rig.fill, t, { offset: [0, rig.fillTravel[1] * (1 - clamp(progress))] }));
   }
   placements(w, h) {
-    const compact = h < 420;
-    // Short screens change the floor plan: three distinct machines step across
-    // the room. Only the inter-station conveyors get shorter; rigs remain uniform.
-    const rows = compact ? [
-      ['pop','popMachine',.16], ['belt_pop_bulk','conveyorRight',.13], ['bulk','bulkBuffer',.13],
-      ['belt_bulk_cup','conveyorLeft',.26,true], ['cup','cupMachine',.20],
-      ['belt_cup_stock','conveyorLeft',.34], ['cups','cupsBuffer',.13],
-      ['belt_stock_ship','conveyorTransfer',.105], ['ship','shipMachine',.16], ['outfeed','conveyorOutfeed',.10]
-    ] : [
-      ['pop','popMachine',.23], ['belt_pop_bulk','conveyorRight',.25], ['bulk','bulkBuffer',.19],
-      ['belt_bulk_cup','conveyorLeft',.35], ['cup','cupMachine',.24],
-      ['belt_cup_stock','conveyorRight',.30], ['cups','cupsBuffer',.18],
-      ['belt_stock_ship','conveyorLeft',.46], ['ship','shipMachine',.22], ['outfeed','conveyorOutfeed',.19]
-    ];
-    const nodes = []; let previous;
-    for (const [id, name, scale, reverse] of rows) {
-      const source = ART_RIGS[name], rig = reverse ? {...source,input:source.output,output:source.input} : source;
-      const from = previous && previous.local.point(previous.rig.output);
-      const local = createArtTransform({ x: from ? from[0] - rig.input[0] * scale : 0,
-        y: from ? from[1] - rig.input[1] * scale : 0, scale });
-      const node = { id, name, rig, local, kind: id.includes('belt') || id === 'outfeed' ? 'belt' : ['bulk','cups'].includes(id) ? 'buffer' : 'machine' };
-      nodes.push(node); previous = node;
-    }
-    const extent = nodes.map(n => n.local.rect([0,0,...n.rig.size]));
-    const minX = Math.min(...extent.map(r => r[0])), minY = Math.min(...extent.map(r => r[1]));
-    const maxX = Math.max(...extent.map(r => r[0]+r[2])), maxY = Math.max(...extent.map(r => r[1]+r[3]));
-    const scale = Math.min((w-16)/(maxX-minX), (h-(compact?22:38))/(maxY-minY));
-    const scene = createArtTransform({ x: this.frame.x + (w-(maxX-minX)*scale)/2-minX*scale,
-      y: this.frame.y + (compact ? 12 : 18) + Math.max(0,(h-(compact?22:34)-(maxY-minY)*scale)/2)-minY*scale, scale });
-    nodes.forEach(node => { node.transform = scene.child(node.local); node.rect = node.transform.rect([0,0,...node.rig.size]); });
-    return { nodes, compact };
+    const rigs = { pop: ART_RIGS.popMachine, cup: ART_RIGS.cupMachine, ship: ART_RIGS.shipMachine,
+      bulk: ART_RIGS.bulkBuffer, cups: ART_RIGS.cupsBuffer, outfeed: ART_RIGS.conveyorOutfeed };
+    return fullScreenPlacements(this.frame || { x: 0, y: 0, w, h }, rigs, this.presentation);
   }
   draw(x, y, w, h, view) {
-    this.transferFrames=[];
-    if (view.state.machine !== 0) { this.artGeneration = null; return super.draw(x,y,w,h,view); }
-    this.artGeneration = 0;
-    if (![x,y,w,h].every(Number.isFinite) || w<=0 || h<=0) return;
-    this.frame={x,y,w,h}; this.stationFrames=[]; this.bufferFrames=[];
-    const manual=!!view.transfer?.enabled, v15=view.mode==='v15', transferH=v15?132:manual?80:0;
-    const {nodes,compact}=this.placements(w,h-transferH), c=this.c, identity=createArtTransform();
-    const byId=Object.fromEntries(nodes.map(node=>[node.id,node]));
-    this.diagnostics={layout:compact?'compact-return-loop':'tall-zigzag',machines:[],buffers:[],connections:[],frame:{x,y,w,h}};
-    c.save(); this.box(x,y,w,h,16,'#f0e1c4'); c.clip();
-    const room=ART_ASSETS.factory_room, roomScale=Math.max(w/room.width,h/room.height);
-    this.sprite('factory_room',[x+(w-room.width*roomScale)/2,y,room.width*roomScale,room.height*roomScale],identity);
-    if(!compact)this.sprite('factory_window',[x+27,y+10,66,60.07],identity);
-    for(let i=1;i<nodes.length;i++) {
-      const a=nodes[i-1].transform.point(nodes[i-1].rig.output),b=nodes[i].transform.point(nodes[i].rig.input);
-      this.diagnostics.connections.push({from:nodes[i-1].id,to:nodes[i].id,fromPoint:a,toPoint:b,gap:Math.hypot(a[0]-b[0],a[1]-b[1])});
-    }
-    for(const node of nodes.filter(n=>n.kind==='belt'))this.belt(node,view);
-    const solids=nodes.filter(n=>n.kind!=='belt').sort((a,b)=>a.transform.point(a.rig.anchor)[1]-b.transform.point(b.rig.anchor)[1]);
-    for(const node of solids) {
-      if(node.kind==='machine')this.machine(node,view.stations.find(s=>s.id===node.id),view);
-      else this.stock(node,view.buffers[node.id==='bulk'?0:1]);
-    }
-    // Labels are a final live text layer, never part of a machine PNG.
-    for(const id of ['pop','cup','ship'])this.machineLabel(byId[id],view.stations.find(s=>s.id===id),view,compact);
-    for(const id of ['bulk','cups'])this.stockLabel(byId[id],view.buffers[id==='bulk'?0:1],compact);
-    if(v15)this.logisticsControls(byId,view);
-    else if(manual)this.transferControls(byId,view);
-    if(this.delivery) {
-      const node=byId.outfeed,p=1-this.delivery.remaining/this.delivery.duration,rect=node.rect;
-      this.label('+'+this.delivery.coins+' 金',Math.min(x+w-28,rect[0]+rect[2]*.6),Math.min(y+h-10,rect[1]+rect[3]+4),12,'#176968','center');
+    if (![x,y,w,h].every(Number.isFinite) || w <= 0 || h <= 0) return;
+    this.artGeneration = (this.generation || 1) - 1;
+    this.frame = { x, y, w, h }; this.presentation = view.presentation || {};
+    this.stationFrames = []; this.bufferFrames = []; this.transferFrames = [];
+    this.transferHeight = 0; this.compactTransfers = false;
+    const layout = this.placements(w, h), nodes = Object.fromEntries(layout.nodes.map(node => [node.id, node]));
+    this.fullscreenLayout = layout; this.nodes = nodes; this.contentFrame = layout.content;
+    this.diagnostics = { generation: this.artGeneration + 1, layout: 'fullscreen-workstations', frame: {x,y,w,h},
+      content: { ...layout.content }, machines: [], buffers: [], connections: [], decorations: [],
+      transferHeight: 0, transfers: [], fallbacks: [] };
+    const transfers = view.mode === 'v15' ? view.transfers || [] :
+      view.transfer && view.transfer.enabled ? [{ ...view.transfer, source: 'pop', target: 'cup' }] : [];
+    this.transferFrames = layout.transfers.filter(frame => transfers.some(row => row.source === frame.source))
+      .map(frame => {
+        const transfer = transfers.find(row => row.source === frame.source);
+        return { ...frame, accepting: frame.kind === 'input' && transfer.inputAmount < transfer.inputCapacity };
+      });
+    const c = this.c;
+    c.save(); c.beginPath(); c.rect(x,y,w,h); c.clip();
+    this.background();
+    if (typeof this.decorations === 'function') this.decorations(nodes, layout.content.h);
+    this.drawConnections(nodes, view, transfers);
+    this.belt(nodes.outfeed, view);
+    for (const id of ['pop','cup','ship']) this.machine(nodes[id], view.stations.find(station => station.id === id), view);
+    for (const id of ['bulk','cups']) this.stock(nodes[id], view.buffers.find(buffer => buffer.id === (id === 'bulk' ? 'pop' : 'cup')));
+    for (const id of ['pop','cup','ship']) this.machineLabel(nodes[id], view.stations.find(station => station.id === id), view, layout.compact);
+    for (const id of ['bulk','cups']) this.stockLabel(nodes[id], view.buffers.find(buffer => buffer.id === (id === 'bulk' ? 'pop' : 'cup')), layout.compact);
+    this.logisticsControls(nodes, view);
+    if (this.delivery) {
+      const r = nodes.outfeed.rect;
+      this.label('+' + this.delivery.coins, r[0] + r[2] / 2, Math.min(layout.content.y + layout.content.h - 5, r[1] + r[3] + 8), 11, '#176968', 'center');
     }
     c.restore();
-    return {frame:this.frame,stationFrames:this.stationFrames,bufferFrames:this.bufferFrames};
+    return { frame: this.frame, stationFrames: this.stationFrames, bufferFrames: this.bufferFrames, transferFrames: this.transferFrames };
   }
-  logisticsControls(nodes,view) {
-    const {x,y,w,h}=this.frame,held=view.presentation?.transfer;
-    this.diagnostics.transfers=[];
-    for(const row of transferRailLayout(this.frame)) {
-      const transfer=view.transfers.find(item=>item.source===row.source);
-      if(!transfer)continue;
-      const buffer=view.buffers.find(item=>item.id===row.source),source=row.tray,target=row.input;
-      const amount=held?.source===row.source?held.amount:0,free=Math.max(0,transfer.inputCapacity-transfer.inputAmount);
-      const legal=amount>0&&free>0,ready=legal&&held?.overTarget;
-      this.transferFrames.push(source,target);
-      this.box(source.x,source.y,source.w,source.h,10,amount?'#fff0bc':'#fff7df',amount?'#267d7e':'#bd9b59');
-      this.box(target.x,target.y,target.w,target.h,10,ready?'#c9e8bd':legal?'#e4f1d8':'#f2f4e7',legal?'#267d7e':'#98a48a');
-      const sx=source.x+source.w/2,tx=target.x+target.w/2,yy=source.y;
-      this.label((row.source==='pop'?'待装仓 ':'待发仓 ')+buffer.amount+'/'+buffer.capacity,sx,yy+11,11,'#4d623d','center');
-      this.label(amount?'已拿 '+amount+' 份':transfer.automated?'自动补料中':buffer.amount?'搬一批 · 最多'+transfer.batchSize:'等待上游出料',sx,yy+29,11,transfer.automated?'#236853':'#765022','center');
-      this.label(amount?'再点右侧入口':transfer.automated?'已接通 · 无需手动':'拖动 / 点选',sx,yy+45,10,transfer.automated?'#38654d':'#80532a','center');
-      this.label((row.target==='cup'?'装杯入口 ':'出货入口 ')+transfer.inputAmount+'/'+transfer.inputCapacity,tx,yy+11,11,'#285f54','center');
-      this.label(ready?'松手放入':free===0?'入口已满':amount?'放到这里':transfer.automated?'自动送入':'点选后放入',tx,yy+29,11,free===0?'#946337':'#236853','center');
-      this.label(transfer.automated?'已接通 · 自动补料':'未接通 · 手动送入',tx,yy+45,10,transfer.automated?'#38654d':'#80532a','center');
-      this.label('→',x+w/2,yy+28,17,transfer.automated?'#267d7e':'#ad8842','center');
-      const bin=nodes[row.source==='pop'?'bulk':'cups'],portNode=nodes[row.target];
-      if(bin){const br=bin.rect;this.box(br[0]-2,br[1]-2,br[2]+4,br[3]+4,8,'rgba(255,236,168,.12)',amount?'#268078':transfer.automated?'#83a383':'#be913b');}
-      const port=portNode?.transform.point(portNode.rig.input);
-      if(port){this.circle(port[0],port[1],5,legal?'#267d7e':transfer.automated?'#83a383':'#bd9b59');}
-      let physicalInput=null;
-      if(port&&amount>0&&held?.dragging){
-        // A drag may land on the real machine inlet as well as the large rail.
-        // Activate only the carried route, only for the gesture: ordinary taps
-        // still select every machine, including on the smallest safe-area view.
-        const rect=minimumHitRect([port[0]-28,port[1]-28,56,56],56,[x,y,w,h-132]);
-        physicalInput={x:rect[0],y:rect[1],w:rect[2],h:rect[3],source:row.source,target:row.target,kind:'port',action:target.action};
-        this.transferFrames.push(physicalInput);
-        this.box(rect[0],rect[1],rect[2],rect[3],10,legal?'rgba(221,242,207,.16)':'rgba(245,220,186,.16)',legal?'#267d7e':'#ad8842');
-        this.circle(port[0],port[1],8,legal?'#267d7e':'#ad8842');
-        this.label('↓',port[0],port[1]-1,12,'#fffaf0','center');
+  background() {
+    const { x,y,w,h } = this.frame, identity = createArtTransform();
+    this.box(x,y,w,h,0,'#f0e1c4');
+    const floor = ART_ASSETS.factory_floor_extension, wall = ART_ASSETS.factory_wall_corner;
+    if (floor && this.art && this.art.get('factory_floor_extension')) {
+      const scale = Math.max(w / floor.width, h / floor.height);
+      this.sprite('factory_floor_extension', [x+(w-floor.width*scale)/2,y,floor.width*scale,floor.height*scale], identity);
+      if (wall) this.sprite('factory_wall_corner', [x,y,w,w*wall.height/wall.width], identity);
+    } else {
+      const room = ART_ASSETS.factory_room, scale = Math.max(w/room.width,h/room.height);
+      this.sprite('factory_room', [x+(w-room.width*scale)/2,y,room.width*scale,room.height*scale], identity);
+    }
+  }
+  drawConnections(nodes, view, transfers) {
+    const identity = createArtTransform();
+    const connect = (from, to, a, b, source, stationId) => {
+      const transfer = transfers.find(row => row.source === source);
+      const manual = !!transfer && !transfer.automated;
+      const c = this.c;
+      c.save();
+      if (manual) { if (c.setLineDash) c.setLineDash([3,6]); this.line(a[0],a[1],b[0],b[1],'rgba(143,118,77,.42)',2); }
+      else {
+        this.line(a[0],a[1],b[0],b[1],'#829798',10);
+        this.line(a[0],a[1],b[0],b[1],'#cbd2c5',6);
       }
-      this.diagnostics.transfers.push({source,target,amount,inputAmount:transfer.inputAmount,inputCapacity:transfer.inputCapacity,automated:transfer.automated,legal,overTarget:!!ready,inputPoint:port,physicalInput});
+      c.restore();
+      this.diagnostics.connections.push({ from, to, fromPoint: a, toPoint: b, gap: 0, path: [a,b], automated: !manual });
+      if (manual) return;
+      const station = view.stations.find(row => row.id === stationId);
+      const job = station && (station.jobs || []).find(row => row && !row.complete);
+      if (job) {
+        const p = .15 + clamp(job.progress) * .7, px = a[0] + (b[0]-a[0])*p, py = a[1] + (b[1]-a[1])*p;
+        if (stationId === 'pop') this.sprite('product_kernel_a',[px-4,py-5,8,8],identity);
+        else this.transitCup([px-6,py-11,12,15],identity,{id:from},job);
+      }
+    };
+    for (const source of ['pop','cup']) {
+      const target = source === 'pop' ? 'cup' : 'ship', bin = nodes[source === 'pop' ? 'bulk' : 'cups'];
+      const output = nodes[source].transform.point(nodes[source].rig.output), binInput = bin.transform.point(bin.rig.input);
+      connect(source,bin.id,output,binInput,null,source);
+      const input = this.transferFrames.find(frame => frame.kind === 'input' && frame.source === source);
+      const destination = input ? [input.x+input.w/2,input.y+22] : nodes[target].transform.point(nodes[target].rig.input);
+      const binOutput = bin.transform.point(bin.rig.output);
+      connect(bin.id,target,binOutput,destination,source,target);
+      if (input) connect('input-'+target,target,[input.x+input.w-2,input.y+23],nodes[target].transform.point(nodes[target].rig.input),null,target);
     }
+    connect('ship','outfeed',nodes.ship.transform.point(nodes.ship.rig.output),nodes.outfeed.transform.point(nodes.outfeed.rig.input),null,'ship');
   }
-  transferControls(nodes,view) {
-    const {x,y,w,h}=this.frame,transfer=view.transfer,held=view.presentation?.transfer;
-    const amount=held?.amount||transfer.reservedAmount||0,free=Math.max(0,transfer.inputCapacity-transfer.inputAmount);
-    const legal=amount>0&&free>0,ready=legal&&held?.overTarget,buffer=view.buffers[0];
-    const railY=y+h-66,cardW=(w-40)/2;
-    const source={x:x+8,y:railY,w:cardW,h:60,action:'transfer:source',kind:'tray'};
-    const target={x:x+w-8-cardW,y:railY,w:cardW,h:60,action:'transfer:target',kind:'input'};
-    // The bin itself and its enlarged tray are two views of the same inventory.
-    // Neither takes stock: the input controller owns the reservation transaction.
-    const bounds=[x,y,w,h-80],port=nodes.cup.transform.point(nodes.cup.rig.input);
-    // Keep the real input point inside a generous target extending towards the
-    // incoming material. The machine's centre remains available for upgrades.
-    const inputRect=minimumHitRect([port[0]-50,port[1]-50,56,56],56,bounds);
-    const input={x:inputRect[0],y:inputRect[1],w:inputRect[2],h:inputRect[3],action:'transfer:target',kind:'port'};
-    const bin=minimumHitRect(nodes.bulk.rect,56,bounds);
-    const overlapsInput=rect=>rect[0]<input.x+input.w&&rect[0]+rect[2]>input.x&&rect[1]<input.y+input.h&&rect[1]+rect[3]>input.y;
-    if(overlapsInput(bin)){
-      const centre=[nodes.bulk.rect[0]+nodes.bulk.rect[2]/2,nodes.bulk.rect[1]+nodes.bulk.rect[3]/2];
-      const candidates=[[bin[0],input.y+input.h+4,bin[2],bin[3]],
-        [input.x-bin[2]-4,bin[1],bin[2],bin[3]],[bin[0],input.y-bin[3]-4,bin[2],bin[3]]];
-      const fit=candidates.find(rect=>rect[0]>=x&&rect[1]>=y&&rect[0]+rect[2]<=x+w&&rect[1]+rect[3]<=y+h-80
-        &&centre[0]>=rect[0]&&centre[0]<=rect[0]+rect[2]&&centre[1]>=rect[1]&&centre[1]<=rect[1]+rect[3]&&!overlapsInput(rect));
-      if(fit){bin[0]=fit[0];bin[1]=fit[1];}
+  logisticsControls(nodes, view) {
+    const held = this.presentation.transfer, pressed = this.presentation.press;
+    const transfers = view.mode === 'v15' ? view.transfers || [] :
+      view.transfer && view.transfer.enabled ? [{ ...view.transfer, source: 'pop', target: 'cup' }] : [];
+    const blockers = this.stationFrames.concat(this.contentFrame.exclusionRects || []);
+    this.transferBlockers = blockers;
+    for (const transfer of transfers) {
+      const source = this.transferFrames.find(frame => frame.kind === 'tray' && frame.source === transfer.source);
+      const target = this.transferFrames.find(frame => frame.kind === 'input' && frame.source === transfer.source);
+      if (!source || !target) continue;
+      const amount = held && (held.source || 'pop') === transfer.source && held.dragging ? held.amount : 0;
+      const legal = amount > 0 && target.accepting;
+      const ready = legal && transferTargetAt(this.transferFrames,held.x,held.y,transfer.source,blockers) === target;
+      if (pressed && pressed.source === source.source || amount > 0) {
+        this.box(source.x-1,source.y-1,source.w+2,source.h+2,10,'rgba(255,231,158,.12)','#bb8c37');
+      }
+      const pulse = ready ? '#e0f2ca' : legal ? 'rgba(223,239,208,.5)' : 'rgba(255,249,229,.35)';
+      this.box(target.x,target.y,target.w,target.h,10,pulse,legal?'#2c8472':'#a0aa99');
+      if (!this.sprite('input_cup_collar',[target.x+1,target.y+1,62,43],createArtTransform())) {
+        this.box(target.x+6,target.y+9,52,29,6,'#dce6d4','#718c80');
+      }
+      this.sprite('ui_icon_'+(transfer.target==='cup'?'cup':'ship'),[target.x+23,target.y+13,18,18],createArtTransform());
+      const label = !target.accepting ? '已满' : ready ? '松手放入' : transfer.target === 'cup' ? '装杯入口' : '出货入口';
+      this.label(label,target.x+32,target.y+54,10,!target.accepting?'#93612c':'#256454','center');
+      if (legal) {
+        this.c.save(); if (this.c.setLineDash) this.c.setLineDash([3,4]);
+        this.box(target.x-12,target.y-12,target.w+24,target.h+24,16,null,'rgba(44,132,114,.42)'); this.c.restore();
+      }
+      const diag = {source,target,amount,inputAmount:transfer.inputAmount,inputCapacity:transfer.inputCapacity,
+        automated:!!transfer.automated,legal,overTarget:!!ready,inputPoint:[target.x+32,target.y+22],
+        machineInputPoint:nodes[transfer.target].transform.point(nodes[transfer.target].rig.input),physicalInput:target};
+      this.diagnostics.transfers.push(diag);
     }
-    this.transferFrames.push({x:bin[0],y:bin[1],w:bin[2],h:bin[3],action:'transfer:source',kind:'bin'},source,input,target);
-    const br=nodes.bulk.rect;
-    this.box(br[0]-2,br[1]-2,br[2]+4,br[3]+4,9,'rgba(255,236,168,.14)',amount?'#268078':'#be913b');
-    this.box(input.x,input.y,input.w,input.h,10,ready?'rgba(201,232,189,.94)':legal?'rgba(228,241,216,.88)':'rgba(255,250,232,.78)',legal?'#267d7e':'#8b9c81');
-    this.label(ready?'松手放入':'装杯入口',input.x+input.w/2,input.y+16,11,'#285f54','center');
-    this.label(free===0?'已满':transfer.inputAmount+'/'+transfer.inputCapacity,input.x+input.w/2,input.y+34,11,free===0?'#946337':'#285f54','center');
-    this.circle(port[0],port[1],8,legal?'#267d7e':'#8b9c81');
-    this.label('↓',port[0],port[1]-1,12,'#fffaf0','center');
-    this.box(x+4,railY-18,w-8,80,12,'rgba(255,250,232,.95)');
-    this.label('A 段未接通 · 手动送入装杯',x+12,railY-8,11,'#80532a');
-    this.label('B 段正常',x+w-12,railY-8,10,'#38654d','right');
-    this.box(source.x,source.y,source.w,source.h,10,amount?'#fff0bc':'#fff6db',amount?'#267d7e':'#bd9b59');
-    this.box(target.x,target.y,target.w,target.h,10,ready?'#c9e8bd':legal?'#e4f1d8':'#e6eadb',legal?'#267d7e':'#98a48a');
-    const sx=source.x+source.w/2,tx=target.x+target.w/2;
-    this.label('待装仓 '+buffer.amount+'/'+buffer.capacity,sx,railY+12,11,'#4d623d','center');
-    this.label(amount?'手持 '+amount+' 份':buffer.amount?'拿一批 · 最多'+transfer.batchSize+'份':'等待爆锅出料',sx,railY+31,12,'#765022','center');
-    this.label(amount?'再点右侧入口':'拖动 / 点选',sx,railY+48,10,'#80532a','center');
-    this.label('装杯进料 '+transfer.inputAmount+'/'+transfer.inputCapacity,tx,railY+12,11,'#285f54','center');
-    this.label(free===0?'进料位已满':ready?'松手放入':amount?'放到这里':'等待送入',tx,railY+31,12,free===0?'#946337':'#236853','center');
-    this.label(free===0?'等加工腾出空位':'送入后自动加工',tx,railY+48,10,'#577260','center');
-    this.label('→',x+w/2,railY+30,18,'#779064','center');
-    this.diagnostics.transfer={source,sourceBin:this.transferFrames[0],target,inputPort:input,inputPoint:port,amount,inputAmount:transfer.inputAmount,inputCapacity:transfer.inputCapacity,legal,overTarget:!!held?.overTarget};
+    this.diagnostics.transfer = this.diagnostics.transfers[0] || null;
   }
+  transferControls(nodes,view) { this.logisticsControls(nodes,view); }
   label(text,x,y,size=12,color='#195b60',align='left') {
     const c=this.c;c.font=`700 ${size}px "Microsoft YaHei", "PingFang SC", sans-serif`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;c.fillText(text,x,y);
   }
   machine(node,station,view) {
     const {rig,transform:t}=node, job=station.jobs && station.jobs[0];
     const p=job?clamp(job.progress):0,working=!!job&&!job.complete;
-    const travel=rig.layers.find(layer=>layer.travel)?.travel || [0,0];
+    const movingLayer=rig.layers.find(layer=>layer.travel);
+    const travel=(movingLayer == null ? undefined : movingLayer.travel) || [0,0];
     const headOffset=working?Math.sin(p*Math.PI)*travel[1]:0;
     const diag={stationId:station.id,status:station.status,rect:node.rect,ports:{input:t.point(rig.input),output:t.point(rig.output)},
       jobs:(station.jobs||[]).filter(Boolean).map(item=>({amount:item.amount,progress:item.progress,complete:item.complete,headOffset:item.complete?0:Math.sin(clamp(item.progress)*Math.PI)*travel[1]}))};
     this.diagnostics.machines.push(diag);
-    const selected=view.presentation?.selectedStationId===station.id;
+    const selected=(view.presentation == null ? undefined : view.presentation.selectedStationId)===station.id;
     if(selected){const r=node.rect;this.box(r[0]-2,r[1]-2,r[2]+4,r[3]+4,12,'rgba(255,245,200,.26)','#267d7e');}
     for(const layer of rig.layers.filter(l=>l.layer<30))this.part(layer,t,layer.travel?{offset:[0,headOffset]}:undefined);
     if(job){
@@ -190,32 +162,21 @@ class FirstGenerationScene extends ProductionScene {
       else this.cupAt(station.id==='cup'?rig.cup.rect:rig.content.singleCup,t,station.id==='cup'?p:1);
     }
     for(const layer of rig.layers.filter(l=>l.layer>=30))this.part(layer,t);
-    if(this.flash?.stationId===station.id){const r=node.rect;this.sprite('fx_sparkle',[r[0]+r[2]*.55,r[1]+r[3]*.08,28,28],createArtTransform(),{alpha:Math.min(1,this.flash.remaining)});}
+    if((this.flash == null ? undefined : this.flash.stationId)===station.id){const r=node.rect;this.sprite('fx_sparkle',[r[0]+r[2]*.55,r[1]+r[3]*.08,28,28],createArtTransform(),{alpha:Math.min(1,this.flash.remaining)});}
     const region=rig.clickRegion || [[0,0],[rig.size[0],0],[rig.size[0],rig.size[1]],[0,rig.size[1]]];
     const points=t.points(region),xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
     const hit=minimumHitRect([Math.min(...xs),Math.min(...ys),Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys)],44,[this.frame.x,this.frame.y,this.frame.w,this.frame.h]);
     this.stationFrames.push({id:station.id,x:hit[0],y:hit[1],w:hit[2],h:hit[3],art:true,artRect:node.rect,textX:hit[0]});
   }
   machineLabel(node,station,view,compact) {
-    const r=node.rect,selected=view.presentation?.selectedStationId===station.id;
-    const compactLabel=compact||(view.transfer?.enabled&&station.id==='cup');
-    let x,y,align='left';
-    if(compactLabel){x=r[0]+r[2]/2;y=station.id==='ship'?r[1]+r[3]+7:r[1]-7;align='center';}
-    else if(station.id==='cup'){x=r[0]-6;y=r[1]+r[3]*.55;align='right';}
-    else{x=r[0]+r[2]+10;y=r[1]+r[3]*(station.id==='ship'?.72:.38);}
-    x=Math.min(this.frame.x+this.frame.w-70,Math.max(this.frame.x+35,x));
-    if(view.transfer?.enabled&&view.mode!=='v15'&&station.id==='cup'){
-      const port=node.transform.point(node.rig.input),bounds=[this.frame.x,this.frame.y,this.frame.w,this.frame.h-80];
-      const input=minimumHitRect([port[0]-50,port[1]-50,56,56],56,bounds);
-      if(x-48<input[0]+input[2]&&x+48>input[0]&&y+9>input[1]&&y-9<input[1]+input[3])
-        x=Math.min(this.frame.x+this.frame.w-52,input[0]+input[2]+52);
-    }
-    const name=(selected?'▸ ':'')+station.name;
-    const state={running:'加工中',waiting:'等供料',blocked:'等空位'}[station.status];
-    if(compactLabel){
-      this.box(x-48,y-9,96,18,5,'rgba(255,250,232,.94)');
-      this.label(name+' · '+state,x,y,11,station.status==='running'?'#176c68':'#80532a',align);
-    }else {this.label(name,x,y,17,'#164f54',align);this.label(state,x,y+22,12,station.status==='running'?'#176c68':'#8a5b2f',align);}
+    const r=node.rect, selected=(view.presentation || {}).selectedStationId===station.id;
+    const status=station.status==='waiting'?'缺料':station.status==='blocked'?'已满':'';
+    const text=station.name+(status?' · '+status:'');
+    const x=r[0]+r[2]/2,y=r[1]+r[3]+8,size=compact?10:12;
+    this.c.font='700 '+size+'px "Microsoft YaHei", "PingFang SC", sans-serif';
+    const width=this.c.measureText(text).width+12;
+    this.box(x-width/2,y-8,width,16,5,'rgba(255,250,232,.86)',selected?'#27847a':undefined);
+    this.label(text,x,y,size,status?'#93612c':'#175f60','center');
   }
   stock(node,buffer) {
     const {rig,transform:t}=node,amount=Math.max(0,buffer.amount),ratio=clamp(amount/Math.max(1,buffer.capacity));
@@ -238,16 +199,17 @@ class FirstGenerationScene extends ProductionScene {
     this.diagnostics.buffers.push({id:buffer.id,amount,capacity:buffer.capacity,rect:r,full:amount>=buffer.capacity});
   }
   stockLabel(node,buffer,compact) {
-    const r=node.rect,text=(node.id==='bulk'?'待装 ':'待发 ')+buffer.amount+'/'+buffer.capacity;
-    const x=Math.max(this.frame.x+42,Math.min(this.frame.x+this.frame.w-42,r[0]+r[2]*.5));
-    const y=compact?r[1]+r[3]+8:r[1]+r[3]+12;
-    this.box(x-42,y-9,84,18,5,'rgba(255,250,232,.94)');
-    this.label(text,x,y,compact?11:13,buffer.amount>=buffer.capacity?'#925f29':'#235f63','center');
+    const r=node.rect, number=buffer.amount>=1000?(buffer.amount/1000).toFixed(1)+'k':String(buffer.amount);
+    const text=(node.id==='bulk'?'待装 ':'待发 ')+number;
+    const frame=this.transferFrames.find(item=>item.kind==='tray'&&item.source===buffer.id);
+    const x=frame?frame.x+32:r[0]+r[2]/2,y=frame?frame.y+55:r[1]+r[3]+8;
+    this.label(text,x,y,10,buffer.amount>=buffer.capacity?'#925f29':'#235f63','center');
   }
   belt(node,view) {
     const {rig,transform:t}=node;
     const connection=node.id==='belt_bulk_cup'?'pop':node.id==='belt_stock_ship'?'cup':null;
-    const disconnected=view.mode==='v15'?connection&&!view.transfers.find(item=>item.source===connection)?.automated:view.transfer?.enabled&&node.id==='belt_bulk_cup';
+    const transfer=view.mode==='v15'&&connection?view.transfers.find(item=>item.source===connection):null;
+    const disconnected=view.mode==='v15'?connection&&!(transfer == null ? undefined : transfer.automated):(view.transfer == null ? undefined : view.transfer.enabled)&&node.id==='belt_bulk_cup';
     if(disconnected){
       const a=t.point(rig.input),b=t.point(rig.output),c=this.c;
       c.save();if(c.setLineDash)c.setLineDash([4,5]);this.line(a[0],a[1],b[0],b[1],'#b79963',3);c.restore();
@@ -273,7 +235,8 @@ class FirstGenerationScene extends ProductionScene {
       if(this.delivery){progress=1-this.delivery.remaining/this.delivery.duration;cargo='cup';}
     }else{
       const stationId=node.id==='belt_pop_bulk'?'pop':node.id==='belt_bulk_cup'?'cup':node.id==='belt_cup_stock'?'cup':'ship';
-      job=view.stations.find(s=>s.id===stationId).jobs?.[0];
+      const jobs=view.stations.find(s=>s.id===stationId).jobs;
+      job=jobs == null ? undefined : jobs[0];
       if(job&&!job.complete){progress=clamp(job.progress);cargo=node.id.includes('bulk')?'kernel':'cup';}
     }
     if(cargo){

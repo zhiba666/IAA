@@ -50,7 +50,7 @@ test('either missing automatic connection gives zero unattended output and previ
     assert.equal(view.insights.bottleneck.status, 'transport');
     assert.equal(view.insights.bottleneck.kind, 'manual');
     assert.deepEqual(view.insights.bottleneck.transportIds, ['pop', 'cup'].filter(source => !automatic.includes(source)).map(source => source === 'pop' ? 'A' : 'B'));
-    assert.equal(view.insights.sampling.includesManualInput, true);
+    assert.equal(view.insights.sampling.includesManualInput, false, 'a manual route is not evidence that a gesture occurred');
     assert.equal(view.state.totalSold, 0);
     for (const station of view.stations) {
       assert.equal(station.upgrade.lineAfter, 0);
@@ -81,6 +81,10 @@ test('manually supplied sales remain measured output, and guidance changes immed
   assert.ok(view.throughput > 0);
   assert.equal(view.insights.stableRate, 0);
   assert.match(view.insights.sampling.label, /含手动搬运/);
+  game.tick(CONFIG.rateWindowSeconds + 1);
+  const idle = insights.enrich(game.getView());
+  assert.equal(idle.insights.sampling.includesManualInput, false, 'manual mode alone must not outlive actual sampling evidence');
+  assert.match(idle.insights.sampling.label, /本段无手动投送/);
 });
 
 test('automatic predictions preserve the fresh small cup upgrades and match actual batch production through later stages', () => {

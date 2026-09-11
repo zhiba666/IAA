@@ -5,6 +5,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const require = createRequire(import.meta.url);
 const { Game, CONFIG } = require('../src/core');
@@ -14,6 +15,11 @@ const NOW = 1800000000000;
 const copy = value => JSON.parse(JSON.stringify(value));
 const STATIONS = ['pop', 'cup', 'ship'];
 const SCOPE = 'six-generation-runtime-acceptance';
+const ACCEPTANCE_VERSION = 'v1.1';
+export const ACCEPTANCE_VIEWPORTS = Object.freeze([
+  { width: 320, height: 524 }, { width: 360, height: 640 },
+  { width: 390, height: 844 }, { width: 430, height: 932 }
+].map(Object.freeze));
 
 function checkedFixture(id, game, description, extra = {}) {
   conserved(game);
@@ -125,7 +131,7 @@ export function createSixGenerationFixtures() {
   return { version: 1, scope: SCOPE, contractVersion: 'six-gen-art-1.0', generatedFrom: 'src/core.js',
     storagePolicy: 'Dedicated loopback acceptance origin only. Existing production browser/native storage is never read or replaced.',
     entryPolicy: 'Unchanged formal web/index.html + game.bundle.js; all hooks and fixtures are served from tools only.',
-    deviceStatus: 'NOT_RUN', viewports: [{ width: 320, height: 524 }, { width: 390, height: 844 }],
+    acceptanceVersion: ACCEPTANCE_VERSION, deviceStatus: 'NOT_RUN', viewports: ACCEPTANCE_VIEWPORTS,
     safeInsets: [0, 8, 24], cases, transitions, batchTransitions, stateMatrix, warehouseMatrix };
 }
 
@@ -181,12 +187,12 @@ const runtime = String.raw`(function(){
   globalThis.requestAnimationFrame=callback=>native(now=>{if(previous!==null&&!paused){const elapsed=Math.max(0,now-previous);clock+=elapsed;frames.push(elapsed);if(frames.length>1800)frames.shift();}previous=now;callback(clock);});
   window.addEventListener('error',event=>errors.push({type:'error',message:event.message||'Resource failed',file:event.filename||event.target?.src||''}),true);
   window.addEventListener('unhandledrejection',event=>errors.push({type:'unhandledrejection',message:String(event.reason)}));
-  function diagnostics(){return{scope:input.scope,commit:input.commit,contractVersion:input.contractVersion,checkerVersion:1,capturedAt:new Date().toISOString(),fixture:input.fixture.id,fixtureKind:input.fixture.kind,configuration:input.fixture.configuration,generation:input.fixture.save.machine+1,viewSize:{width:innerWidth,height:innerHeight},safeArea:{top:input.safe,bottom:input.safe},paused,qaClockMs:clock,assetShas:input.assetShas,snapshot:globalThis.__POPCORN__?.snapshot(),presentation:globalThis.__POPCORN__?.presentation?.(),errors:errors.slice(),frameTiming:{samples:frames.length,averageMs:frames.length?frames.reduce((a,b)=>a+b,0)/frames.length:null,p95Ms:frames.length?frames.slice().sort((a,b)=>a-b)[Math.floor(frames.length*.95)]:null},resources:performance.getEntriesByType('resource').map(e=>({name:e.name,transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,duration:e.duration})),deviceStatus:'NOT_RUN'};}
+  function diagnostics(){return{scope:input.scope,acceptanceVersion:input.acceptanceVersion,runtimeVersion:globalThis.__POPCORN__?.version??null,bundleSha256:input.bundleSha256,bundleBytes:input.bundleBytes,bundleReadAt:input.bundleReadAt,commit:input.commit,contractVersion:input.contractVersion,checkerVersion:2,capturedAt:new Date().toISOString(),fixture:input.fixture.id,fixtureKind:input.fixture.kind,configuration:input.fixture.configuration,generation:input.fixture.save.machine+1,viewSize:{width:innerWidth,height:innerHeight},safeArea:{top:input.safe,bottom:input.safe},paused,qaClockMs:clock,assetShas:input.assetShas,snapshot:globalThis.__POPCORN__?.snapshot(),presentation:globalThis.__POPCORN__?.presentation?.(),errors:errors.slice(),frameTiming:{samples:frames.length,averageMs:frames.length?frames.reduce((a,b)=>a+b,0)/frames.length:null,p95Ms:frames.length?frames.slice().sort((a,b)=>a-b)[Math.floor(frames.length*.95)]:null},resources:performance.getEntriesByType('resource').map(e=>({name:e.name,transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,duration:e.duration})),deviceStatus:'NOT_RUN'};}
   function notify(message){parent.postMessage({type:'six-gen-status',message,diagnostics:diagnostics()},location.origin);}
   async function save(name,blob){const response=await fetch('/__six/capture/'+name,{method:'POST',headers:{'X-IAA-Acceptance':'runtime'},body:blob});if(!response.ok)throw Error('Capture failed '+response.status);return response.json();}
   async function capture(){await new Promise(resolve=>native(()=>native(resolve)));const canvas=document.querySelector('canvas');if(!canvas||!globalThis.__POPCORN__)throw Error('Formal bundle has not started');const name=[input.fixture.id,innerWidth+'x'+innerHeight,'safe'+input.safe,Date.now()].join('-');const data=diagnostics();await save(name+'.png',await new Promise(resolve=>canvas.toBlob(resolve,'image/png')));await save(name+'.json',new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));notify('PNG + 诊断已保存：'+name);}
   async function record(){if(recorder){recorder.stop();return;}const canvas=document.querySelector('canvas');const mime=['video/webm;codecs=vp9','video/webm'].find(type=>MediaRecorder.isTypeSupported(type));const stream=canvas.captureStream(30),chunks=[],name=[input.fixture.id,innerWidth+'x'+innerHeight,'motion',Date.now()].join('-');const start=diagnostics();recorder=new MediaRecorder(stream,{mimeType:mime});recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};recorder.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());recorder=null;await save(name+'.webm',new Blob(chunks,{type:mime}));await save(name+'.json',new Blob([JSON.stringify({start,end:diagnostics()},null,2)],{type:'application/json'}));notify('8秒录屏已保存：'+name);};recorder.start(250);setTimeout(()=>{if(recorder?.state==='recording')recorder.stop();},8000);notify('录屏中');}
-  function command(action){if(action==='pause'){paused=!paused;notify(paused?'已暂停':'正在运行');}else if(action==='step'){if(paused)clock+=1000/120;notify('单步');}else if(action==='capture')capture().catch(e=>notify(e.message));else if(action==='record')record().catch(e=>notify(e.message));}
+  function command(action){if(action==='pause'){paused=!paused;notify(paused?'已暂停':'正在运行');}else if(action==='step'){if(paused)clock+=1000/120;notify('单步');}else if(action==='advance'){if(paused){clock+=500;notify('已推进 0.5 秒；仍暂停');}else notify('请先暂停再推进');}else if(action==='capture')capture().catch(e=>notify(e.message));else if(action==='record')record().catch(e=>notify(e.message));}
   window.addEventListener('message',event=>{if(event.origin===location.origin&&event.source===parent&&event.data?.type==='six-gen-command')command(event.data.action);});
   window.addEventListener('keydown',event=>{const action={KeyP:'capture',KeyR:'record',KeyT:'step',Space:'pause'}[event.code];if(action&&!event.repeat){event.preventDefault();event.stopImmediatePropagation();command(action);}},true);
   window.addEventListener('load',()=>notify('正式运行入口已加载；P截图 / R录屏 / 空格暂停'));
@@ -194,11 +200,11 @@ const runtime = String.raw`(function(){
 
 function controls(fixtures, url) {
   const fixture = url.searchParams.get('fixture') || 'g6-upgraded';
-  const width = url.searchParams.get('width') === '320' ? 320 : 390, height = width === 320 ? 524 : 844;
+  const { width, height } = ACCEPTANCE_VIEWPORTS.find(item => item.width === Number(url.searchParams.get('width'))) || ACCEPTANCE_VIEWPORTS[2];
   const safe = [8, 24].includes(Number(url.searchParams.get('safe'))) ? Number(url.searchParams.get('safe')) : 0;
   const params = new URLSearchParams({ fixture, safe, pause: url.searchParams.get('pause') === '0' ? '0' : '1' });
   if (url.searchParams.get('fail') === '1') params.set('fail', '1');
-  return `<!doctype html><meta charset="utf-8"><title>六代正式运行验收</title><style>body{margin:16px;background:#e5eadf;color:#253c30;font:14px system-ui}main{display:flex;align-items:flex-start;gap:20px}aside{width:340px}button,select{font:inherit;padding:8px;margin:3px 0}iframe{border:1px solid #66816c;background:white;flex:none}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}label{display:block;margin:8px 0}</style><h2>六代正式运行验收 · 独立本地存档</h2><main><iframe title="正式游戏" width="${width}" height="${height}" src="/game?${params}"></iframe><aside><form><label>状态 <select name="fixture">${fixtures.cases.map(item => `<option value="${item.id}"${item.id === fixture ? ' selected' : ''}>${item.id}</option>`).join('')}</select></label><label>视口 <select name="width"><option value="390"${width === 390 ? ' selected' : ''}>390 × 844</option><option value="320"${width === 320 ? ' selected' : ''}>320 × 524</option></select></label><label>上下安全区 <select name="safe">${[0, 8, 24].map(value => `<option${safe === value ? ' selected' : ''}>${value}</option>`).join('')}</select> px</label><label><input name="fail" value="1" type="checkbox"${url.searchParams.get('fail') === '1' ? ' checked' : ''}> 首次加载缺失一个六代机器资源（重试恢复）</label><button>加载选择状态</button></form><p>实际正式 bundle / 正式 Canvas。边界 fixture 单独标注；真机 NOT_RUN。</p><button data-action="pause">暂停 / 继续</button> <button data-action="step">单步 1 tick</button><br><button data-action="capture">保存 PNG + 诊断</button> <button data-action="record">录屏 8 秒</button><pre id="status">等待正式入口…</pre><details><summary>实时只读诊断</summary><pre id="diagnostics"></pre></details></aside></main><script>document.querySelectorAll('[data-action]').forEach(button=>button.onclick=()=>document.querySelector('iframe').contentWindow.postMessage({type:'six-gen-command',action:button.dataset.action},location.origin));window.addEventListener('message',event=>{if(event.origin===location.origin&&event.data?.type==='six-gen-status'){document.getElementById('status').textContent=event.data.message;document.getElementById('diagnostics').textContent=JSON.stringify(event.data.diagnostics,null,2);}});</script>`;
+  return `<!doctype html><meta charset="utf-8"><title>v1.1 六代正式运行验收</title><style>body{margin:16px;background:#e5eadf;color:#253c30;font:14px system-ui}main{display:flex;align-items:flex-start;gap:20px}aside{width:340px}button,select{font:inherit;padding:8px;margin:3px 0}iframe{border:1px solid #66816c;background:white;flex:none}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}label{display:block;margin:8px 0}</style><h2>v1.1 六代正式运行验收 · 独立本地存档</h2><main><iframe title="正式游戏" width="${width}" height="${height}" src="/game?${params}"></iframe><aside><form><label>状态 <select name="fixture">${fixtures.cases.map(item => `<option value="${item.id}"${item.id === fixture ? ' selected' : ''}>${item.id}</option>`).join('')}</select></label><label>视口 <select name="width">${ACCEPTANCE_VIEWPORTS.map(item => `<option value="${item.width}"${width === item.width ? ' selected' : ''}>${item.width} × ${item.height}</option>`).join('')}</select></label><label>上下安全区 <select name="safe">${[0, 8, 24].map(value => `<option${safe === value ? ' selected' : ''}>${value}</option>`).join('')}</select> px</label><label><input name="fail" value="1" type="checkbox"${url.searchParams.get('fail') === '1' ? ' checked' : ''}> 首次加载缺失一个六代机器资源（重试恢复）</label><button>加载选择状态</button></form><p>v1.1 验收目标；实际运行版本与本次 bundle SHA-256 记录在诊断中。正式 Canvas；边界 fixture 单独标注；真机 NOT_RUN。</p><button data-action="pause">暂停 / 继续</button> <button data-action="step">单步 1 tick</button> <button data-action="advance">推进 0.5 秒</button><br><button data-action="capture">保存 PNG + 诊断</button> <button data-action="record">录屏 8 秒</button><pre id="status">等待正式入口…</pre><details><summary>实时只读诊断</summary><pre id="diagnostics"></pre></details></aside></main><script>document.querySelectorAll('[data-action]').forEach(button=>button.onclick=()=>document.querySelector('iframe').contentWindow.postMessage({type:'six-gen-command',action:button.dataset.action},location.origin));window.addEventListener('message',event=>{if(event.origin===location.origin&&event.data?.type==='six-gen-status'){document.getElementById('status').textContent=event.data.message;document.getElementById('diagnostics').textContent=JSON.stringify(event.data.diagnostics,null,2);}});</script>`;
 }
 
 export async function createSixGenerationAcceptanceServer(options = {}) {
@@ -206,7 +212,11 @@ export async function createSixGenerationAcceptanceServer(options = {}) {
   const { ART_ASSETS } = require('../src/art-manifest');
   const assetShas = Object.fromEntries(Object.entries(ART_ASSETS).map(([id, value]) => [id, value.sha256]));
   const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim();
-  const output = options.output || path.join(ROOT, 'output/six-gen-runtime/runtime-captures');
+  const output = path.resolve(options.output || path.join(ROOT, 'output/six-gen-runtime/runtime-captures'));
+  const webRoot = path.resolve(options.webRoot || path.join(ROOT, 'web'));
+  // Keep bytes tied to each page's identity even if a build finishes between the
+  // HTML request and the browser's script request. Every /game rereads disk.
+  const bundles = new Map();
   const requests = []; let failNextAsset = false;
   const server = http.createServer(async (req, res) => {
     const port = server.address()?.port, origin = `http://127.0.0.1:${port}`, url = new URL(req.url, origin);
@@ -219,26 +229,37 @@ export async function createSixGenerationAcceptanceServer(options = {}) {
         const chunks = []; let length = 0;
         for await (const chunk of req) { length += chunk.length; if (length > 80 * 1024 * 1024) return send(413, 'Capture too large'); chunks.push(chunk); }
         await mkdir(output, { recursive: true }); await writeFile(path.join(output, name), Buffer.concat(chunks));
-        await writeFile(path.join(output, 'request-report.json'), JSON.stringify({ scope: SCOPE, requests }, null, 2) + '\n');
+        await writeFile(path.join(output, 'request-report.json'), JSON.stringify({ scope: SCOPE, acceptanceVersion: ACCEPTANCE_VERSION, requests }, null, 2) + '\n');
         return send(201, JSON.stringify({ saved: path.join(output, name), bytes: length }), 'application/json');
       }
       if (req.method !== 'GET') return send(405, 'GET required');
       if (url.pathname === '/') return send(200, controls(fixtures, url), 'text/html; charset=utf-8');
       if (url.pathname === '/__six/runtime.js') return send(200, runtime, 'text/javascript; charset=utf-8');
-      if (url.pathname === '/__six/report') return send(200, JSON.stringify({ scope: SCOPE, requests }), 'application/json');
+      if (url.pathname === '/__six/report') return send(200, JSON.stringify({ scope: SCOPE, acceptanceVersion: ACCEPTANCE_VERSION, requests }), 'application/json');
       if (url.pathname === '/favicon.ico') return send(204, '');
-      const target = path.resolve(ROOT, 'web', '.' + (url.pathname === '/game' ? '/index.html' : decodeURIComponent(url.pathname)));
-      if (!target.startsWith(path.join(ROOT, 'web') + path.sep)) return send(403, 'Outside formal web build');
+      if (url.pathname === '/game.bundle.js' && url.searchParams.has('__acceptance_sha')) {
+        const bundle = bundles.get(url.searchParams.get('__acceptance_sha'));
+        return bundle ? send(200, bundle, 'text/javascript; charset=utf-8') : send(410, 'Bundle snapshot expired; reload the fixture');
+      }
+      const target = path.resolve(webRoot, '.' + (url.pathname === '/game' ? '/index.html' : decodeURIComponent(url.pathname)));
+      if (!target.startsWith(webRoot + path.sep)) return send(403, 'Outside formal web build');
       if (failNextAsset && /machine_cup_hex_body\.png$/.test(url.pathname)) { failNextAsset = false; return send(503, 'Acceptance-only first-load failure'); }
       let bytes = await readFile(target);
       if (url.pathname === '/game') {
         const item = byId[url.searchParams.get('fixture') || 'g6-upgraded']; if (!item) return send(400, 'Unknown fixture');
         failNextAsset = url.searchParams.get('fail') === '1';
         const safe = [8, 24].includes(Number(url.searchParams.get('safe'))) ? Number(url.searchParams.get('safe')) : 0;
-        const input = JSON.stringify({ fixture: item, scope: SCOPE, commit, contractVersion: fixtures.contractVersion, assetShas, paused: url.searchParams.get('pause') !== '0', safe }).replace(/</g, '\\u003c');
+        const bundle = await readFile(path.join(webRoot, 'game.bundle.js'));
+        const bundleSha256 = createHash('sha256').update(bundle).digest('hex');
+        bundles.set(bundleSha256, bundle);
+        // Four builds cover active QA pages without unbounded retained bundles.
+        if (bundles.size > 4) bundles.delete(bundles.keys().next().value);
+        const input = JSON.stringify({ fixture: item, scope: SCOPE, acceptanceVersion: ACCEPTANCE_VERSION,
+          bundleSha256, bundleBytes: bundle.length, bundleReadAt: new Date().toISOString(),
+          commit, contractVersion: fixtures.contractVersion, assetShas, paused: url.searchParams.get('pause') !== '0', safe }).replace(/</g, '\\u003c');
         const html = bytes.toString('utf8');
         assert.ok(html.includes('<script src="game.bundle.js"></script>'));
-        bytes = Buffer.from(html.replace('<script src="game.bundle.js"></script>', `<script>globalThis.__IAA_SIX_ACCEPTANCE_INPUT__=${input};</script><script src="/__six/runtime.js"></script><script src="game.bundle.js"></script>`));
+        bytes = Buffer.from(html.replace('<script src="game.bundle.js"></script>', `<script>globalThis.__IAA_SIX_ACCEPTANCE_INPUT__=${input};</script><script src="/__six/runtime.js"></script><script src="game.bundle.js?__acceptance_sha=${bundleSha256}"></script>`));
       }
       const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.wav': 'audio/wav' };
       send(200, bytes, types[path.extname(target)] || 'application/octet-stream');
@@ -248,9 +269,12 @@ export async function createSixGenerationAcceptanceServer(options = {}) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  const outputFlag = process.argv.indexOf('--output');
+  if (outputFlag >= 0 && (!process.argv[outputFlag + 1] || process.argv[outputFlag + 1].startsWith('--'))) throw Error('--output requires a directory');
+  const output = outputFlag >= 0 ? path.resolve(process.argv[outputFlag + 1]) : undefined;
   if (process.argv.includes('--serve')) {
     const flag = process.argv.indexOf('--port'), port = flag >= 0 ? Number(process.argv[flag + 1]) : 4196;
-    const server = await createSixGenerationAcceptanceServer();
-    server.listen(port, '127.0.0.1', () => console.log('Six-generation formal runtime acceptance: http://127.0.0.1:' + port + '/'));
-  } else console.log(JSON.stringify(await writeSixGenerationFixtures(), null, 2));
+    const server = await createSixGenerationAcceptanceServer({ output });
+    server.listen(port, '127.0.0.1', () => console.log('v1.1 six-generation formal runtime acceptance: http://127.0.0.1:' + port + '/'));
+  } else console.log(JSON.stringify(await writeSixGenerationFixtures(output), null, 2));
 }

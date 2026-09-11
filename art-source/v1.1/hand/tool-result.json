@@ -1,0 +1,7 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "output_hint": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a08b4a-33d9-7fc3-81b6-a80d84f2784d as C:\\Users\\chenweilun\\.codex\\generated_images\\01a08b4a-33d9-7fc3-81b6-a80d84f2784d\\exec-4fc8c5f1-ff90-493e-b7ce-540551f2cbb4.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "seed": "unavailable",
+  "model": "unavailable (not provided as a tool result field)"
+}

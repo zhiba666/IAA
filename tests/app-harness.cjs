@@ -9,7 +9,7 @@ const copy = value => value === undefined ? undefined : JSON.parse(JSON.stringif
 // Execute the real entry and real simulation; replace only host APIs and paint.
 function harness(options = {}) {
   let now = START, frameTime = 0, nextFrame = null, drawnUI = null, drawnView = null;
-  let pointerHandler, hideHandler, showHandler, resizeHandler, cancelHandler, hitAction = null;
+  let pointerHandler, hideHandler, showHandler, resizeHandler, cancelHandler, scrollHandler, hitAction = null;
   let saveFailure = !!options.saveFailure;
   const events = {}, saves = [], analytics = [], sounds = [], rendererEvents = [];
   let legacyCalls = 0;
@@ -26,13 +26,18 @@ function harness(options = {}) {
     onInputCancel(fn) { cancelHandler = fn; },
     onShow(fn) { showHandler = fn; }, onResize(fn) { resizeHandler = fn; },
     getSystemInfo: () => info, track(event, data) { analytics.push({ event, data: copy(data || {}) }); },
-    getAnalytics: () => copy(analytics), vibrate() {},
+    getAnalytics: () => copy(analytics), vibrate() { sounds.push('haptic'); }, onScroll(fn) { scrollHandler = fn; },
     reward() { legacyCalls++; return Promise.resolve({ completed: false, reason: 'disabled' }); },
     interstitial() { legacyCalls++; return Promise.resolve(false); }
   };
   class MockRenderer {
-    constructor() { this.zones = []; }
+    constructor() { this.zones = []; this.scene = {transferFrames: []}; this.interface = {layout: options.layout || {}}; }
     actionAt() { return hitAction; }
+    transferTargetAt(x, y, source) {
+      const target = source === 'pop' ? 'cup' : 'ship';
+      return hitAction === 'transfer-target-'+target || hitAction === 'transfer:target' && source === 'pop'
+        ? {source,target,kind:'input',x:x-32,y:y-32,w:64,h:64} : null;
+    }
     emit(event) { rendererEvents.push(copy(event)); }
     draw(view, ui, dt) { drawnUI = copy(ui); drawnView = copy(view); this.lastView = view; }
   }
@@ -69,8 +74,10 @@ function harness(options = {}) {
     advance(ms) { now += ms; frameTime += ms; },
     hide() { hideHandler(); }, show() { showHandler({}); }, resize() { resizeHandler(info); },
     blur() { if (cancelHandler) cancelHandler(); },
+    scroll(x,y,deltaY) { if(scrollHandler) scrollHandler({x,y,deltaY}); },
     pointer(type, action = null, id = 1, x = 100, y = 100) { hitAction = action; pointerHandler({ type, id, x, y }); },
     click(action) { hitAction = action; pointerHandler({ type: 'down', id: 1, x: 100, y: 100 }); pointerHandler({ type: 'up', id: 1, x: 100, y: 100 }); hitAction = null; },
+    drag(source, target, id = 1) { h.pointer('down',source,id,100,100); h.pointer('move',target,id,210,180); h.pointer('up',target,id,210,180); hitAction = null; },
     key(code, repeat = false) { if (events.keydown) events.keydown({ code, repeat, preventDefault() {} }); },
     setSaveFailure(value) { saveFailure = value; }
   };

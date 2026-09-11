@@ -1,11 +1,13 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Game, CONFIG } = require('../src/core');
+const { Game, CONFIG, formatNumber } = require('../src/core');
 const { Renderer } = require('../src/renderer');
 const { ProductionScene } = require('../src/production-scene');
 const { ProductionInsights } = require('../src/production-insights');
 const { canvasHarness, deepFreeze } = require('./canvas-harness.cjs');
+
+const { describeOffer } = require('../src/purchase-quotes');
 
 function realStages() {
   const game = new Game({ now: 1800000000000 }), result = [], insights = new ProductionInsights();
@@ -21,204 +23,138 @@ function realStages() {
   assert.fail('all six configured expansion stages must be reachable');
 }
 const stages = realStages();
-// Native height has already had the physical bottom safe area removed by platform.js.
-const VIEWPORTS = [[320,524,false],[390,844,false],[320,484,true],[390,804,true],[480,920,false]];
-function ui(view, width = 320, height = 524, modal = null, native = false, options = {}) {
-  const station = modal?.type === 'station' && view.stations.find(s => s.id === modal.stationId);
-  const upgrade = station && station.upgrade;
-  return { viewport: { width, height, safeTop: native ? 28 : 0, menuBottom: native ? 70 : 0 },
-    modal, toast: '', toastSeconds: 0, isDouyin: native, newFactory: false,
-    stationCollapsed: false, stationDetails: false, purchaseFeedback: null, rateUpdatingUntil: 0,
-    quote: upgrade ? { stationId: station.id, level: station.level + 1, cost: upgrade.cost, name: upgrade.name } : null,
-    ...options };
+// Every viewport is the full host canvas; safe areas are insets, not a shorter canvas.
+const VIEWPORTS=[[320,524,false],[360,640,false],[390,844,false],[430,932,false],[320,524,true],[390,844,true]];
+function ui(view,width=320,height=524,modal=null,native=false,options={}){
+ const station=modal&&modal.type==='station'&&view.stations.find(s=>s.id===modal.stationId);
+ const offer=station&&describeOffer(view,'upgrade-'+station.id);
+ const quote=offer?{...offer,id:'1',action:'purchase:1',fingerprint:JSON.stringify(offer)}:null;
+ return {viewport:{width,height,safeTop:native?28:0,safeBottom:native?40:0,menuBottom:native?70:0},
+  modal,toast:'',toastSeconds:0,isDouyin:native,newFactory:false,quote,quotes:quote?{upgrade:quote}:{},rateUpdatingUntil:0,...options};
 }
-function verifyZones(renderer, viewport) {
-  for (const zone of renderer.zones.filter(z => z.action && z.action !== 'noop')) {
-    assert.ok(zone.x >= 0 && zone.y >= 0 && zone.x + zone.w <= viewport.width + 1e-8 && zone.y + zone.h <= viewport.height + 1e-8,
-      'hit target stays on screen: ' + zone.action);
-    assert.ok(zone.w >= 44 && zone.h >= 44, 'primary touch target is at least 44px: ' + zone.action);
-    assert.equal(renderer.actionAt(zone.x + zone.w / 2, zone.y + zone.h / 2), zone.action,
-      'visible action wins at its own center: ' + zone.action);
-  }
+function backdrop(zone,viewport){return zone.action==='modal-body'||zone.action==='close'&&zone.x===0&&zone.y===0&&zone.w===viewport.width&&zone.h===viewport.height;}
+function verifyZones(renderer,viewport){
+ for(const zone of renderer.zones.filter(z=>z.action&&z.action!=='noop')){
+  assert.ok(zone.x>=0&&zone.y>=0&&zone.x+zone.w<=viewport.width+1e-8&&zone.y+zone.h<=viewport.height+1e-8,'target stays on screen: '+zone.action);
+  if(backdrop(zone,viewport))continue;
+  assert.ok(zone.w>=44&&zone.h>=(zone.action==='openStats'?24:44),'visible control target: '+zone.action);
+  assert.equal(renderer.actionAt(zone.x+zone.w/2,zone.y+zone.h/2),zone.action,'visible control owns center: '+zone.action);
+ }
 }
-function verifyTextBounds(canvas, viewport) {
-  for (const entry of canvas.texts) {
-    const inset = entry.align === 'center' ? entry.width / 2 : entry.align === 'right' ? entry.width : 0;
-    assert.ok(entry.x - inset >= -1 && entry.x - inset + entry.width <= viewport.width + 1,
-      'text fits screen width: ' + entry.text);
-    const size = Number((entry.font.match(/([\d.]+)px/) || [0,14])[1]);
-    assert.ok(entry.y - size / 2 >= -1 && entry.y + size / 2 <= viewport.height + 1,
-      'text fits screen height: ' + entry.text);
+function verifyTextBounds(canvas,viewport){
+ for(const entry of canvas.texts){
+  const size=Number((entry.font.match(/([\d.]+)px/)||[0,14])[1]),inset=entry.align==='center'?entry.width/2:entry.align==='right'?entry.width:0;
+  let left=entry.x-inset,right=left+entry.width,top=entry.y-size/2,bottom=entry.y+size/2;
+  if(entry.clip){
+   assert.ok(entry.width<=entry.clip.w+1,'scroll text wraps within its own content width: '+entry.text);
+   left=Math.max(left,entry.clip.x);right=Math.min(right,entry.clip.x+entry.clip.w);
+   top=Math.max(top,entry.clip.y);bottom=Math.min(bottom,entry.clip.y+entry.clip.h);if(bottom<top||right<left)continue;
   }
+  assert.ok(left>=-1&&right<=viewport.width+1,'visible text fits width: '+entry.text);
+  assert.ok(top>=-1&&bottom<=viewport.height+1,'visible text fits height: '+entry.text);
+ }
 }
-function verifyVisibleProduction(renderer, selectedId) {
-  const { scene, dock } = renderer.interface.layout;
-  assert.equal(renderer.scene.stationFrames.length, 3);
-  assert.equal(renderer.scene.bufferFrames.length, 2);
-  for (const frame of [...renderer.scene.stationFrames, ...renderer.scene.bufferFrames]) {
-    assert.ok(frame.y >= scene.y && frame.y + frame.h <= dock.y,
-      'station and stock remain visible above the operation area: ' + frame.id);
-  }
-  for (const id of CONFIG.stationIds) {
-    const frame = renderer.scene.stationFrames.find(f => f.id === id);
-    assert.equal(renderer.actionAt(frame.x + frame.w / 2, frame.y + frame.h / 2), 'station:' + id,
-      'the real machine stays directly selectable');
-  }
-  if (selectedId) assert.ok(renderer.scene.stationFrames.some(frame => frame.id === selectedId), 'selected machine remains in view');
+function verifyVisibleProduction(renderer,modal){
+ const scene=renderer.scene,viewport=renderer.interface.layout.scene,bounds=scene.contentFrame;
+ assert.equal(scene.stationFrames.length,3);assert.equal(scene.bufferFrames.length,2);
+ assert.equal(renderer.interface.layout.dock,undefined);assert.equal(viewport.x,0);assert.equal(viewport.y,0);
+ for(const f of scene.stationFrames.concat(scene.bufferFrames))assert.ok(f.x>=bounds.x-1e-6&&f.y>=bounds.y-1e-6&&f.x+f.w<=bounds.x+bounds.w+1e-6&&f.y+f.h<=bounds.y+bounds.h+1e-6,'world entity inside HUD reservation: '+f.id);
+ for(const f of scene.stationFrames){
+  if(!modal)assert.equal(renderer.actionAt(f.x+f.w/2,f.y+f.h/2),'station:'+f.id);
+  else assert.ok(!renderer.zones.some(z=>z.action==='station:'+f.id),'modal blocks background machine');
+ }
 }
-function renderFrozen(view, state) {
-  const canvas = canvasHarness(), renderer = new Renderer(canvas.ctx);
-  const expectedView = JSON.stringify(view), expectedUi = JSON.stringify(state);
-  deepFreeze(view); deepFreeze(state);
-  for (let i = 0; i < 3; i++) renderer.draw(view, state, .1);
-  assert.equal(JSON.stringify(view), expectedView, 'rendering leaves production and display snapshots untouched');
-  assert.equal(JSON.stringify(state), expectedUi, 'rendering leaves UI state untouched');
-  assert.equal(canvas.depth(), 0);
-  verifyZones(renderer, state.viewport); verifyTextBounds(canvas, state.viewport);
-  return { canvas, renderer };
+function renderFrozen(view,state){
+ const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx),paint=canvas.ctx.fillText.bind(canvas.ctx);
+ canvas.ctx.fillText=(...args)=>{paint(...args);const clip=renderer.interface.contentClip;if(clip)canvas.texts[canvas.texts.length-1].clip={...clip};};
+ const expectedView=JSON.stringify(view),expectedUi=JSON.stringify(state);deepFreeze(view);deepFreeze(state);
+ for(let i=0;i<3;i++)renderer.draw(view,state,.1);
+ assert.equal(JSON.stringify(view),expectedView);assert.equal(JSON.stringify(state),expectedUi);assert.equal(canvas.depth(),0);
+ verifyZones(renderer,state.viewport);verifyTextBounds(canvas,state.viewport);return{canvas,renderer};
 }
+const allText=canvas=>canvas.texts.map(row=>row.text).join('\n');
 
-test('all six real stages keep machines, physical stock and operating priorities visible on small browser and native screens', () => {
-  for (const view of stages) for (const [width,height,native] of VIEWPORTS) {
-    const state = ui(view,width,height,null,native);
-    const { canvas, renderer } = renderFrozen(view,state);
-    verifyVisibleProduction(renderer);
-    for (const action of ['start','tap','order','modules','quests','brand','ad:turbo','offline']) assert.ok(!renderer.zones.some(z => z.action === action));
-    for (const text of ['爆锅','装杯','出货','待装','待发','实际出货','10秒']) assert.ok(canvas.texts.some(item => item.text.includes(text)), 'home labels ' + text);
-    const homeTexts = canvas.texts.filter(item => item.y < renderer.interface.layout.dock.y).map(item => item.text);
-    assert.ok(!homeTexts.some(text => /能力|份\/批|头并行/.test(text)), 'home does not repeat detailed station parameters');
-    assert.ok(canvas.texts.some(item => item.text === view.insights.bottleneck.label), 'one stable bottleneck explanation is visible');
-    assert.ok(!canvas.texts.some(item => /重构|旧存档|旧工厂/.test(item.text)), 'version migration copy stays out of the operating scene');
-    if (view.expansion) {
-      assert.ok(canvas.texts.some(item => item.text.includes('扩建开放改造，设备提速需另行购买')));
-      assert.ok(canvas.texts.some(item => /待装.*→.*待发.*→/.test(item.text)), 'expansion explains both stock capacity changes');
-      assert.ok(canvas.texts.some(item => item.text.startsWith('开放：')));
-    }
+test('all six real stages keep machines, actual stock and compact operating priorities in a full browser or native canvas',()=>{
+ for(const view of stages)for(const [width,height,native]of VIEWPORTS){
+  const state=ui(view,width,height,null,native),{canvas,renderer}=renderFrozen(view,state);verifyVisibleProduction(renderer,null);
+  assert.deepEqual(renderer.interface.layout.scene,{x:0,y:0,w:width,h:height});
+  for(const action of ['start','tap','order','modules','quests','brand','ad:turbo','offline'])assert.ok(!renderer.zones.some(z=>z.action===action));
+  for(const text of ['爆锅','装杯','出货','待装','待发'])assert.ok(allText(canvas).includes(text));
+  assert.ok(canvas.texts.some(row=>/^出货 .+ 份\/秒$/.test(row.text)),'HUD uses actual shipment units');
+  assert.ok(!/能力|份\/批|头并行|10秒|开放：|旧存档|玩法已重构/.test(allText(canvas)),'details stay in their on-demand windows');
+  assert.ok(canvas.texts.some(row=>row.text===renderer.interface.currentStatus(view,state).text));
+  const details=renderFrozen(view,ui(view,width,height,{type:'stats'},native));
+  assert.ok(allText(details.canvas).includes('实测')&&allText(details.canvas).includes('份/秒'));
+  if(view.expansion){const exp=renderFrozen(view,ui(view,width,height,{type:'expansion'},native));const model=exp.renderer.interface.modalModel(view,ui(view,width,height,{type:'expansion'},native));
+   assert.ok(model.rows.some(row=>row.value==='设备另购，扩建不会立即提速'));
+   assert.ok(model.rows.some(row=>row.value.startsWith('开放：')));}
+ }
+});
+test('centered station modals preserve every machine and inventory while exposing only deliberate quote confirmation',()=>{
+ const game=new Game();game.tick(100);const views=[new ProductionInsights().enrich(game.getView()),...stages];
+ for(const view of views)for(const [width,height,native]of VIEWPORTS){
+  const home=renderFrozen(view,ui(view,width,height,null,native)),geometry=JSON.stringify(home.renderer.scene.stationFrames);
+  for(const stationId of CONFIG.stationIds){
+   const state=ui(view,width,height,{type:'station',stationId},native),{canvas,renderer}=renderFrozen(view,state),station=view.stations.find(s=>s.id===stationId);
+   verifyVisibleProduction(renderer,state.modal);assert.equal(JSON.stringify(renderer.scene.stationFrames),geometry);
+   assert.ok(allText(canvas).includes(station.name+' · 升级'));
+   const actions=renderer.zones.map(z=>z.action);assert.ok(actions.includes('close'));assert.ok(actions.includes('modal-body'));
+   assert.ok(!actions.some(action=>/^station:|upgrade:|collapseStation|toggleDetails|reviewUpgrade/.test(action)));
+   assert.deepEqual(actions.filter(action=>action.startsWith('purchase:')),station.upgrade&&station.upgrade.available?['purchase:1']:[]);
+   const m=renderer.interface.layout.modal;assert.ok(m.y>renderer.interface.top);assert.ok(m.y+m.h<height-(state.viewport.safeBottom||0));
   }
+ }
 });
-
-test('station docks preserve every machine and both inventories while allowing direct switching and deliberate quote review', () => {
-  const game = new Game(); game.tick(100);
-  const views = [deepFreeze(new ProductionInsights().enrich(game.getView())), ...stages];
-  for (const view of views) for (const [width,height,native] of VIEWPORTS) for (const stationId of CONFIG.stationIds) {
-    for (const options of [{}, { stationDetails: true }, { stationCollapsed: true }]) {
-      const state = ui(view,width,height,{type:'station',stationId},native,options);
-      const { canvas, renderer } = renderFrozen(view,state);
-      verifyVisibleProduction(renderer,stationId);
-      assert.ok(canvas.texts.some(item => item.text.includes('▸ ' + CONFIG.stations[stationId].name)), 'selection is communicated with a marker, not color alone');
-      const actions = renderer.zones.map(zone => zone.action);
-      if (options.stationCollapsed) {
-        assert.ok(actions.includes('reviewUpgrade'));
-        assert.ok(!actions.some(action => action.startsWith('upgrade:')), 'collapsed observations cannot buy another tier');
-      } else {
-        assert.ok(actions.includes('collapseStation'));
-        assert.ok(actions.includes('toggleDetails'));
-        assert.ok(!actions.includes('close'), 'normal operation dock needs no modal close workflow');
-        for (const id of CONFIG.stationIds) assert.equal(actions.filter(action => action === 'station:' + id).length, 2, 'machine and dock tab both switch station');
-        const station = view.stations.find(item => item.id === stationId);
-        const purchase = actions.filter(action => action.startsWith('upgrade:'));
-        assert.deepEqual(purchase, station.upgrade?.available ? ['upgrade:' + stationId + ':' + (station.level + 1)] : []);
-      }
-    }
+test('upgrade comparison separates equipment rate and conditional line forecast and keeps the confirmation footer fixed',()=>{
+ const game=new Game();game.tick(100);const view=new ProductionInsights().enrich(game.getView());
+ for(const [width,height,native]of VIEWPORTS){
+  const positions=[];
+  for(const stationId of CONFIG.stationIds){
+   const state=ui(view,width,height,{type:'station',stationId},native),{canvas,renderer}=renderFrozen(view,state);
+   const station=view.stations.find(s=>s.id===stationId),buy=renderer.zones.find(z=>z.action==='purchase:1');
+   assert.ok(buy);positions.push([buy.x,buy.y,buy.w,buy.h]);
+   const model=renderer.interface.modalModel(view,state),text=model.rows.map(row=>row.value).join('\n');
+   assert.ok(text.includes('处理速度'));assert.ok(text.includes('份/秒'));assert.ok(text.includes('价格 '+formatNumber(station.upgrade.cost)+' 金币'));
+   if(station.upgrade.lineImproves)assert.ok(text.includes('预计出货 '+station.upgrade.lineBefore+' → '+station.upgrade.lineAfter+' 份/秒'));
+   else assert.ok(/当前受.*限制|暂不提高整线出货/.test(text));
+   if(stationId==='cup'){assert.ok(text.includes('2 → 6 份/秒'));assert.ok(text.includes('2 → 4 份/秒'));}
   }
+  assert.deepEqual(positions[1],positions[0]);assert.deepEqual(positions[2],positions[0]);
+ }
 });
-
-test('upgrade comparison separates equipment and stable-line impact, and keeps price and button positions fixed', () => {
-  const game = new Game(); game.tick(100);
-  const view = deepFreeze(new ProductionInsights().enrich(game.getView()));
-  for (const [width,height,native] of VIEWPORTS) {
-    const controls = [];
-    for (const stationId of CONFIG.stationIds) {
-      const state = ui(view,width,height,{type:'station',stationId},native);
-      const { canvas, renderer } = renderFrozen(view,state);
-      const station = view.stations.find(item => item.id === stationId);
-      const buy = renderer.zones.find(z => z.action === 'upgrade:' + stationId + ':1');
-      assert.ok(buy); controls.push([buy.x,buy.y,buy.w,buy.h]);
-      assert.ok(canvas.texts.some(item => item.text.includes('能力 ')), 'equipment change has its own label');
-      assert.ok(canvas.texts.some(item => item.text.startsWith('预计稳定出货 ≈ ')), 'forecast is labelled separately from actual output');
-      if (stationId === 'cup') {
-        assert.ok(canvas.texts.some(item => item.text.includes('能力 2→6')));
-        assert.ok(canvas.texts.some(item => item.text.includes('≈ 2→4 份/秒')));
-      } else if (renderer.interface.nativeCompact) {
-        const { canvas: details } = renderFrozen(view, { ...state, stationDetails: true });
-        assert.ok(details.texts.some(item => item.text === '暂不提高稳定出货，为后续改造预留能力'),
-          'the shortest native viewport keeps auxiliary impact explanation available in details');
-      } else assert.ok(canvas.texts.some(item => item.text === '暂不提高稳定出货，为后续改造预留能力'));
-      if (renderer.interface.nativeCompact) {
-        const equipment=canvas.texts.find(item=>item.text.includes(' · 能力 '));
-        const forecast=canvas.texts.find(item=>item.text.startsWith('预计稳定出货 ≈ '));
-        assert.ok(equipment && forecast && equipment.y < forecast.y, 'compact overview retains two separate equipment and line-rate rows');
-        assert.ok(forecast.y + 6 <= buy.y, 'forecast units remain above the fixed purchase control');
-        assert.ok(renderer.interface.layout.scene.h >= 232, 'native compact controls reserve space for the assembled production line');
-      }
-      assert.ok(canvas.texts.some(item => item.text === station.upgrade.cost + ' 金币'));
-    }
-    assert.deepEqual(controls[1],controls[0], 'switching station keeps the purchase button fixed');
-    assert.deepEqual(controls[2],controls[0]);
-  }
+test('asset failure and pending state have their own status without replacing the coin tile or settings control',()=>{
+ const view=new ProductionInsights().enrich(new Game().getView());
+ for(const [width,height,native]of VIEWPORTS){
+  const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx),state=ui(view,width,height,null,native,{toast:'其他生产提示'});
+  let report={requested:87,failed:3,pending:0,loaded:84};renderer.art={get:()=>null,report:()=>report};renderer.draw(view,state,0);
+  assert.ok(allText(canvas).includes('美术失败'));assert.equal(renderer.interface.artReport().failed,3);
+  const retry=renderer.zones.find(z=>z.action==='retry-art'),coin=renderer.interface.layout.hud.coin;assert.ok(retry);
+  assert.ok(retry.y>coin.y+coin.h);assert.ok(renderer.zones.some(z=>z.action==='settings'));verifyZones(renderer,state.viewport);verifyTextBounds(canvas,state.viewport);
+  report={requested:87,failed:0,pending:1,loaded:86};canvas.clear();renderer.draw(view,{...state,toast:''},0);assert.ok(allText(canvas).includes('美术加载中'));
+  report={requested:87,failed:0,pending:0,loaded:87};canvas.clear();renderer.draw(view,{...state,toast:''},0);assert.ok(!allText(canvas).includes('美术加载中'));
+ }
 });
-
-test('first-generation HUD surfaces asset failures without hiding the settings control', () => {
-  const view=deepFreeze(new ProductionInsights().enrich(new Game().getView()));
-  for(const [width,height,native] of [[390,844,false],[320,524,false],[320,484,true]]){
-    const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx);
-    renderer.art={get:()=>null,report:()=>({failed:3,pending:0,loaded:0})};
-    const state=ui(view,width,height,null,native,{toast:'其他生产提示'});
-    renderer.draw(view,state,0);
-    assert.ok(canvas.texts.some(item=>item.text==='美术加载失败 3 项'), 'the actual failed asset count takes precedence over transient production copy');
-    assert.ok(renderer.zones.some(zone=>zone.action==='settings'));
-    verifyZones(renderer,state.viewport);verifyTextBounds(canvas,state.viewport);
-  }
+test('identical browser and native safe areas produce identical overlays and unclipped modal controls',()=>{
+ const game=new Game();game.tick(100);const view=new ProductionInsights().enrich(game.getView());
+ const native=ui(view,320,524,{type:'station',stationId:'cup'},true),browser={...native,isDouyin:false};
+ const a=renderFrozen(view,native),b=renderFrozen(view,browser);assert.deepEqual(a.renderer.interface.layout,b.renderer.interface.layout);assert.deepEqual(a.renderer.zones,b.renderer.zones);
 });
-
-test('first-generation HUD announces pending art until every requested resource settles', () => {
-  const view=deepFreeze(new ProductionInsights().enrich(new Game().getView()));
-  const canvas=canvasHarness(),renderer=new Renderer(canvas.ctx),state=ui(view,320,524);
-  let report={requested:39,failed:0,pending:1,loaded:38};
-  renderer.art={get:()=>null,report:()=>report};
-  renderer.draw(view,state,0);
-  assert.ok(canvas.texts.some(item=>item.text==='正在装配工厂美术…'));
-  report={requested:39,failed:0,pending:0,loaded:39};
-  canvas.clear();renderer.draw(view,state,0);
-  assert.ok(!canvas.texts.some(item=>item.text==='正在装配工厂美术…'));
-  assert.ok(canvas.texts.some(item=>item.text===view.insights.bottleneck.label));
+test('unavailable purchases retain concrete funds, required generation and maximum-level reasons',()=>{
+ const fresh=new ProductionInsights().enrich(new Game().getView());
+ for(const [view,stationId,reason]of [[fresh,'cup','还差 30 金币'],[stages[0],'cup','需第 2 代'],[stages[5],'cup','已满级']]){
+  const state=ui(view,320,524,{type:'station',stationId},true),{renderer,canvas}=renderFrozen(view,state);
+  assert.ok(allText(canvas).includes(reason),reason);assert.ok(!renderer.zones.some(z=>z.action.startsWith('purchase:')));
+ }
 });
-
-test('browser safe-area insets use the same compact controls as an equally sized native content area', () => {
-  const game=new Game();game.tick(100);
-  const view=deepFreeze(new ProductionInsights().enrich(game.getView()));
-  const native=ui(view,320,484,{type:'station',stationId:'cup'},true);
-  const browser={...native,isDouyin:false};
-  const nativeResult=renderFrozen(view,native),browserResult=renderFrozen(view,browser);
-  assert.ok(browserResult.renderer.interface.nativeCompact);
-  assert.deepEqual(browserResult.renderer.interface.layout,nativeResult.renderer.interface.layout);
-  assert.deepEqual(browserResult.renderer.zones,nativeResult.renderer.zones);
-});
-
-test('unavailable purchases explain funds, expansion and full level rather than relying on disabled color', () => {
-  const fresh = deepFreeze(new ProductionInsights().enrich(new Game().getView()));
-  const cases = [[fresh,'cup','还差 30 金币'],[stages[0],'cup','需先扩建至第 2 代'],[stages[5],'cup','本工位已满级']];
-  for (const [view,stationId,reason] of cases) {
-    const { canvas,renderer } = renderFrozen(view,ui(view,320,484,{type:'station',stationId},true));
-    assert.ok(canvas.texts.some(item => item.text === reason), 'unavailable purchase reason: ' + reason);
-    assert.ok(!renderer.zones.some(zone => zone.action.startsWith('upgrade:')));
-  }
-});
-
-test('settings own version notices and settings/restart controls stay accessible outside native safe areas', () => {
-  const view = deepFreeze(new ProductionInsights().enrich(new Game().getView()));
-  for (const [width,height,native] of VIEWPORTS) for (const modal of [null,{type:'settings'},{type:'restart'}]) {
-    const state = ui(view,width,height,modal,native,{newFactory:true});
-    const { canvas,renderer } = renderFrozen(view,state);
-    if (!modal) verifyVisibleProduction(renderer);
-    if (modal?.type === 'settings') {
-      for (const action of ['close','setting:sound','setting:haptics','restart']) assert.ok(renderer.zones.some(z => z.action === action));
-      assert.ok(canvas.texts.some(item => item.text === '旧存档保留，不读取、不迁移、不改写'));
-      assert.ok(canvas.texts.some(item => item.text.includes('玩法已重构')));
-    }
-    if (modal?.type === 'restart') assert.ok(renderer.zones.some(z => z.action === 'confirmRestart'));
-    if (native) assert.ok(renderer.zones.every(zone => zone.y >= 75), 'native capsule area remains free of game controls');
-  }
+test('settings and restart retain accurate save scope while every visible control clears the capsule and bottom safe area',()=>{
+ const view=new ProductionInsights().enrich(new Game().getView());
+ for(const [width,height,native]of VIEWPORTS)for(const modal of [null,{type:'settings'},{type:'restart'}]){
+  const state=ui(view,width,height,modal,native),{canvas,renderer}=renderFrozen(view,state);verifyVisibleProduction(renderer,modal);
+  if(modal&&modal.type==='settings'){for(const action of ['close','setting:sound','setting:haptics','restart'])assert.ok(renderer.zones.some(z=>z.action===action));
+   const model=renderer.interface.modalModel(view,state);assert.ok(model.rows.some(row=>row.value.includes('旧存档备份仍会保留')));}
+  if(modal&&modal.type==='restart')assert.ok(renderer.zones.some(z=>z.action==='confirmRestart'));
+  if(native)for(const zone of renderer.zones.filter(z=>!backdrop(z,state.viewport)))assert.ok(zone.y>=78&&zone.y+zone.h<=height-40);
+ }
 });
 
 test('each stock bin shows real physical goods even at the smallest scene height and visibly fills from empty to full', () => {
@@ -313,15 +249,19 @@ test('expansion alone never invents working heads; only purchased lane changes a
   assert.equal(canvas.depth(),0);
 });
 
-test('small upgrade panels retain equipment rate units and mark forecasts that require expansion', () => {
-  const game=new Game();game.tick(100);
-  const views=[new ProductionInsights().enrich(game.getView()),...stages.slice(0,5)];
-  for(const view of views)for(const stationId of CONFIG.stationIds){
-    const station=view.stations.find(item=>item.id===stationId);if(!station.upgrade)continue;
-    const {canvas}=renderFrozen(view,ui(view,320,484,{type:'station',stationId},true));
-    const equipment=canvas.texts.find(item=>item.text.includes(' · 能力 '));
-    assert.ok(equipment&&equipment.text.endsWith('份/秒'),'equipment units and final rate survive the smallest panel');
-    const prefix=station.upgrade.lineRequiresExpansion?'扩建后预计出货 ≈ ':'预计稳定出货 ≈ ';
-    assert.ok(canvas.texts.some(item=>item.text.startsWith(prefix)),'forecast clearly states its expansion condition');
-  }
+
+test('small station windows retain all equipment/forecast units and explicitly mark expansion-dependent predictions',()=>{
+ const game=new Game();game.tick(100);const views=[new ProductionInsights().enrich(game.getView()),...stages.slice(0,5)];
+ for(const view of views)for(const stationId of CONFIG.stationIds){
+  const station=view.stations.find(s=>s.id===stationId);if(!station.upgrade)continue;
+  const state=ui(view,320,524,{type:'station',stationId},true),{renderer}=renderFrozen(view,state),model=renderer.interface.modalModel(view,state);
+  const rows=model.rows.map(row=>row.value);assert.ok(rows.includes('处理速度'));assert.ok(rows.some(row=>row.endsWith('份/秒')&&row.includes(' → ')));
+  if(station.upgrade.lineImproves)assert.ok(rows.some(row=>row.startsWith(station.upgrade.lineRequiresExpansion?'扩建后预计出货 ':'预计出货 ')&&row.endsWith('份/秒')));
+  if(station.upgrade.lineRequiresExpansion)assert.match(model.footer.text,/需第 \d+ 代/);
+ }
+});
+test('a zero-progress automatic trial exposes its current insufficient machine rather than an unexplained timer',()=>{
+ const game=new Game({mode:'v15'});game.tick(10);const view=new ProductionInsights().enrich(game.getView());
+ const blocked={...view,transfers:view.transfers.map(row=>({...row,automated:true})),automaticTrial:{...view.automaticTrial,elapsedSeconds:0,complete:false,targetRate:3}};
+ const state=ui(blocked),{renderer,canvas}=renderFrozen(blocked,state);assert.equal(renderer.interface.currentStatus(blocked,state).text,'装杯不足 3 份/秒');assert.ok(allText(canvas).includes('装杯不足 3 份/秒'));
 });

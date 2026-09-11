@@ -3,7 +3,8 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 
 // The original first-generation dependency list remains useful to legacy rigs.
-// Runtime delivery comes only from the reviewed six-generation PNG manifest.
+// Runtime delivery combines the frozen six-generation contract and the reviewed
+// v1.1 supplement. Historical source contracts remain independently verifiable.
 export const FIRST_GENERATION_IDS = [
   'machine_pop_body', 'machine_pop_head', 'machine_pop_front',
   'machine_cup_body', 'machine_cup_head', 'machine_cup_front',
@@ -20,7 +21,8 @@ export const FIRST_GENERATION_IDS = [
 ];
 export const ART_SOURCE_FILES = ['assets/art/manifest.json', 'art-source/six-gen/integration/legacy/batch-0-assembly.json',
   'art-source/six-gen/integration/legacy/batch-1-machinery-assembly.json', 'art-source/six-gen/integration/manifest.json',
-  'art-source/six-gen/integration/assembly.json'];
+  'art-source/six-gen/integration/assembly.json', 'art-source/v1.1/manifest.fragment.json'];
+const V11_ASSET_FOLDERS = { ui_gesture_hand: 'hand', factory_floor_extension: 'floor', factory_wall_corner: 'wall' };
 export const ART_BUDGETS = { firstGenerationCompressedBytes: 1048576,
   compressedBytes: 4 * 1048576, decodedBytes: 32 * 1048576 };
 
@@ -43,29 +45,49 @@ function normalizeRig(rig) {
 }
 
 export async function readRuntimeArt(root) {
-  const [manifest, batch0, machinery, reviewed, assembly] = await Promise.all(ART_SOURCE_FILES.map(async file =>
+  const [manifest, batch0, machinery, reviewed, assembly, supplement] = await Promise.all(ART_SOURCE_FILES.map(async file =>
     JSON.parse(await readFile(path.join(root, file), 'utf8'))));
   const byId = new Map(manifest.entries.map(entry => [entry.id, entry]));
   const assets = {}, entries = [];
   if (reviewed.contractVersion !== 'six-gen-art-1.0' || assembly.contractVersion !== reviewed.contractVersion ||
       !Array.isArray(reviewed.assets) || reviewed.assets.length !== 84) throw new Error('Invalid reviewed six-generation art contract');
-  for (const entry of reviewed.assets) {
+  if (supplement.schemaVersion !== 1 || supplement.contractVersion !== 'v11-art-supplement-1' ||
+      !Array.isArray(supplement.assets) || supplement.assets.length !== 3 ||
+      Object.keys(V11_ASSET_FOLDERS).some(id => supplement.assets.filter(entry => entry.id === id).length !== 1)) {
+    throw new Error('Invalid reviewed v1.1 art supplement contract');
+  }
+  for (const [entry, isSupplement] of [...reviewed.assets.map(entry => [entry, false]), ...supplement.assets.map(entry => [entry, true])]) {
     const { id } = entry;
+    const expectedFile = isSupplement ? 'art-source/v1.1/' + V11_ASSET_FOLDERS[id] + '/exports/' + id + '.png' :
+      'art-source/six-gen/integration/exports/' + id + '.png';
     if (!/^[a-z_]+$/.test(id) || assets[id] || entry.status !== 'EXPORTED' ||
-        entry.file !== 'art-source/six-gen/integration/exports/' + id + '.png' ||
+        entry.file !== expectedFile || !/^[a-f0-9]{64}$/.test(entry.sha256) ||
         !Number.isInteger(entry.width) || !Number.isInteger(entry.height) || entry.width <= 0 || entry.height <= 0 ||
+        !Array.isArray(entry.anchor) || entry.anchor.length !== 2 || !entry.anchor.every(Number.isFinite) ||
         !Array.isArray(entry.stageUse) || !entry.stageUse.length || entry.stageUse.some(stage => !Number.isInteger(stage) || stage < 1 || stage > 6)) {
       throw new Error('Invalid runtime art: ' + id);
+    }
+    if (isSupplement && (entry.folder !== V11_ASSET_FOLDERS[id] ||
+        typeof entry.sourceFile !== 'string' || !entry.sourceFile.startsWith('art-source/v1.1/' + entry.folder + '/sources/') ||
+        typeof entry.provenanceRef !== 'string' || !entry.provenanceRef.startsWith('art-source/v1.1/' + entry.folder + '/'))) {
+      throw new Error('Missing v1.1 art provenance: ' + id);
+    }
+    if (isSupplement && (entry.stageUse.length !== 6 || [1, 2, 3, 4, 5, 6].some(stage => !entry.stageUse.includes(stage)))) {
+      throw new Error('v1.1 shared art must include all six stages: ' + id);
     }
     const bytes = await readFile(contained(root, entry.file));
     if (bytes.length < 33 || bytes.toString('hex', 0, 8) !== '89504e470d0a1a0a' ||
         bytes.toString('ascii', 12, 16) !== 'IHDR' || bytes.readUInt32BE(16) !== entry.width || bytes.readUInt32BE(20) !== entry.height) {
       throw new Error('PNG dimensions/signature disagree with art manifest: ' + id);
     }
-    const resource = { id, path: 'assets/art/six_gen/' + id + '.png', sourcePath: entry.file,
+    const resource = { id, path: 'assets/art/' + (isSupplement ? 'v11' : 'six_gen') + '/' + id + '.png', sourcePath: entry.file,
       width: entry.width, height: entry.height, bytes: bytes.length, stageUse: entry.stageUse,
-      decodedBytes: entry.width * entry.height * 4, sha256: createHash('sha256').update(bytes).digest('hex') };
+      decodedBytes: entry.width * entry.height * 4, sha256: createHash('sha256').update(bytes).digest('hex'),
+      contractVersion: isSupplement ? supplement.contractVersion : reviewed.contractVersion, provenanceRef: entry.provenanceRef };
     if (resource.sha256 !== entry.sha256) throw new Error('Reviewed art SHA-256 mismatch: ' + id);
+    if (isSupplement && (resource.bytes !== entry.bytes || resource.decodedBytes !== entry.decodedBytes)) {
+      throw new Error('Reviewed v1.1 art size mismatch: ' + id);
+    }
     // Optimized PNGs retain the old crop's source coordinate space. The drawing
     // helper maps that crop to the new pixel dimensions with a uniform fit.
     const original = byId.get(id);
@@ -100,7 +122,9 @@ export async function readRuntimeArt(root) {
   for (const [key, limit] of Object.entries(ART_BUDGETS)) {
     if (totals[key] > limit) throw new Error('Runtime art budget exceeded: ' + key + ' ' + totals[key] + ' > ' + limit);
   }
-  return { assets, rigs, entries, assembly, firstGenerationIds, totals };
+  return { assets, rigs, entries, assembly, firstGenerationIds, totals,
+    sourceContracts: [{ contractVersion: reviewed.contractVersion, count: reviewed.assets.length },
+      { contractVersion: supplement.contractVersion, count: supplement.assets.length }] };
 }
 
 // Rectangle containers can intentionally differ from the source image aspect
@@ -177,7 +201,8 @@ export async function copyRuntimeArt(root, targets, data) {
     return { directory: target, verified: data.entries.length, missing: [], mismatched: [],
       otherRuntimeFiles: entries, totalRuntimeBytes: entries.reduce((sum, entry) => sum + entry.bytes, 0) + data.entries.reduce((sum, entry) => sum + entry.bytes, 0) };
   }));
-  const report = { schemaVersion: 2, scope: 'six-generation-runtime-art', sourceFiles: ART_SOURCE_FILES,
+  const report = { schemaVersion: 2, scope: 'six-generation-runtime-art-with-v11-supplement', sourceFiles: ART_SOURCE_FILES,
+    sourceContracts: data.sourceContracts,
     count: data.entries.length, compressedBytes: data.entries.reduce((sum, entry) => sum + entry.bytes, 0),
     decodedBytes: data.entries.reduce((sum, entry) => sum + entry.decodedBytes, 0),
     generationStationRigCount: data.assembly.generationStationRigs.length,
@@ -189,10 +214,10 @@ export async function copyRuntimeArt(root, targets, data) {
   await mkdir(path.join(root, 'output/six-gen-art-runtime'), { recursive: true });
   await writeFile(path.join(root, 'output/six-gen-art-runtime/resource-report.json'), JSON.stringify(report, null, 2) + '\n');
   await writeFile(path.join(root, 'output/six-gen-art-runtime/resource-report.md'),
-    '# 六代运行资源体积与构建复制检查\n\n' +
+    '# 六代与 v1.1 补充运行资源体积与构建复制检查\n\n' +
     `运行 PNG：${report.count} 个；压缩文件 ${report.compressedBytes.toLocaleString('en-US')} bytes（${(report.compressedBytes / 1048576).toFixed(2)} MiB）；RGBA 解码估算 ${(report.decodedBytes / 1048576).toFixed(2)} MiB。\n\n` +
     `首代与共享依赖 ${report.firstGenerationIds.length} 个，共 ${report.firstGenerationCompressedBytes.toLocaleString('en-US')} bytes；18 组代际/工位装配引用和矩形检查通过。首代 1 MiB、全部 PNG 4 MiB、RGBA 32 MiB 预算均通过。\n\n` +
     packages.map(target => `- ${target.directory}：${report.count} 个资源逐文件 SHA-256 复制校验通过；包含代码、入口及该端音效的运行文件合计 ${(target.totalRuntimeBytes / 1048576).toFixed(2)} MiB。`).join('\n') +
-    '\n\n运行图片仅复制冻结清单中的 84 个最终导出文件；原图、预览与美术 fixture 不进入运行包。旧装配原始坐标和 sourceRect 保留，运行时等比适配优化后的 PNG 尺寸。本报告证明清单、构建复制和预算检查通过；实际浏览器加载、状态表现与真机验收须分别记录。\n');
+    `\n\n运行图片仅复制原六代冻结合同的 84 个 PNG 与 v1.1 独立补充合同的 3 个 PNG，共 ${report.count} 个最终导出文件；原图、预览与美术 fixture 不进入运行包。旧装配原始坐标和 sourceRect 保留，运行时等比适配优化后的 PNG 尺寸。本报告证明清单、构建复制和预算检查通过；实际浏览器加载、状态表现与真机验收须分别记录。\n`);
   return report;
 }

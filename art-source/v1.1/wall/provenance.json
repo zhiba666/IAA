@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "assetId": "factory_wall_corner",
+  "date": "2026-09-10",
+  "tool": "image_gen.imagegen",
+  "toolMode": "built-in",
+  "model": "unavailable from tool response",
+  "seed": "unavailable from tool response",
+  "status": "EXPORTED_ART_ONLY",
+  "attempts": [
+    {
+      "attempt": 1,
+      "source": "sources/factory_wall_corner_attempt_01.png",
+      "width": 1774,
+      "height": 887,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1517717,
+      "sha256": "2a54f29e05ec190e5a80f6a8fcbde826fbd00ff222f537e2974c9c571c0d04af",
+      "resultId": "exec-8932e930-9503-4476-97b4-9cefe1140edc"
+    },
+    {
+      "attempt": 2,
+      "source": "sources/factory_wall_corner_attempt_02.png",
+      "width": 1774,
+      "height": 887,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1442976,
+      "sha256": "d008851b7cd7059a8d915b645f87d823ce3488a3dc22d0501606d9a4a152aaf8",
+      "resultId": "exec-b2c2bc64-8dfe-43ae-b9b2-99541cf72bd1"
+    },
+    {
+      "attempt": 3,
+      "source": "sources/factory_wall_corner_attempt_03.png",
+      "width": 1774,
+      "height": 887,
+      "channels": 4,
+      "hasAlpha": true,
+      "bytes": 1171783,
+      "sha256": "1963d133fefad04918f7db18207fa6ef96ec5474747bce211fcc5059f96a9e6a",
+      "alphaPixels": {
+        "transparent": 580776,
+        "opaque": 1024,
+        "partial": 991738,
+        "total": 1573538
+      },
+      "resultId": "exec-e46f0c87-9865-47da-9851-f18a254b3918",
+      "status": "SELECTED"
+    }
+  ],
+  "checks": {
+    "composition": "PASS_CENTER_HIGH_INTERIOR_CORNER",
+    "palette": "PASS_CREAM_WALLS_COOL_GREY_BLUE_BASEBOARD",
+    "transparentLowerRegion": "PASS_REAL_ALPHA",
+    "runtimeIntegration": "NOT_RUN",
+    "topAndSideFullBleed": "PASS_AFTER_RECTANGULAR_CROP"
+  },
+  "selectedAttempt": 3,
+  "reference": {
+    "path": "art-source/six-gen/integration/exports/factory_room.png",
+    "sha256": "1574ab351f952038b429c42c60eb17caacec96a9b194200f4dd7ddb766f57c8b",
+    "role": "Viewed palette/projection reference; supplied to attempts 1 and 2, not supplied to successful attempt 3"
+  }
+}

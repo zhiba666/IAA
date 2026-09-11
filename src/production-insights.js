@@ -9,7 +9,7 @@ const HISTORY_TICKS = HZ * 6;
 const MANUAL_EXPERIMENT = 'manual-transfer-p0';
 const closeRate = (a, b) => Math.abs(a - b) < .05;
 const rateText = rate => Number(rate.toFixed(1)).toString();
-const transportMode = view => view.transfer?.enabled || view.state.experiment === MANUAL_EXPERIMENT
+const transportMode = view => (view.transfer != null && view.transfer.enabled) || view.state.experiment === MANUAL_EXPERIMENT
   ? MANUAL_EXPERIMENT : 'legacy-auto';
 const configurationKey = (machine, levels, transport) => [transport, machine, ...IDS.map(id => levels[id])].join(':');
 const transferId = transfer => transfer.source === 'pop' ? 'A' : 'B';
@@ -81,8 +81,8 @@ class ProductionInsights {
   _automationKey(view, changes = {}) {
     const s = view.state;
     return JSON.stringify({ mode: view.mode, profile: s.economyProfile,
-      machine: changes.machine ?? s.machine, levels: changes.levels || s.upgrades,
-      logisticsLevel: changes.logisticsLevel ?? s.logisticsLevel,
+      machine: changes.machine == null ? s.machine : changes.machine, levels: changes.levels || s.upgrades,
+      logisticsLevel: changes.logisticsLevel == null ? s.logisticsLevel : changes.logisticsLevel,
       buffers: view.buffers.map(buffer => [buffer.id, buffer.capacity]),
       transfers: view.transfers.map(transfer => [transfer.source,
         transfer.automated || changes.automatedSource === transfer.source,
@@ -99,8 +99,8 @@ class ProductionInsights {
       const seed = new Game({ mode: 'v15', now: 0 }).getView().state;
       const rules = profileRules(view);
       seed.economyProfile = view.state.economyProfile;
-      seed.machine = changes.machine ?? view.state.machine;
-      seed.logisticsLevel = changes.logisticsLevel ?? view.state.logisticsLevel;
+      seed.machine = changes.machine == null ? view.state.machine : changes.machine;
+      seed.logisticsLevel = changes.logisticsLevel == null ? view.state.logisticsLevel : changes.logisticsLevel;
       seed.totalProduced = 0;
       const levels = changes.levels || view.state.upgrades;
       for (const id of IDS) {
@@ -298,14 +298,14 @@ class ProductionInsights {
     const secondsSinceUpgrade = this.lastUpgradeTick === null ? Infinity : Math.max(0, tick - this.lastUpgradeTick) / HZ;
     const updating = secondsSinceUpgrade < CONFIG.rateWindowSeconds;
     const warming = s.playedSeconds < CONFIG.rateWindowSeconds;
-    const includesManualInput = manualTransfer || Object.values(s.connections).some(connection =>
+    const includesManualInput = Object.values(s.connections).some(connection =>
       Number.isInteger(connection.lastManualTransferTick) && connection.lastManualTransferTick > tick - CONFIG.rateWindowSeconds * HZ);
     return { ...view, stations, transfers, logisticsUpgrade, expansion, insights: {
       stableRate, stableRateLabel: '自动运行基线', manualTransfer,
       previewMethod: '按当前运输接通状态、整盘批量、运输周期、入口与仓容，在隔离空工厂推演自动稳定出货；实测包含最近手动送料和库存释放。',
       bottleneck: { ...this.lastBottleneck, stationIds: [...this.lastBottleneck.stationIds], transportIds: [...this.lastBottleneck.transportIds] },
       sampling: { windowSeconds: CONFIG.rateWindowSeconds, updating, warming, includesManualInput,
-        label: `${warming ? '实测不足10秒' : '近10秒实测'}${includesManualInput ? ' · 含手动搬运' : ' · 自动运行'}${updating ? ' · 更新中' : ''}`,
+        label: `${warming ? '实测不足10秒' : '近10秒实测'}${includesManualInput ? ' · 含手动搬运' : manualTransfer ? ' · 本段无手动投送' : ' · 自动运行'}${updating ? ' · 更新中' : ''}`,
         secondsUntilSettled: updating ? Math.ceil(CONFIG.rateWindowSeconds - secondsSinceUpgrade) : 0 }
     } };
   }

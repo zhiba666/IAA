@@ -1,0 +1,144 @@
+{
+  "viewport": [
+    430,
+    932
+  ],
+  "generation": 1,
+  "state": "modal",
+  "syntheticArtOnly": true,
+  "safeArea": [
+    24,
+    12,
+    24,
+    12
+  ],
+  "machines": [
+    {
+      "id": "pop",
+      "rect": [
+        20,
+        155.24,
+        180.15,
+        216.74
+      ]
+    },
+    {
+      "id": "cup",
+      "rect": [
+        78.29,
+        369.09,
+        131.59,
+        187.98
+      ]
+    },
+    {
+      "id": "ship",
+      "rect": [
+        127.93,
+        590.92,
+        172.32,
+        177.7
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "id": "bulk",
+      "rect": [
+        216.43,
+        338.47,
+        119.05,
+        85.11
+      ]
+    },
+    {
+      "id": "cups",
+      "rect": [
+        274.13,
+        537.39,
+        112.79,
+        81.51
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "id": "cup",
+      "visualBounds": [
+        75.66341356261962,
+        450.1742554994195,
+        64,
+        64
+      ],
+      "anchor": [
+        107.66341356261962,
+        482.1742554994195
+      ],
+      "originalPort": [
+        107.66341356261962,
+        482.1742554994195
+      ]
+    },
+    {
+      "id": "ship",
+      "visualBounds": [
+        132.54733737094801,
+        665.0065271283772,
+        64,
+        64
+      ],
+      "anchor": [
+        164.54733737094801,
+        697.0065271283772
+      ],
+      "originalPort": [
+        164.54733737094801,
+        697.0065271283772
+      ]
+    }
+  ],
+  "modalBounds": [
+    35,
+    334,
+    360,
+    264
+  ],
+  "assetIds": [
+    "factory_floor_extension",
+    "factory_wall_corner",
+    "conveyor_down_right",
+    "conveyor_front_right",
+    "conveyor_outfeed_back",
+    "conveyor_outfeed_front",
+    "machine_pop_body",
+    "machine_pop_head",
+    "machine_pop_front",
+    "product_cup_fill",
+    "buffer_bulk_back",
+    "buffer_bulk_front",
+    "product_kernel_b",
+    "product_kernel_a",
+    "machine_cup_body",
+    "machine_cup_head",
+    "machine_cup_front",
+    "product_cup_empty",
+    "buffer_cups_back",
+    "buffer_cups_front",
+    "machine_ship_body",
+    "machine_ship_head",
+    "machine_ship_front",
+    "input_cup_collar",
+    "ui_icon_cup",
+    "ui_icon_ship",
+    "ui_hud_coin",
+    "ui_icon_coin",
+    "ui_button_secondary",
+    "ui_icon_settings",
+    "ui_icon_automation",
+    "ui_icon_expand",
+    "ui_panel",
+    "ui_icon_close",
+    "ui_button_primary"
+  ],
+  "pngSha256": "14aab1ca45a40c7f86541dcbf4579f8864af3f94fb9c930cf89c8a0a4e03af81"
+}
