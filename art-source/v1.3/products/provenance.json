@@ -1,0 +1,247 @@
+{
+  "version": "v1.3",
+  "tool": "image_gen",
+  "mode": "built-in",
+  "referenceUse": "Local reference art was visually inspected for art direction. Final assets were generated independently from text prompts.",
+  "notes": "Seven independently generated product masters. Existing product_cup_fill.png is loose popcorn only and does not replace a complete packaged original cup. Source alpha is preserved; no programmatic drawing or background replacement was used.",
+  "references": [
+    "assets/art/products/product_cup_fill.png",
+    "art-source/six-gen/reports/gallery/contact-sheet.png",
+    "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+  ],
+  "assets": [
+    {
+      "id": "product_original_cup",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: A complete tapered red-and-white vertically striped paper cup, narrower at the bottom, white rolled rim, heaped with irregular pale creamy popcorn above its mouth. The popcorn kernels are clearly irregular popped corn with warm golden creases, not perfectly round balls. The cup and striped packaging occupy at least half the product silhouette. No lid. Preserve a distinctive tall cup silhouette. Red stripes are broad and simple, with no branding.\n",
+      "source": "art-source/v1.3/products/sources/product_original_cup.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-3a05ac3a-5b6c-434e-bdae-5758840cc09b.png",
+      "description": "Red-white striped original popcorn cup with visible cream popcorn.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_original_cup",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 902685,
+        "partialAlphaPixels": 668934,
+        "opaquePixels": 897,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1135427,
+        "sha256": "81d738e0cc54f3b0d0b1542dee3e6de5c5edca6be1067e11c15679811dd90c82"
+      }
+    },
+    {
+      "id": "product_caramel_tub",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: A complete SHORT AND WIDE squat paper tub of glossy amber caramel popcorn. Its silhouette is substantially wider and shorter than a drinking cup. Use warm amber and pale paper packaging, a dark amber band, and one simple large caramel droplet emblem on the front, with no lettering. Popcorn is irregular popped corn, glossy caramel-coated with just a few subtle caramel bridges connecting kernels. A broad white rolled lip and overflowing compact mound make the squat tub readable. No handle, no lid.\n",
+      "source": "art-source/v1.3/products/sources/product_caramel_tub.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-e241247d-1c91-4817-adca-4b8f84926498.png",
+      "description": "Squat amber caramel tub with droplet emblem and glossy kernels.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_caramel_tub",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 681681,
+        "partialAlphaPixels": 890244,
+        "opaquePixels": 591,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1559724,
+        "sha256": "4cdaf84a98b4c62d7f89ff3e0fe92f3ad7743e3872ecdc10e7a5c33bfdc77dd3"
+      }
+    },
+    {
+      "id": "product_cheese_carton",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: A small open square paper carton of cheese popcorn. Clearly square construction with visible folded corner flaps and angular folded top edges, NOT a round cup or a bucket. A clean pale paper carton with golden-yellow panels, one simple triangular cheese-wedge pictogram with round holes on the front, no letters. A compact pile of irregular golden popcorn coated with fine matte cheese seasoning rises above the carton, visibly lighter and less glossy than caramel. Show the square top opening and two sides, with the angular package silhouette very readable.\n",
+      "source": "art-source/v1.3/products/sources/product_cheese_carton.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-5d822961-96b0-4028-abc6-80792681a8cc.png",
+      "description": "Folded square cheese carton with cheese emblem and golden seasoning.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_cheese_carton",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 788730,
+        "partialAlphaPixels": 783511,
+        "opaquePixels": 275,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1409379,
+        "sha256": "b9441f9dfeb9322cb0cde1aa78afcf2ed40bbf2990fbae5f01408b914b6d078c"
+      }
+    },
+    {
+      "id": "product_duo_bucket",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: A single wide-mouth squat popcorn bucket split into TWO clearly separate compartments by a prominent slim white central divider. The left half contains glossy amber caramel popcorn; the right half contains matte golden-yellow cheese popcorn. Both halves are visible from above and neatly stay on their own side, with a continuous clear center division through the top mound. The wide bucket has pale paper rim, simple teal and amber two-tone side panels, no handle, no lettering. This is one unified divided bucket, not two separate cups. Keep the divider and taste contrast visible at small size.\n",
+      "source": "art-source/v1.3/products/sources/product_duo_bucket.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-ed163265-e202-4898-b47f-7b64070617ae.png",
+      "description": "Wide divided bucket with caramel left and cheese right.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_duo_bucket",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 696361,
+        "partialAlphaPixels": 875231,
+        "opaquePixels": 924,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1527179,
+        "sha256": "b9736dcb6d2ca0e477454a9d283cb944f61fb793cd950ae4434141b9342f3da5"
+      }
+    },
+    {
+      "id": "product_choco_cup",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: A transparent clear cup filled with irregular popcorn coated in rich dark chocolate. Each prominent dark popcorn cluster has fine but clearly visible WHITE CHOCOLATE CROSSING ZIGZAG DRIZZLE LINES; show the distinctive white-on-dark crisscross texture across the visible mound, never just plain brown kernels. A simple dark charcoal paper sleeve wraps the lower middle of the clear cup, with a thin cream accent edge and no text or logo. Clear rim, transparent lower cup, delicate edge reflections, and visible dark popcorn behind the clear plastic. No lid, no straw, no cream topping. This is chocolate popcorn, not ice cream or a drink.\n",
+      "source": "art-source/v1.3/products/sources/product_choco_cup.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-3c0cf011-cec3-4f37-b508-3d44f57400b5.png",
+      "description": "Clear sleeved chocolate cup with distinct white crisscross drizzle.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_choco_cup",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 945397,
+        "partialAlphaPixels": 626384,
+        "opaquePixels": 735,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1373812,
+        "sha256": "174ec83459b7183d03dbc834219ad665e946dbf444a06e6ab8048aedae981ccc"
+      }
+    },
+    {
+      "id": "product_star_pop",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: One thick FIVE-POINTED STAR confection made from tightly joined caramel popcorn kernels on a SHORT wooden stick. The star has a chunky uneven granular popcorn texture and visible individual popped-corn lobes, never a smooth candy slab or cookie. Preserve exactly five clear star points and show a little thickness along its side. The golden-amber star and upper stick are wrapped inside one fitted transparent cellophane bag, whose delicate outline and a few white folds are visible while the star stays easy to read. The transparent bag is sealed around the lower stick with a small simple teal tie. Wooden stick is short, about one third of the star height, with lower tip visible. No extra stars, no floating particles.\n",
+      "source": "art-source/v1.3/products/sources/product_star_pop.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-ac04af6e-74ae-4417-8e83-28aaabbbb6cb.png",
+      "description": "Thick popcorn-textured five-point star on short stick in clear bag.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_star_pop",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 1068376,
+        "partialAlphaPixels": 503996,
+        "opaquePixels": 144,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bytes": 1178025,
+        "sha256": "f4a21fd0960d9a448eeede236fae3fa6369a479e77be3e502b85422a3c430397"
+      }
+    },
+    {
+      "id": "product_celebration_box",
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: One premium rigid rectangular celebration gift box, deep teal outer cardboard with restrained cream and golden-yellow trim, broad transparent FRONT display window, a clearly visible sturdy top carrying handle, and structured inner compartment dividers. The box is closed and finished, shown as a complete portable gift package. Through the large clear window the contents are clearly recognizable and countable: exactly ONE wide divided popcorn bucket at lower left with amber caramel on its left and yellow cheese on its right; exactly ONE clear dark-sleeved chocolate popcorn cup at lower right with white zigzag drizzle on the dark popcorn; exactly TWO thick five-point caramel popcorn stars on short sticks in their own upper or back compartments. All four packaged components sit inside the same box, none outside. Keep shapes large and simplified so the box reads as the combination of these products at small size. Subtle tiny star symbol permitted on one corner, no decorative clutter, no bow that hides the handle or window.\n\nAdditional exact product packaging requirements: the lower-left duo bucket is a ROUND bucket with a smooth white round rim and a visible WHITE CENTRAL DIVIDER, with teal left wall and amber right wall; no scalloped or square carton. The lower-right chocolate cup has a plain CHARCOAL PAPER SLEEVE edged in thin cream, with no symbol on the sleeve, and visible crossing white drizzle on the chocolate popcorn. Each of the TWO upper star popcorn pops is individually wrapped in clear cellophane with a small teal tie and a short stick. Exactly one unified box containing those four distinct products. The background is empty alpha transparency; DO NOT illustrate transparency as squares or checks. Export genuine transparent PNG with alpha=0 surrounding the sprite and through the handle opening.\n",
+      "source": "art-source/v1.3/products/sources/product_celebration_box.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-e85019e9-c1b0-411b-8e35-f6a1d1db7b62.png",
+      "description": "Handled window gift box containing one duo bucket, one chocolate cup and two star pops.",
+      "references": [
+        "assets/art/products/product_cup_fill.png",
+        "art-source/six-gen/reports/gallery/contact-sheet.png",
+        "C:/Users/chenweilun/Desktop/IAA_v1.3_版本设计思路报告.md#sections-07-09"
+      ],
+      "quality": {
+        "id": "product_celebration_box",
+        "width": 1254,
+        "height": 1254,
+        "transparentPixels": 630998,
+        "partialAlphaPixels": 940776,
+        "opaquePixels": 742,
+        "cornerAlpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "bytes": 1754091,
+        "sha256": "defd683c2a6da6f4327f367758f54ae35a794ad95c299efff781a7eaa71ef948"
+      }
+    }
+  ],
+  "giftIterationHistory": [
+    {
+      "stage": "initial",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: One premium rigid rectangular celebration gift box, deep teal outer cardboard with restrained cream and golden-yellow trim, broad transparent FRONT display window, a clearly visible sturdy top carrying handle, and structured inner compartment dividers. The box is closed and finished, shown as a complete portable gift package. Through the large clear window the contents are clearly recognizable and countable: exactly ONE wide divided popcorn bucket at lower left with amber caramel on its left and yellow cheese on its right; exactly ONE clear dark-sleeved chocolate popcorn cup at lower right with white zigzag drizzle on the dark popcorn; exactly TWO thick five-point caramel popcorn stars on short sticks in their own upper or back compartments. All four packaged components sit inside the same box, none outside. Keep shapes large and simplified so the box reads as the combination of these products at small size. Subtle tiny star symbol permitted on one corner, no decorative clutter, no bow that hides the handle or window.\n",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-6c1e4b15-da2e-444a-8e78-6d23c342666f.png",
+      "selected": false,
+      "reason": "Valid transparent composition; subsequent iteration aligned component packaging with standalone products."
+    },
+    {
+      "stage": "packaging-reference-edit",
+      "prompt": "Use case: precise-object-edit\nAsset type: one standalone 2.5D mobile factory game gift-box sprite, transparent PNG.\nInput images: Image 1 is the gift-box edit target. Image 2 is the exact visual reference for the divided duo bucket. Image 3 is the exact visual reference for the chocolate popcorn cup. Image 4 is the exact visual reference for the bagged star popcorn pop.\nChange only the PACKAGED CONTENTS visible through the large front window in Image 1 so their packaging matches images 2-4. Preserve the outer teal gift-box silhouette, carrying handle, transparent front display window, four compartments, camera, shading, trim, composition and exact content count.\nLower left: exactly one duo bucket matching image 2, with smooth round white rim, teal LEFT wall and amber RIGHT wall, clearly visible white central divider separating glossy caramel on LEFT from golden cheese on RIGHT. Do not use scalloped striped carton packaging.\nLower right: exactly one transparent chocolate popcorn cup matching image 3, with simple charcoal paper sleeve and thin cream edges, NO star emblem or other decoration on the sleeve; dark chocolate popcorn has clearly crossing white-chocolate drizzle lines.\nTop: exactly two five-point caramel popcorn stars on short wooden sticks, matching image 4. Both retain popcorn-kernel texture and each has a fitted CLEAR CELLOPHANE BAG with subtle white folds and a small teal tie around its short wooden stick. The bag should not obscure the five-point star silhouette.\nPreserve one bucket, one cup and TWO star pops, all inside the box. No additional products. Keep all details large and readable at 64-pixel game size. No text or numbers. Preserve genuinely transparent RGBA background outside the entire box and through the handle hole, never a painted checkerboard, never white backdrop, no floor or cast shadow.",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-75b08bb1-a152-48db-8d4f-45050a451cad.png",
+      "selected": false,
+      "reason": "Rejected: baked checkerboard background with alpha 255."
+    },
+    {
+      "stage": "background-extraction-edit",
+      "prompt": "Use case: background-extraction\nEdit target: the attached finished teal popcorn gift-box sprite.\nMake the background genuinely TRANSPARENT with an RGBA alpha channel. Remove every gray checkerboard tile outside the gift box and inside the opening of the top carrying handle. These checkerboard squares are unwanted background pixels, not part of the artwork. All removed background pixels must have alpha 0; do not replace the pattern with white, black, gray, another pattern, a floor or a shadow.\nPreserve the exact gift-box artwork unchanged: outer silhouette, teal cardboard, gold and cream trim, handle, clear front window, inner dividers, one caramel-and-cheese divided bucket at lower left, one chocolate cup with white crisscross drizzle and dark paper sleeve at lower right, and exactly two separately bagged star-shaped popcorn pops above. Preserve the transparent-cellophane reflections and every product detail inside the box. No text, no added objects, no recoloring. Return a clean isolated transparent PNG sprite.",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-14d36e3a-d208-4f21-8d53-71a81f35fd0a.png",
+      "selected": false,
+      "reason": "Rejected: baked checkerboard persisted with alpha 255."
+    },
+    {
+      "stage": "independent-regeneration",
+      "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE complete product centered on a square canvas, entirely visible, taking about 80 percent of canvas height, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\n\nSubject: One premium rigid rectangular celebration gift box, deep teal outer cardboard with restrained cream and golden-yellow trim, broad transparent FRONT display window, a clearly visible sturdy top carrying handle, and structured inner compartment dividers. The box is closed and finished, shown as a complete portable gift package. Through the large clear window the contents are clearly recognizable and countable: exactly ONE wide divided popcorn bucket at lower left with amber caramel on its left and yellow cheese on its right; exactly ONE clear dark-sleeved chocolate popcorn cup at lower right with white zigzag drizzle on the dark popcorn; exactly TWO thick five-point caramel popcorn stars on short sticks in their own upper or back compartments. All four packaged components sit inside the same box, none outside. Keep shapes large and simplified so the box reads as the combination of these products at small size. Subtle tiny star symbol permitted on one corner, no decorative clutter, no bow that hides the handle or window.\n\nAdditional exact product packaging requirements: the lower-left duo bucket is a ROUND bucket with a smooth white round rim and a visible WHITE CENTRAL DIVIDER, with teal left wall and amber right wall; no scalloped or square carton. The lower-right chocolate cup has a plain CHARCOAL PAPER SLEEVE edged in thin cream, with no symbol on the sleeve, and visible crossing white drizzle on the chocolate popcorn. Each of the TWO upper star popcorn pops is individually wrapped in clear cellophane with a small teal tie and a short stick. Exactly one unified box containing those four distinct products. The background is empty alpha transparency; DO NOT illustrate transparency as squares or checks. Export genuine transparent PNG with alpha=0 surrounding the sprite and through the handle opening.\n",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0951d-bf30-7b11-a18d-2cfed8adaffe/exec-e85019e9-c1b0-411b-8e35-f6a1d1db7b62.png",
+      "selected": true,
+      "reason": "Correct packaged components, handle and window. Actual transparent alpha verified."
+    }
+  ]
+}

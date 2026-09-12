@@ -4,14 +4,12 @@
 
 ## 接续开发入口
 
-- [v1.1 实现与验证](docs/releases/v1.1.md)：连续拖拽、模态报价、全屏适配及本轮运行证据。
-- [1.5 自动化实现与验证说明](docs/AUTOMATION_V15.md)：两段搬运、自动化、首代数值、迁移边界及可复跑经济模拟。
-- [当前开发重心](docs/DEVELOPMENT_FOCUS.md)：当前版本范围与后续验证重点。
-- [六代美术代码接入](docs/SIX_GEN_ART_INTEGRATION.md)：六代装配、资源预算及验收方法。
+- [v1.3 原味订单试玩](http://127.0.0.1:4173/?mode=v13-orders-p0)：包装入库 → 顾客预留 → 整单收款，使用独立存档。
+- [直售区场景资源](art-source/v1.3-scenes/README.md)：庭院、取货柜台与导向牌已接入订单试玩，按场景加载，固定共享货架拖动配货。
+- [首二代工艺美术补充](art-source/v1.3-process/README.md)：5 张独立透明图、六阶段动作预览及装配坐标。
+- [六代美术资源](art-source/six-gen/README.md)：六代装配、最终导出和资源清单。
+- [v1.3 美术资源](art-source/v1.3/README.md)：18 张新增资源、原味成品替换、游戏内新品展页和按需加载。
 - [v1.1 美术补充](art-source/v1.1/README.md)：教学手势、地板延展、墙角层及生成来源。
-- [v0.1 历史版本记录](docs/releases/v0.1.md)：上一版本的实现与验收证据。
-
-以当前 `src/`、`tests/` 和实际执行结果为准。旧截图、旧测试数量及历史美术验收不计为本轮新增结果。
 
 ## 运行与检查
 
@@ -27,6 +25,8 @@ node tools/automation-balance.cjs
 
 [浏览器正式入口](http://127.0.0.1:4173/)默认进入两段拖拽搬运与自动化，使用 schema 4，并兼容迁移已有 v2 工厂。历史对照模式供回归使用，不作为新玩家入口。
 
+新增 `?mode=v13-orders-p0` 可进入 v1.3 原味订单试玩：双场景共用生产状态，包装完成只入货架，部分配货占仓，整单配齐才一次性收入。该入口使用 `little_popcorn_factory_orders_p0_v1`，不读取或迁移正式六代存档。试玩尚未开放升级、助力、自动售货与焦糖；包版本保持 `1.1.0`。
+
 本地服务器只监听本机。`npm test` 先构建源码；`preflight:strict` 提供更严格静态检查，不能替代真机验证。`build:dev` 仍禁用连点产量和模拟广告。
 
 `tools/build.mjs` 生成 `web/game.bundle.js` 与 `build/douyin/`，从原六代冻结合同的 84 张 PNG 和 [v1.1 独立补充合同](art-source/v1.1/manifest.fragment.json)的 3 张 PNG 生成清单，共 87 张。新图包含教学手势、地板延展和墙角层；旧合同与图片保持原样。构建检查两端尺寸、逐文件 SHA-256 及首代/总资源/解码预算；当前资源合计 1,928,459 B，RGBA 基础估算 28,400,528 B。源图、整屏参考图及预览不随包发布。不要手改生成包或 `src/art-manifest.js`。本地 `config.local.json` 不被构建改写，格式见 [配置示例](config.local.example.json)。
@@ -34,6 +34,10 @@ node tools/automation-balance.cjs
 构建器只合并模块，不转译 JavaScript。`src/` 的运行代码需兼容抖音真机编译器：用显式判空代替可选链（`?.`）和空值合并（`??`），即使 IDE 已开启 ES6 编译也不能直接使用这两种语法。修改源码后运行 `npm run build`，在抖音开发者工具中使用 `build/douyin/` 项目。
 
 复用的首代装配数据位于 [活动装配目录](art-source/six-gen/integration/legacy/README.md)。当前构建无需 `archive/` 或 `IAA-six-gen-integration` 临时工作树；历史归档可单独存放。
+
+v1.3 新增的 18 张美术由独立 `tools/v13-art-build.mjs` 随标准构建复制到两端，总压缩体积 946,983 B，不加入上述 87 张基础预载。正式工厂只常驻 2 张新图，“新品”页按需选择并释放资源，最重直售页的新增 RGBA 估算为 3,853,824 B，低于 4 MiB 选择预算。资源总量不等于同时解码量，真机实际内存仍待验证。勿手改生成的 `src/v13-art-manifest.js`。
+
+订单试玩另接入 3 张直售区环境图，由 `tools/v13-scene-art-build.mjs` 随标准构建校验并复制；独立路径为 `assets/art/v13-scenes/`，压缩体积 811,705 B，RGBA 估算 3,326,976 B。仅客户区加载，回工厂释放。客户区加上基础图和角色商品后的总图像尺寸估算约 33.70 MiB，设备实际内存待测。勿手改生成的 `src/v13-scene-art-manifest.js`。
 
 ## 正式玩法
 
@@ -66,11 +70,11 @@ node tools/automation-balance.cjs
 
 点击工位打开居中的设备改造窗口，在“物流改造”分别购买自动化和整盘扩容。工位报价绑定工位、等级、价格和名称，购买后需要重新查看下一档。拖动松手不会再触发购买窗口。HUD、场景和模态窗口独立布局，打开窗口保持机器位置稳定，并优先处理窗口输入；主要触控区至少 44×44 逻辑像素，转运入口使用更大的目标区域。
 
-键盘 `1/2/3` 切换工位，`Enter` 提交当前确认报价，`L` 物流、`M` 扩建、`S` 设置、`Escape` 关闭窗口或取消搬运。鼠标与触屏均使用按住、拖动、松手的搬运操作。
+键盘 `1/2/3` 切换工位，`Enter` 提交当前确认报价，`L` 物流、`M` 扩建、`S` 设置、`P` 新品、`Escape` 关闭窗口或取消搬运。鼠标与触屏均使用按住、拖动、松手的搬运操作。HUD“新品”可查看七款商品、六代工艺和直售场景；新品与直售标注“筹备中”，不会产生虚构订单或销售。
 
 ## 存档与平台
 
-正式存档键为 `little_popcorn_factory_automation_v4`。首次迁移时保留 `little_popcorn_factory_pipeline_v2` 原文，备份到 `little_popcorn_factory_automation_v4_backup_v2`，新档写入并回读一致后才切换运行工厂。失败时原工厂继续运行；迁移不会重新锁成手动、改低旧等级或销毁已有批次。正式模式不读取或删除 P0 和旧 `little_popcorn_factory_v1`。详细边界见 [1.5 存档迁移说明](docs/AUTOMATION_V15.md#存档迁移)。
+正式存档键为 `little_popcorn_factory_automation_v4`。首次迁移时保留 `little_popcorn_factory_pipeline_v2` 原文，备份到 `little_popcorn_factory_automation_v4_backup_v2`，新档写入并回读一致后才切换运行工厂。失败时原工厂继续运行；迁移不会重新锁成手动、改低旧等级或销毁已有批次。正式模式不读取或删除 P0 和旧 `little_popcorn_factory_v1`。
 
 后台暂停，返回继续，不按离开时长补产发钱。重开只写当前模式的存档键，写入失败保留当前工厂。浏览器用 WebAudio；抖音保留触摸、安全区、生命周期、存储与包内音效降级。广告接口不可用，不创建广告实例。
 
@@ -90,5 +94,3 @@ node tools/automation-balance.cjs
 | `tools/automation-balance.cjs` | 三种前期操作/购买策略、守恒、恢复及自动运行检查 |
 | `tools/build.mjs`、`tools/art-build.mjs`、`tools/serve.mjs`、`tools/preflight.mjs` | 构建、资源复制、本地服务与静态预检 |
 | `tests/` | 当前源码的核心、预测、输入、布局和平台回归 |
-
-v1.1 的构建、测试和 Chrome 检查应使用本轮实际生成的报告；美术预览不能替代游戏输入验收。[v0.1 发布说明](docs/releases/v0.1.md)、[1.5 执行结果](docs/AUTOMATION_V15.md#最终执行结果)与已有六代截图保留为对应阶段的历史证据。

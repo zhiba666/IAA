@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2f3eb">
+  <title>街角直售庭院 · v1.3 场景美术审阅</title>
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body id="top" data-tone="light">
+  <header class="site-header">
+    <a class="wordmark" href="#top"><span class="brand-dot" aria-hidden="true"></span>小小爆米花厂</a>
+    <span class="edition">ART DIRECTION <b>v1.3 / 03</b></span>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">SCENE STUDY 01 · 工厂直售</p>
+      <h1>街角的一杯，<br class="mobile-break">刚刚出锅。</h1>
+      <p class="intro-copy">从生产线走到顾客面前。用庭院、交付柜台和方向路牌，连接已有的门脸、角色与共享货架。</p>
+    </section>
+
+    <section class="review-layout" aria-label="场景装配审阅">
+      <div class="stage-panel">
+        <div class="stage-caption"><span><i aria-hidden="true"></i> 场景装配</span><span>390 × 744 · 等比缩放</span></div>
+        <div class="phone-frame"><canvas id="scene-preview" width="780" height="1488" role="img" aria-label="街角直售庭院美术装配：后排门脸，中部顾客与交付台，下方共享成品货架。"></canvas></div>
+        <div class="scene-status"><span id="load-status" role="status">正在加载场景资源…</span><button id="retry-load" class="text-button" hidden type="button">重新加载</button></div>
+      </div>
+
+      <aside class="review-controls">
+        <div class="section-number">01 / 体验场景</div>
+        <h2>从订单，到一袋满足。</h2>
+        <p class="body-copy">后排是熟悉的红白遮阳棚；顾客停在视线中段，取货袋放上柜台，底部货架承接工厂与门店的共享库存。</p>
+        <fieldset class="state-fieldset">
+          <legend>切换美术状态</legend>
+          <div class="state-buttons">
+            <button type="button" data-state="first" aria-pressed="true"><span class="button-number">01</span><span><strong>首单等候</strong><small>原味 × 4 · 空袋待交付</small></span><span class="button-arrow" aria-hidden="true">↗</span></button>
+            <button type="button" data-state="mixed" aria-pressed="false"><span class="button-number">02</span><span><strong>混合配货</strong><small>原味 + 焦糖 · 商品入袋</small></span><span class="button-arrow" aria-hidden="true">↗</span></button>
+            <button type="button" data-state="complete" aria-pressed="false"><span class="button-number">03</span><span><strong>成交反馈</strong><small>交付完成 · 金币与状态示意</small></span><span class="button-arrow" aria-hidden="true">↗</span></button>
+          </div>
+        </fieldset>
+        <div class="state-note" aria-live="polite"><span id="state-kicker">首单等候</span><p id="state-description">第一位顾客等待 4 杯原味；第二个站位保留给下一位顾客。空取货袋与共享货架各自独立。</p></div>
+        <div class="tone-controls"><div><strong>资源衬底</strong><span>检查透明边缘与轮廓</span></div><div class="swatches"><button type="button" class="swatch light" data-tone="light" aria-pressed="true" aria-label="浅色衬底"></button><button type="button" class="swatch dark" data-tone="dark" aria-pressed="false" aria-label="深色衬底"></button></div></div>
+        <div class="art-notice"><span class="notice-label">美术审阅说明</span><p>所有订单、库存、报酬和成交效果均为固定排版样例。本页不读取存档，不执行生产、配货或结算；切换状态只检查美术表现。</p></div>
+        <div class="review-links"><a href="README.md">制作与装配说明 ↗</a><a href="manifest.json">资源清单 ↗</a></div>
+      </aside>
+    </section>
+
+    <section class="asset-section" aria-labelledby="asset-title">
+      <div class="section-heading"><div><p class="eyebrow">THREE NEW PIECES</p><h2 id="asset-title">把场景补完整。</h2></div><p>3 张新增素材，其余使用既有资源。</p></div>
+      <div class="asset-gallery">
+        <article class="asset-card courtyard-card"><a class="asset-image" href="exports/scene_direct_sales_courtyard.png" aria-label="打开街角直售庭院背景 PNG"><img src="exports/scene_direct_sales_courtyard.png" alt="留出门脸、顾客和成品货架位置的直售庭院背景"></a><div class="asset-meta"><span class="asset-index">01 / ENVIRONMENT</span><h3>直售庭院</h3><p>低对比背景，留出中轴操作与顾客站位。</p><a href="exports/scene_direct_sales_courtyard.png">查看 PNG <span aria-hidden="true">↗</span></a></div></article>
+        <article class="asset-card"><a class="asset-image" href="exports/scene_pickup_counter.png" aria-label="打开交付柜台透明 PNG"><img src="exports/scene_pickup_counter.png" alt="青绿金属与奶油色台面的独立交付柜台"></a><div class="asset-meta"><span class="asset-index">02 / FOREGROUND</span><h3>交付柜台</h3><p>独立透明前景，取货袋与商品分层摆放。</p><a href="exports/scene_pickup_counter.png">查看 PNG <span aria-hidden="true">↗</span></a></div></article>
+        <article class="asset-card"><a class="asset-image" href="exports/scene_factory_wayfinding.png" aria-label="打开工厂方向路牌透明 PNG"><img src="exports/scene_factory_wayfinding.png" alt="以爆米花图形和方向箭头提示生产区的独立路牌"></a><div class="asset-meta"><span class="asset-index">03 / WAYFINDING</span><h3>工厂路牌</h3><p>衔接生产区与直售区，文字保持动态绘制。</p><a href="exports/scene_factory_wayfinding.png">查看 PNG <span aria-hidden="true">↗</span></a></div></article>
+      </div>
+    </section>
+    <section class="layer-notes" aria-label="装配约定"><div><span>01</span><h3>物件保持独立</h3><p>背景、门脸、角色、柜台与路牌独立等比绘制，支持后续调整场地与站位。</p></div><div><span>02</span><h3>遮挡关系可复用</h3><p>货架按后层 → 商品 → 前栏装配。取货袋按袋体 → 商品 → 前壁与提手装配。</p></div><div><span>03</span><h3>信息与美术分离</h3><p>数量、报酬、库存和订单状态由预览代码绘制，未烘焙进 PNG。</p></div></section>
+  </main>
+  <footer class="site-footer"><span>小小爆米花厂 · v1.3 场景美术补充包</span><span>独立美术预览 / 非游戏入口</span></footer>
+  <script src="preview.js"></script>
+</body>
+</html>

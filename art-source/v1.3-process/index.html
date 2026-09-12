@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>v1.3 · 裹糖工艺美术补充</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root{font-family:"Microsoft YaHei",system-ui,sans-serif;color:#173f3e;background:#eef3ee;color-scheme:light}
+    *{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:38px 24px 54px}
+    a{color:#19786d}header{display:flex;gap:24px;align-items:flex-start;justify-content:space-between;margin-bottom:26px}
+    .eyebrow{letter-spacing:.16em;font-size:12px;font-weight:700;color:#568077;margin:0 0 10px}h1{font-size:clamp(25px,4vw,38px);margin:0 0 10px;letter-spacing:-.04em}
+    p{line-height:1.7;margin:8px 0;color:#5e726b;font-size:14px}.tag{white-space:nowrap;border:1px solid #c4d8ca;border-radius:24px;padding:8px 13px;font-size:12px;background:#e0ebdf}
+    .panel{border:1px solid #d3dfd2;background:#fbfcf8;border-radius:22px;overflow:hidden}.toolbar{padding:19px 22px;border-bottom:1px solid #dce5d9;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;align-items:center}
+    .states{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;font-size:13px;border:1px solid #ccd9ce;background:#fffef8;color:#315c53;border-radius:9px;min-height:42px;padding:8px 13px;cursor:pointer}
+    button:hover{background:#e8efdf}button[aria-pressed="true"]{background:#225e50;color:#fff;border-color:#225e50}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #e4a540;outline-offset:3px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);padding:14px 22px 26px;gap:24px}.machine{min-width:0}.machine canvas{display:block;width:100%;height:auto;max-width:510px;margin:0 auto}
+    .worklabel{font-size:11px;letter-spacing:.13em;color:#779085;margin:12px 0 0}.side{padding:18px 0;display:flex;flex-direction:column;gap:16px;min-width:0}.side h2{font-size:23px;margin:0}.step{font-size:12px;color:#997033;letter-spacing:.06em;font-weight:700}
+    .pack{border-radius:16px;background:#f0f3e8;border:1px solid #dce5d5;padding:16px}.pack canvas{display:block;width:100%;height:auto;max-width:270px;margin:0 auto}.pack strong{font-size:13px}.pack p{font-size:12px}
+    .scrubber{display:flex;align-items:center;gap:10px;margin-top:4px;font-size:12px}.scrubber label,.scrubber output{white-space:nowrap}input[type="range"]{width:100%;accent-color:#286b56;min-width:0}.options{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;color:#6a7c72}select{font:inherit;padding:5px;border:1px solid #cddacc;border-radius:5px;background:#fff}
+    .legend{padding:14px 22px;background:#f3f6ef;border-top:1px solid #e0e7db;font-size:12px;color:#697c71;line-height:1.8}.catalog-title{margin:32px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:15px}.catalog-title h2{font-size:19px;margin:0}.catalog-title span{font-size:12px;color:#688272}
+    .catalog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.asset{background:#fafcf8;border:1px solid #d8e2d4;border-radius:13px;padding:13px;min-width:0}.asset img{width:100%;height:133px;object-fit:contain}.asset h3{font-size:13px;margin:10px 0 6px}.asset code{display:block;font-size:10px;color:#809083;overflow-wrap:anywhere}.asset small{font-size:11px;color:#6c8174}.links{margin-top:22px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px}#load-status{padding:6px 0;font-size:12px;color:#647d6f}.error{color:#ae4937!important}
+    @media(max-width:700px){main{padding:22px 14px 36px}header{display:block}.tag{display:inline-block;margin-top:8px}.toolbar{padding:14px}.workspace{grid-template-columns:1fr;padding:12px 14px;gap:4px}.side{padding-top:0;gap:10px}.side h2{font-size:20px}.pack canvas{max-width:200px}.catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.asset img{height:116px}.catalog-title{align-items:flex-start;flex-direction:column;gap:7px}.legend{padding:12px 14px}.machine canvas{max-width:440px}}
+  </style>
+</head>
+<body><main>
+  <header><div><div class="eyebrow">IAA / ART DEVELOPMENT / 01</div><h1>从原味，到琥珀焦糖。</h1><p>v1.3 首二代工艺美术补充 · 空机、散料、流糖与装桶中间态</p></div><span class="tag">美术动作预览</span></header>
+  <section class="panel" aria-label="裹糖工艺分阶段预览">
+    <div class="toolbar"><div class="states" id="states"></div><button id="play" disabled>播放演示</button></div>
+    <div class="workspace"><div class="machine"><div class="worklabel">CARAMEL COATER / 裹糖工位</div><canvas id="machine" width="1254" height="1254" role="img" aria-label="裹糖机工艺状态"></canvas><div class="options"><label>背景 <select id="background"><option value="#fbfcf8">浅色</option><option value="#183943">深青</option><option value="#8ac8c7">青绿</option></select></label><label><input type="checkbox" id="guides">显示装配边界</label></div></div>
+      <div class="side"><div><div class="step" id="step">正在加载</div><h2 id="state-title">准备资源</h2><p id="description">正在读取独立美术包。</p></div><div class="scrubber"><label for="progress">阶段进度</label><input id="progress" type="range" min="0" max="100" value="55" disabled><output id="progress-value">55%</output></div><div class="pack"><strong id="pack-title">包装中间态</strong><canvas id="pack" width="1254" height="1254" role="img" aria-label="焦糖空桶与装填预览"></canvas><p id="pack-note">空桶与内部散料分层绘制。</p></div><div id="load-status" role="status">正在加载资源…</div><button id="retry" hidden>重新加载图片</button></div>
+    </div><div class="legend">此页演示美术装配，不产生库存、订单或收入。滚筒机身仍为静态图，当前活动内容是散料和糖浆；等待状态停止流糖。</div>
+  </section>
+  <div class="catalog-title"><h2>本次补充 · 5 张独立 PNG</h2><span id="budget"></span></div><div class="catalog" id="catalog"></div>
+  <nav class="links" aria-label="资源文件"><a href="qa/contact-sheet.png">资源总览</a><a href="qa/three-backgrounds.png">三底尺寸检查</a><a href="manifest.json">资源清单</a><a href="assembly.json">装配坐标</a><a href="README.md">交接说明</a><a href="../v1.3/index.html">已有静态美术</a></nav>
+</main><script src="catalog.js"></script><script src="preview.js"></script></body></html>

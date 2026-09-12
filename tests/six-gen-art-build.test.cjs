@@ -52,10 +52,15 @@ test('six-generation and v1.1 copy uses the reviewed final bytes, prunes stale a
     }
   }
   const report = await build.copyRuntimeArt(root, ['web', 'build/douyin'], data);
+  assert.equal(report.count, 87);
+  assert.equal(report.compressedBytes, data.totals.compressedBytes);
+  assert.equal(report.decodedBytes, data.totals.decodedBytes);
   assert.equal(report.generationStationRigCount, 18);
   assert.ok(report.sourceFiles.includes(supplementPath));
   assert.deepEqual(report.sourceContracts, [{ contractVersion: 'six-gen-art-1.0', count: 84 }, { contractVersion: 'v11-art-supplement-1', count: 3 }]);
   assert.ok(Object.values(report.budgets).every(budget => budget.passed));
+  assert.deepEqual(report.targets.map(target => [target.directory, target.verified]), [['web', 87], ['build/douyin', 87]]);
+  await assert.rejects(fs.stat(path.join(root, 'output')), { code: 'ENOENT' });
   for (const target of ['web', 'build/douyin']) {
     await assert.rejects(fs.stat(path.join(root, target, 'assets/art/old/preview.png')), { code: 'ENOENT' });
     const entries = await fs.readdir(path.join(root, target, 'assets/art/six_gen'));

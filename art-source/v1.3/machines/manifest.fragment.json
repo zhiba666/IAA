@@ -1,0 +1,59 @@
+{
+  "assets": [
+    {
+      "id": "machine_caramel_coater",
+      "label": "琥珀裹糖机",
+      "category": "machines",
+      "generation": 2,
+      "source": "art-source/v1.3/machines/sources/machine_caramel_coater.png",
+      "maxSize": 640,
+      "prompt": "art-source/v1.3/machines/prompts/machine_caramel_coater.txt",
+      "description": "独立静态工艺模块：倾斜铜色滚筒、透明琥珀糖浆罐、出口盘。活动表现由后续代码接入。",
+      "role": "sprite"
+    },
+    {
+      "id": "machine_dual_flavor",
+      "label": "双舱拼味机",
+      "category": "machines",
+      "generation": 3,
+      "source": "art-source/v1.3/machines/sources/machine_dual_flavor.png",
+      "maxSize": 640,
+      "prompt": "art-source/v1.3/machines/prompts/machine_dual_flavor.txt",
+      "description": "独立静态工艺模块：左右焦糖和芝士双调味舱、双出口与中间分格装桶位。活动表现由后续代码接入。",
+      "role": "sprite"
+    },
+    {
+      "id": "machine_dual_drizzle",
+      "label": "双酱瀑布机",
+      "category": "machines",
+      "generation": 4,
+      "source": "art-source/v1.3/machines/sources/machine_dual_drizzle.png",
+      "maxSize": 640,
+      "prompt": "art-source/v1.3/machines/prompts/machine_dual_drizzle.txt",
+      "description": "独立静态工艺模块：黑白双淋酱管、圆形转运盘、透明冷却罩和风扇。活动表现由后续代码接入。",
+      "role": "sprite"
+    },
+    {
+      "id": "machine_star_press",
+      "label": "星模脆棒机",
+      "category": "machines",
+      "generation": 5,
+      "source": "art-source/v1.3/machines/sources/machine_star_press.png",
+      "maxSize": 640,
+      "prompt": "art-source/v1.3/machines/prompts/machine_star_press.txt",
+      "description": "独立静态工艺模块：可见五星模具、抬起压头、短棒送料和封袋出口。活动表现由后续代码接入。",
+      "role": "sprite"
+    },
+    {
+      "id": "machine_gift_assembler",
+      "label": "庆典组装塔",
+      "category": "machines",
+      "generation": 6,
+      "source": "art-source/v1.3/machines/sources/machine_gift_assembler.png",
+      "maxSize": 640,
+      "prompt": "art-source/v1.3/machines/prompts/machine_gift_assembler.txt",
+      "description": "独立静态工艺模块：不同高度输送入口、开盒分格内托工位、提手及星形装饰组装塔。产品为工艺示意，真实库存与配方由后续代码接入。",
+      "role": "sprite"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "policy": "reference existing files; no duplicate exports",
+  "assets": [
+    {
+      "path": "art-source/v1.3/exports/shop_front.png",
+      "sha256": "daef073027d9184e7b7199b4a587e8c1c3795462f8e68b724a40577f0113d325"
+    },
+    {
+      "path": "art-source/v1.3/exports/customer_neighbor.png",
+      "sha256": "925f694beff34453075d58eb0dc5c29d4c699e03bbe6bf0b3d992917fde4ddab"
+    },
+    {
+      "path": "art-source/v1.3/exports/customer_family.png",
+      "sha256": "d0d1acad8f36f0973aa1c1424722e6d2a69053f4626449d539bec7f862cd30c9"
+    },
+    {
+      "path": "art-source/v1.3/exports/clerk_vendor.png",
+      "sha256": "7ce82a700e7abdb23df0179a3a3de10bea15722d4d70aa904a20f54111c39d36"
+    },
+    {
+      "path": "art-source/v1.3/exports/order_pickup_bag.png",
+      "sha256": "9da8e248a7a4d39b2db4beac8d1014cab66a9fad17613062d11e1f9508831fc9"
+    },
+    {
+      "path": "art-source/v1.3/exports/product_original_cup.png",
+      "sha256": "3755329c0962ff82200c948626ef5a2287cab6b2250dda63143cb9c17e35d530"
+    },
+    {
+      "path": "art-source/v1.3/exports/product_caramel_tub.png",
+      "sha256": "82be025eff1f199a7875504200e6dbfaa97c94a7992769ed7ca95d24226a4839"
+    },
+    {
+      "path": "art-source/six-gen/integration/exports/buffer_cups_rack_back.png",
+      "sha256": "4606664af47b10445beae89c55a61247425ae10d4296bbbd4471898049348783"
+    },
+    {
+      "path": "art-source/six-gen/integration/exports/buffer_cups_rack_front.png",
+      "sha256": "1b04d1440b0bea073cd5069e511cbbd361cbc970f5f7b5cebcf934aec4151d0e"
+    }
+  ]
+}

@@ -1,0 +1,340 @@
+{
+  "contractVersion": "v13-process-art-1",
+  "status": "ART_READY_NOT_GAMEPLAY_INTEGRATED",
+  "coordinateSystem": "Export pixel coordinates; [0,0] is top-left; anchors are sprite attachment references.",
+  "loading": "Independent optional process-art source pack. No runtime copies or preload registration.",
+  "assets": [
+    {
+      "id": "machine_caramel_coater_empty",
+      "label": "空载琥珀裹糖机",
+      "category": "machine",
+      "maxSize": 480,
+      "anchorType": "bottom-center",
+      "generation": 2,
+      "source": "machine/sources/machine_caramel_coater_empty.png",
+      "prompt": "machine/prompts/machine_caramel_coater_empty.txt",
+      "provenance": "machine/provenance.json",
+      "file": "exports/machine_caramel_coater_empty.png",
+      "url": "exports/machine_caramel_coater_empty.png",
+      "width": 478,
+      "height": 480,
+      "bytes": 330302,
+      "decodedBytes": 917760,
+      "sha256": "a056d7dd2df3435f6a5fe52019f6e5efeb2c32a910050c8c4efd6bd68edc2ebd",
+      "sourceSha256": "60a7e5c13fce24f661cfa03e472f58b72acd94edebc828ab441f7e7e6a08e8c8",
+      "promptSha256": "15ff044cd097de3a42d0e91e46cf273453adb9ba05fc4995dc0dc14408937991",
+      "provenanceSha256": "860908aa8a72ad0f9c78eaddc1420e2cf8720393e210908fc8b4b97d9141b2a5",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceRect": [
+        0,
+        23,
+        1200,
+        1205
+      ],
+      "sourceBoundaryNontransparentPixels": 16,
+      "anchor": [
+        239,
+        476
+      ],
+      "anchorUnits": "export-pixels",
+      "padding": 4,
+      "alpha": {
+        "width": 478,
+        "height": 480,
+        "channels": 4,
+        "clear": 105338,
+        "partial": 122969,
+        "visible": 124102,
+        "edge": 0,
+        "bounds": [
+          4,
+          4,
+          460,
+          465
+        ],
+        "margins": {
+          "top": 4,
+          "right": 14,
+          "bottom": 11,
+          "left": 4
+        }
+      },
+      "delivery": "ART_READY",
+      "gameplay": "NOT_INTEGRATED",
+      "transform": "Crop true alpha bounds; uniform Lanczos3 downscale without enlargement; 4px transparent padding. Source pixels and prompts retained."
+    },
+    {
+      "id": "material_original_popcorn",
+      "label": "原味爆米花物料",
+      "category": "materials",
+      "maxSize": 192,
+      "anchorType": "bottom-center",
+      "generation": 2,
+      "source": "materials/sources/material_original_popcorn.png",
+      "prompt": "materials/prompts/material_original_popcorn.txt",
+      "provenance": "materials/provenance.json",
+      "file": "exports/material_original_popcorn.png",
+      "url": "exports/material_original_popcorn.png",
+      "width": 192,
+      "height": 184,
+      "bytes": 39753,
+      "decodedBytes": 141312,
+      "sha256": "0642df368e323f108f9be71408e07c2fcd60eff1fb5438bc5bb04800aefdbf18",
+      "sourceSha256": "9348361fc3e20d4ad97aaabd6db55bb538be44bd25539c05b685a65d2ec67a6c",
+      "promptSha256": "85619720f4e5247ce297aa8aedd0482068449035c3afb5cf21711c3929ee1003",
+      "provenanceSha256": "005561c2c533dcda9ded30dd1b4cc976cc07d911d08f7007d2690520456ece31",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceRect": [
+        2,
+        40,
+        1214,
+        1158
+      ],
+      "sourceBoundaryNontransparentPixels": 0,
+      "anchor": [
+        96,
+        180
+      ],
+      "anchorUnits": "export-pixels",
+      "padding": 4,
+      "alpha": {
+        "width": 192,
+        "height": 184,
+        "channels": 4,
+        "clear": 22791,
+        "partial": 12213,
+        "visible": 12537,
+        "edge": 0,
+        "bounds": [
+          7,
+          39,
+          181,
+          107
+        ],
+        "margins": {
+          "top": 39,
+          "right": 4,
+          "bottom": 38,
+          "left": 7
+        }
+      },
+      "delivery": "ART_READY",
+      "gameplay": "NOT_INTEGRATED",
+      "transform": "Crop true alpha bounds; uniform Lanczos3 downscale without enlargement; 4px transparent padding. Source pixels and prompts retained."
+    },
+    {
+      "id": "material_caramel_popcorn",
+      "label": "焦糖爆米花物料",
+      "category": "materials",
+      "maxSize": 192,
+      "anchorType": "bottom-center",
+      "generation": 2,
+      "source": "materials/sources/material_caramel_popcorn.png",
+      "prompt": "materials/prompts/material_caramel_popcorn.txt",
+      "provenance": "materials/provenance.json",
+      "file": "exports/material_caramel_popcorn.png",
+      "url": "exports/material_caramel_popcorn.png",
+      "width": 192,
+      "height": 185,
+      "bytes": 44256,
+      "decodedBytes": 142080,
+      "sha256": "7c16d26d63a5cdf5f0250a801c1ca72ac62eb3b0a198152469c15241504798d2",
+      "sourceSha256": "6f7387ba08e88b69d552ea60b5d293fe10692ece24488b444ebd50a001764804",
+      "promptSha256": "c190bb8d6ab50b5181edb08a7ac8a588376ef064427932a57e35f9eea0867510",
+      "provenanceSha256": "005561c2c533dcda9ded30dd1b4cc976cc07d911d08f7007d2690520456ece31",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceRect": [
+        16,
+        48,
+        1227,
+        1180
+      ],
+      "sourceBoundaryNontransparentPixels": 0,
+      "anchor": [
+        96,
+        181
+      ],
+      "anchorUnits": "export-pixels",
+      "padding": 4,
+      "alpha": {
+        "width": 192,
+        "height": 185,
+        "channels": 4,
+        "clear": 21804,
+        "partial": 13390,
+        "visible": 13716,
+        "edge": 0,
+        "bounds": [
+          4,
+          30,
+          184,
+          118
+        ],
+        "margins": {
+          "top": 30,
+          "right": 4,
+          "bottom": 37,
+          "left": 4
+        }
+      },
+      "delivery": "ART_READY",
+      "gameplay": "NOT_INTEGRATED",
+      "transform": "Crop true alpha bounds; uniform Lanczos3 downscale without enlargement; 4px transparent padding. Source pixels and prompts retained."
+    },
+    {
+      "id": "caramel_syrup_flow",
+      "label": "焦糖浆流",
+      "category": "machine",
+      "maxSize": 192,
+      "anchorType": "top-center",
+      "generation": 2,
+      "source": "machine/sources/caramel_syrup_flow.png",
+      "prompt": "machine/prompts/caramel_syrup_flow.txt",
+      "provenance": "machine/provenance.json",
+      "file": "exports/caramel_syrup_flow.png",
+      "url": "exports/caramel_syrup_flow.png",
+      "width": 111,
+      "height": 192,
+      "bytes": 8083,
+      "decodedBytes": 85248,
+      "sha256": "3475659c979d8bacd466a07c27c75c412cefd6540b7e4c3d99a1996e83105038",
+      "sourceSha256": "cdea9ec2058a9337cf3c5ddc541d78adba3c140acdd0a3449c534fd356c7e6a7",
+      "promptSha256": "6a1e3a68eec075c4ff98c5deab7b79557cf4e74e037eb3a7cd06447f92e0a320",
+      "provenanceSha256": "860908aa8a72ad0f9c78eaddc1420e2cf8720393e210908fc8b4b97d9141b2a5",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "sourceRect": [
+        65,
+        56,
+        803,
+        1440
+      ],
+      "sourceBoundaryNontransparentPixels": 0,
+      "anchor": [
+        55.5,
+        4
+      ],
+      "anchorUnits": "export-pixels",
+      "padding": 4,
+      "alpha": {
+        "width": 111,
+        "height": 192,
+        "channels": 4,
+        "clear": 18999,
+        "partial": 2000,
+        "visible": 2313,
+        "edge": 0,
+        "bounds": [
+          45,
+          4,
+          35,
+          176
+        ],
+        "margins": {
+          "top": 4,
+          "right": 31,
+          "bottom": 12,
+          "left": 45
+        }
+      },
+      "delivery": "ART_READY",
+      "gameplay": "NOT_INTEGRATED",
+      "transform": "Crop true alpha bounds; uniform Lanczos3 downscale without enlargement; 4px transparent padding. Source pixels and prompts retained."
+    },
+    {
+      "id": "product_caramel_tub_empty",
+      "label": "空焦糖包装桶",
+      "category": "packaging",
+      "maxSize": 256,
+      "anchorType": "bottom-center",
+      "generation": 2,
+      "source": "packaging/sources/product_caramel_tub_empty.png",
+      "prompt": "packaging/prompts/product_caramel_tub_empty.txt",
+      "provenance": "packaging/provenance.json",
+      "file": "exports/product_caramel_tub_empty.png",
+      "url": "exports/product_caramel_tub_empty.png",
+      "width": 256,
+      "height": 214,
+      "bytes": 71408,
+      "decodedBytes": 219136,
+      "sha256": "195ec41fc95079e920383ea76746f4075cf23bbff6ad6d516f378d53421d3c2e",
+      "sourceSha256": "d06ab1ee1f370c9cd6e562e0162e36717b33bf85c5603c65365ebee366c47ca4",
+      "promptSha256": "ee3166eae432e146ab07b2af3e483b90e203a52b46779315b544e886f24ced6c",
+      "provenanceSha256": "6796b01feed947a371a15bb9d63660bb0418bc0e2e2b635eb6097fd203e33060",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceRect": [
+        0,
+        228,
+        1206,
+        1002
+      ],
+      "sourceBoundaryNontransparentPixels": 1,
+      "anchor": [
+        128,
+        210
+      ],
+      "anchorUnits": "export-pixels",
+      "padding": 4,
+      "alpha": {
+        "width": 256,
+        "height": 214,
+        "channels": 4,
+        "clear": 22447,
+        "partial": 31825,
+        "visible": 32337,
+        "edge": 0,
+        "bounds": [
+          14,
+          19,
+          238,
+          180
+        ],
+        "margins": {
+          "top": 19,
+          "right": 4,
+          "bottom": 15,
+          "left": 14
+        }
+      },
+      "delivery": "ART_READY",
+      "gameplay": "NOT_INTEGRATED",
+      "transform": "Crop true alpha bounds; uniform Lanczos3 downscale without enlargement; 4px transparent padding. Source pixels and prompts retained."
+    }
+  ],
+  "bytes": 493802,
+  "decodedBytes": 1505536,
+  "budget": {
+    "compressedBytes": 524288,
+    "decodedBytes": 3145728
+  },
+  "qa": [
+    {
+      "file": "qa/contact-sheet.png",
+      "width": 1280,
+      "height": 332,
+      "bytes": 270583,
+      "sha256": "153fb0863cdc6bebfeb9a6cf03ca9cc44b22c8efa655e7253aaaced988552e42"
+    },
+    {
+      "file": "qa/three-backgrounds.png",
+      "width": 1280,
+      "height": 900,
+      "bytes": 498480,
+      "sha256": "994f0c8b956a88d42fbf5785294ceee6bf9233e1d1389b7af00b7db5d2b81180"
+    }
+  ]
+}

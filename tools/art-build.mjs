@@ -211,13 +211,5 @@ export async function copyRuntimeArt(root, targets, data) {
     targets: packages,
     excluded: ['reference sheets', 'raw source images', 'preview images', 'art-only fixture scripts'],
     entries: data.entries };
-  await mkdir(path.join(root, 'output/six-gen-art-runtime'), { recursive: true });
-  await writeFile(path.join(root, 'output/six-gen-art-runtime/resource-report.json'), JSON.stringify(report, null, 2) + '\n');
-  await writeFile(path.join(root, 'output/six-gen-art-runtime/resource-report.md'),
-    '# 六代与 v1.1 补充运行资源体积与构建复制检查\n\n' +
-    `运行 PNG：${report.count} 个；压缩文件 ${report.compressedBytes.toLocaleString('en-US')} bytes（${(report.compressedBytes / 1048576).toFixed(2)} MiB）；RGBA 解码估算 ${(report.decodedBytes / 1048576).toFixed(2)} MiB。\n\n` +
-    `首代与共享依赖 ${report.firstGenerationIds.length} 个，共 ${report.firstGenerationCompressedBytes.toLocaleString('en-US')} bytes；18 组代际/工位装配引用和矩形检查通过。首代 1 MiB、全部 PNG 4 MiB、RGBA 32 MiB 预算均通过。\n\n` +
-    packages.map(target => `- ${target.directory}：${report.count} 个资源逐文件 SHA-256 复制校验通过；包含代码、入口及该端音效的运行文件合计 ${(target.totalRuntimeBytes / 1048576).toFixed(2)} MiB。`).join('\n') +
-    `\n\n运行图片仅复制原六代冻结合同的 84 个 PNG 与 v1.1 独立补充合同的 3 个 PNG，共 ${report.count} 个最终导出文件；原图、预览与美术 fixture 不进入运行包。旧装配原始坐标和 sourceRect 保留，运行时等比适配优化后的 PNG 尺寸。本报告证明清单、构建复制和预算检查通过；实际浏览器加载、状态表现与真机验收须分别记录。\n`);
   return report;
 }

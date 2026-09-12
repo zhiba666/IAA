@@ -2,12 +2,19 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const api = import('../tools/preflight.mjs');
 const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest');
+const { V13_ART_ASSETS, V13_ART_IDS } = require('../src/v13-art-manifest');
+const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS } = require('../src/v13-scene-art-manifest');
 
 test('preflight accepts complete and baseline modes and rejects invalid or mismatched modes', async () => {
   const { inspectPackage } = await api;
-  for (const mode of ['v15', 'baseline']) assert.equal(inspectPackage(fixture({ mode })).codeReady, true);
+  for (const mode of ['v15', 'baseline', 'v13-orders-p0']) assert.equal(inspectPackage(fixture({ mode })).codeReady, true);
+  const prototype = inspectPackage(fixture({ mode: 'v13-orders-p0' }));
+  assert.equal(prototype.checks.find(check => check.code === 'experiment-mode').status, 'manual');
+  assert.match(prototype.checks.find(check => check.code === 'experiment-mode').message, /P0-1.*独立存档/);
   for (const mode of [true, null, 'v1.5']) assert.equal(inspectPackage(fixture({ mode })).codeReady, false);
   const input = fixture({ mode: 'v15' });
   input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), mode: 'baseline' });
@@ -30,6 +37,10 @@ function fixture(overrides = {}) {
       const asset = ART_ASSETS[id], png = Buffer.alloc(24);
       Buffer.from('89504e470d0a1a0a', 'hex').copy(png); png.writeUInt32BE(asset.width, 16); png.writeUInt32BE(asset.height, 20);
       return [asset.path, png];
+    })),
+    ...Object.fromEntries(V13_ART_IDS.concat(V13_SCENE_ART_IDS).map(id => {
+      const asset = V13_ART_ASSETS[id] || V13_SCENE_ART_ASSETS[id];
+      return [asset.path, fs.readFileSync(path.resolve(__dirname, '..', asset.sourcePath))];
     }))
   }).map(([name, value]) => [name, Buffer.isBuffer(value) ? value : Buffer.from(value)]));
   return { files, entries: [...files].map(([name, bytes]) => ({ name, size: bytes.length })), localConfigText: JSON.stringify(config) };
@@ -240,6 +251,23 @@ test('preflight catches incorrect RIFF declared length', async () => {
   assert.equal(inspectPackage(input).checks.find(check => check.code === 'audio-format').status, 'error');
 });
 
+test('preflight requires the v1.3 pack and rejects altered PNG bytes or dimensions', async () => {
+  const { inspectPackage } = await api;
+  const first = V13_ART_ASSETS[V13_ART_IDS[0]];
+  const missing = fixture();
+  missing.files.delete(first.path);
+  assert.equal(inspectPackage(missing).checks.find(check => check.code === 'package-files').status, 'error');
+  for (const corrupt of [bytes => { bytes[0] ^= 1; }, bytes => { bytes.writeUInt32BE(first.width + 1, 16); },
+    bytes => { bytes[bytes.length - 1] ^= 1; }]) {
+    const input = fixture(), bytes = Buffer.from(input.files.get(first.path));
+    corrupt(bytes);
+    input.files.set(first.path, bytes);
+    const report = inspectPackage(input);
+    assert.equal(report.codeReady, false);
+    assert.equal(report.checks.find(check => check.code === 'v13-art-format').status, 'error');
+  }
+});
+
 test('preflight detects excess files and oversized package without listing unknown paths', async () => {
   const { inspectPackage, formatReport } = await api;
   const input = fixture();
@@ -248,6 +276,30 @@ test('preflight detects excess files and oversized package without listing unkno
   assert.equal(report.checks.find(check => check.code === 'package-contents').status, 'error');
   assert.equal(report.checks.find(check => check.code === 'package-size').status, 'error');
   assert.equal(formatReport(report).includes('private-path.do-not-print'), false);
+});
+
+test('preflight keeps the 87 + 18 + 3 art contracts and rejects missing or damaged scene PNGs', async () => {
+  const { inspectPackage, REQUIRED_FILES, ART_FILES, V13_ART_FILES, V13_SCENE_ART_FILES } = await api;
+  assert.equal(ART_FILES.length, 87);
+  assert.equal(V13_ART_FILES.length, 18);
+  assert.equal(V13_SCENE_ART_FILES.length, 3);
+  assert.equal(REQUIRED_FILES.length, 117);
+  const input = fixture(), first = V13_SCENE_ART_ASSETS[V13_SCENE_ART_IDS[0]];
+  const valid = inspectPackage(input);
+  assert.equal(valid.checks.find(check => check.code === 'v13-scene-art-format').status, 'pass');
+  assert.equal(valid.checks.find(check => check.code === 'v13-scene-art-budget').status, 'pass');
+  input.files.delete(first.path);
+  assert.equal(inspectPackage(input).checks.find(check => check.code === 'package-files').status, 'error');
+  for (const mutate of [bytes => bytes.subarray(0, bytes.length - 12),
+    bytes => { bytes[bytes.length - 1] ^= 1; return bytes; },
+    bytes => { bytes.writeUInt32BE(first.width + 1, 16); return bytes; }]) {
+    const changed = fixture();
+    changed.files.set(first.path, mutate(Buffer.from(changed.files.get(first.path))));
+    assert.equal(inspectPackage(changed).checks.find(check => check.code === 'v13-scene-art-format').status, 'error');
+  }
+  const oversized = fixture();
+  oversized.files.set(first.path, Buffer.alloc(1048577));
+  assert.equal(inspectPackage(oversized).checks.find(check => check.code === 'v13-scene-art-budget').status, 'error');
 });
 
 test('preflight refuses unsupported game config, disabled domain checks and debug mode', async () => {

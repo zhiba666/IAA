@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: a single isolated game machine sprite with transparent background.
+Primary request: generation-four dual chocolate drizzle and cooling machine for IAA, a compact new independent process module.
+Input images: the supplied machine image is STYLE AND CAMERA REFERENCE ONLY. Match its turquoise teal metal, cool steel and small yellow controls, isometric angle and polished game rendering.
+Subject: one compact machine with two chunky elevated sauce feed cylinders at the rear, one containing dark chocolate and one containing ivory white chocolate. Two short bent dispensing pipes hang clearly side-by-side over a low round rotating silver conveyor platter at the front left, carrying a shallow batch of pale popcorn with readable thin alternating dark and white chocolate drizzle lines. No liquid fountain. The platter leads into a short exit conveyor at the right covered by a clean translucent curved cooling hood. A visible small steel cooling fan is attached to the far side of the hood. Teal frame and four short rubber feet connect everything as one sturdy machine. The two sauce nozzles, round platter and cooling hood are the dominant silhouette, clearly different from an open-kettle machine.
+Style/medium: polished 2.5D isometric three-quarter mobile game sprite; soft hand-painted 3D shading, clean bevels, simplified stout mechanical forms, crisp texture.
+Composition/framing: centered complete machine, square canvas, show front and right with gently elevated orthographic view, all feet and pipe ends in frame, empty transparent margin.
+Lighting/mood: upper-left soft light, readable highlights on steel and glass, no cast floor shadow.
+Color palette: teal and cool gray steel; near-black chocolate and ivory cream sauce; yellow control accents.
+Background: real transparent RGBA, zero alpha outside the object, empty cutout.
+Constraints: exactly one machine; no text, no logos, no labels, no numbers, no people, no floor, no scenery, no backdrop, no checkerboard pattern. Static machine module, not a sprite sheet.

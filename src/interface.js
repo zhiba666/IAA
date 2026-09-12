@@ -3,6 +3,7 @@
 const { formatNumber: num } = require('./core');
 const { APP_VERSION } = require('./version');
 const { drawNineSlice, drawArtLayer, createArtTransform } = require('./art-layout');
+const { drawV13Sprite } = require('./v13-art-sprites');
 const C={ink:'#174e51',muted:'#727968',paper:'#f5eedc',white:'#fffaf0',green:'#38654d',mint:'#e0e9d5',yellow:'#efc45b',orange:'#966330',line:'#d5d9bd'};
 const HEALTH=['抵制不良游戏，拒绝盗版游戏。','注意自我保护，谨防受骗上当。','适度游戏益脑，沉迷游戏伤身。','合理安排时间，享受健康生活。'];
 const finite=n=>Number.isFinite(n)?n:0;
@@ -37,7 +38,12 @@ class GameInterface {
     for(const char of String(value)){if(char==='\n'||line&&this.r.c.measureText(line+char).width>width){lines.push(line);line=char==='\n'?'':char;}else line+=char;}
     if(line||!lines.length)lines.push(line);return lines;
   }
-  artReport(){const art=this.r.art;return art?(typeof art.report==='function'?art.report():art.report)||{}:{};}
+  artReport(){
+    const art=this.r.art,base=art?(typeof art.report==='function'?art.report():art.report)||{}:{};
+    const extra=this.r.v13Art?this.r.v13Art.report():{};
+    return Object.assign({},base,{requested:finite(base.requested)+finite(extra.requested),loaded:finite(base.loaded)+finite(extra.loaded),
+      failed:finite(base.failed)+finite(extra.failed),pending:finite(base.pending)+finite(extra.pending)});
+  }
   overlay(viewport){
     const w=this.w,h=this.h,left=clamp(viewport.safeLeft,0,w/3),right=clamp(viewport.safeRight,0,w/3);
     const bottom=clamp(viewport.safeBottom,0,h/3),safeTop=clamp(viewport.safeTop,0,h/2),menu=viewport.menuButton;
@@ -45,7 +51,7 @@ class GameInterface {
     this.top=Math.max(10,safeTop+8,menuBottom?menuBottom+8:0);
     const x=left+12,end=w-right-12,bottomY=h-bottom-68;
     const hud={coin:{x,y:this.top,w:Math.min(134,end-x-58),h:42},rate:{x,y:this.top+44,w:Math.max(120,end-x-58),h:26},
-      settings:{x:end-44,y:this.top,w:44,h:44},status:{x,y:bottomY,w:Math.max(44,end-x-124),h:56},
+      showroom:{x:end-96,y:this.top,w:44,h:44},settings:{x:end-44,y:this.top,w:44,h:44},status:{x,y:bottomY,w:Math.max(44,end-x-124),h:56},
       logistics:{x:end-116,y:bottomY,w:54,h:56},expansion:{x:end-54,y:bottomY,w:54,h:56}};
     this.safe={x:left+8,y:this.top,w:w-left-right-16,h:Math.max(120,h-bottom-8-this.top)};
     const overlayLayout={topInset:this.top+76,bottomInset:bottom+76,leftInset:left+12,rightInset:right+12,
@@ -93,6 +99,9 @@ class GameInterface {
     const settings=hud.settings;this.panel('ui_button_secondary',settings.x,settings.y,44,44,C.mint);
     if(!this.icon('settings',settings.x+10,settings.y+10,24))this.text('设置',settings.x+22,settings.y+22,12,C.ink,700,'center');
     this.hit(settings.x,settings.y,44,44,'settings');
+    const showroom=hud.showroom;this.panel('ui_button_secondary',showroom.x,showroom.y,44,44,C.mint);
+    if(!drawV13Sprite(this.r.c,this.r.v13Art,'ui_order_ticket',[showroom.x+12,showroom.y+3,20,24]))this.icon('cup',showroom.x+12,showroom.y+3,20);
+    this.text('新品',showroom.x+22,showroom.y+35,10,C.ink,700,'center');this.hit(showroom.x,showroom.y,44,44,'openShowroom');
     const status=this.currentStatus(v,ui),sr=hud.status;
     this.box(sr.x,sr.y+8,sr.w,40,'rgba(255,250,240,.88)',status.error?'#c89870':undefined,10);
     this.label(status.text,sr.x+sr.w/2,sr.y+28,sr.w-10,11,status.error?C.orange:C.green,650,'center');this.hit(sr.x,sr.y,sr.w,sr.h,status.action);

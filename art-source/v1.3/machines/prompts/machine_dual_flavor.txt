@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: one standalone machine sprite PNG with a REAL TRANSPARENT ALPHA CHANNEL for the mobile idle game IAA.
+Primary request: create the generation-three dual-flavor seasoning and packing machine as a new compact independent process module.
+Input images: supplied machine image is STYLE AND CAMERA REFERENCE ONLY. Match its turquoise frame, gray steel, yellow details, orthographic angle and polished shaded game art.
+Subject: a machine with two distinct side-by-side seasoning chambers. On the left an open round copper-lined chamber visibly contains glossy amber caramel popcorn. On the right an open cool steel seasoning chamber visibly contains dry finely coated golden cheese popcorn with a small powder hopper. Below their front lips, two separate narrow gray steel outlet chutes converge side-by-side above ONE empty wide cylindrical two-compartment packing bucket at the front center. A visible divider splits this small bucket evenly so the two-flavor filling process is obvious. The bucket is an inset machine accessory, not a second standalone asset. Teal structural beams and small gray cylindrical motors hold the two chambers; simple yellow control knobs.
+Style/medium: polished 2.5D isometric three-quarter mobile game sprite, soft hand-painted 3D shading, clean bevels, sturdy compact proportions, simplified readable mechanical forms.
+Composition/framing: entire machine centered on a square canvas; show front and right from a gently elevated orthographic angle, same as reference; all feet in frame, at least 8 percent empty transparent border. One coherent compact unit.
+Lighting/mood: soft upper-left light and material self-shadows.
+Color palette: turquoise teal structure, cool gray steel, copper amber left, golden cheese yellow right, tiny yellow control accents.
+Background: transparent, actual alpha=0 pixels outside the machine. Deliver a cutout, with no background pattern at all.
+Constraints: no text, no labels, no numbers, no logo, no floor, no cast shadow on a floor, no checkerboard, no backdrop, no humans, no floating particles. This is one static independent machine module, not a sprite sheet.

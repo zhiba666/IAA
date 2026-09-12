@@ -1,0 +1,204 @@
+{
+  "contract": "v13-scenes-art-1",
+  "purpose": "art preview; no runtime inventory or order binding",
+  "layout": {
+    "canvas": [
+      390,
+      744
+    ],
+    "shop": [
+      25,
+      77,
+      306,
+      248
+    ],
+    "clerk": [
+      144,
+      188,
+      50,
+      77
+    ],
+    "shopWindow": [
+      [
+        158,
+        264
+      ],
+      [
+        504,
+        324
+      ],
+      [
+        504,
+        414
+      ],
+      [
+        167,
+        334
+      ]
+    ],
+    "sign": [
+      303,
+      203,
+      79,
+      112
+    ],
+    "orders": [
+      [
+        19,
+        302,
+        164,
+        78
+      ],
+      [
+        207,
+        302,
+        164,
+        78
+      ]
+    ],
+    "customers": [
+      [
+        67,
+        387,
+        74,
+        101
+      ],
+      [
+        250,
+        387,
+        74,
+        101
+      ]
+    ],
+    "counter": [
+      38,
+      449,
+      314,
+      116
+    ],
+    "bags": [
+      [
+        111,
+        435,
+        47,
+        51
+      ],
+      [
+        260,
+        435,
+        47,
+        51
+      ]
+    ],
+    "rack": [
+      91,
+      548,
+      210,
+      176
+    ]
+  },
+  "sources": {
+    "courtyard": "exports/scene_direct_sales_courtyard.png",
+    "counter": "exports/scene_pickup_counter.png",
+    "sign": "exports/scene_factory_wayfinding.png",
+    "shop": "../v1.3/exports/shop_front.png",
+    "clerk": "../v1.3/exports/clerk_vendor.png",
+    "neighbor": "../v1.3/exports/customer_neighbor.png",
+    "family": "../v1.3/exports/customer_family.png",
+    "bag": "../v1.3/exports/order_pickup_bag.png",
+    "original": "../v1.3/exports/product_original_cup.png",
+    "caramel": "../v1.3/exports/product_caramel_tub.png",
+    "rackBack": "../six-gen/integration/exports/buffer_cups_rack_back.png",
+    "rackFront": "../six-gen/integration/exports/buffer_cups_rack_front.png"
+  },
+  "states": {
+    "first": {
+      "title": "首单等候",
+      "description": "第一位顾客等待 4 杯原味；第二个站位保留给下一位顾客。空取货袋与共享货架各自独立。",
+      "coins": 0,
+      "stock": [
+        8,
+        3
+      ],
+      "reserved": [
+        0,
+        0
+      ],
+      "slots": [
+        "original",
+        "original",
+        "caramel",
+        "original",
+        "caramel",
+        "original"
+      ],
+      "bagProducts": [
+        null,
+        null
+      ]
+    },
+    "mixed": {
+      "title": "混合配货",
+      "description": "家庭顾客的一笔订单同时需要原味与焦糖，分别显示已配 / 所需。前壁与提手遮住商品下半部，报酬保持独立可读。",
+      "coins": 0,
+      "stock": [
+        8,
+        3
+      ],
+      "reserved": [
+        3,
+        1
+      ],
+      "slots": [
+        "original",
+        "original",
+        "caramel",
+        "original",
+        "caramel",
+        "original"
+      ],
+      "bagProducts": [
+        "original",
+        "caramel"
+      ]
+    },
+    "complete": {
+      "title": "成交反馈",
+      "description": "原味首单交付完成，显示一次「+4」与完成标记。展示状态反馈和带货离开的准备姿态，不进行真实记账。",
+      "coins": 4,
+      "stock": [
+        4,
+        3
+      ],
+      "reserved": [
+        0,
+        0
+      ],
+      "slots": [
+        "original",
+        null,
+        "caramel",
+        null,
+        "caramel",
+        "original"
+      ],
+      "bagProducts": [
+        "original",
+        null
+      ]
+    }
+  },
+  "layers": [
+    "courtyard",
+    "shop",
+    "clerk clipped to shopWindow",
+    "sign",
+    "customers",
+    "counter",
+    "bag back > product > bag front clips",
+    "rack back > clipped product slots > rack front",
+    "order/header/inventory UI"
+  ],
+  "bagContract": "179x192 unchanged export; clip coordinates in preview.js copied from src/v13-showroom.js",
+  "rackContract": "512x429 cups_rack; slots and content clip preserved in preview.js"
+}

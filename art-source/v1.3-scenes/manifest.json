@@ -1,0 +1,197 @@
+{
+  "contract": "v13-scenes-art-1",
+  "status": "design-preview-not-runtime-integrated",
+  "generator": "built-in image_gen",
+  "reference": "input/IAA_v1.3_版本设计思路报告.md",
+  "budget": {
+    "compressedBytes": 1048576,
+    "rgbaBytes": 4194304
+  },
+  "totals": {
+    "count": 3,
+    "compressedBytes": 811705,
+    "rgbaBytes": 3326976
+  },
+  "assets": [
+    {
+      "id": "scene_direct_sales_courtyard",
+      "label": "工厂直售庭院",
+      "kind": "background",
+      "maxSize": 960,
+      "anchor": "top-center",
+      "z": 0,
+      "provenance": "provenance-background.json",
+      "source": "sources/scene_direct_sales_courtyard.png",
+      "path": "exports/scene_direct_sales_courtyard.png",
+      "prompt": "prompts/scene_direct_sales_courtyard.txt",
+      "width": 640,
+      "height": 960,
+      "anchorPx": [
+        320,
+        0
+      ],
+      "compressedBytes": 637877,
+      "rgbaBytes": 2457600,
+      "sourceCrop": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "sourceSha256": "6686640f370e3fba73eb8a8f742a74067103d43ed3f9deb0eee7479cda2c32ff",
+      "sha256": "8199366fb0d2a34f36018641fbdbd5d93ef286307aa3cdcf149dd758598f45c4",
+      "sourceInspection": {
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": false,
+        "clear": 0,
+        "partial": 0,
+        "edgeVisible": 5116,
+        "bounds": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "bytes": 1854012,
+        "sha256": "6686640f370e3fba73eb8a8f742a74067103d43ed3f9deb0eee7479cda2c32ff"
+      },
+      "exportInspection": {
+        "width": 640,
+        "height": 960,
+        "hasAlpha": false,
+        "clear": 0,
+        "partial": 0,
+        "edgeVisible": 3196,
+        "bounds": [
+          0,
+          0,
+          640,
+          960
+        ],
+        "bytes": 637877,
+        "sha256": "8199366fb0d2a34f36018641fbdbd5d93ef286307aa3cdcf149dd758598f45c4"
+      }
+    },
+    {
+      "id": "scene_pickup_counter",
+      "label": "双客取货柜台",
+      "kind": "sprite",
+      "maxSize": 640,
+      "anchor": "bottom-center",
+      "z": 40,
+      "provenance": "provenance-counter.json",
+      "source": "sources/scene_pickup_counter.png",
+      "path": "exports/scene_pickup_counter.png",
+      "prompt": "prompts/scene_pickup_counter.txt",
+      "width": 640,
+      "height": 242,
+      "anchorPx": [
+        320,
+        238
+      ],
+      "compressedBytes": 133621,
+      "rgbaBytes": 619520,
+      "sourceCrop": [
+        49,
+        25,
+        1932,
+        716
+      ],
+      "sourceSha256": "4caa8dc68634ab719530f4a8286759771dfaf7dafcf6fb39227f5b6e6421cbe2",
+      "sha256": "cd1bf1ac3dd6ba5efc6298da84668c569cc0b86c9c10557c99de0f4d65f4c699",
+      "sourceInspection": {
+        "width": 2060,
+        "height": 763,
+        "hasAlpha": true,
+        "clear": 581291,
+        "partial": 989290,
+        "edgeVisible": 0,
+        "bounds": [
+          49,
+          25,
+          1932,
+          716
+        ],
+        "bytes": 1259161,
+        "sha256": "4caa8dc68634ab719530f4a8286759771dfaf7dafcf6fb39227f5b6e6421cbe2"
+      },
+      "exportInspection": {
+        "width": 640,
+        "height": 242,
+        "hasAlpha": true,
+        "clear": 47951,
+        "partial": 105809,
+        "edgeVisible": 0,
+        "bounds": [
+          13,
+          11,
+          623,
+          226
+        ],
+        "bytes": 133621,
+        "sha256": "cd1bf1ac3dd6ba5efc6298da84668c569cc0b86c9c10557c99de0f4d65f4c699"
+      }
+    },
+    {
+      "id": "scene_factory_wayfinding",
+      "label": "工厂导向牌",
+      "kind": "sprite",
+      "maxSize": 256,
+      "anchor": "bottom-center",
+      "z": 15,
+      "provenance": "provenance-wayfinding.json",
+      "source": "sources/scene_factory_wayfinding.png",
+      "path": "exports/scene_factory_wayfinding.png",
+      "prompt": "prompts/scene_factory_wayfinding.txt",
+      "width": 244,
+      "height": 256,
+      "anchorPx": [
+        122,
+        252
+      ],
+      "compressedBytes": 40207,
+      "rgbaBytes": 249856,
+      "sourceCrop": [
+        41,
+        9,
+        1161,
+        1219
+      ],
+      "sourceSha256": "122e93625db73d2592a809ac7269e7992f53a8ad9ef5f66830209a048040d551",
+      "sha256": "678c31403ddc905793b275e00433dbc015f9e989e814ea309476cb61f307de4d",
+      "sourceInspection": {
+        "width": 1254,
+        "height": 1254,
+        "hasAlpha": true,
+        "clear": 1161710,
+        "partial": 409913,
+        "edgeVisible": 0,
+        "bounds": [
+          41,
+          9,
+          1161,
+          1219
+        ],
+        "bytes": 739055,
+        "sha256": "122e93625db73d2592a809ac7269e7992f53a8ad9ef5f66830209a048040d551"
+      },
+      "exportInspection": {
+        "width": 244,
+        "height": 256,
+        "hasAlpha": true,
+        "clear": 44751,
+        "partial": 17205,
+        "edgeVisible": 0,
+        "bounds": [
+          7,
+          9,
+          215,
+          234
+        ],
+        "bytes": 40207,
+        "sha256": "678c31403ddc905793b275e00433dbc015f9e989e814ea309476cb61f307de4d"
+      }
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "version": "v1.3",
+  "batch": "first-two-generations-process-materials",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "createdAt": "2026-09-12",
+  "visualInspection": "Selected workspace masters inspected with view_image and composited in memory at 256 px on white (#ffffff) and dark teal (#243942); both show clean outlines with no checkerboard or visible background halo. Preview compositing did not modify any saved asset.",
+  "notes": "Two independent material sprites. Existing packaged products were visually inspected and passed only as style references. All background removal was performed by built-in image_gen. Selected generated PNGs were copied byte-for-byte without programmatic background removal or drawing. No runtime export, build, or game-code changes were made by this subtask.",
+  "assets": [
+    {
+      "id": "material_original_popcorn",
+      "description": "Low loose pile of approximately twelve plain popcorn kernels, no packaging.",
+      "prompt": "Use case: stylized-concept\nAsset type: single isolated inventory material sprite for a casual popcorn-factory game.\nPrimary request: Create one small loose pile of original plain popcorn, about twelve clearly readable popped kernels in a low mound. There must be no cup or container.\nInput images: Image 1 is a style and material reference only: match the popcorn kernel shapes, warm cream color, golden inner recesses, polished 3D game illustration rendering, and lighting of product_original_cup.png. Do not reproduce its striped cup.\nScene/backdrop: Genuinely transparent RGBA background with actual alpha transparency. Transparent space around and between the kernels; no background fill, no checkerboard pattern, no floor plane.\nSubject: A compact loose heap of approximately twelve ivory and pale butter-yellow popcorn kernels, distinct rounded lobes, a few golden interiors, appetizing softly matte surfaces. No unpopped kernels.\nStyle/medium: High-quality stylized 3D game asset, soft rounded modeling with controlled surface detail, matching the supplied existing game sprite.\nComposition/framing: Three-quarter orthographic view from slightly above, centered full object, wide low mound with width about 1.6 times height, square 1024x1024 canvas and generous clear margins. Two low layers of popcorn; not a tower. Asset occupies about 70 percent of canvas width. Same approximate composition and scale as a matching caramel popcorn material sprite.\nLighting/mood: Soft bright studio key light from upper left, warm gentle shaded recesses. Only subtle self-shadow between touching kernels; no cast shadow beyond the heap.\nConstraints: One isolated material pile, entirely visible. No container, cup, bucket, bowl, bag, label, text, watermark, frame, accessories, caramel, logo, ground, or scenery. Preserve genuine transparent alpha edges.",
+      "toolInput": {
+        "prompt": "Remove the background. Keep the original popcorn pile exactly as shown. Transparent PNG.",
+        "referenced_image_paths": [
+          "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-bde6c6c6-5d80-4c62-9310-a8a9dd8b4fe5.png"
+        ]
+      },
+      "source": "art-source/v1.3-process/materials/sources/material_original_popcorn.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-de4d9f10-c7ed-49d0-bbea-19ec1f79b672.png",
+      "sha256": "9348361fc3e20d4ad97aaabd6db55bb538be44bd25539c05b685a65d2ec67a6c",
+      "references": [
+        {
+          "path": "art-source/v1.3/products/sources/product_original_cup.png",
+          "role": "style and material reference, visually inspected before generation",
+          "sha256": "81d738e0cc54f3b0d0b1542dee3e6de5c5edca6be1067e11c15679811dd90c82"
+        }
+      ],
+      "quality": {
+        "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-de4d9f10-c7ed-49d0-bbea-19ec1f79b672.png",
+        "bytes": 865867,
+        "sha256": "9348361fc3e20d4ad97aaabd6db55bb538be44bd25539c05b685a65d2ec67a6c",
+        "width": 1254,
+        "height": 1254,
+        "hasAlpha": true,
+        "pngColorType": 6,
+        "clear": 1051746,
+        "partial": 519791,
+        "opaque": 979,
+        "edge": 0,
+        "bounds": [
+          2,
+          40,
+          1214,
+          1158
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "attempts": [
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Use case: stylized-concept\nAsset type: single isolated inventory material sprite for a casual popcorn-factory game.\nPrimary request: Create one small loose pile of original plain popcorn, about twelve clearly readable popped kernels in a low mound. There must be no cup or container.\nInput images: Image 1 is a style and material reference only: match the popcorn kernel shapes, warm cream color, golden inner recesses, polished 3D game illustration rendering, and lighting of product_original_cup.png. Do not reproduce its striped cup.\nScene/backdrop: Genuinely transparent RGBA background with actual alpha transparency. Transparent space around and between the kernels; no background fill, no checkerboard pattern, no floor plane.\nSubject: A compact loose heap of approximately twelve ivory and pale butter-yellow popcorn kernels, distinct rounded lobes, a few golden interiors, appetizing softly matte surfaces. No unpopped kernels.\nStyle/medium: High-quality stylized 3D game asset, soft rounded modeling with controlled surface detail, matching the supplied existing game sprite.\nComposition/framing: Three-quarter orthographic view from slightly above, centered full object, wide low mound with width about 1.6 times height, square 1024x1024 canvas and generous clear margins. Two low layers of popcorn; not a tower. Asset occupies about 70 percent of canvas width. Same approximate composition and scale as a matching caramel popcorn material sprite.\nLighting/mood: Soft bright studio key light from upper left, warm gentle shaded recesses. Only subtle self-shadow between touching kernels; no cast shadow beyond the heap.\nConstraints: One isolated material pile, entirely visible. No container, cup, bucket, bowl, bag, label, text, watermark, frame, accessories, caramel, logo, ground, or scenery. Preserve genuine transparent alpha edges.",
+            "referenced_image_paths": [
+              "C:/Users/chenweilun/Documents/GitHub/IAA/art-source/v1.3/products/sources/product_original_cup.png"
+            ]
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-bde6c6c6-5d80-4c62-9310-a8a9dd8b4fe5.png",
+          "sha256": "31a1e1448a7323df7025c56026e8e26dcc4f6c8660507392f249ea0823c3a2ae",
+          "status": "retained-as-edit-input",
+          "reason": "Form and style accepted; opaque checkerboard rejected for final delivery.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-bde6c6c6-5d80-4c62-9310-a8a9dd8b4fe5.png",
+            "bytes": 2105089,
+            "sha256": "31a1e1448a7323df7025c56026e8e26dcc4f6c8660507392f249ea0823c3a2ae",
+            "width": 1254,
+            "height": 1254,
+            "hasAlpha": false,
+            "pngColorType": 2,
+            "clear": 0,
+            "partial": 0,
+            "opaque": 1572516,
+            "edge": 5012,
+            "bounds": [
+              0,
+              0,
+              1254,
+              1254
+            ],
+            "cornerAlpha": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Use case: background-extraction\nEdit target: the supplied original popcorn pile image.\nChange only the background: remove all grey-and-white checkerboard squares and all background texture completely, delivering the same pile of popcorn on an actually transparent background with a real RGBA alpha channel. All background pixels must have alpha=0, including spaces between kernels. The checkerboard is a background to be removed, never a pattern to draw. Preserve the popcorn exactly: same pile, kernels, lighting, cream and gold colors, details, framing, dimensions, object scale, and edge quality. No solid background, no floor, no cast shadow, no new content. Produce transparent PNG, not an opaque image that depicts transparency.",
+            "referenced_image_paths": [
+              "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-bde6c6c6-5d80-4c62-9310-a8a9dd8b4fe5.png"
+            ]
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-ed91327e-a0f5-4207-aeea-5dced7ffe267.png",
+          "sha256": "5511d6dd3ccd26968db022b7f24d09ace5744e3e0b1d0a4aa8a66ea6448e93a5",
+          "status": "rejected",
+          "reason": "Long background extraction prompt returned opaque checkerboard.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-ed91327e-a0f5-4207-aeea-5dced7ffe267.png",
+            "bytes": 1710528,
+            "sha256": "5511d6dd3ccd26968db022b7f24d09ace5744e3e0b1d0a4aa8a66ea6448e93a5",
+            "width": 1254,
+            "height": 1254,
+            "hasAlpha": false,
+            "pngColorType": 2,
+            "clear": 0,
+            "partial": 0,
+            "opaque": 1572516,
+            "edge": 5012,
+            "bounds": [
+              0,
+              0,
+              1254,
+              1254
+            ],
+            "cornerAlpha": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE small pile centered on a square canvas, entirely visible, taking about 75 percent of canvas width, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\nSubject: A small loose pile of about twelve original popcorn kernels, no container. Pale cream and ivory popped corn with warm golden creases, soft irregular puffy lobes, some visible toasted golden recessed openings. The heap is low, broad and compact, two shallow layers, width about 1.6 times its height. Each kernel has a distinct readable irregular popped-corn silhouette, not a perfect round ball. No cup, bowl, bucket, plate, bag, tray, paper or packaging of any kind. No caramel glaze, cheese or topping. This intermediate material appears in machine interiors and loose stock."
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-ea5ef3a3-d6b7-4387-8431-7157ea98cc65.png",
+          "sha256": "3cdb76b103952784cf070e3a92dea12cf67b07e97c68ac1997850e69a64bace1",
+          "status": "rejected",
+          "reason": "Independent text-only alternative had genuine alpha but broad visual glow and edge pixels; initial composition preferred.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-ea5ef3a3-d6b7-4387-8431-7157ea98cc65.png",
+            "bytes": 1844666,
+            "sha256": "3cdb76b103952784cf070e3a92dea12cf67b07e97c68ac1997850e69a64bace1",
+            "width": 1536,
+            "height": 1024,
+            "hasAlpha": true,
+            "pngColorType": 6,
+            "clear": 968162,
+            "partial": 604702,
+            "opaque": 0,
+            "edge": 36,
+            "bounds": [
+              25,
+              19,
+              1497,
+              1005
+            ],
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Remove the background. Keep the original popcorn pile exactly as shown. Transparent PNG.",
+            "referenced_image_paths": [
+              "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-bde6c6c6-5d80-4c62-9310-a8a9dd8b4fe5.png"
+            ]
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-de4d9f10-c7ed-49d0-bbea-19ec1f79b672.png",
+          "sha256": "9348361fc3e20d4ad97aaabd6db55bb538be44bd25539c05b685a65d2ec67a6c",
+          "status": "selected",
+          "reason": "Short background-removal edit preserved the original composition and returned genuine alpha.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-de4d9f10-c7ed-49d0-bbea-19ec1f79b672.png",
+            "bytes": 865867,
+            "sha256": "9348361fc3e20d4ad97aaabd6db55bb538be44bd25539c05b685a65d2ec67a6c",
+            "width": 1254,
+            "height": 1254,
+            "hasAlpha": true,
+            "pngColorType": 6,
+            "clear": 1051746,
+            "partial": 519791,
+            "opaque": 979,
+            "edge": 0,
+            "bounds": [
+              2,
+              40,
+              1214,
+              1158
+            ],
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "material_caramel_popcorn",
+      "description": "Low loose pile of approximately twelve glossy amber caramel popcorn kernels, no packaging.",
+      "prompt": "Create a transparent-background game asset PNG: a small loose mound of roughly twelve caramel-coated popcorn kernels, without any container. Return the asset with genuine alpha transparency outside the kernels.\nUse case: stylized-concept\nAsset type: intermediate material sprite for a popcorn-factory game.\nImage 1 is a style reference, not an edit target. Match its amber caramel material, creamy popped-corn shapes, polished stylized 3D game rendering, and upper-left lighting. Omit the reference tub completely.\nSubject: About twelve amber caramel popcorn pieces in a low compact loose pile, two shallow layers. Glossy golden amber caramel coats most surfaces, with a few cream popcorn lobes visible. Readable irregular popcorn silhouettes. Modest crisp caramel highlights, no excessive drips.\nComposition: Three-quarter orthographic camera slightly above, whole pile centered, broad low mound approximately 1.6 times wider than tall, square canvas with comfortable empty margins. Use the same physical kernel scale as the original reference.\nBackground: Transparent, isolated cutout, no ground plane, no external cast shadow, no backdrop color or pattern.\nNo tub, cup, bowl, bag, plate, tray, container, utensils, text, label, icon badge, logo or watermark. Generate only the loose caramel popcorn pile.",
+      "toolInput": {
+        "prompt": "Remove the background. Keep the caramel popcorn pile exactly as shown. Transparent PNG.",
+        "referenced_image_paths": [
+          "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-a141e372-9e89-4fcd-8e36-9651c68c81a5.png"
+        ]
+      },
+      "source": "art-source/v1.3-process/materials/sources/material_caramel_popcorn.png",
+      "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-f5b1f4d2-9816-4b4c-bd1b-13d74074cfbc.png",
+      "sha256": "6f7387ba08e88b69d552ea60b5d293fe10692ece24488b444ebd50a001764804",
+      "references": [
+        {
+          "path": "art-source/v1.3/products/sources/product_caramel_tub.png",
+          "role": "style and material reference, visually inspected before generation",
+          "sha256": "4cdaf84a98b4c62d7f89ff3e0fe92f3ad7743e3872ecdc10e7a5c33bfdc77dd3"
+        }
+      ],
+      "quality": {
+        "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-f5b1f4d2-9816-4b4c-bd1b-13d74074cfbc.png",
+        "bytes": 1113329,
+        "sha256": "6f7387ba08e88b69d552ea60b5d293fe10692ece24488b444ebd50a001764804",
+        "width": 1254,
+        "height": 1254,
+        "hasAlpha": true,
+        "pngColorType": 6,
+        "clear": 987077,
+        "partial": 584797,
+        "opaque": 642,
+        "edge": 0,
+        "bounds": [
+          16,
+          48,
+          1227,
+          1180
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "attempts": [
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Create a transparent-background game asset PNG: a small loose mound of roughly twelve caramel-coated popcorn kernels, without any container. Return the asset with genuine alpha transparency outside the kernels.\nUse case: stylized-concept\nAsset type: intermediate material sprite for a popcorn-factory game.\nImage 1 is a style reference, not an edit target. Match its amber caramel material, creamy popped-corn shapes, polished stylized 3D game rendering, and upper-left lighting. Omit the reference tub completely.\nSubject: About twelve amber caramel popcorn pieces in a low compact loose pile, two shallow layers. Glossy golden amber caramel coats most surfaces, with a few cream popcorn lobes visible. Readable irregular popcorn silhouettes. Modest crisp caramel highlights, no excessive drips.\nComposition: Three-quarter orthographic camera slightly above, whole pile centered, broad low mound approximately 1.6 times wider than tall, square canvas with comfortable empty margins. Use the same physical kernel scale as the original reference.\nBackground: Transparent, isolated cutout, no ground plane, no external cast shadow, no backdrop color or pattern.\nNo tub, cup, bowl, bag, plate, tray, container, utensils, text, label, icon badge, logo or watermark. Generate only the loose caramel popcorn pile.",
+            "referenced_image_paths": [
+              "C:/Users/chenweilun/Documents/GitHub/IAA/art-source/v1.3/products/sources/product_caramel_tub.png"
+            ]
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-a141e372-9e89-4fcd-8e36-9651c68c81a5.png",
+          "sha256": "9576ca7e1d02ff0adf20ef8154fea89e4f33aa8f3a845dc7bd799822ebb799a1",
+          "status": "retained-as-edit-input",
+          "reason": "Form and style accepted; opaque checkerboard rejected for final delivery.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-a141e372-9e89-4fcd-8e36-9651c68c81a5.png",
+            "bytes": 2244713,
+            "sha256": "9576ca7e1d02ff0adf20ef8154fea89e4f33aa8f3a845dc7bd799822ebb799a1",
+            "width": 1254,
+            "height": 1254,
+            "hasAlpha": false,
+            "pngColorType": 2,
+            "clear": 0,
+            "partial": 0,
+            "opaque": 1572516,
+            "edge": 5012,
+            "bounds": [
+              0,
+              0,
+              1254,
+              1254
+            ],
+            "cornerAlpha": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Use case: stylized-concept\nAsset type: one standalone 2.5D mobile factory game inventory sprite, high-resolution transparent PNG master.\nStyle: polished hand-painted 3D-like game asset, same family as clean teal isometric factory machinery and warm popcorn sprites. Orthographic three-quarter view, camera about 30 degrees above the subject; soft upper-left light, restrained highlights, clean thick readable silhouette, simplified large forms and a few crisp material details. Not photography, not flat vector art. Legible when reduced to 64 pixels.\nComposition: exactly ONE small loose pile centered on a square canvas, entirely visible, taking about 75 percent of canvas width, with clear breathing room. No other objects, no pedestal, no table, no floor, no detached cast shadow, no background scene.\nBackground: genuinely transparent RGBA alpha, including all empty pixels around the object; not a white background or a painted checkerboard. No text, numbers, letters, labels, logos, watermarks or UI.\nSubject: A small loose pile of about twelve caramel popcorn kernels, no container. Glossy warm golden-amber caramel coats irregular cream popcorn lobes, with a few cream-colored patches remaining visible. Restrained crisp warm highlights and dark amber recesses. The heap is low, broad and compact, two shallow layers, width about 1.6 times its height. Each kernel has a distinct readable irregular popped-corn silhouette, not a perfect round ball. No cup, bowl, bucket, plate, bag, tray, paper or packaging of any kind. No sauce puddle or detached drips. This intermediate material appears in machine interiors and loose stock."
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-3bb5c401-6cbd-4bb4-81f2-cac2c4a2b983.png",
+          "sha256": "12fc345d1af7ade0c8f304118c8357273cabb1a03c0ac1086d0093503e343d74",
+          "status": "rejected",
+          "reason": "Independent text-only alternative had genuine alpha but broad visual glow and edge pixels; initial composition preferred.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-3bb5c401-6cbd-4bb4-81f2-cac2c4a2b983.png",
+            "bytes": 1928007,
+            "sha256": "12fc345d1af7ade0c8f304118c8357273cabb1a03c0ac1086d0093503e343d74",
+            "width": 1536,
+            "height": 1024,
+            "hasAlpha": true,
+            "pngColorType": 6,
+            "clear": 968187,
+            "partial": 604677,
+            "opaque": 0,
+            "edge": 8,
+            "bounds": [
+              23,
+              31,
+              1469,
+              993
+            ],
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "mode": "built-in",
+          "toolInput": {
+            "prompt": "Remove the background. Keep the caramel popcorn pile exactly as shown. Transparent PNG.",
+            "referenced_image_paths": [
+              "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-a141e372-9e89-4fcd-8e36-9651c68c81a5.png"
+            ]
+          },
+          "generatedSource": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-f5b1f4d2-9816-4b4c-bd1b-13d74074cfbc.png",
+          "sha256": "6f7387ba08e88b69d552ea60b5d293fe10692ece24488b444ebd50a001764804",
+          "status": "selected",
+          "reason": "Short background-removal edit preserved the original composition and returned genuine alpha.",
+          "quality": {
+            "file": "C:/Users/chenweilun/.codex/generated_images/01a0955e-7c29-78d1-a1ad-12e11b316512/exec-f5b1f4d2-9816-4b4c-bd1b-13d74074cfbc.png",
+            "bytes": 1113329,
+            "sha256": "6f7387ba08e88b69d552ea60b5d293fe10692ece24488b444ebd50a001764804",
+            "width": 1254,
+            "height": 1254,
+            "hasAlpha": true,
+            "pngColorType": 6,
+            "clear": 987077,
+            "partial": 584797,
+            "opaque": 642,
+            "edge": 0,
+            "bounds": [
+              16,
+              48,
+              1227,
+              1180
+            ],
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

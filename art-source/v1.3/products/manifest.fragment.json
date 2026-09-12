@@ -1,0 +1,81 @@
+{
+  "assets": [
+    {
+      "id": "product_original_cup",
+      "label": "经典原味杯",
+      "category": "products",
+      "generation": 1,
+      "source": "art-source/v1.3/products/sources/product_original_cup.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_original_cup.txt",
+      "description": "Red-white striped original popcorn cup with visible cream popcorn.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_caramel_tub",
+      "label": "琥珀焦糖桶",
+      "category": "products",
+      "generation": 2,
+      "source": "art-source/v1.3/products/sources/product_caramel_tub.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_caramel_tub.txt",
+      "description": "Squat amber caramel tub with droplet emblem and glossy kernels.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_cheese_carton",
+      "label": "浓香芝士盒",
+      "category": "products",
+      "generation": 3,
+      "source": "art-source/v1.3/products/sources/product_cheese_carton.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_cheese_carton.txt",
+      "description": "Folded square cheese carton with cheese emblem and golden seasoning.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_duo_bucket",
+      "label": "甜咸双拼桶",
+      "category": "products",
+      "generation": 3,
+      "source": "art-source/v1.3/products/sources/product_duo_bucket.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_duo_bucket.txt",
+      "description": "Wide divided bucket with caramel left and cheese right.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_choco_cup",
+      "label": "黑白巧脆杯",
+      "category": "products",
+      "generation": 4,
+      "source": "art-source/v1.3/products/sources/product_choco_cup.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_choco_cup.txt",
+      "description": "Clear sleeved chocolate cup with distinct white crisscross drizzle.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_star_pop",
+      "label": "星星爆米花棒",
+      "category": "products",
+      "generation": 5,
+      "source": "art-source/v1.3/products/sources/product_star_pop.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_star_pop.txt",
+      "description": "Thick popcorn-textured five-point star on short stick in clear bag.",
+      "role": "sprite"
+    },
+    {
+      "id": "product_celebration_box",
+      "label": "星光庆典礼盒",
+      "category": "products",
+      "generation": 6,
+      "source": "art-source/v1.3/products/sources/product_celebration_box.png",
+      "maxSize": 256,
+      "prompt": "art-source/v1.3/products/prompts/product_celebration_box.txt",
+      "description": "Handled window gift box containing one duo bucket, one chocolate cup and two star pops.",
+      "role": "sprite"
+    }
+  ]
+}

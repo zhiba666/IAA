@@ -1,0 +1,14 @@
+INITIAL GENERATION
+Use case: stylized-concept
+Asset type: single isolated inventory material sprite for a casual popcorn-factory game.
+Primary request: Create one small loose pile of original plain popcorn, about twelve clearly readable popped kernels in a low mound. There must be no cup or container.
+Input images: Image 1 is a style and material reference only: match the popcorn kernel shapes, warm cream color, golden inner recesses, polished 3D game illustration rendering, and lighting of product_original_cup.png. Do not reproduce its striped cup.
+Scene/backdrop: Genuinely transparent RGBA background with actual alpha transparency. Transparent space around and between the kernels; no background fill, no checkerboard pattern, no floor plane.
+Subject: A compact loose heap of approximately twelve ivory and pale butter-yellow popcorn kernels, distinct rounded lobes, a few golden interiors, appetizing softly matte surfaces. No unpopped kernels.
+Style/medium: High-quality stylized 3D game asset, soft rounded modeling with controlled surface detail, matching the supplied existing game sprite.
+Composition/framing: Three-quarter orthographic view from slightly above, centered full object, wide low mound with width about 1.6 times height, square 1024x1024 canvas and generous clear margins. Two low layers of popcorn; not a tower. Asset occupies about 70 percent of canvas width. Same approximate composition and scale as a matching caramel popcorn material sprite.
+Lighting/mood: Soft bright studio key light from upper left, warm gentle shaded recesses. Only subtle self-shadow between touching kernels; no cast shadow beyond the heap.
+Constraints: One isolated material pile, entirely visible. No container, cup, bucket, bowl, bag, label, text, watermark, frame, accessories, caramel, logo, ground, or scenery. Preserve genuine transparent alpha edges.
+
+FINAL BACKGROUND EXTRACTION
+Remove the background. Keep the original popcorn pile exactly as shown. Transparent PNG.

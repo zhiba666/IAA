@@ -1,0 +1,45 @@
+{
+  "asset_id": "scene_factory_wayfinding",
+  "source_path": "art-source/v1.3-scenes/sources/scene_factory_wayfinding.png",
+  "generation_mode": "built-in image_gen",
+  "generated_at": "2026-09-12",
+  "original_generated_file": "C:/Users/chenweilun/.codex/generated_images/01a095a4-6832-7673-aea3-02ff0d55b77f/exec-9e89ccaa-db09-4ba9-b30c-7e42dcc2f431.png",
+  "prompt_file": "art-source/v1.3-scenes/prompts/scene_factory_wayfinding.txt",
+  "prompt": "Use case: stylized-concept\nAsset type: production game environment sprite, scene_factory_wayfinding, a small freestanding factory shop wayfinding sign.\nPrimary request: Create one complete freestanding directional sign for a cute popcorn factory direct-sales outdoor area. One short muted dark teal metal pole, one small stable rounded low base, and one cream sign panel with a chunky muted teal frame forming a clear left-pointing arrow silhouette. On the cream face, a single raised simple popcorn paper-cup emblem: small red-and-cream striped cup holding a few pale golden popcorn puffs. No writing. The arrow must point to the viewer's LEFT. No other subjects.\nStyle/medium: polished charming 3D toy render for a small mobile casual factory management game, softly bevelled thick forms, precisely modelled enamel-painted teal metal and clean warm cream plastic, realistic gentle material shading with restrained roughness. Match a refined toy popcorn storefront with muted teal framing, cream panels, coral-and-cream accents, and soft rounded edges. Scene prop rather than a UI icon or flat vector icon.\nComposition/framing: single isolated entire object, front three-quarter camera showing a little of its right side, camera looks downward about 20–25 degrees. Subject overall width-to-height approximately 0.8:1. Clearly readable arrow and cup at small sprite sizes. Center on a square canvas and leave generous empty padding around every edge. No cropping.\nLighting/mood: warm neutral soft light from upper left, gentle highlights, restrained very compact soft contact shadow immediately below the base.\nScene/backdrop: genuinely transparent RGBA background, clean transparent pixels around the object. Preserve actual alpha transparency in output. No colored, white, gray or checkerboard background; no floor plane, ground tile, scenery, room, platform, vegetation or building.\nText: none; no letters, words, numbers, logos or watermarks.\nConstraints: exactly one freestanding sign made of one short pole, one small low rounded base, and one single cream-filled teal-framed left arrow board; popcorn cup emblem only on board. No decorative added props. No giant emblem, no ornate trim, no floating parts. Generate the final asset as a PNG with real transparency.",
+  "reference_images_viewed": [
+    "assets/art/v13/shop_front.png",
+    "art-source/v1.3/qa/contact-sheet.png"
+  ],
+  "reference_usage": "Visually inspected existing storefront and art library; matched teal/cream/coral palette and soft polished 3D toy style through text prompt.",
+  "generation_calls": 1,
+  "postprocessing": "None. Byte-identical copy of selected generated PNG; no alpha extraction, recoloring, resizing or cropping.",
+  "sha256": "122E93625DB73D2592A809AC7269E7992F53A8AD9EF5F66830209A048040D551",
+  "validation": {
+    "width": 1254,
+    "height": 1254,
+    "pixel_format": "Format32bppArgb",
+    "transparent_pixels": 1161710,
+    "partial_alpha_pixels": 409913,
+    "opaque_pixels": 893,
+    "alpha_nonzero_bounds_inclusive": [
+      41,
+      9,
+      1201,
+      1227
+    ],
+    "alpha_32_bounds_inclusive": [
+      247,
+      124,
+      999,
+      1124
+    ],
+    "alpha_32_subject_width_height_ratio": 0.7522477522477522,
+    "dominant_foreground_alpha": 253,
+    "corner_samples_alpha": [
+      0,
+      0
+    ],
+    "visual_result": "Pass: one complete short freestanding teal sign with cream left-pointing arrow face, raised red/cream popcorn cup, low rounded stable base, front three-quarter view revealing right side, gentle upper-left lighting, blank transparent surround and no text or extra props.",
+    "alpha_note": "Actual transparent RGBA verified. Majority of foreground pixels have alpha 253 and tiny near-transparent fringe pixels broaden nonzero bounds; original generated alpha preserved unchanged. Visible subject bounds at alpha >=32 have ample margins."
+  }
+}

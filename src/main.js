@@ -1,10 +1,13 @@
 'use strict';
+function startLegacyGame() {
 const { Game, CONFIG } = require('./core');
 const { createPlatform } = require('./platform');
 const { AudioEngine } = require('./audio');
 const { Renderer } = require('./renderer');
 const { ProductionInsights } = require('./production-insights');
 const { createArtAssets } = require('./art-assets');
+const { createV13ArtAssets } = require('./v13-art-assets');
+const { showroomAssetIds } = require('./v13-showroom');
 const { APP_VERSION } = require('./version');
 const { describeOffer, quoteMatches } = require('./purchase-quotes');
 
@@ -18,7 +21,9 @@ let migrationPending = mode === 'v15' && initialSave && initialSave.version === 
 let game = new Game({ save: initialSave, experiment, mode: migrationPending ? null : mode });
 const art = createArtAssets();
 art.loadAll();
-let renderer = new Renderer(ctx, art), insights = new ProductionInsights();
+const v13Art = createV13ArtAssets(), v13HomeIds = ['product_original_cup','ui_order_ticket'];
+v13Art.select(v13HomeIds);
+let renderer = new Renderer(ctx, art, v13Art), insights = new ProductionInsights();
 const ui = { modal: null, quote: null, quotes: {}, toast: '', toastSeconds: 0,
   isDouyin: platform.isDouyin, newFactory: !game.state.introSeen,
   elapsedSeconds: 0, rateUpdatingUntil: 0, shipment: null, purchaseFeedback: null,
@@ -138,6 +143,7 @@ function resize(info = {}) {
 function closeModal() {
   if (ui.modal) platform.track('modal_close', { type: ui.modal.type });
   ui.modal = null; ui.quote = null; ui.quotes = {}; modalSerial++;
+  v13Art.select(v13HomeIds);
 }
 function prepareQuotes() {
   ui.quote = null; ui.quotes = {};
@@ -157,6 +163,10 @@ function openModal(type, stationId) {
   purchaseGuard = null;
   ui.modal = { type, scroll: 0, openedAt: ui.elapsedSeconds, error: '' };
   if (stationId) ui.modal.stationId = stationId;
+  if (type === 'showroom') {
+    ui.modal.tab = 'products'; ui.modal.generation = game.state.machine + 1;
+    v13Art.select(showroomAssetIds(ui.modal.tab,ui.modal.generation));
+  } else v13Art.select(v13HomeIds);
   modalSerial++; prepareQuotes(); sound.play('click');
   platform.track('modal_open', { type, stationId: stationId || '' });
 }
@@ -187,12 +197,23 @@ function act(action, keyboard = false) {
   if (!action || hidden) return;
   sound.unlock();
   if (action === 'close') { cancelTransfer('escape'); closeModal(); return; }
-  if (action === 'retry-art') { art.retryFailed(); return; }
+  if (action === 'retry-art') { art.retryFailed(); v13Art.retryFailed(); return; }
+  if (action === 'retry-v13-art') { v13Art.retryFailed(); return; }
   if (action === 'retry-save') { save(); return; }
   if (action === 'refreshQuotes' && ui.modal) { ui.modal.error = ''; prepareQuotes(); return; }
   if (/^purchase:\d+$/.test(action)) { purchase(action.slice(9)); return; }
   if (action === 'dismissIntro' && !ui.modal) { game.acknowledgeIntro(); ui.newFactory = false; save(); return; }
   const canOpen = !ui.modal || keyboard;
+  if (canOpen && action === 'openShowroom') { openModal('showroom'); return; }
+  if (ui.modal && ui.modal.type === 'showroom') {
+    const tab=/^showroom-tab:(products|process|store)$/.exec(action);
+    const generation=/^showroom-(?:product|generation):([1-6])$/.exec(action);
+    if(tab || generation){
+      cancelTransfer('showroom',false);purchaseGuard=null;modalSerial++;
+      ui.modal.tab=tab?tab[1]:'process';if(generation)ui.modal.generation=Number(generation[1]);
+      ui.modal.scroll=0;v13Art.select(showroomAssetIds(ui.modal.tab,ui.modal.generation));sound.play('click');return;
+    }
+  }
   if (canOpen && action === 'settings') { openModal('settings'); return; }
   if (canOpen && action === 'openStats') { openModal('stats'); return; }
   if (canOpen && action === 'openLogistics' && game.getView().mode === 'v15') { openModal('logistics'); return; }
@@ -208,7 +229,7 @@ function act(action, keyboard = false) {
     const fresh = new Game({ experiment, mode });
     if (!platform.save(fresh.exportSave())) { ui.modal.error = '重新开始失败，当前工厂已保留'; toast(ui.modal.error); return; }
     clearInput('restart'); game = fresh; migrationPending = false;
-    renderer = new Renderer(ctx, art); insights = new ProductionInsights(); closeModal();
+    renderer = new Renderer(ctx, art, v13Art); insights = new ProductionInsights(); closeModal();
     ui.newFactory = true; ui.purchaseFeedback = null; ui.rateUpdatingUntil = 0; ui.shipment = null;
     ui.toast = ''; ui.toastSeconds = 0; ui.saveError = ''; ui.loadError = '';
     pendingShipment = { amount: 0, coins: 0 }; lastShipmentTick = -Infinity; lastTime = null; saveTimer = 0;
@@ -332,14 +353,14 @@ platform.onShow(() => { hidden = false; lastTime = null; configure(); });
 if (!platform.isDouyin && typeof document !== 'undefined') {
   canvas.id = 'game'; canvas.setAttribute('aria-label', '小小爆米花厂：从待装仓拖到装杯入口，再从待发仓拖到出货入口');
   const instructions = document.getElementById('instructions');
-  if (instructions) instructions.textContent = '按住货仓，连续拖到对应入口后松手。A段把爆米花送入装杯机，B段把成品送入出货机，只有真实出货才结算金币。点击机器打开升级窗口，物流与扩建按需查看。快捷键1、2、3查看设备，Enter确认当前设备报价，L物流，M扩建，S设置，Escape取消拖拽或关闭窗口。';
+  if (instructions) instructions.textContent = '按住货仓，连续拖到对应入口后松手。A段把爆米花送入装杯机，B段把成品送入出货机，只有真实出货才结算金币。点击机器打开升级窗口，物流与扩建按需查看。新品页可查看商品、工艺和直售美术，筹备中内容仅供展示。快捷键1、2、3查看设备，Enter确认当前设备报价，L物流，M扩建，S设置，P新品，Escape取消拖拽或关闭窗口。';
   canvas.setAttribute('role', 'application'); canvas.tabIndex = 0;
   const loading = document.getElementById('loading'); if (loading) loading.remove();
   window.addEventListener('keydown', event => {
     if (event.repeat) return;
     const action = event.code === 'Escape' ? 'close'
       : event.code === 'Enter' && ui.modal && ui.modal.type === 'station' && ui.quote ? ui.quote.action
-        : ({ Digit1: 'station:pop', Digit2: 'station:cup', Digit3: 'station:ship', KeyM: 'openExpansion', KeyL: 'openLogistics', KeyS: 'settings' })[event.code];
+        : ({ Digit1: 'station:pop', Digit2: 'station:cup', Digit3: 'station:ship', KeyM: 'openExpansion', KeyL: 'openLogistics', KeyS: 'settings', KeyP: 'openShowroom' })[event.code];
     if (action) { event.preventDefault(); cancelTransfer('keyboard'); act(action, true); }
   });
 }
@@ -360,7 +381,8 @@ function updateTutorial(view) {
 const runtimeGlobal = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
 runtimeGlobal.__POPCORN__ = Object.freeze({ snapshot: () => game.getView(), analytics: () => platform.getAnalytics(), version: APP_VERSION,
   presentation: () => JSON.parse(JSON.stringify({ layout: renderer.interface && renderer.interface.layout, zones: renderer.zones,
-    art: art.report(), scene: renderer.scene && renderer.scene.diagnostics,
+    art: art.report(), v13Art: v13Art.report(), scene: renderer.scene && renderer.scene.diagnostics,
+    showroom: ui.modal && ui.modal.type === 'showroom' ? renderer.showroom && renderer.showroom.diagnostics : null,
     transfer: ui.transfer, modal: ui.modal, tutorial: ui.tutorial, quotes: ui.quotes })) });
 configure(); resize(platform.getSystemInfo());
 if (ui.loadError) toast(ui.loadError);
@@ -383,3 +405,11 @@ function frame(time) {
   requestFrame(frame);
 }
 requestFrame(frame);
+}
+
+const bootRoot = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
+const bootSDK = typeof tt !== 'undefined' ? tt : bootRoot.tt;
+const bootWindow = typeof window !== 'undefined' ? window : bootRoot;
+if (require('./v13-order-mode').wantsV13Orders(bootRoot, bootWindow, !!(bootSDK && typeof bootSDK.createCanvas === 'function'))) {
+  require('./main-v13-orders');
+} else startLegacyGame();

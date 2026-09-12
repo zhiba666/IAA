@@ -1,0 +1,119 @@
+{
+  "tool": "Built-in image_gen; no CLI/API fallback",
+  "assets": [
+    {
+      "id": "machine_caramel_coater_empty",
+      "source": "machine/sources/machine_caramel_coater_empty.png",
+      "attempts": [
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Use case: precise-object-edit\nAsset type: idle-state transparent PNG machine sprite for an existing mobile game.\nInput image 1: edit target, the existing teal and copper caramel coating machine. Preserve this exact machine, camera angle, scale, framing, teal chassis, copper drum, tank with amber liquid inside, metal pipe, yellow controls, empty output tray, feet, lighting and material shading.\nPrimary request: change ONLY the process contents so the machine can correctly wait with no batch. Remove ALL popcorn from inside the open copper drum, restoring an empty dark copper curved interior. Remove the syrup strand and amber blob outside the pipe and on the drum exterior, restoring clean copper metal beneath it. Keep all amber liquid INSIDE the glass storage tank. The silver pipe remains, but its outlet is dry.\nScene/backdrop: genuine transparent RGBA background with alpha zero outside the machine and between its supports, matching the input transparency. No checkerboard, no floor, no painted background.\nConstraints: exactly one complete machine in the same composition, fully in frame. No popcorn anywhere, no flowing syrup, no extra parts, no redesign, no labels, no text, no shadows cast onto a ground plane. Retain the physical drum, front rim, bearings and control knob. This is an empty machine base to combine with separately animated food layers.",
+          "referenceImages": [
+            "C:/Users/chenweilun/Documents/GitHub/IAA/art-source/v1.3/machines/sources/machine_caramel_coater.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-ed5a086c-1681-4d3e-b2d9-3662e41738f8.png",
+          "selected": false,
+          "rejection": "RGB baked checkerboard",
+          "outputSha256": "50e4dbccfa5ee3f55dda11f96a4b9646bc826694ae91da04a81e11add269d15c",
+          "referenceSha256": [
+            "4c0f604c77e2146b70ef73f88bf2f743d69b594027fd3c5071fe0e6c2ffa0c80"
+          ]
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Use case: background-extraction\nEdit target: supplied empty copper caramel-coating machine. Preserve the machine exactly. Remove all checkerboard squares behind it and between its feet and frame. Return a real transparent RGBA PNG with zero-alpha empty background. No checkerboard pixels, no gray or white matte, no backdrop. Keep empty drum and dry pipe, all copper surfaces, teal frame and amber liquid inside glass tank, no popcorn and no syrup flow. Do not redesign or move any part. Keep full object visible.",
+          "referenceImages": [
+            "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-ed5a086c-1681-4d3e-b2d9-3662e41738f8.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-66ab9c2f-952f-4e6a-b6da-5a97639f590a.png",
+          "selected": false,
+          "rejection": "RGB baked checkerboard",
+          "outputSha256": "a4e0adbff00b48a61f6861096b7e8c0e82e66394c6405fe7e901e847cab15db4",
+          "referenceSha256": [
+            "50e4dbccfa5ee3f55dda11f96a4b9646bc826694ae91da04a81e11add269d15c"
+          ]
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Extract the empty caramel machine from the provided image onto a transparent background. Deliver transparent PNG, actual alpha channel. Keep only the machine with its empty copper drum and dry pipe. Preserve its appearance.",
+          "referenceImages": [
+            "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-ed5a086c-1681-4d3e-b2d9-3662e41738f8.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-b6b5f3f9-76f6-409c-84c5-9ee282306595.png",
+          "selected": false,
+          "rejection": "Syrup tank incorrectly emptied",
+          "outputSha256": "5b043c7dec8163bd2c72fd13188317ad97b783600d4cc832f0a65b8d6dd43985",
+          "referenceSha256": [
+            "50e4dbccfa5ee3f55dda11f96a4b9646bc826694ae91da04a81e11add269d15c"
+          ]
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Edit only the glass tank on the upper right: fill it with translucent amber caramel syrup up to three quarters of its height, with a bright amber meniscus and a few bubbles. Everything else must stay exactly the same, including the empty copper drum, dry silver pipe, teal frame and transparent PNG background. No popcorn. No liquid outside the tank. Actual transparent background.",
+          "referenceImages": [
+            "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-b6b5f3f9-76f6-409c-84c5-9ee282306595.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-bcc19004-ba76-448a-a92c-1a54f231359e.png",
+          "selected": false,
+          "rejection": "RGB baked checkerboard",
+          "outputSha256": "43a5462d8d594f17f62daab824a86d742824997cf1e8d77257e8bca9b48ad38f",
+          "referenceSha256": [
+            "5b043c7dec8163bd2c72fd13188317ad97b783600d4cc832f0a65b8d6dd43985"
+          ]
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Remove the background. Keep the copper and teal machine and the golden amber syrup inside its tall tank exactly as shown. Transparent PNG.",
+          "referenceImages": [
+            "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-bcc19004-ba76-448a-a92c-1a54f231359e.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-f4bcdf14-0fd2-41a4-bacf-a61a7fb727a0.png",
+          "selected": true,
+          "outputSha256": "60a7e5c13fce24f661cfa03e472f58b72acd94edebc828ab441f7e7e6a08e8c8",
+          "referenceSha256": [
+            "43a5462d8d594f17f62daab824a86d742824997cf1e8d77257e8bca9b48ad38f"
+          ]
+        }
+      ],
+      "sourceSha256": "60a7e5c13fce24f661cfa03e472f58b72acd94edebc828ab441f7e7e6a08e8c8"
+    },
+    {
+      "id": "caramel_syrup_flow",
+      "source": "machine/sources/caramel_syrup_flow.png",
+      "attempts": [
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Use case: stylized-concept\nOne isolated narrow strand of flowing amber caramel syrup, transparent PNG game effect sprite. Starts at a thin flat top and flows downward in a gently wavering continuous ribbon, ending in one rounded heavy droplet. Glossy warm honey-amber shading with a slim pale highlight from upper left. Polished hand-painted 2.5D mobile game style, clean readable silhouette. Full stream visible with large empty margins, long thin vertical shape about five times taller than wide. No container, pipe, machine, food, puddle, ground or decorative sparkles. Transparent background.",
+          "referenceImages": [],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-8069539e-8568-4b6b-a79c-8afe5575027b.png",
+          "selected": false,
+          "outputSha256": "0c053a9b8fd51bf897e327af53d80a83ab874dc7e2ee34d7ae0c29bd8de8f323",
+          "referenceSha256": []
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Remove the black background and all surrounding glow. Keep only the amber liquid strand itself. Transparent PNG.",
+          "referenceImages": [
+            "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-8069539e-8568-4b6b-a79c-8afe5575027b.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-6dc00ca8-356c-4368-92b9-5438e91ab504.png",
+          "selected": false,
+          "outputSha256": "207181c08699c2405dab184c0cc1cfcd850c5f11be878d6f3d94e5a0b06daaf0",
+          "referenceSha256": [
+            "0c053a9b8fd51bf897e327af53d80a83ab874dc7e2ee34d7ae0c29bd8de8f323"
+          ]
+        },
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "A single small thin flowing ribbon of caramel syrup, glossy amber liquid with a rounded droplet at the bottom. Isolated game sprite, transparent background. Clean hard silhouette, no glow, no halo, no aura, no shadow, no other objects. Polished hand-painted 2.5D food illustration, soft upper-left highlight.",
+          "referenceImages": [],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-c46883a2-54cd-4f5f-a2b8-38c07d8d3f6c.png",
+          "selected": true,
+          "outputSha256": "cdea9ec2058a9337cf3c5ddc541d78adba3c140acdd0a3449c534fd356c7e6a7",
+          "referenceSha256": []
+        }
+      ],
+      "sourceSha256": "cdea9ec2058a9337cf3c5ddc541d78adba3c140acdd0a3449c534fd356c7e6a7"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+param([switch]$Previews)
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName System.Drawing
 $cupRoot='C:/Users/chenweilun/Documents/GitHub/IAA'
@@ -47,7 +48,7 @@ $cupRigs=@($single)+$cupRigs
 Cup-Json 'manifest.fragment.json' ([ordered]@{schemaVersion=1;contractVersion='six-gen-art-1.0';baseCommit='14310d34e882969208bb7583c5e0c8442bfc3aee';owner='A2';assets=$cupAssets})
 Cup-Json 'assembly.json' ([ordered]@{schemaVersion=1;contractVersion='six-gen-art-1.0';owner='A2';status='ASSEMBLED_STATIC_ART_NOT_RUNTIME';rigs=$cupRigs;reuse=[ordered]@{head='assets/art/machines/machine_cup_head.png';front='assets/art/machines/machine_cup_front.png';single='art-source/batch-0/assembly.json#cupMachine';doubleCarrier='art-source/batch-1/core/assembly.json#doubleTray';socketCover='art-source/six-gen/pop/exports/machine_pop_socket_cover.png'};cancelledCandidateIds=@('machine_cup_pair_front','machine_cup_triple_front','machine_cup_quad_front','machine_cup_hex_front','machine_cup_double_carrier','machine_cup_socket_cover');notes=@('All references are staging/legacy art only. No runtime files changed.','Slots determine active head count; generation maximum never creates owned machinery.','Single cup and double tray are selected by each real job amount; old batches must not be duplicated.')})
 Cup-Json 'export-recipe.json' ([ordered]@{schemaVersion=1;owner='A2';status='EXPORTED';implementation='art-source/six-gen/cup/finalize-cup.ps1';executedTransforms=$cupRecipes;reuse='Original legacy sprites and shared POP cover referenced directly, not copied or renamed';warning='Sources with RGB checkerboards are rejected and excluded from export inputs.'})
-Cup-Json 'export-audit.json' $cupExportAudit
+$cupExportAudit | ConvertTo-Json -Depth 50 | Write-Output
 $cupImages=@{}
 foreach($p in @('assets/art/machines/machine_cup_head.png','assets/art/machines/machine_cup_front.png','assets/art/products/product_cup_empty.png','assets/art/products/product_double_tray.png','art-source/six-gen/pop/exports/machine_pop_socket_cover.png')){$cupImages[[IO.Path]::GetFileNameWithoutExtension($p)]=[System.Drawing.Bitmap]::FromFile((Join-Path $cupRoot $p))}
 function Cup-DrawPart($graphics,$part,$offsetX,$offsetY,$scale){$rect=$part.rect;$graphics.DrawImage($cupImages[$part.id],[System.Drawing.RectangleF]::new([float]($offsetX+$rect[0]*$scale),[float]($offsetY+$rect[1]*$scale),[float]($rect[2]*$scale),[float]($rect[3]*$scale)))}
@@ -64,6 +65,8 @@ function Cup-DrawMachine($graphics,$meta,$x,$y,$scale,$mode){
  $graphics.DrawImage($meta.image,[System.Drawing.RectangleF]::new($x,$y,[float]($meta.image.Width*$scale),[float]($meta.image.Height*$scale)))
  foreach($slot in $meta.rig.slots){if($mode -eq 'entry' -and $slot.jobIndex -gt 0){Cup-DrawPart $graphics $slot.cover $x $y $scale}else{Cup-DrawPart $graphics $slot.head $x $y $scale;if(($mode -eq 'batch' -or ($mode -eq 'mixed' -and $slot.jobIndex -gt 0)) -and $slot.packagingRect){Cup-DrawTray $graphics $slot.packagingRect $x $y $scale}elseif($mode -ne 'empty'){Cup-DrawPart $graphics $slot.cup $x $y $scale}};Cup-DrawPart $graphics $slot.front $x $y $scale}
 }
+if ($Previews) {
+[IO.Directory]::CreateDirectory((Join-Path $cupDir 'previews')) | Out-Null
 $font=New-Object System.Drawing.Font('Microsoft YaHei',13);$brush=New-Object System.Drawing.SolidBrush([System.Drawing.ColorTranslator]::FromHtml('#153a43'))
 foreach($id in $cupMetaById.Keys){
  $meta=$cupMetaById[$id];$preview=New-Object System.Drawing.Bitmap(1800,720);$pg=[System.Drawing.Graphics]::FromImage($preview);$pg.InterpolationMode=[System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic;$pg.Clear([System.Drawing.ColorTranslator]::FromHtml('#f5efe0'));$db=New-Object System.Drawing.SolidBrush([System.Drawing.ColorTranslator]::FromHtml('#142f3b'));$pg.FillRectangle($db,600,0,600,720)
@@ -72,6 +75,8 @@ foreach($id in $cupMetaById.Keys){
  $pg.DrawString($id+' · 真RGBA / 等比导出',$font,$brush,22,10);$pg.DrawString('美术预览，非真机验收 · 浅 / 深 / 棋盘底',$font,$brush,22,682);$preview.Save((Join-Path $cupDir ('previews/'+$meta.definition.name+'-three-backgrounds.png')),[System.Drawing.Imaging.ImageFormat]::Png);$pg.Dispose();$preview.Dispose()
  $preview=New-Object System.Drawing.Bitmap(1400,800);$pg=[System.Drawing.Graphics]::FromImage($preview);$pg.InterpolationMode=[System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic;$pg.Clear([System.Drawing.ColorTranslator]::FromHtml('#f5efe0'));$ps=[Math]::Min(650.0/$meta.image.Width,690.0/$meta.image.Height);Cup-DrawMachine $pg $meta 20 55 $ps 'active';Cup-DrawMachine $pg $meta 720 55 $ps 'entry';$pg.DrawString('独立头 / 杯 / 复用前挡',$font,$brush,22,10);$pg.DrawString('一头保留，其余空槽覆盖',$font,$brush,722,10);$pg.DrawString('美术预览，非真机验收 · 右图仅示范单头与盖板分层',$font,$brush,22,760);$preview.Save((Join-Path $cupDir ('previews/'+$meta.definition.name+'-assembly.png')),[System.Drawing.Imaging.ImageFormat]::Png);$pg.Dispose();$preview.Dispose()
  if($meta.definition.batch -eq 2){$preview=New-Object System.Drawing.Bitmap(1400,800);$pg=[System.Drawing.Graphics]::FromImage($preview);$pg.InterpolationMode=[System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic;$pg.Clear([System.Drawing.ColorTranslator]::FromHtml('#f5efe0'));Cup-DrawMachine $pg $meta 20 55 $ps 'batch';Cup-DrawMachine $pg $meta 720 55 $ps 'mixed';$pg.DrawString('双份批次 · 每槽独立双杯托',$font,$brush,22,10);$pg.DrawString('混合：首槽旧一份，其余新双份',$font,$brush,722,10);$pg.DrawString('美术预览，非真机验收 · 产品保持独立层 / 等比共享托具',$font,$brush,22,760);$preview.Save((Join-Path $cupDir ('previews/'+$meta.definition.name+'-two-portion-assembly.png')),[System.Drawing.Imaging.ImageFormat]::Png);$pg.Dispose();$preview.Dispose()}
+}
+$font.Dispose();$brush.Dispose()
 }
 foreach($im in $cupImages.Values){$im.Dispose()};foreach($meta in $cupMetaById.Values){$meta.image.Dispose();$meta.sourceImage.Dispose()}
 

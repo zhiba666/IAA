@@ -47,7 +47,7 @@ function artSourcePoint(asset, layer, transform, point, offset) {
 
 function drawArtLayer(ctx, images, layer, transform, options) {
   options = options || {};
-  const asset = ART_ASSETS[layer.id], img = images && (typeof images.get === 'function' ? images.get(layer.id) : images[layer.id]);
+  const asset = options.asset || ART_ASSETS[layer.id], img = images && (typeof images.get === 'function' ? images.get(layer.id) : images[layer.id]);
   if (!asset || !img || typeof ctx.drawImage !== 'function') return false;
   const sprite = artSpriteTransform(asset, layer, transform, options.offset);
   const crop = options.crop || layer.crop || [0, 0, asset.width, asset.height];

@@ -1,0 +1,25 @@
+{
+  "tool": "Built-in image_gen; no CLI/API fallback",
+  "assets": [
+    {
+      "id": "product_caramel_tub_empty",
+      "source": "packaging/sources/product_caramel_tub_empty.png",
+      "attempts": [
+        {
+          "tool": "image_gen.imagegen",
+          "prompt": "Use case: precise-object-edit\nRemove all popcorn from this caramel paper tub, showing its empty cream paper interior. Keep the exact tub shape, cream and brown printed stripes, amber droplet badge, white rim, three-quarter camera view, lighting and materials. One empty tub, no food, no lid, no additional objects. Transparent PNG background.",
+          "referenceImages": [
+            "C:/Users/chenweilun/Documents/GitHub/IAA/art-source/v1.3/products/sources/product_caramel_tub.png"
+          ],
+          "output": "C:/Users/chenweilun/.codex/generated_images/01a0955b-f2e9-7170-96e7-0436e30a8080/exec-5b62b79d-e1d3-481d-ba23-7f46d125e738.png",
+          "selected": true,
+          "outputSha256": "d06ab1ee1f370c9cd6e562e0162e36717b33bf85c5603c65365ebee366c47ca4",
+          "referenceSha256": [
+            "4cdaf84a98b4c62d7f89ff3e0fe92f3ad7743e3872ecdc10e7a5c33bfdc77dd3"
+          ]
+        }
+      ],
+      "sourceSha256": "d06ab1ee1f370c9cd6e562e0162e36717b33bf85c5603c65365ebee366c47ca4"
+    }
+  ]
+}

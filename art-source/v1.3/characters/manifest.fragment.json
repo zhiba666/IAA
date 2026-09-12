@@ -1,0 +1,37 @@
+{
+  "assets": [
+    {
+      "id": "customer_neighbor",
+      "label": "街角顾客",
+      "category": "characters",
+      "generation": 1,
+      "source": "art-source/v1.3/characters/sources/customer_neighbor.png",
+      "maxSize": 384,
+      "prompt": "art-source/v1.3/characters/prompts/customer_neighbor.txt",
+      "description": "Coral jacket and teal crossbody purse; short bob; full-body empty-handed neighborhood customer.",
+      "role": "sprite"
+    },
+    {
+      "id": "customer_family",
+      "label": "家庭采购客",
+      "category": "characters",
+      "generation": 1,
+      "source": "art-source/v1.3/characters/sources/customer_family.png",
+      "maxSize": 384,
+      "prompt": "art-source/v1.3/characters/prompts/customer_family.txt",
+      "description": "Blue shirt and light-green shoulder tote; one middle-aged shopper; full-body empty hands.",
+      "role": "sprite"
+    },
+    {
+      "id": "clerk_vendor",
+      "label": "基础售货员",
+      "category": "characters",
+      "generation": 1,
+      "source": "art-source/v1.3/characters/sources/clerk_vendor.png",
+      "maxSize": 384,
+      "prompt": "art-source/v1.3/characters/prompts/clerk_vendor.txt",
+      "description": "Cream shirt, teal apron and yellow pin; full-body empty-handed vendor.",
+      "role": "sprite"
+    }
+  ]
+}

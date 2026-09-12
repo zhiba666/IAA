@@ -1,24 +1,17 @@
 # IAA 六代美术资源交付
 
-> 当前版本说明：本目录已接入 [v0.1 正式版](../../docs/releases/v0.1.md)，运行接入见 [说明](../../docs/SIX_GEN_ART_INTEGRATION.md)。以下正文保留“仅资源交付”阶段的原始结论，不能据此判断当前接入状态。静态预览及其展示依赖按用户要求保留在原位置。旧 batch 制作记录、原始计划和交付 ZIP 的位置见 [归档索引](../../archive/README.md)；ZIP 仅留本地。来源清单保留当时路径，可用 [归档映射](../../archive/pre-v0.1/manifest.json)追溯。历史制作脚本需在独立目录恢复原布局后复现；当前正式构建读取 [活动装配目录](integration/legacy/README.md)，不依赖历史归档或临时工作树。
-
-本轮只制作与验收独立美术资源，未接入游戏代码，未修改正式资源清单、数值或存档，也未构建或发布。
+本目录已用于正式游戏。当前构建读取 [活动装配目录](integration/legacy/README.md)、最终导出和资源清单。
 
 ## 先看这里
 
-- 新资源总览：reports/gallery/contact-sheet.png
-- 独立画廊：reports/gallery/index.html
 - 最终 PNG：integration/exports/
 - 总清单、来源及装配：integration/manifest.json、provenance.json、assembly.json
-- 六代各 entry/upgraded 两态、两视口：qa/previews/g01-entry-390x844.png 等 24 张。
-- UI 14 状态总览：reports/ui-states/ui-state-contact.png；两视口共 28 张状态页。
-- 仓位与设备状态：qa/previews/warehouse-48-fixture-contact.png、machine-54-state-contact.png；真实可达性说明在 qa/。
 
 ## 交付数量
 
 24 张新增独立 PNG：爆锅 5、装杯 4、出货 3、物流 6、UI 3、场景 3。其中货架前缘由新原图精确拆层，未重复生图。
 60 张既有资源复用，最终共 84 张唯一 PNG。39 个基础候选中，24 个导出、15 个由合格共享件替代；1 个条件宽压头经复用检查无需新增。候选逐项去向见 integration/candidate-resolution.json。
-18 个代际工位配置、12 套代际设备组合；扩建前后保留安装数和批次量差异，空槽使用盖板。所有配置与预览明确为 synthetic-art-only。
+18 个代际工位配置、12 套代际设备组合；扩建前后保留安装数和批次量差异，空槽使用盖板。
 
 ## 体积
 
@@ -29,9 +22,3 @@
 内置 image_gen 生成；准确提示词、参考 SHA、原图及失败版本在各包 sources/、prompts 与 provenance 中。源图保持原尺寸；导出采用等比裁切/缩小和有监督 PNG 色彩量化。正式旧图不变。kernel_a 候选增加透明边距；kernel_b 与禁用按钮因量化影响边缘而保留原 PNG。
 
 最终以 integration/manifest.json 中 file 与 SHA 为准。各包 exports/ 是制作候选，体积不同但坐标保持一致。integration/common 是共享资源优化步骤，最终发布候选统一在 integration/exports。
-
-## 验证边界
-
-交付报告见 reports/delivery-verification.json 和 qa/ 最终静态验收报告。PNG签名、尺寸、真实alpha、边缘、SHA、源路径和正式文件保护均实测。预览不是运行截图；界面状态为美术表达。构建、经济回归、真实点击/拖拽、防重复购买、实际异步进度、资源加载与真机均未执行（NOT_RUN）。本轮不代表 INTEGRATED 或 VERIFIED_RUNTIME。
-
-本地画廊相对链接与脚本语法已核验；自动浏览器交互未运行。可直接查看PNG交付。制作辅助脚本只位于本美术目录，不属于正式游戏代码。

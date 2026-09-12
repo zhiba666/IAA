@@ -1,0 +1,12 @@
+INITIAL GENERATION
+Create a transparent-background game asset PNG: a small loose mound of roughly twelve caramel-coated popcorn kernels, without any container. Return the asset with genuine alpha transparency outside the kernels.
+Use case: stylized-concept
+Asset type: intermediate material sprite for a popcorn-factory game.
+Image 1 is a style reference, not an edit target. Match its amber caramel material, creamy popped-corn shapes, polished stylized 3D game rendering, and upper-left lighting. Omit the reference tub completely.
+Subject: About twelve amber caramel popcorn pieces in a low compact loose pile, two shallow layers. Glossy golden amber caramel coats most surfaces, with a few cream popcorn lobes visible. Readable irregular popcorn silhouettes. Modest crisp caramel highlights, no excessive drips.
+Composition: Three-quarter orthographic camera slightly above, whole pile centered, broad low mound approximately 1.6 times wider than tall, square canvas with comfortable empty margins. Use the same physical kernel scale as the original reference.
+Background: Transparent, isolated cutout, no ground plane, no external cast shadow, no backdrop color or pattern.
+No tub, cup, bowl, bag, plate, tray, container, utensils, text, label, icon badge, logo or watermark. Generate only the loose caramel popcorn pile.
+
+FINAL BACKGROUND EXTRACTION
+Remove the background. Keep the caramel popcorn pile exactly as shown. Transparent PNG.

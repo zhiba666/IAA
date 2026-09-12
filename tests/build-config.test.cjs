@@ -20,11 +20,16 @@ test('both build modes work without archives and disable legacy hold tapping and
   });
   await mkdir(path.join(root, 'tools'));
   await mkdir(path.join(root, 'src'));
-  for (const filename of ['build.mjs', 'bundle.mjs', 'audio.mjs', 'art-build.mjs']) {
+  for (const filename of ['build.mjs', 'bundle.mjs', 'audio.mjs', 'art-build.mjs', 'v13-art-build.mjs', 'v13-scene-art-build.mjs']) {
     await copyFile(path.resolve(__dirname, '../tools', filename), path.join(root, 'tools', filename));
   }
   const { ART_SOURCE_REFS, ART_RUNTIME_IDS, ART_ASSETS } = require('../src/art-manifest');
-  for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].sourcePath), 'web/index.html', 'package.json', 'src/version.js']) {
+  const { V13_ART_IDS, V13_ART_ASSETS } = require('../src/v13-art-manifest');
+  const { V13_SCENE_ART_IDS, V13_SCENE_ART_ASSETS } = require('../src/v13-scene-art-manifest');
+  for (const filename of [...ART_SOURCE_REFS, ...ART_RUNTIME_IDS.map(id => ART_ASSETS[id].sourcePath),
+    'art-source/v1.3/manifest.json', ...V13_ART_IDS.map(id => V13_ART_ASSETS[id].sourcePath),
+    'art-source/v1.3-scenes/manifest.json', ...V13_SCENE_ART_IDS.map(id => V13_SCENE_ART_ASSETS[id].sourcePath),
+    'web/index.html', 'package.json', 'src/version.js']) {
     // A clean build must not need optional historical snapshots, even if a
     // future source manifest accidentally starts referencing them again.
     if (filename.startsWith('archive/')) continue;
@@ -68,5 +73,11 @@ test('both build modes work without archives and disable legacy hold tapping and
     const report = await inspectProject(root);
     assert.equal(report.codeReady, true, 'both build modes disable retired gameplay paths');
     assert.equal(report.checks.find(check => check.code === 'developer-hold-disabled').status, 'pass');
+    assert.equal(report.checks.find(check => check.code === 'v13-scene-art-format').status, 'pass');
+    for (const id of V13_SCENE_ART_IDS) {
+      const file = V13_SCENE_ART_ASSETS[id].path;
+      const source = await readFile(path.join(root, V13_SCENE_ART_ASSETS[id].sourcePath));
+      for (const target of ['.', 'web', 'build/douyin']) assert.deepEqual(await readFile(path.join(root, target, file)), source);
+    }
   }
 });

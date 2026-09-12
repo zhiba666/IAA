@@ -6,6 +6,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createArtAssets } = require('../src/art-assets');
 const { ART_ASSETS, ART_RIGS, ART_RUNTIME_IDS, ART_GENERATION_RIGS, ART_SIX_GEN } = require('../src/art-manifest');
+const { V13_ART_ASSETS, V13_ART_IDS } = require('../src/v13-art-manifest');
+const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS } = require('../src/v13-scene-art-manifest');
 const { createArtTransform, artSpriteTransform, artSourcePoint, drawArtLayer, clipArtPolygon, minimumHitRect, drawNineSlice } = require('../src/art-layout');
 
 test('the same uniform transform maps image crops, sprite points, assembly ports, clips and hit rectangles', () => {
@@ -72,7 +74,7 @@ test('nine-slice preserves fixed corners while stretching only blank panel cente
   assert.deepEqual(calls[4].slice(5), [15, 19, 278, 178]);
 });
 
-test('both production build roots contain exactly the referenced independent PNGs, unchanged', () => {
+test('both production build roots contain exactly the referenced independent PNGs, unchanged', async () => {
   const root = path.resolve(__dirname, '..');
   for (const target of ['web', 'build/douyin']) {
     const files = [];
@@ -81,10 +83,11 @@ test('both production build roots contain exactly the referenced independent PNG
       if (entry.isDirectory()) walk(file); else files.push(path.relative(path.join(root, target), file).replaceAll('\\', '/'));
     } }
     walk(path.join(root, target, 'assets/art'));
-    assert.deepEqual(files.sort(), ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path).sort());
-    for (const id of ART_RUNTIME_IDS) {
-      const file = ART_ASSETS[id].path;
-      assert.deepEqual(fs.readFileSync(path.join(root, target, file)), fs.readFileSync(path.join(root, ART_ASSETS[id].sourcePath)), target + ': ' + id);
+    const packagedAssets = [...ART_RUNTIME_IDS.map(id => ART_ASSETS[id]), ...V13_ART_IDS.map(id => V13_ART_ASSETS[id]),
+      ...V13_SCENE_ART_IDS.map(id => V13_SCENE_ART_ASSETS[id])];
+    assert.deepEqual(files.sort(), packagedAssets.map(asset => asset.path).sort());
+    for (const asset of packagedAssets) {
+      assert.deepEqual(fs.readFileSync(path.join(root, target, asset.path)), fs.readFileSync(path.join(root, asset.sourcePath)), target + ': ' + asset.id);
     }
   }
   const reviewed = JSON.parse(fs.readFileSync(path.join(root, 'art-source/six-gen/integration/manifest.json')));
@@ -97,8 +100,9 @@ test('both production build roots contain exactly the referenced independent PNG
   assert.equal(ART_GENERATION_RIGS.length, 18);
   assert.ok(ART_SIX_GEN.packaging.doubleTray && ART_SIX_GEN.packaging.fourCupBox);
   assert.ok(ART_SIX_GEN.scene.tower.layers.some(layer => layer.id === 'factory_tower_front'));
-  const report = JSON.parse(fs.readFileSync(path.join(root, 'output/six-gen-art-runtime/resource-report.json')));
-  assert.equal(report.count, ART_RUNTIME_IDS.length);
-  assert.equal(report.compressedBytes, ART_RUNTIME_IDS.reduce((sum, id) => sum + ART_ASSETS[id].bytes, 0));
-  assert.ok(Object.values(report.budgets).every(budget => budget.passed));
+  const { readRuntimeArt, ART_BUDGETS } = await import('../tools/art-build.mjs');
+  const data = await readRuntimeArt(root);
+  assert.equal(data.entries.length, ART_RUNTIME_IDS.length);
+  assert.equal(data.totals.compressedBytes, ART_RUNTIME_IDS.reduce((sum, id) => sum + ART_ASSETS[id].bytes, 0));
+  for (const [key, limit] of Object.entries(ART_BUDGETS)) assert.ok(data.totals[key] <= limit, key);
 });

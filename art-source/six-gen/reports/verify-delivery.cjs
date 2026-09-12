@@ -8,6 +8,6 @@ const sha=hash(a.file);if(sha!==a.sha256)errors.push(a.id+': SHA');if(md.width!=
 rows.push({id:a.id,sha256:sha,width:md.width,height:md.height,bytes:b.length,hasAlpha:md.hasAlpha,transparentPixels:zero,borderAlpha128:edge,sourceExists:fs.existsSync(path.resolve(ROOT,a.sourceFile))});}
 const modified=cp.execFileSync('git',['diff','--name-only'],{cwd:ROOT,encoding:'utf8'}).trim().split('\n').filter(Boolean),status=cp.execFileSync('git',['status','--short'],{cwd:ROOT,encoding:'utf8'}),head=cp.execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();if(modified.length)errors.push('Tracked files changed: '+modified.join(','));
 const report={createdAt:new Date().toISOString(),baseCommit:head,scope:'static art only',count:rows.length,errors,passed:!errors.length,rows,trackedModified:modified,gitStatus:status,runtimeTests:'NOT_RUN',build:'NOT_RUN',device:'NOT_RUN'};
-fs.writeFileSync(path.join(__dirname,'delivery-verification.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({count:rows.length,errors,passed:!errors.length,trackedModified:modified}));if(errors.length)process.exitCode=1;
+console.log(JSON.stringify(report,null,2));if(errors.length)process.exitCode=1;
 }
 main().catch(e=>{console.error(e);process.exitCode=1});

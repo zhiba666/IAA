@@ -2,15 +2,21 @@ import { readFile, readdir, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
+import { validateV13ScenePng } from './v13-scene-art-build.mjs';
 
 const require = createRequire(import.meta.url);
 const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest.js');
+const { V13_ART_ASSETS, V13_ART_IDS } = require('../src/v13-art-manifest.js');
+const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS, V13_SCENE_ART_BUDGETS } = require('../src/v13-scene-art-manifest.js');
 const { CONFIG } = require('../src/factory-rules.js');
 
 const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const AUDIO_FILES = ['upgrade', 'machine', 'click', 'error'].map(name => `audio/${name}.wav`);
 export const ART_FILES = ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path);
-export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES, ...ART_FILES];
+export const V13_ART_FILES = V13_ART_IDS.map(id => V13_ART_ASSETS[id].path);
+export const V13_SCENE_ART_FILES = V13_SCENE_ART_IDS.map(id => V13_SCENE_ART_ASSETS[id].path);
+export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES, ...ART_FILES, ...V13_ART_FILES, ...V13_SCENE_ART_FILES];
 const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, experiment: null, mode: 'v15' };
 const ID_LABELS = { appId: '小游戏 AppID' };
 const MAX_PACKAGE_BYTES = 20 * 1024 * 1024;
@@ -32,7 +38,7 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
   const add = (code, status, message) => checks.push({ code, status, message });
   const source = name => files.has(name) ? files.get(name).toString('utf8') : null;
   const missingFiles = REQUIRED_FILES.filter(name => !files.has(name));
-  add('package-files', missingFiles.length ? 'error' : 'pass', missingFiles.length ? `构建缺少必需文件：${missingFiles.join('、')}。先运行 npm run build。` : `入口、配置、游戏代码、${AUDIO_FILES.length} 个音效及 ${ART_FILES.length} 个六代独立美术文件齐全。`);
+  add('package-files', missingFiles.length ? 'error' : 'pass', missingFiles.length ? `构建缺少必需文件：${missingFiles.join('、')}。先运行 npm run build。` : `入口、配置、游戏代码、${AUDIO_FILES.length} 个音效、${ART_FILES.length} 个基础美术、${V13_ART_FILES.length} 个 v1.3 按需美术及 ${V13_SCENE_ART_FILES.length} 个独立场景美术文件齐全。`);
   if (readErrors.length) add('package-readable', 'error', '部分项目文件无法读取，或发现符号链接；请使用本项目构建器重新生成构建目录。');
   const unknownFiles = entries.filter(entry => !REQUIRED_FILES.includes(entry.name));
   add('package-contents', unknownFiles.length ? 'error' : 'pass', unknownFiles.length ? `包内有 ${unknownFiles.length} 个非预期文件；请检查 build/douyin，仅保留本项目构建器产物。` : '包内未发现多余文件。');
@@ -56,6 +62,24 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
       bytes.readUInt32BE(16) !== asset.width || bytes.readUInt32BE(20) !== asset.height);
   });
   add('art-format', brokenArt.length ? 'error' : 'pass', brokenArt.length ? `六代 PNG 文件头或尺寸不一致：${brokenArt.join('、')}。` : '六代独立美术 PNG 文件头与装配清单尺寸一致；实际解码/画面以正式入口运行验收为准。');
+  const brokenV13Art = V13_ART_IDS.filter(id => {
+    const asset = V13_ART_ASSETS[id], bytes = files.get(asset.path);
+    return bytes && (bytes.length !== asset.bytes || bytes.length < 24 || bytes.toString('hex', 0, 8) !== '89504e470d0a1a0a' ||
+      bytes.readUInt32BE(16) !== asset.width || bytes.readUInt32BE(20) !== asset.height ||
+      createHash('sha256').update(bytes).digest('hex') !== asset.sha256);
+  });
+  add('v13-art-format', brokenV13Art.length ? 'error' : 'pass', brokenV13Art.length ? `v1.3 PNG 文件头、尺寸或 SHA-256 不一致：${brokenV13Art.join('、')}。` : 'v1.3 按需美术包文件头、尺寸及 SHA-256 与导出清单一致。');
+  const brokenV13SceneArt = V13_SCENE_ART_IDS.filter(id => {
+    const asset = V13_SCENE_ART_ASSETS[id], bytes = files.get(asset.path);
+    if (!bytes || bytes.length !== asset.bytes || createHash('sha256').update(bytes).digest('hex') !== asset.sha256) return true;
+    try { validateV13ScenePng(bytes, asset); return false; } catch { return true; }
+  });
+  add('v13-scene-art-format', brokenV13SceneArt.length ? 'error' : 'pass', brokenV13SceneArt.length ? `独立场景 PNG 缺失或内容、尺寸、SHA-256 不一致：${brokenV13SceneArt.join('、')}。` : '3 张独立场景 PNG 完整数据、尺寸及 SHA-256 与导出清单一致。');
+  const sceneCompressedBytes = V13_SCENE_ART_FILES.reduce((sum, name) => sum + (files.has(name) ? files.get(name).length : 0), 0);
+  const sceneDecodedBytes = V13_SCENE_ART_IDS.reduce((sum, id) => sum + V13_SCENE_ART_ASSETS[id].decodedBytes, 0);
+  const sceneBudgetPassed = V13_SCENE_ART_IDS.length === 3 &&
+    sceneCompressedBytes <= V13_SCENE_ART_BUDGETS.compressedBytes && sceneDecodedBytes <= V13_SCENE_ART_BUDGETS.decodedBytes;
+  add('v13-scene-art-budget', sceneBudgetPassed ? 'pass' : 'error', `独立场景包：PNG 文件 ${sceneCompressedBytes} B / ${V13_SCENE_ART_BUDGETS.compressedBytes} B，RGBA 解码估算 ${sceneDecodedBytes} B / ${V13_SCENE_ART_BUDGETS.decodedBytes} B；不包含原 87 张基础包与 18 张 v1.3 包。`);
 
   const game = parseJSON(source('game.json'));
   const project = parseJSON(source('project.config.json'));
@@ -80,12 +104,14 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     if (config.experiment !== undefined && config.experiment !== null && config.experiment !== CONFIG.transferExperiment.id) {
       add(`${label}-experiment-value`, 'error', `${label}配置 experiment 只能为 null 或 "${CONFIG.transferExperiment.id}"。`);
     }
-    if (config.mode !== undefined && !['v15', 'baseline'].includes(config.mode)) {
-      add(`${label}-mode-value`, 'error', `${label}配置 mode 只能为 "v15" 或 "baseline"。`);
+    if (config.mode !== undefined && !['v15', 'baseline', 'v13-orders-p0'].includes(config.mode)) {
+      add(`${label}-mode-value`, 'error', `${label}配置 mode 只能为 "v15"、"baseline" 或 "v13-orders-p0"。`);
     }
   }
   if (built) {
-    if (built.experiment === CONFIG.transferExperiment.id) {
+    if (built.mode === 'v13-orders-p0') {
+      add('experiment-mode', 'manual', '当前构建为 v1.3 P0-1 原味订单试玩：包装入库、订单配货与成交，使用独立存档；不是正式 v1.3 或真机验收。');
+    } else if (built.experiment === CONFIG.transferExperiment.id) {
       add('experiment-mode', 'manual', '当前构建仅为 v1.5 P0 手动转运试玩，验证首代 A 段；使用隔离存档，尚未完成完整 1.5 玩法或真机验收。');
     } else if (built.experiment === undefined || built.experiment === null) {
       add('experiment-mode', 'pass', built.mode === 'baseline' ? '当前构建使用 v2 自动生产对照模式。' : '当前构建使用正式默认玩法：v1.5 两段搬运与自动化、schema 4 存档。');

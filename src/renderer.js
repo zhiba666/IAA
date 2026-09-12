@@ -5,13 +5,15 @@ const { GameInterface } = require('./interface');
 const { createArtTransform, transferTargetAt: hitTransferTarget } = require('./art-layout');
 const { ART_ASSETS } = require('./art-manifest');
 const { ART_EFFECTS } = require('./art-effects');
+const { V13Showroom } = require('./v13-showroom');
 const FONT = '"Microsoft YaHei", "PingFang SC", system-ui, sans-serif';
 
 // Presentation owns pixels and hit regions only. All stock, movement progress and
 // money displayed below come from the single production simulation snapshot.
 class Renderer {
-  constructor(ctx, art) {
-    this.c=ctx;this.art=art;this.zones=[];this.scene=new SixGenerationScene(ctx,art);this.interface=new GameInterface(this);
+  constructor(ctx, art, v13Art) {
+    this.c=ctx;this.art=art;this.v13Art=v13Art;this.zones=[];this.scene=new SixGenerationScene(ctx,art);this.interface=new GameInterface(this);
+    this.scene.v13Art=v13Art;this.showroom=new V13Showroom(this,v13Art);
   }
   box(x,y,w,h,r=14,fill='#fffdf7',stroke) {
     if(w<=0||h<=0)return;
@@ -130,7 +132,13 @@ class Renderer {
     this.c.restore();
   }
   emit(event){this.scene.emit(event);}
-  draw(view,ui,dt=0){this.modalOpen=!!ui.modal;this.transferGhost=null;this.tutorialHand=null;this.transferReceipt=null;this.interface.draw(view,ui,dt);}
+  draw(view,ui,dt=0){
+    this.modalOpen=!!ui.modal;this.transferGhost=null;this.tutorialHand=null;this.transferReceipt=null;
+    if(ui.modal&&ui.modal.type==='showroom'){
+      this.scene.update(dt);this.showroom.draw(view,ui,dt);return;
+    }
+    this.interface.draw(view,ui,dt);
+  }
   actionAt(x,y) {
     for(let i=this.zones.length-1;i>=0;i--){const z=this.zones[i];if(x>=z.x&&x<=z.x+z.w&&y>=z.y&&y<=z.y+z.h)return z.action;}
     return null;

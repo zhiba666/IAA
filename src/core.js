@@ -54,10 +54,15 @@ function freshState(now, experiment = null, mode = null) {
 // totalProduced counts portions admitted into the first workstation, including
 // its work in progress: produced = sold + buffers + inputs + station WIP.
 class Game {
-  constructor({ save = null, now = Date.now(), experiment = null, mode = null } = {}) {
+  constructor({ save = null, now = Date.now(), experiment = null, mode = null, finishedGoods = null } = {}) {
     if (experiment !== null && experiment !== CONFIG.transferExperiment.id) throw new Error('invalid-experiment');
     if (mode !== null && mode !== 'v15') throw new Error('invalid-mode');
     if (mode && experiment) throw new Error('incompatible-mode');
+    // An isolated mode may explicitly own finished inventory and the sales
+    // ledger. The default profiles retain their existing immediate-sale rules.
+    if (finishedGoods && (mode !== 'v15' || !['canAccept', 'accept', 'validateLedger']
+      .every(key => typeof finishedGoods[key] === 'function'))) throw new Error('invalid-finished-goods');
+    this._finishedGoods = finishedGoods;
     this.mode = mode;
     this.experiment = experiment;
     this._transferReservation = null;
@@ -91,6 +96,7 @@ class Game {
     try {
       const data = typeof input === 'string' ? JSON.parse(input) : input;
       if (this.mode === 'v15' && data && data.version === CONFIG.version) {
+        if (this._finishedGoods) throw new Error('inventory-migration-disabled');
         const validated = new Game({ save: data, now: this.now });
         if (validated.loadWarning) throw new Error('legacy-invalid');
         const migrated = { ...validated.state, ...Object.fromEntries(Object.entries(freshState(this.now, null, 'v15'))
@@ -217,11 +223,13 @@ class Game {
       }
       const wip = IDS.reduce((sum, id) => sum + sumJobs(s.stations[id]), 0);
       const inputs = this.mode === 'v15' ? s.inputs.cup + s.inputs.ship : this.experiment ? s.inputs.cup : 0;
-      if (s.totalProduced !== s.totalSold + s.buffers.pop + s.buffers.cup + inputs + wip
+      const packaged = this._finishedGoods ? s.stations.ship.processed : s.totalSold;
+      if (s.totalProduced !== packaged + s.buffers.pop + s.buffers.cup + inputs + wip
         || s.stations.pop.processed !== s.totalProduced - sumJobs(s.stations.pop)
-        || s.stations.cup.processed !== s.totalSold + s.buffers.cup + sumJobs(s.stations.ship) + (this.mode === 'v15' ? s.inputs.ship : 0)
-        || s.stations.ship.processed !== s.totalSold
-        || s.totalEarned !== s.totalSold * CONFIG.price || s.coins !== s.totalEarned - s.totalSpent) throw new Error('conservation');
+        || s.stations.cup.processed !== packaged + s.buffers.cup + sumJobs(s.stations.ship) + (this.mode === 'v15' ? s.inputs.ship : 0)
+        || (this._finishedGoods ? !this._finishedGoods.validateLedger(s)
+          : s.stations.ship.processed !== s.totalSold || s.totalEarned !== s.totalSold * CONFIG.price)
+        || s.coins !== s.totalEarned - s.totalSpent) throw new Error('conservation');
       this.state = s;
       if (this.mode === 'v15') this._loadedAutomation = true;
     } catch (error) {
@@ -268,11 +276,16 @@ class Game {
           if (!job || job.remainingTicks > 0) continue;
           if (id !== 'ship' && s.buffers[id] + job.amount > bufferCaps[id]) continue;
           if (id === 'ship') {
-            if (this.mode === 'v15' && s.totalSold === 0) this.events.push({ type: 'first-sale', amount: job.amount, playedSeconds: s.playedSeconds });
-            s.totalSold += job.amount;
-            const coins = job.amount * CONFIG.price;
-            s.coins += coins;
-            s.totalEarned += coins;
+            if (this._finishedGoods) {
+              if (!this._finishedGoods.canAccept(job.amount)) continue;
+              this._finishedGoods.accept(job.amount, s);
+            } else {
+              if (this.mode === 'v15' && s.totalSold === 0) this.events.push({ type: 'first-sale', amount: job.amount, playedSeconds: s.playedSeconds });
+              s.totalSold += job.amount;
+              const coins = job.amount * CONFIG.price;
+              s.coins += coins;
+              s.totalEarned += coins;
+            }
           } else s.buffers[id] += job.amount;
           this._record(id, job.amount);
           station.jobs[lane] = null;

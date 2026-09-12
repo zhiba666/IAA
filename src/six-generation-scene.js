@@ -5,6 +5,7 @@ const { ART_ASSETS, ART_RIGS, ART_GENERATION_RIGS, ART_SIX_GEN } = require('./ar
 const { createArtTransform, minimumHitRect } = require('./art-layout');
 const { ART_EFFECTS } = require('./art-effects');
 const { fullScreenPlacements } = require('./fullscreen-layout');
+const { drawV13Sprite } = require('./v13-art-sprites');
 
 const clamp = n => Math.max(0, Math.min(1, Number.isFinite(n) ? n : 0));
 const amountOf = n => Math.max(0, Number.isFinite(n) ? Math.floor(n) : 0);
@@ -18,6 +19,13 @@ class SixGenerationScene extends FirstGenerationScene {
     super(ctx, assets);
     this.generation = 1;
     this.transferHeight = 0;
+    this.v13Art = null;
+  }
+
+  cupAt(rect, transform, progress = 1) {
+    // In-progress filling keeps the authored empty-cup and moving-fill layers.
+    if (progress >= 1 && drawV13Sprite(this.c, this.v13Art, 'product_original_cup', rect, transform)) return;
+    return super.cupAt(rect, transform, progress);
   }
 
   rigFor(stationId, generation = this.generation) {

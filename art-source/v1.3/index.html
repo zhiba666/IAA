@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小小爆米花厂 · v1.3 美术资源</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5f6;color:#213c44;font:14px/1.5 "Microsoft YaHei",sans-serif;letter-spacing:0}button,input,select{font:inherit}button,select{min-height:36px;border:1px solid #c3cfd3;background:white;color:inherit;border-radius:6px;cursor:pointer}button{padding:5px 13px}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #edb53a;outline-offset:2px}header{background:#fff;border-bottom:1px solid #ccd8dc;padding:20px 28px;display:flex;align-items:center;gap:20px;justify-content:space-between}h1{font-size:22px;margin:0}h2{font-size:18px;margin:0 0 14px}p{margin:5px 0;color:#64777d}a{color:#086c74}main{max-width:1450px;margin:auto;padding:22px 28px}nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 22px}nav button[aria-selected=true]{background:#176c73;color:white;border-color:#176c73}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0 18px}.swatch{width:30px;height:30px;min-height:30px;border-radius:50%;padding:0;border:2px solid #a7b6bc}.swatch[aria-pressed=true]{outline:2px solid #16717a;outline-offset:2px}label{display:flex;align-items:center;gap:8px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:14px}.asset{min-width:0;background:#fff;border:1px solid #d4dfe2;border-radius:6px;overflow:hidden}.tile{height:208px;display:flex;align-items:center;justify-content:center;background:var(--tile-bg,#e6eef0)}.tile img{width:var(--sprite-size,170px);height:var(--sprite-size,170px);object-fit:contain}.meta{padding:11px 12px 13px}.meta strong{font-size:14px}.meta code{display:block;overflow-wrap:anywhere;font:11px/1.5 Consolas,monospace;color:#678087;margin:4px 0}.tag{font-size:11px;color:#826516;margin-left:5px}.dims{font-size:11px;color:#6a7b82}.scene-layout{display:grid;grid-template-columns:minmax(280px,390px) 1fr;gap:34px;align-items:start}.phone{position:relative;width:100%;aspect-ratio:390/760;background:#e4eeeb;overflow:hidden;border:1px solid #b7cbc6;border-radius:8px}.shop{position:absolute;left:4%;top:6%;width:92%;height:36%;object-fit:contain}.clerk{position:absolute;left:33%;top:25%;width:18%;height:15%;object-fit:contain}.phone-top{position:absolute;left:4%;right:4%;top:2%;display:flex;align-items:center;justify-content:space-between;color:#155760;font-weight:bold}.phone-top span{display:flex;align-items:center;gap:5px}.phone-top img{width:25px;height:25px}.clients{position:absolute;left:4%;right:4%;top:42%;height:30%;display:flex;gap:14px}.client{flex:1;min-width:0;position:relative}.person{position:absolute;left:10%;top:29%;width:62%;height:70%;object-fit:contain}.bag{position:absolute;left:62%;top:63%;width:31%;height:32%;object-fit:contain}.order{position:absolute;top:0;left:0;right:0;height:30%;background:#fff;border:1px solid #b6cfcc;border-radius:6px;display:flex;align-items:center;justify-content:space-evenly;color:#2d6063;font-size:12px}.order img{width:38px;height:44px;object-fit:contain}.client.active .order{border:3px solid #299c81}.done{display:none;position:absolute;right:0;top:15%;width:30px;height:30px}.client.complete .done{display:block}.stock{position:absolute;left:4%;right:4%;bottom:6%;height:18%;display:flex;gap:12px;border-top:4px solid #458c91;border-bottom:8px solid #458c91;background:#cbdedb;align-items:center;justify-content:space-evenly}.stock-item{text-align:center;font-size:11px;color:#346366}.stock-item img{width:60px;height:72px;object-fit:contain;display:block;margin:auto}.preview-notes{max-width:620px}.preview-notes table{width:100%;border-collapse:collapse;margin-top:22px}.preview-notes td,.preview-notes th{padding:10px 6px;text-align:left;border-bottom:1px solid #cedbdf}.preview-notes th{font-weight:normal;color:#627780}footer{padding:24px 0;color:#657a80;font-size:12px}.hidden{display:none!important}#summary{font-size:12px}#scene-state{min-width:130px}#assets-count{margin-left:auto;color:#61767e;font-size:12px}
+@media(max-width:720px){header{padding:16px;display:block}h1{font-size:20px}header a{display:inline-block;margin-top:7px}main{padding:16px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.tile{height:170px}.tile img{max-width:100%;max-height:160px}.meta{padding:9px}.scene-layout{grid-template-columns:1fr}.phone{max-width:390px;margin:auto}.preview-notes{margin-top:0}.toolbar{gap:10px}#assets-count{margin-left:0}nav{gap:5px}nav button{padding:5px 10px}}
+</style>
+<header><div><h1>小小爆米花厂 <span style="color:#18808a">v1.3</span></h1><p>美术资源库 <span id="summary"></span></p></div><a href="qa/contact-sheet.png">完整资源总览 PNG</a></header>
+<main>
+<nav aria-label="资源分类" role="tablist">
+<button role="tab" data-category="products" aria-selected="true">七款商品</button><button role="tab" data-category="machines" aria-selected="false">工艺设备</button><button role="tab" data-category="characters" aria-selected="false">客户与售货员</button><button role="tab" data-category="scene" aria-selected="false">场景与订单</button><button role="tab" data-category="reuse" aria-selected="false">复用资源</button><button role="tab" data-category="assembly" aria-selected="false">场外装配</button>
+</nav>
+<section id="library">
+<div class="toolbar"><span>底色</span><button class="swatch" style="background:#e6eef0" data-color="#e6eef0" title="浅灰底" aria-label="浅灰底" aria-pressed="true"></button><button class="swatch" style="background:#183943" data-color="#183943" title="深色底" aria-label="深色底" aria-pressed="false"></button><button class="swatch" style="background:#fff" data-color="#fff" title="白底" aria-label="白底" aria-pressed="false"></button><label>尺寸上限 <input type="range" min="48" max="192" value="170" id="size"><output id="size-value">170 px</output></label><span id="assets-count"></span></div>
+<div class="grid" id="grid"></div>
+</section>
+<section id="assembly" class="hidden">
+<div class="scene-layout">
+<div class="phone" aria-label="场外静态美术装配">
+<div class="phone-top"><span><img data-art="ui_icon_coin" alt="金币">128</span><span>工厂直售</span><img data-art="ui_order_ticket" alt="订单"></div>
+<img class="shop" data-art="shop_front" alt="直售门脸"><img class="clerk" data-art="clerk_vendor" alt="售货员">
+<div class="clients">
+<div class="client" id="client-a"><div class="order"><img data-art="product_original_cup" alt="原味杯"><span id="order-a">0 / 4</span><span>32 金币</span></div><img class="person" data-art="customer_neighbor" alt="邻里顾客"><img class="bag" data-art="order_pickup_bag" alt="取货袋"><img class="done" data-art="ui_icon_check" alt="已配齐"></div>
+<div class="client"><div class="order"><img data-art="product_original_cup" alt="原味杯"><span>0/2</span><img data-art="product_caramel_tub" alt="焦糖桶"><span>0/1</span></div><img class="person" data-art="customer_family" alt="家庭采购顾客"><img class="bag" data-art="order_pickup_bag" alt="取货袋"></div>
+</div>
+<div class="stock"><div class="stock-item"><img data-art="product_original_cup" alt="原味杯"><strong>经典原味杯</strong><div>可用 <span id="stock-a">8</span> · 预留 <span id="reserved-a">0</span></div></div><div class="stock-item"><img data-art="product_caramel_tub" alt="焦糖桶"><strong>琥珀焦糖桶</strong><div>可用 3 · 预留 0</div></div></div>
+</div>
+<div class="preview-notes"><h2>场外装配预览</h2><p>美术验收用模拟状态，非 v1.3 可玩版本。订单数量及报酬仅为排版样例。</p><div class="toolbar"><label>订单状态 <select id="scene-state"><option value="waiting">待配货</option><option value="active">可接收高亮</option><option value="partial">部分配齐</option><option value="complete">全部配齐</option></select></label></div><table><tbody><tr><th>前两代</th><td>原味杯、焦糖桶、裹糖模块与直售区</td></tr><tr><th>第三至六代</th><td>新品及工艺静态资源已备；玩法与内部机械动画待接入</td></tr><tr><th>共享资源</th><td>现有货架前后层、金币、手势与反馈图标</td></tr><tr><th>交付格式</th><td>透明 PNG、源图、提示词、锚点及 SHA-256 清单</td></tr></tbody></table><p style="margin-top:20px"><a href="manifest.json">资源清单</a> ·  · <a href="README.md">接入说明</a></p></div>
+</div>
+</section>
+<footer>v1.3 美术准备包 · 内置 ImageGen 生成 · 按需加载 · 不改变 v1.1 存档与玩法</footer>
+</main>
+<script src="catalog.js"></script>
+<script>
+'use strict';
+const data=window.V13_ART;
+const all=[...data.assets,...data.reuse];
+const byId=Object.fromEntries(all.map(a=>[a.id,a]));
+const grid=document.querySelector('#grid');
+const labels={products:'商品',machines:'工艺模块',characters:'角色',scene:'场景与交付',ui:'订单图标',reuse:'复用'};
+document.querySelector('#summary').textContent=` / ${data.assets.length} 张新增 · ${data.reuse.length} 项复用`;
+function render(category){
+  document.querySelector('#library').classList.toggle('hidden',category==='assembly');
+  document.querySelector('#assembly').classList.toggle('hidden',category!=='assembly');
+  if(category==='assembly')return;
+  const list=category==='reuse'?data.reuse:data.assets.filter(a=>a.category===category||(category==='scene'&&a.category==='ui'));
+  grid.replaceChildren();
+  list.forEach(a=>{
+    const card=document.createElement('article');card.className='asset';
+    const tile=document.createElement('div');tile.className='tile';
+    const img=document.createElement('img');img.src=a.url;img.alt=a.label;tile.append(img);
+    const meta=document.createElement('div');meta.className='meta';
+    const name=document.createElement('strong');name.textContent=a.label;
+    const code=document.createElement('code');code.textContent=a.id;
+    const detail=document.createElement('div');detail.className='dims';detail.textContent=a.width?`${a.width} × ${a.height} · ${(a.bytes/1024).toFixed(1)} KB · ${a.generation>2?'后续蓝图':'核心资源'}`:labels.reuse;
+    const link=document.createElement('a');link.href=a.url;link.textContent='PNG';link.style.fontSize='12px';
+    meta.append(name,code,detail,link);card.append(tile,meta);grid.append(card);
+  });
+  document.querySelector('#assets-count').textContent=list.length+' 项';
+}
+document.querySelectorAll('[data-category]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-selected',String(b===button)));render(button.dataset.category);}));
+document.querySelectorAll('[data-color]').forEach(button=>button.addEventListener('click',()=>{document.documentElement.style.setProperty('--tile-bg',button.dataset.color);document.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));
+document.querySelector('#size').addEventListener('input',event=>{document.documentElement.style.setProperty('--sprite-size',event.target.value+'px');document.querySelector('#size-value').textContent=event.target.value+' px';});
+document.querySelectorAll('[data-art]').forEach(img=>{img.src=byId[img.dataset.art].url;});
+document.querySelector('#scene-state').addEventListener('change',event=>{const state=event.target.value;const a=document.querySelector('#client-a');a.classList.toggle('active',state==='active');a.classList.toggle('complete',state==='complete');const qty=state==='complete'?4:state==='partial'?2:0;document.querySelector('#order-a').textContent=qty+' / 4';document.querySelector('#stock-a').textContent=8-qty;document.querySelector('#reserved-a').textContent=state==='partial'?2:0;});
+render('products');
+</script>
+</html>

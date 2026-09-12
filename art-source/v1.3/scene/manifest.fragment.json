@@ -1,0 +1,37 @@
+{
+  "assets": [
+    {
+      "id": "shop_front",
+      "label": "工厂直售门脸",
+      "category": "scene",
+      "generation": 1,
+      "maxSize": 768,
+      "description": "青绿金属门脸、红白遮阳棚与空服务窗口",
+      "role": "sprite",
+      "source": "art-source/v1.3/scene/sources/shop_front.png",
+      "prompt": "art-source/v1.3/scene/prompts/shop_front.txt"
+    },
+    {
+      "id": "order_pickup_bag",
+      "label": "客户取货袋",
+      "category": "scene",
+      "generation": 1,
+      "maxSize": 192,
+      "description": "开口青绿取货袋；袋口上方可叠加订单商品",
+      "role": "sprite",
+      "source": "art-source/v1.3/scene/sources/order_pickup_bag.png",
+      "prompt": "art-source/v1.3/scene/prompts/order_pickup_bag.txt"
+    },
+    {
+      "id": "ui_order_ticket",
+      "label": "客户订单图标",
+      "category": "ui",
+      "generation": 1,
+      "maxSize": 96,
+      "description": "青绿夹板与爆米花订单票",
+      "role": "sprite",
+      "source": "art-source/v1.3/scene/sources/ui_order_ticket.png",
+      "prompt": "art-source/v1.3/scene/prompts/ui_order_ticket.txt"
+    }
+  ]
+}

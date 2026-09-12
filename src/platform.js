@@ -9,6 +9,7 @@
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduction-for-tech
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 const { CONFIG } = require('./factory-rules');
+const { MODE: ORDER_MODE, SAVE_VERSION: ORDER_SAVE_VERSION, SAVE_KEY: ORDER_SAVE_KEY, wantsV13Orders } = require('./v13-order-mode');
 
 function createPlatform() {
   const root = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
@@ -20,15 +21,16 @@ function createPlatform() {
   config.developerHoldTap = false;
   const doc = typeof document !== 'undefined' ? document : null;
   const win = typeof window !== 'undefined' ? window : root;
+  const orders = wantsV13Orders(root, win, isDouyin);
   // Opt in before any storage access. The experiment never reads the live v2 key.
   const experiment = CONFIG.transferExperiment;
   const requested = !isDouyin && win.location && /(?:^\?|&)experiment=manual-transfer-p0(?:&|$)/.test(win.location.search || '');
-  config.experiment = requested || config.experiment === experiment.id ? experiment.id : null;
+  config.experiment = !orders && (requested || config.experiment === experiment.id) ? experiment.id : null;
   const baseline = !isDouyin && win.location && /(?:^\?|&)mode=baseline(?:&|$)/.test(win.location.search || '');
-  config.mode = config.experiment ? null : baseline || config.mode === 'baseline' ? 'baseline' : 'v15';
+  config.mode = orders ? ORDER_MODE : config.experiment ? null : baseline || config.mode === 'baseline' ? 'baseline' : 'v15';
   const automationKey = CONFIG.automation.saveKey;
   const backupKey = automationKey + '_backup_v2';
-  const saveKey = config.experiment ? experiment.saveKey : config.mode === 'v15' ? automationKey : SAVE_KEY;
+  const saveKey = orders ? ORDER_SAVE_KEY : config.experiment ? experiment.saveKey : config.mode === 'v15' ? automationKey : SAVE_KEY;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
   const callbacks = { hide: [], show: [], pointer: [], scroll: [], resize: [], inputCancel: [] };
   const analytics = [];
@@ -238,6 +240,10 @@ function createPlatform() {
     try {
       const encoded = JSON.stringify(data);
       if (typeof encoded !== 'string') throw new Error('invalid-save');
+      if (orders) {
+        if (!data || data.version !== ORDER_SAVE_VERSION || data.mode !== ORDER_MODE) throw new Error('invalid-order-save');
+        previous = readStorage(saveKey);
+      }
       if (config.mode === 'v15') {
         if (!data || data.version !== CONFIG.automation.version || data.mode !== CONFIG.automation.id) throw new Error('invalid-automation-save');
         if (migrationSource !== null) {
@@ -250,12 +256,12 @@ function createPlatform() {
       }
       attempted = true;
       writeStorage(saveKey, encoded);
-      if (config.mode === 'v15' && readStorage(saveKey) !== encoded) throw new Error('save-verification-failed');
+      if ((orders || config.mode === 'v15') && readStorage(saveKey) !== encoded) throw new Error('save-verification-failed');
       migrationSource = null;
       return true;
     } catch (error) {
       lastStorageError = String(error && error.message || error);
-      if (attempted && config.mode === 'v15') {
+      if (attempted && (orders || config.mode === 'v15')) {
         // A failed readback must not become the next launch's active document.
         try { if (previous == null || previous === '') removeStorage(saveKey); else writeStorage(saveKey, previous); }
         catch (_) { /* The untouched v2 key still provides the rollback source. */ }

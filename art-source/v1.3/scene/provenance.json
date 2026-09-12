@@ -1,0 +1,30 @@
+{
+  "tool": "image_gen",
+  "mode": "built-in",
+  "references": [
+    {
+      "path": "art-source/six-gen/reports/gallery/contact-sheet.png",
+      "role": "inspected style reference, described in prompts"
+    }
+  ],
+  "assets": [
+    {
+      "id": "shop_front",
+      "exactPrompt": "Use case: stylized-concept. Asset type: standalone transparent 2.5D mobile game exterior environment sprite for a tiny popcorn factory direct-sale courtyard. Primary request: one compact complete factory shopfront facade, with pale cool mint wall panels, teal painted metal frame, a red-and-white striped fabric canopy over a broad open service window, a small plain door on the right with round window, a blank teal signboard above the canopy bearing only a simple molded popcorn cup pictogram, no lettering. The service window is empty with a clean silver counter ledge, suitable for overlaying separate character/product sprites. Style: polished friendly casual factory game 3D rendered illustration, softly beveled edges, same visual family as teal-and-steel isometric industrial machinery, not photorealistic. Composition: near-front isometric three-quarter view with right side visible, camera elevated 25 degrees, whole building unit centered and isolated with generous transparent margins. Upper-left soft studio lighting, restrained ambient occlusion. No customers, no shelves, no food props, no ground plane, no decorative scenery, no labels, no words, no numbers, no watermark, no baked checkerboard. Real transparent alpha background. Compact clear silhouette readable at 320px.",
+      "source": "sources/shop_front.png",
+      "toolOutput": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93 as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93\\exec-2dd46b61-575b-477d-8ff4-76f44a2d8b47.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "order_pickup_bag",
+      "exactPrompt": "Use case: stylized-concept. Asset type: single transparent pickup-bag sprite for a friendly 2.5D popcorn factory game. One sturdy teal paper shopping bag with flat rectangular gusseted base, wide open empty mouth visible from an elevated near-front three-quarter camera, two rounded pale cream paper handles, a small embossed golden popcorn-kernel pictogram on the front. No writing. Front rim lower than back rim so product sprites can be placed visually at the opening. Soft beveled illustration, painted material with subtle folds, teal like game machinery, crisp friendly silhouette, soft upper-left light, smooth clean shading. Whole bag centered alone on genuinely transparent background with 12% empty margin, no ground plane, no contents, no extra objects, no text or numbers or watermark or checkerboard. Readable as an empty customer order pickup bag at 64px.",
+      "source": "sources/order_pickup_bag.png",
+      "toolOutput": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93 as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93\\exec-17bcca3e-5825-474c-8c58-b23feaaf364e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "ui_order_ticket",
+      "exactPrompt": "Use case: stylized-concept. Asset type: one UI order icon for a 2.5D mobile popcorn factory game, transparent PNG. A small cream paper order ticket held in a thick teal beveled clipboard frame with a golden top clip, two short blank embossed gray horizontal marks and a tiny red-white popcorn cup pictogram. Clear simple compact silhouette, soft friendly rendered 3D icon matching teal-and-gold factory game UI. Nearly frontal with very slight elevated three-quarter depth, soft upper left light, crisp thick forms readable at 32px. No alphabetic text, no numerals, no extra check mark so this means pending order, no circle or square outer button, no watermark, no shadow ground, no checkerboard. Real transparent alpha background with generous transparent margin on all sides.",
+      "source": "sources/ui_order_ticket.png",
+      "toolOutput": "Generated images are saved to C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93 as C:\\Users\\chenweilun\\.codex\\generated_images\\01a0951c-882f-7873-ac2e-ac734194ba93\\exec-8e1667ff-3490-4670-88b6-d86223e6faea.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    }
+  ]
+}

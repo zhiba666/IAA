@@ -1,6 +1,0 @@
-Use case: stylized-concept
-Asset type: ONE layered conveyor outfeed endpoint sprite kit.
-1536x1024 transparent RGBA sheet, exactly TWO isolated components spaced vertically.
-TOP area one compact grey-steel outfeed roller conveyor, travel from upper-right toward lower-left along a -0.55 floor axis. At lower-left exit, the dark slatted belt transitions to a very short flat silver transfer lip with rounded edges, open for a product to leave onto another station. Far-side rail included, NEAR SIDE OPEN above belt plane (structural chassis below belt is allowed), two chunky feet, teal round bearing caps. No products and no arrows. This module connects to an existing longer belt at upper-right.
-BOTTOM area its matching detachable shallow near-side guard rail, running lower-left to upper-right at slope -0.55, low grey steel strip with teal end caps, no additional platform or feet.
-All parts same strict orthographic isometric camera, slopes +/-0.55, vertical edges vertical. Simplified broad matte softly bevelled mobile-game 3D, grey #555f69 steel, charcoal belt, restrained teal #219da5. Upper-left soft light, no scratches, no dramatic realism. No text/logo/label/grid, no background, no shadow on ground, no glow, real transparent alpha=0 around all parts, crisp antialiased edges, generous padding.

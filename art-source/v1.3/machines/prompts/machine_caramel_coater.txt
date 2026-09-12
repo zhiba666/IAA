@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: one standalone transparent PNG machine sprite for the mobile idle game IAA.
+Primary request: create the generation-two caramel-coating machine as a new compact independent process module.
+Input images: the supplied machine image is STYLE AND CAMERA REFERENCE ONLY; do not duplicate its paired kettle structure.
+Subject: a teal metal chassis holding one large tilted copper tumbling drum, with its open circular mouth angled toward the viewer, visible caramel popcorn inside; a tall transparent amber syrup tank beside and above the drum, a short pipe feeding syrup into it, and a shallow gray steel output tray below its lip. Distinct copper drum silhouette and visible syrup tank make caramel coating instantly recognizable. A small yellow operation knob is easy to see.
+Style/medium: polished 2.5D isometric three-quarter mobile game sprite, soft hand-painted 3D shading, clean bevels, slightly stylized sturdy proportions matching the reference, consistent engineering scale, fine dark contour only at hard material boundaries.
+Composition/framing: one complete compact machine centered on a square canvas; entire silhouette and all feet visible; approximately 12 percent empty transparent margin on every side; orthographic three-quarter view showing front and right, looking gently down around 30 degrees. No decorative framing.
+Lighting/mood: soft upper-left studio light, material self-shadows only.
+Color palette: turquoise teal metal structure, cool gray steel, warm copper drum and translucent amber syrup, tiny yellow control accents.
+Scene/backdrop: genuinely transparent RGBA background with actual zero-alpha pixels, no floor plane, no backdrop, no shadow on a floor.
+Constraints: exactly one machine; no text, no numbers, no logos, no watermark, no people, no floating decorative particles, no checkerboard drawn into pixels. Preserve a clean transparent outline for game compositing. Static module showing clear process parts; not an animated frame sheet.

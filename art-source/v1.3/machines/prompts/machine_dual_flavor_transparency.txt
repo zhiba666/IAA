@@ -1,0 +1,2 @@
+Use case: background-extraction
+Edit target: the supplied dual-flavor machine. Preserve the exact two seasoning chambers, left caramel popcorn, right cheese popcorn, powder hopper, gray steel twin outlets and divided front bucket, teal frame and all feet. Remove every gray-white checkerboard pixel behind and between the machine pieces. Return a PNG with a genuine transparent alpha channel, completely transparent empty background, no visible checkerboard, no white background, no gray backdrop, no floor. Do not redraw or redesign the machine. Keep the full object in frame.

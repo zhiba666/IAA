@@ -1,0 +1,2 @@
+Use case: background-extraction
+Edit target: supplied empty copper caramel-coating machine. Preserve the machine exactly. Remove all checkerboard squares behind it and between its feet and frame. Return a real transparent RGBA PNG with zero-alpha empty background. No checkerboard pixels, no gray or white matte, no backdrop. Keep empty drum and dry pipe, all copper surfaces, teal frame and amber liquid inside glass tank, no popcorn and no syrup flow. Do not redesign or move any part. Keep full object visible.

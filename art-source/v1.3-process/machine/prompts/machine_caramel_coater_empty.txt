@@ -1,0 +1,6 @@
+Use case: precise-object-edit
+Asset type: idle-state transparent PNG machine sprite for an existing mobile game.
+Input image 1: edit target, the existing teal and copper caramel coating machine. Preserve this exact machine, camera angle, scale, framing, teal chassis, copper drum, tank with amber liquid inside, metal pipe, yellow controls, empty output tray, feet, lighting and material shading.
+Primary request: change ONLY the process contents so the machine can correctly wait with no batch. Remove ALL popcorn from inside the open copper drum, restoring an empty dark copper curved interior. Remove the syrup strand and amber blob outside the pipe and on the drum exterior, restoring clean copper metal beneath it. Keep all amber liquid INSIDE the glass storage tank. The silver pipe remains, but its outlet is dry.
+Scene/backdrop: genuine transparent RGBA background with alpha zero outside the machine and between its supports, matching the input transparency. No checkerboard, no floor, no painted background.
+Constraints: exactly one complete machine in the same composition, fully in frame. No popcorn anywhere, no flowing syrup, no extra parts, no redesign, no labels, no text, no shadows cast onto a ground plane. Retain the physical drum, front rim, bearings and control knob. This is an empty machine base to combine with separately animated food layers.

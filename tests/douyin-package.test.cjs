@@ -130,7 +130,7 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
     let source = fs.readFileSync(filename, 'utf8');
     if(filename===path.join(PACKAGE,'game.bundle.js')) {
       // Capture only the real renderer instance; drawing and hit testing stay unchanged.
-      const marker='let renderer = new Renderer(ctx, art), insights = new ProductionInsights();';
+      const marker='let renderer = new Renderer(ctx, art, v13Art), insights = new ProductionInsights();';
       assert.equal(source.split(marker).length,2);
       source=source.replace(marker,marker+'\n__captureRenderer(renderer);');
     }

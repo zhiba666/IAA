@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "date": "2026-09-12",
+  "scope": "Artwork only; root task owns export and runtime integration.",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "model": "unavailable",
+  "seed": "unavailable",
+  "styleReferenceInspected": "art-source/six-gen/reports/gallery/contact-sheet.png",
+  "suppliedReferenceImagesForSelectedOutputs": [],
+  "assets": [
+    {
+      "id": "customer_neighbor",
+      "resultId": "exec-a1c2ddd9-395b-49a2-84e5-91b5887e464a",
+      "source": "art-source/v1.3/characters/sources/customer_neighbor.png",
+      "prompt": "art-source/v1.3/characters/prompts/customer_neighbor.txt",
+      "width": 1145,
+      "height": 1374,
+      "sha256": "a91e99735ca8d716603b8739400cdaa927745025b34c7e806274a048c4e55f97",
+      "status": "GENERATED_SOURCE",
+      "alpha": "Format32bppArgb",
+      "inspection": "Complete full-body silhouette, empty hands, friendly face and required clothing inspected in generated output. Background sampled at alpha 0; body center alpha 253 or 254.",
+      "notes": "Transparent RGB pixels can contain residual color; preserve source alpha during export."
+    },
+    {
+      "id": "customer_family",
+      "resultId": "exec-41c231b7-70e6-4622-8848-b56654210ac9",
+      "source": "art-source/v1.3/characters/sources/customer_family.png",
+      "prompt": "art-source/v1.3/characters/prompts/customer_family.txt",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "99009073c38be43b6fd3375d38fbb5ec9e6baa81786b5652f026e2fd02d5a81e",
+      "status": "GENERATED_SOURCE",
+      "alpha": "Format32bppArgb",
+      "inspection": "Complete full-body silhouette, empty hands, friendly face and required clothing inspected in generated output. Background sampled at alpha 0; body center alpha 253 or 254.",
+      "notes": "Transparent RGB pixels can contain residual color; preserve source alpha during export."
+    },
+    {
+      "id": "clerk_vendor",
+      "resultId": "exec-6f800171-5b00-4599-a471-035ed25a26ad",
+      "source": "art-source/v1.3/characters/sources/clerk_vendor.png",
+      "prompt": "art-source/v1.3/characters/prompts/clerk_vendor.txt",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "16150a216f2336bbdf07b147894e68f179fffc3feadc7a4875f93d82ba82394e",
+      "status": "GENERATED_SOURCE",
+      "alpha": "Format32bppArgb",
+      "inspection": "Complete full-body silhouette, empty hands, friendly face and required clothing inspected in generated output. Background sampled at alpha 0; body center alpha 253 or 254.",
+      "notes": "Transparent RGB pixels can contain residual color; preserve source alpha during export."
+    }
+  ],
+  "rejected": [
+    {
+      "id": "customer_neighbor_attempt_01",
+      "resultId": "exec-686b1ad1-003d-41d7-b83e-bd4806ed8676",
+      "reason": "Body proportions too tall; true RGBA.",
+      "source": "art-source/v1.3/characters/sources/rejected/customer_neighbor_attempt_01.png",
+      "prompt": "art-source/v1.3/characters/prompts/customer_neighbor_attempt_01.txt"
+    },
+    {
+      "id": "customer_neighbor_attempt_02",
+      "resultId": "exec-731020d0-b67f-4d01-8192-a2f876bdd69f",
+      "reason": "Corrected proportions but RGB image with baked checkerboard; not accepted.",
+      "reference": "art-source/v1.3/characters/sources/rejected/customer_neighbor_attempt_01.png",
+      "source": "art-source/v1.3/characters/sources/rejected/customer_neighbor_attempt_02.png",
+      "prompt": "art-source/v1.3/characters/prompts/customer_neighbor_attempt_02.txt"
+    },
+    {
+      "id": "customer_neighbor_attempt_03",
+      "resultId": "exec-4a2ffcb0-e2c4-450e-878b-111be953a32a",
+      "reason": "Background extraction retry still RGB with baked checkerboard; not accepted.",
+      "reference": "art-source/v1.3/characters/sources/rejected/customer_neighbor_attempt_02.png",
+      "source": "art-source/v1.3/characters/sources/rejected/customer_neighbor_attempt_03.png",
+      "prompt": "art-source/v1.3/characters/prompts/customer_neighbor_attempt_03.txt"
+    }
+  ],
+  "verification": {
+    "sourcePixelProbe": "Passed 32bpp ARGB with alpha 0 outside and near-opaque body center for all three selected files.",
+    "formalRuntime": "NOT_RUN",
+    "scaledPreview": "Root task owns unified export and small-size preview."
+  }
+}

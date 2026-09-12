@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: a single isolated transparent PNG machine sprite for mobile game IAA.
+Primary request: generation-five star-shaped caramel popcorn bar molding, stick insertion and bag sealing machine; a compact independent process module.
+Input images: the supplied machine image is STYLE AND CAMERA REFERENCE ONLY. Match its teal metal frame, gray steel, yellow details and three-quarter orthographic shading.
+Subject: one sturdy teal gantry press on a compact rectangular gray steel base. A broad polished steel piston is RAISED so the thick FIVE-POINTED STAR shaped press head and the matching recessed five-pointed star mold on the work plate are plainly visible with space between them. Amber caramel popcorn granules fill the recessed star mold, retaining distinct knobbly popcorn texture. A small side hopper feeds short pale wooden sticks aligned toward the mold. On the right, an attached compact clear-film roll and two silver sealing jaws form a bagging unit with one finished bumpy star popcorn on a short stick visibly inside a clear bag on a short output tray. All components connect as one coherent machine. Exactly five points on the star, recognizable at icon size. No smooth candy star.
+Style/medium: polished 2.5D isometric mobile game sprite with soft hand-painted 3D shading, clean chunky beveled forms and readable silhouette.
+Composition/framing: complete centered machine, elevated three-quarter orthographic view showing front and right, square canvas, all machine feet and outermost parts in frame, generous empty transparent margins.
+Lighting/mood: soft upper-left illumination, bright steel highlights, self-shadows.
+Color palette: teal and cool steel chassis, small yellow controls, amber popcorn in the star mold, pale wooden sticks and subtle cool transparent film.
+Background: genuinely transparent RGBA with actual zero alpha outside the machine, clean cutout. No floor or cast floor shadow.
+Constraints: no text, no logos, no numbers, no labels, no humans, no scenery, no backdrop, no checkerboard pattern; one static machine, not a sprite sheet.

@@ -1,0 +1,42 @@
+{
+  "contractVersion": "v13-process-assembly-1",
+  "status": "ART_DEMO_NOT_GAMEPLAY",
+  "coordinateSystem": "Machine and tub clips use their retained 1254x1254 source coordinates. Export coordinates map through sourceRect and padding; never stretch sprites.",
+  "machine": {
+    "asset": "machine_caramel_coater_empty",
+    "sourceSize": [1254, 1254],
+    "contentClip": [[478,311],[537,319],[590,355],[624,413],[631,480],[613,551],[581,612],[538,660],[477,693],[416,703],[365,682],[325,644],[297,592],[286,530],[296,465],[321,407],[362,357],[418,323]],
+    "contentRect": [302,454,317,230],
+    "contentPivot": [458,594],
+    "syrupOutlet": [633,245],
+    "syrupImpact": [494,524],
+    "outputRect": [200,752,465,180],
+    "outputFrontClip": [[177,817],[307,881],[444,941],[598,995],[697,912],[747,880],[747,1103],[164,1103]],
+    "drawOrder": ["empty machine", "contents clipped inside mouth", "syrup only during coating", "output material", "tray front from same empty-machine PNG"]
+  },
+  "packaging": {
+    "asset": "product_caramel_tub_empty",
+    "sourceSize": [1254,1254],
+    "mouthAnchor": [621,473],
+    "fillRect": [132,240,980,650],
+    "frontClip": [[58,492],[126,548],[260,585],[432,612],[611,621],[781,606],[957,565],[1105,505],[1197,451],[1254,1254],[0,1254],[0,492]],
+    "drawOrder": ["empty tub", "caramel material", "near rim and front wall repainted from same empty-tub PNG"]
+  },
+  "visualBounds": {
+    "machine_caramel_coater_empty": [36,5,426,461],
+    "material_original_popcorn": [10,41,176,103],
+    "material_caramel_popcorn": [4,32,184,114],
+    "caramel_syrup_flow": [47,4,30,174],
+    "product_caramel_tub_empty": [16,26,234,165]
+  },
+  "visualBoundsNote": "Alpha >32 bounds measured from reviewed exports only for visual placement. Entire PNG is drawn; no thresholding, recoloring or alpha editing occurs.",
+  "states": [
+    {"id":"idle","label":"空载","duration":2,"flow":false,"motion":false},
+    {"id":"loading","label":"入料","duration":2,"flow":false,"motion":true},
+    {"id":"coating","label":"裹糖","duration":4,"flow":true,"motion":true},
+    {"id":"discharge","label":"出料","duration":2,"flow":false,"motion":true},
+    {"id":"blocked","label":"满仓等待","duration":2,"flow":false,"motion":false},
+    {"id":"packing","label":"装桶","duration":3,"flow":false,"motion":true}
+  ],
+  "limitations": ["The drum and bearings remain part of the static machine; moving material is an art demonstration, not independent drum rotation.","No recipes, stock, orders, coins, save data or game clock are changed.","Clips must be visually rechecked whenever source art or export sizing changes."]
+}

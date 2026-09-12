@@ -1,0 +1,21 @@
+{
+  "contractVersion": "v13-art-1",
+  "assets": [
+    {"id":"machine_pop_body","label":"一代爆锅机身","category":"reuse","file":"art-source/six-gen/integration/exports/machine_pop_body.png","usage":"保留一代爆制；沿用现有分层装配"},
+    {"id":"machine_pop_head","label":"一代爆锅机头","category":"reuse","file":"art-source/six-gen/integration/exports/machine_pop_head.png","usage":"现有爆锅活动层"},
+    {"id":"buffer_cups_rack_back","label":"共享成品货架后层","category":"reuse","file":"art-source/six-gen/integration/exports/buffer_cups_rack_back.png","usage":"共享库存的货架视图"},
+    {"id":"buffer_cups_rack_front","label":"共享成品货架前栏","category":"reuse","file":"art-source/six-gen/integration/exports/buffer_cups_rack_front.png","usage":"商品绘制后叠加，沿用旧装配坐标"},
+    {"id":"ui_gesture_hand","label":"点击及拖动手势","category":"reuse","file":"art-source/v1.1/hand/exports/ui_gesture_hand.png","usage":"助力、点选及拖动提示"},
+    {"id":"ui_icon_arrow","label":"场景切换箭头","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_arrow.png","usage":"配合订单图标或爆锅图标表示场景"},
+    {"id":"ui_icon_pop","label":"生产区图标","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_pop.png","usage":"场内入口"},
+    {"id":"ui_icon_upgrade","label":"改造图标","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_upgrade.png","usage":"独立改造入口，助力区另设"},
+    {"id":"ui_icon_check","label":"配齐状态","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_check.png","usage":"订单配齐及交付确认"},
+    {"id":"ui_icon_warning","label":"缺货状态","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_warning.png","usage":"缺货、仓满；实际数量由代码绘制"},
+    {"id":"ui_icon_lock","label":"预留及未解锁状态","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_lock.png","usage":"依据上下文配合文字，不能只靠颜色"},
+    {"id":"ui_icon_coin","label":"成交金币","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_coin.png","usage":"仅结算事件触发金币动画"},
+    {"id":"ui_icon_automation","label":"自动服务图标","category":"reuse","file":"art-source/six-gen/integration/exports/ui_icon_automation.png","usage":"售货员与缺口补货入口"},
+    {"id":"fx_sparkle","label":"助力及新品闪光","category":"reuse","file":"art-source/six-gen/integration/exports/fx_sparkle.png","usage":"用代码控制粒子位置、透明度与缩放"},
+    {"id":"fx_steam","label":"工艺蒸汽","category":"reuse","file":"art-source/six-gen/integration/exports/fx_steam.png","usage":"爆制及冷却工艺辅助反馈"},
+    {"id":"ui_card","label":"订单底板","category":"reuse","file":"art-source/six-gen/integration/exports/ui_card.png","usage":"产品、数量、报酬动态绘制，不烘焙进图片"}
+  ]
+}
