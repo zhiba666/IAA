@@ -9,7 +9,7 @@ const { Game } = require('../src/core');
 const START = 1800000000000;
 const KEY = 'little_popcorn_factory_pipeline_v2';
 
-test('v1.1 default browser package requires continuous drags on both routes and preserves unattended dispatch after purchases', () => {
+test('v15 compatibility browser package requires continuous drags on both routes and preserves unattended dispatch after purchases', () => {
   for (const size of [{ width: 320, height: 524 }, {width:360,height:640}, { width: 390, height: 844 }, {width:430,height:932}]) {
     const h = browserBoot({ ...size, mode: 'v15' });
     assert.equal(h.snapshot().mode, 'v15'); h.verifyControls();
@@ -72,7 +72,8 @@ function browserBoot({ width = 320, height = 524, pixelRatio = 1, left = 0, top 
     addEventListener(name, fn) { documentEvents[name] = fn; }
   };
   const window = {
-    location: { search: experiment ? '?experiment=' + experiment : mode === 'baseline' ? '?mode=baseline' : '' },
+    location: { search: mode === 'baseline' ? '?mode=baseline' + (experiment ? '&experiment=' + experiment : '')
+      : mode === 'v15' ? '?mode=legacy-v15' + (experiment ? '&experiment=' + experiment : '') : experiment ? '?experiment=' + experiment : '' },
     innerWidth: width, innerHeight: height, devicePixelRatio: pixelRatio,
     addEventListener(name, fn) { windowEvents[name] = fn; },
     localStorage: { getItem: key => storage.get(key), setItem: (key,value) => storage.set(key,value) }
@@ -252,31 +253,40 @@ test('the scrolled logistics purchase rectangle also consumes immediate taps on 
   h.purchase('automate-cup');assert.equal(h.snapshot().transfers[1].automated,true);
 });
 
-test('P0 browser bundle also rejects tap-then-tap and preserves real continuous drags and isolated saves', () => {
+test('retired experiment parameters cannot replace the explicit v15 compatibility route or bypass either continuous drag', () => {
   for (const options of [{ width: 320, height: 524 }, { width: 390, height: 844, pixelRatio: 3, left: 12, top: 20 }, { width: 960, height: 900 }]) {
-    const h = browserBoot({ ...options, experiment: 'manual-transfer-p0' });
+    const h = browserBoot({ ...options, experiment: 'manual-transfer-p0', mode: 'v15' });
     for (let i = 0; i < 4; i++) h.frame(1000);
     h.verifyControls();
+    assert.equal(h.snapshot().mode, 'v15');
+    assert.equal(h.snapshot().state.experiment, undefined, 'the removed experiment URL cannot launch an independent economy');
     assert.equal(h.snapshot().state.totalSold, 0);
     h.clickAction('transfer-source-pop', 'touch', true);
     assert.equal(h.snapshot().transfer.reservedAmount, 0);
     h.clickAction('transfer-target-cup', 'touch', true);
-    assert.equal(h.snapshot().state.transfer.transferredAmount,0,'prototype cannot revive the retired two-tap path');
+    assert.equal(h.snapshot().state.connections.pop.transferredAmount,0,'compatibility cannot revive the retired two-tap path');
     h.drag('transfer-source-pop','transfer-target-cup','touch');
-    assert.equal(h.snapshot().state.transfer.transferredAmount, 4);
+    assert.equal(h.snapshot().state.connections.pop.transferredAmount, 4);
+    for (let i = 0; i < 4; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 0, 'A delivery cannot skip the independent B input');
+    h.drag('transfer-source-cup', 'transfer-target-ship', 'touch');
     for (let i = 0; i < 4; i++) h.frame(1000);
     assert.equal(h.snapshot().state.totalSold, 4);
     const from = h.point('transfer-source-pop'), to = h.point('transfer-target-cup');
     h.event('pointerdown', from.x, from.y, 'mouse');
     h.event('pointermove', to.x, to.y, 'mouse'); h.frame(16);
     h.event('pointerup', to.x, to.y, 'mouse'); h.frame(0);
-    assert.equal(h.snapshot().state.transfer.transferredAmount, 16);
+    assert.equal(h.snapshot().state.connections.pop.transferredAmount, 28);
     assert.equal(h.snapshot().state.totalSpent, 0);
-    for (let i = 0; i < 8; i++) h.frame(1000);
-    assert.equal(h.snapshot().state.totalSold, 16);
-    assert.equal(h.storage.has(KEY), false, 'formal key was never created by the prototype');
-    const saved = JSON.parse(h.storage.get('little_popcorn_factory_manual_transfer_p0_v3'));
-    assert.equal(saved.experiment, 'manual-transfer-p0');
-    assert.equal(saved.version, 3);
+    for (let i = 0; i < 14; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 4, 'pending B cargo remains real stock until transported');
+    h.drag('transfer-source-cup', 'transfer-target-ship', 'touch');
+    for (let i = 0; i < 6; i++) h.frame(1000);
+    assert.equal(h.snapshot().state.totalSold, 28);
+    assert.equal(h.storage.has(KEY), false, 'the v2 compatibility key remains separate');
+    assert.equal(h.storage.has('little_popcorn_factory_manual_transfer_p0_v3'), false, 'the retired experiment save key is untouched');
+    const saved = JSON.parse(h.storage.get('little_popcorn_factory_automation_v4'));
+    assert.equal(saved.experiment, undefined);
+    assert.equal(saved.version, 4);
   }
 });

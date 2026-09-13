@@ -59,11 +59,12 @@ export function createAcceptanceServer() {
       let data = await readFile(target);
       if (target === path.join(WEB, 'index.html')) {
         const requestedMode = url.searchParams.get('mode');
-        const name = url.searchParams.get('fixture') || (requestedMode === 'v15' ? 'v15-fresh' : 'fresh-shortage');
+        const historicalMode = requestedMode === 'legacy-v15' ? 'v15' : requestedMode;
+        const name = url.searchParams.get('fixture') || (historicalMode === 'v15' ? 'v15-fresh' : 'fresh-shortage');
         const fixture = fixtureMap[name];
         if (!fixture) { send(400, 'Unknown fixture; use ' + Object.keys(fixtureMap).join(', ')); return; }
-        if (url.searchParams.has('experiment') || requestedMode && requestedMode !== fixture.mode) {
-          send(400, 'Fixture ' + fixture.id + ' requires mode=' + fixture.mode + ' without an experiment parameter.'); return;
+        if (url.searchParams.has('experiment') || historicalMode && historicalMode !== fixture.mode) {
+          send(400, 'Fixture ' + fixture.id + ' requires mode=' + (fixture.mode === 'v15' ? 'legacy-v15' : 'baseline') + ' without an experiment parameter.'); return;
         }
         const input = { fixture, scope: fixtures.scope, mode: fixture.mode, storageKey: fixture.storageKey, port,
           paused: url.searchParams.get('pause') === '1', safe: url.searchParams.get('safe') === '1' };
@@ -81,7 +82,7 @@ export function createAcceptanceServer() {
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   createAcceptanceServer().listen(PORT, '127.0.0.1', () => {
     console.log(`Formal game acceptance: http://127.0.0.1:${PORT}/?fixture=first-cup-before&pause=1`);
-    console.log(`V1.5 purchase acceptance: http://127.0.0.1:${PORT}/?mode=v15&fixture=v15-purchase-ready&pause=1`);
+    console.log(`V1.5 purchase acceptance: http://127.0.0.1:${PORT}/?mode=legacy-v15&fixture=v15-purchase-ready&pause=1`);
     console.log('Keys: P save PNG + diagnostics; R record 8 s WebM; Space pause/resume; T advance one real simulation tick while paused.');
     console.log(`Capture files: ${OUTPUT}`);
     console.log(`V1.5 capture files: ${AUTOMATION_OUTPUT}`);

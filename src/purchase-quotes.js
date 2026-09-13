@@ -4,6 +4,11 @@
 // rechecked by Game at confirmation; changing the balance does not change price.
 function describeOffer(view, key) {
   const state = view.state, generation = state.machine;
+  if (key === 'salesperson') {
+    const offer = view.salesperson;
+    return offer && !offer.owned ? { key, kind: 'salesperson', generation, level: 1,
+      name: '基础售货员', cost: offer.cost, serviceSeconds: offer.serviceSeconds } : null;
+  }
   if (key === 'expansion') {
     const offer = view.expansion;
     return offer ? { key, kind: 'expansion', generation, level: generation + 1,
@@ -13,7 +18,8 @@ function describeOffer(view, key) {
     const offer = view.logisticsUpgrade;
     return offer ? { key, kind: 'logistics', generation, level: state.logisticsLevel + 1,
       name: '仓位改造', cost: offer.cost, batchAfter: offer.batchAfter,
-      inputAfter: offer.inputAfter, capacityAfter: offer.capacityAfter } : null;
+      inputAfter: offer.inputAfter, capacityAfter: offer.capacityAfter,
+      ...(Number.isFinite(offer.finishedCapacity) ? { finishedCapacityAfter: offer.finishedCapacity } : {}) } : null;
   }
   if (/^automate-(pop|cup)$/.test(key)) {
     const source = key.slice(9), route = (view.transfers || []).find(row => row.source === source);

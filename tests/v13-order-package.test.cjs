@@ -9,8 +9,8 @@ const { canvasHarness } = require('./canvas-harness.cjs');
 const { ART_ASSETS } = require('../src/art-manifest');
 const { V13_ART_ASSETS } = require('../src/v13-art-manifest');
 const { V13_SCENE_ART_ASSETS } = require('../src/v13-scene-art-manifest');
-const KEY = 'little_popcorn_factory_orders_p0_v1';
-const MODE = 'v13-orders-p0';
+const KEY = 'little_popcorn_factory_orders_v2';
+const MODE = 'factory-orders';
 const START = 1800000000000;
 const copy = value => JSON.parse(JSON.stringify(value));
 function economicSnapshot(view) { const result = copy(view); delete result.state.savedAt; return result; }
@@ -25,7 +25,7 @@ function boot(options = {}) {
   let now = START, nextFrame = null, canvasCreations = 0;
   const left = 12, top = 20, scale = options.scale || 1;
   const bounds = { left, top, width: width * scale, height: height * scale };
-  const protectedKey = 'little_popcorn_factory_automation_v4', protectedValue = '{"version":4,"machine":5,"coins":987654321}';
+  const protectedKey = 'little_popcorn_factory_manual_transfer_p0_v3', protectedValue = '{"version":4,"machine":5,"coins":987654321}';
   storage.set(protectedKey, protectedValue);
   if (options.save) storage.set(KEY, typeof options.save === 'string' ? options.save : JSON.stringify(options.save));
   const canvas = {
@@ -40,7 +40,7 @@ function boot(options = {}) {
   };
   const window = {
     innerWidth: width, innerHeight: height, devicePixelRatio: options.pixelRatio || 2,
-    location: { search: '?mode=' + MODE }, addEventListener(name, fn) { events[name] = fn; },
+    location: { search: '' }, addEventListener(name, fn) { events[name] = fn; },
     localStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) }
   };
   class BrowserImage {
@@ -53,11 +53,26 @@ function boot(options = {}) {
     }
   }
   const context = vm.createContext({
-    window, document, Image: BrowserImage,
+    ...(options.native ? { tt: {
+      createCanvas() { canvasCreations++; return canvas; }, createImage: () => new BrowserImage(),
+      getSystemInfoSync: () => ({ windowWidth: width, windowHeight: height, pixelRatio: 2,
+        safeArea: { left: 0, top: 28, right: width, bottom: height - 20 } }),
+      getMenuButtonLayout: () => ({ left: width - 100, top: 30, right: width - 8, bottom: 62, width: 92, height: 32 }),
+      getStorageSync: key => storage.get(key), setStorageSync: (key, value) => storage.set(key, value), removeStorageSync: key => storage.delete(key),
+      onTouchStart(fn) { pointers.pointerdown = fn; }, onTouchMove(fn) { pointers.pointermove = fn; },
+      onTouchEnd(fn) { pointers.pointerup = fn; }, onTouchCancel(fn) { pointers.pointercancel = fn; },
+      onHide(fn) { events.hide = fn; }, onShow(fn) { events.show = fn; }
+    } } : { window, document, Image: BrowserImage }),
     Date: class extends Date { static now() { return now; } },
     requestAnimationFrame(fn) { assert.equal(nextFrame, null, 'only one real bundle frame loop'); nextFrame = fn; }
   });
-  vm.runInContext(source, context, { filename: 'web/game.bundle.js' });
+  if (options.native) {
+    context.require = name => {
+      assert.ok(['./config.js', './game.bundle.js'].includes(name));
+      vm.runInContext(fs.readFileSync(path.resolve(__dirname, '../build/douyin', name), 'utf8'), context, { filename: name });
+    };
+    vm.runInContext(fs.readFileSync(path.resolve(__dirname, '../build/douyin/game.js'), 'utf8'), context);
+  } else vm.runInContext(source, context, { filename: 'web/game.bundle.js' });
   const presentation = () => copy(context.__POPCORN__.presentation());
   function actionAt(x, y) {
     const zones = presentation().zones;
@@ -68,15 +83,19 @@ function boot(options = {}) {
     return null;
   }
   const h = {
-    storage, drawing, presentation, actionAt, document,
+    storage, drawing, presentation, actionAt, document, events,
     snapshot: () => copy(context.__POPCORN__.snapshot()), saved: () => storage.get(KEY),
     frame(ms = 0) {
       now += ms; drawing.clear(); const fn = nextFrame; nextFrame = null;
       assert.equal(typeof fn, 'function'); fn(now); assert.equal(drawing.depth(), 0);
-      assert.equal(storage.get(protectedKey), protectedValue, 'the high-generation formal save remains byte-identical');
+      assert.equal(storage.get(protectedKey), protectedValue, 'the retired experimental save remains byte-identical');
     },
     run(seconds) { for (let leftMs = seconds * 1000; leftMs > 0;) { const ms = Math.min(100, leftMs); h.frame(ms); leftMs -= ms; } },
     event(type, point, pointerType = 'touch', id = 1) {
+      if (options.native) {
+        pointers[type]({ changedTouches: [{ identifier: id, screenX: point.x, screenY: point.y }] });
+        return;
+      }
       let prevented = false;
       pointers[type]({ pointerId: id, pointerType, clientX: left + point.x * scale, clientY: top + point.y * scale,
         button: 0, buttons: type === 'pointerup' || type === 'pointercancel' ? 0 : 1,
@@ -90,6 +109,11 @@ function boot(options = {}) {
     },
     click(action) { const p = h.point(action); h.event('pointerdown', p); h.event('pointerup', p); h.frame(); },
     scroll(deltaY) {
+      if (options.native) {
+        const r = presentation().layout.content, from = { x: r.x + 3, y: r.y + r.h / 2 };
+        h.event('pointerdown', from); h.event('pointermove', { x: from.x, y: from.y - Math.max(-150, Math.min(150, deltaY)) });
+        h.event('pointerup', { x: from.x, y: from.y - Math.max(-150, Math.min(150, deltaY)) }); h.frame(); return;
+      }
       const r = presentation().layout.content;
       pointers.wheel({ clientX: left + (r.x + r.w / 2) * scale, clientY: top + (r.y + r.h / 2) * scale,
         deltaY: deltaY * scale, deltaMode: 0, preventDefault() {} }); h.frame();
@@ -141,6 +165,21 @@ function refill(h, minimum) {
   assert.ok(h.snapshot().finished.stock.original >= minimum, 'real A/B pointer drags refill shared finished inventory');
   h.click('scene:store');
 }
+
+test('real generated Douyin default has one shared clock, packaging stock, order income and no offline catch-up', () => {
+  for (const size of [{ width: 320, height: 524 }, { width: 390, height: 844 }]) {
+    const h = boot({ ...size, native: true });
+    h.verifyControls(); packageFour(h);
+    const before = h.snapshot(); h.click('scene:store');
+    assert.equal(h.snapshot().state.simulation.ticks, before.state.simulation.ticks);
+    const order = h.snapshot().orders[0]; h.drag('delivery:original', 'order:' + order.id);
+    assert.equal(h.snapshot().state.totalEarned, order.quote);
+    h.events.hide(); const paused = h.snapshot(); h.frame(3600000); h.events.show(); h.frame();
+    assert.deepEqual(economicSnapshot(h.snapshot()), economicSnapshot(paused));
+    assert.equal(h.snapshot().orderLedger.completed, 1);
+    h.verifyControls();
+  }
+});
 
 test('built order package completes real A/B and customer drags at short and tall phone coordinates', () => {
   for (const size of [{ width: 320, height: 524 }, { width: 390, height: 844, scale: .75, pixelRatio: 3 }]) {

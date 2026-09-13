@@ -5,6 +5,7 @@ const { SixGenerationScene } = require('./six-generation-scene');
 const { V13_ART_ASSETS } = require('./v13-art-manifest');
 const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS } = require('./v13-scene-art-manifest');
 const { fitArtRect, pointInRect, transferTargetAt: hitTransferTarget } = require('./art-layout');
+const { describeOffer } = require('./purchase-quotes');
 
 const C = { ink: '#214f48', muted: '#6b7b70', page: '#edf3ea', paper: '#fffdf5', mint: '#dcebdd', green: '#386b51', line: '#c8d8c8', gold: '#eed48c', coral: '#af6651' };
 const finite = value => Number.isFinite(value) ? value : 0;
@@ -28,7 +29,7 @@ function orderSceneEnvironmentAssetIds(scene) {
 }
 
 // Keep the original workshop assembly and its physical transfer geometry.
-// Only the order mode's packaging vocabulary and HUD clipping differ.
+// Packaging vocabulary and HUD clipping adapt the shared production assembly.
 class OrderFactoryScene extends SixGenerationScene {
   background() {
     super.background();
@@ -167,7 +168,7 @@ class V13OrderScene {
     return frame ? { x: frame.x + frame.w / 2, y: frame.y + frame.h / 2 } : null;
   }
   deliveryTargetAt(x, y) {
-    if (this.zones.some(zone => zone.action.indexOf('cancel-order:') === 0 && pointInRect(x, y, zone))) return null;
+    if (this.zones.some(zone => /^(cancel-order:|handoff-order:)/.test(zone.action) && pointInRect(x, y, zone))) return null;
     return this.orderFrames.find(frame => frame.accepting && pointInRect(x, y, frame)) || null;
   }
   draw(view, ui, dt) {
@@ -187,7 +188,7 @@ class V13OrderScene {
     const stockHeight = scene === 'store' ? clamp(safe.h * .18, 100, 156) : 64;
     const stock = rect(safe.x, safe.y + safe.h - footerHeight - stockHeight - 4, safe.w, stockHeight);
     const content = rect(safe.x, safe.y + 82, safe.w, Math.max(44, stock.y - safe.y - 88));
-    const naturalHeight = scene === 'factory' ? Math.max(192, content.h) : Math.max(268, content.h);
+    const naturalHeight = scene === 'factory' ? Math.max(192, content.h) : Math.max(view.salesperson && view.salesperson.owned ? 316 : 268, content.h);
     content.scrollMax = Math.max(0, naturalHeight - content.h);
     const scroll = clamp(ui.scroll, 0, content.scrollMax);
     this.layout = { safe, content, stock, scroll, scene, naturalHeight };
@@ -204,11 +205,13 @@ class V13OrderScene {
       this.environmentSprite('scene_direct_sales_courtyard', rect(0, 0, w, h), true);
     }
     this.box(rect(safe.x - 4, safe.y - 3, safe.w + 8, 85), '#fffdf5ed', null, 14);
-    this.text(scene === 'factory' ? '原味订单试玩' : '工厂直售', safe.x, safe.y + 17, safe.w * .58, 20, C.ink, 800);
+    this.text(scene === 'factory' ? '原味生产工厂' : '工厂直售', safe.x, safe.y + 17, safe.w * .58, 20, C.ink, 800);
     this.text('金币 ' + amount(view.state && view.state.coins), safe.x + safe.w, safe.y + 17, safe.w * .42 - 8, 13, C.green, 800, 'right');
-    const tabWidth = (safe.w - 6) / 2;
-    this.button(rect(safe.x, safe.y + 36, tabWidth, 44), '01  生产工厂', 'scene:factory', scene === 'factory');
-    this.button(rect(safe.x + tabWidth + 6, safe.y + 36, tabWidth, 44), '02  顾客订单', 'scene:store', scene === 'store');
+    const tabWidth = (safe.w - 18) / 4;
+    this.button(rect(safe.x, safe.y + 36, tabWidth, 44), '生产区', 'scene:factory', scene === 'factory');
+    this.button(rect(safe.x + tabWidth + 6, safe.y + 36, tabWidth, 44), '直售区', 'scene:store', scene === 'store');
+    this.button(rect(safe.x + (tabWidth + 6) * 2, safe.y + 36, tabWidth, 44), '点击助力', 'open-assist', false);
+    this.button(rect(safe.x + (tabWidth + 6) * 3, safe.y + 36, tabWidth, 44), '经营升级', 'open-manage', false);
     if (scene === 'store') {
       this.c.save(); this.c.beginPath(); this.c.rect(content.x, content.y, content.w, content.h); this.c.clip(); this.clip = content;
       this.store(view, ui, origin);
@@ -224,15 +227,16 @@ class V13OrderScene {
     else {
       const message = ui.message && (typeof ui.message === 'object' ? ui.message.text : ui.message);
       if (scene === 'store') this.box(rect(safe.x, footerY + 2, safe.w, 24), '#fffdf5ed', null, 8);
-      this.text(message || '包装只入库，拖给顾客才收款', safe.x + safe.w / 2, footerY + 14, safe.w - 4, 11, message ? C.green : C.muted, message ? 700 : 500, 'center');
+      this.text(message || '包装只入库，整单配齐才收款', safe.x + safe.w / 2, footerY + 14, safe.w - 4, 11, message ? C.green : C.muted, message ? 700 : 500, 'center');
     }
     this.dragGhost(ui, vp);
+    if (ui.modal) this.modal(view, ui);
     return this.diagnostics;
   }
   factory(view, ui, r, dt) {
     const scene = this.factoryScene, vp = ui.viewport, content = this.layout.content;
-    // This is a read-only presentation adapter; the simulation and save mode
-    // remain v13-orders-p0, including packaging into shared inventory.
+    // Presentation borrows the established assembly; all stock remains owned
+    // by the shared production/order core.
     const presented = Object.assign({}, view, { mode: 'v15',
       presentation: Object.assign({}, view.presentation || {}, { transfer: ui.transfer, viewport: vp,
         overlayLayout: { topInset: r.y, bottomInset: vp.height - r.y - r.h,
@@ -266,7 +270,8 @@ class V13OrderScene {
     const orders = (view.orders || []).slice(0, 2);
     // Art adapts to the remaining height; text and 44 px controls never scale
     // with the source's 390 x 744 composition. The inventory stays fixed below.
-    const heroHeight = clamp(r.h - 224, 54, 240), bubbleHeight = 114, column = (r.w - 8) / 2;
+    const staffed = !!(view.salesperson && view.salesperson.owned);
+    const bubbleHeight = staffed ? 162 : 114, heroHeight = clamp(r.h - bubbleHeight - 110, 54, 240), column = (r.w - 8) / 2;
     const stageY = r.y + heroHeight + bubbleHeight + 4, stageHeight = r.y + r.h - stageY;
     const shop = fitArtRect([768, 627], [r.x + 6, r.y, r.w * .85, heroHeight + 2]);
     this.sprite('shop_front', rect(shop[0], shop[1], shop[2], shop[3]), false, true);
@@ -289,7 +294,7 @@ class V13OrderScene {
       if (orders[index]) this.pickupBag(bag, original(orders[index].reserved));
       const area = rect(x, r.y + heroHeight, column, bubbleHeight);
       if (!this.visible(area)) continue;
-      if (orders[index]) this.orderCard(orders[index], index, ui, area, r.y + r.h, bag);
+      if (orders[index]) this.orderCard(orders[index], index, ui, area, r.y + r.h, bag, view.salesperson);
       else {
         this.box(area, '#fffdf5d9', C.line, 12);
         this.text('下一位顾客', area.x + area.w / 2, area.y + 25, area.w - 12, 13, C.green, 700, 'center');
@@ -299,7 +304,7 @@ class V13OrderScene {
     }
     this.diagnostics.courtyard = { shop: rect(shop[0], shop[1], shop[2], shop[3]), counter, customerCount: orders.length, completed: amount(view.orderLedger && view.orderLedger.completed) };
   }
-  orderCard(order, index, ui, r, bottom, bag) {
+  orderCard(order, index, ui, r, bottom, bag, salesperson) {
     const demand = original(order.items), reserved = original(order.reserved), remaining = Math.max(0, demand - reserved);
     const drag = ui.delivery, accepting = remaining > 0;
     const dropArea = rect(r.x, r.y + 46, r.w, bottom - r.y - 46);
@@ -321,7 +326,101 @@ class V13OrderScene {
     const frame = end - top >= 44 ? this.hit(rect(dropArea.x, top, dropArea.w, end - top), 'order:' + order.id, { orderId: order.id, accepting, demand, reserved, remaining }) : null;
     if (frame) this.orderFrames.push(frame);
     this.hit(cancel, 'cancel-order:' + order.id, { orderId: order.id });
-    this.diagnostics.orders.push({ id: order.id, demand, reserved, remaining, quote: amount(order.quote), rect: r, accepting, bag, bagProducts: reserved ? 1 : 0 });
+    if (salesperson && salesperson.owned) {
+      if (reserved && order.assignedTo === 'manual') this.button(rect(x, r.y + 115, width, 44), '交给售货员', 'handoff-order:' + order.id, false, { orderId: order.id });
+      else this.text(order.assignedTo === 'salesperson' ? '售货员接续配货' : '等待售货员 · 可手动配货', x, r.y + 137, width, 11, C.green, 700);
+    }
+    this.diagnostics.orders.push({ id: order.id, demand, reserved, remaining, quote: amount(order.quote), rect: r, accepting, bag, bagProducts: reserved ? 1 : 0, assignedTo: order.assignedTo || null });
+  }
+  modal(view, ui) {
+    const safe = this.layout.safe, modal = ui.modal, inset = 8;
+    // An overlay owns every hit region, so hidden trays and scene tabs can
+    // never receive a release intended for an assist or purchase button.
+    this.zones.length = 0; this.transferFrames = []; this.orderFrames = [];
+    this.box(rect(0, 0, ui.viewport.width, ui.viewport.height), '#183e36aa', null, 0);
+    this.box(safe, C.paper, C.line, 15);
+    const panel = rect(safe.x + inset, safe.y + 60, safe.w - inset * 2, Math.max(44, safe.h - 116));
+    const keys = ['automate-pop', 'automate-cup', 'salesperson', 'upgrade-pop', 'upgrade-cup', 'upgrade-ship', 'logistics', 'expansion'];
+    const natural = modal.type === 'manage' ? keys.length * 86 + 110 : modal.type === 'assist' ? 346 : 250;
+    panel.scrollMax = Math.max(0, natural - panel.h);
+    const scroll = clamp(modal.scroll, 0, panel.scrollMax), y0 = panel.y - scroll;
+    this.layout.modalContent = panel;
+    const title = { assist: '点击助力', manage: '经营与升级', purchase: '购买确认', receipt: '购买完成' }[modal.type] || '经营';
+    this.text(title, safe.x + 14, safe.y + 23, safe.w - 95, 19, C.ink, 800);
+    this.text('金币 ' + amount(view.state.coins), safe.x + safe.w - 14, safe.y + 23, 85, 12, C.green, 700, 'right');
+    this.text('工厂持续加工 · 切后台暂停', safe.x + 14, safe.y + 44, safe.w - 28, 11, C.muted);
+    this.c.save(); this.c.beginPath(); this.c.rect(panel.x, panel.y, panel.w, panel.h); this.c.clip(); this.clip = panel;
+    if (modal.type === 'assist') {
+      for (let index = 0; index < view.stations.length; index++) {
+        const station = view.stations[index], assist = station.assist || {}, y = y0 + index * 90;
+        this.text(station.name + ' · 当前进度 ' + Math.round(station.progress * 100) + '%', panel.x + 6, y + 16, panel.w - 12, 13, C.ink, 700);
+        this.button(rect(panel.x + 6, y + 32, panel.w - 12, 44), assist.available ? '助力当前批次' : station.status === 'running' ? '助力冷却 / 增益上限' : '等待合法批次', 'assist:' + station.id, !!assist.available);
+      }
+      const assist = view.stations[0] && view.stations[0].assist || {};
+      this.text('只推进当前加工，停止点击后照常生产', panel.x + 6, y0 + 285, panel.w - 12, 11, C.muted);
+      this.text('输入间隔 ' + finite(assist.minIntervalSeconds) + ' 秒 · 持续最高 ' + finite(assist.maxSpeedMultiplier) + ' 倍', panel.x + 6, y0 + 307, panel.w - 12, 11, C.muted);
+      if (modal.error) this.text(modal.error, panel.x + 6, y0 + 332, panel.w - 12, 12, C.coral, 700);
+    } else if (modal.type === 'manage') {
+      const names = { 'automate-pop': 'A 段自动转运', 'automate-cup': 'B 段自动转运', salesperson: '基础售货员',
+        'upgrade-pop': '爆米花设备改造', 'upgrade-cup': '装杯设备改造', 'upgrade-ship': '包装设备改造', logistics: '物流扩容', expansion: '工厂扩建' };
+      for (let index = 0; index < keys.length; index++) {
+        const key = keys[index], offer = describeOffer(view, key), y = y0 + index * 86;
+        let details = '', owned = false;
+        if (key.startsWith('automate-')) {
+          const route = (view.transfers || []).find(item => item.source === key.slice(9)) || {};
+          owned = !!route.automated;
+          details = owned ? '已接通 · 换代后持续保留' : route.automation && ['tutorial-required', 'manual-transfer-required'].includes(route.automation.reason) ? '先完成本段首次手动转运' : '只运可用货物，避开拖拽预留';
+        } else if (key === 'salesperson') {
+          const clerk = view.salesperson || {}; owned = !!clerk.owned;
+          details = '每 ' + finite(clerk.serviceSeconds) + ' 秒服务 · 人工部分订单需交接';
+        } else if (key.startsWith('upgrade-')) {
+          const station = view.stations.find(item => item.id === key.slice(8));
+          details = '等级 ' + amount(station && station.level) + ' · 加工能力 ' + finite(station && station.capacity)
+            + (offer ? ' → ' + finite(offer.capacity) : '') + '/秒';
+        } else if (key === 'logistics') details = offer ? '批量 ' + amount(offer.batchAfter) + ' · 入口/货盘 ' + amount(offer.capacityAfter) + ' · 成品 ' + amount(offer.finishedCapacityAfter) : '物流扩容已完成';
+        else details = offer ? '成交目标 ' + amount(offer.requiredSold) + ' 杯 · 无需停止操作' : '已到当前成长终点';
+        this.box(rect(panel.x + 2, y + 2, panel.w - 4, 78), C.mint, C.line, 9);
+        this.text(names[key], panel.x + 10, y + 20, panel.w - 122, 12, C.ink, 800);
+        this.text(details, panel.x + 10, y + 64, panel.w - 20, 10, C.muted);
+        if (offer) this.button(rect(panel.x + panel.w - 106, y + 8, 96, 44), amount(offer.cost) + ' 金币', 'offer:' + key, view.state.coins >= offer.cost);
+        else this.text(owned ? '已购买' : '已完成', panel.x + panel.w - 56, y + 29, 92, 12, C.green, 700, 'center');
+      }
+      const refill = view.replenishment || {}, y = y0 + keys.length * 86;
+      this.text('补货 · 优先覆盖订单缺口，再补目标库存', panel.x + 6, y + 20, panel.w - 12, 12, C.ink, 700);
+      this.text('可用 ' + amount(refill.available) + ' · 预留 ' + amount(refill.reserved) + ' · 在制 ' + amount(refill.inProgress), panel.x + 6, y + 44, panel.w - 12, 11, C.muted);
+      this.text('订单缺口 ' + amount(refill.deficit) + ' · 目标库存 ' + amount(refill.targetStock), panel.x + 6, y + 65, panel.w - 12, 11, C.muted);
+      this.text('收入 ' + amount(view.state.totalEarned) + ' · 支出 ' + amount(view.state.totalSpent), panel.x + 6, y + 88, panel.w - 12, 11, C.green, 700);
+    } else if (modal.type === 'purchase' && ui.quote) {
+      const quote = ui.quote;
+      this.text(quote.name, panel.x + 10, y0 + 30, panel.w - 20, 18, C.ink, 800);
+      this.text('价格 ' + amount(quote.cost) + ' 金币', panel.x + 10, y0 + 63, panel.w - 20, 16, C.green, 800);
+      this.text('当前余额 ' + amount(view.state.coins) + ' 金币', panel.x + 10, y0 + 94, panel.w - 20, 13, C.muted);
+      const effect = quote.kind === 'upgrade' ? '后续批次加工能力 ' + finite(quote.capacity) + '/秒'
+        : quote.kind === 'logistics' ? '批量/货盘 ' + amount(quote.batchAfter) + ' · 成品仓 ' + amount(quote.finishedCapacityAfter)
+        : quote.kind === 'salesperson' ? '每 ' + finite(quote.serviceSeconds) + ' 秒自动配货'
+        : quote.kind === 'expansion' ? '需累计整单成交 ' + amount(quote.requiredSold) + ' 杯'
+        : '完成手动教学后接通本段自动转运';
+      this.text(effect, panel.x + 10, y0 + 119, panel.w - 20, 12, C.green, 700);
+      this.button(rect(panel.x + 6, y0 + 143, panel.w - 12, 44), '确认购买', 'purchase:' + quote.id, view.state.coins >= quote.cost);
+      if (modal.error) this.text(modal.error, panel.x + 10, y0 + 212, panel.w - 20, 12, C.coral, 700);
+      else this.text('按显示报价校验，完成后自动保存', panel.x + 10, y0 + 224, panel.w - 20, 11, C.muted);
+    } else if (modal.type === 'receipt') {
+      this.text(modal.message || '能力已生效', panel.x + 10, y0 + 44, panel.w - 20, 15, C.green, 800);
+      this.text(ui.saveError || '能力影响后续批次，已购自动化持续保留', panel.x + 10, y0 + 83, panel.w - 20, 11, ui.saveError ? C.coral : C.muted);
+      if (ui.saveError) this.button(rect(panel.x + 6, y0 + 112, panel.w - 12, 44), '重试保存', 'retry-save', false);
+    }
+    this.clip = null; this.c.restore();
+    if (panel.scrollMax > 0) {
+      const thumb = Math.max(20, panel.h * panel.h / natural);
+      this.box(rect(panel.x + panel.w - 3, panel.y + scroll / panel.scrollMax * (panel.h - thumb), 3, thumb), '#8eac96', null, 2);
+    }
+    const bottom = safe.y + safe.h - 50;
+    if (modal.type === 'purchase' || modal.type === 'receipt') {
+      const width = (safe.w - 22) / 2;
+      this.button(rect(safe.x + 8, bottom, width, 44), '返回经营', 'manage-back', false);
+      this.button(rect(safe.x + 14 + width, bottom, width, 44), '回到场景', 'close-modal', false);
+    } else this.button(rect(safe.x + 8, bottom, safe.w - 16, 44), '回到场景', 'close-modal', false);
+    this.diagnostics.modal = { type: modal.type, content: panel, scroll, naturalHeight: natural };
   }
   inventory(view, ui, r) {
     const finished = view.finished || {}, stock = original(finished.stock), reserved = original(finished.reserved), available = original(finished.available), held = original(finished.held);

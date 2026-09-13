@@ -7,7 +7,8 @@ const test = require('node:test');
 const vm = require('node:vm');
 const { V13OrderGame } = require('../src/v13-order-core');
 const { orderSceneAssetIds, orderSceneEnvironmentAssetIds } = require('../src/v13-order-scene');
-const MODE = 'v13-orders-p0', START = 1800000000000;
+const { MODE } = require('../src/v13-order-mode');
+const START = 1800000000000;
 const copy = value => JSON.parse(JSON.stringify(value));
 
 // Run the real entry, controller and both simulation modules in one host.
@@ -15,7 +16,7 @@ const copy = value => JSON.parse(JSON.stringify(value));
 function harness(options = {}) {
   let now = START, frameTime = 0, nextFrame = null, hit = null, view = null, ui = null, platformCount = 0;
   let stored = options.save == null ? null : copy(options.save), loadError = options.loadError || '', saveFailure = !!options.saveFailure;
-  const callbacks = {}, keys = {}, saves = [], analytics = [], selected = [], sounds = [];
+  const callbacks = {}, keys = {}, saves = [], analytics = [], selected = [], sounds = [], compatibilityStarts = [];
   const ctx = { setTransform() {} };
   const canvas = { getContext: () => ctx, setAttribute() {}, style: {} };
   const info = { width: 390, height: 844, pixelRatio: 2, safeArea: { left: 0, top: 0, right: 390, bottom: 844 } };
@@ -32,6 +33,7 @@ function harness(options = {}) {
     getSystemInfo: () => info, getAnalytics: () => copy(analytics),
     track(event, data) { analytics.push({ event, data: copy(data) }); }, vibrate() {}
   };
+  if (options.traceCompatibility) platform.useLegacy = () => { platform.config.mode = 'v15'; };
   class Scene {
     constructor() { this.layout = { content: { x: 10, y: 60, w: 370, h: 700, scrollMax: 300 } }; this.zones = []; }
     draw(nextView, nextUI) { view = copy(nextView); ui = copy(nextUI); }
@@ -57,6 +59,10 @@ function harness(options = {}) {
     if (name === './art-assets') return { createArtAssets: assets };
     if (name === './v13-art-assets') return { createV13ArtAssets: assets };
     if (name === './audio') return { AudioEngine: Audio };
+    if (name === './legacy-main' && options.traceCompatibility) return { startLegacyGame(reused, legacySave, notice) {
+      assert.equal(reused, platform, 'compatibility reuses the existing platform and Canvas');
+      compatibilityStarts.push({ save: copy(legacySave), notice });
+    } };
     if (cache.has(name)) return cache.get(name).exports;
     const module = { exports: {} }; cache.set(name, module);
     const source = fs.readFileSync(path.resolve(src, name + '.js'), 'utf8');
@@ -65,7 +71,7 @@ function harness(options = {}) {
   }
   load('./main');
   const h = {
-    context, platform, saves, analytics, selected, sounds, info,
+    context, platform, saves, analytics, selected, sounds, info, compatibilityStarts,
     snapshot: () => copy(context.__POPCORN__.snapshot()), presentation: () => copy(context.__POPCORN__.presentation()),
     ui() { h.frame(0); return copy(ui); }, drawn: () => copy(view), platformCount: () => platformCount,
     saved: () => stored == null ? null : copy(stored),
@@ -104,8 +110,34 @@ function stockFixture() {
   assert.equal(new V13OrderGame({ save, now: START }).loadWarning, null);
   return save;
 }
+function earnedFixture(target = 300) {
+  const game = new V13OrderGame({ now: START });
+  for (let i = 0; game.state.totalEarned < target && i < 20000; i++) {
+    game.tick(.25);
+    for (const source of ['pop', 'cup']) { const held = game.reserveTransfer(source); if (held.ok) game.commitTransfer(held.token); }
+    const held = game.beginDelivery();
+    if (held.ok) game.deliver(held.token, game.getView().orders[0].id);
+  }
+  assert.ok(game.state.totalEarned >= target, 'the purchase fixture earns real whole-order revenue');
+  for (const pending of game.getView().orders) game.cancelOrder(pending.id);
+  for (let i = 0; game.getView().finished.stock.original < 24 && i < 1000; i++) {
+    game.tick(.25);
+    for (const source of ['pop', 'cup']) { const held = game.reserveTransfer(source); if (held.ok) game.commitTransfer(held.token); }
+  }
+  assert.equal(game.getView().finished.stock.original, 24);
+  return game.exportSave(START);
+}
+function buy(h, key) {
+  h.click('open-manage'); h.click('offer:' + key);
+  const quote = h.ui().quote;
+  assert.ok(quote, key + ' displays a real quote');
+  h.click('purchase:' + quote.id);
+  assert.equal(h.ui().modal.type, 'receipt', key + ' was purchased: ' + h.ui().modal.error);
+  h.click('close-modal');
+  return quote;
+}
 
-test('order opt-in runs one real factory and sells its first packaged batch only on delivery', () => {
+test('default order runtime owns one real factory and sells its first packaged batch only on delivery', () => {
   for (const query of [false, true]) {
     const h = harness({ query });
     assert.equal(h.platformCount(), 1);
@@ -193,7 +225,7 @@ test('lifecycle, second fingers and keyboard scene changes cancel transient deli
   const changes = {
     cancel: h => h.pointer('cancel'), resize: h => h.resize(), blur: h => h.blur(),
     background: h => { h.hide(); h.run(25); h.show(); h.frame(0); },
-    escape: h => h.key('Escape'), scene: h => h.key('KeyF'),
+    escape: h => h.key('Escape'), scene: h => h.key('KeyF'), modal: h => h.key('KeyU'),
     multitouch: h => { h.pointer('down', null, 2); h.pointer('move', null, 2); h.pointer('up', null, 2); }
   };
   for (const [name, change] of Object.entries(changes)) {
@@ -268,4 +300,110 @@ test('failed saves keep the active partial order intact and retry writes one con
   h.show(); h.setSaveFailure(false); h.click('retry-save');
   assert.equal(h.ui().saveError, '');
   const restored = harness({ save: h.saved() }); assert.deepEqual(restored.snapshot(), partial);
+});
+
+test('assist input advances only the active legal batch and cannot advance the shared clock or income', () => {
+  const h = harness(); h.run(.5); h.click('open-assist');
+  const before = h.snapshot(); h.click('assist:pop'); const boosted = h.snapshot();
+  assert.equal(boosted.state.simulation.ticks, before.state.simulation.ticks);
+  assert.equal(boosted.state.playedSeconds, before.state.playedSeconds);
+  assert.equal(boosted.state.coins, before.state.coins);
+  assert.equal(boosted.state.totalProduced, before.state.totalProduced);
+  assert.deepEqual(boosted.state.stations.cup, before.state.stations.cup);
+  assert.deepEqual(boosted.state.stations.ship, before.state.stations.ship);
+  assert.ok(boosted.stations[0].progress > before.stations[0].progress);
+  for (let i = 0; i < 20; i++) h.click('assist:pop');
+  assert.deepEqual(h.snapshot(), boosted, 'rapid additional clicks are capped in the core');
+  h.run(.25);
+  assert.equal(h.snapshot().state.simulation.ticks, boosted.state.simulation.ticks + 30, 'normal processing continues while the assist panel is open');
+  h.click('assist:cup');
+  assert.equal(h.snapshot().state.stations.cup.processed, 0, 'assistance cannot create a batch without input');
+  conserved(h.snapshot());
+});
+
+test('every economy purchase uses a displayed single-use quote and survives reload with matching spending', () => {
+  const h = harness({ save: earnedFixture() });
+  const before = h.snapshot();
+  const quote = buy(h, 'upgrade-cup');
+  assert.equal(h.snapshot().state.upgrades.cup, before.state.upgrades.cup + 1);
+  assert.equal(h.snapshot().state.totalSpent, quote.cost);
+  h.pointer('up', 'purchase:' + quote.id);
+  h.click('purchase:' + quote.id);
+  assert.equal(h.snapshot().state.totalSpent, quote.cost, 'duplicate releases and old confirmation actions cannot buy twice');
+  h.click('open-manage'); h.click('offer:upgrade-cup');
+  const refreshed = h.ui().quote;
+  assert.notEqual(refreshed.id, quote.id);
+  assert.notEqual(refreshed.cost, quote.cost);
+  h.click('purchase:' + quote.id);
+  assert.equal(h.snapshot().state.totalSpent, quote.cost, 'a stale confirmation cannot use a newer quote');
+  h.click('close-modal');
+  for (const key of ['upgrade-pop', 'upgrade-ship', 'automate-pop', 'automate-cup', 'salesperson', 'logistics', 'expansion']) buy(h, key);
+  const purchased = h.snapshot();
+  assert.equal(purchased.state.machine, 1);
+  assert.equal(purchased.salesperson.owned, true);
+  assert.equal(purchased.state.logisticsLevel, 1);
+  assert.ok(purchased.transfers.every(route => route.automated));
+  assert.ok(purchased.state.totalSpent > 0);
+  conserved(purchased);
+  const reloaded = harness({ save: h.saved() });
+  assert.deepEqual(reloaded.snapshot(), purchased);
+  assert.equal(reloaded.ui().recoveryBlocked, false);
+});
+
+test('clerk leaves partial manual orders reserved until explicit handoff, then finishes through the same settlement', () => {
+  const h = harness({ save: earnedFixture() }); h.click('scene:store');
+  const target = h.snapshot().orders.find(row => row.items.original > 4);
+  assert.ok(target);
+  deliver(h, target.id);
+  assert.equal(h.snapshot().orders.find(row => row.id === target.id).assignedTo, 'manual');
+  buy(h, 'salesperson');
+  h.run(4);
+  const manual = h.snapshot().orders.find(row => row.id === target.id);
+  assert.ok(manual, 'the clerk must not take over manual partial reservations');
+  assert.equal(manual.reserved.original, 4);
+  h.pointer('down', 'delivery:original'); h.pointer('move', 'order:' + target.id, 1, 210, 180);
+  const held = h.snapshot().finished.held.original;
+  assert.ok(held > 0);
+  h.key('KeyU');
+  assert.equal(h.snapshot().finished.held.original, 0);
+  assert.equal(h.snapshot().orders.find(row => row.id === target.id).reserved.original, 4, 'opening a purchase panel cancels only temporary stock');
+  h.key('Escape');
+  h.click('handoff-order:' + target.id);
+  assert.equal(h.snapshot().orders.find(row => row.id === target.id).assignedTo, 'salesperson');
+  h.run(4);
+  assert.ok(!h.snapshot().orders.some(row => row.id === target.id));
+  assert.equal(h.analytics.filter(row => row.event === 'order-settled' && row.data.orderId === target.id).length, 1);
+  const complete = h.snapshot(); h.click('handoff-order:' + target.id); h.pointer('up', 'order:' + target.id);
+  assert.deepEqual(h.snapshot(), complete);
+  conserved(complete);
+});
+
+test('purchased A/B transport and clerk keep earning from new production without any foreground input', () => {
+  const h = harness({ save: earnedFixture() });
+  for (const key of ['automate-pop', 'automate-cup', 'salesperson']) buy(h, key);
+  const before = h.snapshot(); h.run(90); const after = h.snapshot();
+  assert.ok(after.state.totalSold - before.state.totalSold > before.finished.stock.original, 'automation sells more than its starting finished inventory');
+  assert.ok(after.state.totalProduced > before.state.totalProduced);
+  assert.ok(after.state.totalEarned > before.state.totalEarned);
+  assert.ok(after.orderLedger.completed > before.orderLedger.completed + 3);
+  conserved(after);
+  h.hide(); const paused = h.snapshot(); h.run(40); h.show(); h.frame(0);
+  assert.deepEqual(h.snapshot(), paused, 'automatic orders and production also pause in background');
+});
+
+test('retry migration failure retires the paused order controller before a compatible factory can write its key', () => {
+  const { Game } = require('../src/core');
+  const h = harness({ loadError: 'read-denied', traceCompatibility: true });
+  assert.equal(h.ui().recoveryBlocked, true);
+  const legacy = new Game({ mode: 'v15', now: START }).exportSave(START);
+  h.recover(legacy); h.setSaveFailure(true); h.click('reload-save');
+  assert.equal(h.compatibilityStarts.length, 0, 'the switch waits for the current frame boundary');
+  const before = h.snapshot(); h.frame(0);
+  assert.equal(h.compatibilityStarts.length, 1);
+  assert.deepEqual(h.compatibilityStarts[0].save, legacy);
+  assert.equal(h.platformCount(), 1);
+  assert.equal(h.saves.length, 0, 'failed migration never replaces the legacy save');
+  h.setSaveFailure(false); h.hide(); h.show(); h.click('retry-save'); h.key('KeyU'); h.resize();
+  assert.equal(h.saves.length, 0, 'retired order lifecycle and input handlers cannot save into the legacy key');
+  assert.deepEqual(h.snapshot(), before, 'the retired order world cannot simulate or accept purchases');
 });

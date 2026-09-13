@@ -7,8 +7,8 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const source = fs.readFileSync(path.join(__dirname, '../src/platform.js'), 'utf8');
-const MODE = 'v13-orders-p0';
-const KEY = 'little_popcorn_factory_orders_p0_v1';
+const MODE = 'factory-orders';
+const KEY = 'little_popcorn_factory_orders_v2';
 const OLD_KEYS = ['little_popcorn_factory_v1', 'little_popcorn_factory_pipeline_v2',
   'little_popcorn_factory_manual_transfer_p0_v3', 'little_popcorn_factory_automation_v4'];
 
@@ -48,61 +48,63 @@ function harness(browser, options = {}) {
   return { platform, storage, accesses, faults };
 }
 
-function documentSave(coins = 0) { return { version: 1, mode: MODE, marker: 'prototype', coins }; }
+function documentSave(coins = 0) { return { version: 2, mode: MODE, marker: 'storage-contract', coins }; }
 function protectOldSaves(h) {
   for (const [index, key] of OLD_KEYS.entries()) h.storage.set(key, JSON.stringify({ version: index + 1, machine: 5, coins: 987654 + index }));
   return OLD_KEYS.map(key => [key, h.storage.get(key)]);
 }
 function assertUntouched(h, original) {
   for (const [key, value] of original) assert.equal(h.storage.get(key), value, key + ' retained byte for byte');
-  assert.ok(h.accesses.every(entry => entry[1] === KEY), 'prototype storage never accesses a legacy or live save key');
+  assert.ok(h.accesses.filter(entry => entry[0] !== 'read').every(entry => !OLD_KEYS.includes(entry[1])), 'main storage never writes a source save key');
 }
 
-test('order prototype opts in before loading and isolates browser query and native config saves', () => {
+test('both hosts default to the shared main game and preserve legacy sources during migration', () => {
   for (const browser of [true, false]) {
-    const h = harness(browser, browser ? {} : { mode: MODE }), old = protectOldSaves(h);
+    const h = harness(browser, { search: '' }), old = protectOldSaves(h);
     assert.equal(h.platform.config.mode, MODE);
     assert.equal(h.platform.saveKey, KEY);
-    assert.equal(h.platform.load(), null, 'legacy saves are never imported into the limited prototype');
+    assert.equal(h.platform.load().version, 4, 'formal v4 is selected before v2');
+    assert.equal(h.platform.saveSource.kind, 'migration');
     assert.equal(h.platform.save(documentSave(21)), true);
     assert.equal(h.platform.load().coins, 21);
     assert.equal(h.platform.lastStorageError, '');
+    assert.equal(h.storage.get(KEY + '_backup_little_popcorn_factory_automation_v4'), old[3][1]);
     assertUntouched(h, old);
   }
 });
 
-test('default formal entry never loads a prototype even when one exists', () => {
+test('default entry discovers the old order save without modifying its original bytes', () => {
   for (const browser of [true, false]) {
     const h = harness(browser, { search: '' });
-    h.storage.set(KEY, JSON.stringify(documentSave(999)));
-    assert.equal(h.platform.config.mode, 'v15');
-    assert.equal(h.platform.load(), null);
-    assert.ok(h.accesses.every(entry => entry[1] !== KEY));
-    assert.equal(JSON.parse(h.storage.get(KEY)).coins, 999);
+    const trialKey = 'little_popcorn_factory_orders_p0_v1';
+    const trial = JSON.stringify({ version: 1, mode: 'v13-orders-p0', coins: 999 });
+    h.storage.set(trialKey, trial);
+    assert.equal(h.platform.config.mode, MODE);
+    assert.equal(h.platform.load().coins, 999);
+    assert.equal(h.platform.saveSource.key, trialKey);
+    assert.equal(h.storage.get(trialKey), trial);
   }
 });
 
-test('native GameGlobal config opts in and browser query requires an exact mode value', () => {
+test('GameGlobal, old deployment config and removed prototype URLs all resolve to main; compatibility is exact', () => {
   const native = harness(false, { mode: MODE, gameGlobalOnly: true });
   assert.equal(native.platform.config.mode, MODE);
   assert.equal(native.platform.saveKey, KEY);
   assert.equal(native.platform.save(documentSave(12)), true);
   assert.equal(native.platform.load().coins, 12);
-  for (const search of ['?mode=v13-orders-p0-extra', '?preview=v13-orders-p0', '?mode=v13-orders', '?xmode=v13-orders-p0']) {
-    assert.equal(harness(true, { search }).platform.config.mode, 'v15', search);
-  }
-  for (const search of ['?mode=v13-orders-p0', '?foo=1&mode=v13-orders-p0&bar=2']) {
+  for (const search of ['', '?mode=v15', '?mode=v13-orders-p0', '?experiment=manual-transfer-p0', '?mode=legacy-v15-extra']) {
     assert.equal(harness(true, { search }).platform.config.mode, MODE, search);
   }
+  assert.equal(harness(true, { search: '?mode=legacy-v15' }).platform.config.mode, 'v15');
+  assert.equal(harness(true, { search: '?mode=baseline' }).platform.config.mode, 'baseline');
 });
-
 test('order storage rejects mismatched save envelopes before any mutation', () => {
   for (const browser of [true, false]) {
     const h = harness(browser, { mode: MODE }), old = protectOldSaves(h);
     const original = JSON.stringify(documentSave(18));
     h.storage.set(KEY, original);
     for (const invalid of [null, [], {}, { version: 1 }, { mode: MODE },
-      { version: 4, mode: 'v15' }, { version: 2, mode: MODE }, { version: 1, mode: 'baseline' }]) {
+      { version: 4, mode: 'v15' }, { version: 1, mode: MODE }, { version: 1, mode: 'baseline' }]) {
       assert.equal(h.platform.save(invalid), false, JSON.stringify(invalid));
       assert.ok(h.platform.lastStorageError);
       assert.equal(h.storage.get(KEY), original);

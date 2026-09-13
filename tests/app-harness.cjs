@@ -6,7 +6,8 @@ const vm = require('node:vm');
 const START = 1800000000000;
 const copy = value => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 
-// Execute the real entry and real simulation; replace only host APIs and paint.
+// Execute the preserved compatibility entry and real simulation; replace only
+// host APIs and paint. Default dual-scene entry has its own package harness.
 function harness(options = {}) {
   let now = START, frameTime = 0, nextFrame = null, drawnUI = null, drawnView = null;
   let pointerHandler, hideHandler, showHandler, resizeHandler, cancelHandler, scrollHandler, hitAction = null;
@@ -55,7 +56,7 @@ function harness(options = {}) {
   const coreModule = { exports: {} };
   const coreSource = fs.readFileSync(path.resolve(__dirname, '../src/core.js'), 'utf8');
   vm.runInContext('(function(module,exports,require){\n' + coreSource + '\n})', context)(coreModule, coreModule.exports, name => require(path.resolve(__dirname, '../src', name)));
-  const mainSource = fs.readFileSync(path.resolve(__dirname, '../src/main.js'), 'utf8');
+  const mainSource = fs.readFileSync(path.resolve(__dirname, '../src/legacy-main.js'), 'utf8');
   const mockedRequire = name => {
     if (name === './core') return coreModule.exports;
     if (name === './platform') return { createPlatform: () => platform };
@@ -63,7 +64,9 @@ function harness(options = {}) {
     if (name === './audio') return { AudioEngine: MockAudio };
     return require(path.resolve(__dirname, '../src', name));
   };
-  vm.runInContext('(function(require) {\n' + mainSource + '\n})', context)(mockedRequire);
+  const mainModule = { exports: {} };
+  vm.runInContext('(function(require,module,exports) {\n' + mainSource + '\n})', context)(mockedRequire, mainModule, mainModule.exports);
+  mainModule.exports.startLegacyGame();
   const h = {
     context, platform, saves, analytics, sounds, rendererEvents, info,
     snapshot: () => copy(context.__POPCORN__.snapshot()), legacyCalls: () => legacyCalls,

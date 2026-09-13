@@ -69,7 +69,9 @@ test('factory and store fit short, tall, safe-area and missing-art phones with r
       const result = render(game.getView(), scene, viewport, { scroll }, missing);
       result.renderer.zones.forEach(zone => actions.add(zone.action));
       assert.equal(result.renderer.zones.some(zone => zone.action === 'retry-art'), missing);
-      assert.ok(!result.renderer.zones.some(zone => /upgrade|boost|evolve|purchase/.test(zone.action)));
+      assert.ok(result.renderer.zones.some(zone => zone.action === 'open-assist'));
+      assert.ok(result.renderer.zones.some(zone => zone.action === 'open-manage'));
+      assert.ok(!result.renderer.zones.some(zone => /^(assist:|purchase:)/.test(zone.action)), 'assists and purchases require their own distinct panel');
       assert.ok(result.diagnostics.sprites.every(sprite => sprite.available === !missing));
       if (viewport === ports[0] && !missing && !scroll) assert.equal(result.diagnostics.layout.content.scrollMax, 0);
     }
@@ -195,7 +197,7 @@ test('real packaging inventory is shared between scenes and does not display a s
     assert.deepEqual(result.diagnostics.inventory.stock, 8);
     assert.equal(result.diagnostics.inventory.available, 8);
     assert.match(result.text, /金币 0/);
-    assert.match(result.text, /包装只入库，拖给顾客才收款/);
+    assert.match(result.text, /包装只入库，整单配齐才收款/);
     assert.doesNotMatch(result.text, /成交|售出|销售|赚到|出货/);
   }
   const hold = game.beginDelivery(), order = game.getView().orders[0];
@@ -329,4 +331,69 @@ test('a scene-only image failure offers retry without disabling real order inter
   assert.ok(scene.orderFrames.some(frame => frame.accepting));
   scene.draw(new V13OrderGame({ now: 0 }).getView(), { scene: 'factory', viewport: ports[0] });
   assert.ok(!scene.zones.some(zone => zone.action === 'retry-art'), 'unused scene failures do not obscure the factory');
+});
+
+test('assist and purchase panels keep full touch targets and exclusively own input on every safe viewport', () => {
+  const view = new V13OrderGame({ now: 0 }).getView();
+  view.stations.forEach(station => { station.assist = { available: true, minIntervalSeconds: .12, maxSpeedMultiplier: 2 }; station.upgrade = { cost: 35, capacity: 3, requiredMachine: 0 }; });
+  view.transfers.forEach(route => { route.automated = false; route.automation = { cost: 24 }; });
+  view.salesperson = { owned: false, cost: 40, serviceSeconds: 3 };
+  view.logisticsUpgrade = { cost: 45, batchAfter: 8, inputAfter: 16, capacityAfter: 32 };
+  view.expansion = { cost: 200, name: '二代工厂', requiredSold: 80, targetRate: 2 };
+  const expected = ['automate-pop', 'automate-cup', 'salesperson', 'upgrade-pop', 'upgrade-cup', 'upgrade-ship', 'logistics', 'expansion'];
+  for (const viewport of ports) for (const type of ['assist', 'manage']) {
+    const actions = new Set();
+    for (let scroll = 0; scroll <= 900; scroll += 30) {
+      const result = render(view, 'factory', viewport, { modal: { type, scroll } });
+      result.renderer.zones.forEach(zone => actions.add(zone.action));
+      assert.ok(result.renderer.zones.every(zone => !/^(transfer-|scene:|delivery:|order:)/.test(zone.action)), 'modal does not leak scene actions');
+      assert.equal(result.renderer.transferFrames.length, 0);
+      assert.equal(result.renderer.orderFrames.length, 0);
+      assert.equal(result.renderer.transferTargetAt(150, 250, 'pop'), null);
+    }
+    assert.ok(actions.has('close-modal'));
+    for (const action of type === 'assist' ? ['assist:pop', 'assist:cup', 'assist:ship'] : expected.map(key => 'offer:' + key)) assert.ok(actions.has(action), action + ' can be reached by scrolling');
+  }
+});
+
+test('manual partial orders show an explicit clerk handoff outside all delivery targets', () => {
+  const view = new V13OrderGame({ now: 0 }).getView(), order = view.orders[0];
+  order.items.original = 6; order.reserved.original = 2; order.assignedTo = 'manual';
+  view.salesperson = { owned: true, serviceSeconds: 3 };
+  for (const viewport of ports) {
+    let found = false;
+    for (const scroll of [0, 40, 10000]) {
+      const result = render(view, 'store', viewport, { scroll });
+      const handoff = result.renderer.zones.find(zone => zone.action === 'handoff-order:' + order.id);
+      if (!handoff) continue;
+      found = true;
+      for (const x of [handoff.x, handoff.x + handoff.w / 2, handoff.x + handoff.w]) for (const y of [handoff.y, handoff.y + 22, handoff.y + 44]) {
+        assert.equal(result.renderer.actionAt(x, y), handoff.action);
+        assert.equal(result.renderer.deliveryTargetAt(x, y), null);
+      }
+    }
+    assert.ok(found, 'explicit handoff remains reachable on ' + viewport.width + 'x' + viewport.height);
+  }
+});
+
+test('purchase confirmation displays the exact locked quote and remains separate from scene controls', () => {
+  const view = new V13OrderGame({ now: 0 }).getView();
+  for (const viewport of ports) {
+    const quote = { id: '42', name: '基础售货员', cost: 40 };
+    const result = render(view, 'store', viewport, { modal: { type: 'purchase', scroll: 0 }, quote });
+    assert.match(result.text, /价格 40 金币/);
+    assert.ok(result.renderer.zones.some(zone => zone.action === 'purchase:42'));
+    assert.ok(result.renderer.zones.some(zone => zone.action === 'manage-back'));
+    assert.ok(!result.renderer.zones.some(zone => /^offer:|^order:|^assist:/.test(zone.action)));
+  }
+});
+
+test('real logistics offer renders the purchased finished capacity in both list and confirmation', () => {
+  const { describeOffer } = require('../src/purchase-quotes');
+  const view = new V13OrderGame({ now: 0 }).getView();
+  const quote = { ...describeOffer(view, 'logistics'), id: 'capacity' };
+  const listing = [0, 200, 400, 600].map(scroll => render(view, 'factory', ports[0], { modal: { type: 'manage', scroll } }).text).join(' ');
+  assert.match(listing, /成品 36/);
+  const confirmation = render(view, 'factory', ports[0], { modal: { type: 'purchase' }, quote });
+  assert.match(confirmation.text, /成品仓 36/);
 });

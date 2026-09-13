@@ -17,7 +17,7 @@ export const ART_FILES = ART_RUNTIME_IDS.map(id => ART_ASSETS[id].path);
 export const V13_ART_FILES = V13_ART_IDS.map(id => V13_ART_ASSETS[id].path);
 export const V13_SCENE_ART_FILES = V13_SCENE_ART_IDS.map(id => V13_SCENE_ART_ASSETS[id].path);
 export const REQUIRED_FILES = ['game.js', 'game.json', 'project.config.json', 'config.js', 'game.bundle.js', ...AUDIO_FILES, ...ART_FILES, ...V13_ART_FILES, ...V13_SCENE_ART_FILES];
-const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, experiment: null, mode: 'v15' };
+const CONFIG_DEFAULTS = { appId: '', rewardAdUnitId: '', interstitialAdUnitId: '', allowSimulatedAds: false, analyticsEnabled: false, debug: false, developerHoldTap: false, experiment: null, mode: 'factory-orders' };
 const ID_LABELS = { appId: '小游戏 AppID' };
 const MAX_PACKAGE_BYTES = 20 * 1024 * 1024;
 
@@ -104,18 +104,14 @@ export function inspectPackage({ files = new Map(), entries = [], localConfigTex
     if (config.experiment !== undefined && config.experiment !== null && config.experiment !== CONFIG.transferExperiment.id) {
       add(`${label}-experiment-value`, 'error', `${label}配置 experiment 只能为 null 或 "${CONFIG.transferExperiment.id}"。`);
     }
-    if (config.mode !== undefined && !['v15', 'baseline', 'v13-orders-p0'].includes(config.mode)) {
-      add(`${label}-mode-value`, 'error', `${label}配置 mode 只能为 "v15"、"baseline" 或 "v13-orders-p0"。`);
+    if (config.mode !== undefined && !['factory-orders', 'legacy-v15', 'v15', 'baseline', 'v13-orders-p0'].includes(config.mode)) {
+      add(`${label}-mode-value`, 'error', `${label}配置 mode 应为 factory-orders；旧工厂兼容入口为 legacy-v15 / baseline。`);
     }
   }
   if (built) {
-    if (built.mode === 'v13-orders-p0') {
-      add('experiment-mode', 'manual', '当前构建为 v1.3 P0-1 原味订单试玩：包装入库、订单配货与成交，使用独立存档；不是正式 v1.3 或真机验收。');
-    } else if (built.experiment === CONFIG.transferExperiment.id) {
-      add('experiment-mode', 'manual', '当前构建仅为 v1.5 P0 手动转运试玩，验证首代 A 段；使用隔离存档，尚未完成完整 1.5 玩法或真机验收。');
-    } else if (built.experiment === undefined || built.experiment === null) {
-      add('experiment-mode', 'pass', built.mode === 'baseline' ? '当前构建使用 v2 自动生产对照模式。' : '当前构建使用正式默认玩法：v1.5 两段搬运与自动化、schema 4 存档。');
-    }
+    add('experiment-mode', 'pass', ['baseline', 'legacy-v15'].includes(built.mode)
+      ? '当前构建使用显式旧工厂兼容入口。'
+      : '默认双场景原味经营：共享生产、整单结算、升级、助力与基础自动化；旧试玩启动分支已移除。');
     add('simulated-ads-disabled', built.allowSimulatedAds === false ? 'pass' : 'error', built.allowSimulatedAds === false ? '抖音包已禁用模拟广告奖励。' : '抖音包未明确禁用模拟广告，禁止继续联调。');
     add('debug-disabled', built.debug !== true ? 'pass' : 'error', built.debug !== true ? '抖音包未开启调试修改配置。' : '抖音包 debug 已开启，恢复 false 并重新构建。');
     add('developer-hold-disabled', built.developerHoldTap === false ? 'pass' : 'error', built.developerHoldTap === false ? '流水线版本已明确停用开发长按连点。' : '当前包未关闭废弃连点功能；运行 npm run build 重新构建。');

@@ -10,7 +10,14 @@
   if (!['baseline', 'v15'].includes(input.fixture.mode) || input.mode !== input.fixture.mode
     || !input.fixture.storageKey || input.storageKey !== input.fixture.storageKey)
     throw new Error('Acceptance fixture must declare its own matching mode and storage key.');
-  globalThis.POPCORN_CONFIG = { ...globalThis.POPCORN_CONFIG, mode: input.fixture.mode, experiment: null };
+  // Fixture data retains its historical core mode. The isolated QA URL must
+  // explicitly select the compatibility runner before the current bundle
+  // reads it; ordinary public ?mode=v15 URLs remain on the main order game.
+  const routeMode = input.fixture.mode === 'v15' ? 'legacy-v15' : 'baseline';
+  const route = new URL(location.href);
+  route.searchParams.set('mode', routeMode);
+  history.replaceState(null, '', route.href);
+  globalThis.POPCORN_CONFIG = { ...globalThis.POPCORN_CONFIG, mode: routeMode, experiment: null };
   const errors = [], initialSave = JSON.stringify(input.fixture.save);
   // This port has its own storage origin. No production-origin storage is read,
   // removed or migrated, and no native mini-game storage API is involved.

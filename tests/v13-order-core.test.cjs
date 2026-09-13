@@ -32,18 +32,18 @@ function checkConservation(game) {
     + state.buffers.cup + state.inputs.cup + state.inputs.ship + wip);
   assert.equal(state.stations.ship.processed, state.totalSold + view.finished.stock.original);
   assert.equal(state.totalSold, view.orderLedger.sold);
-  assert.equal(state.coins, view.orderLedger.earned);
+  assert.equal(state.coins + state.totalSpent, view.orderLedger.earned);
   assert.equal(state.totalEarned, view.orderLedger.earned);
   assert.equal(view.finished.stock.original, view.finished.available.original + view.finished.reserved.original + view.finished.held.original);
   assert.ok(view.finished.stock.original <= view.finished.capacity);
   assert.ok(view.finished.available.original >= 0);
 }
 
-test('v1.3 creates an isolated original-only first order and disables future purchases', () => {
+test('main commerce opens one original-only order with real affordable purchase offers', () => {
   const game = fresh(), view = game.getView();
   assert.equal(view.mode, MODE);
-  assert.equal(SAVE_VERSION, 1);
-  assert.equal(SAVE_KEY, 'little_popcorn_factory_orders_p0_v1');
+  assert.equal(SAVE_VERSION, 2);
+  assert.equal(SAVE_KEY, 'little_popcorn_factory_orders_v2');
   assert.equal(view.orders.length, 1);
   assert.deepEqual(view.orders[0].items, { original: 4 });
   assert.equal(view.orders[0].quote, 4);
@@ -52,10 +52,11 @@ test('v1.3 creates an isolated original-only first order and disables future pur
   for (const command of ['buyUpgrade', 'buyAutomation', 'buyLogisticsUpgrade', 'evolve']) {
     assert.equal(game[command]('cup').ok, false);
   }
-  assert.equal(view.expansion, null);
-  assert.equal(view.logisticsUpgrade, null);
-  assert.ok(view.stations.every(station => station.upgrade === null));
-  assert.ok(view.transfers.every(route => route.automation === null));
+  assert.equal(view.expansion.cost, ORDER_RULES.machines[1].cost);
+  assert.equal(view.logisticsUpgrade.cost, ORDER_RULES.logisticsLevels[1].cost);
+  assert.ok(view.stations.every(station => station.upgrade.cost > 0));
+  assert.ok(view.transfers.every(route => route.automation.reason === 'tutorial-required'));
+  assert.equal(view.salesperson.cost, ORDER_RULES.salesperson.cost);
 });
 
 test('real packaging enters finished stock without selling or earning money', () => {
@@ -202,8 +203,11 @@ test('save/load preserves partial orders but drops drag holds and never simulate
   checkConservation(restored);
 });
 
-test('a full warehouse blocks completed packaging WIP even when its stock is reserved', () => {
+test('a full warehouse blocks inherited surplus packaging WIP even when its stock is reserved', () => {
   const game = fresh();
+  // Reproduce the old prototype's blind admission before saving its legal WIP.
+  // The new replenishment controller normally prevents this surplus itself.
+  game._factory._finishedGoods.canStart = () => true;
   firstSale(game);
   produce(game, 24);
   const order = game.getView().orders[0];
@@ -296,7 +300,7 @@ test('corrupt order, capacity, quote and cumulative ledger saves recover without
   assert.equal(new V13OrderGame({ save: valid, now: 1000 }).loadWarning, null);
 });
 
-test('legacy profiles and their save bytes remain untouched and cannot be imported into the prototype', () => {
+test('legacy profile save bytes require explicit conversion and remain untouched', () => {
   for (const mode of [null, 'v15']) {
     const legacy = new Game({ mode, now: 0 });
     legacy.tick(3);

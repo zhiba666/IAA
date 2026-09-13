@@ -361,28 +361,29 @@ test('pipeline storage uses only the v2 key and leaves the original save untouch
   }
 });
 
-test('P0 opt-in isolates all reads and writes from both old save keys on browser and native', () => {
+test('retired P0 config cannot open or overwrite an experimental save on either host', () => {
   const { CONFIG } = require('../src/factory-rules');
   for (const browser of [false, true]) {
-    const h = harness({ browser, config: { experiment: CONFIG.transferExperiment.id } });
+    const h = harness({ browser, config: { mode: undefined, experiment: CONFIG.transferExperiment.id } });
     const old = '{"version":2,"coins":789}';
     h.storage.set('little_popcorn_factory_pipeline_v2', old);
     h.storage.set('little_popcorn_factory_v1', 'old factory');
-    assert.equal(h.platform.saveKey, CONFIG.transferExperiment.saveKey);
-    assert.equal(h.platform.load(), null);
-    const data = { version: 3, experiment: CONFIG.transferExperiment.id, coins: 12 };
-    assert.equal(h.platform.save(data), true);
-    assert.equal(h.platform.load().coins, 12);
+    h.storage.set(CONFIG.transferExperiment.saveKey, 'untouched experiment');
+    assert.equal(h.platform.config.experiment, null);
+    assert.equal(h.platform.saveKey, 'little_popcorn_factory_orders_v2');
+    assert.equal(h.platform.load().coins, 789);
+    assert.equal(h.platform.save({ version: 3, experiment: CONFIG.transferExperiment.id, coins: 12 }), false);
+    assert.equal(h.storage.get(CONFIG.transferExperiment.saveKey), 'untouched experiment');
     assert.equal(h.storage.get('little_popcorn_factory_pipeline_v2'), old);
     assert.equal(h.storage.get('little_popcorn_factory_v1'), 'old factory');
   }
 });
 
-test('only the exact P0 browser switch enables experimental storage', () => {
+test('retired experiment query never enables experimental storage', () => {
   for (const search of ['?experiment=manual-transfer-p0', '?x=1&experiment=manual-transfer-p0&y=2']) {
     const h = harness({ browser: true, search });
-    assert.equal(h.platform.config.experiment, 'manual-transfer-p0');
-    assert.equal(h.platform.saveKey, 'little_popcorn_factory_manual_transfer_p0_v3');
+    assert.equal(h.platform.config.experiment, null);
+    assert.equal(h.platform.saveKey, 'little_popcorn_factory_pipeline_v2');
   }
   for (const search of ['', '?experiment=manual-transfer', '?experiment=manual-transfer-p0-other', '?otherexperiment=manual-transfer-p0']) {
     const h = harness({ browser: true, search, config: { experiment: true } });
@@ -400,9 +401,9 @@ test('browser blur cancels tap-selected input even after the pointer has been re
   assert.equal(cancelled, 1);
 });
 
-test('v15 default storage migrates by preserving raw v2 before writing and verifying v4', () => {
+test('explicit legacy-v15 compatibility preserves its validated v2 to v4 migration', () => {
   for (const browser of [true, false]) {
-    const h = harness({ browser, config: { mode: undefined } });
+    const h = harness({ browser, config: { mode: 'legacy-v15' } });
     const key = 'little_popcorn_factory_automation_v4';
     const original = '{ "version": 2, "coins": 42 }';
     h.storage.set('little_popcorn_factory_pipeline_v2', original);
@@ -424,7 +425,7 @@ test('v15 backup and new save failures preserve original v2 and are explicitly r
     { writeFailureKey: key + '_backup_v2' }, { writeFailureKey: key },
     { corruptWriteKey: key + '_backup_v2' }, { corruptWriteKey: key }
   ]) {
-    const h = harness({ browser, config: { mode: 'v15' }, ...failure });
+    const h = harness({ browser, config: { mode: 'legacy-v15' }, ...failure });
     const original = '{"version":2,"coins":321}';
     h.storage.set('little_popcorn_factory_pipeline_v2', original);
     assert.equal(h.platform.load().version, 2);
@@ -435,12 +436,13 @@ test('v15 backup and new save failures preserve original v2 and are explicitly r
     if (failure.writeFailureKey?.endsWith('_backup_v2') || failure.corruptWriteKey?.endsWith('_backup_v2')) assert.equal(h.storage.has(key), false);
   }
 });
-test('baseline query and P0 override complete mode while default startup never loads P0', () => {
+test('baseline compatibility is explicit while retired P0 parameters enter the main game', () => {
   const baseline = harness({ browser: true, search: '?mode=baseline', config: { mode: 'v15' } });
   assert.equal(baseline.platform.saveKey, 'little_popcorn_factory_pipeline_v2');
   const p0 = harness({ browser: true, search: '?experiment=manual-transfer-p0', config: { mode: 'v15' } });
-  assert.equal(p0.platform.saveKey, 'little_popcorn_factory_manual_transfer_p0_v3');
+  assert.equal(p0.platform.saveKey, 'little_popcorn_factory_orders_v2');
   const current = harness({ browser: true, config: { mode: undefined } });
   current.storage.set('little_popcorn_factory_manual_transfer_p0_v3', '{"version":3}');
   assert.equal(current.platform.load(), null);
+  assert.equal(current.storage.get('little_popcorn_factory_manual_transfer_p0_v3'), '{"version":3}');
 });

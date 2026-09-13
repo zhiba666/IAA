@@ -15,7 +15,8 @@
     "pretest": "node tools/build.mjs",
     "test": "node --test tests/*.test.cjs",
     "preflight": "node tools/preflight.mjs",
-    "preflight:strict": "node tools/preflight.mjs --strict"
+    "preflight:strict": "node tools/preflight.mjs --strict",
+    "simulate:orders": "node tools/order-economy.cjs"
   },
   "engines": { "node": ">=18" }
 }

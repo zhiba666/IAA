@@ -10,10 +10,9 @@ const { ART_ASSETS, ART_RUNTIME_IDS } = require('../src/art-manifest');
 const { V13_ART_ASSETS, V13_ART_IDS } = require('../src/v13-art-manifest');
 const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS } = require('../src/v13-scene-art-manifest');
 
-const MODE = 'v13-orders-p0';
-const SAVE_KEY = 'little_popcorn_factory_orders_p0_v1';
-const FORMAL_KEY = 'little_popcorn_factory_automation_v4';
-const FORMAL_SAVE = '{"version":4,"machine":5,"coins":987654321}';
+const { MODE, SAVE_KEY } = require('../src/v13-order-mode');
+const RETIRED_KEY = 'little_popcorn_factory_manual_transfer_v1';
+const RETIRED_SAVE = '{"version":4,"machine":5,"coins":987654321}';
 const source = fs.readFileSync(path.resolve(__dirname, '../web/game.bundle.js'), 'utf8');
 const nativeSource = fs.readFileSync(path.resolve(__dirname, '../build/douyin/game.bundle.js'), 'utf8');
 const copy = value => JSON.parse(JSON.stringify(value));
@@ -29,8 +28,8 @@ function boot(options = {}) {
   const drawing = canvasHarness(), pointers = {}, events = {}, storage = new Map();
   const requests = [], unknownPaths = [];
   let now = 1800000000000, nextFrame = null, failScenes = !!options.failScenes;
-  const orders = options.search === undefined || options.search === '?mode=' + MODE;
-  if (orders) storage.set(FORMAL_KEY, FORMAL_SAVE);
+  const orders = !['?mode=baseline', '?mode=legacy-v15'].includes(options.search);
+  if (orders) storage.set(RETIRED_KEY, RETIRED_SAVE);
   if (options.save) storage.set(SAVE_KEY, options.save);
   const canvas = { style: {}, setAttribute() {}, getContext: () => drawing.ctx,
     getBoundingClientRect: () => ({ left: 12, top: 20, width: width * scale, height: height * scale }),
@@ -38,7 +37,7 @@ function boot(options = {}) {
   const document = { hidden: false, getElementById: id => id === 'game' ? canvas : null,
     querySelector: () => canvas, addEventListener(name, fn) { events[name] = fn; } };
   const window = { innerWidth: width, innerHeight: height, devicePixelRatio: 2,
-    location: { search: options.search === undefined ? '?mode=' + MODE : options.search },
+    location: { search: options.search === undefined ? '' : options.search },
     addEventListener(name, fn) { events[name] = fn; },
     localStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) } };
   class BrowserImage {
@@ -64,7 +63,7 @@ function boot(options = {}) {
     onTouchEnd(fn) { pointers.pointerup = fn; }, onTouchCancel(fn) { pointers.pointercancel = fn; },
     onHide(fn) { events.hide = fn; }, onShow(fn) { events.show = fn; }, onWindowResize(fn) { events.resize = fn; } };
   const context = vm.createContext({
-    ...(options.native ? { tt: nativeHost, POPCORN_CONFIG: { mode: MODE } } : { window, document, Image: BrowserImage }),
+    ...(options.native ? { tt: nativeHost } : { window, document, Image: BrowserImage }),
     Date: class extends Date { static now() { return now; } },
     requestAnimationFrame(fn) { assert.equal(nextFrame, null, 'one built-package frame loop'); nextFrame = fn; } });
   if (options.native) { context.GameGlobal = vm.runInContext('this', context); context.globalThis = undefined; }
@@ -87,7 +86,7 @@ function boot(options = {}) {
       assert.equal(typeof fn, 'function'); fn(now);
       assert.equal(drawing.depth(), 0, 'scene changes keep Canvas save/restore balanced');
       assert.deepEqual(unknownPaths, [], 'every requested image belongs to a packaged catalog');
-      if (orders) assert.equal(storage.get(FORMAL_KEY), FORMAL_SAVE, 'order scene never rewrites formal progress');
+      if (orders) assert.equal(storage.get(RETIRED_KEY), RETIRED_SAVE, 'main scene never rewrites retired experiment progress');
     },
     run(seconds) { for (let remaining = seconds * 1000; remaining > 0;) { const ms = Math.min(100, remaining); h.frame(ms); remaining -= ms; } },
     event(type, point, pointerType = 'touch') {
@@ -259,13 +258,13 @@ test('new store retains real delivery, partial cancellation and one inventory ac
   }
 });
 
-test('formal and baseline entry points never request the new order-scene images', () => {
-  for (const search of ['', '?mode=baseline']) {
+test('explicit legacy and baseline entry points never request the order-scene images', () => {
+  for (const search of ['?mode=legacy-v15', '?mode=baseline']) {
     const h = boot({ search }); h.run(1);
     assert.notEqual(h.snapshot().mode, MODE);
     assert.equal(h.sceneRequests().length, 0);
     assert.equal(h.presentation().art.loaded, 87);
-    assert.equal(h.storage.has(SAVE_KEY), false, 'formal entry does not initialize the isolated order save');
+    assert.equal(h.storage.has(SAVE_KEY), false, 'compatibility entry does not initialize a main-game order save');
   }
 });
 

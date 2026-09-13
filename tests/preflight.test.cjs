@@ -11,10 +11,10 @@ const { V13_SCENE_ART_ASSETS, V13_SCENE_ART_IDS } = require('../src/v13-scene-ar
 
 test('preflight accepts complete and baseline modes and rejects invalid or mismatched modes', async () => {
   const { inspectPackage } = await api;
-  for (const mode of ['v15', 'baseline', 'v13-orders-p0']) assert.equal(inspectPackage(fixture({ mode })).codeReady, true);
+  for (const mode of ['factory-orders', 'legacy-v15', 'v15', 'baseline', 'v13-orders-p0']) assert.equal(inspectPackage(fixture({ mode })).codeReady, true);
   const prototype = inspectPackage(fixture({ mode: 'v13-orders-p0' }));
-  assert.equal(prototype.checks.find(check => check.code === 'experiment-mode').status, 'manual');
-  assert.match(prototype.checks.find(check => check.code === 'experiment-mode').message, /P0-1.*独立存档/);
+  assert.equal(prototype.checks.find(check => check.code === 'experiment-mode').status, 'pass');
+  assert.match(prototype.checks.find(check => check.code === 'experiment-mode').message, /默认双场景.*旧试玩启动分支已移除/);
   for (const mode of [true, null, 'v1.5']) assert.equal(inspectPackage(fixture({ mode })).codeReady, false);
   const input = fixture({ mode: 'v15' });
   input.localConfigText = JSON.stringify({ ...JSON.parse(input.localConfigText), mode: 'baseline' });
@@ -143,18 +143,18 @@ test('preflight accepts omitted or null experiment as the unchanged default mode
   }
 });
 
-test('preflight recognizes the isolated manual-transfer experiment and labels it only a P0 playtest', async () => {
+test('preflight marks retired experiment configuration as the integrated main game', async () => {
   const { inspectPackage, exitCode, formatReport } = await api;
   const report = inspectPackage(fixture({ experiment: 'manual-transfer-p0' }));
   assert.equal(report.codeReady, true);
   assert.equal(report.accountConfigReady, true);
   assert.equal(exitCode(report, true), 0);
   assert.equal(report.platformVerified, false);
-  assert.equal(report.checks.find(check => check.code === 'experiment-mode').status, 'manual');
+  assert.equal(report.checks.find(check => check.code === 'experiment-mode').status, 'pass');
   assert.equal(report.checks.find(check => check.code === 'config-synchronized').status, 'pass');
   assert.ok(!report.checks.some(check => check.code.endsWith('-unknown-config')));
-  assert.match(formatReport(report), /仅为 v1\.5 P0 手动转运试玩/);
-  assert.match(formatReport(report), /尚未完成完整 1\.5 玩法或真机验收/);
+  assert.match(formatReport(report), /默认双场景原味经营/);
+  assert.match(formatReport(report), /旧试玩启动分支已移除/);
 });
 
 test('preflight rejects every unsupported experiment value without echoing it', async () => {

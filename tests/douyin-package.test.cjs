@@ -10,7 +10,7 @@ const vm = require('node:vm');
 const PACKAGE = path.resolve(__dirname, '../build/douyin');
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 
-test('v15 native package routes both trays inside safe areas and pauses without offline income', () => {
+test('v15 compatibility native package routes both trays inside safe areas and pauses without offline income', () => {
   for (const size of [{ width: 320, height: 524, safeTop: 28 }, { width: 390, height: 844, safeTop: 59 }]) {
     const h = boot({ ...size, mode: 'v15' });
     assert.equal(h.snapshot().mode, 'v15'); h.verifyLayout(); h.verifyControls();
@@ -145,7 +145,7 @@ function boot({ gameGlobalOnly = false, raf = true, browserShims = false, safeTo
       const config = context.GameGlobal.POPCORN_CONFIG;
       assert.equal(config.allowSimulatedAds, false);
       config.appId = ''; config.rewardAdUnitId = ''; config.interstitialAdUnitId = '';
-      config.mode = mode;
+      config.mode = mode === 'v15' ? 'legacy-v15' : mode;
     }
     return module.exports;
   }

@@ -63,6 +63,7 @@ class Game {
     if (finishedGoods && (mode !== 'v15' || !['canAccept', 'accept', 'validateLedger']
       .every(key => typeof finishedGoods[key] === 'function'))) throw new Error('invalid-finished-goods');
     this._finishedGoods = finishedGoods;
+    this._orderRules = finishedGoods && finishedGoods.rules;
     this.mode = mode;
     this.experiment = experiment;
     this._transferReservation = null;
@@ -74,11 +75,13 @@ class Game {
     if (save !== null && save !== undefined) this._restore(save);
     if (!this._loadedAutomation) this._settle();
   }
-  _definitions(s = this.state) { return this.mode === 'v15' && s.economyProfile === 'fresh' ? CONFIG.automation.stations : CONFIG.stations; }
-  _machines(s = this.state) { return this.mode === 'v15' && s.economyProfile === 'fresh' ? CONFIG.automation.machines : CONFIG.machines; }
+  _definitions(s = this.state) { if (this._orderRules) return this._orderRules.stations[s.economyProfile]; return this.mode === 'v15' && s.economyProfile === 'fresh' ? CONFIG.automation.stations : CONFIG.stations; }
+  _machines(s = this.state) { if (this._orderRules) return this._orderRules.machines; return this.mode === 'v15' && s.economyProfile === 'fresh' ? CONFIG.automation.machines : CONFIG.machines; }
+  _logisticsLevels() { return this._orderRules ? this._orderRules.logisticsLevels : CONFIG.automation.logisticsLevels; }
+  _routeDefinition(source) { return this._orderRules ? this._orderRules.automation[source] : CONFIG.automation.routes[source]; }
   _spec(id) { return this._definitions()[id].levels[this.state.upgrades[id]]; }
   _logisticsSpec(s = this.state) {
-    const level = CONFIG.automation.logisticsLevels[s.logisticsLevel];
+    const level = this._logisticsLevels()[s.logisticsLevel];
     const stage = this._machines(s)[s.machine];
     return { ...level, transferBatch: Math.max(level.transferBatch, stage.buffers.pop, stage.buffers.cup),
       inputCapacity: Math.max(level.inputCapacity, stage.buffers.pop, stage.buffers.cup),
@@ -121,8 +124,8 @@ class Game {
       if (this.mode === 'v15') {
         if (!['fresh', 'legacy'].includes(data.economyProfile)) throw new Error('profile');
         s.economyProfile = data.economyProfile;
-        if (!whole(data.logisticsLevel) || !CONFIG.automation.logisticsLevels[data.logisticsLevel]
-          || CONFIG.automation.logisticsLevels[data.logisticsLevel].requiredMachine > data.machine) throw new Error('logistics');
+        if (!whole(data.logisticsLevel) || !this._logisticsLevels()[data.logisticsLevel]
+          || this._logisticsLevels()[data.logisticsLevel].requiredMachine > data.machine) throw new Error('logistics');
         s.logisticsLevel = data.logisticsLevel;
       }
       if (!whole(data.machine) || data.machine >= CONFIG.machines.length) throw new Error('machine');
@@ -151,8 +154,8 @@ class Game {
         if (!raw || !whole(raw.processed) || !Array.isArray(raw.jobs) || raw.jobs.length !== spec.lanes) throw new Error('station');
         const jobs = raw.jobs.map(job => {
           if (job === null) return null;
-          if (!job || !whole(job.remainingTicks) || job.remainingTicks > job.durationTicks
-            || !this._definitions(s)[id].levels.slice(0, level + 1).some(old => old.batchSize === job.amount && old.cycleTicks === job.durationTicks)) throw new Error('job');
+          if (!job || !whole(job.amount) || !whole(job.remainingTicks) || job.remainingTicks > job.durationTicks
+            || !this._definitions(s)[id].levels.slice(0, level + 1).some(old => (this._finishedGoods ? job.amount > 0 && job.amount <= old.batchSize : old.batchSize === job.amount) && old.cycleTicks === job.durationTicks)) throw new Error('job');
           return { amount: job.amount, durationTicks: job.durationTicks, remainingTicks: job.remainingTicks };
         });
         const history = [];
@@ -206,7 +209,7 @@ class Game {
               || c.lastManualTransferTick !== null && c.lastManualTransferTick <= end && start - c.lastManualTransferTick < WINDOW)) throw new Error('trial-clock');
         }
         s.automaticTrial = { elapsedTicks: trial.elapsedTicks, complete: trial.complete, completedAtTick: trial.completedAtTick };
-        if (s.economyProfile === 'fresh' && s.milestones[0] && !trial.complete) throw new Error('milestone');
+        if (!this._orderRules && s.economyProfile === 'fresh' && s.milestones[0] && !trial.complete) throw new Error('milestone');
       }
       if (this.experiment) {
         const input = data.inputs && data.inputs.cup;
@@ -277,7 +280,7 @@ class Game {
           if (id !== 'ship' && s.buffers[id] + job.amount > bufferCaps[id]) continue;
           if (id === 'ship') {
             if (this._finishedGoods) {
-              if (!this._finishedGoods.canAccept(job.amount)) continue;
+              if (!this._finishedGoods.canAccept(job.amount, s)) continue;
               this._finishedGoods.accept(job.amount, s);
             } else {
               if (this.mode === 'v15' && s.totalSold === 0) this.events.push({ type: 'first-sale', amount: job.amount, playedSeconds: s.playedSeconds });
@@ -315,10 +318,13 @@ class Game {
           const hasInput = this.mode === 'v15' && id !== 'pop' || this.experiment && id === 'cup';
           const stock = hasInput ? s.inputs : s.buffers;
           const inputKey = hasInput ? id : input;
-          if (id !== 'pop' && stock[inputKey] < spec.batchSize) continue;
-          if (id === 'pop') s.totalProduced += spec.batchSize;
-          else stock[inputKey] -= spec.batchSize;
-          station.jobs[lane] = { amount: spec.batchSize, durationTicks: spec.cycleTicks, remainingTicks: spec.cycleTicks };
+          const amount = this._finishedGoods && id !== 'pop' ? Math.min(spec.batchSize, stock[inputKey]) : spec.batchSize;
+          if (id !== 'pop' && (amount <= 0 || stock[inputKey] < amount)) continue;
+          if (id === 'pop' && this._finishedGoods && this._finishedGoods.canStart
+            && !this._finishedGoods.canStart(amount, s)) continue;
+          if (id === 'pop') s.totalProduced += amount;
+          else stock[inputKey] -= amount;
+          station.jobs[lane] = { amount, durationTicks: spec.cycleTicks, remainingTicks: spec.cycleTicks };
           changed = true;
         }
       }
@@ -333,7 +339,7 @@ class Game {
     if (!Number.isSafeInteger(Math.floor(exact)) || !Number.isSafeInteger(s.simulation.ticks + Math.floor(exact))) return fail('invalid-time');
     const steps = Math.floor(exact + 1e-9);
     s.simulation.carry = Math.max(0, exact - steps);
-    const soldBefore = s.totalSold;
+    const soldBefore = s.totalSold, earnedBefore = s.totalEarned;
     for (let i = 0; i < steps; i++) {
       s.simulation.ticks++;
       s.playedSeconds = s.simulation.ticks / HZ;
@@ -341,6 +347,7 @@ class Game {
       if (this.mode === 'v15') for (const c of Object.values(s.connections)) if (c.remainingTicks > 0) c.remainingTicks--;
       this._settle();
       if (this.mode === 'v15') this._advanceAutomaticTrial();
+      if (this._finishedGoods && this._finishedGoods.afterTick) this._finishedGoods.afterTick(s);
       if (s.simulation.ticks % HZ === 0) {
         this._pruneHistory();
         const next = this._machines()[s.machine + 1];
@@ -351,8 +358,9 @@ class Game {
     }
     this._pruneHistory();
     const amount = s.totalSold - soldBefore;
-    if (amount) this.events.push({ type: 'ship', amount, coins: amount * CONFIG.price });
-    return { ok: true, amount, coins: amount * CONFIG.price };
+    const coins = s.totalEarned - earnedBefore;
+    if (amount && !this._finishedGoods) this.events.push({ type: 'ship', amount, coins });
+    return { ok: true, amount, coins };
   }
   _upgrade(id) {
     const definition = this._definitions()[id];
@@ -381,11 +389,11 @@ class Game {
   _expansion() {
     const s = this.state, next = this._machines()[s.machine + 1];
     if (!next) return null;
-    const rateReached = s.milestones[s.machine];
+    const rateReached = this._orderRules ? true : s.milestones[s.machine];
     const canAfford = s.coins >= next.cost;
     const reason = this.experiment ? 'experiment-complete'
-      : this.mode === 'v15' && (!s.connections.pop.automated || !s.connections.cup.automated) ? 'automation-required'
-      : this.mode === 'v15' && !s.automaticTrial.complete ? 'automatic-trial-required'
+      : !this._orderRules && this.mode === 'v15' && (!s.connections.pop.automated || !s.connections.cup.automated) ? 'automation-required'
+      : !this._orderRules && this.mode === 'v15' && !s.automaticTrial.complete ? 'automatic-trial-required'
       : !rateReached ? 'throughput-required' : s.totalSold < next.requiredSold ? 'sales-required'
       : !canAfford ? 'not-enough-coins' : '';
     return { name: next.name, description: next.description, cost: next.cost, requiredSold: next.requiredSold,
@@ -436,8 +444,9 @@ class Game {
     }
   }
   _automationOffer(source) {
-    const route = CONFIG.automation.routes[source], s = this.state;
+    const route = this._routeDefinition(source), s = this.state;
     const reason = s.connections[source].automated ? 'already-automated'
+      : this._orderRules && !s.connections[source].manualTransfers ? 'tutorial-required'
       : s.machine < route.requiredMachine ? 'machine-required' : s.coins < route.cost ? 'not-enough-coins' : '';
     return { ...route, available: !reason, reason };
   }
@@ -457,7 +466,7 @@ class Game {
   }
   _logisticsUpgrade() {
     if (this.mode !== 'v15') return null;
-    const s = this.state, next = CONFIG.automation.logisticsLevels[s.logisticsLevel + 1];
+    const s = this.state, next = this._logisticsLevels()[s.logisticsLevel + 1];
     if (!next) return null;
     const reason = next.requiredMachine > s.machine ? 'machine-required' : s.coins < next.cost ? 'not-enough-coins' : '';
     const before = this._logisticsSpec();

@@ -9,7 +9,8 @@
 // https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-ability/Introduction-for-tech
 const SAVE_KEY = 'little_popcorn_factory_pipeline_v2';
 const { CONFIG } = require('./factory-rules');
-const { MODE: ORDER_MODE, SAVE_VERSION: ORDER_SAVE_VERSION, SAVE_KEY: ORDER_SAVE_KEY, wantsV13Orders } = require('./v13-order-mode');
+const { MODE: ORDER_MODE, SAVE_KEY: ORDER_SAVE_KEY, wantsV13Orders, requestedMode } = require('./v13-order-mode');
+const { createOrderStorage } = require('./order-storage');
 
 function createPlatform() {
   const root = typeof globalThis !== 'undefined' ? globalThis : GameGlobal;
@@ -21,16 +22,12 @@ function createPlatform() {
   config.developerHoldTap = false;
   const doc = typeof document !== 'undefined' ? document : null;
   const win = typeof window !== 'undefined' ? window : root;
-  const orders = wantsV13Orders(root, win, isDouyin);
-  // Opt in before any storage access. The experiment never reads the live v2 key.
-  const experiment = CONFIG.transferExperiment;
-  const requested = !isDouyin && win.location && /(?:^\?|&)experiment=manual-transfer-p0(?:&|$)/.test(win.location.search || '');
-  config.experiment = !orders && (requested || config.experiment === experiment.id) ? experiment.id : null;
-  const baseline = !isDouyin && win.location && /(?:^\?|&)mode=baseline(?:&|$)/.test(win.location.search || '');
-  config.mode = orders ? ORDER_MODE : config.experiment ? null : baseline || config.mode === 'baseline' ? 'baseline' : 'v15';
+  let orders = wantsV13Orders(root, win, isDouyin);
+  config.experiment = null;
+  config.mode = orders ? ORDER_MODE : requestedMode(root, win, isDouyin) === 'baseline' ? 'baseline' : 'v15';
   const automationKey = CONFIG.automation.saveKey;
   const backupKey = automationKey + '_backup_v2';
-  const saveKey = orders ? ORDER_SAVE_KEY : config.experiment ? experiment.saveKey : config.mode === 'v15' ? automationKey : SAVE_KEY;
+  let saveKey = orders ? ORDER_SAVE_KEY : config.mode === 'v15' ? automationKey : SAVE_KEY;
   const canvas = isDouyin ? sdk.createCanvas() : createBrowserCanvas(doc);
   const callbacks = { hide: [], show: [], pointer: [], scroll: [], resize: [], inputCancel: [] };
   const analytics = [];
@@ -43,6 +40,7 @@ function createPlatform() {
   const writeStorage = (key, value) => isDouyin ? sdk.setStorageSync(key, value) : win.localStorage.setItem(key, value);
   const removeStorage = key => isDouyin && typeof sdk.removeStorageSync === 'function' ? sdk.removeStorageSync(key)
     : !isDouyin && typeof win.localStorage.removeItem === 'function' ? win.localStorage.removeItem(key) : writeStorage(key, '');
+  const orderStorage = createOrderStorage({ read: readStorage, write: writeStorage, remove: removeStorage });
 
   function subscribe(name, callback) {
     if (typeof callback !== 'function') return function () {};
@@ -219,6 +217,7 @@ function createPlatform() {
   function load() {
     lastStorageError = '';
     try {
+      if (orders) return orderStorage.load();
       let value = readStorage(saveKey);
       if ((value == null || value === '') && config.mode === 'v15') {
         value = readStorage(SAVE_KEY);
@@ -234,16 +233,13 @@ function createPlatform() {
     }
   }
 
-  function save(data) {
+  function save(data, validate) {
     lastStorageError = '';
     let previous, attempted = false;
     try {
+      if (orders) return orderStorage.save(data, validate);
       const encoded = JSON.stringify(data);
       if (typeof encoded !== 'string') throw new Error('invalid-save');
-      if (orders) {
-        if (!data || data.version !== ORDER_SAVE_VERSION || data.mode !== ORDER_MODE) throw new Error('invalid-order-save');
-        previous = readStorage(saveKey);
-      }
       if (config.mode === 'v15') {
         if (!data || data.version !== CONFIG.automation.version || data.mode !== CONFIG.automation.id) throw new Error('invalid-automation-save');
         if (migrationSource !== null) {
@@ -282,7 +278,14 @@ function createPlatform() {
   }
 
   return {
-    canvas: canvas, isDouyin: isDouyin, config: config, load: load, save: save, saveKey: saveKey,
+    canvas: canvas, isDouyin: isDouyin, config: config, load: load, save: save,
+    get saveKey() { return saveKey; },
+    get saveSource() { return orders ? orderStorage.info : null; },
+    useLegacy(version) {
+      orders = false; migrationSource = null;
+      config.mode = version === CONFIG.version ? 'baseline' : 'v15';
+      saveKey = config.mode === 'baseline' ? SAVE_KEY : automationKey;
+    },
     onHide: function (callback) { return subscribe('hide', callback); },
     onShow: function (callback) { return subscribe('show', callback); },
     onPointer: function (callback) { return subscribe('pointer', callback); },
